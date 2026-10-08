@@ -1,0 +1,8 @@
+﻿job_id,competency_id,importance,mapping_rationale
+JOB_0202_HR,COMP_HR_01,필수,인사 직무의 핵심 채용 실행 역량
+JOB_0202_HR,COMP_HR_02,필수,인사 직무의 성과평가 및 보상 설계 역량
+JOB_0203_LABOR,COMP_LABOR_01,필수,노무 직무의 근로기준 법률 준수 역량
+JOB_0201_GA,COMP_GA_01,필수,총무 및 일반사무 직무의 기본 문서기획 역량
+JOB_0201_GA,COMP_GA_02,필수,총무 직무의 물품 및 사내 자산관리 역량
+JOB_0204_SEC,COMP_SEC_01,필수,비서 및 대외협력의 비즈니스 소통 역량
+JOB_0101_MGMT,COMP_MGMT_01,선택,경영기획 및 조직개편 연계 프로젝트 관리 역량

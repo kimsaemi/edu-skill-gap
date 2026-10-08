@@ -1,0 +1,54 @@
+{
+  "timestamp": "2026-10-08T22:20:04.154290",
+  "total_raw_count": 50,
+  "total_processed_count": 50,
+  "deleted_count": 0,
+  "retention_rate": "100.0%",
+  "job_distribution": {
+    "총무·일반사무": 20,
+    "검토대상(기타)": 20,
+    "경영·기획(인접)": 4,
+    "비서·사무지원": 3,
+    "인사·조직": 3
+  },
+  "clarity_distribution": {
+    "CLEAR": 26,
+    "REVIEW_NEEDED": 24
+  },
+  "competency_mapping_summary": {
+    "mapped_courses": 7,
+    "review_needed_unmapped": 43
+  },
+  "sample_evidence": [
+    {
+      "instance_key": "ACG20243000973001_324",
+      "competency_id": "COMP_SEC_01",
+      "mapping_type": "과정명·소분류코드 대조 매핑",
+      "evidence_text": "과정명 '알베르토와 함께하는 글로벌 비즈니스 매너' 및 NCS코드 02040302(비서·사무지원) 기반 비즈니스 에티켓·태도(Attitude) 역량 연결"
+    },
+    {
+      "instance_key": "ACG20243001004189_245",
+      "competency_id": "COMP_GA_01",
+      "mapping_type": "과정명·NCS 0201사무행정 대조 매핑",
+      "evidence_text": "과정명 '기획력, 어떻게 끌리는 플랜을 세울 것인가?' 및 NCS코드 02010101(일반사무) 기반 문서작성·기획 기술(Skill) 역량 연결"
+    },
+    {
+      "instance_key": "ACG20243000994801_261",
+      "competency_id": "COMP_SEC_01",
+      "mapping_type": "과정명·소분류코드 대조 매핑",
+      "evidence_text": "과정명 '물류비관리와 공장물류' 및 NCS코드 02040301(비서·사무지원) 기반 비즈니스 에티켓·태도(Attitude) 역량 연결"
+    },
+    {
+      "instance_key": "ABA20243000983062_296",
+      "competency_id": "COMP_MGMT_01",
+      "mapping_type": "과정명·NCS 0101프로젝트관리 대조 매핑",
+      "evidence_text": "과정명 '애자일 프로젝트 실무(입문)' 및 NCS코드 01010102(프로젝트관리) 기반 애자일 스프린트·일정관리 기술(Skill) 역량 연결"
+    },
+    {
+      "instance_key": "ABA20243000972962_324",
+      "competency_id": "COMP_SEC_01",
+      "mapping_type": "과정명·소분류코드 대조 매핑",
+      "evidence_text": "과정명 '한달 공부로 실무에 바로 통하는 데이터분석' 및 NCS코드 02040101(비서·사무지원) 기반 비즈니스 에티켓·태도(Attitude) 역량 연결"
+    }
+  ]
+}

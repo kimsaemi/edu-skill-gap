@@ -1,0 +1,17 @@
+{
+  "api_name": "국민내일배움카드 훈련과정",
+  "request_url": "https://www.hrd.go.kr/jsp/HRDP/HRDPO00/HRDPOA60/HRDPOA60_1.jsp",
+  "http_status": 301,
+  "headers": {
+    "Date": "Thu, 08 Oct 2026 12:57:57 GMT",
+    "X-XSS-Protection": "1; mode=block",
+    "Location": "https://www.work24.go.kr?authKey=MASKED_KEY&returnType=XML&outType=1&pageNum=1&pageSize=20&srchTraStDt=20250101&srchTraEndDt=20251231&srchTraProcess=%EC%9D%B8%EC%82%AC",
+    "Content-Length": "429",
+    "Keep-Alive": "timeout=5, max=100",
+    "Connection": "Keep-Alive",
+    "Content-Type": "text/html; charset=iso-8859-1"
+  },
+  "error": "ENDPOINT_PERMANENTLY_REDIRECTED",
+  "redirect_location": "https://www.work24.go.kr?authKey=MASKED_KEY&returnType=XML&outType=1&pageNum=1&pageSize=20&srchTraStDt=20250101&srchTraEndDt=20251231&srchTraProcess=%EC%9D%B8%EC%82%AC",
+  "guide": "공공데이터포털(data.go.kr) '한국고용정보원_훈련과정 정보' 또는 고용24 OpenAPI 포털의 신규 엔드포인트로 갱신이 필요합니다."
+}

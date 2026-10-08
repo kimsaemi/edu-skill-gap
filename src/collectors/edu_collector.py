@@ -21,19 +21,28 @@ class EduDataCollector:
         self.worknet_major_key = os.getenv("WORKNET_MAJOR_INFO_API_KEY")
         self.worknet_occupation_key = os.getenv("WORKNET_OCCUPATION_INFO_API_KEY")
         
-    def fetch_ncs_courses(self, params=None):
-        """NCS 교육과정 API 호출"""
+    def fetch_ncs_courses(self, ncs_lclas_cd="02", params=None):
+        """
+        한국산업인력공단 NCS 교육과정 API 호출
+        - ncs_lclas_cd: NCS 대분류코드 2자리 (필수 파라미터, 예: '01' 사업관리, '02' 경영·회계·사무 등)
+        - 문자열(str) 형식 보존 필수
+        """
         url = "http://apis.data.go.kr/B490007/ncsEduCource/openapi20"
         default_params = {
             "serviceKey": self.decoding_key,
             "pageNo": 1,
-            "numOfRows": 20
+            "numOfRows": 20,
+            "returnType": "json",
+            "ncsLclasCd": str(ncs_lclas_cd).zfill(2)
         }
         if params:
             default_params.update(params)
         try:
             res = requests.get(url, params=default_params, timeout=10)
-            return res.json()
+            if res.status_code != 200:
+                return {"error": f"HTTP {res.status_code}", "raw": res.text[:200]}
+            data = res.json()
+            return data
         except Exception as e:
             return {"error": str(e)}
 
@@ -149,36 +158,50 @@ class EduDataCollector:
             return {"error": str(e)}
 
     def fetch_hrd_courses(self, auth_key, params=None, endpoint_url=None):
-        """HRD-Net 훈련과정 공통 API 호출 (XML 응답 반환)"""
+        """고용24 (HRD-Net) 훈련과정 공통 API 호출 (XML 응답 반환)"""
         if not auth_key:
             return {"error": "API Key is required"}
-        url = endpoint_url or "http://www.hrd.go.kr/jsp/HRDP/HRDPO00/HRDPOA60/HRDPOA60_1.jsp"
+        # 고용24 공식 엔드포인트 기본값 (국민내일배움카드)
+        url = endpoint_url or "https://www.work24.go.kr/cm/openApi/call/hr/callOpenApiSvcInfo310L01.do"
         default_params = {
             "authKey": auth_key,
             "returnType": "XML",
             "outType": "1",
             "pageNum": "1",
-            "pageSize": "20"
+            "pageSize": "20",
+            "srchTraStDt": "20250101",
+            "srchTraEndDt": "20251231",
+            "sort": "DESC",
+            "sortCol": "TR_ST_DT"
         }
         if params:
             default_params.update(params)
         try:
             res = requests.get(url, params=default_params, timeout=10)
+            if "text/html" in res.headers.get("Content-Type", ""):
+                return {
+                    "error": "INVALID_CONTENT_TYPE",
+                    "status_code": res.status_code,
+                    "message": "XML 데이터가 아닌 웹페이지 HTML이 반환되었습니다. 엔드포인트 주소를 확인하세요."
+                }
             return res.text
         except Exception as e:
             return {"error": str(e)}
 
     def fetch_kmbc_courses(self, params=None):
-        """국민내일배움카드 훈련과정 API 호출"""
-        return self.fetch_hrd_courses(self.hrd_kmbc_key, params=params)
+        """국민내일배움카드 훈련과정 API 호출 (고용24 공식 엔드포인트)"""
+        url = "https://www.work24.go.kr/cm/openApi/call/hr/callOpenApiSvcInfo310L01.do"
+        return self.fetch_hrd_courses(self.hrd_kmbc_key, params=params, endpoint_url=url)
 
     def fetch_employer_training_courses(self, params=None):
-        """사업주훈련 훈련과정 API 호출"""
-        return self.fetch_hrd_courses(self.hrd_employer_key, params=params)
+        """사업주훈련 훈련과정 API 호출 (고용24 공식 엔드포인트)"""
+        url = "https://www.work24.go.kr/cm/openApi/call/hr/callOpenApiSvcInfo311L01.do"
+        return self.fetch_hrd_courses(self.hrd_employer_key, params=params, endpoint_url=url)
 
     def fetch_work_study_courses(self, params=None):
-        """일학습병행 훈련과정 API 호출"""
-        return self.fetch_hrd_courses(self.hrd_work_study_key, params=params)
+        """일학습병행 훈련과정 API 호출 (고용24 공식 엔드포인트)"""
+        url = "https://www.work24.go.kr/cm/openApi/call/hr/callOpenApiSvcInfo313L01.do"
+        return self.fetch_hrd_courses(self.hrd_work_study_key, params=params, endpoint_url=url)
 
     def fetch_worknet_info(self, auth_key, endpoint_url, params=None):
         """워크넷 (직무/학과/직업 등) API 호출"""
