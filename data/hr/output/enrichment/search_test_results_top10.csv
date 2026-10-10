@@ -1,0 +1,101 @@
+﻿query_id,query_text,rank,tfidf_key,tfidf_course,tfidf_platform,tfidf_score,tfidf_matched,tfidf_status,bm25_key,bm25_course,bm25_platform,bm25_score,bm25_matched,bm25_status
+Q01,신입 인사담당자 채용관리 교육,1,SQL_KPC_46984,[온앤오프] 인사담당자를 위한 노동법 완전정복,KPC,0.3791,"담당자, 인사",METADATA_ONLY,SQL_KPC_46984,[온앤오프] 인사담당자를 위한 노동법 완전정복,KPC,7.1386,"인사, 담당자",METADATA_ONLY
+Q01,신입 인사담당자 채용관리 교육,2,SQL_GSEEK_55196,인사담당자에게 묻는다! 면접 합격의 비밀,GSEEK,0.1865,"담당자, 인사",PARTIAL_TEXT,SQL_GSEEK_55196,인사담당자에게 묻는다! 면접 합격의 비밀,GSEEK,5.5175,"인사, 담당자",PARTIAL_TEXT
+Q01,신입 인사담당자 채용관리 교육,3,NEW_HUNET_03,전략적 조직운영을 위한 인사관리 실무,HUNET,0.1167,인사,VERIFIED_FULL,NEW_HUNET_01,실전에 강해지는 인사노무 A to Z,HUNET,2.6765,인사,VERIFIED_FULL
+Q01,신입 인사담당자 채용관리 교육,4,SQL_GSEEK_3217,[창업공통]필수 근로기준법과 인사서식,GSEEK,0.1086,인사,PARTIAL_TEXT,SQL_GSEEK_3217,[창업공통]필수 근로기준법과 인사서식,GSEEK,2.6311,인사,PARTIAL_TEXT
+Q01,신입 인사담당자 채용관리 교육,5,NEW_HUNET_01,실전에 강해지는 인사노무 A to Z,HUNET,0.0997,인사,VERIFIED_FULL,SQL_GSEEK_51955,[레전드 스킬] 어쩐지 끌리는 사람의 비즈니스 매너,GSEEK,2.539,신입,PARTIAL_TEXT
+Q01,신입 인사담당자 채용관리 교육,6,SQL_GSEEK_51955,[레전드 스킬] 어쩐지 끌리는 사람의 비즈니스 매너,GSEEK,0.0882,신입,PARTIAL_TEXT,NEW_HUNET_03,전략적 조직운영을 위한 인사관리 실무,HUNET,2.3655,인사,VERIFIED_FULL
+Q01,신입 인사담당자 채용관리 교육,7,PUB_ACG20243001038036_84,전략적 조직운영을 위한 인사관리 실무,고용24_국민내일배움카드,0.067,인사,VERIFIED_FULL,PUB_ACG20243001038036_84,전략적 조직운영을 위한 인사관리 실무,고용24_국민내일배움카드,1.9257,인사,VERIFIED_FULL
+Q01,신입 인사담당자 채용관리 교육,8,NEW_FASTCAMPUS_02,데이터 기반 HR 애널리틱스 & 피플 애널리틱스 실무,FASTCAMPUS,0.0471,인사,VERIFIED_FULL,NEW_HUNET_02,"입사에서 퇴사까지, 직장인을 위한 노동법 이야기",HUNET,1.1727,인사,VERIFIED_FULL
+Q01,신입 인사담당자 채용관리 교육,9,NEW_HUNET_02,"입사에서 퇴사까지, 직장인을 위한 노동법 이야기",HUNET,0.0441,인사,VERIFIED_FULL,NEW_FASTCAMPUS_02,데이터 기반 HR 애널리틱스 & 피플 애널리틱스 실무,FASTCAMPUS,1.1093,인사,VERIFIED_FULL
+Q01,신입 인사담당자 채용관리 교육,10,NEW_FASTCAMPUS_09,스킬 기반 조직(Skill-Based) 전환 및 HR 역량평가 체계,FASTCAMPUS,0.043,인사,VERIFIED_FULL,NEW_FASTCAMPUS_09,스킬 기반 조직(Skill-Based) 전환 및 HR 역량평가 체계,FASTCAMPUS,1.0523,인사,VERIFIED_FULL
+Q02,근로기준법과 근로계약서 실무,1,PUB_ABA20243001036557_15,실무사례로 알아보는 근로기준법,고용24_사업주훈련,0.603,"근로기준법, 실무",METADATA_ONLY,SQL_GSEEK_3217,[창업공통]필수 근로기준법과 인사서식,GSEEK,8.1844,"근로기준법, 근로계약서, 실무",PARTIAL_TEXT
+Q02,근로기준법과 근로계약서 실무,2,SQL_GSEEK_3217,[창업공통]필수 근로기준법과 인사서식,GSEEK,0.3167,"근로기준법, 근로계약서, 실무",PARTIAL_TEXT,PUB_ABA20243001036557_15,실무사례로 알아보는 근로기준법,고용24_사업주훈련,6.3277,"근로기준법, 실무",METADATA_ONLY
+Q02,근로기준법과 근로계약서 실무,3,SQL_KPC_47021,[DX&AI] 채용 분석 실무,KPC,0.0595,실무,METADATA_ONLY,NEW_FASTCAMPUS_03,ChatGPT와 무작정 풀어보는 공여사의 엑셀실무,FASTCAMPUS,1.3577,실무,VERIFIED_FULL
+Q02,근로기준법과 근로계약서 실무,4,NEW_FASTCAMPUS_03,ChatGPT와 무작정 풀어보는 공여사의 엑셀실무,FASTCAMPUS,0.0548,실무,VERIFIED_FULL,NEW_HUNET_03,전략적 조직운영을 위한 인사관리 실무,HUNET,1.3528,실무,VERIFIED_FULL
+Q02,근로기준법과 근로계약서 실무,5,NEW_FASTCAMPUS_08,한 번에 통과하는 실무 비즈니스 문서작성 및 보고서 기획,FASTCAMPUS,0.0544,실무,VERIFIED_FULL,NEW_FASTCAMPUS_02,데이터 기반 HR 애널리틱스 & 피플 애널리틱스 실무,FASTCAMPUS,1.3382,실무,VERIFIED_FULL
+Q02,근로기준법과 근로계약서 실무,6,NEW_HUNET_03,전략적 조직운영을 위한 인사관리 실무,HUNET,0.0536,실무,VERIFIED_FULL,NEW_FASTCAMPUS_08,한 번에 통과하는 실무 비즈니스 문서작성 및 보고서 기획,FASTCAMPUS,1.3382,실무,VERIFIED_FULL
+Q02,근로기준법과 근로계약서 실무,7,NEW_FASTCAMPUS_02,데이터 기반 HR 애널리틱스 & 피플 애널리틱스 실무,FASTCAMPUS,0.0515,실무,VERIFIED_FULL,NEW_FASTCAMPUS_04,한 번에 끝내는 엑셀 실무 초격차 패키지 (VBA/매크로/함수),FASTCAMPUS,1.3382,실무,VERIFIED_FULL
+Q02,근로기준법과 근로계약서 실무,8,NEW_FASTCAMPUS_04,한 번에 끝내는 엑셀 실무 초격차 패키지 (VBA/매크로/함수),FASTCAMPUS,0.0497,실무,VERIFIED_FULL,NEW_FASTCAMPUS_06,AI 시대 일잘러가 되기 위한 실무 마스터 클래스 (노션/구글워크스페이스),FASTCAMPUS,1.3286,실무,VERIFIED_FULL
+Q02,근로기준법과 근로계약서 실무,9,NEW_FASTCAMPUS_06,AI 시대 일잘러가 되기 위한 실무 마스터 클래스 (노션/구글워크스페이스),FASTCAMPUS,0.0479,실무,VERIFIED_FULL,SQL_KPC_47021,[DX&AI] 채용 분석 실무,KPC,1.2174,실무,METADATA_ONLY
+Q02,근로기준법과 근로계약서 실무,10,NEW_FASTCAMPUS_10,8시간만에 끝내는 직장인 엑셀 필수 스킬 모음.zip,FASTCAMPUS,0.0449,실무,VERIFIED_FULL,PUB_ACG20243001038036_84,전략적 조직운영을 위한 인사관리 실무,고용24_국민내일배움카드,1.1988,실무,VERIFIED_FULL
+Q03,직원 인사평가 및 보상관리,1,PUB_ACG20243001038036_84,전략적 조직운영을 위한 인사관리 실무,고용24_국민내일배움카드,0.2733,"보상, 관리",VERIFIED_FULL,PUB_ACG20243001038036_84,전략적 조직운영을 위한 인사관리 실무,고용24_국민내일배움카드,5.8731,"보상, 관리",VERIFIED_FULL
+Q03,직원 인사평가 및 보상관리,2,PUB_ABA20243001036526_9,급변하는 비즈니스 환경의 총무관리 역할,고용24_사업주훈련,0.1869,관리,METADATA_ONLY,PUB_ABA20243001036526_9,급변하는 비즈니스 환경의 총무관리 역할,고용24_사업주훈련,2.3707,관리,METADATA_ONLY
+Q03,직원 인사평가 및 보상관리,3,NEW_HUNET_03,전략적 조직운영을 위한 인사관리 실무,HUNET,0.1472,관리,VERIFIED_FULL,NEW_HUNET_03,전략적 조직운영을 위한 인사관리 실무,HUNET,2.3655,관리,VERIFIED_FULL
+Q03,직원 인사평가 및 보상관리,4,NEW_HUNET_05,총무기획과 총무자산 관리 실무,HUNET,0.1124,관리,VERIFIED_FULL,SQL_GSEEK_3217,[창업공통]필수 근로기준법과 인사서식,GSEEK,2.0457,관리,PARTIAL_TEXT
+Q03,직원 인사평가 및 보상관리,5,SQL_GSEEK_3217,[창업공통]필수 근로기준법과 인사서식,GSEEK,0.0971,관리,PARTIAL_TEXT,NEW_HUNET_05,총무기획과 총무자산 관리 실무,HUNET,1.9798,관리,VERIFIED_FULL
+Q03,직원 인사평가 및 보상관리,6,NEW_HUNET_01,실전에 강해지는 인사노무 A to Z,HUNET,0.0763,관리,VERIFIED_FULL,NEW_HUNET_01,실전에 강해지는 인사노무 A to Z,HUNET,1.7293,관리,VERIFIED_FULL
+Q03,직원 인사평가 및 보상관리,7,NEW_HUNET_02,"입사에서 퇴사까지, 직장인을 위한 노동법 이야기",HUNET,0.0556,관리,VERIFIED_FULL,NEW_HUNET_02,"입사에서 퇴사까지, 직장인을 위한 노동법 이야기",HUNET,1.1727,관리,VERIFIED_FULL
+Q03,직원 인사평가 및 보상관리,8,NEW_HUNET_10,Make와 ChatGPT로 완성하는 AI 에이전트 업무자동화,HUNET,0.0556,관리,VERIFIED_FULL,NEW_HUNET_09,데이터를 한눈에! AI로 완성하는 데이터 시각화 (with 엑셀),HUNET,1.1093,관리,VERIFIED_FULL
+Q03,직원 인사평가 및 보상관리,9,NEW_HUNET_09,데이터를 한눈에! AI로 완성하는 데이터 시각화 (with 엑셀),HUNET,0.0546,관리,VERIFIED_FULL,NEW_HUNET_10,Make와 ChatGPT로 완성하는 AI 에이전트 업무자동화,HUNET,1.1093,관리,VERIFIED_FULL
+Q03,직원 인사평가 및 보상관리,10,NEW_FASTCAMPUS_09,스킬 기반 조직(Skill-Based) 전환 및 HR 역량평가 체계,FASTCAMPUS,0.0,,VERIFIED_FULL,NEW_FASTCAMPUS_09,스킬 기반 조직(Skill-Based) 전환 및 HR 역량평가 체계,FASTCAMPUS,0.0,,VERIFIED_FULL
+Q04,총무담당자 자산관리와 비품관리,1,PUB_ACG20243001013346_203,총무기획과 총무자산관리,고용24_국민내일배움카드,0.5554,"자산관리, 총무",METADATA_ONLY,PUB_ACG20243001013346_203,총무기획과 총무자산관리,고용24_국민내일배움카드,5.0937,"총무, 자산관리",METADATA_ONLY
+Q04,총무담당자 자산관리와 비품관리,2,PUB_ACG20243001023998_11,총무기획과 총무자산관리,고용24_국민내일배움카드,0.5554,"자산관리, 총무",METADATA_ONLY,PUB_ACG20243001023998_11,총무기획과 총무자산관리,고용24_국민내일배움카드,5.0937,"총무, 자산관리",METADATA_ONLY
+Q04,총무담당자 자산관리와 비품관리,3,PUB_ABA20243001023639_6,총무기획과 총무자산관리,고용24_사업주훈련,0.5554,"자산관리, 총무",METADATA_ONLY,PUB_ABA20243001023639_6,총무기획과 총무자산관리,고용24_사업주훈련,5.0937,"총무, 자산관리",METADATA_ONLY
+Q04,총무담당자 자산관리와 비품관리,4,PUB_ACG20243001027168_96,총무기획과 총무자산관리,고용24_국민내일배움카드,0.5554,"자산관리, 총무",METADATA_ONLY,PUB_ACG20243001027168_96,총무기획과 총무자산관리,고용24_국민내일배움카드,5.0937,"총무, 자산관리",METADATA_ONLY
+Q04,총무담당자 자산관리와 비품관리,5,SQL_KPC_46984,[온앤오프] 인사담당자를 위한 노동법 완전정복,KPC,0.2966,담당자,METADATA_ONLY,SQL_KPC_46984,[온앤오프] 인사담당자를 위한 노동법 완전정복,KPC,4.7679,담당자,METADATA_ONLY
+Q04,총무담당자 자산관리와 비품관리,6,SQL_GSEEK_55196,인사담당자에게 묻는다! 면접 합격의 비밀,GSEEK,0.1459,담당자,PARTIAL_TEXT,SQL_GSEEK_55196,인사담당자에게 묻는다! 면접 합격의 비밀,GSEEK,3.6852,담당자,PARTIAL_TEXT
+Q04,총무담당자 자산관리와 비품관리,7,PUB_ABA20243001036526_9,급변하는 비즈니스 환경의 총무관리 역할,고용24_사업주훈련,0.1028,총무,METADATA_ONLY,PUB_ABA20243001036526_9,급변하는 비즈니스 환경의 총무관리 역할,고용24_사업주훈련,1.0441,총무,METADATA_ONLY
+Q04,총무담당자 자산관리와 비품관리,8,NEW_HUNET_05,총무기획과 총무자산 관리 실무,HUNET,0.0618,총무,VERIFIED_FULL,NEW_HUNET_05,총무기획과 총무자산 관리 실무,HUNET,0.8719,총무,VERIFIED_FULL
+Q04,총무담당자 자산관리와 비품관리,9,NEW_FASTCAMPUS_03,ChatGPT와 무작정 풀어보는 공여사의 엑셀실무,FASTCAMPUS,0.0347,총무,VERIFIED_FULL,NEW_FASTCAMPUS_03,ChatGPT와 무작정 풀어보는 공여사의 엑셀실무,FASTCAMPUS,0.5068,총무,VERIFIED_FULL
+Q04,총무담당자 자산관리와 비품관리,10,NEW_FASTCAMPUS_08,한 번에 통과하는 실무 비즈니스 문서작성 및 보고서 기획,FASTCAMPUS,0.0345,총무,VERIFIED_FULL,NEW_FASTCAMPUS_10,8시간만에 끝내는 직장인 엑셀 필수 스킬 모음.zip,FASTCAMPUS,0.4975,총무,VERIFIED_FULL
+Q05,초보자를 위한 보고서 작성,1,SQL_HUNET_Y00391506,"AI로 조사하고, AI로 작성하는 하루 만에 끝내는 보고서 작성법",HUNET,0.3399,"작성, 보고서",METADATA_ONLY,SQL_HUNET_Y00391506,"AI로 조사하고, AI로 작성하는 하루 만에 끝내는 보고서 작성법",HUNET,3.9186,"보고서, 작성",METADATA_ONLY
+Q05,초보자를 위한 보고서 작성,2,SQL_KMA_111391,[여의도] 설득력 있는 실전 보고서 작성 스킬(with MS Office),KMA,0.2005,"작성, 보고서",METADATA_ONLY,SQL_FASTCAMPUS_249157,맥킨지·제일기획 출신 김재성의 연봉을 올리는 보고서 & 프레젠테이션 공식,FASTCAMPUS,3.3167,"보고서, 작성",PARTIAL_TEXT
+Q05,초보자를 위한 보고서 작성,3,SQL_KPC_47493,공공기관 보고서 작성 Total Skill Up(Feat. AI & 한글),KPC,0.1755,"작성, 보고서",METADATA_ONLY,SQL_KMA_111391,[여의도] 설득력 있는 실전 보고서 작성 스킬(with MS Office),KMA,3.3116,"보고서, 작성",METADATA_ONLY
+Q05,초보자를 위한 보고서 작성,4,NEW_FASTCAMPUS_08,한 번에 통과하는 실무 비즈니스 문서작성 및 보고서 기획,FASTCAMPUS,0.1733,"보고서, 작성",VERIFIED_FULL,SQL_KPC_47493,공공기관 보고서 작성 Total Skill Up(Feat. AI & 한글),KPC,3.2523,"보고서, 작성",METADATA_ONLY
+Q05,초보자를 위한 보고서 작성,5,SQL_FASTCAMPUS_249157,맥킨지·제일기획 출신 김재성의 연봉을 올리는 보고서 & 프레젠테이션 공식,FASTCAMPUS,0.1701,"보고서, 작성",PARTIAL_TEXT,SQL_GSEEK_55196,인사담당자에게 묻는다! 면접 합격의 비밀,GSEEK,2.8914,초보자,PARTIAL_TEXT
+Q05,초보자를 위한 보고서 작성,6,SQL_GSEEK_55196,인사담당자에게 묻는다! 면접 합격의 비밀,GSEEK,0.1069,초보자,PARTIAL_TEXT,NEW_FASTCAMPUS_08,한 번에 통과하는 실무 비즈니스 문서작성 및 보고서 기획,FASTCAMPUS,2.729,"보고서, 작성",VERIFIED_FULL
+Q05,초보자를 위한 보고서 작성,7,SQL_GSEEK_7414,(왕초보)컴퓨터로 문서작성 도전,GSEEK,0.1008,작성,PARTIAL_TEXT,SQL_GSEEK_7414,(왕초보)컴퓨터로 문서작성 도전,GSEEK,2.3823,작성,PARTIAL_TEXT
+Q05,초보자를 위한 보고서 작성,8,NEW_HUNET_07,스마트 비즈니스 문서작성 및 기획서 작성법,HUNET,0.0808,작성,VERIFIED_FULL,NEW_HUNET_07,스마트 비즈니스 문서작성 및 기획서 작성법,HUNET,1.9845,작성,VERIFIED_FULL
+Q05,초보자를 위한 보고서 작성,9,SQL_FASTCAMPUS_210569,문서의 신이 알려주는 보고서의 법칙 : 비즈니스 글쓰기의 모든 것,FASTCAMPUS,0.0599,보고서,PARTIAL_TEXT,SQL_GSEEK_3217,[창업공통]필수 근로기준법과 인사서식,GSEEK,1.2962,작성,PARTIAL_TEXT
+Q05,초보자를 위한 보고서 작성,10,SQL_GSEEK_3217,[창업공통]필수 근로기준법과 인사서식,GSEEK,0.0493,작성,PARTIAL_TEXT,SQL_FASTCAMPUS_210569,문서의 신이 알려주는 보고서의 법칙 : 비즈니스 글쓰기의 모든 것,FASTCAMPUS,1.1355,보고서,PARTIAL_TEXT
+Q06,비즈니스 커뮤니케이션 교육,1,NEW_HUNET_08,핵심만 콕! 바로 쓰는 사무행정 실무,HUNET,0.2418,"커뮤니케이션, 비즈니스",VERIFIED_FULL,NEW_HUNET_08,핵심만 콕! 바로 쓰는 사무행정 실무,HUNET,4.6975,"비즈니스, 커뮤니케이션",VERIFIED_FULL
+Q06,비즈니스 커뮤니케이션 교육,2,SQL_KPC_47464,글로벌 비즈니스 매너,KPC,0.2402,비즈니스,METADATA_ONLY,PUB_ACG20243000973001_324,알베르토와 함께하는 글로벌 비즈니스 매너,고용24_국민내일배움카드,2.4708,비즈니스,VERIFIED_FULL
+Q06,비즈니스 커뮤니케이션 교육,3,SQL_HUNET_Y00161578,"실례합니다만, 비즈니스 매너는 지켜주시겠어요?",HUNET,0.2134,비즈니스,METADATA_ONLY,SQL_GSEEK_51955,[레전드 스킬] 어쩐지 끌리는 사람의 비즈니스 매너,GSEEK,2.3633,비즈니스,PARTIAL_TEXT
+Q06,비즈니스 커뮤니케이션 교육,4,SQL_HUNET_Y00004543,직장인을 위한 비즈니스 매너 에센스,HUNET,0.1871,비즈니스,METADATA_ONLY,NEW_HUNET_05,총무기획과 총무자산 관리 실무,HUNET,2.1559,비즈니스,VERIFIED_FULL
+Q06,비즈니스 커뮤니케이션 교육,5,PUB_ABA20243001036526_9,급변하는 비즈니스 환경의 총무관리 역할,고용24_사업주훈련,0.165,비즈니스,METADATA_ONLY,SQL_KPC_47464,글로벌 비즈니스 매너,KPC,2.1059,비즈니스,METADATA_ONLY
+Q06,비즈니스 커뮤니케이션 교육,6,NEW_HUNET_05,총무기획과 총무자산 관리 실무,HUNET,0.1398,비즈니스,VERIFIED_FULL,SQL_HUNET_Y00161578,"실례합니다만, 비즈니스 매너는 지켜주시겠어요?",HUNET,2.1059,비즈니스,METADATA_ONLY
+Q06,비즈니스 커뮤니케이션 교육,7,PUB_ACG20243000973001_324,알베르토와 함께하는 글로벌 비즈니스 매너,고용24_국민내일배움카드,0.1183,비즈니스,VERIFIED_FULL,SQL_HUNET_Y00004543,직장인을 위한 비즈니스 매너 에센스,HUNET,2.0636,비즈니스,METADATA_ONLY
+Q06,비즈니스 커뮤니케이션 교육,8,SQL_GSEEK_51955,[레전드 스킬] 어쩐지 끌리는 사람의 비즈니스 매너,GSEEK,0.1164,비즈니스,PARTIAL_TEXT,PUB_ABA20243001036526_9,급변하는 비즈니스 환경의 총무관리 역할,고용24_사업주훈련,1.9841,비즈니스,METADATA_ONLY
+Q06,비즈니스 커뮤니케이션 교육,9,NEW_FASTCAMPUS_08,한 번에 통과하는 실무 비즈니스 문서작성 및 보고서 기획,FASTCAMPUS,0.0937,비즈니스,VERIFIED_FULL,SQL_FASTCAMPUS_210569,문서의 신이 알려주는 보고서의 법칙 : 비즈니스 글쓰기의 모든 것,FASTCAMPUS,1.6908,비즈니스,PARTIAL_TEXT
+Q06,비즈니스 커뮤니케이션 교육,10,SQL_FASTCAMPUS_210569,문서의 신이 알려주는 보고서의 법칙 : 비즈니스 글쓰기의 모든 것,FASTCAMPUS,0.0847,비즈니스,PARTIAL_TEXT,NEW_FASTCAMPUS_08,한 번에 통과하는 실무 비즈니스 문서작성 및 보고서 기획,FASTCAMPUS,1.4272,비즈니스,VERIFIED_FULL
+Q07,4대보험 취득상실 신고 및 급여계산,1,NEW_HUNET_06,4대보험 및 급여계산 실무 가이드,HUNET,0.25,"4대보험, 급여계산",VERIFIED_FULL,NEW_HUNET_06,4대보험 및 급여계산 실무 가이드,HUNET,6.0689,"4대보험, 급여계산",VERIFIED_FULL
+Q07,4대보험 취득상실 신고 및 급여계산,2,NEW_FASTCAMPUS_10,8시간만에 끝내는 직장인 엑셀 필수 스킬 모음.zip,FASTCAMPUS,0.0,,VERIFIED_FULL,NEW_FASTCAMPUS_10,8시간만에 끝내는 직장인 엑셀 필수 스킬 모음.zip,FASTCAMPUS,0.0,,VERIFIED_FULL
+Q07,4대보험 취득상실 신고 및 급여계산,3,NEW_FASTCAMPUS_09,스킬 기반 조직(Skill-Based) 전환 및 HR 역량평가 체계,FASTCAMPUS,0.0,,VERIFIED_FULL,NEW_FASTCAMPUS_09,스킬 기반 조직(Skill-Based) 전환 및 HR 역량평가 체계,FASTCAMPUS,0.0,,VERIFIED_FULL
+Q07,4대보험 취득상실 신고 및 급여계산,4,NEW_FASTCAMPUS_08,한 번에 통과하는 실무 비즈니스 문서작성 및 보고서 기획,FASTCAMPUS,0.0,,VERIFIED_FULL,NEW_FASTCAMPUS_08,한 번에 통과하는 실무 비즈니스 문서작성 및 보고서 기획,FASTCAMPUS,0.0,,VERIFIED_FULL
+Q07,4대보험 취득상실 신고 및 급여계산,5,NEW_FASTCAMPUS_06,AI 시대 일잘러가 되기 위한 실무 마스터 클래스 (노션/구글워크스페이스),FASTCAMPUS,0.0,,VERIFIED_FULL,NEW_FASTCAMPUS_06,AI 시대 일잘러가 되기 위한 실무 마스터 클래스 (노션/구글워크스페이스),FASTCAMPUS,0.0,,VERIFIED_FULL
+Q07,4대보험 취득상실 신고 및 급여계산,6,NEW_FASTCAMPUS_07,생성형 AI 기반 업무 생산성 극대화 및 프롬프트 엔지니어링,FASTCAMPUS,0.0,,VERIFIED_FULL,NEW_FASTCAMPUS_07,생성형 AI 기반 업무 생산성 극대화 및 프롬프트 엔지니어링,FASTCAMPUS,0.0,,VERIFIED_FULL
+Q07,4대보험 취득상실 신고 및 급여계산,7,NEW_FASTCAMPUS_04,한 번에 끝내는 엑셀 실무 초격차 패키지 (VBA/매크로/함수),FASTCAMPUS,0.0,,VERIFIED_FULL,NEW_FASTCAMPUS_04,한 번에 끝내는 엑셀 실무 초격차 패키지 (VBA/매크로/함수),FASTCAMPUS,0.0,,VERIFIED_FULL
+Q07,4대보험 취득상실 신고 및 급여계산,8,NEW_FASTCAMPUS_03,ChatGPT와 무작정 풀어보는 공여사의 엑셀실무,FASTCAMPUS,0.0,,VERIFIED_FULL,NEW_FASTCAMPUS_03,ChatGPT와 무작정 풀어보는 공여사의 엑셀실무,FASTCAMPUS,0.0,,VERIFIED_FULL
+Q07,4대보험 취득상실 신고 및 급여계산,9,NEW_FASTCAMPUS_02,데이터 기반 HR 애널리틱스 & 피플 애널리틱스 실무,FASTCAMPUS,0.0,,VERIFIED_FULL,NEW_FASTCAMPUS_02,데이터 기반 HR 애널리틱스 & 피플 애널리틱스 실무,FASTCAMPUS,0.0,,VERIFIED_FULL
+Q07,4대보험 취득상실 신고 및 급여계산,10,NEW_FASTCAMPUS_05,회사에서 신뢰받는 일센스 만렙 신입되기 (온보딩/사무/보고),FASTCAMPUS,0.0,,VERIFIED_FULL,NEW_FASTCAMPUS_05,회사에서 신뢰받는 일센스 만렙 신입되기 (온보딩/사무/보고),FASTCAMPUS,0.0,,VERIFIED_FULL
+Q08,조직문화 구축과 직원 온보딩 실무,1,SQL_HUNET_Y00394865,성과와 신뢰를 만드는 신임리더 온보딩,HUNET,0.3895,온보딩,METADATA_ONLY,SQL_KMA_111663,[여의도] 수시 경력입사자 온보딩,KMA,4.2758,온보딩,METADATA_ONLY
+Q08,조직문화 구축과 직원 온보딩 실무,2,SQL_KMA_111663,[여의도] 수시 경력입사자 온보딩,KMA,0.3751,온보딩,METADATA_ONLY,SQL_HUNET_Y00394865,성과와 신뢰를 만드는 신임리더 온보딩,HUNET,4.2758,온보딩,METADATA_ONLY
+Q08,조직문화 구축과 직원 온보딩 실무,3,NEW_FASTCAMPUS_05,회사에서 신뢰받는 일센스 만렙 신입되기 (온보딩/사무/보고),FASTCAMPUS,0.278,"온보딩, 실무",VERIFIED_FULL,NEW_FASTCAMPUS_05,회사에서 신뢰받는 일센스 만렙 신입되기 (온보딩/사무/보고),FASTCAMPUS,4.1644,"온보딩, 실무",VERIFIED_FULL
+Q08,조직문화 구축과 직원 온보딩 실무,4,PUB_ABA20243001036557_15,실무사례로 알아보는 근로기준법,고용24_사업주훈련,0.1365,실무,METADATA_ONLY,NEW_FASTCAMPUS_03,ChatGPT와 무작정 풀어보는 공여사의 엑셀실무,FASTCAMPUS,1.3577,실무,VERIFIED_FULL
+Q08,조직문화 구축과 직원 온보딩 실무,5,SQL_KPC_47021,[DX&AI] 채용 분석 실무,KPC,0.0907,실무,METADATA_ONLY,NEW_HUNET_03,전략적 조직운영을 위한 인사관리 실무,HUNET,1.3528,실무,VERIFIED_FULL
+Q08,조직문화 구축과 직원 온보딩 실무,6,NEW_FASTCAMPUS_03,ChatGPT와 무작정 풀어보는 공여사의 엑셀실무,FASTCAMPUS,0.0836,실무,VERIFIED_FULL,NEW_FASTCAMPUS_08,한 번에 통과하는 실무 비즈니스 문서작성 및 보고서 기획,FASTCAMPUS,1.3382,실무,VERIFIED_FULL
+Q08,조직문화 구축과 직원 온보딩 실무,7,NEW_FASTCAMPUS_08,한 번에 통과하는 실무 비즈니스 문서작성 및 보고서 기획,FASTCAMPUS,0.0831,실무,VERIFIED_FULL,NEW_FASTCAMPUS_02,데이터 기반 HR 애널리틱스 & 피플 애널리틱스 실무,FASTCAMPUS,1.3382,실무,VERIFIED_FULL
+Q08,조직문화 구축과 직원 온보딩 실무,8,NEW_HUNET_03,전략적 조직운영을 위한 인사관리 실무,HUNET,0.0817,실무,VERIFIED_FULL,NEW_FASTCAMPUS_04,한 번에 끝내는 엑셀 실무 초격차 패키지 (VBA/매크로/함수),FASTCAMPUS,1.3382,실무,VERIFIED_FULL
+Q08,조직문화 구축과 직원 온보딩 실무,9,NEW_FASTCAMPUS_02,데이터 기반 HR 애널리틱스 & 피플 애널리틱스 실무,FASTCAMPUS,0.0786,실무,VERIFIED_FULL,NEW_FASTCAMPUS_06,AI 시대 일잘러가 되기 위한 실무 마스터 클래스 (노션/구글워크스페이스),FASTCAMPUS,1.3286,실무,VERIFIED_FULL
+Q08,조직문화 구축과 직원 온보딩 실무,10,NEW_FASTCAMPUS_04,한 번에 끝내는 엑셀 실무 초격차 패키지 (VBA/매크로/함수),FASTCAMPUS,0.0759,실무,VERIFIED_FULL,PUB_ABA20243001036557_15,실무사례로 알아보는 근로기준법,고용24_사업주훈련,1.2672,실무,METADATA_ONLY
+Q09,취업규칙 작성 및 노사관계 분쟁 예방,1,SQL_KMA_111450,[여의도] 안정적인 노사관계를 위한 노동법 및 노사협의회 운영 실무,KMA,0.2731,노사관계,METADATA_ONLY,SQL_KMA_111450,[여의도] 안정적인 노사관계를 위한 노동법 및 노사협의회 운영 실무,KMA,5.4134,노사관계,METADATA_ONLY
+Q09,취업규칙 작성 및 노사관계 분쟁 예방,2,SQL_HUNET_Y00391506,"AI로 조사하고, AI로 작성하는 하루 만에 끝내는 보고서 작성법",HUNET,0.1999,작성,METADATA_ONLY,NEW_HUNET_02,"입사에서 퇴사까지, 직장인을 위한 노동법 이야기",HUNET,3.46,"분쟁, 예방",VERIFIED_FULL
+Q09,취업규칙 작성 및 노사관계 분쟁 예방,3,NEW_HUNET_03,전략적 조직운영을 위한 인사관리 실무,HUNET,0.1496,"예방, 분쟁",VERIFIED_FULL,NEW_HUNET_03,전략적 조직운영을 위한 인사관리 실무,HUNET,3.3754,"분쟁, 예방",VERIFIED_FULL
+Q09,취업규칙 작성 및 노사관계 분쟁 예방,4,NEW_HUNET_02,"입사에서 퇴사까지, 직장인을 위한 노동법 이야기",HUNET,0.1349,"예방, 분쟁",VERIFIED_FULL,NEW_HUNET_10,Make와 ChatGPT로 완성하는 AI 에이전트 업무자동화,HUNET,3.295,"분쟁, 예방",VERIFIED_FULL
+Q09,취업규칙 작성 및 노사관계 분쟁 예방,5,NEW_HUNET_10,Make와 ChatGPT로 완성하는 AI 에이전트 업무자동화,HUNET,0.1347,"예방, 분쟁",VERIFIED_FULL,NEW_HUNET_09,데이터를 한눈에! AI로 완성하는 데이터 시각화 (with 엑셀),HUNET,3.295,"분쟁, 예방",VERIFIED_FULL
+Q09,취업규칙 작성 및 노사관계 분쟁 예방,6,NEW_HUNET_09,데이터를 한눈에! AI로 완성하는 데이터 시각화 (with 엑셀),HUNET,0.1325,"예방, 분쟁",VERIFIED_FULL,NEW_HUNET_07,스마트 비즈니스 문서작성 및 기획서 작성법,HUNET,2.9539,"작성, 예방",VERIFIED_FULL
+Q09,취업규칙 작성 및 노사관계 분쟁 예방,7,NEW_HUNET_07,스마트 비즈니스 문서작성 및 기획서 작성법,HUNET,0.0986,"작성, 예방",VERIFIED_FULL,SQL_HUNET_Y00391506,"AI로 조사하고, AI로 작성하는 하루 만에 끝내는 보고서 작성법",HUNET,2.6113,작성,METADATA_ONLY
+Q09,취업규칙 작성 및 노사관계 분쟁 예방,8,SQL_KMA_111391,[여의도] 설득력 있는 실전 보고서 작성 스킬(with MS Office),KMA,0.0976,작성,METADATA_ONLY,SQL_GSEEK_7414,(왕초보)컴퓨터로 문서작성 도전,GSEEK,2.3823,작성,PARTIAL_TEXT
+Q09,취업규칙 작성 및 노사관계 분쟁 예방,9,SQL_KPC_47493,공공기관 보고서 작성 Total Skill Up(Feat. AI & 한글),KPC,0.0854,작성,METADATA_ONLY,SQL_KMA_111391,[여의도] 설득력 있는 실전 보고서 작성 스킬(with MS Office),KMA,2.0519,작성,METADATA_ONLY
+Q09,취업규칙 작성 및 노사관계 분쟁 예방,10,SQL_GSEEK_7414,(왕초보)컴퓨터로 문서작성 도전,GSEEK,0.0847,작성,PARTIAL_TEXT,SQL_KPC_47493,공공기관 보고서 작성 Total Skill Up(Feat. AI & 한글),KPC,2.0152,작성,METADATA_ONLY
+Q10,엑셀 업무자동화와 HR 데이터 분석,1,NEW_FASTCAMPUS_02,데이터 기반 HR 애널리틱스 & 피플 애널리틱스 실무,FASTCAMPUS,0.2963,"hr, 데이터, 자동, 업무",VERIFIED_FULL,NEW_FASTCAMPUS_02,데이터 기반 HR 애널리틱스 & 피플 애널리틱스 실무,FASTCAMPUS,5.9785,"업무, 자동, hr, 데이터",VERIFIED_FULL
+Q10,엑셀 업무자동화와 HR 데이터 분석,2,NEW_FASTCAMPUS_01,하루 19가지 실습으로 정복하는 AI 엑셀 업무자동화 원데이 클래스,FASTCAMPUS,0.2639,"자동, 엑셀, 업무, 데이터",VERIFIED_FULL,NEW_FASTCAMPUS_09,스킬 기반 조직(Skill-Based) 전환 및 HR 역량평가 체계,FASTCAMPUS,5.1715,"업무, 자동, hr, 데이터",VERIFIED_FULL
+Q10,엑셀 업무자동화와 HR 데이터 분석,3,SQL_KPC_47021,[DX&AI] 채용 분석 실무,KPC,0.257,분석,METADATA_ONLY,NEW_FASTCAMPUS_01,하루 19가지 실습으로 정복하는 AI 엑셀 업무자동화 원데이 클래스,FASTCAMPUS,5.1175,"엑셀, 업무, 자동, 데이터",VERIFIED_FULL
+Q10,엑셀 업무자동화와 HR 데이터 분석,4,NEW_FASTCAMPUS_03,ChatGPT와 무작정 풀어보는 공여사의 엑셀실무,FASTCAMPUS,0.2404,"엑셀, 자동, 업무, 데이터",VERIFIED_FULL,NEW_FASTCAMPUS_03,ChatGPT와 무작정 풀어보는 공여사의 엑셀실무,FASTCAMPUS,4.7581,"엑셀, 업무, 자동, 데이터",VERIFIED_FULL
+Q10,엑셀 업무자동화와 HR 데이터 분석,5,NEW_FASTCAMPUS_09,스킬 기반 조직(Skill-Based) 전환 및 HR 역량평가 체계,FASTCAMPUS,0.2392,"hr, 자동, 업무, 데이터",VERIFIED_FULL,NEW_FASTCAMPUS_10,8시간만에 끝내는 직장인 엑셀 필수 스킬 모음.zip,FASTCAMPUS,4.6881,"엑셀, 업무, 자동, 데이터",VERIFIED_FULL
+Q10,엑셀 업무자동화와 HR 데이터 분석,6,NEW_FASTCAMPUS_10,8시간만에 끝내는 직장인 엑셀 필수 스킬 모음.zip,FASTCAMPUS,0.2305,"엑셀, 자동, 업무, 데이터",VERIFIED_FULL,NEW_FASTCAMPUS_04,한 번에 끝내는 엑셀 실무 초격차 패키지 (VBA/매크로/함수),FASTCAMPUS,4.6202,"엑셀, 업무, 자동, 데이터",VERIFIED_FULL
+Q10,엑셀 업무자동화와 HR 데이터 분석,7,NEW_FASTCAMPUS_04,한 번에 끝내는 엑셀 실무 초격차 패키지 (VBA/매크로/함수),FASTCAMPUS,0.2183,"엑셀, 자동, 업무, 데이터",VERIFIED_FULL,NEW_HUNET_09,데이터를 한눈에! AI로 완성하는 데이터 시각화 (with 엑셀),HUNET,4.3483,"엑셀, 업무, 데이터",VERIFIED_FULL
+Q10,엑셀 업무자동화와 HR 데이터 분석,8,NEW_HUNET_09,데이터를 한눈에! AI로 완성하는 데이터 시각화 (with 엑셀),HUNET,0.1972,"엑셀, 데이터, 업무",VERIFIED_FULL,SQL_KPC_47021,[DX&AI] 채용 분석 실무,KPC,4.2758,분석,METADATA_ONLY
+Q10,엑셀 업무자동화와 HR 데이터 분석,9,NEW_HUNET_10,Make와 ChatGPT로 완성하는 AI 에이전트 업무자동화,HUNET,0.1498,"자동, 업무, 데이터",VERIFIED_FULL,NEW_HUNET_10,Make와 ChatGPT로 완성하는 AI 에이전트 업무자동화,HUNET,2.807,"업무, 자동, 데이터",VERIFIED_FULL
+Q10,엑셀 업무자동화와 HR 데이터 분석,10,NEW_FASTCAMPUS_07,생성형 AI 기반 업무 생산성 극대화 및 프롬프트 엔지니어링,FASTCAMPUS,0.1407,"업무, 자동, 데이터",VERIFIED_FULL,NEW_HUNET_02,"입사에서 퇴사까지, 직장인을 위한 노동법 이야기",HUNET,2.6029,"업무, hr, 데이터",VERIFIED_FULL

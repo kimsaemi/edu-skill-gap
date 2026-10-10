@@ -209,8 +209,10 @@ class EduDataCollector:
         url = "https://www.work24.go.kr/cm/openApi/call/hr/callOpenApiSvcInfo313L01.do"
         return self.fetch_hrd_courses(self.hrd_work_study_key, params=params, endpoint_url=url)
 
-    def fetch_hrd_course_detail(self, auth_key, trpr_id, trpr_degr, endpoint_url=None):
-        """고용24 (HRD-Net) 훈련과정 상세정보 API 호출 및 정밀 진단"""
+    def fetch_hrd_course_detail(self, auth_key, trpr_id, trpr_degr, torg_id=None, endpoint_url=None):
+        """고용24 (HRD-Net) 과정/기관정보 상세 API 호출 및 정밀 진단
+        - 공식 필수 파라미터: srchTrprId(과정ID), srchTrprDegr(회차), srchTorgId(기관ID)
+        """
         if not auth_key:
             return {
                 "status": "FAILED",
@@ -232,17 +234,32 @@ class EduDataCollector:
             "srchTrprId": str(trpr_id),
             "srchTrprDegr": str(trpr_degr)
         }
+        if torg_id:
+            params["srchTorgId"] = str(torg_id)
+
         headers = {
             "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
         }
 
         try:
-            res = requests.get(url, params=params, headers=headers, timeout=10)
+            # allow_redirects=False 로 리다이렉트 예외 직접 감지
+            res = requests.get(url, params=params, headers=headers, allow_redirects=False, timeout=10)
             status_code = res.status_code
             content_type = res.headers.get("Content-Type", "")
-            raw_text = res.text.strip()
 
-            # 1. HTTP 404
+            # 1. 302 리다이렉트 발생 시 (필수 파라미터 누락 등으로 시스템 예외 페이지 포워딩)
+            if status_code == 302:
+                loc = res.headers.get("Location", "")
+                return {
+                    "status": "FAILED",
+                    "http_code": 302,
+                    "error_type": "REDIRECT_EXCEPTION",
+                    "url": url,
+                    "location": loc,
+                    "message": f"시스템 예외 페이지로 리다이렉트되었습니다 ({loc}). 필수 파라미터(srchTorgId 등)를 확인하세요."
+                }
+
+            # 2. HTTP 404
             if status_code == 404:
                 return {
                     "status": "FAILED",
@@ -252,17 +269,19 @@ class EduDataCollector:
                     "message": "요청한 상세조회 엔드포인트 URL이 고용24 서버에 존재하지 않습니다."
                 }
 
-            # 2. HTML 에러/리다이렉트 (INVALID_CONTENT_TYPE)
+            raw_text = res.text.strip()
+
+            # 3. HTML 에러 페이지
             if "text/html" in content_type or "<!DOCTYPE html>" in raw_text or "<html" in raw_text:
                 return {
                     "status": "FAILED",
                     "http_code": status_code,
-                    "error_type": "HTML_EXCEPTION_REDIRECT",
+                    "error_type": "HTML_EXCEPTION_PAGE",
                     "url": url,
-                    "message": "XML 대신 고용24 시스템 예외 HTML 페이지가 반환되었습니다 (서비스 미지원 또는 세션/방화벽 제약)."
+                    "message": "XML 대신 HTML 에러 페이지가 반환되었습니다."
                 }
 
-            # 3. XML 내 <error> 태그
+            # 4. XML 내 <error> 태그
             if "<error>" in raw_text:
                 import xml.etree.ElementTree as ET
                 try:
@@ -275,20 +294,28 @@ class EduDataCollector:
                     "http_code": status_code,
                     "error_type": "AUTH_PERMISSION_ERROR",
                     "url": url,
-                    "message": f"고용24 API 인증/권한 오류: '{err_msg}' (목록조회 전용 키로 상세조회 서비스 미인가)"
+                    "message": f"고용24 API 오류: '{err_msg}'"
                 }
 
-            # 4. XML 정상 수신 및 필드 파싱
+            # 5. XML 정상 수신 및 필드 파싱
             import xml.etree.ElementTree as ET
             root = ET.fromstring(raw_text)
-            
-            # 공식 XML 응답에서 실제 필드 추출
+
             parsed_data = {
-                "training_goal": root.findtext(".//trprTarget") or root.findtext(".//traGoal") or "",
-                "course_contents": root.findtext(".//contents") or root.findtext(".//trprChapList") or "",
-                "total_hours": root.findtext(".//totTraTime") or root.findtext(".//traTime") or "",
-                "total_days": root.findtext(".//totTraDays") or root.findtext(".//traDays") or "",
-                "raw_fields": [elem.tag for elem in root.iter()][:20]
+                "course_name": root.findtext(".//trprNm") or "",
+                "inst_name": root.findtext(".//inoNm") or "",
+                "inst_id": root.findtext(".//instIno") or "",
+                "inst_url": root.findtext(".//hpAddr") or "",
+                "total_hours": root.findtext(".//totTraingTime") or root.findtext(".//trtm") or "",
+                "course_fee": root.findtext(".//perTrco") or "",
+                "self_pay_fee": root.findtext(".//tgcrGnrlTrneOwepAllt") or "",
+                "ncs_code": root.findtext(".//ncsCd") or "",
+                "ncs_name": root.findtext(".//ncsNm") or "",
+                "target_audience": root.findtext(".//trprTargetNm") or "",
+                "inst_address": f"{root.findtext('.//addr1') or ''} {root.findtext('.//addr2') or ''}".strip(),
+                "contact_person": root.findtext(".//trprChap") or "",
+                "contact_tel": root.findtext(".//trprChapTel") or "",
+                "raw_sections": [child.tag for child in root]
             }
 
             return {
@@ -308,20 +335,34 @@ class EduDataCollector:
                 "message": f"API 호출 중 통신 예외 발생: {str(e)}"
             }
 
-    def fetch_kmbc_course_detail(self, trpr_id, trpr_degr):
-        """국민내일배움카드 훈련과정 상세정보(과정/기관) API 호출 (310L02.do)"""
+    def fetch_kmbc_course_detail(self, trpr_id, trpr_degr, torg_id=None):
+        """국민내일배움카드 훈련과정 상세정보(과정/기관) API 호출 (310L02.do)
+        - torg_id가 없으면 훈련일정 API(310L03.do)에서 기관ID를 자동 조회하여 연계
+        """
+        if not torg_id:
+            sched = self.fetch_kmbc_schedule(trpr_id, trpr_degr)
+            if sched.get("status") == "SUCCESS" and sched.get("data", {}).get("schedules"):
+                torg_id = sched["data"]["schedules"][0].get("inst_id")
+        
         url = "https://www.work24.go.kr/cm/openApi/call/hr/callOpenApiSvcInfo310L02.do"
-        return self.fetch_hrd_course_detail(self.hrd_kmbc_detail_key, trpr_id, trpr_degr, endpoint_url=url)
+        return self.fetch_hrd_course_detail(self.hrd_kmbc_detail_key, trpr_id, trpr_degr, torg_id=torg_id, endpoint_url=url)
 
     def fetch_kmbc_schedule(self, trpr_id, trpr_degr):
         """국민내일배움카드 훈련일정 API 호출 (310L03.do)"""
         url = "https://www.work24.go.kr/cm/openApi/call/hr/callOpenApiSvcInfo310L03.do"
         return self.fetch_hrd_schedule(self.hrd_kmbc_sched_key, trpr_id, trpr_degr, endpoint_url=url)
 
-    def fetch_employer_course_detail(self, trpr_id, trpr_degr):
-        """사업주훈련 훈련과정 상세정보(과정/기관) API 호출 (311D01.do)"""
+    def fetch_employer_course_detail(self, trpr_id, trpr_degr, torg_id=None):
+        """사업주훈련 훈련과정 상세정보(과정/기관) API 호출 (311D01.do)
+        - torg_id가 없으면 훈련일정 API(311D02.do)에서 기관ID를 자동 조회하여 연계
+        """
+        if not torg_id:
+            sched = self.fetch_employer_schedule(trpr_id, trpr_degr)
+            if sched.get("status") == "SUCCESS" and sched.get("data", {}).get("schedules"):
+                torg_id = sched["data"]["schedules"][0].get("inst_id")
+
         url = "https://www.work24.go.kr/cm/openApi/call/hr/callOpenApiSvcInfo311D01.do"
-        return self.fetch_hrd_course_detail(self.hrd_employer_detail_key, trpr_id, trpr_degr, endpoint_url=url)
+        return self.fetch_hrd_course_detail(self.hrd_employer_detail_key, trpr_id, trpr_degr, torg_id=torg_id, endpoint_url=url)
 
     def fetch_employer_schedule(self, trpr_id, trpr_degr):
         """사업주훈련 훈련일정 API 호출 (311D02.do)"""
