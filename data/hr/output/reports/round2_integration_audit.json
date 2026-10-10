@@ -1,0 +1,14 @@
+{
+  "timestamp": "2026-10-10T00:11:19.100704+00:00",
+  "step": "STEP E 1차·2차 데이터 통합 및 재검증",
+  "round1_count": 50,
+  "round2_raw_count": 120,
+  "round2_duplicates_internal": 30,
+  "round2_duplicates_with_round1": 0,
+  "round2_new_unique_courses": 90,
+  "total_integrated_master_count": 140,
+  "eda_v1_count": 9,
+  "eda_v2_count": 96,
+  "eda_growth": "+87건 (+966.7%)",
+  "verified_mappings_v2_count": 96
+}

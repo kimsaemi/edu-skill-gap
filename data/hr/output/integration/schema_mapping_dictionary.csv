@@ -1,0 +1,22 @@
+﻿unified_field,data_type,description,api_source_field,sqlite_source_field
+source_platform,string,"데이터 수집 원천 플랫폼명 (고용24_국민내일배움, KPC, KMA 등)",source_api,platform
+source_type,string,원천 데이터 유형 (PUBLIC_API / SQLITE_DB),고정값 'PUBLIC_API',고정값 'SQLITE_DB'
+source_course_id,string,수집 플랫폼 고유 과정 식별자,course_id / trprId,id / ecno / crscd 등
+source_instance_id,string,개설 회차 또는 일정 세션 ID,course_turn / trprDegr,crsseq_id / cono 등
+global_course_key,string,전역 유일 복합키 (PUB_ 또는 SQL_ 접두사 부여),PUB_{instance_key},SQL_{platform}_{course_id}
+course_name,string,특수문자 및 회차 태그 정제된 표준 강좌명,course_name_std,title
+institution_name,string,교육 운영 주관 기관명,institution_name_std,플랫폼 표준 기관명
+job_group,string,"상위 직무 그룹 (인사(HR), 총무·사무행정, 공통 등)",step3_target_job 파생,job_group 정밀 분류
+job_category,string,"세부 직무 분류 (인사·채용, 노무, 평가보상, 자산 등)",step3_target_job 세분화,job_family 정밀 분류
+ncs_code,string,NCS 분류코드 8자리 (SQLite 미제공 시 NULL),ncs_classification_code,NULL (미제공)
+course_description,string,강좌 세부 설명 및 실무 커리큘럼 요약,edu_content_text,description / summary
+learning_objectives,string,교육 목표 텍스트,edu_goal_text,NULL (미제공)
+training_hours,float,총 교육 시수 (시간 단위),training_hours,hours (숫자 추출)
+duration_days,integer,총 훈련 일수 (종료일 - 시작일 + 1),duration_days 파생,days (숫자 추출)
+course_level,string,"숙련도 수준 (입문/초급, 중급/실무, 고급/전문)",course_level_group 파생,키워드 파생
+course_fee,float,"수강료 정량 금액 (원 단위, 무료=0)",cost_total,price_raw (수치 변환)
+course_url,string,상세페이지 바로가기 웹 URL,고용24 포털 URL,url
+collected_at,string,데이터 수집 타임스탬프,수집일시,collected_at / created_at
+classification_status,string,"직무 적합성 판정 (INCLUDED, REVIEW_NEEDED, EXCLUDED)",step3_status,classification_status
+mapping_status,string,"NCS KSA 역량 매핑 상태 (VERIFIED, REVIEW_NEEDED, UNSUPPORTED)",mapping_status,mapping_status
+mapping_evidence,string,역량 연결 근거 설명,mapping_evidence,mapping_evidence

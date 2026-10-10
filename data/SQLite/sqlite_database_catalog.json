@@ -1,0 +1,84 @@
+{
+  "registered_at": "2026-10-10T00:24:56.361337+00:00",
+  "total_databases": 7,
+  "total_courses_in_dbs": 9294,
+  "total_hr_ga_extracted": 413,
+  "duplicate_courses_removed": 226,
+  "databases": [
+    {
+      "platform_name": "FASTCAMPUS",
+      "database_file": "fastcampus_courses.db",
+      "file_size_kb": 872,
+      "total_courses": 901,
+      "hr_ga_courses_matched": 26,
+      "matching_rate": "2.9%"
+    },
+    {
+      "platform_name": "GSEEK",
+      "database_file": "gseek_courses.db",
+      "file_size_kb": 2560,
+      "total_courses": 1991,
+      "hr_ga_courses_matched": 56,
+      "matching_rate": "2.8%"
+    },
+    {
+      "platform_name": "HUNET",
+      "database_file": "hunet_courses.db",
+      "file_size_kb": 932,
+      "total_courses": 1958,
+      "hr_ga_courses_matched": 158,
+      "matching_rate": "8.1%"
+    },
+    {
+      "platform_name": "KFO",
+      "database_file": "kfo_courses.db",
+      "file_size_kb": 40,
+      "total_courses": 50,
+      "hr_ga_courses_matched": 0,
+      "matching_rate": "0.0%"
+    },
+    {
+      "platform_name": "KMA",
+      "database_file": "kma_courses.db",
+      "file_size_kb": 1176,
+      "total_courses": 1765,
+      "hr_ga_courses_matched": 240,
+      "matching_rate": "13.6%"
+    },
+    {
+      "platform_name": "KPC",
+      "database_file": "kpc_courses.db",
+      "file_size_kb": 840,
+      "total_courses": 1513,
+      "hr_ga_courses_matched": 143,
+      "matching_rate": "9.5%"
+    },
+    {
+      "platform_name": "MULTICAMPUS",
+      "database_file": "multicampus_courses.db",
+      "file_size_kb": 356,
+      "total_courses": 1116,
+      "hr_ga_courses_matched": 16,
+      "matching_rate": "1.4%"
+    }
+  ],
+  "job_family_distribution": {
+    "공통·사무기획": 111,
+    "인사·조직관리": 102,
+    "인사·채용관리": 60,
+    "기타·인사총무": 40,
+    "노무관리": 35,
+    "인사·평가보상": 33,
+    "비서·사무지원": 14,
+    "총무·자산관리": 9,
+    "총무·일반사무": 9
+  },
+  "platform_distribution": {
+    "HUNET": 158,
+    "KPC": 85,
+    "KMA": 72,
+    "GSEEK": 56,
+    "FASTCAMPUS": 26,
+    "MULTICAMPUS": 16
+  }
+}

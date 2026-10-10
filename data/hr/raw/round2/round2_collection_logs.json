@@ -1,0 +1,126 @@
+[
+  {
+    "api": "국민내일배움카드",
+    "keyword": "인사관리",
+    "status_code": 200,
+    "total_server_cnt": 3926,
+    "received_count": 10,
+    "error": null,
+    "timestamp": "2026-10-10T00:10:29.301850+00:00"
+  },
+  {
+    "api": "국민내일배움카드",
+    "keyword": "채용실무",
+    "status_code": 200,
+    "total_server_cnt": 1000,
+    "received_count": 10,
+    "error": null,
+    "timestamp": "2026-10-10T00:10:29.820927+00:00"
+  },
+  {
+    "api": "국민내일배움카드",
+    "keyword": "근로기준법",
+    "status_code": 200,
+    "total_server_cnt": 956,
+    "received_count": 10,
+    "error": null,
+    "timestamp": "2026-10-10T00:10:30.295120+00:00"
+  },
+  {
+    "api": "국민내일배움카드",
+    "keyword": "인사평가",
+    "status_code": 200,
+    "total_server_cnt": 950,
+    "received_count": 10,
+    "error": null,
+    "timestamp": "2026-10-10T00:10:30.905756+00:00"
+  },
+  {
+    "api": "국민내일배움카드",
+    "keyword": "총무관리",
+    "status_code": 200,
+    "total_server_cnt": 1426,
+    "received_count": 10,
+    "error": null,
+    "timestamp": "2026-10-10T00:10:31.387734+00:00"
+  },
+  {
+    "api": "국민내일배움카드",
+    "keyword": "자산관리",
+    "status_code": 200,
+    "total_server_cnt": 1422,
+    "received_count": 10,
+    "error": null,
+    "timestamp": "2026-10-10T00:10:31.873757+00:00"
+  },
+  {
+    "api": "사업주훈련",
+    "keyword": "인사관리",
+    "status_code": 200,
+    "total_server_cnt": 2233,
+    "received_count": 10,
+    "error": null,
+    "timestamp": "2026-10-10T00:10:32.353553+00:00"
+  },
+  {
+    "api": "사업주훈련",
+    "keyword": "채용실무",
+    "status_code": 200,
+    "total_server_cnt": 477,
+    "received_count": 10,
+    "error": null,
+    "timestamp": "2026-10-10T00:10:32.836041+00:00"
+  },
+  {
+    "api": "사업주훈련",
+    "keyword": "근로기준법",
+    "status_code": 200,
+    "total_server_cnt": 171,
+    "received_count": 10,
+    "error": null,
+    "timestamp": "2026-10-10T00:10:33.329170+00:00"
+  },
+  {
+    "api": "사업주훈련",
+    "keyword": "인사평가",
+    "status_code": 200,
+    "total_server_cnt": 390,
+    "received_count": 10,
+    "error": null,
+    "timestamp": "2026-10-10T00:10:33.816496+00:00"
+  },
+  {
+    "api": "사업주훈련",
+    "keyword": "총무관리",
+    "status_code": 200,
+    "total_server_cnt": 860,
+    "received_count": 10,
+    "error": null,
+    "timestamp": "2026-10-10T00:10:34.263511+00:00"
+  },
+  {
+    "api": "사업주훈련",
+    "keyword": "자산관리",
+    "status_code": 200,
+    "total_server_cnt": 832,
+    "received_count": 10,
+    "error": null,
+    "timestamp": "2026-10-10T00:10:34.717172+00:00"
+  },
+  {
+    "api": "NCS 교육과정",
+    "keyword": "대분류02_p2",
+    "status_code": 200,
+    "received_count": 0,
+    "error": null,
+    "timestamp": "2026-10-10T00:10:35.172612+00:00"
+  },
+  {
+    "api": "NCS 교육과정",
+    "keyword": "대분류02_p3",
+    "status_code": 200,
+    "received_count": 0,
+    "error": null,
+    "timestamp": "2026-10-10T00:10:35.595567+00:00"
+  }
+]

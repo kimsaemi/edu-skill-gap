@@ -1,0 +1,585 @@
+﻿platform,source_course_id,instance_key,course_name,category,job_group,job_category,classification_status,classification_reason,course_url,description_snippet
+FASTCAMPUS,207933,SQLITE_FASTCAMPUS_207933,매치무브 온보딩 : Maya와 3D Equalizer로 배우는 헐리우드 매치무브,영상/3D > CG VFX,비관련(타분야),인사·채용관리,EXCLUDED,IT개발/어학/제조/개인재테크 등 비관련 전문 분야로 판정 (매칭: 매치무브 온보딩 : Maya와 3D Equalizer로 배우는 헐리우드 매치무브),https://fastcampus.co.kr/dgn_online_mm,"<아이언맨>, <왕좌의 게임>의 헐리우드 리드 매치무버에게 배우는 매치무브 온보딩!
+아나몰픽 렌즈를 포함, 실무에서 사용하는 소스들을 통해 '진짜' 매치무브 실습을 해봅니다."
+FASTCAMPUS,210569,SQLITE_FASTCAMPUS_210569,문서의 신이 알려주는 보고서의 법칙 : 비즈니스 글쓰기의 모든 것,AI/업무생산성 > 엑셀/피피티/보고서,총무·사무행정,공통·사무기획,INCLUDED,사내 비즈니스 문서작성 및 보고서 기획 실무 직결,https://fastcampus.co.kr/biz_online_bsk,"직장인 필수, 문서의 신 백승권에게 배우는 보고서작성법! 예스폼 문서서식 및 자료집 제공"
+FASTCAMPUS,216323,SQLITE_FASTCAMPUS_216323,페이퍼로지의 성공하는 기획의 50가지 디테일,AI/업무생산성 > 엑셀/피피티/보고서,인접(일반사무),공통·사무기획,REVIEW_NEEDED,과정명 맥락상 인사·총무와의 직접 연계성 추가 검토 필요,https://fastcampus.co.kr/biz_online_paperlogy,17년차 현직 기획자가 30만장 기획서를 쓰며 발견한 기획 필승 공식
+FASTCAMPUS,234959,SQLITE_FASTCAMPUS_234959,10개 프로젝트로 시작하는 백엔드 웹개발  : 신입 개발자 취업 집중반 (w. Java/Spring Boot),개발/데이터 > 백엔드 개발,비관련(타분야),기타·인사총무,EXCLUDED,IT개발/어학/제조/개인재테크 등 비관련 전문 분야로 판정 (매칭: 10개 프로젝트로 시작하는 백엔드 웹개발  : 신입 개발자 취업 집중반 (w. Java/Spring Boot)),https://fastcampus.co.kr/dev_online_javaspring,"선호 0순위 기업들의 채용 공고 전면 분석!
+꼭 들어있는 필수 키워드만 모아 담은 10개의 차별화된 프로젝트 경험으로
+Java 백엔드 개발 커리어를 성공적으로 시작해보세요."
+FASTCAMPUS,236077,SQLITE_FASTCAMPUS_236077,세계 3대 컨설팅펌 출신 김영롱에게 배우는 상위 1% 전략 기획 PPT,AI/업무생산성 > 엑셀/피피티/보고서,인접(일반사무),공통·사무기획,REVIEW_NEEDED,과정명 맥락상 인사·총무와의 직접 연계성 추가 검토 필요,https://fastcampus.co.kr/biz_online_top3,세계 3대 컨설팅펌 출신 연사가 알려주는 전략 · 기획 보고서 작성법
+FASTCAMPUS,239062,SQLITE_FASTCAMPUS_239062,9개 도메인 프로젝트로 끝내는 백엔드 웹 개발 (Java/Spring) 초격차 패키지 Online.,개발/데이터 > 백엔드 개발,비관련(타분야),기타·인사총무,EXCLUDED,IT개발/어학/제조/개인재테크 등 비관련 전문 분야로 판정 (매칭: 9개 도메인 프로젝트로 끝내는 백엔드 웹 개발 (Java/Spring) 초격차 패키지 Online.),https://fastcampus.co.kr/dev_online_backend,프로젝트형 강의 장인 패캠이 100+ 채용공고를 분석해 준비한 '백엔드 나인 프로젝트'!
+FASTCAMPUS,243239,SQLITE_FASTCAMPUS_243239,[세진클래스 2강] Top-tier에게 배우는 비즈니스 영어의 모든 것 with TED,비즈니스/기획 > 커뮤니케이션/외국어,비관련(타분야),기타·인사총무,EXCLUDED,IT개발/어학/제조/개인재테크 등 비관련 전문 분야로 판정 (매칭: [세진클래스 2강] Top-tier에게 배우는 비즈니스 영어의 모든 것 with TED),https://fastcampus.co.kr/biz_online_sejinssam2,세계 정상급 리더들의 스피치를 담은 [TED]로 비즈니스 영어의 모든 것을 끝내보세요. 세진쌤과 함께라면 연봉도 커리어도 수직 상승!
+FASTCAMPUS,243273,SQLITE_FASTCAMPUS_243273,세계 3대 컨설팅펌 출신 김영롱에게 배우는 1조 가치 보고서 작성법,AI/업무생산성 > 엑셀/피피티/보고서,총무·사무행정,공통·사무기획,INCLUDED,사내 비즈니스 문서작성 및 보고서 기획 실무 직결,https://fastcampus.co.kr/biz_online_bestreport,"아무도 알려주지 않는, 그 곳에 들어가지 않으면 알 수 없는 전략적 사고를 담은 보고서 작성 강의."
+FASTCAMPUS,243612,SQLITE_FASTCAMPUS_243612,"전문가도 몰래 쓰는, chatGPTXClaude 글쓰기 (SNS·비지니스 문서·글쓰기 자동화)",AI/업무생산성 > AI 생산성,인접(디지털사무),공통·사무기획,REVIEW_NEEDED,"생성형 AI 및 엑셀 자동화 툴 강좌로, 사무행정 필수 직무 연계성 검토 요망",https://fastcampus.co.kr/biz_online_writeai,"ChatGPT와 Claude로 SNS부터 비즈니스 글쓰기까지 자동화하여, 시간 절약과 콘텐츠 품질 향상을 한 번에 경험하세요!
+(1) SNS 글쓰기: AI 도구로 SNS 게시글을 더 빠르게 작성하기!
+(2) 비즈니스"
+FASTCAMPUS,248707,SQLITE_FASTCAMPUS_248707,온보딩 없이 바로 실무 투입! 회사에서 신뢰받는 일센스 만렙 신입되기,비즈니스/기획 > 커뮤니케이션/외국어,비관련(타분야),인사·채용관리,EXCLUDED,IT개발/어학/제조/개인재테크 등 비관련 전문 분야로 판정 (매칭: 온보딩 없이 바로 실무 투입! 회사에서 신뢰받는 일센스 만렙 신입되기),https://fastcampus.co.kr/biz_online_newbieskill,"신입사원과 이직자가 실무에서 즉시 활용할 수 있도록 설계된 실전형 강의입니다.엑셀, PPT, 보고서 작성, AI 자동화 등 회사에서 가장 많이 사용하는 핵심 스킬만을 선정하여, 실제 업무 환경에 맞춰 학습할 수 있도"
+FASTCAMPUS,249157,SQLITE_FASTCAMPUS_249157,맥킨지·제일기획 출신 김재성의 연봉을 올리는 보고서 & 프레젠테이션 공식,AI/업무생산성 > 엑셀/피피티/보고서,인사(HR),인사·평가보상,INCLUDED,인사평가체계 및 보상/성과관리 실무 직결,https://fastcampus.co.kr/biz_online_kjs,"같은 직장을 다녀도, 더 높은 연봉을 받는 비밀이 궁금하신가요?
+연봉의 격-차를 만드는 보고서 작성의 숨겨진 비밀을 공개합니다."
+FASTCAMPUS,252453,SQLITE_FASTCAMPUS_252453,평범한 대학생에서 억대 연봉 작가로! 500개 예제로 끝내는 이모티콘 족집게 트레이닝,드로잉/일러스트 > 드로잉/이모티콘,인사(HR),인사·평가보상,INCLUDED,인사평가체계 및 보상/성과관리 실무 직결,https://fastcampus.co.kr/dgn_online_dotdot2,"이모티콘으로 내 일상을 특별하게 기록하고, 이모티콘으로 제 2의 월급을 만드는 점점이 작가의 '노하우 집약서' 이자, 
+500여개의 이모티콘 제작 실습과 1000여종의 템플릿으로 그림의 ‘ㄱ’ 도 모르는 예비 작가님"
+FASTCAMPUS,256540,SQLITE_FASTCAMPUS_256540,"셰익스피어의 펜 - 직장인의 실무 글쓰기, AI 대필 보좌관",AI/업무생산성 > 엑셀/피피티/보고서,인접(일반사무),공통·사무기획,REVIEW_NEEDED,과정명 맥락상 인사·총무와의 직접 연계성 추가 검토 필요,https://fastcampus.co.kr/biz_online_aishakespeare,"보고서 작성해줘, 이메일 써줘 수준을 넘어서, 실제 비즈니스에 적용 가능한 글쓰기 프롬프트 설계 기법을 학습하는 과정입니다. 글쓰기의 목적과 맥락을 고려한 프롬프트를 구성하고, 입력한 내용에 대해 즉각적인 피드백을"
+FASTCAMPUS,259175,SQLITE_FASTCAMPUS_259175,레나쌤의 2030 부동산 갓벽 로드맵! 경매/청약/매매 올인원 패키지,금융/투자 > 부동산,비관련(타분야),기타·인사총무,EXCLUDED,IT개발/어학/제조/개인재테크 등 비관련 전문 분야로 판정 (매칭: 레나쌤의 2030 부동산 갓벽 로드맵! 경매/청약/매매 올인원 패키지),https://fastcampus.co.kr/fin_online_lena,"부동산은 종잣돈 싸움이 아니라 정보·전략 싸움! 2030 부린이를 위해 2026년 최신 정보로 내집마련, 갈아타기, 경매, 종잣돈 불리기까지 지금 내 연봉과 자산에 맞는 ‘현실판 부동산 전략’을 하나로 정리한 레나쌤"
+FASTCAMPUS,260568,SQLITE_FASTCAMPUS_260568,2026 포트폴리오 제작 올인원 : 기업이 먼저 찾는 AI 프로젝트 기획부터 제작까지,AI/업무생산성 > AI 생산성,인접(일반사무),기타·인사총무,REVIEW_NEEDED,과정명 맥락상 인사·총무와의 직접 연계성 추가 검토 필요,https://fastcampus.co.kr/biz_online_wash,"취업&이직할 때 필수로 들고가야 하는 것. 이력서, 포트폴리오 그리고 AI 실력!
+이젠 취업&이직 시장 필수템으로 자리한 AI 활용 능력.
+본격 채용 시즌, 평범한 내 AI 실력을 전문가로 보일 수 있도록
+AI 프로"
+FASTCAMPUS,261128,SQLITE_FASTCAMPUS_261128,0원으로 생산성 폭발! 이커머스 AI 자동화 올인원 패키지 with 안티그래비티X클로드코드,AI/업무생산성 > AI 생산성,인접(디지털사무),기타·인사총무,REVIEW_NEEDED,"생성형 AI 및 엑셀 자동화 툴 강좌로, 사무행정 필수 직무 연계성 검토 요망",https://fastcampus.co.kr/dgn_online_antigravity,"16년 실무 경험을 구조화한 이커머스 자율주행 치트키! 광고·리서치·상세페이지·콘텐츠·CS·개인 비서까지, 당장 실무에 적용 가능한 11가지 맞춤형 AI 에이전트로 반복 업무는 제거하고, 성장과 확장에 집중하는 시스"
+FASTCAMPUS,261333,SQLITE_FASTCAMPUS_261333,콜롬버스의 탐색 - 글로벌 시장 트렌드 분석 보고서 작성,AI/업무생산성 > 엑셀/피피티/보고서,총무·사무행정,공통·사무기획,INCLUDED,사내 비즈니스 문서작성 및 보고서 기획 실무 직결,https://fastcampus.co.kr/biz_online_aicolumbus,"글로벌 시장 동향 요약해줘, 해외 진출 유망 국가 추천해줘 수준을 넘어서, 실제 비즈니스 전략 수립에 적용 가능한 글로벌 트렌드 분석 프롬프트 설계 기법을 학습하는 과정입니다. 방대한 다국어 원문 데이터와 거시경제"
+FASTCAMPUS,261349,SQLITE_FASTCAMPUS_261349,반도체 SoC 설계의 모든 것 : 연봉의 앞자리를 바꾸는 설계 FLOW 완전 정복,개발/데이터 > 반도체,비관련(타분야),인사·평가보상,EXCLUDED,IT개발/어학/제조/개인재테크 등 비관련 전문 분야로 판정 (매칭: 반도체 SoC 설계의 모든 것 : 연봉의 앞자리를 바꾸는 설계 FLOW 완전 정복),https://fastcampus.co.kr/data_online_socflow,"반도체 엔지니어 설계 취업에서 연봉을 바꾸는 단 하나의 방법, 반도체 설계의 모든 Flow를 이해하고 있어야 합니다.
+국내 유.일.무.이. Spec부터 Sign off까지 반도체 SoC 설계 플로우 전체를 다루는 실"
+FASTCAMPUS,261516,SQLITE_FASTCAMPUS_261516,500개 의원 데이터로 완성하는 AI 병원 경영 올인원 : 마케팅·재무·환자관리·HR·개원솔루션,AI/업무생산성 > AI 생산성,인접(일반사무),인사·조직관리,REVIEW_NEEDED,과정명 맥락상 인사·총무와의 직접 연계성 추가 검토 필요,https://fastcampus.co.kr/biz_online_clinicai,"의원 10곳 중 6곳이 폐원을 경험하는 시대, 진료 실력만으론 살아남을 수 없습니다. 500개 의원의 실제 데이터로 검증된 마케팅·재무·환자관리·HR·개원 전략까지 — AI를 활용해 병원 경영 전 영역을 직접 실행할"
+FASTCAMPUS,261628,SQLITE_FASTCAMPUS_261628,일잘러를 위한 클로드 코드 입문 바이블 : 현실적인 30가지 업무 자동화&생산성 프로젝트,AI/업무생산성 > AI 생산성,인접(디지털사무),기타·인사총무,REVIEW_NEEDED,"생성형 AI 및 엑셀 자동화 툴 강좌로, 사무행정 필수 직무 연계성 검토 요망",https://fastcampus.co.kr/biz_online_claudecodebible,"매주 주간 데이터 정리, 보고서 작성, 프레젠테이션 준비까지! 장황한 프로세스에 지쳐, 정작 핵심 업무에 집중하지 못한다면? 
+요즘 핫한, 일잘러들은 이미 쓰고 있는 클로드 코드! ChatGPT, Gemini와 같은"
+FASTCAMPUS,263685,SQLITE_FASTCAMPUS_263685,왕초보를 위한 AI 비서 30일 챌린지 : 하루 20분! 자기계발부터 맞춤형 업무 비서까지,AI/업무생산성 > AI 생산성,인접(일반사무),비서·사무지원,REVIEW_NEEDED,과정명 맥락상 인사·총무와의 직접 연계성 추가 검토 필요,https://fastcampus.co.kr/biz_online_AI30challenge,"나만의 AI 비서가 탄생하기까지 앞으로 D-30! ‘딸깍’에 속아 아직도 무료 템플릿만 찾아다니는 당신을 위해, AI 속근육부터 차근히 다져주는 왕초보 맞춤 챌린지 강의를 준비했어요. 단 30일이면, AI를 활용한"
+FASTCAMPUS,264177,SQLITE_FASTCAMPUS_264177,"Codex 바이블 : Goal, Remote Control로 완성하는 바이브코딩부터 업무자동화까지",AI/업무생산성 > AI 생산성,비관련(타분야),기타·인사총무,EXCLUDED,"IT개발/어학/제조/개인재테크 등 비관련 전문 분야로 판정 (매칭: Codex 바이블 : Goal, Remote Control로 완성하는 바이브코딩부터 업무자동화까지)",https://fastcampus.co.kr/biz_online_codexbible,"Codex, 어디까지 써봤니? 문서 요약만 하는 AI 활용에서 벗어나 자료 조사, 보고서 작성, 엑셀 대시보드, 발표자료 제작, 업무 자동화, 바이브코딩까지 하나의 프로젝트를 완성하는 데 필요한 업무 흐름을 Code"
+FASTCAMPUS,264236,SQLITE_FASTCAMPUS_264236,업무 5배속 치트키: 페이퍼로지의 클로드 하나로 끝내는 직장인 AI 문서 자동화,AI/업무생산성 > AI 생산성,인접(디지털사무),공통·사무기획,REVIEW_NEEDED,"생성형 AI 및 엑셀 자동화 툴 강좌로, 사무행정 필수 직무 연계성 검토 요망",https://fastcampus.co.kr/biz_online_paperlogyai,"대한민국 탑티어 기업들의 프로젝트를 이끈 패스트캠퍼스 1타 강사 페이퍼로지. 
+그가 실무 현장에서 수없이 검증하고 완성한 '상위 1% AI 업무 파이프라인'을 오직 이 강의에서만 전격 공개합니다.
+
+30초 만에 끝나"
+FASTCAMPUS,264918,SQLITE_FASTCAMPUS_264918,갈릴레오 갈릴레이의 망원경 - AI 할루시네이션 검증 체크리스트 작성,AI/업무생산성 > AI 생산성,인접(일반사무),기타·인사총무,REVIEW_NEEDED,과정명 맥락상 인사·총무와의 직접 연계성 추가 검토 필요,https://fastcampus.co.kr/biz_online_aigalileo,"이 보고서 검토해줘, 오류 있는지 봐줘 수준을 넘어서, 실제 기획서·보고서·기사 발행 전 사실 검증에 활용할 수 있는 AI 할루시네이션 검증 프롬프트 설계 기법을 학습하는 과정입니다. 단순한 전반 검토 요청이 아닌"
+FASTCAMPUS,266610,SQLITE_FASTCAMPUS_266610,AI 팀 운영 자동화: 칼퇴 치트키! 내 책상에 멀티 에이전트 출근시키기 w/Orca,AI/업무생산성 > AI 생산성,인접(디지털사무),기타·인사총무,REVIEW_NEEDED,"생성형 AI 및 엑셀 자동화 툴 강좌로, 사무행정 필수 직무 연계성 검토 요망",https://fastcampus.co.kr/biz_online_aiorca,"월요일 아침 9시, 내 책상 위 풍경이 완전히 바뀝니다. 어려운 터미널 명령어도, 복잡한 코딩도 필요 없습니다. 클릭 몇 번으로 시작하는 가장 편안한 도구 Orca 하나면 충분합니다. 목표 하나만 던져두면 기획서 작"
+FASTCAMPUS,267184,SQLITE_FASTCAMPUS_267184,[실시간 라이브 5주] 연매출 30억 페이퍼로지의 5주 밀착 코칭 : 내 사업 전담 AI 비서 만들기,AI/업무생산성 > AI 생산성,인접(리더십/조직),비서·사무지원,REVIEW_NEEDED,"리더십/조직문화/소통 강좌로, 인사(HRD) 부서 적용 범위 추가 검토 요망",https://fastcampus.co.kr/biz_online_paperlogycohort,"대표님 대신 일할 AI 비서를 두세요.  
+연매출 30억 회사를 AI 비서로 운영하는 페이퍼로지가 직접 코칭합니다.  
+내 사업의 자료와 판단 기준을 반영해, 제안서 작성부터 매출 집계·업무 브리핑까지 맡아줄 전담"
+GSEEK,2367,SQLITE_GSEEK_2367,티끌 모아 태산 되는 커리어 관리 기법,역량개발 > 공통역량,인접(일반사무),기타·인사총무,REVIEW_NEEDED,과정명 맥락상 인사·총무와의 직접 연계성 추가 검토 필요,https://www.gseek.kr/user/course/online/view?s_sbjct_sn=2367,"취업은 힘들어지고, 정년은 빨라지는 시대!
+
+대기업에만 들어가면, 연봉만 올리면 완벽한 커리어라고 할 수 있는 걸까?
+
+경력 관리의 필요성은 느끼지만 어디서부터 어떻게 시작해야 할지 막막한 직장인들을 위한 강"
+GSEEK,2813,SQLITE_GSEEK_2813,나 혼자 한다! 스마트금융으로 자산관리 도전기,생활상식 > 금융/재테크,비관련(타분야),총무·자산관리,EXCLUDED,IT개발/어학/제조/개인재테크 등 비관련 전문 분야로 판정 (매칭: 나 혼자 한다! 스마트금융으로 자산관리 도전기),https://www.gseek.kr/user/course/online/view?s_sbjct_sn=2813,"새로운 금융 환경으로 변화하는 시대에
+나의 자산을 관리하고 투자하는 방법도 달라져야합니다.
+
+다양한 금융앱 및 인터넷 투자법을 활용하여 자산관리하는 방법!
+여기 다 모았어요~
+
+금알못(금융을 잘 알지 못하"
+GSEEK,3217,SQLITE_GSEEK_3217,[창업공통]필수 근로기준법과 인사서식,취업·창업 > 창업전략,인사(HR),노무관리,INCLUDED,"노동법 및 근로기준 준수, 노무관리 실무 직결",https://www.gseek.kr/user/course/online/view?s_sbjct_sn=3217,"공인노무사와 함께 모든 사업장에 적용되는 근로기준법을 파악하고 
+회사 운영을 위한 인사서식들을 구비할 수 있다."
+GSEEK,3221,SQLITE_GSEEK_3221,창업자를 위한 온라인 교육,취업·창업 > 창업전략,인접(일반사무),기타·인사총무,REVIEW_NEEDED,과정명 맥락상 인사·총무와의 직접 연계성 추가 검토 필요,https://www.gseek.kr/user/course/online/view?s_sbjct_sn=3221,"1. 창업관련 트렌드를 파악할 수 있다.
+2. 사업계획서 작성 방법에 대해 설명하고, 사업계획서를 작성할 수 있다.
+3. 온/오프라인 마케팅 전략을 파악하고 마케팅 전략을 수립할 수 있다.
+4. 지식재산권의 유"
+GSEEK,3547,SQLITE_GSEEK_3547,인공지능과 함께하는 똑똑한 영어 교실,외국어 > 영어,비관련(타분야),기타·인사총무,EXCLUDED,IT개발/어학/제조/개인재테크 등 비관련 전문 분야로 판정 (매칭: 인공지능과 함께하는 똑똑한 영어 교실),https://www.gseek.kr/user/course/online/view?s_sbjct_sn=3547,"인공지능 스피커, 단순한 정보 제공과 비서 역할만 생각하셨나요? 천만에~!
+인공지능 스피커로 우리 아이들과 즐거운 영어 공부를 할 수 있습니다.
+특히 일상 생활에서 틈만 나면 할 수 있는 인공지능 스피커를 통한"
+GSEEK,4378,SQLITE_GSEEK_4378,사용자에게 꼭 필요한 사이다 노동법,생활상식 > 노동인권,인사(HR),노무관리,INCLUDED,"노동법 및 근로기준 준수, 노무관리 실무 직결",https://www.gseek.kr/user/course/online/view?s_sbjct_sn=4378,"소규모 사업장의 사용자 대부분이 기초적인 노동법에 대한 인식 부족으로 노동법을 위반하게 되거나, 
+교육과 상담을 받고 싶어도 컨설팅 비용 부담 등 사실상 노동법 사각지대에 놓여있는 것이 현실입니다.
+
+또한 그간"
+GSEEK,4617,SQLITE_GSEEK_4617,내 손으로 내가 만드는 한글과제(feat. 엑셀),청소년 > 기초능력,비관련(타분야),공통·사무기획,EXCLUDED,IT개발/어학/제조/개인재테크 등 비관련 전문 분야로 판정 (매칭: 내 손으로 내가 만드는 한글과제(feat. 엑셀)),https://www.gseek.kr/user/course/online/view?s_sbjct_sn=4617,"PC보다 스마트폰에 익숙한 Z세대! 
+언택트 수업에 나오는 여러 가지 과제, 리포트를 작성하기가 너무나 어렵기만 합니다~ 
+너무 많이도 아닌 몇 가지 핵심 기능만으로도 과제 문서를 뚝딱 만들 수 있다면 어떨까요?"
+GSEEK,5045,SQLITE_GSEEK_5045,소규모 사업장 랜선노동법,생활상식 > 노동인권,인사(HR),노무관리,INCLUDED,"노동법 및 근로기준 준수, 노무관리 실무 직결",https://www.gseek.kr/user/course/online/view?s_sbjct_sn=5045,"소규모사업장도 노동법 적용을 받나요? 
+채용 시에도 지켜야 할 노동법이 있다고요?
+아주 작은 우리회사, 그래도 노동법은 해당된답니다. 
+스스로의 권리를 꼭 찾아주세요.
+
+본 강좌는 <한국고용노동교육원>에서"
+GSEEK,5793,SQLITE_GSEEK_5793,소규모사업주가 알아야 할 노동법 상식,생활상식 > 노동인권,인사(HR),노무관리,INCLUDED,"노동법 및 근로기준 준수, 노무관리 실무 직결",https://www.gseek.kr/user/course/online/view?s_sbjct_sn=5793,"소규모사업장도 노동법 적용을 받나요? 채용 시에도 지켜야 할 노동법이 있다고요?
+아주 작은 우리회사, 그래도 노동법은 해당된답니다. 사업주가 알아야 할 노동법 상식!
+지금 배워보세요.
+
+본 강좌는 <한국고용노"
+GSEEK,5794,SQLITE_GSEEK_5794,알바가 꼭 알아야 할 기초노동법,생활상식 > 노동인권,인사(HR),노무관리,INCLUDED,"노동법 및 근로기준 준수, 노무관리 실무 직결",https://www.gseek.kr/user/course/online/view?s_sbjct_sn=5794,"알바를 하고 싶은 사람, 알바를 구하는 사장님! 모두가 꼭 알아야할 기초노동법!
+노동법에 미숙한 청소년 및 사장님들을 위해 A부터 Z까지 상세히 알려드립니다.
+
+본 강좌는 <한국고용노동교육원>에서 제공하였습니다"
+GSEEK,5796,SQLITE_GSEEK_5796,청소년 지도를 위한 노동인권 이해과정_교사용,청소년 > 노동인권,비관련(타분야),기타·인사총무,EXCLUDED,IT개발/어학/제조/개인재테크 등 비관련 전문 분야로 판정 (매칭: 청소년 지도를 위한 노동인권 이해과정_교사용),https://www.gseek.kr/user/course/online/view?s_sbjct_sn=5796,"청소년을 지도하는 교사들을 위한 노동인권 이해 과정입니다.
+노동인권의 역사와 사례, 용어와 기초노동법에 대해 배울 수 있습니다.
+
+본 강좌는 <한국고용노동교육원>에서 제공하였습니다."
+GSEEK,7414,SQLITE_GSEEK_7414,(왕초보)컴퓨터로 문서작성 도전,컴퓨터활용 > 오피스/한글,총무·사무행정,공통·사무기획,INCLUDED,사내 비즈니스 문서작성 및 보고서 기획 실무 직결,https://www.gseek.kr/user/course/online/view?s_sbjct_sn=7414,"컴퓨터가 어려운 사용자들의 문서작성 시 문서의 목적과 환경에 맞는 문서작성 프로그램 선택방법을 알아본다.
+한글, 엑셀, 파워포인트 등 적절한 문서작성 프로그램을 선택해서 필요한 문서를 만들 수 있다.
+또한 엑셀을"
+GSEEK,7568,SQLITE_GSEEK_7568,보이는 고민상담소 보육과 노무사이,역량개발 > 직무전문,인접(일반사무),노무관리,REVIEW_NEEDED,과정명 맥락상 인사·총무와의 직접 연계성 추가 검토 필요,https://www.gseek.kr/user/course/online/view?s_sbjct_sn=7568,"■ 교육대상
+경기도 보육교직원
+
+■ 교육소개
+보육교직원 노무상담 사례를 중심으로 제작되었으며, 
+근로기준법 등 노동법령에 의해 보장되는 보육교직원의 권리를 안내하고 있습니다.
+경기도육아종합지원센터 「보육교"
+GSEEK,7759,SQLITE_GSEEK_7759,핵심만 콕! 비즈니스 글쓰기와 보고서 작성 노하우,역량개발 > 공통역량,총무·사무행정,공통·사무기획,INCLUDED,사내 비즈니스 문서작성 및 보고서 기획 실무 직결,https://www.gseek.kr/user/course/online/view?s_sbjct_sn=7759,글 전체를 관통하는 컨셉 선정부터 상황별 보고서 작성 요령까지 다양한 사례와 스킬 중심으로 쉽고 빠르게 업스킬하여 업무에 적용할 수 있다.
+GSEEK,8198,SQLITE_GSEEK_8198,프리랜서를 위한 효율적인 재무관리,취업·창업 > 프리랜서,인접(일반사무),기타·인사총무,REVIEW_NEEDED,과정명 맥락상 인사·총무와의 직접 연계성 추가 검토 필요,https://www.gseek.kr/user/course/online/view?s_sbjct_sn=8198,"하나부터 열까지 스스로 해결 해야하는 프리랜서,
+알아두면 매우 쓸모있는 프리랜서 기본 가이드 교육입니다.
+
+프리랜서의 소득, 지출, 퇴직금까지 기초 돈관리 방법에 대한 학습강좌 입니다."
+GSEEK,8297,SQLITE_GSEEK_8297,[오늘부터 정시퇴근] 엑셀 실무 테크닉 - 일잘러의 보고서 작성편,컴퓨터활용 > 오피스/한글,총무·사무행정,공통·사무기획,INCLUDED,사내 비즈니스 문서작성 및 보고서 기획 실무 직결,https://www.gseek.kr/user/course/online/view?s_sbjct_sn=8297,"이 세상 모든 직장인들의 정시퇴근을 위해, 실무에 당장 적용할 수 있는 일잘러의 엑셀 기반 매출 분석 및 보고서 작성 스킬!
+
+작업시간은 ½ 줄이고, 완성은 2배 빠르게!
+자네, 엑셀은 좀 다루는가?
+
+이"
+GSEEK,8298,SQLITE_GSEEK_8298,[오늘부터 정시퇴근] 엑셀 실무 테크닉 - 빅데이터 분석과 시각화편,컴퓨터활용 > 오피스/한글,인접(일반사무),공통·사무기획,REVIEW_NEEDED,과정명 맥락상 인사·총무와의 직접 연계성 추가 검토 필요,https://www.gseek.kr/user/course/online/view?s_sbjct_sn=8298,"이 세상 모든 직장인들의 정시퇴근을 위해, 실무에 당장 적용할 수 있는 엑셀 기반 빅데이터 분석과 시각화, 그리고 현장 밀착 엑셀 팁까지!
+
+작업시간은 ½ 줄이고, 완성은 2배 빠르게!
+자네, 엑셀은 좀 다루는"
+GSEEK,9645,SQLITE_GSEEK_9645,청춘들에게 시급하게 필요한 금융정보 대방출(청춘시대),생활상식 > 금융/재테크,비관련(타분야),기타·인사총무,EXCLUDED,IT개발/어학/제조/개인재테크 등 비관련 전문 분야로 판정 (매칭: 청춘들에게 시급하게 필요한 금융정보 대방출(청춘시대)),https://www.gseek.kr/user/course/online/view?s_sbjct_sn=9645,"과거와는 다른 현재와 더욱 달라질 미래를 위해 
+이 시대 청춘들에게 꼭 필요한 금융 정보를 제공합니다. 
+
+현명하게 수입과 지출을 관리하고 
+나의 소비 저축 패턴을 파악하여 보다 나은 인생을 설계하는 첫걸음!"
+GSEEK,9871,SQLITE_GSEEK_9871,인공지능 활용하기,디지털역량 > IT 기술정보,인접(일반사무),기타·인사총무,REVIEW_NEEDED,과정명 맥락상 인사·총무와의 직접 연계성 추가 검토 필요,https://www.gseek.kr/user/course/online/view?s_sbjct_sn=9871,"인공지능 비서란 무엇이며 우리의 삶에 어떻게 활용되고 있는지 살펴봅니다.
+ 인공지능을 통한 예술과 창장활동에 대새 생각해보고 왜 알아야하는지 배워봅니다."
+GSEEK,9892,SQLITE_GSEEK_9892,스마트하게 일상 생활하기,디지털역량 > 디지털기기활용,인접(일반사무),기타·인사총무,REVIEW_NEEDED,과정명 맥락상 인사·총무와의 직접 연계성 추가 검토 필요,https://www.gseek.kr/user/course/online/view?s_sbjct_sn=9892,"스마트폰으로 할 수 있는 일은 매우 많이 있습니다. 
+일상생활 속에서 자주 사용되는 디지털기기의 활용법을 배워 보다 편리하고 풍부한 삶을 누려보세요
+
+본 강좌에서는 스마트폰을 활용해 상품을 결제하는 방법과, 대"
+GSEEK,12264,SQLITE_GSEEK_12264,중년을 위한 1년 안에 인세받는 출간작가 되기! [지금당장 실전편&심화편],취미·건강 > 독서/글쓰기,인접(일반사무),공통·사무기획,REVIEW_NEEDED,과정명 맥락상 인사·총무와의 직접 연계성 추가 검토 필요,https://www.gseek.kr/user/course/online/view?s_sbjct_sn=12264,"이 과정은 중년층을 대상으로 책 출간에 도전하고자 하는 분들을 위해 제작되었습니다. 
+이 과정은 출간을 위한 실전적인 지침과 전문적인 통찰을 제공하여 중년 작가들이 출간 작가로서 성공을 거두는 데 도움을 줍니다."
+GSEEK,12431,SQLITE_GSEEK_12431,한국사능력검정시험 심화 1,자격증취득 > 공인민간자격,인접(일반사무),기타·인사총무,REVIEW_NEEDED,과정명 맥락상 인사·총무와의 직접 연계성 추가 검토 필요,https://www.gseek.kr/user/course/online/view?s_sbjct_sn=12431,"교원임용시험, 각종 공공기관 채용 등에서  
+한국사능력검정시험 자격증 적용이 늘어나고 있지요. 
+그만큼 한국사능력검정시험에 대한 
+관심이 지속적으로 커지고 있는데요. 
+
+한국사능력검정시험은 어렵다?
+한능검"
+GSEEK,12432,SQLITE_GSEEK_12432,한국사능력검정시험 심화 2,자격증취득 > 공인민간자격,인접(일반사무),기타·인사총무,REVIEW_NEEDED,과정명 맥락상 인사·총무와의 직접 연계성 추가 검토 필요,https://www.gseek.kr/user/course/online/view?s_sbjct_sn=12432,"교원임용시험, 각종 공공기관 채용 등에서  
+한국사능력검정시험 자격증 적용이 늘어나고 있지요. 
+그만큼 한국사능력검정시험에 대한 
+관심이 지속적으로 커지고 있는데요. 
+
+한국사능력검정시험은 어렵다?
+한능검"
+GSEEK,51667,SQLITE_GSEEK_51667,따라만 하면 OK! 말이 되는 보고서 작성 원칙,역량개발 > 공통역량,총무·사무행정,공통·사무기획,INCLUDED,사내 비즈니스 문서작성 및 보고서 기획 실무 직결,https://www.gseek.kr/user/course/online/view?s_sbjct_sn=51667,"80점짜리 보고서에 만족하고 있지 않나요?
+직장인이라면 누구나 보고서를 쓰고, 검토하는 일을 합니다. 글과 숫자, 데이터와 차트, 스토리와 논리 등을 적확하게 혼합해야 비로소 말이 통하는 비즈니스 보고서가 완성됩니"
+GSEEK,51856,SQLITE_GSEEK_51856,"숫자로 체크하는 기업 건강검진, 재무제표 분석",역량개발 > 직무전문,인접(일반사무),기타·인사총무,REVIEW_NEEDED,과정명 맥락상 인사·총무와의 직접 연계성 추가 검토 필요,https://www.gseek.kr/user/course/online/view?s_sbjct_sn=51856,"회계 좀 복잡하고 짜증나는 업무, 회계는 내 업무와 내 직장생활에는 전혀 필요 없는 지식, 재무제표는 매출액이나 영업이익 외에는 쓸데없는 숫자 자료로 알고 계신가요?
+
+전혀 그렇지 않습니다!
+여러분이 직장인이라"
+GSEEK,51882,SQLITE_GSEEK_51882,좋아요를 터뜨리는 콘텐츠마케팅 데이터 분석,역량개발 > 직무전문,인접(일반사무),기타·인사총무,REVIEW_NEEDED,과정명 맥락상 인사·총무와의 직접 연계성 추가 검토 필요,https://www.gseek.kr/user/course/online/view?s_sbjct_sn=51882,"데이터 분석으로 콘텐츠 마케팅 효과 높이기 A to Z
+
+#콘텐츠 마케팅 #마케팅 #콘텐츠 #기획서 #OKR #KPI #가설 #모니터링 #UAT #성과 측정 #결과 보고서 
+
+콘텐츠 마케팅 효과를 높이고 싶은"
+GSEEK,51888,SQLITE_GSEEK_51888,"월급이 낭비되지 않도록, 알기 쉬운 세금 상식",생활상식 > 금융/재테크,비관련(타분야),기타·인사총무,EXCLUDED,"IT개발/어학/제조/개인재테크 등 비관련 전문 분야로 판정 (매칭: 월급이 낭비되지 않도록, 알기 쉬운 세금 상식)",https://www.gseek.kr/user/course/online/view?s_sbjct_sn=51888,"세금을 알면 경제가 보인다! 피할 수 없다면 규정을 이해하고 대처하자! 꼭, 알아야 할 세금 상식부터 나에게 맞는 절세 방법까지 직장인, N잡러에게 필요한 절세 플랜을 제시합니다. 
+
+#2024 최신세법 #절세플"
+GSEEK,51903,SQLITE_GSEEK_51903,"안녕, 파이썬! 생성형AI로 데이터 분석해줘!",디지털역량 > IT 기술정보,비관련(타분야),기타·인사총무,EXCLUDED,"IT개발/어학/제조/개인재테크 등 비관련 전문 분야로 판정 (매칭: 안녕, 파이썬! 생성형AI로 데이터 분석해줘!)",https://www.gseek.kr/user/course/online/view?s_sbjct_sn=51903,"Python과 AI 기술을 활용한 데이터 기반 업무 혁신으로 업무 프로세스 최적화, 
+
+핵심 업무에 역량과 전략적 사고에 집중할 수 있습니다. 
+
+AI 기술을 활용한 데이터 중심의 의사결정으로 Smart WO"
+GSEEK,51908,SQLITE_GSEEK_51908,"코딩 없이 하는 업무자동화, GPTs로 나만의 챗봇 만들기",디지털역량 > IT 기술정보,비관련(타분야),기타·인사총무,EXCLUDED,"IT개발/어학/제조/개인재테크 등 비관련 전문 분야로 판정 (매칭: 코딩 없이 하는 업무자동화, GPTs로 나만의 챗봇 만들기)",https://www.gseek.kr/user/course/online/view?s_sbjct_sn=51908,"ChatGPT를 활용하여 복잡한 코딩 없이 나의 업무에 딱 맞는 챗봇을 만들어 업무효율성을 극대화하는 방법! 
+#ChatGPT #GPTs #챗봇 #AI비서 #맞춤형챗봇 #업무자동화 #ChatGPT실습
+
+생성형A"
+GSEEK,51915,SQLITE_GSEEK_51915,퇴근이 빨라지는 엑셀 데이터 분석 및 시각화,컴퓨터활용 > 오피스/한글,인접(일반사무),공통·사무기획,REVIEW_NEEDED,과정명 맥락상 인사·총무와의 직접 연계성 추가 검토 필요,https://www.gseek.kr/user/course/online/view?s_sbjct_sn=51915,"#엑셀 #그래프 #데이터분석 #데이터차트 #시각화 #인포그래픽 #피벗테이블 #엑셀함수 #데이터시각화
+
+현대의 비즈니스 환경에서 데이터 분석은 더 이상 선택이 아닌 필수입니다. 데이터를 어떻게 다루고, 어떻게 시각"
+GSEEK,51946,SQLITE_GSEEK_51946,예비 리더에서 만렙 리더로! 중간관리자를 위한 리더십 공략집,역량개발 > 공통역량,인접(리더십/조직),기타·인사총무,REVIEW_NEEDED,"리더십/조직문화/소통 강좌로, 인사(HRD) 부서 적용 범위 추가 검토 요망",https://www.gseek.kr/user/course/online/view?s_sbjct_sn=51946,"예비 리더로서의 자기관리부터 조직원과의 소통 및 성과관리 방법까지! 예비 리더를 위한 리더십 레벨업 핵심 공략집! 
+
+#예비리더 #중간관리자 #자기관리 #소통 #성과관리 #신뢰형성 #피드백 #리더의영향력 #퍼스널"
+GSEEK,51950,SQLITE_GSEEK_51950,[레전드 스킬] 현직 기자가 알려주는 보고서 잘 쓰는 법,역량개발 > 공통역량,인접(일반사무),공통·사무기획,REVIEW_NEEDED,과정명 맥락상 인사·총무와의 직접 연계성 추가 검토 필요,https://www.gseek.kr/user/course/online/view?s_sbjct_sn=51950,"일은 잘하고 싶지만 워라밸은 지키고 싶은 당신에게 전하는 트렌디한 비즈니스 문서작성 꿀팁 대방출!
+
+유익한 건 알겠는데 너무 길고 지루한 강의가 싫은 유튜브 세대들에게 딱! 맞는 10분짜리 마이크로 러닝 영상으로"
+GSEEK,51952,SQLITE_GSEEK_51952,데이터로 일하는 일잘러 PWR 스킬,역량개발 > 공통역량,인접(일반사무),기타·인사총무,REVIEW_NEEDED,과정명 맥락상 인사·총무와의 직접 연계성 추가 검토 필요,https://www.gseek.kr/user/course/online/view?s_sbjct_sn=51952,"데이터 기반의 기획력, 보고력, 문서작성력 향상을 통해 회사에서 원하는 일잘러가 되어봅시다.
+'데이터로 일하는 일잘러 PWR 스킬’ 과정을 통해데이터 기반의 업무 처리를 현업에 적용해 보세요!
+#데이터 #데이터"
+GSEEK,51954,SQLITE_GSEEK_51954,상사의 시선을 사로잡는 보고서의 비결 (with. ChatGPT),역량개발 > 공통역량,인접(일반사무),공통·사무기획,REVIEW_NEEDED,과정명 맥락상 인사·총무와의 직접 연계성 추가 검토 필요,https://www.gseek.kr/user/course/online/view?s_sbjct_sn=51954,"AI로 완벽한 보고서를 작성하는 미래형 스킬 셋! 회의록부터 비즈니스 전략 보고서까지, ChatGPT로 빠르고 정확하게!
+#생성형AI #ChatGPT #보고서작성 #AI보고서 #데이터분석 #프롬프트엔지니어링 #업무"
+GSEEK,51955,SQLITE_GSEEK_51955,[레전드 스킬] 어쩐지 끌리는 사람의 비즈니스 매너,역량개발 > 공통역량,총무·사무행정,비서·사무지원,INCLUDED,비즈니스 에티켓 및 의전/사무소통 실무 직결,https://www.gseek.kr/user/course/online/view?s_sbjct_sn=51955,"직장인이라면 당연히 갖춰야 할 비즈니스 매너, 
+
+당연하다고 해서 모두 다 알고 있는것은 아닙니다!
+
+여러분의 비즈니스 매너는 몇 점인가요?
+
+인공지능 기술이 하루가 다르게 발전하고 있는 지금, 우리는 꼭"
+GSEEK,51958,SQLITE_GSEEK_51958,14개 프로젝트로 완성하는 직장인 ChatGPT 활용법,역량개발 > 공통역량,인접(일반사무),기타·인사총무,REVIEW_NEEDED,과정명 맥락상 인사·총무와의 직접 연계성 추가 검토 필요,https://www.gseek.kr/user/course/online/view?s_sbjct_sn=51958,"ChatGPT가 난리라서 써봤더니, 별거 없어서 실망했던 직장인이라면 주목!
+
+
+
+ChatGPT 교육은 받아보았지만, 막상 내 업무에 어떻게 적용하면 좋을지 망설였던 적이 있으신가요? 혹은 ChatGPT의 답"
+GSEEK,52722,SQLITE_GSEEK_52722,"셀프출판 공작소, 나만의 책 만들기",취미·건강 > 독서/글쓰기,인접(일반사무),공통·사무기획,REVIEW_NEEDED,과정명 맥락상 인사·총무와의 직접 연계성 추가 검토 필요,https://www.gseek.kr/user/course/online/view?s_sbjct_sn=52722,"* 독립책방, 독립출판이라는 말이 생겨날 정도로 최근 다양화, 개인화된 컨텐츠에 대한 독자들의 수요가 많아졌습니다. 이에 많은 사람들이 자신만의 전문 분야, 취미, 일상 등의 이야기를 주제로 ‘책 출판‘을 꿈꾸기도"
+GSEEK,52754,SQLITE_GSEEK_52754,[칼퇴를 부르는 치트키_보고서편] 핵심만 콕! 비즈니스 문서작성의 핵심과 실무 스킬,역량개발 > 공통역량,총무·사무행정,공통·사무기획,INCLUDED,사내 비즈니스 문서작성 및 보고서 기획 실무 직결,https://www.gseek.kr/user/course/online/view?s_sbjct_sn=52754,비즈니스 문서작성의 기본과 논리적 문서 작성에 대해 알아본다.
+GSEEK,55196,SQLITE_GSEEK_55196,인사담당자에게 묻는다! 면접 합격의 비밀,취업·창업 > 취업전략,인사(HR),인사·채용관리,INCLUDED,기업 채용/선발/온보딩 프로세스 직무 실무 직결,https://www.gseek.kr/user/course/online/view?s_sbjct_sn=55196,"취준생, 이직자, 면접 초보자들이 가장 어려움을 느끼는 ‘면접’ 단계에서의 
+자신감 부족과 전략 부재를 해결해 드립니다.
+
+자기소개부터 가장 많이 물어보는 질문, 면접 태도 등 
+9명의 현직 인사담당자의 실질"
+GSEEK,55218,SQLITE_GSEEK_55218,경기도 스파크 노동법,생활상식 > 법률/제도,인사(HR),노무관리,INCLUDED,"노동법 및 근로기준 준수, 노무관리 실무 직결",https://www.gseek.kr/user/course/online/view?s_sbjct_sn=55218,"이 강좌는 근로자가 꼭 알아야 할 노동법의 핵심 내용을 쉽게 이해할 수 있도록 구성된 교육입니다.
+근로계약, 임금, 휴식·휴가, 업무상 재해, 직장 내 괴롭힘·성희롱 금지 등 
+현장에서 자주 발생하는 노동법 이슈"
+GSEEK,56932,SQLITE_GSEEK_56932,(리프레시) 핵심만 콕! 신입사원 온보딩,역량개발 > 공통역량,인사(HR),인사·채용관리,INCLUDED,기업 채용/선발/온보딩 프로세스 직무 실무 직결,https://www.gseek.kr/user/course/online/view?s_sbjct_sn=56932,"신입사원이 조직에 쉽고 빠르게 적응해 안착할 수 있도록, 스킬보다는 조직 생활 적응과 이해를 높이기 위한 마음가짐, 기본적인 마인드와 역량에 대해 핵심 요소 중심으로 안내해 드립니다."
+GSEEK,56977,SQLITE_GSEEK_56977,[한끝] 사무자동화산업기사 종합반(필기+실기),자격증취득 > 기술자격,인접(디지털사무),기타·인사총무,REVIEW_NEEDED,"생성형 AI 및 엑셀 자동화 툴 강좌로, 사무행정 필수 직무 연계성 검토 요망",https://www.gseek.kr/user/course/online/view?s_sbjct_sn=56977,"일반 사무환경에서 사무작업을 하고 있는 실무자로 하여금 업무상 발생하는 데이터의 안전성을 확보하고,
+작업효율을 증진시킴으로써 궁극적으로 인간중심의 정보문화 정착에 기여하며 
+보다 효율적으로 업무에 필요한 정보를"
+GSEEK,57036,SQLITE_GSEEK_57036,"클릭, GPTs로 만드는 나만의 재무제표 분석봇",역량개발 > 직무전문,인접(일반사무),기타·인사총무,REVIEW_NEEDED,과정명 맥락상 인사·총무와의 직접 연계성 추가 검토 필요,https://www.gseek.kr/user/course/online/view?s_sbjct_sn=57036,"🔥 [현직 회계사 직강] 5일 만에 완성하는 나만의 AI 투자 비서 (GPTs)
+딱 5일, 점심시간 15분 투자! 회계사에게 배우는 AI 재무 분석 마스터 비법! 
+
+👀 AI가 내 손안의 애널리스트가 된다!"
+GSEEK,57049,SQLITE_GSEEK_57049,"HR, AI가 트렌드다 : 채용부터 퇴사까지",역량개발 > 공통역량,인사(HR),인사·채용관리,INCLUDED,기업 채용/선발/온보딩 프로세스 직무 실무 직결,https://www.gseek.kr/user/course/online/view?s_sbjct_sn=57049,"❔❓❔❓“생성형 AI가 실제로 내 일을 도와줄 수 있을까?🤔” ❔❓❔❓
+궁금증을 ‘진짜 결과물’ 로 바꿔주는 HR x AI실무과정
+
+✏️ 단순 지식이나 이론이 아닌 현장에서 즉시 활용 가능한 AI 강의를 찾고"
+GSEEK,57056,SQLITE_GSEEK_57056,"Z세대가 온다, 세련되게 일하는 조직 문화 혁신",역량개발 > 공통역량,인접(일반사무),기타·인사총무,REVIEW_NEEDED,과정명 맥락상 인사·총무와의 직접 연계성 추가 검토 필요,https://www.gseek.kr/user/course/online/view?s_sbjct_sn=57056,"한 지붕 4세대가 존재하는 조직생활! 다세대 화합을 위한 가장 효율적인 조직문화는 어떻게 만들어가야 할까? 
+
+모든 세대는 한때 신세대였으며, 시간이 흐르면  언젠가 기성세대가 될 것입니다.
+다양한 세대가 공존"
+GSEEK,57075,SQLITE_GSEEK_57075,직급이 아닌 직무에 Focus하라. 직무급제의 모든것!,역량개발 > 직무전문,인접(일반사무),기타·인사총무,REVIEW_NEEDED,과정명 맥락상 인사·총무와의 직접 연계성 추가 검토 필요,https://www.gseek.kr/user/course/online/view?s_sbjct_sn=57075,"""급변하는 경영 환경 속에서 전통적인 연공주의 인사관리는 인적자원을 통한 경쟁력 확보라는 목표 달성에 실패하였다. 그렇다면 어떻게 해야 핵심인재를 유지 및 확보할 수 있을까?
+#HR #핵심인재 #직무급 #직무분석"
+GSEEK,57088,SQLITE_GSEEK_57088,[오피스백서] 공공기관 청렴·반부패 교육,직무필수교육 > 법정의무,인접(일반사무),기타·인사총무,REVIEW_NEEDED,과정명 맥락상 인사·총무와의 직접 연계성 추가 검토 필요,https://www.gseek.kr/user/course/online/view?s_sbjct_sn=57088,"본 강의는 공공기관의 청렴 및 반부패에 대한 이해를 높이고 
+청렴한 조직문화 조성에 도움을 줄 수 있도록 구성된 과정입니다."
+GSEEK,57104,SQLITE_GSEEK_57104,[오늘부터 정시퇴근] 엑셀 실무 데이터 분석 2016+365,컴퓨터활용 > 오피스/한글,인접(일반사무),공통·사무기획,REVIEW_NEEDED,과정명 맥락상 인사·총무와의 직접 연계성 추가 검토 필요,https://www.gseek.kr/user/course/online/view?s_sbjct_sn=57104,"이 세상 모든 직장인들의 정시퇴근을 위해, 
+실무에 당장 적용할 수 있는 엑셀 기반 데이터 관리와 분석! 
+
+작업시간은 ½ 줄이고, 완성은 2배 빠르게!
+자네, 엑셀은 좀 다루는가?
+
+이 시대의 일잘러는"
+GSEEK,57110,SQLITE_GSEEK_57110,"입사에서 퇴사까지, 직장인을 위한 노동법 이야기",생활상식 > 노동인권,인사(HR),노무관리,INCLUDED,"노동법 및 근로기준 준수, 노무관리 실무 직결",https://www.gseek.kr/user/course/online/view?s_sbjct_sn=57110,"입사부터 퇴직까지! 나와 회사를 지키는 노동법 이야기! 
+인사담당자 뿐만 아니라 직장인이라면 반드시 알아야 할 노동법의 모든 것 
+
+‘노동법’은 사실 실제로 존재하는 법은 아닙니다. 노동조건과 관련한 모든 법을"
+GSEEK,57119,SQLITE_GSEEK_57119,아이디어를 성과로 바꾸는 비즈니스 기획,역량개발 > 공통역량,인접(일반사무),기타·인사총무,REVIEW_NEEDED,과정명 맥락상 인사·총무와의 직접 연계성 추가 검토 필요,https://www.gseek.kr/user/course/online/view?s_sbjct_sn=57119,"비즈니스 기획은  모든 직장인에게 피할 수 없는 일입니다.
+사업을 실행하기 전에 떠오르는 수많은 아이디어, 어떻게 하면 성공한 비즈니스로 만들 수 있을까요?
+
+아이디어를 어떻게 기획하지? 그리고 기획서, 어디서"
+GSEEK,57923,SQLITE_GSEEK_57923,[핵심인재 아카이브] 차세대리더의 업무·관계역량(대리급),역량개발 > 공통역량,인접(리더십/조직),기타·인사총무,REVIEW_NEEDED,"리더십/조직문화/소통 강좌로, 인사(HRD) 부서 적용 범위 추가 검토 요망",https://www.gseek.kr/user/course/online/view?s_sbjct_sn=57923,"조직의 생존과 지속적인 성장을 위한 핵심인재 역량향상 과정!
+경영환경이 급변할수록 조직의 성과관리를 위한 전략적 핵심인재 육성이 필요합니다. 
+본 과정은 핵심인재의 Personal Skill 향상과 Work Sk"
+GSEEK,57931,SQLITE_GSEEK_57931,"DO IT 직장인 기본.zip : 비전 수립 및 과제 해결, 당신의 잠재력을 깨워라",역량개발 > 공통역량,인접(일반사무),기타·인사총무,REVIEW_NEEDED,과정명 맥락상 인사·총무와의 직접 연계성 추가 검토 필요,https://www.gseek.kr/user/course/online/view?s_sbjct_sn=57931,"비전 중심의 목표 설정 및 동기부여
+이 과정은 조직과 개인이 명확한 비전을 설정하고, 
+이를 바탕으로 실현 가능한 목표를 수립할 수 있도록 돕습니다. 
+실제 글로벌 기업의 사례를 통해 비전이 조직 문화와 성과에"
+GSEEK,57934,SQLITE_GSEEK_57934,DO IT 직장인 기본.zip : 회사에서 바로 통하는 보고서,역량개발 > 공통역량,인접(일반사무),공통·사무기획,REVIEW_NEEDED,과정명 맥락상 인사·총무와의 직접 연계성 추가 검토 필요,https://www.gseek.kr/user/course/online/view?s_sbjct_sn=57934,"실무 중심의 문서작성 및 보고서 구조 설계 역량 강화
+명확하고 간결한 글쓰기, 논리적 구조 설계(피라미드·비교·시간순·서론-본론-결론 등), 목차 활용법 등 
+보고서·기획서·제안서 등 다양한 문서를 체계적으로 작"
+GSEEK,57944,SQLITE_GSEEK_57944,"신규입사자의 온보딩 과정, 워(Work).플(People).킹(Networking)",역량개발 > 공통역량,인사(HR),인사·채용관리,INCLUDED,기업 채용/선발/온보딩 프로세스 직무 실무 직결,https://www.gseek.kr/user/course/online/view?s_sbjct_sn=57944,"첫걸음을 내딛는 직장에서 적응이 막막하게 느껴진다면, 그 해답은 온보딩에 있습니다. 
+온보딩은 단순히 직장 생활에 익숙해지는 것을 넘어, 
+조직 문화를 이해하고 협업의 기초를 다질 수 있는 중요한 시작점입니다."
+GSEEK,64494,SQLITE_GSEEK_64494,[온캠] 한번에 끝내는 사무자동화산업기사 필기(2026년도),자격증취득 > 기술자격,인접(디지털사무),기타·인사총무,REVIEW_NEEDED,"생성형 AI 및 엑셀 자동화 툴 강좌로, 사무행정 필수 직무 연계성 검토 요망",https://www.gseek.kr/user/course/online/view?s_sbjct_sn=64494,"한번에 끝내는 사무자동화산업기사는 시험 주관 기관에서 제시한 출제 기준 중 핵심 내용을 중심으로 강의를 구성하여 
+개념을 확립하고 실전에 대한 자신감을 배양함으로써 빠르게 필기시험에 합격하는 것을 목표로 합니다."
+GSEEK,64495,SQLITE_GSEEK_64495,[온캠] 한번에 끝내는 사무자동화산업기사 실기(2026년도),자격증취득 > 기술자격,인접(디지털사무),기타·인사총무,REVIEW_NEEDED,"생성형 AI 및 엑셀 자동화 툴 강좌로, 사무행정 필수 직무 연계성 검토 요망",https://www.gseek.kr/user/course/online/view?s_sbjct_sn=64495,"한번에 끝내는 사무자동화산업기사는 시험 주관 기관에서 제시한 출제 기준 중 핵심 내용을 중심으로 
+강의를 구성하여 개념을 확립하고 실전에 대한 자신감을 배양함으로써 빠르게 실기시험에 합격하는 것을 목표로 합니다."
+HUNET,Y00405809,SQLITE_HUNET_Y00405809,[포사이트 코리아 2027] 조직인사·리더십,직무교육 > 인사/총무/법무 > HRD,인접(리더십/조직),인사·조직관리,REVIEW_NEEDED,"리더십/조직문화/소통 강좌로, 인사(HRD) 부서 적용 범위 추가 검토 요망",https://hbs.hunet.co.kr/Education/Detail?gid=Y00405809,nan
+HUNET,Y00398769,SQLITE_HUNET_Y00398769,[북러닝] 전략의 문장들(도서 제공),북러닝 > 비즈니스 스킬 > 문서작성,인접(일반사무),공통·사무기획,REVIEW_NEEDED,과정명 맥락상 인사·총무와의 직접 연계성 추가 검토 필요,https://hbs.hunet.co.kr/Education/Detail?gid=Y00398769,nan
+HUNET,Y00394865,SQLITE_HUNET_Y00394865,성과와 신뢰를 만드는 신임리더 온보딩,리더십/조직가치 > 리더십 > 성과관리,인사(HR),인사·채용관리,INCLUDED,기업 채용/선발/온보딩 프로세스 직무 실무 직결,https://hbs.hunet.co.kr/Education/Detail?gid=Y00394865,nan
+HUNET,Y00391506,SQLITE_HUNET_Y00391506,"AI로 조사하고, AI로 작성하는 하루 만에 끝내는 보고서 작성법",업무역량 > 기획 > 문서작성,총무·사무행정,공통·사무기획,INCLUDED,사내 비즈니스 문서작성 및 보고서 기획 실무 직결,https://hbs.hunet.co.kr/Education/Detail?gid=Y00391506,nan
+HUNET,Y00386275,SQLITE_HUNET_Y00386275,[일머리스쿨] AI로 완성하는 일잘러의 보고서,업무역량 > 기획 > 문서작성,인접(일반사무),공통·사무기획,REVIEW_NEEDED,과정명 맥락상 인사·총무와의 직접 연계성 추가 검토 필요,https://hbs.hunet.co.kr/Education/Detail?gid=Y00386275,nan
+HUNET,Y00386285,SQLITE_HUNET_Y00386285,이게 진짜 기준! 직장인 노동법 팩트 체크,직무교육 > 인사/총무/법무 > 법무,인사(HR),노무관리,INCLUDED,"노동법 및 근로기준 준수, 노무관리 실무 직결",https://hbs.hunet.co.kr/Education/Detail?gid=Y00386285,nan
+HUNET,Y00386302,SQLITE_HUNET_Y00386302,"제조 데이터 정리부터 보고서 작성까지, Claude 업무 비서 만들기",직무교육 > 반도체 > 제조/생산/공정,비관련(타분야),비서·사무지원,EXCLUDED,"IT개발/어학/제조/개인재테크 등 비관련 전문 분야로 판정 (매칭: 제조 데이터 정리부터 보고서 작성까지, Claude 업무 비서 만들기)",https://hbs.hunet.co.kr/Education/Detail?gid=Y00386302,nan
+HUNET,Y00386304,SQLITE_HUNET_Y00386304,글 잘 쓰는 AI Agent 만들기 : 비즈니스 문서 편,업무역량 > 기획 > 문서작성,인접(일반사무),공통·사무기획,REVIEW_NEEDED,과정명 맥락상 인사·총무와의 직접 연계성 추가 검토 필요,https://hbs.hunet.co.kr/Education/Detail?gid=Y00386304,nan
+HUNET,Y00381740,SQLITE_HUNET_Y00381740,[HRethink] 데이터가 흐르는 Digital HR,리더십/조직가치 > 조직가치 > 사람관리,인사·총무공통,인사·조직관리,INCLUDED,인사·총무 부합 실무 강좌 확인,https://hbs.hunet.co.kr/Education/Detail?gid=Y00381740,nan
+HUNET,Y00381743,SQLITE_HUNET_Y00381743,"[일잘러의 3종 스킬] 기획력, 문서작성력, 보고법",업무역량 > 기획 > 논리/분석적사고,총무·사무행정,공통·사무기획,INCLUDED,사내 비즈니스 문서작성 및 보고서 기획 실무 직결,https://hbs.hunet.co.kr/Education/Detail?gid=Y00381743,nan
+HUNET,Y00381719,SQLITE_HUNET_Y00381719,조직의 변화를 이끄는 사내강사의 모든 것,직무교육 > 인사/총무/법무 > HRD,인접(일반사무),인사·조직관리,REVIEW_NEEDED,과정명 맥락상 인사·총무와의 직접 연계성 추가 검토 필요,https://hbs.hunet.co.kr/Education/Detail?gid=Y00381719,nan
+HUNET,Y00379350,SQLITE_HUNET_Y00379350,"읽히는 문서는 다르다, AI로 업그레이드하는 문서 작성",업무역량 > 기획 > 문서작성,인접(일반사무),공통·사무기획,REVIEW_NEEDED,과정명 맥락상 인사·총무와의 직접 연계성 추가 검토 필요,https://hbs.hunet.co.kr/Education/Detail?gid=Y00379350,nan
+HUNET,Y00370512,SQLITE_HUNET_Y00370512,2026 안전보건교육 일용 및 초단기 기간제근로자(채용 시_보건업),직무교육 > 법정교육 > 법정교육,인사(HR),인사·채용관리,INCLUDED,기업 채용/선발/온보딩 프로세스 직무 실무 직결,https://hbs.hunet.co.kr/Education/Detail?gid=Y00370512,nan
+HUNET,Y00370513,SQLITE_HUNET_Y00370513,2026 안전보건교육 일용 및 초단기 기간제근로자(채용 시_기타사업),직무교육 > 법정교육 > 법정교육,인사(HR),인사·채용관리,INCLUDED,기업 채용/선발/온보딩 프로세스 직무 실무 직결,https://hbs.hunet.co.kr/Education/Detail?gid=Y00370513,nan
+HUNET,Y00370514,SQLITE_HUNET_Y00370514,2026 안전보건교육 일용 및 초단기 기간제근로자(채용 시_금융업),직무교육 > 법정교육 > 법정교육,인사(HR),인사·채용관리,INCLUDED,기업 채용/선발/온보딩 프로세스 직무 실무 직결,https://hbs.hunet.co.kr/Education/Detail?gid=Y00370514,nan
+HUNET,Y00370515,SQLITE_HUNET_Y00370515,2026 안전보건교육 일용 및 초단기 기간제근로자(채용 시_건설업),직무교육 > 법정교육 > 법정교육,인사(HR),인사·채용관리,INCLUDED,기업 채용/선발/온보딩 프로세스 직무 실무 직결,https://hbs.hunet.co.kr/Education/Detail?gid=Y00370515,nan
+HUNET,Y00370516,SQLITE_HUNET_Y00370516,2026 안전보건교육 일반근로자(채용 시_제조업),직무교육 > 법정교육 > 법정교육,인사(HR),인사·채용관리,INCLUDED,기업 채용/선발/온보딩 프로세스 직무 실무 직결,https://hbs.hunet.co.kr/Education/Detail?gid=Y00370516,nan
+HUNET,Y00370517,SQLITE_HUNET_Y00370517,2026 안전보건교육 일반근로자(채용 시_유통업),직무교육 > 법정교육 > 법정교육,인사(HR),인사·채용관리,INCLUDED,기업 채용/선발/온보딩 프로세스 직무 실무 직결,https://hbs.hunet.co.kr/Education/Detail?gid=Y00370517,nan
+HUNET,Y00370518,SQLITE_HUNET_Y00370518,2026 안전보건교육 일반근로자(채용 시_서비스업),직무교육 > 법정교육 > 법정교육,인사(HR),인사·채용관리,INCLUDED,기업 채용/선발/온보딩 프로세스 직무 실무 직결,https://hbs.hunet.co.kr/Education/Detail?gid=Y00370518,nan
+HUNET,Y00370519,SQLITE_HUNET_Y00370519,2026 안전보건교육 일반근로자(채용 시_보건업),직무교육 > 법정교육 > 법정교육,인사(HR),인사·채용관리,INCLUDED,기업 채용/선발/온보딩 프로세스 직무 실무 직결,https://hbs.hunet.co.kr/Education/Detail?gid=Y00370519,nan
+HUNET,Y00370520,SQLITE_HUNET_Y00370520,2026 안전보건교육 일반근로자(채용 시_기타사업),직무교육 > 법정교육 > 법정교육,인사(HR),인사·채용관리,INCLUDED,기업 채용/선발/온보딩 프로세스 직무 실무 직결,https://hbs.hunet.co.kr/Education/Detail?gid=Y00370520,nan
+HUNET,Y00370521,SQLITE_HUNET_Y00370521,2026 안전보건교육 일반근로자(채용 시_금융업),직무교육 > 법정교육 > 법정교육,인사(HR),인사·채용관리,INCLUDED,기업 채용/선발/온보딩 프로세스 직무 실무 직결,https://hbs.hunet.co.kr/Education/Detail?gid=Y00370521,nan
+HUNET,Y00370522,SQLITE_HUNET_Y00370522,2026 안전보건교육 일반근로자(채용 시_건설업),직무교육 > 법정교육 > 법정교육,인사(HR),인사·채용관리,INCLUDED,기업 채용/선발/온보딩 프로세스 직무 실무 직결,https://hbs.hunet.co.kr/Education/Detail?gid=Y00370522,nan
+HUNET,Y00370555,SQLITE_HUNET_Y00370555,2026 안전보건교육 기간제근로자(채용 시_금융업),직무교육 > 법정교육 > 법정교육,인사(HR),인사·채용관리,INCLUDED,기업 채용/선발/온보딩 프로세스 직무 실무 직결,https://hbs.hunet.co.kr/Education/Detail?gid=Y00370555,nan
+HUNET,Y00370556,SQLITE_HUNET_Y00370556,2026 안전보건교육 기간제근로자(채용 시_건설업),직무교육 > 법정교육 > 법정교육,인사(HR),인사·채용관리,INCLUDED,기업 채용/선발/온보딩 프로세스 직무 실무 직결,https://hbs.hunet.co.kr/Education/Detail?gid=Y00370556,nan
+HUNET,Y00370477,SQLITE_HUNET_Y00370477,2026 안전보건교육(관리감독자_채용 시_제조업),직무교육 > 법정교육 > 법정교육,인사(HR),인사·채용관리,INCLUDED,기업 채용/선발/온보딩 프로세스 직무 실무 직결,https://hbs.hunet.co.kr/Education/Detail?gid=Y00370477,nan
+HUNET,Y00370478,SQLITE_HUNET_Y00370478,2026 안전보건교육(관리감독자_채용 시_유통업),직무교육 > 법정교육 > 법정교육,인사(HR),인사·채용관리,INCLUDED,기업 채용/선발/온보딩 프로세스 직무 실무 직결,https://hbs.hunet.co.kr/Education/Detail?gid=Y00370478,nan
+HUNET,Y00370479,SQLITE_HUNET_Y00370479,2026 안전보건교육(관리감독자_채용 시_서비스업),직무교육 > 법정교육 > 법정교육,인사(HR),인사·채용관리,INCLUDED,기업 채용/선발/온보딩 프로세스 직무 실무 직결,https://hbs.hunet.co.kr/Education/Detail?gid=Y00370479,nan
+HUNET,Y00370480,SQLITE_HUNET_Y00370480,2026 안전보건교육(관리감독자_채용 시_보건업),직무교육 > 법정교육 > 법정교육,인사(HR),인사·채용관리,INCLUDED,기업 채용/선발/온보딩 프로세스 직무 실무 직결,https://hbs.hunet.co.kr/Education/Detail?gid=Y00370480,nan
+HUNET,Y00370481,SQLITE_HUNET_Y00370481,2026 안전보건교육(관리감독자_채용 시_기타사업),직무교육 > 법정교육 > 법정교육,인사(HR),인사·채용관리,INCLUDED,기업 채용/선발/온보딩 프로세스 직무 실무 직결,https://hbs.hunet.co.kr/Education/Detail?gid=Y00370481,nan
+HUNET,Y00370482,SQLITE_HUNET_Y00370482,2026 안전보건교육(관리감독자_채용 시_금융업),직무교육 > 법정교육 > 법정교육,인사(HR),인사·채용관리,INCLUDED,기업 채용/선발/온보딩 프로세스 직무 실무 직결,https://hbs.hunet.co.kr/Education/Detail?gid=Y00370482,nan
+HUNET,Y00370483,SQLITE_HUNET_Y00370483,2026 안전보건교육(관리감독자_채용 시_건설업),직무교육 > 법정교육 > 법정교육,인사(HR),인사·채용관리,INCLUDED,기업 채용/선발/온보딩 프로세스 직무 실무 직결,https://hbs.hunet.co.kr/Education/Detail?gid=Y00370483,nan
+HUNET,Y00370509,SQLITE_HUNET_Y00370509,2026 안전보건교육 일용 및 초단기 기간제근로자(채용 시_제조업),직무교육 > 법정교육 > 법정교육,인사(HR),인사·채용관리,INCLUDED,기업 채용/선발/온보딩 프로세스 직무 실무 직결,https://hbs.hunet.co.kr/Education/Detail?gid=Y00370509,nan
+HUNET,Y00370510,SQLITE_HUNET_Y00370510,2026 안전보건교육 일용 및 초단기 기간제근로자(채용 시_유통업),직무교육 > 법정교육 > 법정교육,인사(HR),인사·채용관리,INCLUDED,기업 채용/선발/온보딩 프로세스 직무 실무 직결,https://hbs.hunet.co.kr/Education/Detail?gid=Y00370510,nan
+HUNET,Y00370511,SQLITE_HUNET_Y00370511,2026 안전보건교육 일용 및 초단기 기간제근로자(채용 시_서비스업),직무교육 > 법정교육 > 법정교육,인사(HR),인사·채용관리,INCLUDED,기업 채용/선발/온보딩 프로세스 직무 실무 직결,https://hbs.hunet.co.kr/Education/Detail?gid=Y00370511,nan
+HUNET,Y00370550,SQLITE_HUNET_Y00370550,2026 안전보건교육 기간제근로자(채용 시_제조업),직무교육 > 법정교육 > 법정교육,인사(HR),인사·채용관리,INCLUDED,기업 채용/선발/온보딩 프로세스 직무 실무 직결,https://hbs.hunet.co.kr/Education/Detail?gid=Y00370550,nan
+HUNET,Y00370551,SQLITE_HUNET_Y00370551,2026 안전보건교육 기간제근로자(채용 시_유통업),직무교육 > 법정교육 > 법정교육,인사(HR),인사·채용관리,INCLUDED,기업 채용/선발/온보딩 프로세스 직무 실무 직결,https://hbs.hunet.co.kr/Education/Detail?gid=Y00370551,nan
+HUNET,Y00370552,SQLITE_HUNET_Y00370552,2026 안전보건교육 기간제근로자(채용 시_서비스업),직무교육 > 법정교육 > 법정교육,인사(HR),인사·채용관리,INCLUDED,기업 채용/선발/온보딩 프로세스 직무 실무 직결,https://hbs.hunet.co.kr/Education/Detail?gid=Y00370552,nan
+HUNET,Y00370553,SQLITE_HUNET_Y00370553,2026 안전보건교육 기간제근로자(채용 시_보건업),직무교육 > 법정교육 > 법정교육,인사(HR),인사·채용관리,INCLUDED,기업 채용/선발/온보딩 프로세스 직무 실무 직결,https://hbs.hunet.co.kr/Education/Detail?gid=Y00370553,nan
+HUNET,Y00370554,SQLITE_HUNET_Y00370554,2026 안전보건교육 기간제근로자(채용 시_기타사업),직무교육 > 법정교육 > 법정교육,인사(HR),인사·채용관리,INCLUDED,기업 채용/선발/온보딩 프로세스 직무 실무 직결,https://hbs.hunet.co.kr/Education/Detail?gid=Y00370554,nan
+HUNET,Y00369601,SQLITE_HUNET_Y00369601,[HRethink] 돌파하는 기업을 만드는 HR의 미래,직무교육 > 인사/총무/법무 > HRM,인접(일반사무),인사·조직관리,REVIEW_NEEDED,과정명 맥락상 인사·총무와의 직접 연계성 추가 검토 필요,https://hbs.hunet.co.kr/Education/Detail?gid=Y00369601,nan
+HUNET,Y00369594,SQLITE_HUNET_Y00369594,"지금 당장 DEI, 새로운 조직문화가 온다",리더십/조직가치 > 조직가치 > 조직활성화,인접(리더십/조직),인사·조직관리,REVIEW_NEEDED,"리더십/조직문화/소통 강좌로, 인사(HRD) 부서 적용 범위 추가 검토 요망",https://hbs.hunet.co.kr/Education/Detail?gid=Y00369594,nan
+HUNET,Y00369144,SQLITE_HUNET_Y00369144,[보고의 신] AI로 레벨업하는 문서 작성 스킬,업무역량 > 기획 > 문서작성,인접(일반사무),공통·사무기획,REVIEW_NEEDED,과정명 맥락상 인사·총무와의 직접 연계성 추가 검토 필요,https://hbs.hunet.co.kr/Education/Detail?gid=Y00369144,nan
+HUNET,Y00369136,SQLITE_HUNET_Y00369136,"HR, AI가 트렌드다 : 채용부터 퇴사까지",직무교육 > 인사/총무/법무 > HRM,인사(HR),인사·채용관리,INCLUDED,기업 채용/선발/온보딩 프로세스 직무 실무 직결,https://hbs.hunet.co.kr/Education/Detail?gid=Y00369136,nan
+HUNET,Y00368765,SQLITE_HUNET_Y00368765,[포사이트 코리아 2026] 조직인사·리더십,직무교육 > 인사/총무/법무 > HRD,인접(리더십/조직),인사·조직관리,REVIEW_NEEDED,"리더십/조직문화/소통 강좌로, 인사(HRD) 부서 적용 범위 추가 검토 요망",https://hbs.hunet.co.kr/Education/Detail?gid=Y00368765,nan
+HUNET,Y00368154,SQLITE_HUNET_Y00368154,일잘러를 위한 AI 활용 공공기관 문서 작성 한 번에 끝내기,업무역량 > 기획 > 문서작성,인접(일반사무),공통·사무기획,REVIEW_NEEDED,과정명 맥락상 인사·총무와의 직접 연계성 추가 검토 필요,https://hbs.hunet.co.kr/Education/Detail?gid=Y00368154,nan
+HUNET,Y00367788,SQLITE_HUNET_Y00367788,ChatGPT가 다 해주는 요즘 보고서 작성법,업무역량 > 기획 > 문서작성,총무·사무행정,공통·사무기획,INCLUDED,사내 비즈니스 문서작성 및 보고서 기획 실무 직결,https://hbs.hunet.co.kr/Education/Detail?gid=Y00367788,nan
+HUNET,Y00355387,SQLITE_HUNET_Y00355387,[북러닝] 서울대 MBA 구루에게 듣는 인적자원 이야기(도서 제공),북러닝 > 경영직무 > 인사/HR,인접(일반사무),인사·조직관리,REVIEW_NEEDED,과정명 맥락상 인사·총무와의 직접 연계성 추가 검토 필요,https://hbs.hunet.co.kr/Education/Detail?gid=Y00355387,nan
+HUNET,Y00355355,SQLITE_HUNET_Y00355355,누구나 알아야 할 인공지능기본법,직무교육 > 인사/총무/법무 > 법무,인접(일반사무),인사·조직관리,REVIEW_NEEDED,과정명 맥락상 인사·총무와의 직접 연계성 추가 검토 필요,https://hbs.hunet.co.kr/Education/Detail?gid=Y00355355,nan
+HUNET,Y00355356,SQLITE_HUNET_Y00355356,누구나 알아야 할 디지털포용법,직무교육 > 인사/총무/법무 > 법무,인접(일반사무),인사·조직관리,REVIEW_NEEDED,과정명 맥락상 인사·총무와의 직접 연계성 추가 검토 필요,https://hbs.hunet.co.kr/Education/Detail?gid=Y00355356,nan
+HUNET,Y00355357,SQLITE_HUNET_Y00355357,누구나 알아야 할 데이터기반행정법,직무교육 > 인사/총무/법무 > 법무,인접(일반사무),인사·조직관리,REVIEW_NEEDED,과정명 맥락상 인사·총무와의 직접 연계성 추가 검토 필요,https://hbs.hunet.co.kr/Education/Detail?gid=Y00355357,nan
+HUNET,Y00355349,SQLITE_HUNET_Y00355349,리더 생존 보고서 : 한 끗이 다른 데이터 시각화,업무역량 > 기획 > 문서작성,인접(리더십/조직),공통·사무기획,REVIEW_NEEDED,"리더십/조직문화/소통 강좌로, 인사(HRD) 부서 적용 범위 추가 검토 요망",https://hbs.hunet.co.kr/Education/Detail?gid=Y00355349,nan
+HUNET,Y00355350,SQLITE_HUNET_Y00355350,퇴사율 0% 전설의 팀장이 되기 위한 조직문화 설계법,리더십/조직가치 > 조직가치 > 사람관리,인접(리더십/조직),인사·조직관리,REVIEW_NEEDED,"리더십/조직문화/소통 강좌로, 인사(HRD) 부서 적용 범위 추가 검토 요망",https://hbs.hunet.co.kr/Education/Detail?gid=Y00355350,nan
+HUNET,Y00354972,SQLITE_HUNET_Y00354972,[북러닝] 회사에서 바로 쓰는 AI 치트키(도서 제공),북러닝 > 비즈니스 스킬 > 문서작성,인접(일반사무),공통·사무기획,REVIEW_NEEDED,과정명 맥락상 인사·총무와의 직접 연계성 추가 검토 필요,https://hbs.hunet.co.kr/Education/Detail?gid=Y00354972,nan
+HUNET,Y00354154,SQLITE_HUNET_Y00354154,[팀장리더십] 탁월한 팀장의 조건 - 성과관리,리더십/조직가치 > 리더십 > 리더십 종합,인사(HR),인사·평가보상,INCLUDED,인사평가체계 및 보상/성과관리 실무 직결,https://hbs.hunet.co.kr/Education/Detail?gid=Y00354154,nan
+HUNET,Y00351356,SQLITE_HUNET_Y00351356,ChatGPT는 그만! 다양한 AI Tool을 활용한 데이터 시각화,업무역량 > 기획 > 문서작성,인접(일반사무),공통·사무기획,REVIEW_NEEDED,과정명 맥락상 인사·총무와의 직접 연계성 추가 검토 필요,https://hbs.hunet.co.kr/Education/Detail?gid=Y00351356,nan
+HUNET,Y00341266,SQLITE_HUNET_Y00341266,"전사원 필수 역량, 비즈니스 계약 실무",직무교육 > 인사/총무/법무 > 법무,인접(일반사무),인사·조직관리,REVIEW_NEEDED,과정명 맥락상 인사·총무와의 직접 연계성 추가 검토 필요,https://hbs.hunet.co.kr/Education/Detail?gid=Y00341266,nan
+HUNET,Y00340785,SQLITE_HUNET_Y00340785,내 손 안의 AI 비서 : ChatGPT 모바일 활용 꿀팁 모음ZIP,컴퓨터/AI > ChatGPT > ChatGPT 일반,인접(일반사무),비서·사무지원,REVIEW_NEEDED,과정명 맥락상 인사·총무와의 직접 연계성 추가 검토 필요,https://hbs.hunet.co.kr/Education/Detail?gid=Y00340785,nan
+HUNET,Y00340362,SQLITE_HUNET_Y00340362,[북러닝] 일잘러의 무기가 되는 최소한의 실무 엑셀(도서 제공),북러닝 > 비즈니스 스킬 > 문서작성,인접(일반사무),공통·사무기획,REVIEW_NEEDED,과정명 맥락상 인사·총무와의 직접 연계성 추가 검토 필요,https://hbs.hunet.co.kr/Education/Detail?gid=Y00340362,nan
+HUNET,Y00337189,SQLITE_HUNET_Y00337189,[온보딩저니] 경력사원 과정,역량종합 > 계층 > 대리/과.차장,인사(HR),인사·채용관리,INCLUDED,기업 채용/선발/온보딩 프로세스 직무 실무 직결,https://hbs.hunet.co.kr/Education/Detail?gid=Y00337189,nan
+HUNET,Y00336707,SQLITE_HUNET_Y00336707,"팀원과 상사 사이, 진짜 리더가 되는 스킬",리더십/조직가치 > 리더십 > 성과관리,인접(리더십/조직),인사·평가보상,REVIEW_NEEDED,"리더십/조직문화/소통 강좌로, 인사(HRD) 부서 적용 범위 추가 검토 요망",https://hbs.hunet.co.kr/Education/Detail?gid=Y00336707,nan
+HUNET,Y00336706,SQLITE_HUNET_Y00336706,[리더의 착각] 리더는 왜 잘못된 의사결정을 할까,리더십/조직가치 > 리더십 > 성과관리,인접(리더십/조직),인사·평가보상,REVIEW_NEEDED,"리더십/조직문화/소통 강좌로, 인사(HRD) 부서 적용 범위 추가 검토 요망",https://hbs.hunet.co.kr/Education/Detail?gid=Y00336706,nan
+HUNET,Y00334600,SQLITE_HUNET_Y00334600,HRBP로 커리어를 퀀텀점프 하라,직무교육 > 인사/총무/법무 > HRD,인접(일반사무),인사·조직관리,REVIEW_NEEDED,과정명 맥락상 인사·총무와의 직접 연계성 추가 검토 필요,https://hbs.hunet.co.kr/Education/Detail?gid=Y00334600,nan
+HUNET,Y00350958,SQLITE_HUNET_Y00350958,부장님은 내 기획서가 쓰레기라고 말했지,업무역량 > 기획 > 기획력,총무·사무행정,공통·사무기획,INCLUDED,사내 비즈니스 문서작성 및 보고서 기획 실무 직결,https://hbs.hunet.co.kr/Education/Detail?gid=Y00350958,nan
+HUNET,Y00350960,SQLITE_HUNET_Y00350960,[팀장리더십] 애자일 성과관리,리더십/조직가치 > 리더십 > 성과관리,인사(HR),인사·평가보상,INCLUDED,인사평가체계 및 보상/성과관리 실무 직결,https://hbs.hunet.co.kr/Education/Detail?gid=Y00350960,nan
+HUNET,Y00348312,SQLITE_HUNET_Y00348312,데이터를 한눈에! AI로 쉽고 빠르게 완성하는 데이터 시각화 (with 엑셀),업무역량 > 기획 > 문서작성,인접(일반사무),공통·사무기획,REVIEW_NEEDED,과정명 맥락상 인사·총무와의 직접 연계성 추가 검토 필요,https://hbs.hunet.co.kr/Education/Detail?gid=Y00348312,nan
+HUNET,Y00347021,SQLITE_HUNET_Y00347021,성과 창출을 이끄는 조직문화 전략,리더십/조직가치 > 리더십 > 조직관리,인접(리더십/조직),인사·조직관리,REVIEW_NEEDED,"리더십/조직문화/소통 강좌로, 인사(HRD) 부서 적용 범위 추가 검토 요망",https://hbs.hunet.co.kr/Education/Detail?gid=Y00347021,nan
+HUNET,Y00347025,SQLITE_HUNET_Y00347025,"리더십 4.0 시대, 일잘러의 IT 프로젝트 성과관리",업무역량 > 업무생산성 > 프로젝트 관리,인사(HR),인사·평가보상,INCLUDED,인사평가체계 및 보상/성과관리 실무 직결,https://hbs.hunet.co.kr/Education/Detail?gid=Y00347025,nan
+HUNET,Y00345649,SQLITE_HUNET_Y00345649,보고서의 품질을 높이는 AI 문서 작성 노하우,업무역량 > 기획 > 문서작성,인접(일반사무),공통·사무기획,REVIEW_NEEDED,과정명 맥락상 인사·총무와의 직접 연계성 추가 검토 필요,https://hbs.hunet.co.kr/Education/Detail?gid=Y00345649,nan
+HUNET,Y00334583,SQLITE_HUNET_Y00334583,"직장인 필수 AI 비서, MS Copilot",업무역량 > 업무생산성 > 생산/제조/품질,인접(일반사무),비서·사무지원,REVIEW_NEEDED,과정명 맥락상 인사·총무와의 직접 연계성 추가 검토 필요,https://hbs.hunet.co.kr/Education/Detail?gid=Y00334583,nan
+HUNET,Y00333589,SQLITE_HUNET_Y00333589,핵심만 콕! 시설관리 및 자산관리,직무교육 > 경영기획/재무/회계 > 경영전략/기획,인접(일반사무),총무·자산관리,REVIEW_NEEDED,과정명 맥락상 인사·총무와의 직접 연계성 추가 검토 필요,https://hbs.hunet.co.kr/Education/Detail?gid=Y00333589,nan
+HUNET,Y00320962,SQLITE_HUNET_Y00320962,"저성장 시대, 진화하는 HR 미래 전략",직무교육 > 경영직무 > 인사·노무,인접(일반사무),노무관리,REVIEW_NEEDED,과정명 맥락상 인사·총무와의 직접 연계성 추가 검토 필요,https://hbs.hunet.co.kr/Education/Detail?gid=Y00320962,nan
+HUNET,Y00320939,SQLITE_HUNET_Y00320939,미래역량스쿨 Online (도서 포함),업무역량 > 리더십 > 성과관리,인접(일반사무),인사·평가보상,REVIEW_NEEDED,과정명 맥락상 인사·총무와의 직접 연계성 추가 검토 필요,https://hbs.hunet.co.kr/Education/Detail?gid=Y00320939,nan
+HUNET,Y00320332,SQLITE_HUNET_Y00320332,[북러닝] 회사에서 바로 통하는 실무 엑셀 파워포인트 워드&한글(도서 제공),북러닝 > 비즈니스 스킬 > 문서작성,인접(일반사무),공통·사무기획,REVIEW_NEEDED,과정명 맥락상 인사·총무와의 직접 연계성 추가 검토 필요,https://hbs.hunet.co.kr/Education/Detail?gid=Y00320332,nan
+HUNET,Y00319712,SQLITE_HUNET_Y00319712,미래역량스쿨 Online,업무역량 > 리더십 > 성과관리,인접(일반사무),인사·평가보상,REVIEW_NEEDED,과정명 맥락상 인사·총무와의 직접 연계성 추가 검토 필요,https://hbs.hunet.co.kr/Education/Detail?gid=Y00319712,nan
+HUNET,Y00319690,SQLITE_HUNET_Y00319690,"평가에서 성과관리로, 프레임을 전환하라!",직무교육 > 인사/총무/법무 > HRM,인사(HR),인사·평가보상,INCLUDED,인사평가체계 및 보상/성과관리 실무 직결,https://hbs.hunet.co.kr/Education/Detail?gid=Y00319690,nan
+HUNET,Y00317665,SQLITE_HUNET_Y00317665,노무 담당자를 위한 커뮤니케이션 스킬,직무교육 > 인사/총무/법무 > HRM,인접(일반사무),노무관리,REVIEW_NEEDED,과정명 맥락상 인사·총무와의 직접 연계성 추가 검토 필요,https://hbs.hunet.co.kr/Education/Detail?gid=Y00317665,nan
+HUNET,Y00317653,SQLITE_HUNET_Y00317653,"Z세대가 온다, 세련되게 일하는 조직 문화 혁신",직무교육 > 인사/총무/법무 > 조직개발(OD),인접(일반사무),인사·조직관리,REVIEW_NEEDED,과정명 맥락상 인사·총무와의 직접 연계성 추가 검토 필요,https://hbs.hunet.co.kr/Education/Detail?gid=Y00317653,nan
+HUNET,Y00317658,SQLITE_HUNET_Y00317658,"채용을 디자인하라, 기업에 FIT한 인재 확보 전략",직무교육 > 인사/총무/법무 > HRM,인사(HR),인사·채용관리,INCLUDED,기업 채용/선발/온보딩 프로세스 직무 실무 직결,https://hbs.hunet.co.kr/Education/Detail?gid=Y00317658,nan
+HUNET,Y00317659,SQLITE_HUNET_Y00317659,"엔지니어 채용의 모든 것, 테크 리크루팅 A TO Z",직무교육 > 인사/총무/법무 > HRM,인사(HR),인사·채용관리,INCLUDED,기업 채용/선발/온보딩 프로세스 직무 실무 직결,https://hbs.hunet.co.kr/Education/Detail?gid=Y00317659,nan
+HUNET,Y00316399,SQLITE_HUNET_Y00316399,실무 꿀 tip! 총무 업무 지침서,직무교육 > 인사/총무/법무 > HRD,인접(일반사무),인사·조직관리,REVIEW_NEEDED,과정명 맥락상 인사·총무와의 직접 연계성 추가 검토 필요,https://hbs.hunet.co.kr/Education/Detail?gid=Y00316399,nan
+HUNET,Y00316403,SQLITE_HUNET_Y00316403,수평적인 조직문화를 통한 효과적인 조직관리,리더십/조직가치 > 조직가치 > 관계/갈등관리,인접(리더십/조직),인사·조직관리,REVIEW_NEEDED,"리더십/조직문화/소통 강좌로, 인사(HRD) 부서 적용 범위 추가 검토 요망",https://hbs.hunet.co.kr/Education/Detail?gid=Y00316403,nan
+HUNET,Y00315539,SQLITE_HUNET_Y00315539,L&D 마스터스쿨 Online,직무교육 > 인사/총무/법무 > HRD,인접(일반사무),인사·조직관리,REVIEW_NEEDED,과정명 맥락상 인사·총무와의 직접 연계성 추가 검토 필요,https://hbs.hunet.co.kr/Education/Detail?gid=Y00315539,nan
+HUNET,Y00314873,SQLITE_HUNET_Y00314873,[L&D Specialist] 역량부터 스킬까지! L&D를 디자인하다,직무교육 > 인사/총무/법무 > HRD,인접(일반사무),인사·조직관리,REVIEW_NEEDED,과정명 맥락상 인사·총무와의 직접 연계성 추가 검토 필요,https://hbs.hunet.co.kr/Education/Detail?gid=Y00314873,nan
+HUNET,Y00314872,SQLITE_HUNET_Y00314872,[LXD Specialist] 학습경험의 새로운 패러다임! LXD를 시작하다,직무교육 > 인사/총무/법무 > HRD,인접(일반사무),인사·조직관리,REVIEW_NEEDED,과정명 맥락상 인사·총무와의 직접 연계성 추가 검토 필요,https://hbs.hunet.co.kr/Education/Detail?gid=Y00314872,nan
+HUNET,Y00313857,SQLITE_HUNET_Y00313857,퇴근이 빨라지는 엑셀 데이터 분석 및 시각화,업무역량 > 기획 > 문서작성,인접(일반사무),공통·사무기획,REVIEW_NEEDED,과정명 맥락상 인사·총무와의 직접 연계성 추가 검토 필요,https://hbs.hunet.co.kr/Education/Detail?gid=Y00313857,nan
+HUNET,Y00307193,SQLITE_HUNET_Y00307193,[북스쿨] 김대리의 워라벨 사수기! - 성과 관리(도서 제공),북러닝 > 조직관리 > 성과관리,인접(일반사무),인사·평가보상,REVIEW_NEEDED,과정명 맥락상 인사·총무와의 직접 연계성 추가 검토 필요,https://hbs.hunet.co.kr/Education/Detail?gid=Y00307193,nan
+HUNET,Y00303947,SQLITE_HUNET_Y00303947,[북러닝] 주4일 혁명 : 월화수목일일일(도서 제공),북러닝 > 공유가치 > 조직혁신/조직문화,인접(일반사무),인사·조직관리,REVIEW_NEEDED,과정명 맥락상 인사·총무와의 직접 연계성 추가 검토 필요,https://hbs.hunet.co.kr/Education/Detail?gid=Y00303947,nan
+HUNET,Y00303172,SQLITE_HUNET_Y00303172,터닝포인트 팀장리더십 : 성과관리,리더십/조직가치 > 리더십 > 성과관리,인사(HR),인사·평가보상,INCLUDED,인사평가체계 및 보상/성과관리 실무 직결,https://hbs.hunet.co.kr/Education/Detail?gid=Y00303172,nan
+HUNET,Y00312332,SQLITE_HUNET_Y00312332,ChatGPT가 바꿔놓은 AI 시대 HR 업무 혁명,직무교육 > 인사/총무/법무 > HRM,인접(일반사무),인사·조직관리,REVIEW_NEEDED,과정명 맥락상 인사·총무와의 직접 연계성 추가 검토 필요,https://hbs.hunet.co.kr/Education/Detail?gid=Y00312332,nan
+HUNET,Y00311839,SQLITE_HUNET_Y00311839,회사를 보호하는 힘! 영업비밀&지식재산권&정보보호,직무교육 > 인사/총무/법무 > 법무,인접(일반사무),인사·조직관리,REVIEW_NEEDED,과정명 맥락상 인사·총무와의 직접 연계성 추가 검토 필요,https://hbs.hunet.co.kr/Education/Detail?gid=Y00311839,nan
+HUNET,Y00311922,SQLITE_HUNET_Y00311922,"기업의 미래를 책임질 핵심자산, 지식재산권",직무교육 > 인사/총무/법무 > 법무,인접(일반사무),인사·조직관리,REVIEW_NEEDED,과정명 맥락상 인사·총무와의 직접 연계성 추가 검토 필요,https://hbs.hunet.co.kr/Education/Detail?gid=Y00311922,nan
+HUNET,Y00311834,SQLITE_HUNET_Y00311834,ChatGPT를 활용한 프리젠테이션&기획서 순삭하기,컴퓨터/AI > ChatGPT > ChatGPT 일반,총무·사무행정,공통·사무기획,INCLUDED,사내 비즈니스 문서작성 및 보고서 기획 실무 직결,https://hbs.hunet.co.kr/Education/Detail?gid=Y00311834,nan
+HUNET,Y00310474,SQLITE_HUNET_Y00310474,[북러닝] 조율하여 리딩하라(도서 제공),북러닝 > 조직관리 > 성과관리,인접(일반사무),인사·평가보상,REVIEW_NEEDED,과정명 맥락상 인사·총무와의 직접 연계성 추가 검토 필요,https://hbs.hunet.co.kr/Education/Detail?gid=Y00310474,nan
+HUNET,Y00308303,SQLITE_HUNET_Y00308303,[북러닝] 보고서 말이 되게 써라(도서 제공),북러닝 > 비즈니스 스킬 > 문서작성,인접(일반사무),공통·사무기획,REVIEW_NEEDED,과정명 맥락상 인사·총무와의 직접 연계성 추가 검토 필요,https://hbs.hunet.co.kr/Education/Detail?gid=Y00308303,nan
+HUNET,Y00307190,SQLITE_HUNET_Y00307190,[북스쿨] 빠르게 변화하는 노동환경 전망(도서 제공),북러닝 > 경영직무 > 인사/HR,인접(일반사무),인사·조직관리,REVIEW_NEEDED,과정명 맥락상 인사·총무와의 직접 연계성 추가 검토 필요,https://hbs.hunet.co.kr/Education/Detail?gid=Y00307190,nan
+HUNET,Y00300119,SQLITE_HUNET_Y00300119,글쓰기가 두려운 직장인을 위한 비즈니스 글쓰기 공략zip,업무역량 > 기획 > 문서작성,총무·사무행정,공통·사무기획,INCLUDED,사내 비즈니스 문서작성 및 보고서 기획 실무 직결,https://hbs.hunet.co.kr/Education/Detail?gid=Y00300119,nan
+HUNET,Y00299752,SQLITE_HUNET_Y00299752,[북러닝] 데이터 시각화는 처음입니다만(도서 제공),북러닝 > 비즈니스 스킬 > 문서작성,인접(일반사무),공통·사무기획,REVIEW_NEEDED,과정명 맥락상 인사·총무와의 직접 연계성 추가 검토 필요,https://hbs.hunet.co.kr/Education/Detail?gid=Y00299752,nan
+HUNET,Y00298379,SQLITE_HUNET_Y00298379,컴팩트한 문서작성과 퍼펙트한 보고기법!,업무역량 > 기획 > 문서작성,총무·사무행정,공통·사무기획,INCLUDED,사내 비즈니스 문서작성 및 보고서 기획 실무 직결,https://hbs.hunet.co.kr/Education/Detail?gid=Y00298379,nan
+HUNET,Y00298381,SQLITE_HUNET_Y00298381,인재전쟁에서 승리하는 면접관 인터뷰 스킬,역량종합 > 계층 > 팀장/관리자,인사(HR),인사·채용관리,INCLUDED,기업 채용/선발/온보딩 프로세스 직무 실무 직결,https://hbs.hunet.co.kr/Education/Detail?gid=Y00298381,nan
+HUNET,Y00292451,SQLITE_HUNET_Y00292451,[뉴노멀 MBA] 인사조직,직무교육 > 인사/총무/법무 > HRM,인접(일반사무),인사·조직관리,REVIEW_NEEDED,과정명 맥락상 인사·총무와의 직접 연계성 추가 검토 필요,https://hbs.hunet.co.kr/Education/Detail?gid=Y00292451,nan
+HUNET,Y00292449,SQLITE_HUNET_Y00292449,[북러닝] 전사원이 함께하는 행복한 회사 만들기,북러닝 > 공유가치 > 조직혁신/조직문화,인접(일반사무),인사·조직관리,REVIEW_NEEDED,과정명 맥락상 인사·총무와의 직접 연계성 추가 검토 필요,https://hbs.hunet.co.kr/Education/Detail?gid=Y00292449,nan
+HUNET,Y00279954,SQLITE_HUNET_Y00279954,[Executive MBA] 인사조직,직무교육 > 인사/총무/법무 > HRM,인접(일반사무),인사·조직관리,REVIEW_NEEDED,과정명 맥락상 인사·총무와의 직접 연계성 추가 검토 필요,https://hbs.hunet.co.kr/Education/Detail?gid=Y00279954,nan
+HUNET,Y00271317,SQLITE_HUNET_Y00271317,"입사에서 퇴사까지, 직장인을 위한 노동법 이야기",직무교육 > 인사/총무/법무 > 법무,인사(HR),노무관리,INCLUDED,"노동법 및 근로기준 준수, 노무관리 실무 직결",https://hbs.hunet.co.kr/Education/Detail?gid=Y00271317,nan
+HUNET,Y00270259,SQLITE_HUNET_Y00270259,강한 문장을 만드는 글쓰기 PT,업무역량 > 기획 > 문서작성,인접(일반사무),공통·사무기획,REVIEW_NEEDED,과정명 맥락상 인사·총무와의 직접 연계성 추가 검토 필요,https://hbs.hunet.co.kr/Education/Detail?gid=Y00270259,nan
+HUNET,Y00270094,SQLITE_HUNET_Y00270094,한방에 컨펌받는 보고서 쓰기,업무역량 > 기획 > 문서작성,인접(일반사무),공통·사무기획,REVIEW_NEEDED,과정명 맥락상 인사·총무와의 직접 연계성 추가 검토 필요,https://hbs.hunet.co.kr/Education/Detail?gid=Y00270094,nan
+HUNET,Y00269437,SQLITE_HUNET_Y00269437,People Analytics : HR을 데이터로 말하다,직무교육 > 인사/총무/법무 > HRD,인접(일반사무),인사·조직관리,REVIEW_NEEDED,과정명 맥락상 인사·총무와의 직접 연계성 추가 검토 필요,https://hbs.hunet.co.kr/Education/Detail?gid=Y00269437,nan
+HUNET,Y00269439,SQLITE_HUNET_Y00269439,조직의 변화를 만드는 오피스 환경 구축하기 (Feat. 퍼시스),직무교육 > 인사/총무/법무 > 조직개발(OD),인접(일반사무),인사·조직관리,REVIEW_NEEDED,과정명 맥락상 인사·총무와의 직접 연계성 추가 검토 필요,https://hbs.hunet.co.kr/Education/Detail?gid=Y00269439,nan
+HUNET,Y00269209,SQLITE_HUNET_Y00269209,인사평가체계 구축 및 운영 방법,직무교육 > 인사/총무/법무 > HRD,인사(HR),인사·평가보상,INCLUDED,인사평가체계 및 보상/성과관리 실무 직결,https://hbs.hunet.co.kr/Education/Detail?gid=Y00269209,nan
+HUNET,Y00268668,SQLITE_HUNET_Y00268668,X와 MZ의 비즈니스 커뮤니케이션과 리더십,리더십/조직가치 > 조직가치 > 조직관리,인접(리더십/조직),기타·인사총무,REVIEW_NEEDED,"리더십/조직문화/소통 강좌로, 인사(HRD) 부서 적용 범위 추가 검토 요망",https://hbs.hunet.co.kr/Education/Detail?gid=Y00268668,nan
+HUNET,Y00265994,SQLITE_HUNET_Y00265994,SSS급 확보를 위한 면접관 교육 (feat. AI 시뮬레이션),직무교육 > 인사/총무/법무 > HRM,인사(HR),인사·채용관리,INCLUDED,기업 채용/선발/온보딩 프로세스 직무 실무 직결,https://hbs.hunet.co.kr/Education/Detail?gid=Y00265994,nan
+HUNET,Y00265995,SQLITE_HUNET_Y00265995,핵심인재를 부르는 고용주 브랜딩과 채용 경험 디자인,직무교육 > 인사/총무/법무 > HRM,인사(HR),인사·채용관리,INCLUDED,기업 채용/선발/온보딩 프로세스 직무 실무 직결,https://hbs.hunet.co.kr/Education/Detail?gid=Y00265995,nan
+HUNET,Y00265996,SQLITE_HUNET_Y00265996,"오늘 온 신입사원, 온보딩 전략 ON 하기",직무교육 > 인사/총무/법무 > HRM,인사(HR),인사·채용관리,INCLUDED,기업 채용/선발/온보딩 프로세스 직무 실무 직결,https://hbs.hunet.co.kr/Education/Detail?gid=Y00265996,nan
+HUNET,Y00265094,SQLITE_HUNET_Y00265094,"S급 인재, 성과를 디자인하라",리더십/조직가치 > 리더십 > 성과관리,인접(일반사무),인사·평가보상,REVIEW_NEEDED,과정명 맥락상 인사·총무와의 직접 연계성 추가 검토 필요,https://hbs.hunet.co.kr/Education/Detail?gid=Y00265094,nan
+HUNET,Y00264694,SQLITE_HUNET_Y00264694,[요즘HR] 놓쳐서는 안 될 노무 Issue ＆ Solution,직무교육 > 인사/총무/법무 > HRM,인접(일반사무),노무관리,REVIEW_NEEDED,과정명 맥락상 인사·총무와의 직접 연계성 추가 검토 필요,https://hbs.hunet.co.kr/Education/Detail?gid=Y00264694,nan
+HUNET,Y00264695,SQLITE_HUNET_Y00264695,직급이 아닌 직무에 Focus하라. 직무급제의 모든것!,직무교육 > 인사/총무/법무 > HRM,인접(일반사무),인사·조직관리,REVIEW_NEEDED,과정명 맥락상 인사·총무와의 직접 연계성 추가 검토 필요,https://hbs.hunet.co.kr/Education/Detail?gid=Y00264695,nan
+HUNET,Y00263646,SQLITE_HUNET_Y00263646,글로벌 기업의 성공에는 애자일 조직문화가 있다,직무교육 > 인사/총무/법무 > 조직개발(OD),인접(리더십/조직),인사·조직관리,REVIEW_NEEDED,"리더십/조직문화/소통 강좌로, 인사(HRD) 부서 적용 범위 추가 검토 요망",https://hbs.hunet.co.kr/Education/Detail?gid=Y00263646,nan
+HUNET,Y00260424,SQLITE_HUNET_Y00260424,인재 밀도를 UP시키는 성과 평가 ＆ 보상 전략,직무교육 > 인사/총무/법무 > HRM,인접(일반사무),인사·조직관리,REVIEW_NEEDED,과정명 맥락상 인사·총무와의 직접 연계성 추가 검토 필요,https://hbs.hunet.co.kr/Education/Detail?gid=Y00260424,nan
+HUNET,Y00260034,SQLITE_HUNET_Y00260034,SSS급 확보를 위한 면접관 교육,직무교육 > 인사/총무/법무 > HRM,인사(HR),인사·채용관리,INCLUDED,기업 채용/선발/온보딩 프로세스 직무 실무 직결,https://hbs.hunet.co.kr/Education/Detail?gid=Y00260034,nan
+HUNET,Y00260036,SQLITE_HUNET_Y00260036,"DX시대,당신의 조직문화는 안녕하십니까?",직무교육 > 인사/총무/법무 > 조직개발(OD),인접(리더십/조직),인사·조직관리,REVIEW_NEEDED,"리더십/조직문화/소통 강좌로, 인사(HRD) 부서 적용 범위 추가 검토 요망",https://hbs.hunet.co.kr/Education/Detail?gid=Y00260036,nan
+HUNET,Y00260042,SQLITE_HUNET_Y00260042,[레전드 스킬] 현직 기자가 알려주는 보고서 잘 쓰는 법,업무역량 > 기획 > 문서작성,인접(일반사무),공통·사무기획,REVIEW_NEEDED,과정명 맥락상 인사·총무와의 직접 연계성 추가 검토 필요,https://hbs.hunet.co.kr/Education/Detail?gid=Y00260042,nan
+HUNET,Y00260044,SQLITE_HUNET_Y00260044,"글로벌 기업들의 조직문화 패러다임, Culture Deck",리더십/조직가치 > 리더십 > 조직관리,인접(리더십/조직),인사·조직관리,REVIEW_NEEDED,"리더십/조직문화/소통 강좌로, 인사(HRD) 부서 적용 범위 추가 검토 요망",https://hbs.hunet.co.kr/Education/Detail?gid=Y00260044,nan
+HUNET,Y00256639,SQLITE_HUNET_Y00256639,[레전드 스킬] 어쩐지 끌리는 사람의 비즈니스 매너,리더십/조직가치 > 리더십 > 자기관리,총무·사무행정,비서·사무지원,INCLUDED,비즈니스 에티켓 및 의전/사무소통 실무 직결,https://hbs.hunet.co.kr/Education/Detail?gid=Y00256639,nan
+HUNET,Y00256321,SQLITE_HUNET_Y00256321,[강점리더십] 성과를 디자인하는 프레임워크 (MBO부터 OKR까지),리더십/조직가치 > 리더십 > 성과관리,인접(리더십/조직),인사·평가보상,REVIEW_NEEDED,"리더십/조직문화/소통 강좌로, 인사(HRD) 부서 적용 범위 추가 검토 요망",https://hbs.hunet.co.kr/Education/Detail?gid=Y00256321,nan
+HUNET,Y00245649,SQLITE_HUNET_Y00245649,핵심만 콕! 신입사원 온보딩,리더십/조직가치 > 리더십 > 리더십 종합,인사(HR),인사·채용관리,INCLUDED,기업 채용/선발/온보딩 프로세스 직무 실무 직결,https://hbs.hunet.co.kr/Education/Detail?gid=Y00245649,nan
+HUNET,Y00245652,SQLITE_HUNET_Y00245652,핵심만 콕! 빈틈없는 계약서 작성 실무,직무교육 > 인사/총무/법무 > 법무,인접(일반사무),인사·조직관리,REVIEW_NEEDED,과정명 맥락상 인사·총무와의 직접 연계성 추가 검토 필요,https://hbs.hunet.co.kr/Education/Detail?gid=Y00245652,nan
+HUNET,Y00245653,SQLITE_HUNET_Y00245653,핵심만 콕! 비즈니스 글쓰기와 보고서 작성 노하우,업무역량 > 기획 > 문서작성,총무·사무행정,공통·사무기획,INCLUDED,사내 비즈니스 문서작성 및 보고서 기획 실무 직결,https://hbs.hunet.co.kr/Education/Detail?gid=Y00245653,nan
+HUNET,Y00232023,SQLITE_HUNET_Y00232023,글로벌 HR 트렌드 : 미래조직 혁신전략,리더십/조직가치 > 리더십 > 사람관리,인접(일반사무),인사·조직관리,REVIEW_NEEDED,과정명 맥락상 인사·총무와의 직접 연계성 추가 검토 필요,https://hbs.hunet.co.kr/Education/Detail?gid=Y00232023,nan
+HUNET,Y00228579,SQLITE_HUNET_Y00228579,[북스쿨] 한 번에 통과하는 비즈니스 라이팅(도서 제공),북러닝 > 비즈니스 스킬 > 문서작성,인접(일반사무),공통·사무기획,REVIEW_NEEDED,과정명 맥락상 인사·총무와의 직접 연계성 추가 검토 필요,https://hbs.hunet.co.kr/Education/Detail?gid=Y00228579,nan
+HUNET,Y00221742,SQLITE_HUNET_Y00221742,[북러닝] 원페이저가 살아남는다(도서 제공),북러닝 > 비즈니스 스킬 > 문서작성,인접(일반사무),공통·사무기획,REVIEW_NEEDED,과정명 맥락상 인사·총무와의 직접 연계성 추가 검토 필요,https://hbs.hunet.co.kr/Education/Detail?gid=Y00221742,nan
+HUNET,Y00218474,SQLITE_HUNET_Y00218474,[북러닝] 성취 예측 모형(도서 제공),북러닝 > 경영직무 > 인사/HR,인접(일반사무),인사·조직관리,REVIEW_NEEDED,과정명 맥락상 인사·총무와의 직접 연계성 추가 검토 필요,https://hbs.hunet.co.kr/Education/Detail?gid=Y00218474,nan
+HUNET,Y00216064,SQLITE_HUNET_Y00216064,[북러닝] 투잡하는 김 대리는 취업규칙을 위반했을까?(도서 제공),북러닝 > 경영직무 > 인사/HR,인사(HR),노무관리,INCLUDED,"노동법 및 근로기준 준수, 노무관리 실무 직결",https://hbs.hunet.co.kr/Education/Detail?gid=Y00216064,nan
+HUNET,Y00216016,SQLITE_HUNET_Y00216016,데이터로 인사를 혁신하라 : HR ANALYTICS,리더십/조직가치 > 리더십 > 조직관리,인접(일반사무),인사·조직관리,REVIEW_NEEDED,과정명 맥락상 인사·총무와의 직접 연계성 추가 검토 필요,https://hbs.hunet.co.kr/Education/Detail?gid=Y00216016,nan
+HUNET,Y00210395,SQLITE_HUNET_Y00210395,[북러닝] 회사에서 글을 씁니다(도서 제공),북러닝 > 비즈니스 스킬 > 문서작성,인접(일반사무),공통·사무기획,REVIEW_NEEDED,과정명 맥락상 인사·총무와의 직접 연계성 추가 검토 필요,https://hbs.hunet.co.kr/Education/Detail?gid=Y00210395,nan
+HUNET,Y00205709,SQLITE_HUNET_Y00205709,[북러닝] 온택트 퍼실리테이션(도서 제공),북러닝 > 경영직무 > 인사/HR,인접(일반사무),인사·조직관리,REVIEW_NEEDED,과정명 맥락상 인사·총무와의 직접 연계성 추가 검토 필요,https://hbs.hunet.co.kr/Education/Detail?gid=Y00205709,nan
+HUNET,Y00205715,SQLITE_HUNET_Y00205715,[북러닝] 2단계 글쓰기(도서 제공),북러닝 > 비즈니스 스킬 > 문서작성,인접(일반사무),공통·사무기획,REVIEW_NEEDED,과정명 맥락상 인사·총무와의 직접 연계성 추가 검토 필요,https://hbs.hunet.co.kr/Education/Detail?gid=Y00205715,nan
+HUNET,Y00194178,SQLITE_HUNET_Y00194178,"초고성장기업의 앞서가는 혁신전략, 조직문화 익스프레스",리더십/조직가치 > 리더십 > 조직관리,인접(리더십/조직),인사·조직관리,REVIEW_NEEDED,"리더십/조직문화/소통 강좌로, 인사(HRD) 부서 적용 범위 추가 검토 요망",https://hbs.hunet.co.kr/Education/Detail?gid=Y00194178,nan
+HUNET,Y00194180,SQLITE_HUNET_Y00194180,노무사say 팬더믹 이후 조직문화 이슈,직무교육 > 인사/총무/법무 > HRD,인접(리더십/조직),노무관리,REVIEW_NEEDED,"리더십/조직문화/소통 강좌로, 인사(HRD) 부서 적용 범위 추가 검토 요망",https://hbs.hunet.co.kr/Education/Detail?gid=Y00194180,nan
+HUNET,Y00189726,SQLITE_HUNET_Y00189726,"[북러닝] Why를 소통하는 도구, OKR(도서 제공)",북러닝 > 조직관리 > 성과관리,인접(리더십/조직),인사·평가보상,REVIEW_NEEDED,"리더십/조직문화/소통 강좌로, 인사(HRD) 부서 적용 범위 추가 검토 요망",https://hbs.hunet.co.kr/Education/Detail?gid=Y00189726,nan
+HUNET,Y00185078,SQLITE_HUNET_Y00185078,[북러닝] 보고서의 법칙(도서 제공),북러닝 > 비즈니스 스킬 > 문서작성,인접(일반사무),공통·사무기획,REVIEW_NEEDED,과정명 맥락상 인사·총무와의 직접 연계성 추가 검토 필요,https://hbs.hunet.co.kr/Education/Detail?gid=Y00185078,nan
+HUNET,Y00183408,SQLITE_HUNET_Y00183408,[북러닝] 일잘러는 이렇게 일한다 - 일잘러의 보고서 작성법(도서 제공),북러닝 > 비즈니스 스킬 > 문서작성,총무·사무행정,공통·사무기획,INCLUDED,사내 비즈니스 문서작성 및 보고서 기획 실무 직결,https://hbs.hunet.co.kr/Education/Detail?gid=Y00183408,nan
+HUNET,Y00183409,SQLITE_HUNET_Y00183409,[북러닝] 일잘러는 이렇게 일한다 - 원격 꼰대가 되지 않는 법(도서 제공),북러닝 > 조직관리 > 성과관리,인접(일반사무),인사·평가보상,REVIEW_NEEDED,과정명 맥락상 인사·총무와의 직접 연계성 추가 검토 필요,https://hbs.hunet.co.kr/Education/Detail?gid=Y00183409,nan
+HUNET,Y00169436,SQLITE_HUNET_Y00169436,[북러닝] 부의 리셋 버튼 - 존리의 금융 문맹 탈출(도서 제공),북러닝 > 재무설계 > 자산관리,인접(일반사무),총무·자산관리,REVIEW_NEEDED,과정명 맥락상 인사·총무와의 직접 연계성 추가 검토 필요,https://hbs.hunet.co.kr/Education/Detail?gid=Y00169436,nan
+HUNET,Y00161578,SQLITE_HUNET_Y00161578,"실례합니다만, 비즈니스 매너는 지켜주시겠어요?",업무역량 > 비즈니스 스킬종합 >,총무·사무행정,비서·사무지원,INCLUDED,비즈니스 에티켓 및 의전/사무소통 실무 직결,https://hbs.hunet.co.kr/Education/Detail?gid=Y00161578,nan
+HUNET,Y00161581,SQLITE_HUNET_Y00161581,[오늘부터 정시퇴근] 엑셀 실무 테크닉 - 빅데이터 분석&시각화편,컴퓨터/AI > MS Office > 엑셀,인접(일반사무),공통·사무기획,REVIEW_NEEDED,과정명 맥락상 인사·총무와의 직접 연계성 추가 검토 필요,https://hbs.hunet.co.kr/Education/Detail?gid=Y00161581,nan
+HUNET,Y00161582,SQLITE_HUNET_Y00161582,[오늘부터 정시퇴근] 엑셀 실무 테크닉 - 일잘러의 보고서 작성편,컴퓨터/AI > MS Office > 엑셀,총무·사무행정,공통·사무기획,INCLUDED,사내 비즈니스 문서작성 및 보고서 기획 실무 직결,https://hbs.hunet.co.kr/Education/Detail?gid=Y00161582,nan
+HUNET,Y00175789,SQLITE_HUNET_Y00175789,[북러닝] 부의 리셋 버튼 - 주식하는 마음(도서 제공),북러닝 > 재무설계 > 자산관리,비관련(타분야),총무·자산관리,EXCLUDED,IT개발/어학/제조/개인재테크 등 비관련 전문 분야로 판정 (매칭: [북러닝] 부의 리셋 버튼 - 주식하는 마음(도서 제공)),https://hbs.hunet.co.kr/Education/Detail?gid=Y00175789,nan
+HUNET,Y00175790,SQLITE_HUNET_Y00175790,"[북러닝] 부의 리셋 버튼 - 주식의 시대, 투자의 자세(도서 제공)",북러닝 > 재무설계 > 자산관리,비관련(타분야),총무·자산관리,EXCLUDED,"IT개발/어학/제조/개인재테크 등 비관련 전문 분야로 판정 (매칭: [북러닝] 부의 리셋 버튼 - 주식의 시대, 투자의 자세(도서 제공))",https://hbs.hunet.co.kr/Education/Detail?gid=Y00175790,nan
+HUNET,Y00148948,SQLITE_HUNET_Y00148948,[북러닝] 서가명강 - 인사이드아웃(도서 제공),북러닝 > 경영직무 > 인사/HR,인접(일반사무),인사·조직관리,REVIEW_NEEDED,과정명 맥락상 인사·총무와의 직접 연계성 추가 검토 필요,https://hbs.hunet.co.kr/Education/Detail?gid=Y00148948,nan
+HUNET,Y00146970,SQLITE_HUNET_Y00146970,[북러닝] 정은길의 책발견 - 돈의 속성(도서 제공),북러닝 > 재무설계 > 자산관리,인접(일반사무),총무·자산관리,REVIEW_NEEDED,과정명 맥락상 인사·총무와의 직접 연계성 추가 검토 필요,https://hbs.hunet.co.kr/Education/Detail?gid=Y00146970,nan
+HUNET,Y00141106,SQLITE_HUNET_Y00141106,[카드뉴스] 슬기로운 기획생활 (기획서 작성부터 보고까지),업무역량 > 기획 > 문서작성,총무·사무행정,공통·사무기획,INCLUDED,사내 비즈니스 문서작성 및 보고서 기획 실무 직결,https://hbs.hunet.co.kr/Education/Detail?gid=Y00141106,nan
+HUNET,Y00134968,SQLITE_HUNET_Y00134968,"Real 5분, 인사노무 실무가이드",직무교육 > 인사/총무/법무 > HRM,인접(일반사무),노무관리,REVIEW_NEEDED,과정명 맥락상 인사·총무와의 직접 연계성 추가 검토 필요,https://hbs.hunet.co.kr/Education/Detail?gid=Y00134968,nan
+HUNET,Y00117074,SQLITE_HUNET_Y00117074,1 PAGE로 승부하라 : 강력한 한 장의 기획서,직무교육 > 경영기획/재무/회계 > 경영전략/기획,총무·사무행정,공통·사무기획,INCLUDED,사내 비즈니스 문서작성 및 보고서 기획 실무 직결,https://hbs.hunet.co.kr/Education/Detail?gid=Y00117074,nan
+HUNET,Y00111346,SQLITE_HUNET_Y00111346,[북러닝] 단단한 기획(도서 제공),북러닝 > 비즈니스 스킬 > 문서작성,인접(일반사무),공통·사무기획,REVIEW_NEEDED,과정명 맥락상 인사·총무와의 직접 연계성 추가 검토 필요,https://hbs.hunet.co.kr/Education/Detail?gid=Y00111346,nan
+HUNET,Y00099166,SQLITE_HUNET_Y00099166,핵심만 쏙! 주52시간 근무제와 HR의 변화,직무교육 > 인사/총무/법무 > HRD,인접(일반사무),인사·조직관리,REVIEW_NEEDED,과정명 맥락상 인사·총무와의 직접 연계성 추가 검토 필요,https://hbs.hunet.co.kr/Education/Detail?gid=Y00099166,nan
+HUNET,Y00063809,SQLITE_HUNET_Y00063809,"[조직문화 인사이트] 이기는 조직의 힘, 임플로이 인게이지먼트",리더십/조직가치 > 리더십 > 리더십 종합,인접(리더십/조직),인사·조직관리,REVIEW_NEEDED,"리더십/조직문화/소통 강좌로, 인사(HRD) 부서 적용 범위 추가 검토 요망",https://hbs.hunet.co.kr/Education/Detail?gid=Y00063809,nan
+HUNET,Y00030777,SQLITE_HUNET_Y00030777,전략적 인재 육성을 위한 HRD 에센스,직무교육 > 인사/총무/법무 > HRD,인사·총무공통,인사·조직관리,INCLUDED,인사·총무 부합 실무 강좌 확인,https://hbs.hunet.co.kr/Education/Detail?gid=Y00030777,nan
+HUNET,Y00004543,SQLITE_HUNET_Y00004543,직장인을 위한 비즈니스 매너 에센스,리더십/조직가치 > 리더십 > 자기관리,총무·사무행정,비서·사무지원,INCLUDED,비즈니스 에티켓 및 의전/사무소통 실무 직결,https://hbs.hunet.co.kr/Education/Detail?gid=Y00004543,nan
+KMA,110936,SQLITE_KMA_110936,[미국] HR Tech 2026 한국대표단,해외 컨퍼런스,인사·총무공통,인사·조직관리,INCLUDED,인사·총무 부합 실무 강좌 확인,https://www.kma.or.kr/usrs/eduRegMgnt/eduRegInfoDetailForm.do?p_edutype_cd=002&p_crscd=110936&p_crsseq_id=124341&p_ctgry_id=576&p_hmpgcd=30&mkey=36344,nan
+KMA,111429,SQLITE_KMA_111429,[여의도] 교육과정 기획과 개발,HRD,인사(HR),인사·조직관리,INCLUDED,기업 인사조직 및 인적자원개발(HRD) 실무 직결,https://www.kma.or.kr/usrs/eduRegMgnt/eduRegInfoDetailForm.do?p_edutype_cd=001&p_crscd=111429&p_crsseq_id=125909&p_ctgry_id=659&p_hmpgcd=30&mkey=37146,nan
+KMA,111431,SQLITE_KMA_111431,[여의도] [민간자격] 기업교육(HRD) 게이미피케이션 활용 스킬업,HRD,인사·총무공통,인사·조직관리,INCLUDED,인사·총무 부합 실무 강좌 확인,https://www.kma.or.kr/usrs/eduRegMgnt/eduRegInfoDetailForm.do?p_edutype_cd=001&p_crscd=111431&p_crsseq_id=125920&p_ctgry_id=659&p_hmpgcd=30&mkey=37146,nan
+KMA,111203,SQLITE_KMA_111203,[강남] [민간자격] 기업교육(HRD) 게이미피케이션 활용 스킬업,HRD,인사·총무공통,인사·조직관리,INCLUDED,인사·총무 부합 실무 강좌 확인,https://www.kma.or.kr/usrs/eduRegMgnt/eduRegInfoDetailForm.do?p_edutype_cd=001&p_crscd=111203&p_crsseq_id=124935&p_ctgry_id=659&p_hmpgcd=30&mkey=37146,nan
+KMA,111326,SQLITE_KMA_111326,[여의도] 다양성 조직문화와 리더십,리더십,인접(리더십/조직),인사·조직관리,REVIEW_NEEDED,"리더십/조직문화/소통 강좌로, 인사(HRD) 부서 적용 범위 추가 검토 요망",https://www.kma.or.kr/usrs/eduRegMgnt/eduRegInfoDetailForm.do?p_edutype_cd=001&p_crscd=111326&p_crsseq_id=125350&p_ctgry_id=534&p_hmpgcd=30&mkey=36302,nan
+KMA,111327,SQLITE_KMA_111327,[여의도] 조직문화 구축과 조직관리 리더십,리더십,인접(리더십/조직),인사·조직관리,REVIEW_NEEDED,"리더십/조직문화/소통 강좌로, 인사(HRD) 부서 적용 범위 추가 검토 요망",https://www.kma.or.kr/usrs/eduRegMgnt/eduRegInfoDetailForm.do?p_edutype_cd=001&p_crscd=111327&p_crsseq_id=125355&p_ctgry_id=534&p_hmpgcd=30&mkey=36302,nan
+KMA,112248,SQLITE_KMA_112248,[비대면] 다양성 조직문화와 리더십,리더십,인접(리더십/조직),인사·조직관리,REVIEW_NEEDED,"리더십/조직문화/소통 강좌로, 인사(HRD) 부서 적용 범위 추가 검토 요망",https://www.kma.or.kr/usrs/eduRegMgnt/eduRegInfoDetailForm.do?p_edutype_cd=001&p_crscd=112248&p_crsseq_id=128270&p_ctgry_id=534&p_hmpgcd=30&mkey=36302,nan
+KMA,111455,SQLITE_KMA_111455,[여의도] 리더의 성과관리 핵심 매뉴얼,성과관리,인사(HR),인사·평가보상,INCLUDED,인사평가체계 및 보상/성과관리 실무 직결,https://www.kma.or.kr/usrs/eduRegMgnt/eduRegInfoDetailForm.do?p_edutype_cd=001&p_crscd=111455&p_crsseq_id=127447&p_ctgry_id=540&p_hmpgcd=30&mkey=36308,nan
+KMA,111454,SQLITE_KMA_111454,[여의도] 리더를 위한 차세대 성과관리 전략 &#39;피드포워드&#39;,성과관리,인사(HR),인사·평가보상,INCLUDED,인사평가체계 및 보상/성과관리 실무 직결,https://www.kma.or.kr/usrs/eduRegMgnt/eduRegInfoDetailForm.do?p_edutype_cd=001&p_crscd=111454&p_crsseq_id=126010&p_ctgry_id=540&p_hmpgcd=30&mkey=36308,nan
+KMA,111663,SQLITE_KMA_111663,[여의도] 수시 경력입사자 온보딩,2026 신규,인사(HR),인사·채용관리,INCLUDED,기업 채용/선발/온보딩 프로세스 직무 실무 직결,https://www.kma.or.kr/usrs/eduRegMgnt/eduRegInfoDetailForm.do?p_edutype_cd=001&p_crscd=111663&p_crsseq_id=126808&p_ctgry_id=698&p_hmpgcd=30&mkey=37240,nan
+KMA,111391,SQLITE_KMA_111391,[여의도] 설득력 있는 실전 보고서 작성 스킬(with MS Office),문서작성,총무·사무행정,공통·사무기획,INCLUDED,사내 비즈니스 문서작성 및 보고서 기획 실무 직결,https://www.kma.or.kr/usrs/eduRegMgnt/eduRegInfoDetailForm.do?p_edutype_cd=001&p_crscd=111391&p_crsseq_id=125716&p_ctgry_id=557&p_hmpgcd=30&mkey=36325,nan
+KMA,111389,SQLITE_KMA_111389,[여의도] AI와 함께하는 스마트한 파워포인트 제작 기법,문서작성,인접(일반사무),공통·사무기획,REVIEW_NEEDED,과정명 맥락상 인사·총무와의 직접 연계성 추가 검토 필요,https://www.kma.or.kr/usrs/eduRegMgnt/eduRegInfoDetailForm.do?p_edutype_cd=001&p_crscd=111389&p_crsseq_id=125700&p_ctgry_id=557&p_hmpgcd=30&mkey=36325,nan
+KMA,112242,SQLITE_KMA_112242,[여의도] AI와 MS Office로 끝내는 기획·보고서 작성 실무,생성형AI 실무 활용,총무·사무행정,공통·사무기획,INCLUDED,사내 비즈니스 문서작성 및 보고서 기획 실무 직결,https://www.kma.or.kr/usrs/eduRegMgnt/eduRegInfoDetailForm.do?p_edutype_cd=001&p_crscd=112242&p_crsseq_id=128239&p_ctgry_id=685&p_hmpgcd=30&mkey=37226,nan
+KMA,112237,SQLITE_KMA_112237,[여의도] AI로 기획하고 MS-Word로 완성하는 칼퇴 문서 작성법,문서작성,인접(일반사무),공통·사무기획,REVIEW_NEEDED,과정명 맥락상 인사·총무와의 직접 연계성 추가 검토 필요,https://www.kma.or.kr/usrs/eduRegMgnt/eduRegInfoDetailForm.do?p_edutype_cd=001&p_crscd=112237&p_crsseq_id=128216&p_ctgry_id=557&p_hmpgcd=30&mkey=36325,nan
+KMA,111395,SQLITE_KMA_111395,[여의도] 정책보고서 작성의 길잡이,공공특화,총무·사무행정,공통·사무기획,INCLUDED,사내 비즈니스 문서작성 및 보고서 기획 실무 직결,https://www.kma.or.kr/usrs/eduRegMgnt/eduRegInfoDetailForm.do?p_edutype_cd=001&p_crscd=111395&p_crsseq_id=125734&p_ctgry_id=654&p_hmpgcd=30&mkey=37151,nan
+KMA,111308,SQLITE_KMA_111308,[여의도] GPT-5 ∙ R ∙ Python을 활용한 빅데이터 분석 및 보고서 작성,데이터 분석,총무·사무행정,공통·사무기획,INCLUDED,사내 비즈니스 문서작성 및 보고서 기획 실무 직결,https://www.kma.or.kr/usrs/eduRegMgnt/eduRegInfoDetailForm.do?p_edutype_cd=001&p_crscd=111308&p_crsseq_id=125269&p_ctgry_id=568&p_hmpgcd=30&mkey=36336,nan
+KMA,111156,SQLITE_KMA_111156,[여의도] 생성형 AI 엑셀/PPT 보고서 작성,생성형AI 실무 활용,총무·사무행정,공통·사무기획,INCLUDED,사내 비즈니스 문서작성 및 보고서 기획 실무 직결,https://www.kma.or.kr/usrs/eduRegMgnt/eduRegInfoDetailForm.do?p_edutype_cd=001&p_crscd=111156&p_crsseq_id=124678&p_ctgry_id=685&p_hmpgcd=30&mkey=37226,nan
+KMA,111157,SQLITE_KMA_111157,[여의도] AI로 더 빠른! 일잘러의 원페이지 보고서 작성 비법,생성형AI 실무 활용,총무·사무행정,공통·사무기획,INCLUDED,사내 비즈니스 문서작성 및 보고서 기획 실무 직결,https://www.kma.or.kr/usrs/eduRegMgnt/eduRegInfoDetailForm.do?p_edutype_cd=001&p_crscd=111157&p_crsseq_id=124689&p_ctgry_id=685&p_hmpgcd=30&mkey=37226,nan
+KMA,111399,SQLITE_KMA_111399,[여의도] 맥킨지 방식의 비즈니스 보고서 작성 스킬,문서작성,총무·사무행정,공통·사무기획,INCLUDED,사내 비즈니스 문서작성 및 보고서 기획 실무 직결,https://www.kma.or.kr/usrs/eduRegMgnt/eduRegInfoDetailForm.do?p_edutype_cd=001&p_crscd=111399&p_crsseq_id=125760&p_ctgry_id=557&p_hmpgcd=30&mkey=36325,nan
+KMA,111158,SQLITE_KMA_111158,[여의도] 일잘러의 AI 활용 기획 및 기획서 작성 A to Z,생성형AI 실무 활용,총무·사무행정,공통·사무기획,INCLUDED,사내 비즈니스 문서작성 및 보고서 기획 실무 직결,https://www.kma.or.kr/usrs/eduRegMgnt/eduRegInfoDetailForm.do?p_edutype_cd=001&p_crscd=111158&p_crsseq_id=124696&p_ctgry_id=685&p_hmpgcd=30&mkey=37226,nan
+KMA,111396,SQLITE_KMA_111396,[여의도] 비즈니스 문서 작성 실전 클리닉,문서작성,인접(일반사무),공통·사무기획,REVIEW_NEEDED,과정명 맥락상 인사·총무와의 직접 연계성 추가 검토 필요,https://www.kma.or.kr/usrs/eduRegMgnt/eduRegInfoDetailForm.do?p_edutype_cd=001&p_crscd=111396&p_crsseq_id=125737&p_ctgry_id=557&p_hmpgcd=30&mkey=36325,nan
+KMA,111215,SQLITE_KMA_111215,[비대면] AI로 더 빠른! 일잘러의 원페이지 보고서 작성 비법,생성형AI 실무 활용,총무·사무행정,공통·사무기획,INCLUDED,사내 비즈니스 문서작성 및 보고서 기획 실무 직결,https://www.kma.or.kr/usrs/eduRegMgnt/eduRegInfoDetailForm.do?p_edutype_cd=001&p_crscd=111215&p_crsseq_id=124953&p_ctgry_id=685&p_hmpgcd=30&mkey=37226,nan
+KMA,111216,SQLITE_KMA_111216,[비대면] 일잘러의 AI 활용 기획 및 기획서 작성 A to Z,생성형AI 실무 활용,총무·사무행정,공통·사무기획,INCLUDED,사내 비즈니스 문서작성 및 보고서 기획 실무 직결,https://www.kma.or.kr/usrs/eduRegMgnt/eduRegInfoDetailForm.do?p_edutype_cd=001&p_crscd=111216&p_crsseq_id=124955&p_ctgry_id=685&p_hmpgcd=30&mkey=37226,nan
+KMA,111394,SQLITE_KMA_111394,[여의도] 맥킨지컨설팅 방식의 비즈니스 보고서 작성 실무,문서작성,총무·사무행정,공통·사무기획,INCLUDED,사내 비즈니스 문서작성 및 보고서 기획 실무 직결,https://www.kma.or.kr/usrs/eduRegMgnt/eduRegInfoDetailForm.do?p_edutype_cd=001&p_crscd=111394&p_crsseq_id=125732&p_ctgry_id=557&p_hmpgcd=30&mkey=36325,nan
+KMA,111398,SQLITE_KMA_111398,[여의도] 한번에 통하는 원페이지 보고서 작성 실무,문서작성,총무·사무행정,공통·사무기획,INCLUDED,사내 비즈니스 문서작성 및 보고서 기획 실무 직결,https://www.kma.or.kr/usrs/eduRegMgnt/eduRegInfoDetailForm.do?p_edutype_cd=001&p_crscd=111398&p_crsseq_id=125754&p_ctgry_id=557&p_hmpgcd=30&mkey=36325,nan
+KMA,112195,SQLITE_KMA_112195,[여의도] 한번에 통하는 원페이지 보고서 작성 스킬 (with AI),전략∙기획,총무·사무행정,공통·사무기획,INCLUDED,사내 비즈니스 문서작성 및 보고서 기획 실무 직결,https://www.kma.or.kr/usrs/eduRegMgnt/eduRegInfoDetailForm.do?p_edutype_cd=001&p_crscd=112195&p_crsseq_id=128027&p_ctgry_id=561&p_hmpgcd=30&mkey=36329,nan
+KMA,112193,SQLITE_KMA_112193,[여의도] 맥킨지컨설팅 방식의 비즈니스 보고서 작성 실무 (with AI),전략∙기획,총무·사무행정,공통·사무기획,INCLUDED,사내 비즈니스 문서작성 및 보고서 기획 실무 직결,https://www.kma.or.kr/usrs/eduRegMgnt/eduRegInfoDetailForm.do?p_edutype_cd=001&p_crscd=112193&p_crsseq_id=128018&p_ctgry_id=561&p_hmpgcd=30&mkey=36329,nan
+KMA,112092,SQLITE_KMA_112092,[여의도] 업무를 혁신하는 생성형AI 활용 텍스트 분석과 보고서 작성,데이터 분석,총무·사무행정,공통·사무기획,INCLUDED,사내 비즈니스 문서작성 및 보고서 기획 실무 직결,https://www.kma.or.kr/usrs/eduRegMgnt/eduRegInfoDetailForm.do?p_edutype_cd=001&p_crscd=112092&p_crsseq_id=127495&p_ctgry_id=568&p_hmpgcd=30&mkey=36336,nan
+KMA,111870,SQLITE_KMA_111870,"[여의도] AI 활용, 기획안 설득력 · 기획서 전달력 마스터",2026 신규,총무·사무행정,공통·사무기획,INCLUDED,사내 비즈니스 문서작성 및 보고서 기획 실무 직결,https://www.kma.or.kr/usrs/eduRegMgnt/eduRegInfoDetailForm.do?p_edutype_cd=001&p_crscd=111870&p_crsseq_id=127436&p_ctgry_id=698&p_hmpgcd=30&mkey=37240,nan
+KMA,111311,SQLITE_KMA_111311,"[여의도] 웹 데이터(논문, 뉴스, 특허) 수집 및 비정형 보고서 작성 실무",데이터 분석,총무·사무행정,공통·사무기획,INCLUDED,사내 비즈니스 문서작성 및 보고서 기획 실무 직결,https://www.kma.or.kr/usrs/eduRegMgnt/eduRegInfoDetailForm.do?p_edutype_cd=001&p_crscd=111311&p_crsseq_id=125282&p_ctgry_id=568&p_hmpgcd=30&mkey=36336,nan
+KMA,112095,SQLITE_KMA_112095,[여의도] 클릭만으로 배우는 생성형 AI 빅데이터 분석 및 보고서 작성 (with 크롬확장프로그램),데이터 분석,총무·사무행정,공통·사무기획,INCLUDED,사내 비즈니스 문서작성 및 보고서 기획 실무 직결,https://www.kma.or.kr/usrs/eduRegMgnt/eduRegInfoDetailForm.do?p_edutype_cd=001&p_crscd=112095&p_crsseq_id=127512&p_ctgry_id=568&p_hmpgcd=30&mkey=36336,nan
+KMA,112093,SQLITE_KMA_112093,"[여의도] 웹 데이터(논문, 뉴스, 특허) 수집 및 보고서 작성 (with 크롬확장프로그램)",데이터 분석,총무·사무행정,공통·사무기획,INCLUDED,사내 비즈니스 문서작성 및 보고서 기획 실무 직결,https://www.kma.or.kr/usrs/eduRegMgnt/eduRegInfoDetailForm.do?p_edutype_cd=001&p_crscd=112093&p_crsseq_id=127503&p_ctgry_id=568&p_hmpgcd=30&mkey=36336,nan
+KMA,111553,SQLITE_KMA_111553,[여의도] 공공기관 실무자를 위한 보고서 작성 실무,공공특화,총무·사무행정,공통·사무기획,INCLUDED,사내 비즈니스 문서작성 및 보고서 기획 실무 직결,https://www.kma.or.kr/usrs/eduRegMgnt/eduRegInfoDetailForm.do?p_edutype_cd=001&p_crscd=111553&p_crsseq_id=126304&p_ctgry_id=654&p_hmpgcd=30&mkey=37151,nan
+KMA,111290,SQLITE_KMA_111290,[여의도] AI기반 금융 데이터 분석 및 보고서 작성 자동화,생성형AI 직무 특화,총무·사무행정,공통·사무기획,INCLUDED,사내 비즈니스 문서작성 및 보고서 기획 실무 직결,https://www.kma.or.kr/usrs/eduRegMgnt/eduRegInfoDetailForm.do?p_edutype_cd=001&p_crscd=111290&p_crsseq_id=125201&p_ctgry_id=686&p_hmpgcd=30&mkey=37227,nan
+KMA,111184,SQLITE_KMA_111184,[여의도] 교육담당자 기본,HRD,인접(일반사무),인사·조직관리,REVIEW_NEEDED,과정명 맥락상 인사·총무와의 직접 연계성 추가 검토 필요,https://www.kma.or.kr/usrs/eduRegMgnt/eduRegInfoDetailForm.do?p_edutype_cd=001&p_crscd=111184&p_crsseq_id=124826&p_ctgry_id=659&p_hmpgcd=30&mkey=37146,nan
+KMA,111185,SQLITE_KMA_111185,[여의도] 교육운영 실무,HRD,인접(일반사무),인사·조직관리,REVIEW_NEEDED,과정명 맥락상 인사·총무와의 직접 연계성 추가 검토 필요,https://www.kma.or.kr/usrs/eduRegMgnt/eduRegInfoDetailForm.do?p_edutype_cd=001&p_crscd=111185&p_crsseq_id=124838&p_ctgry_id=659&p_hmpgcd=30&mkey=37146,nan
+KMA,111186,SQLITE_KMA_111186,[여의도] HRD 전략과 교육체계 수립,HRD,인사·총무공통,인사·조직관리,INCLUDED,인사·총무 부합 실무 강좌 확인,https://www.kma.or.kr/usrs/eduRegMgnt/eduRegInfoDetailForm.do?p_edutype_cd=001&p_crscd=111186&p_crsseq_id=124850&p_ctgry_id=659&p_hmpgcd=30&mkey=37146,nan
+KMA,111662,SQLITE_KMA_111662,[여의도] HRD 성과평가 실무,HRD,인사·총무공통,인사·조직관리,INCLUDED,인사·총무 부합 실무 강좌 확인,https://www.kma.or.kr/usrs/eduRegMgnt/eduRegInfoDetailForm.do?p_edutype_cd=001&p_crscd=111662&p_crsseq_id=126804&p_ctgry_id=659&p_hmpgcd=30&mkey=37146,nan
+KMA,111430,SQLITE_KMA_111430,[여의도] 교육효과 측정과 평가,HRD,인접(일반사무),인사·조직관리,REVIEW_NEEDED,과정명 맥락상 인사·총무와의 직접 연계성 추가 검토 필요,https://www.kma.or.kr/usrs/eduRegMgnt/eduRegInfoDetailForm.do?p_edutype_cd=001&p_crscd=111430&p_crsseq_id=125917&p_ctgry_id=659&p_hmpgcd=30&mkey=37146,nan
+KMA,112358,SQLITE_KMA_112358,"[여의도] AI시대, 교육 담당자 기본",HRD,인접(일반사무),인사·조직관리,REVIEW_NEEDED,과정명 맥락상 인사·총무와의 직접 연계성 추가 검토 필요,https://www.kma.or.kr/usrs/eduRegMgnt/eduRegInfoDetailForm.do?p_edutype_cd=001&p_crscd=112358&p_crsseq_id=128583&p_ctgry_id=659&p_hmpgcd=30&mkey=37146,nan
+KMA,111166,SQLITE_KMA_111166,[여의도] HR 담당자를 위한 생성형AI 업무자동화 프로젝트,생성형AI 직무 특화,인접(디지털사무),인사·조직관리,REVIEW_NEEDED,"생성형 AI 및 엑셀 자동화 툴 강좌로, 사무행정 필수 직무 연계성 검토 요망",https://www.kma.or.kr/usrs/eduRegMgnt/eduRegInfoDetailForm.do?p_edutype_cd=001&p_crscd=111166&p_crsseq_id=124734&p_ctgry_id=686&p_hmpgcd=30&mkey=37227,nan
+KMA,111204,SQLITE_KMA_111204,[강남] HR 담당자를 위한 인사∙노무 실무,인사∙노무∙법무,인접(일반사무),노무관리,REVIEW_NEEDED,과정명 맥락상 인사·총무와의 직접 연계성 추가 검토 필요,https://www.kma.or.kr/usrs/eduRegMgnt/eduRegInfoDetailForm.do?p_edutype_cd=001&p_crscd=111204&p_crsseq_id=124936&p_ctgry_id=661&p_hmpgcd=30&mkey=37148,nan
+KMA,111442,SQLITE_KMA_111442,[여의도] HR 담당자를 위한 역량모델링 실무,인사∙노무∙법무,인접(일반사무),노무관리,REVIEW_NEEDED,과정명 맥락상 인사·총무와의 직접 연계성 추가 검토 필요,https://www.kma.or.kr/usrs/eduRegMgnt/eduRegInfoDetailForm.do?p_edutype_cd=001&p_crscd=111442&p_crsseq_id=125969&p_ctgry_id=661&p_hmpgcd=30&mkey=37148,nan
+KMA,111450,SQLITE_KMA_111450,[여의도] 안정적인 노사관계를 위한 노동법 및 노사협의회 운영 실무,인사∙노무∙법무,인사(HR),노무관리,INCLUDED,"노동법 및 근로기준 준수, 노무관리 실무 직결",https://www.kma.or.kr/usrs/eduRegMgnt/eduRegInfoDetailForm.do?p_edutype_cd=001&p_crscd=111450&p_crsseq_id=125998&p_ctgry_id=661&p_hmpgcd=30&mkey=37148,nan
+KMA,111439,SQLITE_KMA_111439,[여의도] 인사담당자가 꼭 알아야 할 면접스킬,인사∙노무∙법무,인사(HR),인사·채용관리,INCLUDED,기업 채용/선발/온보딩 프로세스 직무 실무 직결,https://www.kma.or.kr/usrs/eduRegMgnt/eduRegInfoDetailForm.do?p_edutype_cd=001&p_crscd=111439&p_crsseq_id=125958&p_ctgry_id=661&p_hmpgcd=30&mkey=37148,nan
+KMA,111441,SQLITE_KMA_111441,[여의도] HR 담당자를 위한 직무분석 실무,인사∙노무∙법무,인접(일반사무),노무관리,REVIEW_NEEDED,과정명 맥락상 인사·총무와의 직접 연계성 추가 검토 필요,https://www.kma.or.kr/usrs/eduRegMgnt/eduRegInfoDetailForm.do?p_edutype_cd=001&p_crscd=111441&p_crsseq_id=125966&p_ctgry_id=661&p_hmpgcd=30&mkey=37148,nan
+KMA,111438,SQLITE_KMA_111438,[여의도] 채용 법률과 트렌드: 실무자 필수 가이드,인사∙노무∙법무,인사(HR),인사·채용관리,INCLUDED,기업 채용/선발/온보딩 프로세스 직무 실무 직결,https://www.kma.or.kr/usrs/eduRegMgnt/eduRegInfoDetailForm.do?p_edutype_cd=001&p_crscd=111438&p_crsseq_id=125954&p_ctgry_id=661&p_hmpgcd=30&mkey=37148,nan
+KMA,111437,SQLITE_KMA_111437,[여의도] HR 담당자를 위한 인사∙노무 실무,인사∙노무∙법무,인접(일반사무),노무관리,REVIEW_NEEDED,과정명 맥락상 인사·총무와의 직접 연계성 추가 검토 필요,https://www.kma.or.kr/usrs/eduRegMgnt/eduRegInfoDetailForm.do?p_edutype_cd=001&p_crscd=111437&p_crsseq_id=125950&p_ctgry_id=661&p_hmpgcd=30&mkey=37148,nan
+KMA,111446,SQLITE_KMA_111446,[여의도] HR 실무자를 위한 근로시간 및 연차휴가 관리 실전 노하우,인사∙노무∙법무,인접(일반사무),노무관리,REVIEW_NEEDED,과정명 맥락상 인사·총무와의 직접 연계성 추가 검토 필요,https://www.kma.or.kr/usrs/eduRegMgnt/eduRegInfoDetailForm.do?p_edutype_cd=001&p_crscd=111446&p_crsseq_id=125985&p_ctgry_id=661&p_hmpgcd=30&mkey=37148,nan
+KMA,111440,SQLITE_KMA_111440,[여의도] 채용면접위원 양성,인사∙노무∙법무,인사(HR),인사·채용관리,INCLUDED,기업 채용/선발/온보딩 프로세스 직무 실무 직결,https://www.kma.or.kr/usrs/eduRegMgnt/eduRegInfoDetailForm.do?p_edutype_cd=001&p_crscd=111440&p_crsseq_id=125961&p_ctgry_id=661&p_hmpgcd=30&mkey=37148,nan
+KMA,111205,SQLITE_KMA_111205,"[강남] 성과 향상을 위한 인사평가(성과평가, 다면평가) 면담 Skill",2026 신규,인사(HR),인사·평가보상,INCLUDED,인사평가체계 및 보상/성과관리 실무 직결,https://www.kma.or.kr/usrs/eduRegMgnt/eduRegInfoDetailForm.do?p_edutype_cd=001&p_crscd=111205&p_crsseq_id=124937&p_ctgry_id=698&p_hmpgcd=30&mkey=37240,nan
+KMA,112331,SQLITE_KMA_112331,[여의도] 안정적인 노사관계를 위한 노동법 및 노사협의회 운영실무,인사∙노무∙법무,인사(HR),노무관리,INCLUDED,"노동법 및 근로기준 준수, 노무관리 실무 직결",https://www.kma.or.kr/usrs/eduRegMgnt/eduRegInfoDetailForm.do?p_edutype_cd=001&p_crscd=112331&p_crsseq_id=128542&p_ctgry_id=661&p_hmpgcd=30&mkey=37148,nan
+KMA,112349,SQLITE_KMA_112349,[비대면] HR 담당자를 위한 인사∙노무 실무,인사∙노무∙법무,인접(일반사무),노무관리,REVIEW_NEEDED,과정명 맥락상 인사·총무와의 직접 연계성 추가 검토 필요,https://www.kma.or.kr/usrs/eduRegMgnt/eduRegInfoDetailForm.do?p_edutype_cd=001&p_crscd=112349&p_crsseq_id=128565&p_ctgry_id=661&p_hmpgcd=30&mkey=37148,nan
+KMA,112029,SQLITE_KMA_112029,[온라인][자격] 채용면접전문가,공통스킬,인사(HR),인사·채용관리,INCLUDED,기업 채용/선발/온보딩 프로세스 직무 실무 직결,https://www.kma.or.kr/usrs/eduRegMgnt/eduRegInfoDetailForm.do?p_edutype_cd=002&p_crscd=112029&p_crsseq_id=127366&p_ctgry_id=664&p_hmpgcd=30&mkey=37172,nan
+KMA,112020,SQLITE_KMA_112020,[단체][자격] 생성형AI 활용 HR 전문가,공통스킬,인접(디지털사무),인사·조직관리,REVIEW_NEEDED,"생성형 AI 및 엑셀 자동화 툴 강좌로, 사무행정 필수 직무 연계성 검토 요망",https://www.kma.or.kr/usrs/eduRegMgnt/eduRegInfoDetailForm.do?p_edutype_cd=002&p_crscd=112020&p_crsseq_id=127349&p_ctgry_id=664&p_hmpgcd=30&mkey=37172,nan
+KMA,110300,SQLITE_KMA_110300,[자격][온라인] 채용전문면접관,전문직무,인사(HR),인사·채용관리,INCLUDED,기업 채용/선발/온보딩 프로세스 직무 실무 직결,https://www.kma.or.kr/usrs/eduRegMgnt/eduRegInfoDetailForm.do?p_edutype_cd=002&p_crscd=110300&p_crsseq_id=126735&p_ctgry_id=665&p_hmpgcd=30&mkey=37170,nan
+KMA,110000,SQLITE_KMA_110000,[온라인][자격] 부동산자산관리지도사,직업전환,비관련(타분야),총무·자산관리,EXCLUDED,IT개발/어학/제조/개인재테크 등 비관련 전문 분야로 판정 (매칭: [온라인][자격] 부동산자산관리지도사),https://www.kma.or.kr/usrs/eduRegMgnt/eduRegInfoDetailForm.do?p_edutype_cd=002&p_crscd=110000&p_crsseq_id=126663&p_ctgry_id=668&p_hmpgcd=30&mkey=37179,nan
+KMA,111518,SQLITE_KMA_111518,[여의도] Smart 전문비서 역량개발,비서,인접(일반사무),비서·사무지원,REVIEW_NEEDED,과정명 맥락상 인사·총무와의 직접 연계성 추가 검토 필요,https://www.kma.or.kr/usrs/eduRegMgnt/eduRegInfoDetailForm.do?p_edutype_cd=001&p_crscd=111518&p_crsseq_id=126242&p_ctgry_id=674&p_hmpgcd=30&mkey=37207,nan
+KMA,111867,SQLITE_KMA_111867,[여의도] AI와 최강 비서 역량 마스터,2026 신규,인접(일반사무),비서·사무지원,REVIEW_NEEDED,과정명 맥락상 인사·총무와의 직접 연계성 추가 검토 필요,https://www.kma.or.kr/usrs/eduRegMgnt/eduRegInfoDetailForm.do?p_edutype_cd=001&p_crscd=111867&p_crsseq_id=127472&p_ctgry_id=698&p_hmpgcd=30&mkey=37240,nan
+KMA,112121,SQLITE_KMA_112121,"[비대면] AI 시대, 실무에 바로 쓰는 공문서 및 보고서 작성 실무",생성형AI 실무 활용,총무·사무행정,공통·사무기획,INCLUDED,사내 비즈니스 문서작성 및 보고서 기획 실무 직결,https://www.kma.or.kr/usrs/eduRegMgnt/eduRegInfoDetailForm.do?p_edutype_cd=001&p_crscd=112121&p_crsseq_id=127624&p_ctgry_id=685&p_hmpgcd=30&mkey=37226,nan
+KMA,111350,SQLITE_KMA_111350,[여의도] [국제공인자격] Extended DISC® 전문가 양성,조직문화,인접(일반사무),인사·조직관리,REVIEW_NEEDED,과정명 맥락상 인사·총무와의 직접 연계성 추가 검토 필요,https://www.kma.or.kr/usrs/eduRegMgnt/eduRegInfoDetailForm.do?p_edutype_cd=001&p_crscd=111350&p_crsseq_id=125455&p_ctgry_id=688&p_hmpgcd=30&mkey=37229,nan
+KMA,111349,SQLITE_KMA_111349,"[여의도] Culture Shift, 조직문화 혁신 전략",조직문화,인접(리더십/조직),인사·조직관리,REVIEW_NEEDED,"리더십/조직문화/소통 강좌로, 인사(HRD) 부서 적용 범위 추가 검토 요망",https://www.kma.or.kr/usrs/eduRegMgnt/eduRegInfoDetailForm.do?p_edutype_cd=001&p_crscd=111349&p_crsseq_id=125445&p_ctgry_id=688&p_hmpgcd=30&mkey=37229,nan
+KMA,111351,SQLITE_KMA_111351,"[여의도] 나도 컨설턴트, 조직진단 및 조직개발 실무",조직문화,인접(일반사무),인사·조직관리,REVIEW_NEEDED,과정명 맥락상 인사·총무와의 직접 연계성 추가 검토 필요,https://www.kma.or.kr/usrs/eduRegMgnt/eduRegInfoDetailForm.do?p_edutype_cd=001&p_crscd=111351&p_crsseq_id=125462&p_ctgry_id=688&p_hmpgcd=30&mkey=37229,nan
+KMA,111352,SQLITE_KMA_111352,[여의도] 공정성 인식을 통한 긍정적 조직문화 형성,조직문화,비관련(타분야),인사·조직관리,EXCLUDED,IT개발/어학/제조/개인재테크 등 비관련 전문 분야로 판정 (매칭: [여의도] 공정성 인식을 통한 긍정적 조직문화 형성),https://www.kma.or.kr/usrs/eduRegMgnt/eduRegInfoDetailForm.do?p_edutype_cd=001&p_crscd=111352&p_crsseq_id=125466&p_ctgry_id=688&p_hmpgcd=30&mkey=37229,nan
+KMA,111346,SQLITE_KMA_111346,"[여의도] Culture Transformation, 조직문화 담당자 기본",조직문화,인접(리더십/조직),인사·조직관리,REVIEW_NEEDED,"리더십/조직문화/소통 강좌로, 인사(HRD) 부서 적용 범위 추가 검토 요망",https://www.kma.or.kr/usrs/eduRegMgnt/eduRegInfoDetailForm.do?p_edutype_cd=001&p_crscd=111346&p_crsseq_id=125433&p_ctgry_id=688&p_hmpgcd=30&mkey=37229,nan
+KMA,111347,SQLITE_KMA_111347,[여의도] Culture Fit 기반 조직문화 설계 워크숍,조직문화,인접(리더십/조직),인사·조직관리,REVIEW_NEEDED,"리더십/조직문화/소통 강좌로, 인사(HRD) 부서 적용 범위 추가 검토 요망",https://www.kma.or.kr/usrs/eduRegMgnt/eduRegInfoDetailForm.do?p_edutype_cd=001&p_crscd=111347&p_crsseq_id=125436&p_ctgry_id=688&p_hmpgcd=30&mkey=37229,nan
+KMA,111348,SQLITE_KMA_111348,"[여의도] 조직문화 패러다임, Culture Deck 개발",조직문화,인접(리더십/조직),인사·조직관리,REVIEW_NEEDED,"리더십/조직문화/소통 강좌로, 인사(HRD) 부서 적용 범위 추가 검토 요망",https://www.kma.or.kr/usrs/eduRegMgnt/eduRegInfoDetailForm.do?p_edutype_cd=001&p_crscd=111348&p_crsseq_id=126382&p_ctgry_id=688&p_hmpgcd=30&mkey=37229,nan
+KMA,112294,SQLITE_KMA_112294,[여의도] 조직진단 &  조직개발 컨설팅 실무,조직문화,인접(일반사무),인사·조직관리,REVIEW_NEEDED,과정명 맥락상 인사·총무와의 직접 연계성 추가 검토 필요,https://www.kma.or.kr/usrs/eduRegMgnt/eduRegInfoDetailForm.do?p_edutype_cd=001&p_crscd=112294&p_crsseq_id=128440&p_ctgry_id=688&p_hmpgcd=30&mkey=37229,nan
+KMA,112291,SQLITE_KMA_112291,[여의도] 성과를 만드는 조직문화: 도전과 성장의 팀 빌딩,조직문화,인접(리더십/조직),인사·조직관리,REVIEW_NEEDED,"리더십/조직문화/소통 강좌로, 인사(HRD) 부서 적용 범위 추가 검토 요망",https://www.kma.or.kr/usrs/eduRegMgnt/eduRegInfoDetailForm.do?p_edutype_cd=001&p_crscd=112291&p_crsseq_id=128429&p_ctgry_id=688&p_hmpgcd=30&mkey=37229,nan
+KMA,112295,SQLITE_KMA_112295,[여의도] 하루만에 끝내는 조직문화 담당자 필살기 노하우,조직문화,인접(리더십/조직),인사·조직관리,REVIEW_NEEDED,"리더십/조직문화/소통 강좌로, 인사(HRD) 부서 적용 범위 추가 검토 요망",https://www.kma.or.kr/usrs/eduRegMgnt/eduRegInfoDetailForm.do?p_edutype_cd=001&p_crscd=112295&p_crsseq_id=128443&p_ctgry_id=688&p_hmpgcd=30&mkey=37229,nan
+KMA,112298,SQLITE_KMA_112298,"[여의도] Culture Transformation, 조직문화 담당자 양성과정",조직문화,인접(리더십/조직),인사·조직관리,REVIEW_NEEDED,"리더십/조직문화/소통 강좌로, 인사(HRD) 부서 적용 범위 추가 검토 요망",https://www.kma.or.kr/usrs/eduRegMgnt/eduRegInfoDetailForm.do?p_edutype_cd=001&p_crscd=112298&p_crsseq_id=128455&p_ctgry_id=688&p_hmpgcd=30&mkey=37229,nan
+KMA,112292,SQLITE_KMA_112292,[여의도] 육아휴직 복직자 리보딩 프로그램: 일과 가정의 균형 찾기,조직문화,인접(일반사무),인사·조직관리,REVIEW_NEEDED,과정명 맥락상 인사·총무와의 직접 연계성 추가 검토 필요,https://www.kma.or.kr/usrs/eduRegMgnt/eduRegInfoDetailForm.do?p_edutype_cd=001&p_crscd=112292&p_crsseq_id=128433&p_ctgry_id=688&p_hmpgcd=30&mkey=37229,nan
+KPC,47493,SQLITE_KPC_47493,공공기관 보고서 작성 Total Skill Up(Feat. AI & 한글),AI 직무혁신,총무·사무행정,공통·사무기획,INCLUDED,사내 비즈니스 문서작성 및 보고서 기획 실무 직결,https://www.kpc.or.kr/PTWED003_dtil_view.do?ecno=47493&cono=151289,nan
+KPC,47596,SQLITE_KPC_47596,ChatGPT를 이용한 엑셀 실무,엑셀·PPT·문서,인접(일반사무),공통·사무기획,REVIEW_NEEDED,과정명 맥락상 인사·총무와의 직접 연계성 추가 검토 필요,https://www.kpc.or.kr/PTWED003_dtil_view.do?ecno=47596&cono=152101,nan
+KPC,46981,SQLITE_KPC_46981,[온앤오프] 인사관리기본,중소기업 인재키움 프리미엄 훈련,인사(HR),인사·조직관리,INCLUDED,기업 인사조직 및 인적자원개발(HRD) 실무 직결,https://www.kpc.or.kr/PTWED003_dtil_view.do?ecno=46981&cono=149644,nan
+KPC,47024,SQLITE_KPC_47024,고충처리 실무(성희롱 · 괴롭힘) (feat. 조사보고서 작성까지),중소기업 인재키움 프리미엄 훈련,총무·사무행정,공통·사무기획,INCLUDED,사내 비즈니스 문서작성 및 보고서 기획 실무 직결,https://www.kpc.or.kr/PTWED003_dtil_view.do?ecno=47024&cono=149792,nan
+KPC,46984,SQLITE_KPC_46984,[온앤오프] 인사담당자를 위한 노동법 완전정복,중소기업 인재키움 프리미엄 훈련,인사(HR),노무관리,INCLUDED,"노동법 및 근로기준 준수, 노무관리 실무 직결",https://www.kpc.or.kr/PTWED003_dtil_view.do?ecno=46984&cono=157559,nan
+KPC,47312,SQLITE_KPC_47312,[HRD] 역량기반 교육체계 및 인재육성 로드맵 구축,인적자원·조직개발,인사(HR),인사·조직관리,INCLUDED,기업 인사조직 및 인적자원개발(HRD) 실무 직결,https://www.kpc.or.kr/PTWED003_dtil_view.do?ecno=47312&cono=151171,nan
+KPC,48201,SQLITE_KPC_48201,[AI] 관리자를 위한 AI활용 성과관리 역량향상,AI 직무혁신,인사(HR),인사·평가보상,INCLUDED,인사평가체계 및 보상/성과관리 실무 직결,https://www.kpc.or.kr/PTWED003_dtil_view.do?ecno=48201&cono=155503,nan
+KPC,47021,SQLITE_KPC_47021,[DX&AI] 채용 분석 실무,중소기업 인재키움 프리미엄 훈련,인사(HR),인사·채용관리,INCLUDED,기업 채용/선발/온보딩 프로세스 직무 실무 직결,https://www.kpc.or.kr/PTWED003_dtil_view.do?ecno=47021&cono=157542,nan
+KPC,47484,SQLITE_KPC_47484,1Page 보고서 작성(실무),비즈니스스킬,총무·사무행정,공통·사무기획,INCLUDED,사내 비즈니스 문서작성 및 보고서 기획 실무 직결,https://www.kpc.or.kr/PTWED003_dtil_view.do?ecno=47484&cono=151251,nan
+KPC,48450,SQLITE_KPC_48450,두산_인사 전문가_성과중심 인사평가,대중소상생 아카데미,인사(HR),인사·평가보상,INCLUDED,인사평가체계 및 보상/성과관리 실무 직결,https://www.kpc.or.kr/PTWED003_dtil_view.do?ecno=48450&cono=156250,nan
+KPC,46996,SQLITE_KPC_46996,[온앤오프] 근로기준법실무,중소기업 인재키움 프리미엄 훈련,인사(HR),노무관리,INCLUDED,"노동법 및 근로기준 준수, 노무관리 실무 직결",https://www.kpc.or.kr/PTWED003_dtil_view.do?ecno=46996&cono=149756,nan
+KPC,47489,SQLITE_KPC_47489,비즈니스문서작성실무,비즈니스스킬,총무·사무행정,공통·사무기획,INCLUDED,사내 비즈니스 문서작성 및 보고서 기획 실무 직결,https://www.kpc.or.kr/PTWED003_dtil_view.do?ecno=47489&cono=151271,nan
+KPC,47464,SQLITE_KPC_47464,글로벌 비즈니스 매너,비즈니스스킬,총무·사무행정,비서·사무지원,INCLUDED,비즈니스 에티켓 및 의전/사무소통 실무 직결,https://www.kpc.or.kr/PTWED003_dtil_view.do?ecno=47464&cono=151642,nan
+KPC,47303,SQLITE_KPC_47303,[HRD] [사례중심] HRD실무역량 강화,인적자원·조직개발,인사·총무공통,인사·조직관리,INCLUDED,인사·총무 부합 실무 강좌 확인,https://www.kpc.or.kr/PTWED003_dtil_view.do?ecno=47303&cono=151162,nan
+KPC,47123,SQLITE_KPC_47123,[AI 직무혁신] 부실기업의 재무적 특징과 보고서 작성실무,중소기업 인재키움 프리미엄 훈련,총무·사무행정,공통·사무기획,INCLUDED,사내 비즈니스 문서작성 및 보고서 기획 실무 직결,https://www.kpc.or.kr/PTWED003_dtil_view.do?ecno=47123&cono=150018,nan
+KPC,47257,SQLITE_KPC_47257,[1Day] 인사담당자를 위한 계약서 완전정복,중소기업 인재키움 프리미엄 훈련,인사(HR),인사·조직관리,INCLUDED,기업 인사조직 및 인적자원개발(HRD) 실무 직결,https://www.kpc.or.kr/PTWED003_dtil_view.do?ecno=47257&cono=151739,nan
+KPC,48405,SQLITE_KPC_48405,[AI] [HRD] 교육담당자를 위한 AI프롬프트 엔지니어링,AI 직무혁신,인사·총무공통,인사·조직관리,INCLUDED,인사·총무 부합 실무 강좌 확인,https://www.kpc.or.kr/PTWED003_dtil_view.do?ecno=48405&cono=156077,nan
+KPC,46676,SQLITE_KPC_46676,[온앤오프] 기획담당자를 위한 전략기획서 작성실무,중소기업 인재키움 프리미엄 훈련,총무·사무행정,공통·사무기획,INCLUDED,사내 비즈니스 문서작성 및 보고서 기획 실무 직결,https://www.kpc.or.kr/PTWED003_dtil_view.do?ecno=46676&cono=148500,nan
+KPC,48136,SQLITE_KPC_48136,기업회생관리인 감사 양성,총무·법무,인접(일반사무),총무·일반사무,REVIEW_NEEDED,과정명 맥락상 인사·총무와의 직접 연계성 추가 검토 필요,https://www.kpc.or.kr/PTWED003_dtil_view.do?ecno=48136&cono=157578,nan
+KPC,47017,SQLITE_KPC_47017,노동위원회 사례로 배우는 노무관리실무,중소기업 인재키움 프리미엄 훈련,인사(HR),노무관리,INCLUDED,"노동법 및 근로기준 준수, 노무관리 실무 직결",https://www.kpc.or.kr/PTWED003_dtil_view.do?ecno=47017&cono=149799,nan
+KPC,47751,SQLITE_KPC_47751,부동산임대차계약실무,nan,비관련(타분야),기타·인사총무,EXCLUDED,IT개발/어학/제조/개인재테크 등 비관련 전문 분야로 판정 (매칭: 부동산임대차계약실무),https://www.kpc.or.kr/PTWED003_dtil_view.do?ecno=47751&cono=152351,nan
+KPC,46681,SQLITE_KPC_46681,[AI WORKS] ChatGPT 활용 전략기획서 작성 실무,중소기업 인재키움 프리미엄 훈련,총무·사무행정,공통·사무기획,INCLUDED,사내 비즈니스 문서작성 및 보고서 기획 실무 직결,https://www.kpc.or.kr/PTWED003_dtil_view.do?ecno=46681&cono=148456,nan
+KPC,47011,SQLITE_KPC_47011,우수인재 선발을 위한 면접관 역량개발,중소기업 인재키움 프리미엄 훈련,인사(HR),인사·채용관리,INCLUDED,기업 채용/선발/온보딩 프로세스 직무 실무 직결,https://www.kpc.or.kr/PTWED003_dtil_view.do?ecno=47011&cono=157556,nan
+KPC,47245,SQLITE_KPC_47245,[1Day] K-ESG 지표별 HR 대응전략,중소기업 인재키움 프리미엄 훈련,인접(일반사무),인사·조직관리,REVIEW_NEEDED,과정명 맥락상 인사·총무와의 직접 연계성 추가 검토 필요,https://www.kpc.or.kr/PTWED003_dtil_view.do?ecno=47245&cono=151688,nan
+KPC,49013,SQLITE_KPC_49013,[하루완성] 설득력 있는 보고서 작성 핵심 스킬,비즈니스스킬,총무·사무행정,공통·사무기획,INCLUDED,사내 비즈니스 문서작성 및 보고서 기획 실무 직결,https://www.kpc.or.kr/PTWED003_dtil_view.do?ecno=49013&cono=157935,nan
+KPC,49312,SQLITE_KPC_49312,2026년 KPC HRD 트렌드 세미나(무료),인적자원·조직개발,인사·총무공통,인사·조직관리,INCLUDED,인사·총무 부합 실무 강좌 확인,https://www.kpc.or.kr/PTWED003_dtil_view.do?ecno=49312&cono=159001,nan
+KPC,48451,SQLITE_KPC_48451,두산_인사 전문가_인사노무 리스크 예방,대중소상생 아카데미,인접(일반사무),노무관리,REVIEW_NEEDED,과정명 맥락상 인사·총무와의 직접 연계성 추가 검토 필요,https://www.kpc.or.kr/PTWED003_dtil_view.do?ecno=48451&cono=156247,nan
+KPC,47015,SQLITE_KPC_47015,생성형 AI를 활용한 HR 업무 효율화,중소기업 인재키움 프리미엄 훈련,인접(디지털사무),인사·조직관리,REVIEW_NEEDED,"생성형 AI 및 엑셀 자동화 툴 강좌로, 사무행정 필수 직무 연계성 검토 요망",https://www.kpc.or.kr/PTWED003_dtil_view.do?ecno=47015&cono=149720,nan
+KPC,47005,SQLITE_KPC_47005,2026년 하루에 배우는 최신노무관리 Essence,중소기업 인재키움 프리미엄 훈련,인사(HR),노무관리,INCLUDED,"노동법 및 근로기준 준수, 노무관리 실무 직결",https://www.kpc.or.kr/PTWED003_dtil_view.do?ecno=47005&cono=156435,nan
+KPC,47302,SQLITE_KPC_47302,[HRD] [Advanced] HRD전문가 양성과정,인적자원·조직개발,인사·총무공통,인사·조직관리,INCLUDED,인사·총무 부합 실무 강좌 확인,https://www.kpc.or.kr/PTWED003_dtil_view.do?ecno=47302&cono=151141,nan
+KPC,47306,SQLITE_KPC_47306,[HRD] 교육기획 및 운영실무,인적자원·조직개발,인사·총무공통,인사·조직관리,INCLUDED,인사·총무 부합 실무 강좌 확인,https://www.kpc.or.kr/PTWED003_dtil_view.do?ecno=47306&cono=151157,nan
+KPC,46982,SQLITE_KPC_46982,[온앤오프] 인사관리종합,중소기업 인재키움 프리미엄 훈련,인사(HR),인사·조직관리,INCLUDED,기업 인사조직 및 인적자원개발(HRD) 실무 직결,https://www.kpc.or.kr/PTWED003_dtil_view.do?ecno=46982&cono=149636,nan
+KPC,48871,SQLITE_KPC_48871,"[1Day] 인사평가 트랜드, 절대평가와 Calibration Meeting",인적자원·조직개발,인사(HR),인사·평가보상,INCLUDED,인사평가체계 및 보상/성과관리 실무 직결,https://www.kpc.or.kr/PTWED003_dtil_view.do?ecno=48871&cono=157540,nan
+KPC,47001,SQLITE_KPC_47001,[온앤오프] 근로기준법 기본해설,중소기업 인재키움 프리미엄 훈련,인사(HR),노무관리,INCLUDED,"노동법 및 근로기준 준수, 노무관리 실무 직결",https://www.kpc.or.kr/PTWED003_dtil_view.do?ecno=47001&cono=149763,nan
+KPC,47310,SQLITE_KPC_47310,[조직문화] 멘토링 전문가 양성과정(멘토링 기획 및 운영),인적자원·조직개발,인접(리더십/조직),인사·조직관리,REVIEW_NEEDED,"리더십/조직문화/소통 강좌로, 인사(HRD) 부서 적용 범위 추가 검토 요망",https://www.kpc.or.kr/PTWED003_dtil_view.do?ecno=47310&cono=151184,nan
+KPC,47256,SQLITE_KPC_47256,전문 비서 스킬 UP,총무·법무,인접(일반사무),비서·사무지원,REVIEW_NEEDED,과정명 맥락상 인사·총무와의 직접 연계성 추가 검토 필요,https://www.kpc.or.kr/PTWED003_dtil_view.do?ecno=47256&cono=151737,nan
+KPC,47841,SQLITE_KPC_47841,"(ChatGPT 활용) 마케팅 보고서 작성 실무 (분석, 보고서, PPT 작성까지)(지역)",마케팅·영업,총무·사무행정,공통·사무기획,INCLUDED,사내 비즈니스 문서작성 및 보고서 기획 실무 직결,https://www.kpc.or.kr/PTWED003_dtil_view.do?ecno=47841&cono=153109,nan
+KPC,47301,SQLITE_KPC_47301,[온보딩] 슬기로운 조직생활,계층·리더십,인사(HR),인사·채용관리,INCLUDED,기업 채용/선발/온보딩 프로세스 직무 실무 직결,https://www.kpc.or.kr/PTWED003_dtil_view.do?ecno=47301&cono=158546,nan
+KPC,46979,SQLITE_KPC_46979,[온앤오프] HR·GA 온보딩 패키지,중소기업 인재키움 프리미엄 훈련,인사(HR),인사·채용관리,INCLUDED,기업 채용/선발/온보딩 프로세스 직무 실무 직결,https://www.kpc.or.kr/PTWED003_dtil_view.do?ecno=46979&cono=157552,nan
+KPC,46980,SQLITE_KPC_46980,성과관리실무,중소기업 인재키움 프리미엄 훈련,인사(HR),인사·평가보상,INCLUDED,인사평가체계 및 보상/성과관리 실무 직결,https://www.kpc.or.kr/PTWED003_dtil_view.do?ecno=46980&cono=149684,nan
+KPC,47362,SQLITE_KPC_47362,1page 연구보고서 작성 노하우,R＆D,총무·사무행정,공통·사무기획,INCLUDED,사내 비즈니스 문서작성 및 보고서 기획 실무 직결,https://www.kpc.or.kr/PTWED003_dtil_view.do?ecno=47362&cono=157458,nan
+KPC,46976,SQLITE_KPC_46976,인사평가시스템 구축실무,중소기업 인재키움 프리미엄 훈련,인사(HR),인사·평가보상,INCLUDED,인사평가체계 및 보상/성과관리 실무 직결,https://www.kpc.or.kr/PTWED003_dtil_view.do?ecno=46976&cono=157561,nan
+KPC,46714,SQLITE_KPC_46714,[AI WORKS] AI 활용 ESG 보고서 작성 효율화,중소기업 인재키움 프리미엄 훈련,총무·사무행정,공통·사무기획,INCLUDED,사내 비즈니스 문서작성 및 보고서 기획 실무 직결,https://www.kpc.or.kr/PTWED003_dtil_view.do?ecno=46714&cono=148678,nan
+KPC,47487,SQLITE_KPC_47487,엑셀을 활용한 보고서 작성,AI 직무혁신,총무·사무행정,공통·사무기획,INCLUDED,사내 비즈니스 문서작성 및 보고서 기획 실무 직결,https://www.kpc.or.kr/PTWED003_dtil_view.do?ecno=47487&cono=151301,nan
+KPC,47311,SQLITE_KPC_47311,[조직문화] [Advanced] 조직문화 기획 및 운영실무(사례중심),인적자원·조직개발,인접(리더십/조직),인사·조직관리,REVIEW_NEEDED,"리더십/조직문화/소통 강좌로, 인사(HRD) 부서 적용 범위 추가 검토 요망",https://www.kpc.or.kr/PTWED003_dtil_view.do?ecno=47311&cono=151178,nan
+KPC,49068,SQLITE_KPC_49068,[1Day]  부실채권 예방과  채권 회수 실무,총무·법무,인접(일반사무),총무·일반사무,REVIEW_NEEDED,과정명 맥락상 인사·총무와의 직접 연계성 추가 검토 필요,https://www.kpc.or.kr/PTWED003_dtil_view.do?ecno=49068&cono=158090,nan
+KPC,47354,SQLITE_KPC_47354,연구데이터 분석 및 보고서 작성(데이터로 말하기),R＆D,총무·사무행정,공통·사무기획,INCLUDED,사내 비즈니스 문서작성 및 보고서 기획 실무 직결,https://www.kpc.or.kr/PTWED003_dtil_view.do?ecno=47354&cono=151869,nan
+KPC,47022,SQLITE_KPC_47022,[DX&AI] 평가보상 설계 실무(밀코비치 기반),중소기업 인재키움 프리미엄 훈련,인사(HR),인사·평가보상,INCLUDED,인사평가체계 및 보상/성과관리 실무 직결,https://www.kpc.or.kr/PTWED003_dtil_view.do?ecno=47022&cono=157545,nan
+KPC,47648,SQLITE_KPC_47648,영업이익분석 및 성과관리 실무 (생성형 AI 활용),마케팅·영업,인사(HR),인사·평가보상,INCLUDED,인사평가체계 및 보상/성과관리 실무 직결,https://www.kpc.or.kr/PTWED003_dtil_view.do?ecno=47648&cono=153286,nan
+KPC,47868,SQLITE_KPC_47868,AI 비서 활용법 :오후6시 칼퇴근하기,생성형AI·디지털전환(DX),인접(일반사무),비서·사무지원,REVIEW_NEEDED,과정명 맥락상 인사·총무와의 직접 연계성 추가 검토 필요,https://www.kpc.or.kr/PTWED003_dtil_view.do?ecno=47868&cono=152906,nan
+KPC,46645,SQLITE_KPC_46645,[온앤오프] 공공기관 경영평가 보고서 작성실무,온앤오프클래스,총무·사무행정,공통·사무기획,INCLUDED,사내 비즈니스 문서작성 및 보고서 기획 실무 직결,https://www.kpc.or.kr/PTWED003_dtil_view.do?ecno=46645&cono=148637,nan
+KPC,47307,SQLITE_KPC_47307,[HRD] HRD담당자 기본,인적자원·조직개발,인사·총무공통,인사·조직관리,INCLUDED,인사·총무 부합 실무 강좌 확인,https://www.kpc.or.kr/PTWED003_dtil_view.do?ecno=47307&cono=151147,nan
+KPC,47247,SQLITE_KPC_47247,[온앤오프] 총무 업무 종합,중소기업 인재키움 프리미엄 훈련,인접(일반사무),총무·일반사무,REVIEW_NEEDED,과정명 맥락상 인사·총무와의 직접 연계성 추가 검토 필요,https://www.kpc.or.kr/PTWED003_dtil_view.do?ecno=47247&cono=151704,nan
+KPC,46995,SQLITE_KPC_46995,[온앤오프] 채용에서 퇴직까지 법률문제,중소기업 인재키움 프리미엄 훈련,인사(HR),인사·채용관리,INCLUDED,기업 채용/선발/온보딩 프로세스 직무 실무 직결,https://www.kpc.or.kr/PTWED003_dtil_view.do?ecno=46995&cono=149744,nan
+KPC,47304,SQLITE_KPC_47304,[HRD] 교육평가 및 결과보고서 작성실무,인적자원·조직개발,총무·사무행정,공통·사무기획,INCLUDED,사내 비즈니스 문서작성 및 보고서 기획 실무 직결,https://www.kpc.or.kr/PTWED003_dtil_view.do?ecno=47304&cono=151168,nan
+KPC,48576,SQLITE_KPC_48576,생성형 AI 기반 총무 업무 효율화·자동화 실무,중소기업 인재키움 프리미엄 훈련,인접(디지털사무),총무·일반사무,REVIEW_NEEDED,"생성형 AI 및 엑셀 자동화 툴 강좌로, 사무행정 필수 직무 연계성 검토 요망",https://www.kpc.or.kr/PTWED003_dtil_view.do?ecno=48576&cono=156482,nan
+KPC,46698,SQLITE_KPC_46698,"ESG, 지속가능경영보고서 작성실무",중소기업 인재키움 프리미엄 훈련,총무·사무행정,공통·사무기획,INCLUDED,사내 비즈니스 문서작성 및 보고서 기획 실무 직결,https://www.kpc.or.kr/PTWED003_dtil_view.do?ecno=46698&cono=148682,nan
+KPC,47274,SQLITE_KPC_47274,"[온앤오프] [1Day] 지식재산권 관리와 분쟁 대응(상표, 특허)",총무·법무,인접(일반사무),총무·일반사무,REVIEW_NEEDED,과정명 맥락상 인사·총무와의 직접 연계성 추가 검토 필요,https://www.kpc.or.kr/PTWED003_dtil_view.do?ecno=47274&cono=151802,nan
+KPC,47366,SQLITE_KPC_47366,ChatGPT로 배우는 R&D 기획서 작성 실무,AI 직무혁신,총무·사무행정,공통·사무기획,INCLUDED,사내 비즈니스 문서작성 및 보고서 기획 실무 직결,https://www.kpc.or.kr/PTWED003_dtil_view.do?ecno=47366&cono=151859,nan
+KPC,47305,SQLITE_KPC_47305,[HRD] 직무분석을 활용한 교육프로그램 개발,인적자원·조직개발,인사·총무공통,인사·조직관리,INCLUDED,인사·총무 부합 실무 강좌 확인,https://www.kpc.or.kr/PTWED003_dtil_view.do?ecno=47305&cono=151165,nan
+KPC,47003,SQLITE_KPC_47003,[온앤오프] 현장에서 알아야 하는 노무관리 솔루션,중소기업 인재키움 프리미엄 훈련,인사(HR),노무관리,INCLUDED,"노동법 및 근로기준 준수, 노무관리 실무 직결",https://www.kpc.or.kr/PTWED003_dtil_view.do?ecno=47003&cono=149790,nan
+KPC,47249,SQLITE_KPC_47249,[1Day] 신입사원을 위한 총무 에센스,중소기업 인재키움 프리미엄 훈련,인접(일반사무),총무·일반사무,REVIEW_NEEDED,과정명 맥락상 인사·총무와의 직접 연계성 추가 검토 필요,https://www.kpc.or.kr/PTWED003_dtil_view.do?ecno=47249&cono=151719,nan
+KPC,47308,SQLITE_KPC_47308,[조직문화] [Expert] 조직문화 진단 및 개선전략(데이터 중심),인적자원·조직개발,인접(리더십/조직),인사·조직관리,REVIEW_NEEDED,"리더십/조직문화/소통 강좌로, 인사(HRD) 부서 적용 범위 추가 검토 요망",https://www.kpc.or.kr/PTWED003_dtil_view.do?ecno=47308&cono=151182,nan
+KPC,47009,SQLITE_KPC_47009,[온앤오프] 노동법 핵심해설,중소기업 인재키움 프리미엄 훈련,인사(HR),노무관리,INCLUDED,"노동법 및 근로기준 준수, 노무관리 실무 직결",https://www.kpc.or.kr/PTWED003_dtil_view.do?ecno=47009&cono=149734,nan
+KPC,46993,SQLITE_KPC_46993,[인력계획부터 육성까지] 인사기획실무,중소기업 인재키움 프리미엄 훈련,인사(HR),인사·조직관리,INCLUDED,기업 인사조직 및 인적자원개발(HRD) 실무 직결,https://www.kpc.or.kr/PTWED003_dtil_view.do?ecno=46993&cono=149657,nan
+KPC,47210,SQLITE_KPC_47210,구성원을 성장시키는 성과관리 리더십,계층·리더십,인사(HR),인사·평가보상,INCLUDED,인사평가체계 및 보상/성과관리 실무 직결,https://www.kpc.or.kr/PTWED003_dtil_view.do?ecno=47210&cono=150994,nan
+KPC,47284,SQLITE_KPC_47284,총무 자산관리 핵심,중소기업 인재키움 프리미엄 훈련,인접(일반사무),총무·자산관리,REVIEW_NEEDED,과정명 맥락상 인사·총무와의 직접 연계성 추가 검토 필요,https://www.kpc.or.kr/PTWED003_dtil_view.do?ecno=47284&cono=151690,nan
+KPC,47016,SQLITE_KPC_47016,노동법 쟁점 88선 해설,중소기업 인재키움 프리미엄 훈련,인사(HR),노무관리,INCLUDED,"노동법 및 근로기준 준수, 노무관리 실무 직결",https://www.kpc.or.kr/PTWED003_dtil_view.do?ecno=47016&cono=149794,nan
+KPC,46998,SQLITE_KPC_46998,Case Story와 함께하는 노무관리,중소기업 인재키움 프리미엄 훈련,인사(HR),노무관리,INCLUDED,"노동법 및 근로기준 준수, 노무관리 실무 직결",https://www.kpc.or.kr/PTWED003_dtil_view.do?ecno=46998&cono=149779,nan
+KPC,48063,SQLITE_KPC_48063,[HRD] [사례중심] 신규 HRD담당자를 위한 1DAY 핵심 스킬업,인적자원·조직개발,인사·총무공통,인사·조직관리,INCLUDED,인사·총무 부합 실무 강좌 확인,https://www.kpc.or.kr/PTWED003_dtil_view.do?ecno=48063&cono=156114,nan
+KPC,47322,SQLITE_KPC_47322,[AI] [HRD] 디지털트렌스포메이션 In HRD(Feat.AI),AI 직무혁신,인사·총무공통,인사·조직관리,INCLUDED,인사·총무 부합 실무 강좌 확인,https://www.kpc.or.kr/PTWED003_dtil_view.do?ecno=47322&cono=156998,nan
+KPC,48106,SQLITE_KPC_48106,[HRD] 조직 성장을 이끄는 HRD전략과 트렌드 기반 교육계획수립,인적자원·조직개발,인사·총무공통,인사·조직관리,INCLUDED,인사·총무 부합 실무 강좌 확인,https://www.kpc.or.kr/PTWED003_dtil_view.do?ecno=48106&cono=155195,nan
+KPC,47205,SQLITE_KPC_47205,"바람직한 팀문화 구축, 조직문화 리더십",계층·리더십,인접(리더십/조직),인사·조직관리,REVIEW_NEEDED,"리더십/조직문화/소통 강좌로, 인사(HRD) 부서 적용 범위 추가 검토 요망",https://www.kpc.or.kr/PTWED003_dtil_view.do?ecno=47205&cono=151003,nan
+KPC,48545,SQLITE_KPC_48545,[1Day] 마케팅 보고서 작성 실무(ChatGPT 활용),산업맞춤 역량 강화,총무·사무행정,공통·사무기획,INCLUDED,사내 비즈니스 문서작성 및 보고서 기획 실무 직결,https://www.kpc.or.kr/PTWED003_dtil_view.do?ecno=48545&cono=156696,nan
+KPC,47246,SQLITE_KPC_47246,[온앤오프] 총무 업무 기본,중소기업 인재키움 프리미엄 훈련,인접(일반사무),총무·일반사무,REVIEW_NEEDED,과정명 맥락상 인사·총무와의 직접 연계성 추가 검토 필요,https://www.kpc.or.kr/PTWED003_dtil_view.do?ecno=47246&cono=151699,nan
+KPC,48884,SQLITE_KPC_48884,보고서 작성 Total Skill Up(Feat. AI),AI 직무혁신,총무·사무행정,공통·사무기획,INCLUDED,사내 비즈니스 문서작성 및 보고서 기획 실무 직결,https://www.kpc.or.kr/PTWED003_dtil_view.do?ecno=48884&cono=157582,nan
+KPC,47309,SQLITE_KPC_47309,[조직문화] [Basic] 조직문화 디자이너 양성과정(조담자 입문),인적자원·조직개발,인접(리더십/조직),인사·조직관리,REVIEW_NEEDED,"리더십/조직문화/소통 강좌로, 인사(HRD) 부서 적용 범위 추가 검토 요망",https://www.kpc.or.kr/PTWED003_dtil_view.do?ecno=47309&cono=151176,nan
+KPC,48914,SQLITE_KPC_48914,[1Day] 발주자를 위한 공공조달 입찰·계약 업무 활용 실무 사례,총무·법무,인접(일반사무),총무·일반사무,REVIEW_NEEDED,과정명 맥락상 인사·총무와의 직접 연계성 추가 검토 필요,https://www.kpc.or.kr/PTWED003_dtil_view.do?ecno=48914&cono=157807,nan
+KPC,47784,SQLITE_KPC_47784,[입문]부동산자산관리사실무,nan,비관련(타분야),총무·자산관리,EXCLUDED,IT개발/어학/제조/개인재테크 등 비관련 전문 분야로 판정 (매칭: [입문]부동산자산관리사실무),https://www.kpc.or.kr/PTWED003_dtil_view.do?ecno=47784&cono=152235,nan
+KPC,47006,SQLITE_KPC_47006,[온앤오프] 노무분쟁 예방을 위한 전략적 노무관리,중소기업 인재키움 프리미엄 훈련,인사(HR),노무관리,INCLUDED,"노동법 및 근로기준 준수, 노무관리 실무 직결",https://www.kpc.or.kr/PTWED003_dtil_view.do?ecno=47006&cono=149777,nan
+KPC,46649,SQLITE_KPC_46649,[온앤오프] 공공기관 ESG 보고서 작성실무,온앤오프클래스,총무·사무행정,공통·사무기획,INCLUDED,사내 비즈니스 문서작성 및 보고서 기획 실무 직결,https://www.kpc.or.kr/PTWED003_dtil_view.do?ecno=46649&cono=148642,nan
+KPC,47692,SQLITE_KPC_47692,"(ChatGPT 활용) 마케팅 보고서 작성 실무 (분석, 보고서, PPT 작성까지)",마케팅·영업,총무·사무행정,공통·사무기획,INCLUDED,사내 비즈니스 문서작성 및 보고서 기획 실무 직결,https://www.kpc.or.kr/PTWED003_dtil_view.do?ecno=47692&cono=153107,nan
+KPC,46991,SQLITE_KPC_46991,2026년 인사담당자를 위한 채용트렌드 분석 및 전략,중소기업 인재키움 프리미엄 훈련,인사(HR),인사·채용관리,INCLUDED,기업 채용/선발/온보딩 프로세스 직무 실무 직결,https://www.kpc.or.kr/PTWED003_dtil_view.do?ecno=46991&cono=157551,nan
+KPC,47248,SQLITE_KPC_47248,[온앤오프] 총무 기획 실무,중소기업 인재키움 프리미엄 훈련,인접(일반사무),총무·일반사무,REVIEW_NEEDED,과정명 맥락상 인사·총무와의 직접 연계성 추가 검토 필요,https://www.kpc.or.kr/PTWED003_dtil_view.do?ecno=47248&cono=151708,nan
+KPC,46702,SQLITE_KPC_46702,기후공시 전략 수립 및 보고서 작성 실무,중소기업 인재키움 프리미엄 훈련,총무·사무행정,공통·사무기획,INCLUDED,사내 비즈니스 문서작성 및 보고서 기획 실무 직결,https://www.kpc.or.kr/PTWED003_dtil_view.do?ecno=46702&cono=148686,nan
+MULTICAMPUS,FA00A0,SQLITE_MULTICAMPUS_FA00A0,[Live] 한 장 보고서 작성의 기술,비즈니스 > 비대면,총무·사무행정,공통·사무기획,INCLUDED,사내 비즈니스 문서작성 및 보고서 기획 실무 직결,https://m.multicampus.com/course/crsDetail?corsCd=FA00A0,nan
+MULTICAMPUS,FA015O,SQLITE_MULTICAMPUS_FA015O,[Ctrl+AI] 생성형AI를 활용한 실무 문서작성 AtoZ,중소기업 인재키움 > 생성형 AI 활용,총무·사무행정,공통·사무기획,INCLUDED,사내 비즈니스 문서작성 및 보고서 기획 실무 직결,https://m.multicampus.com/course/crsDetail?corsCd=FA015O,nan
+MULTICAMPUS,Q29940,SQLITE_MULTICAMPUS_Q29940,한 장 보고서 작성의 기술,중소기업 인재키움 > 전략·기획,총무·사무행정,공통·사무기획,INCLUDED,사내 비즈니스 문서작성 및 보고서 기획 실무 직결,https://m.multicampus.com/course/crsDetail?corsCd=Q29940,nan
+MULTICAMPUS,FB00A4,SQLITE_MULTICAMPUS_FB00A4,[패스트트랙] 신입 온보딩 과정,중소기업 인재키움 > 계층별 리더십,인사(HR),인사·채용관리,INCLUDED,기업 채용/선발/온보딩 프로세스 직무 실무 직결,https://m.multicampus.com/course/crsDetail?corsCd=FB00A4,nan
+MULTICAMPUS,FB00A5,SQLITE_MULTICAMPUS_FB00A5,[패스트트랙] 신입 온보딩 과정-관계관리 편,리더십 > 비대면,인사(HR),인사·채용관리,INCLUDED,기업 채용/선발/온보딩 프로세스 직무 실무 직결,https://m.multicampus.com/course/crsDetail?corsCd=FB00A5,nan
+MULTICAMPUS,FB00A6,SQLITE_MULTICAMPUS_FB00A6,[패스트트랙] 신입 온보딩 과정-업무관리 편,리더십 > 비대면,인사(HR),인사·채용관리,INCLUDED,기업 채용/선발/온보딩 프로세스 직무 실무 직결,https://m.multicampus.com/course/crsDetail?corsCd=FB00A6,nan
+MULTICAMPUS,EA0JHG,SQLITE_MULTICAMPUS_EA0JHG,[AI Sense] 챗GPT를 활용한 엑셀 자동화와 HR 데이터 분석(참고도서제공),AI > 비대면,인접(디지털사무),인사·조직관리,REVIEW_NEEDED,"생성형 AI 및 엑셀 자동화 툴 강좌로, 사무행정 필수 직무 연계성 검토 요망",https://m.multicampus.com/course/crsDetail?corsCd=EA0JHG,nan
+MULTICAMPUS,EA0JHH,SQLITE_MULTICAMPUS_EA0JHH,[AI Sense] 챗GPT로 끝내주는 HR 데이터 분석과 시각화(참고도서제공),AI > 비대면,인접(일반사무),인사·조직관리,REVIEW_NEEDED,과정명 맥락상 인사·총무와의 직접 연계성 추가 검토 필요,https://m.multicampus.com/course/crsDetail?corsCd=EA0JHH,nan
+MULTICAMPUS,EA0JHL,SQLITE_MULTICAMPUS_EA0JHL,[AI Sense] 챗GPT로 끝내주는 HR 데이터 수집과 분석(참고도서제공),AI > 비대면,인접(일반사무),인사·조직관리,REVIEW_NEEDED,과정명 맥락상 인사·총무와의 직접 연계성 추가 검토 필요,https://m.multicampus.com/course/crsDetail?corsCd=EA0JHL,nan
+MULTICAMPUS,EA09X3,SQLITE_MULTICAMPUS_EA09X3,[리더의 격]조직을 성공으로 이끄는 성과관리 디테일(참고도서제공),리더십 > 비대면,인사(HR),인사·평가보상,INCLUDED,인사평가체계 및 보상/성과관리 실무 직결,https://m.multicampus.com/course/crsDetail?corsCd=EA09X3,nan
+MULTICAMPUS,EA0BIE,SQLITE_MULTICAMPUS_EA0BIE,"모두를 위한 조직, 공정한 조직문화",리더십 > 비대면,비관련(타분야),인사·조직관리,EXCLUDED,"IT개발/어학/제조/개인재테크 등 비관련 전문 분야로 판정 (매칭: 모두를 위한 조직, 공정한 조직문화)",https://m.multicampus.com/course/crsDetail?corsCd=EA0BIE,nan
+MULTICAMPUS,EA0D0U,SQLITE_MULTICAMPUS_EA0D0U,신뢰받는 중간 관리자의 역량-성과관리 편,리더십 > 비대면,인사(HR),인사·평가보상,INCLUDED,인사평가체계 및 보상/성과관리 실무 직결,https://m.multicampus.com/course/crsDetail?corsCd=EA0D0U,nan
+MULTICAMPUS,EA0IO3,SQLITE_MULTICAMPUS_EA0IO3,"[Essential MBA] 연세대 노현탁 교수의 지속 가능 경쟁력, HR",리더십 > 비대면,인접(일반사무),인사·조직관리,REVIEW_NEEDED,과정명 맥락상 인사·총무와의 직접 연계성 추가 검토 필요,https://m.multicampus.com/course/crsDetail?corsCd=EA0IO3,nan
+MULTICAMPUS,FA01P1,SQLITE_MULTICAMPUS_FA01P1,"인사관리, AI로 업그레이드",비즈니스 > 비대면,인사(HR),인사·조직관리,INCLUDED,기업 인사조직 및 인적자원개발(HRD) 실무 직결,https://m.multicampus.com/course/crsDetail?corsCd=FA01P1,nan
+MULTICAMPUS,FA01U8,SQLITE_MULTICAMPUS_FA01U8,AI로 완성하는 한 장 보고서 작성,비즈니스 > 직무공통,총무·사무행정,공통·사무기획,INCLUDED,사내 비즈니스 문서작성 및 보고서 기획 실무 직결,https://m.multicampus.com/course/crsDetail?corsCd=FA01U8,nan
+MULTICAMPUS,FA01LB,SQLITE_MULTICAMPUS_FA01LB,AI로 완성하는 리더의 성과관리,중소기업 인재키움 > 리더십 특화,인사(HR),인사·평가보상,INCLUDED,인사평가체계 및 보상/성과관리 실무 직결,https://m.multicampus.com/course/crsDetail?corsCd=FA01LB,nan

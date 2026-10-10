@@ -1,0 +1,45 @@
+{
+  "timestamp": "2026-10-10T00:01:43.918014+00:00",
+  "step": "STEP 3-7 파생변수 생성 및 행렬 변환 품질 검증",
+  "tidy_data_checks": {
+    "row_definition_courses": "1행 = 1개 교육과정 개설 회차(instance_key)",
+    "row_definition_jobs": "1행 = 1개 표준 직무",
+    "row_definition_competencies": "1행 = 1개 표준 KSA 역량",
+    "row_definition_mappings": "1행 = 1개 [교육과정 - 역량] 매핑 브릿지",
+    "atomic_values_check": "모든 셀 단일 원자값 저장 완료 (콤마 나열 없음)",
+    "many_to_many_separated": true
+  },
+  "feature_engineering_summary": {
+    "total_records": 50,
+    "eda_records": 9,
+    "has_ncs_code_rate": "100.0%",
+    "is_hr_related_distribution": {
+      "REVIEW": 22,
+      "N": 19,
+      "Y": 9
+    },
+    "duration_group_distribution": {
+      "1개월 (30~31일)": 7,
+      "2개월 (59~60일)": 2
+    },
+    "course_level_distribution": {
+      "중급/실무": 6,
+      "입문/초급": 3
+    }
+  },
+  "matrix_verification": {
+    "matrix_job_ksa_total": 7,
+    "matrix_job_topic_total": 9,
+    "matrix_job_level_total": 9,
+    "comp_courses_total_mapped": 9,
+    "consistency_check": true
+  },
+  "cost_and_outlier_summary": {
+    "eda_cost_min": 0.0,
+    "eda_cost_max": 50490.0,
+    "eda_cost_mean": 10890.0,
+    "eda_duration_days_min": 30.0,
+    "eda_duration_days_max": 59.0,
+    "outlier_detected": false
+  }
+}

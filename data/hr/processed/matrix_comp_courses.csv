@@ -1,0 +1,8 @@
+﻿competency_id,competency_name,ksa_type,related_course_count,blind_spot_status
+COMP_HR_01,인력채용,Skill,0,사각지대(교육 미제공)
+COMP_HR_02,인사평가 및 보상,Knowledge,0,사각지대(교육 미제공)
+COMP_LABOR_01,근로관계 법률 준수,Knowledge,0,사각지대(교육 미제공)
+COMP_GA_01,문서작성 및 기획,Skill,7,교육 제공(연결)
+COMP_GA_02,비품 및 자산관리,Skill,0,사각지대(교육 미제공)
+COMP_SEC_01,비즈니스 매너 및 커뮤니케이션,Attitude,2,교육 제공(연결)
+COMP_MGMT_01,애자일 프로젝트 관리,Skill,0,사각지대(교육 미제공)

@@ -1,0 +1,131 @@
+{
+  "file_existence": {
+    "status": "PASS",
+    "details": {
+      "raw_kmbc": "True",
+      "raw_emp": "True",
+      "raw_ncs": "True",
+      "courses": "True",
+      "jobs": "True",
+      "competencies": "True",
+      "job_competencies": "True",
+      "course_competencies": "True",
+      "job_classification_results": "True",
+      "hr_courses_eda": "True",
+      "hr_courses_review": "True",
+      "hr_courses_excluded": "True",
+      "hr_courses_featured": "True",
+      "hr_eda_featured": "True",
+      "hr_mapping_verified": "True",
+      "matrix_job_ksa": "True",
+      "matrix_job_topic": "True",
+      "matrix_comp_courses": "True",
+      "matrix_job_level": "True"
+    }
+  },
+  "id_uniqueness": {
+    "status": "PASS",
+    "dup_course_keys": 0,
+    "dup_job_keys": 0,
+    "dup_comp_keys": 0
+  },
+  "missing_rates": {
+    "status": "PASS",
+    "core_nulls_count": 0,
+    "courses_missing_pct": {
+      "source_api": 0.0,
+      "course_id": 0.0,
+      "course_turn": 0.0,
+      "instance_key": 0.0,
+      "course_name_raw": 0.0,
+      "course_name_std": 0.0,
+      "institution_name_raw": 0.0,
+      "institution_name_std": 0.0,
+      "ncs_classification_code": 0.0,
+      "ncs_unit_code": 100.0,
+      "ncs_lclas_cd": 0.0,
+      "ncs_mclas_cd": 0.0,
+      "job_id": 0.0,
+      "job_clarity": 0.0,
+      "start_date": 20.0,
+      "end_date": 20.0,
+      "training_hours": 80.0,
+      "credits": 80.0,
+      "cost_total": 0.0,
+      "cost_self": 0.0,
+      "capacity": 20.0,
+      "region": 0.0,
+      "edu_goal_text": 80.0,
+      "edu_content_text": 80.0
+    },
+    "eda_missing_pct": {
+      "source_api": 0.0,
+      "course_id": 0.0,
+      "course_turn": 0.0,
+      "instance_key": 0.0,
+      "course_name_raw": 0.0,
+      "course_name_std": 0.0,
+      "institution_name_raw": 0.0,
+      "institution_name_std": 0.0,
+      "ncs_classification_code": 0.0,
+      "ncs_unit_code": 100.0,
+      "ncs_lclas_cd": 0.0,
+      "ncs_mclas_cd": 0.0,
+      "job_id": 0.0,
+      "job_clarity": 0.0,
+      "start_date": 0.0,
+      "end_date": 0.0,
+      "training_hours": 100.0,
+      "credits": 100.0,
+      "cost_total": 0.0,
+      "cost_self": 0.0,
+      "capacity": 0.0,
+      "region": 0.0,
+      "edu_goal_text": 100.0,
+      "edu_content_text": 100.0,
+      "has_ncs_code": 0.0,
+      "is_hr_related": 0.0,
+      "step3_target_job": 0.0,
+      "step3_hr_ga_category": 0.0,
+      "duration_days": 0.0,
+      "duration_group": 0.0,
+      "course_level_group": 0.0,
+      "course_topic": 0.0,
+      "mapped_competency_id": 0.0,
+      "is_verified": 0.0,
+      "course_count_for_comp": 0.0
+    }
+  },
+  "data_formats": {
+    "status": "PASS",
+    "ncs_code_lengths": [
+      8
+    ],
+    "leading_zero_codes_count": 32,
+    "note": "모든 NCS 분류코드가 8자리 문자열로 보존되어 앞자리 0이 유실되지 않음 확인"
+  },
+  "referential_integrity": {
+    "status": "PASS",
+    "invalid_course_job_ids": [],
+    "invalid_jc_job_ids": [],
+    "invalid_jc_competency_ids": [],
+    "invalid_mapping_competency_ids": [],
+    "invalid_mapping_instance_keys": []
+  },
+  "classification_sum_check": {
+    "status": "PASS",
+    "total_raw_count": 50,
+    "courses_table_count": 50,
+    "included_count": 9,
+    "review_needed_count": 22,
+    "excluded_count": 19,
+    "sum_verified": true
+  },
+  "matrix_consistency": {
+    "status": "PASS",
+    "eda_target_count": 9,
+    "matrix_topic_sum": 9,
+    "matrix_level_sum": 9,
+    "matrix_comp_sum": 9
+  }
+}
