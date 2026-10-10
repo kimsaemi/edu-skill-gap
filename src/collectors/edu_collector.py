@@ -149,10 +149,10 @@ class EduDataCollector:
             return {"error": str(e)}
 
     def fetch_hrd_courses(self, auth_key, params=None, endpoint_url=None):
-        """HRD-Net 훈련과정 공통 API 호출 (XML 응답 반환)"""
+        """HRD-Net / 고용24 훈련과정 공통 API 호출 (XML 응답 반환)"""
         if not auth_key:
             return {"error": "API Key is required"}
-        url = endpoint_url or "http://www.hrd.go.kr/jsp/HRDP/HRDPO00/HRDPOA60/HRDPOA60_1.jsp"
+        url = endpoint_url or "https://www.work24.go.kr/cm/openApi/call/hr/callOpenApiSvcInfo310L01.do"
         default_params = {
             "authKey": auth_key,
             "returnType": "XML",
@@ -169,19 +169,22 @@ class EduDataCollector:
             return {"error": str(e)}
 
     def fetch_kmbc_courses(self, params=None):
-        """국민내일배움카드 훈련과정 API 호출"""
-        return self.fetch_hrd_courses(self.hrd_kmbc_key, params=params)
+        """국민내일배움카드 훈련과정 API 호출 (신규: 310L01.do)"""
+        url = "https://www.work24.go.kr/cm/openApi/call/hr/callOpenApiSvcInfo310L01.do"
+        return self.fetch_hrd_courses(self.hrd_kmbc_key, params=params, endpoint_url=url)
 
     def fetch_employer_training_courses(self, params=None):
-        """사업주훈련 훈련과정 API 호출"""
-        return self.fetch_hrd_courses(self.hrd_employer_key, params=params)
+        """사업주훈련 훈련과정 API 호출 (신규: 311L01.do)"""
+        url = "https://www.work24.go.kr/cm/openApi/call/hr/callOpenApiSvcInfo311L01.do"
+        return self.fetch_hrd_courses(self.hrd_employer_key, params=params, endpoint_url=url)
 
     def fetch_work_study_courses(self, params=None):
-        """일학습병행 훈련과정 API 호출"""
-        return self.fetch_hrd_courses(self.hrd_work_study_key, params=params)
+        """일학습병행 훈련과정 API 호출 (신규: 313L01.do)"""
+        url = "https://www.work24.go.kr/cm/openApi/call/hr/callOpenApiSvcInfo313L01.do"
+        return self.fetch_hrd_courses(self.hrd_work_study_key, params=params, endpoint_url=url)
 
     def fetch_worknet_info(self, auth_key, endpoint_url, params=None):
-        """워크넷 (직무/학과/직업 등) API 호출"""
+        """워크넷/고용24 (직무/학과/직업 등) API 호출"""
         if not auth_key:
             return {"error": "API Key is required"}
         default_params = {
@@ -196,17 +199,20 @@ class EduDataCollector:
         except Exception as e:
             return {"error": str(e)}
 
-    def fetch_job_info(self, endpoint_url, params=None):
-        """직무정보 API 호출"""
-        return self.fetch_worknet_info(self.worknet_job_key, endpoint_url, params=params)
+    def fetch_job_info(self, endpoint_url=None, params=None):
+        """직무정보 API 호출 (신규: 215L01.do)"""
+        url = endpoint_url or "https://www.work24.go.kr/cm/openApi/call/wk/callOpenApiSvcInfo215L01.do"
+        return self.fetch_worknet_info(self.worknet_job_key, url, params=params)
 
-    def fetch_major_info(self, endpoint_url, params=None):
-        """학과정보 API 호출"""
-        return self.fetch_worknet_info(self.worknet_major_key, endpoint_url, params=params)
+    def fetch_major_info(self, endpoint_url=None, params=None):
+        """학과정보 API 호출 (신규: 213L01.do)"""
+        url = endpoint_url or "https://www.work24.go.kr/cm/openApi/call/wk/callOpenApiSvcInfo213L01.do"
+        return self.fetch_worknet_info(self.worknet_major_key, url, params=params)
 
-    def fetch_occupation_info(self, endpoint_url, params=None):
-        """직업정보 API 호출"""
-        return self.fetch_worknet_info(self.worknet_occupation_key, endpoint_url, params=params)
+    def fetch_occupation_info(self, endpoint_url=None, params=None):
+        """직업정보 API 호출 (신규: 212L01.do)"""
+        url = endpoint_url or "https://www.work24.go.kr/cm/openApi/call/wk/callOpenApiSvcInfo212L01.do"
+        return self.fetch_worknet_info(self.worknet_occupation_key, url, params=params)
 
 if __name__ == "__main__":
     collector = EduDataCollector()

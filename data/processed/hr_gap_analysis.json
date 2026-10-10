@@ -1,0 +1,206 @@
+{
+  "analysis_date": "2026-10-08",
+  "total_courses_analyzed": 30,
+  "target_jobs": [
+    "인사(HR)",
+    "총무·사무행정"
+  ],
+  "target_levels": [
+    "L1 (입문)",
+    "L2 (초급)"
+  ],
+  "recommendations": {
+    "hr_top3": [
+      {
+        "id": "EMP_HR_21",
+        "source_api": "3. 고용24 사업주훈련",
+        "course_name": "채용에서 퇴직까지 인사노무관리 핵심실무",
+        "institution": "(1st)인비원 평생교육원",
+        "ncs_code": "02020201",
+        "ncs_category": "02. 경영·회계·사무 (노무 기업직무)",
+        "training_hours": 32,
+        "cost": 50490,
+        "cost_type": "사업주 환급 직무교육",
+        "location": "경기 고양시 일산동구",
+        "url": "https://www.work24.go.kr/hr/a/a/3100/selectTracseDetl2.do?tracseId=ABA20263001219019&tracseTme=209&crseTracseSe=C0041&trainstCstmrId=500044312625",
+        "raw_desc": "채용에서 퇴직까지 인사노무관리 핵심실무 | 재직자 실무역량 강화",
+        "standardized_tags": "채용관리 | 인사정보관리 | 인사법규/노무",
+        "primary_job": "인사(HR)",
+        "primary_competency": "인사정보 관리 및 노무·채용",
+        "suitability_score": 90,
+        "hr_suitability": 90,
+        "ga_suitability": 45,
+        "target_level": "Level 2 (초급 실무)",
+        "ksa_knowledge": "인사(HR) 관련 표준 규정, 법령 기초 및 실무 양식",
+        "ksa_skills": "채용관리 · 인사정보관리 · 인사법규/노무 툴 조작 및 정제",
+        "ksa_attitudes": "규정 준수, 데이터 정확성, 부서 간 협업 배려"
+      },
+      {
+        "id": "EMP_HR_23",
+        "source_api": "3. 고용24 사업주훈련",
+        "course_name": "인사노무관리 에센스",
+        "institution": "중소벤처기업진흥공단 호남연수원",
+        "ncs_code": "02020201",
+        "ncs_category": "02. 경영·회계·사무 (노무 기업직무)",
+        "training_hours": 32,
+        "cost": 242000,
+        "cost_type": "사업주 환급 직무교육",
+        "location": "전남광주 북구",
+        "url": "https://www.work24.go.kr/hr/a/a/3100/selectTracseDetl.do?tracseId=AIG20250000534837&tracseTme=2&crseTracseSe=C0061&trainstCstmrId=500020037535",
+        "raw_desc": "인사노무관리 에센스 | 재직자 실무역량 강화",
+        "standardized_tags": "인사정보관리 | 인사법규/노무",
+        "primary_job": "인사(HR)",
+        "primary_competency": "인사정보 관리 및 노무·채용",
+        "suitability_score": 75,
+        "hr_suitability": 75,
+        "ga_suitability": 45,
+        "target_level": "Level 2 (초급 실무)",
+        "ksa_knowledge": "인사(HR) 관련 표준 규정, 법령 기초 및 실무 양식",
+        "ksa_skills": "인사정보관리 · 인사법규/노무 툴 조작 및 정제",
+        "ksa_attitudes": "규정 준수, 데이터 정확성, 부서 간 협업 배려"
+      },
+      {
+        "id": "KMBC_HR_11",
+        "source_api": "2. 고용24 국민내일배움카드",
+        "course_name": "실무자를 위한 인사급여지급(급여계산+4대보험관리+원천징수+연말정산)B",
+        "institution": "하이컴퓨터그래픽전산회계학원",
+        "ncs_code": "02020201",
+        "ncs_category": "02. 경영·회계·사무 (인사 국비과정)",
+        "training_hours": 48,
+        "cost": 255300,
+        "cost_type": "국비지원 (자부담 일부)",
+        "location": "경기 안산시 단원구",
+        "url": "https://www.work24.go.kr/hr/a/a/3100/selectTracseDetl.do?tracseId=AIG20230000454583&tracseTme=3&crseTracseSe=C0061&trainstCstmrId=500020019063",
+        "raw_desc": "실무자를 위한 인사급여지급(급여계산+4대보험관리+원천징수+연말정산)B | 실무 자격 및 실습 연계",
+        "standardized_tags": "인사정보관리 | 인사데이터/급여",
+        "primary_job": "인사(HR)",
+        "primary_competency": "인사정보 관리 및 노무·채용",
+        "suitability_score": 75,
+        "hr_suitability": 75,
+        "ga_suitability": 45,
+        "target_level": "Level 1 (입문·보조)",
+        "ksa_knowledge": "인사(HR) 관련 표준 규정, 법령 기초 및 실무 양식",
+        "ksa_skills": "인사정보관리 · 인사데이터/급여 툴 조작 및 정제",
+        "ksa_attitudes": "규정 준수, 데이터 정확성, 부서 간 협업 배려"
+      }
+    ],
+    "ga_top3": [
+      {
+        "id": "EMP_GA_30",
+        "source_api": "3. 고용24 사업주훈련",
+        "course_name": "스마트한 행사의전 전략",
+        "institution": "(1st)인비원 평생교육원",
+        "ncs_code": "02020301",
+        "ncs_category": "02. 경영·회계·사무 (스마트 기업직무)",
+        "training_hours": 32,
+        "cost": 26730,
+        "cost_type": "사업주 환급 직무교육",
+        "location": "경기 고양시 일산동구",
+        "url": "https://www.work24.go.kr/hr/a/a/3100/selectTracseDetl2.do?tracseId=ABA20263001219083&tracseTme=209&crseTracseSe=C0041&trainstCstmrId=500044312625",
+        "raw_desc": "스마트한 행사의전 전략 | 재직자 실무역량 강화",
+        "standardized_tags": "사무자동화(OA) | 회의운영/지원",
+        "primary_job": "총무·사무행정",
+        "primary_competency": "문서작성 및 사무자동화(OA)",
+        "suitability_score": 60,
+        "hr_suitability": 45,
+        "ga_suitability": 60,
+        "target_level": "Level 2 (초급 실무)",
+        "ksa_knowledge": "총무·사무행정 관련 표준 규정, 법령 기초 및 실무 양식",
+        "ksa_skills": "사무자동화(OA) · 회의운영/지원 툴 조작 및 정제",
+        "ksa_attitudes": "규정 준수, 데이터 정확성, 부서 간 협업 배려"
+      },
+      {
+        "id": "KMBC_HR_15",
+        "source_api": "2. 고용24 국민내일배움카드",
+        "course_name": "[인사총무전문가] 입찰계약과 행사의전실무",
+        "institution": "윈스펙원격평생교육원",
+        "ncs_code": "02020101",
+        "ncs_category": "02. 경영·회계·사무 (인사 국비과정)",
+        "training_hours": 48,
+        "cost": 50490,
+        "cost_type": "국비지원 (자부담 일부)",
+        "location": "서울 강남구",
+        "url": "https://www.work24.go.kr/hr/a/a/3100/selectTracseDetl.do?tracseId=ACG20263001169523&tracseTme=261&crseTracseSe=C0031&trainstCstmrId=500034225481",
+        "raw_desc": "[인사총무전문가] 입찰계약과 행사의전실무 | 실무 자격 및 실습 연계",
+        "standardized_tags": "인사정보관리 | 인사법규/노무 | 회의운영/지원",
+        "primary_job": "총무·사무행정",
+        "primary_competency": "문서작성 및 사무자동화(OA)",
+        "suitability_score": 60,
+        "hr_suitability": 45,
+        "ga_suitability": 60,
+        "target_level": "Level 2 (초급 실무)",
+        "ksa_knowledge": "총무·사무행정 관련 표준 규정, 법령 기초 및 실무 양식",
+        "ksa_skills": "인사정보관리 · 인사법규/노무 · 회의운영/지원 툴 조작 및 정제",
+        "ksa_attitudes": "규정 준수, 데이터 정확성, 부서 간 협업 배려"
+      },
+      {
+        "id": "EMP_GA_26",
+        "source_api": "3. 고용24 사업주훈련",
+        "course_name": "업무에 날개를 달아주는 스마트워크",
+        "institution": "(1st)인비원 평생교육원",
+        "ncs_code": "02010101",
+        "ncs_category": "02. 경영·회계·사무 (스마트 기업직무)",
+        "training_hours": 32,
+        "cost": 62370,
+        "cost_type": "사업주 환급 직무교육",
+        "location": "경기 고양시 일산동구",
+        "url": "https://www.work24.go.kr/hr/a/a/3100/selectTracseDetl2.do?tracseId=ABA20263001218983&tracseTme=209&crseTracseSe=C0041&trainstCstmrId=500044312625",
+        "raw_desc": "업무에 날개를 달아주는 스마트워크 | 재직자 실무역량 강화",
+        "standardized_tags": "사무자동화(OA) | 회의운영/지원",
+        "primary_job": "총무·사무행정",
+        "primary_competency": "문서작성 및 사무자동화(OA)",
+        "suitability_score": 60,
+        "hr_suitability": 45,
+        "ga_suitability": 60,
+        "target_level": "Level 1 (입문·보조)",
+        "ksa_knowledge": "총무·사무행정 관련 표준 규정, 법령 기초 및 실무 양식",
+        "ksa_skills": "사무자동화(OA) · 회의운영/지원 툴 조작 및 정제",
+        "ksa_attitudes": "규정 준수, 데이터 정확성, 부서 간 협업 배려"
+      }
+    ]
+  },
+  "supply_status": {
+    "hr_count": 8,
+    "ga_count": 22,
+    "free_course_count": 10,
+    "paid_subsidy_count": 20,
+    "avg_hours": 42.0
+  },
+  "skill_gap_insights": [
+    {
+      "job": "인사(HR)",
+      "rich_domains": [
+        "기초 근로기준법/노무",
+        "4대보험 전산신고",
+        "기본 급여계산 서식"
+      ],
+      "gap_domains": [
+        "실무 비구조화 채용 인터뷰 평가 기법",
+        "HR-Analytics (인사 통계 피벗/대시보드)",
+        "최신 노동 판례 및 조직문화 기획"
+      ],
+      "severity": "중간 (실무 실습 중심 HR 분석 과정 부족)",
+      "action_plan": "국비 지원 내 채용 실무 모의 면접 실습 및 HR 데이터 분석(Excel/SQL) 단기 집중 과정 신설 권장"
+    },
+    {
+      "job": "총무·사무행정",
+      "rich_domains": [
+        "컴활/ITQ 자격 취득",
+        "한글/워드 공문서 작성",
+        "기초 엑셀 함수"
+      ],
+      "gap_domains": [
+        "스마트워크 협업 툴(Slack/Notion/Teams) 통합 연동",
+        "전자결재(EDMS) 문서 보안 거버넌스",
+        "사내 자산관리 전산화 실습"
+      ],
+      "severity": "낮음~중간 (자격증 위주에서 클라우드 협업 도구로의 전환 필요)",
+      "action_plan": "단순 자격증 취득 과정을 탈피하고 클라우드 오피스 및 노코드 사무자동화(RPA/VBA) 실습 연계 확대"
+    }
+  ],
+  "limitations_and_improvements": [
+    "1. L1~L2 입문·초급 수준에 집중되어 있어 L3~L5(중급·전문가) 승진자를 위한 심화 전략/인사기획 커리큘럼 부족",
+    "2. 공공 직업훈련 과정의 특성상 최신 HR SaaS(ATS, Flex, 원티드스페이스) 툴 실습 비중이 상대적으로 낮음",
+    "3. [향후 개선 방향]: 교육운영(HRD) 직무 추가, 숙련도 L3~L5 확대, 대학 평생교육원 연계 실무 캡스톤 프로젝트 도입"
+  ]
+}

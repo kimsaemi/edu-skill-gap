@@ -7,7 +7,9 @@
 *인증키*.txt
 *api_key*.txt
 
-# Python
+# Data raw dumps
+data/hr/
+
 __pycache__/
 *.py[cod]
 *$py.class
