@@ -1,0 +1,9 @@
+﻿priority_rank,global_course_key,api_name,api_url,http_status,error_type,error_detail
+5,PUB_ACG20243001038036_84,국민내일배움카드 상세(310L02),https://www.work24.go.kr/cm/openApi/call/hr/callOpenApiSvcInfo310L02.do,200,AUTH_PERMISSION_ERROR (HTML Redirect),서비스 미신청/비인가로 /system/exception/exceptionProcess.do HTML 반환
+15,PUB_ABA20243001036557_15,사업주훈련 상세(311D01),https://www.work24.go.kr/cm/openApi/call/hr/callOpenApiSvcInfo311D01.do,200,AUTH_PERMISSION_ERROR (HTML Redirect),서비스 미신청/비인가로 /system/exception/exceptionProcess.do HTML 반환
+21,PUB_ACG20243001023998_11,국민내일배움카드 상세(310L02),https://www.work24.go.kr/cm/openApi/call/hr/callOpenApiSvcInfo310L02.do,200,AUTH_PERMISSION_ERROR (HTML Redirect),서비스 미신청/비인가로 /system/exception/exceptionProcess.do HTML 반환
+22,PUB_ACG20243001013346_203,국민내일배움카드 상세(310L02),https://www.work24.go.kr/cm/openApi/call/hr/callOpenApiSvcInfo310L02.do,200,AUTH_PERMISSION_ERROR (HTML Redirect),서비스 미신청/비인가로 /system/exception/exceptionProcess.do HTML 반환
+23,PUB_ACG20243001027168_96,국민내일배움카드 상세(310L02),https://www.work24.go.kr/cm/openApi/call/hr/callOpenApiSvcInfo310L02.do,200,AUTH_PERMISSION_ERROR (HTML Redirect),서비스 미신청/비인가로 /system/exception/exceptionProcess.do HTML 반환
+24,PUB_ABA20243001023639_6,사업주훈련 상세(311D01),https://www.work24.go.kr/cm/openApi/call/hr/callOpenApiSvcInfo311D01.do,200,AUTH_PERMISSION_ERROR (HTML Redirect),서비스 미신청/비인가로 /system/exception/exceptionProcess.do HTML 반환
+25,PUB_ABA20243001036526_9,사업주훈련 상세(311D01),https://www.work24.go.kr/cm/openApi/call/hr/callOpenApiSvcInfo311D01.do,200,AUTH_PERMISSION_ERROR (HTML Redirect),서비스 미신청/비인가로 /system/exception/exceptionProcess.do HTML 반환
+26,PUB_ACG20243000973001_324,국민내일배움카드 상세(310L02),https://www.work24.go.kr/cm/openApi/call/hr/callOpenApiSvcInfo310L02.do,200,AUTH_PERMISSION_ERROR (HTML Redirect),서비스 미신청/비인가로 /system/exception/exceptionProcess.do HTML 반환
