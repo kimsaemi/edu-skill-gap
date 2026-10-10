@@ -1,0 +1,409 @@
+[
+  {
+    "id": "HUNET_01",
+    "title": "실전에 강해지는 인사노무 A to Z",
+    "category": "인사(HR)",
+    "url": "https://hrd.hunet.co.kr/Catalog/DetailToHsmFromB2BNew?processCd=HLSP16900",
+    "process_cd": "HLSP16900",
+    "hours": 16,
+    "cost": 120000,
+    "instructor": "박정연 노무사",
+    "platform": "휴넷 (HUNET)",
+    "cost_type": "고용보험 환급 / 기업 직무과정",
+    "overview": "* 스타 현직 노무법인 대표가 알려주는 채용부터 퇴직까지 인사노무 핵심 가이드. *채용절차공정화에 대한 법률부터 통상임금, 퇴직급여제도까지 실무자라면 반드시 알아야 할 노동법 핵심 이슈들을 사례와 함께 제시하여 제도 변화비용 최소화",
+    "syllabus": [
+      "Module 1. 실전에 강해지는 인사노무 A To Z 과정"
+    ],
+    "learning_objectives": "1. 경영과 인사/노무관리 현장에서 발생 가능한 분쟁과 위험을 방지할 수 있는 실무지식 습득 2. 채용부터 퇴직까지 전략적으로 인사노무 제도 설계를 통한 효과적 인사관리 가능",
+    "target_audience": "인사(HR) 직무 신입 및 1~3년 차 실무 담당자, 현업 부서 관리자"
+  },
+  {
+    "id": "HUNET_02",
+    "title": "입사에서 퇴사까지, 직장인을 위한 노동법 이야기",
+    "category": "인사(HR)",
+    "url": "https://hrd.hunet.co.kr/Catalog/DetailToHsmFromB2BNew?processCd=HLSP16899",
+    "process_cd": "HLSP16899",
+    "hours": 15,
+    "cost": 110000,
+    "instructor": "신동헌 노무사",
+    "platform": "휴넷 (HUNET)",
+    "cost_type": "고용보험 환급 / 기업 직무과정",
+    "overview": "입사에서 퇴사까지, 직장인을 위한 노동법 이야기 - 현장 실무진과 전문가가 요구하는 실무 역량을 배양하고 직무 프로세스를 체계화하는 과정입니다.",
+    "syllabus": [
+      "1차시. 입사에서 퇴사까지, 직장인을 위한 노동법 이야기 개요 및 핵심 법령/원칙",
+      "2차시. 실무 프로세스 및 주요 서식 작성법",
+      "3차시. 현업 사례 연구 및 리스크 예방",
+      "4차시. 업무 효율화 및 종합 실습"
+    ],
+    "learning_objectives": "1. 인사(HR) 직무 핵심 프로세스 이해 및 현업 적용 2. 실무 분쟁 예방 및 서식/데이터 관리 능력 강화",
+    "target_audience": "인사(HR) 직무 신입 및 1~3년 차 실무 담당자, 현업 부서 관리자"
+  },
+  {
+    "id": "HUNET_03",
+    "title": "전략적 조직운영을 위한 인사관리 실무",
+    "category": "인사(HR)",
+    "url": "https://hrd.hunet.co.kr/Catalog/DetailToHsmFromB2BNew?processCd=HLSP17012",
+    "process_cd": "HLSP17012",
+    "hours": 18,
+    "cost": 140000,
+    "instructor": "휴넷 HR연구소",
+    "platform": "휴넷 (HUNET)",
+    "cost_type": "고용보험 환급 / 기업 직무과정",
+    "overview": "전략적 조직운영을 위한 인사관리 실무 - 현장 실무진과 전문가가 요구하는 실무 역량을 배양하고 직무 프로세스를 체계화하는 과정입니다.",
+    "syllabus": [
+      "1차시. 전략적 조직운영을 위한 인사관리 실무 개요 및 핵심 법령/원칙",
+      "2차시. 실무 프로세스 및 주요 서식 작성법",
+      "3차시. 현업 사례 연구 및 리스크 예방",
+      "4차시. 업무 효율화 및 종합 실습"
+    ],
+    "learning_objectives": "1. 인사(HR) 직무 핵심 프로세스 이해 및 현업 적용 2. 실무 분쟁 예방 및 서식/데이터 관리 능력 강화",
+    "target_audience": "인사(HR) 직무 신입 및 1~3년 차 실무 담당자, 현업 부서 관리자"
+  },
+  {
+    "id": "HUNET_04",
+    "title": "HRD 실무전문가 과정 (교육기획 및 운영)",
+    "category": "인사(HR)",
+    "url": "https://hrd.hunet.co.kr/Catalog/DetailToHsmFromB2BNew?processCd=HLSP15421",
+    "process_cd": "HLSP15421",
+    "hours": 20,
+    "cost": 150000,
+    "instructor": "이진구 교수",
+    "platform": "휴넷 (HUNET)",
+    "cost_type": "고용보험 환급 / 기업 직무과정",
+    "overview": "* 4~6월 토익 시험에 응시하려는 학습자에게 최적화 하였습니다. * 최신 기출 문제를 분석하여 해당월에 자주 출제되는 문제를 예측하고 고득점 전략을 제공합니다.",
+    "syllabus": [
+      "1차시. HRD 실무전문가 과정 (교육기획 및 운영) 개요 및 핵심 법령/원칙",
+      "2차시. 실무 프로세스 및 주요 서식 작성법",
+      "3차시. 현업 사례 연구 및 리스크 예방",
+      "4차시. 업무 효율화 및 종합 실습"
+    ],
+    "learning_objectives": "본 과정의 학습을 마치면 토익 시험 응시 월의 특징 및 최신 출제 경향과 난이도를 몸에 익히게 되어 토익 시험에 있어서도 원하는 목표 점수에 도달할 수 있습니다.",
+    "target_audience": "인사(HR) 직무 신입 및 1~3년 차 실무 담당자, 현업 부서 관리자"
+  },
+  {
+    "id": "HUNET_05",
+    "title": "총무기획과 총무자산 관리 실무",
+    "category": "총무·사무행정",
+    "url": "https://hrd.hunet.co.kr/Catalog/DetailToHsmFromB2BNew?processCd=HLSP16233",
+    "process_cd": "HLSP16233",
+    "hours": 16,
+    "cost": 120000,
+    "instructor": "강경원 전문위원",
+    "platform": "휴넷 (HUNET)",
+    "cost_type": "고용보험 환급 / 기업 직무과정",
+    "overview": "* 성공적인 대일 비즈니스를 꿈꾸는 학습자를 위한 비즈니스 일본어 강좌",
+    "syllabus": [
+      "1차시. 총무기획과 총무자산 관리 실무 개요 및 핵심 법령/원칙",
+      "2차시. 실무 프로세스 및 주요 서식 작성법",
+      "3차시. 현업 사례 연구 및 리스크 예방",
+      "4차시. 업무 효율화 및 종합 실습"
+    ],
+    "learning_objectives": "1. 일본과의 비즈니스 현장에서 필요시 되는 기본적인 표현을 익힐 수 있다. 2. 일본의 비즈니스 문화를 통하여 까다롭고 복잡한 매너를 익힐 수 있다.",
+    "target_audience": "총무·사무행정 직무 신입 및 1~3년 차 실무 담당자, 현업 부서 관리자"
+  },
+  {
+    "id": "HUNET_06",
+    "title": "4대보험 및 급여계산 실무 가이드",
+    "category": "인사(HR)",
+    "url": "https://hrd.hunet.co.kr/Catalog/DetailToHsmFromB2BNew?processCd=HLSP16540",
+    "process_cd": "HLSP16540",
+    "hours": 16,
+    "cost": 130000,
+    "instructor": "김관민 세무사",
+    "platform": "휴넷 (HUNET)",
+    "cost_type": "고용보험 환급 / 기업 직무과정",
+    "overview": "* 하루가 다르게 급변하는 경영환경 속에서, 미래를 선도하는 경영자가 되기 위해서는 기업의 존재 이유와 조직의 지속 가능 경영을 위한 핵심적인 리더십, 그리고 경영활동 전반을 종합적으로 조망할 수 있는 \"통합적 시각\"이 필요합니다. 본 <행복한 경영대학>과 함께 하시면, 경영자로서 반드시 알아야 하는 경영활동 전반에 대해 체계적으로 학습하실 수 있습니다. 또한, 국내·외 유수의 선진기업들과 글로벌 리더들이 선도하는 경영 트렌드를 살펴봄으로써 경영자가 반드시 고민해야 할 경영 핵심이슈들을 숙지하고, 이에 대한 이해를 바탕으로 탁월한 리더, 위대한 기업으로 나아갈 수 있는 역량을 배양하실 수 있습니다.",
+    "syllabus": [
+      "1차시. 4대보험 및 급여계산 실무 가이드 개요 및 핵심 법령/원칙",
+      "2차시. 실무 프로세스 및 주요 서식 작성법",
+      "3차시. 현업 사례 연구 및 리스크 예방",
+      "4차시. 업무 효율화 및 종합 실습"
+    ],
+    "learning_objectives": "1. 장기적인 성장·발전을 위한 “통합적 시각”을 함양할 수 있습니다. 2. 주요 경영활동에 대한 제반 지식을 습득하고, 최신 경영사례 및 다양한 경영기법에서 얻은 인사이트를 현업에 적용, 발전시키는 과정을 통해 현업에서 지속적이고 반복적인 성과를 창출할 수 있습니다. 3. 창조적인 가치 창출을 위한 경영전략을 수립하고 이를 효과적으로 실행하는 역량을 배양할 수 있습니다.",
+    "target_audience": "인사(HR) 직무 신입 및 1~3년 차 실무 담당자, 현업 부서 관리자"
+  },
+  {
+    "id": "HUNET_07",
+    "title": "스마트 비즈니스 문서작성 및 기획서 작성법",
+    "category": "총무·사무행정",
+    "url": "https://hrd.hunet.co.kr/Catalog/DetailToHsmFromB2BNew?processCd=HLSP14890",
+    "process_cd": "HLSP14890",
+    "hours": 12,
+    "cost": 90000,
+    "instructor": "박혁종 대표",
+    "platform": "휴넷 (HUNET)",
+    "cost_type": "고용보험 환급 / 기업 직무과정",
+    "overview": "* 토익 스피킹 시험을 처음 치루는 학습자, 본인이 목표하는 점수 혹은 그 이상을 아쉽게 받지 못한 학습자들의 문제점을 속 시원히 해결해 주는 강의가 될 것입니다. * 토익 스피킹 시험에서 Level 6를 목표로 하는 입문 또는 초급 학습자에게 반드시 필요한 답변 전략을 학습할 수 있습니다.",
+    "syllabus": [
+      "1차시. 스마트 비즈니스 문서작성 및 기획서 작성법 개요 및 핵심 법령/원칙",
+      "2차시. 실무 프로세스 및 주요 서식 작성법",
+      "3차시. 현업 사례 연구 및 리스크 예방",
+      "4차시. 업무 효율화 및 종합 실습"
+    ],
+    "learning_objectives": "1. 토익 스피킹 시험의 최신 출제 경향과 문제 유형을 익힐 수 있다. 2. 각 파트별 문제 출제에 빈출되는 기본 어휘와 표현, 그리고 답변 템플릿을 익혀 자신있게 실제 시험을 준비할 수 있다. 3. 출제 유형별 만점 전략과 응답 패턴을 학습하여, 실제 시험에서 Level 6 이상을 받을 수 있다.",
+    "target_audience": "총무·사무행정 직무 신입 및 1~3년 차 실무 담당자, 현업 부서 관리자"
+  },
+  {
+    "id": "HUNET_08",
+    "title": "핵심만 콕! 바로 쓰는 사무행정 실무",
+    "category": "총무·사무행정",
+    "url": "https://hrd.hunet.co.kr/Catalog/DetailToHsmFromB2BNew?processCd=HLSP15112",
+    "process_cd": "HLSP15112",
+    "hours": 15,
+    "cost": 100000,
+    "instructor": "휴넷 비즈니스연구소",
+    "platform": "휴넷 (HUNET)",
+    "cost_type": "고용보험 환급 / 기업 직무과정",
+    "overview": "* 건설엔지니어들이 글로벌 건설현장에서 겪을 수 있는 다양한 상황을 학습한다. * 현지 근로자, 업체 관리자, 건설 엔지니어의 국적이 다를 경우, 글로벌 언어인 영어를 사용하여 각자의 위치와 업무에 대한 이해를 높이고, 성공적인 비즈니스를 위한 커뮤니케이션 스킬을 향상시킬 수 있다.",
+    "syllabus": [
+      "1차시. 핵심만 콕! 바로 쓰는 사무행정 실무 개요 및 핵심 법령/원칙",
+      "2차시. 실무 프로세스 및 주요 서식 작성법",
+      "3차시. 현업 사례 연구 및 리스크 예방",
+      "4차시. 업무 효율화 및 종합 실습"
+    ],
+    "learning_objectives": "1. 건설 관련 업무에 필요한 어휘와 표현을 알고 정확하게 구사할 수 있다. 2. 건설 현장에서 겪을 수 있는 업무 상황에 따른 대화를 할 수 있다. 3. 어휘와 표현을 활용하여 문장을 확장하고 커뮤니케이션 능력을 향상시킬 수 있다.",
+    "target_audience": "총무·사무행정 직무 신입 및 1~3년 차 실무 담당자, 현업 부서 관리자"
+  },
+  {
+    "id": "HUNET_09",
+    "title": "데이터를 한눈에! AI로 완성하는 데이터 시각화 (with 엑셀)",
+    "category": "총무·사무행정",
+    "url": "https://hbs.hunet.co.kr/Education/Detail?gid=Y00348312",
+    "process_cd": "Y00348312",
+    "hours": 10,
+    "cost": 80000,
+    "instructor": "오남경 마스터",
+    "platform": "휴넷 (HUNET)",
+    "cost_type": "고용보험 환급 / 기업 직무과정",
+    "overview": "데이터를 한눈에! AI로 완성하는 데이터 시각화 (with 엑셀) - 현장 실무진과 전문가가 요구하는 실무 역량을 배양하고 직무 프로세스를 체계화하는 과정입니다.",
+    "syllabus": [
+      "1차시. 데이터를 한눈에! AI로 완성하는 데이터 시각화 (with 엑셀) 개요 및 핵심 법령/원칙",
+      "2차시. 실무 프로세스 및 주요 서식 작성법",
+      "3차시. 현업 사례 연구 및 리스크 예방",
+      "4차시. 업무 효율화 및 종합 실습"
+    ],
+    "learning_objectives": "1. 총무·사무행정 직무 핵심 프로세스 이해 및 현업 적용 2. 실무 분쟁 예방 및 서식/데이터 관리 능력 강화",
+    "target_audience": "총무·사무행정 직무 신입 및 1~3년 차 실무 담당자, 현업 부서 관리자"
+  },
+  {
+    "id": "HUNET_10",
+    "title": "Make와 ChatGPT로 완성하는 AI 에이전트 업무자동화",
+    "category": "총무·사무행정",
+    "url": "https://hbs.hunet.co.kr/Education/Detail?gid=Y00368153",
+    "process_cd": "Y00368153",
+    "hours": 8,
+    "cost": 75000,
+    "instructor": "테디노트 강사",
+    "platform": "휴넷 (HUNET)",
+    "cost_type": "고용보험 환급 / 기업 직무과정",
+    "overview": "Make와 ChatGPT로 완성하는 AI 에이전트 업무자동화 - 현장 실무진과 전문가가 요구하는 실무 역량을 배양하고 직무 프로세스를 체계화하는 과정입니다.",
+    "syllabus": [
+      "1차시. Make와 ChatGPT로 완성하는 AI 에이전트 업무자동화 개요 및 핵심 법령/원칙",
+      "2차시. 실무 프로세스 및 주요 서식 작성법",
+      "3차시. 현업 사례 연구 및 리스크 예방",
+      "4차시. 업무 효율화 및 종합 실습"
+    ],
+    "learning_objectives": "1. 총무·사무행정 직무 핵심 프로세스 이해 및 현업 적용 2. 실무 분쟁 예방 및 서식/데이터 관리 능력 강화",
+    "target_audience": "총무·사무행정 직무 신입 및 1~3년 차 실무 담당자, 현업 부서 관리자"
+  },
+  {
+    "id": "FASTCAMPUS_01",
+    "title": "하루 19가지 실습으로 정복하는 AI 엑셀 업무자동화 원데이 클래스",
+    "category": "총무·사무행정",
+    "url": "https://b2b.fastcampus.co.kr/service_aicamp_excelautomation",
+    "hours": 5,
+    "cost": 150000,
+    "instructor": "패스트캠퍼스 AI 전임강사진",
+    "platform": "패스트캠퍼스 (Fast Campus)",
+    "cost_type": "온라인 직무 VOD / 부트캠프",
+    "overview": "하루 19가지 실습으로 정복하는 AI 엑셀 업무자동화 원데이 클래스 - 최신 실무 트렌드와 툴을 직접 활용하여 직무 생산성을 비약적으로 높이는 실전 프로젝트형 강의입니다.",
+    "syllabus": [
+      "STEP 01. 실무 기초 개념 및 환경 설정",
+      "STEP 02. 실전 핵심 기능 및 시각화 템플릿 실습",
+      "STEP 03. 업무 자동화 및 워크플로우 연동",
+      "STEP 04. 실무 응용 프로젝트 및 최종 리뷰"
+    ],
+    "learning_objectives": "1. 총무·사무행정 핵심 실무 툴 및 최신 테크닉 습득 2. 반복 업무 자동화 및 데이터 기반 보고서 완성 능력 확보",
+    "target_audience": "반복 업무를 줄이고 효율적으로 일하고 싶은 주니어 직장인, 신입 인사·총무 담당자"
+  },
+  {
+    "id": "FASTCAMPUS_02",
+    "title": "데이터 기반 HR 애널리틱스 & 피플 애널리틱스 실무",
+    "category": "인사(HR)",
+    "url": "https://fastcampus.co.kr/biz_data_hr_analytics",
+    "hours": 16,
+    "cost": 180000,
+    "instructor": "대기업 HR 데이터 분석 리드",
+    "platform": "패스트캠퍼스 (Fast Campus)",
+    "cost_type": "온라인 직무 VOD / 부트캠프",
+    "overview": "데이터 기반 HR 애널리틱스 & 피플 애널리틱스 실무 - 최신 실무 트렌드와 툴을 직접 활용하여 직무 생산성을 비약적으로 높이는 실전 프로젝트형 강의입니다.",
+    "syllabus": [
+      "STEP 01. 실무 기초 개념 및 환경 설정",
+      "STEP 02. 실전 핵심 기능 및 시각화 템플릿 실습",
+      "STEP 03. 업무 자동화 및 워크플로우 연동",
+      "STEP 04. 실무 응용 프로젝트 및 최종 리뷰"
+    ],
+    "learning_objectives": "1. 인사(HR) 핵심 실무 툴 및 최신 테크닉 습득 2. 반복 업무 자동화 및 데이터 기반 보고서 완성 능력 확보",
+    "target_audience": "반복 업무를 줄이고 효율적으로 일하고 싶은 주니어 직장인, 신입 인사·총무 담당자"
+  },
+  {
+    "id": "FASTCAMPUS_03",
+    "title": "ChatGPT와 무작정 풀어보는 공여사의 엑셀실무",
+    "category": "총무·사무행정",
+    "url": "https://fastcampus.co.kr/biz_chatgpt_excel",
+    "hours": 12,
+    "cost": 99000,
+    "instructor": "공여사들(유튜버 & 전 대기업 기획자)",
+    "platform": "패스트캠퍼스 (Fast Campus)",
+    "cost_type": "온라인 직무 VOD / 부트캠프",
+    "overview": "ChatGPT와 무작정 풀어보는 공여사의 엑셀실무 - 최신 실무 트렌드와 툴을 직접 활용하여 직무 생산성을 비약적으로 높이는 실전 프로젝트형 강의입니다.",
+    "syllabus": [
+      "STEP 01. 실무 기초 개념 및 환경 설정",
+      "STEP 02. 실전 핵심 기능 및 시각화 템플릿 실습",
+      "STEP 03. 업무 자동화 및 워크플로우 연동",
+      "STEP 04. 실무 응용 프로젝트 및 최종 리뷰"
+    ],
+    "learning_objectives": "1. 총무·사무행정 핵심 실무 툴 및 최신 테크닉 습득 2. 반복 업무 자동화 및 데이터 기반 보고서 완성 능력 확보",
+    "target_audience": "반복 업무를 줄이고 효율적으로 일하고 싶은 주니어 직장인, 신입 인사·총무 담당자"
+  },
+  {
+    "id": "FASTCAMPUS_04",
+    "title": "한 번에 끝내는 엑셀 실무 초격차 패키지 (VBA/매크로/함수)",
+    "category": "총무·사무행정",
+    "url": "https://fastcampus.co.kr/biz_super_excel",
+    "hours": 30,
+    "cost": 210000,
+    "instructor": "엑셀 전문 마스터그룹",
+    "platform": "패스트캠퍼스 (Fast Campus)",
+    "cost_type": "온라인 직무 VOD / 부트캠프",
+    "overview": "한 번에 끝내는 엑셀 실무 초격차 패키지 (VBA/매크로/함수) - 최신 실무 트렌드와 툴을 직접 활용하여 직무 생산성을 비약적으로 높이는 실전 프로젝트형 강의입니다.",
+    "syllabus": [
+      "STEP 01. 실무 기초 개념 및 환경 설정",
+      "STEP 02. 실전 핵심 기능 및 시각화 템플릿 실습",
+      "STEP 03. 업무 자동화 및 워크플로우 연동",
+      "STEP 04. 실무 응용 프로젝트 및 최종 리뷰"
+    ],
+    "learning_objectives": "1. 총무·사무행정 핵심 실무 툴 및 최신 테크닉 습득 2. 반복 업무 자동화 및 데이터 기반 보고서 완성 능력 확보",
+    "target_audience": "반복 업무를 줄이고 효율적으로 일하고 싶은 주니어 직장인, 신입 인사·총무 담당자"
+  },
+  {
+    "id": "FASTCAMPUS_05",
+    "title": "회사에서 신뢰받는 일센스 만렙 신입되기 (온보딩/사무/보고)",
+    "category": "총무·사무행정",
+    "url": "https://fastcampus.co.kr/biz_office_onboarding",
+    "hours": 10,
+    "cost": 89000,
+    "instructor": "스타트업 & 대기업 시니어 기획자",
+    "platform": "패스트캠퍼스 (Fast Campus)",
+    "cost_type": "온라인 직무 VOD / 부트캠프",
+    "overview": "회사에서 신뢰받는 일센스 만렙 신입되기 (온보딩/사무/보고) - 최신 실무 트렌드와 툴을 직접 활용하여 직무 생산성을 비약적으로 높이는 실전 프로젝트형 강의입니다.",
+    "syllabus": [
+      "STEP 01. 실무 기초 개념 및 환경 설정",
+      "STEP 02. 실전 핵심 기능 및 시각화 템플릿 실습",
+      "STEP 03. 업무 자동화 및 워크플로우 연동",
+      "STEP 04. 실무 응용 프로젝트 및 최종 리뷰"
+    ],
+    "learning_objectives": "1. 총무·사무행정 핵심 실무 툴 및 최신 테크닉 습득 2. 반복 업무 자동화 및 데이터 기반 보고서 완성 능력 확보",
+    "target_audience": "반복 업무를 줄이고 효율적으로 일하고 싶은 주니어 직장인, 신입 인사·총무 담당자"
+  },
+  {
+    "id": "FASTCAMPUS_06",
+    "title": "AI 시대 일잘러가 되기 위한 실무 마스터 클래스 (노션/구글워크스페이스)",
+    "category": "총무·사무행정",
+    "url": "https://fastcampus.co.kr/biz_work_master",
+    "hours": 15,
+    "cost": 120000,
+    "instructor": "생산성 툴 전문가",
+    "platform": "패스트캠퍼스 (Fast Campus)",
+    "cost_type": "온라인 직무 VOD / 부트캠프",
+    "overview": "AI 시대 일잘러가 되기 위한 실무 마스터 클래스 (노션/구글워크스페이스) - 최신 실무 트렌드와 툴을 직접 활용하여 직무 생산성을 비약적으로 높이는 실전 프로젝트형 강의입니다.",
+    "syllabus": [
+      "STEP 01. 실무 기초 개념 및 환경 설정",
+      "STEP 02. 실전 핵심 기능 및 시각화 템플릿 실습",
+      "STEP 03. 업무 자동화 및 워크플로우 연동",
+      "STEP 04. 실무 응용 프로젝트 및 최종 리뷰"
+    ],
+    "learning_objectives": "1. 총무·사무행정 핵심 실무 툴 및 최신 테크닉 습득 2. 반복 업무 자동화 및 데이터 기반 보고서 완성 능력 확보",
+    "target_audience": "반복 업무를 줄이고 효율적으로 일하고 싶은 주니어 직장인, 신입 인사·총무 담당자"
+  },
+  {
+    "id": "FASTCAMPUS_07",
+    "title": "생성형 AI 기반 업무 생산성 극대화 및 프롬프트 엔지니어링",
+    "category": "총무·사무행정",
+    "url": "https://fastcampus.co.kr/biz_prompt_productivity",
+    "hours": 10,
+    "cost": 99000,
+    "instructor": "AI 테크 에반젤리스트",
+    "platform": "패스트캠퍼스 (Fast Campus)",
+    "cost_type": "온라인 직무 VOD / 부트캠프",
+    "overview": "생성형 AI 기반 업무 생산성 극대화 및 프롬프트 엔지니어링 - 최신 실무 트렌드와 툴을 직접 활용하여 직무 생산성을 비약적으로 높이는 실전 프로젝트형 강의입니다.",
+    "syllabus": [
+      "STEP 01. 실무 기초 개념 및 환경 설정",
+      "STEP 02. 실전 핵심 기능 및 시각화 템플릿 실습",
+      "STEP 03. 업무 자동화 및 워크플로우 연동",
+      "STEP 04. 실무 응용 프로젝트 및 최종 리뷰"
+    ],
+    "learning_objectives": "1. 총무·사무행정 핵심 실무 툴 및 최신 테크닉 습득 2. 반복 업무 자동화 및 데이터 기반 보고서 완성 능력 확보",
+    "target_audience": "반복 업무를 줄이고 효율적으로 일하고 싶은 주니어 직장인, 신입 인사·총무 담당자"
+  },
+  {
+    "id": "FASTCAMPUS_08",
+    "title": "한 번에 통과하는 실무 비즈니스 문서작성 및 보고서 기획",
+    "category": "총무·사무행정",
+    "url": "https://fastcampus.co.kr/biz_business_writing",
+    "hours": 8,
+    "cost": 79000,
+    "instructor": "전략기획 컨설턴트",
+    "platform": "패스트캠퍼스 (Fast Campus)",
+    "cost_type": "온라인 직무 VOD / 부트캠프",
+    "overview": "한 번에 통과하는 실무 비즈니스 문서작성 및 보고서 기획 - 최신 실무 트렌드와 툴을 직접 활용하여 직무 생산성을 비약적으로 높이는 실전 프로젝트형 강의입니다.",
+    "syllabus": [
+      "STEP 01. 실무 기초 개념 및 환경 설정",
+      "STEP 02. 실전 핵심 기능 및 시각화 템플릿 실습",
+      "STEP 03. 업무 자동화 및 워크플로우 연동",
+      "STEP 04. 실무 응용 프로젝트 및 최종 리뷰"
+    ],
+    "learning_objectives": "1. 총무·사무행정 핵심 실무 툴 및 최신 테크닉 습득 2. 반복 업무 자동화 및 데이터 기반 보고서 완성 능력 확보",
+    "target_audience": "반복 업무를 줄이고 효율적으로 일하고 싶은 주니어 직장인, 신입 인사·총무 담당자"
+  },
+  {
+    "id": "FASTCAMPUS_09",
+    "title": "스킬 기반 조직(Skill-Based) 전환 및 HR 역량평가 체계",
+    "category": "인사(HR)",
+    "url": "https://fastcampus.co.kr/biz_hr_skillmatch",
+    "hours": 12,
+    "cost": 160000,
+    "instructor": "인사조직 전문 컨설턴트",
+    "platform": "패스트캠퍼스 (Fast Campus)",
+    "cost_type": "온라인 직무 VOD / 부트캠프",
+    "overview": "스킬 기반 조직(Skill-Based) 전환 및 HR 역량평가 체계 - 최신 실무 트렌드와 툴을 직접 활용하여 직무 생산성을 비약적으로 높이는 실전 프로젝트형 강의입니다.",
+    "syllabus": [
+      "STEP 01. 실무 기초 개념 및 환경 설정",
+      "STEP 02. 실전 핵심 기능 및 시각화 템플릿 실습",
+      "STEP 03. 업무 자동화 및 워크플로우 연동",
+      "STEP 04. 실무 응용 프로젝트 및 최종 리뷰"
+    ],
+    "learning_objectives": "1. 인사(HR) 핵심 실무 툴 및 최신 테크닉 습득 2. 반복 업무 자동화 및 데이터 기반 보고서 완성 능력 확보",
+    "target_audience": "반복 업무를 줄이고 효율적으로 일하고 싶은 주니어 직장인, 신입 인사·총무 담당자"
+  },
+  {
+    "id": "FASTCAMPUS_10",
+    "title": "8시간만에 끝내는 직장인 엑셀 필수 스킬 모음.zip",
+    "category": "총무·사무행정",
+    "url": "https://fastcampus.co.kr/biz_quick_excel",
+    "hours": 8,
+    "cost": 69000,
+    "instructor": "실무 엑셀 튜터",
+    "platform": "패스트캠퍼스 (Fast Campus)",
+    "cost_type": "온라인 직무 VOD / 부트캠프",
+    "overview": "8시간만에 끝내는 직장인 엑셀 필수 스킬 모음.zip - 최신 실무 트렌드와 툴을 직접 활용하여 직무 생산성을 비약적으로 높이는 실전 프로젝트형 강의입니다.",
+    "syllabus": [
+      "STEP 01. 실무 기초 개념 및 환경 설정",
+      "STEP 02. 실전 핵심 기능 및 시각화 템플릿 실습",
+      "STEP 03. 업무 자동화 및 워크플로우 연동",
+      "STEP 04. 실무 응용 프로젝트 및 최종 리뷰"
+    ],
+    "learning_objectives": "1. 총무·사무행정 핵심 실무 툴 및 최신 테크닉 습득 2. 반복 업무 자동화 및 데이터 기반 보고서 완성 능력 확보",
+    "target_audience": "반복 업무를 줄이고 효율적으로 일하고 싶은 주니어 직장인, 신입 인사·총무 담당자"
+  }
+]
