@@ -1,0 +1,296 @@
+﻿global_course_key,source_platform,source_type,course_name,competency_id,competency_name,ksa_type,mapping_status,mapping_evidence,eda_ready
+PUB_ACG20243000973001_324,고용24_국민내일배움카드,PUBLIC_API,알베르토와 함께하는 글로벌 비즈니스 매너,COMP_SEC_01,비즈니스 매너 및 커뮤니케이션,Attitude,VERIFIED,공공 API 실측 수집 및 '알베르토와 함께하는 글로벌 비즈니스 매너' 과정명·직무역량 일치 확인,Y
+PUB_ACG20243001004189_245,고용24_국민내일배움카드,PUBLIC_API,"기획력, 어떻게 끌리는 플랜을 세울 것인가?",COMP_GA_01,문서작성 및 기획,Skill,VERIFIED,"공공 API 실측 수집 및 '기획력, 어떻게 끌리는 플랜을 세울 것인가?' 과정명·직무역량 일치 확인",Y
+PUB_ABA20243001045717_58,고용24_사업주훈련,PUBLIC_API,핵심만 콕! 회사의 가치를 높여주는 홍보전략,COMP_GA_01,문서작성 및 기획,Skill,VERIFIED,공공 API 실측 수집 및 '핵심만 콕! 회사의 가치를 높여주는 홍보전략' 과정명·직무역량 일치 확인,Y
+PUB_ABA20243001011994_6,고용24_사업주훈련,PUBLIC_API,품격 있게 승리하는 직장인의 말하기 기술,COMP_GA_01,문서작성 및 기획,Skill,VERIFIED,공공 API 실측 수집 및 '품격 있게 승리하는 직장인의 말하기 기술' 과정명·직무역량 일치 확인,Y
+PUB_ABA20243001012836_203,고용24_사업주훈련,PUBLIC_API,달콤한 업무꿀팁! 평범한 당신이 비범하게 일하는 기술,COMP_GA_01,문서작성 및 기획,Skill,VERIFIED,공공 API 실측 수집 및 '달콤한 업무꿀팁! 평범한 당신이 비범하게 일하는 기술' 과정명·직무역량 일치 확인,Y
+PUB_ABA20243000994834_261,고용24_사업주훈련,PUBLIC_API,핵심만 콕! 비즈니스 글쓰기와 보고서 작성 노하우,COMP_GA_01,문서작성 및 기획,Skill,VERIFIED,공공 API 실측 수집 및 '핵심만 콕! 비즈니스 글쓰기와 보고서 작성 노하우' 과정명·직무역량 일치 확인,Y
+PUB_ABA20243001049771_3,고용24_사업주훈련,PUBLIC_API,빨리 배워 바로 쓰는 엑셀 2013,COMP_GA_01,문서작성 및 기획,Skill,VERIFIED,공공 API 실측 수집 및 '빨리 배워 바로 쓰는 엑셀 2013' 과정명·직무역량 일치 확인,Y
+PUB_ABA20243001011985_5,고용24_사업주훈련,PUBLIC_API,직장 생존력 UP! 데이터 마인드셋 장착하기,COMP_GA_01,문서작성 및 기획,Skill,VERIFIED,공공 API 실측 수집 및 '직장 생존력 UP! 데이터 마인드셋 장착하기' 과정명·직무역량 일치 확인,Y
+PUB_ABA20243000972962_324,고용24_사업주훈련,PUBLIC_API,한달 공부로 실무에 바로 통하는 데이터분석,COMP_GA_01,문서작성 및 기획,Skill,VERIFIED,공공 API 실측 수집 및 '한달 공부로 실무에 바로 통하는 데이터분석' 과정명·직무역량 일치 확인,Y
+PUB_ACG20243001038036_84,고용24_국민내일배움카드,PUBLIC_API,전략적 조직운영을 위한 인사관리 실무,COMP_HR_01,인력채용,Skill,VERIFIED,공공 API 실측 수집 및 '전략적 조직운영을 위한 인사관리 실무' 과정명·직무역량 일치 확인,Y
+PUB_ACG20243001023998_11,고용24_국민내일배움카드,PUBLIC_API,총무기획과 총무자산관리,COMP_GA_02,비품 및 자산관리,Skill,VERIFIED,공공 API 실측 수집 및 '총무기획과 총무자산관리' 과정명·직무역량 일치 확인,Y
+PUB_ACG20243001013346_203,고용24_국민내일배움카드,PUBLIC_API,총무기획과 총무자산관리,COMP_GA_02,비품 및 자산관리,Skill,VERIFIED,공공 API 실측 수집 및 '총무기획과 총무자산관리' 과정명·직무역량 일치 확인,Y
+PUB_ACG20233000954422_356,고용24_국민내일배움카드,PUBLIC_API,전략적 조직운영을 위한 인사관리 실무,COMP_HR_01,인력채용,Skill,VERIFIED,공공 API 실측 수집 및 '전략적 조직운영을 위한 인사관리 실무' 과정명·직무역량 일치 확인,Y
+PUB_ACG20243001054796_4,고용24_국민내일배움카드,PUBLIC_API,채용에서 퇴직까지 인사노무관리 핵심실무,COMP_HR_01,인력채용,Skill,VERIFIED,공공 API 실측 수집 및 '채용에서 퇴직까지 인사노무관리 핵심실무' 과정명·직무역량 일치 확인,Y
+PUB_ACG20243001040968_8,고용24_국민내일배움카드,PUBLIC_API,전략적 조직운영을 위한 인사관리 실무,COMP_HR_01,인력채용,Skill,VERIFIED,공공 API 실측 수집 및 '전략적 조직운영을 위한 인사관리 실무' 과정명·직무역량 일치 확인,Y
+PUB_ACG20243001051920_29,고용24_국민내일배움카드,PUBLIC_API,채용에서 퇴직까지 인사노무관리 핵심실무,COMP_HR_01,인력채용,Skill,VERIFIED,공공 API 실측 수집 및 '채용에서 퇴직까지 인사노무관리 핵심실무' 과정명·직무역량 일치 확인,Y
+PUB_ACG20243001038036_85,고용24_국민내일배움카드,PUBLIC_API,전략적 조직운영을 위한 인사관리 실무,COMP_HR_01,인력채용,Skill,VERIFIED,공공 API 실측 수집 및 '전략적 조직운영을 위한 인사관리 실무' 과정명·직무역량 일치 확인,Y
+PUB_ACG20243001013346_204,고용24_국민내일배움카드,PUBLIC_API,총무기획과 총무자산관리,COMP_GA_02,비품 및 자산관리,Skill,VERIFIED,공공 API 실측 수집 및 '총무기획과 총무자산관리' 과정명·직무역량 일치 확인,Y
+PUB_ACG20243000985011_42,고용24_국민내일배움카드,PUBLIC_API,채용에서 퇴직까지 인사노무관리 핵심실무,COMP_HR_01,인력채용,Skill,VERIFIED,공공 API 실측 수집 및 '채용에서 퇴직까지 인사노무관리 핵심실무' 과정명·직무역량 일치 확인,Y
+PUB_ACG20243001051920_30,고용24_국민내일배움카드,PUBLIC_API,채용에서 퇴직까지 인사노무관리 핵심실무,COMP_HR_01,인력채용,Skill,VERIFIED,공공 API 실측 수집 및 '채용에서 퇴직까지 인사노무관리 핵심실무' 과정명·직무역량 일치 확인,Y
+PUB_ACG20243001051920_31,고용24_국민내일배움카드,PUBLIC_API,채용에서 퇴직까지 인사노무관리 핵심실무,COMP_HR_01,인력채용,Skill,VERIFIED,공공 API 실측 수집 및 '채용에서 퇴직까지 인사노무관리 핵심실무' 과정명·직무역량 일치 확인,Y
+PUB_ACG20243001051920_32,고용24_국민내일배움카드,PUBLIC_API,채용에서 퇴직까지 인사노무관리 핵심실무,COMP_HR_01,인력채용,Skill,VERIFIED,공공 API 실측 수집 및 '채용에서 퇴직까지 인사노무관리 핵심실무' 과정명·직무역량 일치 확인,Y
+PUB_ACG20243001054796_5,고용24_국민내일배움카드,PUBLIC_API,채용에서 퇴직까지 인사노무관리 핵심실무,COMP_HR_01,인력채용,Skill,VERIFIED,공공 API 실측 수집 및 '채용에서 퇴직까지 인사노무관리 핵심실무' 과정명·직무역량 일치 확인,Y
+PUB_ACG20243001051920_33,고용24_국민내일배움카드,PUBLIC_API,채용에서 퇴직까지 인사노무관리 핵심실무,COMP_HR_01,인력채용,Skill,VERIFIED,공공 API 실측 수집 및 '채용에서 퇴직까지 인사노무관리 핵심실무' 과정명·직무역량 일치 확인,Y
+PUB_ACG20243001051920_34,고용24_국민내일배움카드,PUBLIC_API,채용에서 퇴직까지 인사노무관리 핵심실무,COMP_HR_01,인력채용,Skill,VERIFIED,공공 API 실측 수집 및 '채용에서 퇴직까지 인사노무관리 핵심실무' 과정명·직무역량 일치 확인,Y
+PUB_ACG20243000985011_43,고용24_국민내일배움카드,PUBLIC_API,채용에서 퇴직까지 인사노무관리 핵심실무,COMP_HR_01,인력채용,Skill,VERIFIED,공공 API 실측 수집 및 '채용에서 퇴직까지 인사노무관리 핵심실무' 과정명·직무역량 일치 확인,Y
+PUB_ACG20243001052023_28,고용24_국민내일배움카드,PUBLIC_API,NEW 업무에서 활용가능한 실전 근로기준법,COMP_LABOR_01,근로관계 법률 준수,Knowledge,VERIFIED,공공 API 실측 수집 및 'NEW 업무에서 활용가능한 실전 근로기준법' 과정명·직무역량 일치 확인,Y
+PUB_ACG20243000974723_338,고용24_국민내일배움카드,PUBLIC_API,NEW 업무에서 활용가능한 실전 근로기준법,COMP_LABOR_01,근로관계 법률 준수,Knowledge,VERIFIED,공공 API 실측 수집 및 'NEW 업무에서 활용가능한 실전 근로기준법' 과정명·직무역량 일치 확인,Y
+PUB_ACG20243001052023_29,고용24_국민내일배움카드,PUBLIC_API,NEW 업무에서 활용가능한 실전 근로기준법,COMP_LABOR_01,근로관계 법률 준수,Knowledge,VERIFIED,공공 API 실측 수집 및 'NEW 업무에서 활용가능한 실전 근로기준법' 과정명·직무역량 일치 확인,Y
+PUB_ACG20243000974723_339,고용24_국민내일배움카드,PUBLIC_API,NEW 업무에서 활용가능한 실전 근로기준법,COMP_LABOR_01,근로관계 법률 준수,Knowledge,VERIFIED,공공 API 실측 수집 및 'NEW 업무에서 활용가능한 실전 근로기준법' 과정명·직무역량 일치 확인,Y
+PUB_ACG20243001036448_16,고용24_국민내일배움카드,PUBLIC_API,실무사례로 알아보는 근로기준법,COMP_LABOR_01,근로관계 법률 준수,Knowledge,VERIFIED,공공 API 실측 수집 및 '실무사례로 알아보는 근로기준법' 과정명·직무역량 일치 확인,Y
+PUB_ACG20243000974723_340,고용24_국민내일배움카드,PUBLIC_API,NEW 업무에서 활용가능한 실전 근로기준법,COMP_LABOR_01,근로관계 법률 준수,Knowledge,VERIFIED,공공 API 실측 수집 및 'NEW 업무에서 활용가능한 실전 근로기준법' 과정명·직무역량 일치 확인,Y
+PUB_ACG20243001052023_30,고용24_국민내일배움카드,PUBLIC_API,NEW 업무에서 활용가능한 실전 근로기준법,COMP_LABOR_01,근로관계 법률 준수,Knowledge,VERIFIED,공공 API 실측 수집 및 'NEW 업무에서 활용가능한 실전 근로기준법' 과정명·직무역량 일치 확인,Y
+PUB_ACG20243000974723_341,고용24_국민내일배움카드,PUBLIC_API,NEW 업무에서 활용가능한 실전 근로기준법,COMP_LABOR_01,근로관계 법률 준수,Knowledge,VERIFIED,공공 API 실측 수집 및 'NEW 업무에서 활용가능한 실전 근로기준법' 과정명·직무역량 일치 확인,Y
+PUB_ACG20243001052023_31,고용24_국민내일배움카드,PUBLIC_API,NEW 업무에서 활용가능한 실전 근로기준법,COMP_LABOR_01,근로관계 법률 준수,Knowledge,VERIFIED,공공 API 실측 수집 및 'NEW 업무에서 활용가능한 실전 근로기준법' 과정명·직무역량 일치 확인,Y
+PUB_ACG20243001057596_1,고용24_국민내일배움카드,PUBLIC_API,NEW 업무에서 활용가능한 실전 근로기준법,COMP_LABOR_01,근로관계 법률 준수,Knowledge,VERIFIED,공공 API 실측 수집 및 'NEW 업무에서 활용가능한 실전 근로기준법' 과정명·직무역량 일치 확인,Y
+PUB_ACG20243001004851_141,고용24_국민내일배움카드,PUBLIC_API,인사평가체계 구축 및 운영 방법,COMP_HR_01,인력채용,Skill,VERIFIED,공공 API 실측 수집 및 '인사평가체계 구축 및 운영 방법' 과정명·직무역량 일치 확인,Y
+PUB_ACG20243001029345_87,고용24_국민내일배움카드,PUBLIC_API,인사평가체계 구축 및 운영 방법,COMP_HR_01,인력채용,Skill,VERIFIED,공공 API 실측 수집 및 '인사평가체계 구축 및 운영 방법' 과정명·직무역량 일치 확인,Y
+PUB_ACG20243001029345_88,고용24_국민내일배움카드,PUBLIC_API,인사평가체계 구축 및 운영 방법,COMP_HR_01,인력채용,Skill,VERIFIED,공공 API 실측 수집 및 '인사평가체계 구축 및 운영 방법' 과정명·직무역량 일치 확인,Y
+PUB_ACG20243001004851_142,고용24_국민내일배움카드,PUBLIC_API,인사평가체계 구축 및 운영 방법,COMP_HR_01,인력채용,Skill,VERIFIED,공공 API 실측 수집 및 '인사평가체계 구축 및 운영 방법' 과정명·직무역량 일치 확인,Y
+PUB_ACG20243001004851_143,고용24_국민내일배움카드,PUBLIC_API,인사평가체계 구축 및 운영 방법,COMP_HR_01,인력채용,Skill,VERIFIED,공공 API 실측 수집 및 '인사평가체계 구축 및 운영 방법' 과정명·직무역량 일치 확인,Y
+PUB_ACG20243001029345_89,고용24_국민내일배움카드,PUBLIC_API,인사평가체계 구축 및 운영 방법,COMP_HR_01,인력채용,Skill,VERIFIED,공공 API 실측 수집 및 '인사평가체계 구축 및 운영 방법' 과정명·직무역량 일치 확인,Y
+PUB_ACG20243001029345_90,고용24_국민내일배움카드,PUBLIC_API,인사평가체계 구축 및 운영 방법,COMP_HR_01,인력채용,Skill,VERIFIED,공공 API 실측 수집 및 '인사평가체계 구축 및 운영 방법' 과정명·직무역량 일치 확인,Y
+PUB_ACG20243001004851_144,고용24_국민내일배움카드,PUBLIC_API,인사평가체계 구축 및 운영 방법,COMP_HR_01,인력채용,Skill,VERIFIED,공공 API 실측 수집 및 '인사평가체계 구축 및 운영 방법' 과정명·직무역량 일치 확인,Y
+PUB_ACG20243001052663_1,고용24_국민내일배움카드,PUBLIC_API,인사평가체계 구축 및 운영 방법,COMP_HR_01,인력채용,Skill,VERIFIED,공공 API 실측 수집 및 '인사평가체계 구축 및 운영 방법' 과정명·직무역량 일치 확인,Y
+PUB_ACG20243001004851_145,고용24_국민내일배움카드,PUBLIC_API,인사평가체계 구축 및 운영 방법,COMP_HR_01,인력채용,Skill,VERIFIED,공공 API 실측 수집 및 '인사평가체계 구축 및 운영 방법' 과정명·직무역량 일치 확인,Y
+PUB_ACG20243001027168_96,고용24_국민내일배움카드,PUBLIC_API,총무기획과 총무자산관리,COMP_GA_02,비품 및 자산관리,Skill,VERIFIED,공공 API 실측 수집 및 '총무기획과 총무자산관리' 과정명·직무역량 일치 확인,Y
+PUB_ACG20243001013346_205,고용24_국민내일배움카드,PUBLIC_API,총무기획과 총무자산관리,COMP_GA_02,비품 및 자산관리,Skill,VERIFIED,공공 API 실측 수집 및 '총무기획과 총무자산관리' 과정명·직무역량 일치 확인,Y
+PUB_ACG20243001027168_97,고용24_국민내일배움카드,PUBLIC_API,총무기획과 총무자산관리,COMP_GA_02,비품 및 자산관리,Skill,VERIFIED,공공 API 실측 수집 및 '총무기획과 총무자산관리' 과정명·직무역량 일치 확인,Y
+PUB_ACG20243001013346_206,고용24_국민내일배움카드,PUBLIC_API,총무기획과 총무자산관리,COMP_GA_02,비품 및 자산관리,Skill,VERIFIED,공공 API 실측 수집 및 '총무기획과 총무자산관리' 과정명·직무역량 일치 확인,Y
+PUB_ACG20243001013346_207,고용24_국민내일배움카드,PUBLIC_API,총무기획과 총무자산관리,COMP_GA_02,비품 및 자산관리,Skill,VERIFIED,공공 API 실측 수집 및 '총무기획과 총무자산관리' 과정명·직무역량 일치 확인,Y
+PUB_ACG20243001013346_208,고용24_국민내일배움카드,PUBLIC_API,총무기획과 총무자산관리,COMP_GA_02,비품 및 자산관리,Skill,VERIFIED,공공 API 실측 수집 및 '총무기획과 총무자산관리' 과정명·직무역량 일치 확인,Y
+PUB_ACG20243001027168_98,고용24_국민내일배움카드,PUBLIC_API,총무기획과 총무자산관리,COMP_GA_02,비품 및 자산관리,Skill,VERIFIED,공공 API 실측 수집 및 '총무기획과 총무자산관리' 과정명·직무역량 일치 확인,Y
+PUB_ABA20243001023639_6,고용24_사업주훈련,PUBLIC_API,총무기획과 총무자산관리,COMP_GA_02,비품 및 자산관리,Skill,VERIFIED,공공 API 실측 수집 및 '총무기획과 총무자산관리' 과정명·직무역량 일치 확인,Y
+PUB_ABA20243001051626_1,고용24_사업주훈련,PUBLIC_API,EB24OD 전략적 조직운영을 위한 인사관리 실무,COMP_HR_01,인력채용,Skill,VERIFIED,공공 API 실측 수집 및 'EB24OD 전략적 조직운영을 위한 인사관리 실무' 과정명·직무역량 일치 확인,Y
+PUB_ABA20233000970284_6,고용24_사업주훈련,PUBLIC_API,채용에서 퇴직까지 인사노무관리 핵심실무,COMP_HR_01,인력채용,Skill,VERIFIED,공공 API 실측 수집 및 '채용에서 퇴직까지 인사노무관리 핵심실무' 과정명·직무역량 일치 확인,Y
+PUB_ABA20243001012801_203,고용24_사업주훈련,PUBLIC_API,총무기획과 총무자산관리,COMP_GA_02,비품 및 자산관리,Skill,VERIFIED,공공 API 실측 수집 및 '총무기획과 총무자산관리' 과정명·직무역량 일치 확인,Y
+PUB_ABA20243001037760_84,고용24_사업주훈련,PUBLIC_API,전략적 조직운영을 위한 인사관리 실무,COMP_HR_01,인력채용,Skill,VERIFIED,공공 API 실측 수집 및 '전략적 조직운영을 위한 인사관리 실무' 과정명·직무역량 일치 확인,Y
+PUB_ABA20243001052733_1,고용24_사업주훈련,PUBLIC_API,채용에서 퇴직까지 인사노무관리 핵심실무,COMP_HR_01,인력채용,Skill,VERIFIED,공공 API 실측 수집 및 '채용에서 퇴직까지 인사노무관리 핵심실무' 과정명·직무역량 일치 확인,Y
+PUB_ABA20243001012801_204,고용24_사업주훈련,PUBLIC_API,총무기획과 총무자산관리,COMP_GA_02,비품 및 자산관리,Skill,VERIFIED,공공 API 실측 수집 및 '총무기획과 총무자산관리' 과정명·직무역량 일치 확인,Y
+PUB_ABA20243001037760_85,고용24_사업주훈련,PUBLIC_API,전략적 조직운영을 위한 인사관리 실무,COMP_HR_01,인력채용,Skill,VERIFIED,공공 API 실측 수집 및 '전략적 조직운영을 위한 인사관리 실무' 과정명·직무역량 일치 확인,Y
+PUB_ABA20243001037760_86,고용24_사업주훈련,PUBLIC_API,전략적 조직운영을 위한 인사관리 실무,COMP_HR_01,인력채용,Skill,VERIFIED,공공 API 실측 수집 및 '전략적 조직운영을 위한 인사관리 실무' 과정명·직무역량 일치 확인,Y
+PUB_ABA20243001012801_205,고용24_사업주훈련,PUBLIC_API,총무기획과 총무자산관리,COMP_GA_02,비품 및 자산관리,Skill,VERIFIED,공공 API 실측 수집 및 '총무기획과 총무자산관리' 과정명·직무역량 일치 확인,Y
+PUB_AIG20220000383835_15,고용24_사업주훈련,PUBLIC_API,채용에서 퇴직까지 인사관리 실무,COMP_HR_01,인력채용,Skill,VERIFIED,공공 API 실측 수집 및 '채용에서 퇴직까지 인사관리 실무' 과정명·직무역량 일치 확인,Y
+PUB_ABA20243001052733_2,고용24_사업주훈련,PUBLIC_API,채용에서 퇴직까지 인사노무관리 핵심실무,COMP_HR_01,인력채용,Skill,VERIFIED,공공 API 실측 수집 및 '채용에서 퇴직까지 인사노무관리 핵심실무' 과정명·직무역량 일치 확인,Y
+PUB_AIG20240000492923_1,고용24_사업주훈련,PUBLIC_API,채용에서 퇴직까지 인사노무임금관리실무,COMP_HR_01,인력채용,Skill,VERIFIED,공공 API 실측 수집 및 '채용에서 퇴직까지 인사노무임금관리실무' 과정명·직무역량 일치 확인,Y
+PUB_ABA20253001063370_1,고용24_사업주훈련,PUBLIC_API,채용에서 퇴직까지 인사노무관리 핵심실무,COMP_HR_01,인력채용,Skill,VERIFIED,공공 API 실측 수집 및 '채용에서 퇴직까지 인사노무관리 핵심실무' 과정명·직무역량 일치 확인,Y
+PUB_AIG20220000383835_16,고용24_사업주훈련,PUBLIC_API,채용에서 퇴직까지 인사관리 실무,COMP_HR_01,인력채용,Skill,VERIFIED,공공 API 실측 수집 및 '채용에서 퇴직까지 인사관리 실무' 과정명·직무역량 일치 확인,Y
+PUB_ABA20243001051659_1,고용24_사업주훈련,PUBLIC_API,EB24P8 채용에서 퇴직까지 인사노무관리 핵심실무,COMP_HR_01,인력채용,Skill,VERIFIED,공공 API 실측 수집 및 'EB24P8 채용에서 퇴직까지 인사노무관리 핵심실무' 과정명·직무역량 일치 확인,Y
+PUB_ABA20243001036557_15,고용24_사업주훈련,PUBLIC_API,실무사례로 알아보는 근로기준법,COMP_LABOR_01,근로관계 법률 준수,Knowledge,VERIFIED,공공 API 실측 수집 및 '실무사례로 알아보는 근로기준법' 과정명·직무역량 일치 확인,Y
+PUB_ABA20243001036557_16,고용24_사업주훈련,PUBLIC_API,실무사례로 알아보는 근로기준법,COMP_LABOR_01,근로관계 법률 준수,Knowledge,VERIFIED,공공 API 실측 수집 및 '실무사례로 알아보는 근로기준법' 과정명·직무역량 일치 확인,Y
+PUB_AIG20240000475110_1,고용24_사업주훈련,PUBLIC_API,"2일 완성, 노동법 마스터",COMP_LABOR_01,근로관계 법률 준수,Knowledge,VERIFIED,"공공 API 실측 수집 및 '2일 완성, 노동법 마스터' 과정명·직무역량 일치 확인",Y
+PUB_ABA20243001036557_17,고용24_사업주훈련,PUBLIC_API,실무사례로 알아보는 근로기준법,COMP_LABOR_01,근로관계 법률 준수,Knowledge,VERIFIED,공공 API 실측 수집 및 '실무사례로 알아보는 근로기준법' 과정명·직무역량 일치 확인,Y
+PUB_ABA20243001036557_18,고용24_사업주훈련,PUBLIC_API,실무사례로 알아보는 근로기준법,COMP_LABOR_01,근로관계 법률 준수,Knowledge,VERIFIED,공공 API 실측 수집 및 '실무사례로 알아보는 근로기준법' 과정명·직무역량 일치 확인,Y
+PUB_ABA20243001036557_19,고용24_사업주훈련,PUBLIC_API,실무사례로 알아보는 근로기준법,COMP_LABOR_01,근로관계 법률 준수,Knowledge,VERIFIED,공공 API 실측 수집 및 '실무사례로 알아보는 근로기준법' 과정명·직무역량 일치 확인,Y
+PUB_AIG20240000475110_2,고용24_사업주훈련,PUBLIC_API,"2일 완성, 노동법 마스터",COMP_LABOR_01,근로관계 법률 준수,Knowledge,VERIFIED,"공공 API 실측 수집 및 '2일 완성, 노동법 마스터' 과정명·직무역량 일치 확인",Y
+PUB_ABA20243001036557_20,고용24_사업주훈련,PUBLIC_API,실무사례로 알아보는 근로기준법,COMP_LABOR_01,근로관계 법률 준수,Knowledge,VERIFIED,공공 API 실측 수집 및 '실무사례로 알아보는 근로기준법' 과정명·직무역량 일치 확인,Y
+PUB_ABA20253001062023_1,고용24_사업주훈련,PUBLIC_API,실무사례로 알아보는 근로기준법,COMP_LABOR_01,근로관계 법률 준수,Knowledge,VERIFIED,공공 API 실측 수집 및 '실무사례로 알아보는 근로기준법' 과정명·직무역량 일치 확인,Y
+PUB_ABA20243001036557_21,고용24_사업주훈련,PUBLIC_API,실무사례로 알아보는 근로기준법,COMP_LABOR_01,근로관계 법률 준수,Knowledge,VERIFIED,공공 API 실측 수집 및 '실무사례로 알아보는 근로기준법' 과정명·직무역량 일치 확인,Y
+PUB_ABA20243001023642_6,고용24_사업주훈련,PUBLIC_API,인사평가체계 구축 및 운영 방법,COMP_HR_01,인력채용,Skill,VERIFIED,공공 API 실측 수집 및 '인사평가체계 구축 및 운영 방법' 과정명·직무역량 일치 확인,Y
+PUB_ABA20243001000121_10,고용24_사업주훈련,PUBLIC_API,인사평가체계 구축 및 운영 방법,COMP_HR_01,인력채용,Skill,VERIFIED,공공 API 실측 수집 및 '인사평가체계 구축 및 운영 방법' 과정명·직무역량 일치 확인,Y
+PUB_ABA20243001023642_7,고용24_사업주훈련,PUBLIC_API,인사평가체계 구축 및 운영 방법,COMP_HR_01,인력채용,Skill,VERIFIED,공공 API 실측 수집 및 '인사평가체계 구축 및 운영 방법' 과정명·직무역량 일치 확인,Y
+PUB_ABA20243001000121_11,고용24_사업주훈련,PUBLIC_API,인사평가체계 구축 및 운영 방법,COMP_HR_01,인력채용,Skill,VERIFIED,공공 API 실측 수집 및 '인사평가체계 구축 및 운영 방법' 과정명·직무역량 일치 확인,Y
+PUB_ABA20243001051630_1,고용24_사업주훈련,PUBLIC_API,EB24OH 인사평가체계 구축 및 운영 방법,COMP_HR_01,인력채용,Skill,VERIFIED,공공 API 실측 수집 및 'EB24OH 인사평가체계 구축 및 운영 방법' 과정명·직무역량 일치 확인,Y
+PUB_ABA20243001000121_12,고용24_사업주훈련,PUBLIC_API,인사평가체계 구축 및 운영 방법,COMP_HR_01,인력채용,Skill,VERIFIED,공공 API 실측 수집 및 '인사평가체계 구축 및 운영 방법' 과정명·직무역량 일치 확인,Y
+PUB_ABA20243001000115_23,고용24_사업주훈련,PUBLIC_API,인사평가체계 구축 및 운영 방법,COMP_HR_01,인력채용,Skill,VERIFIED,공공 API 실측 수집 및 '인사평가체계 구축 및 운영 방법' 과정명·직무역량 일치 확인,Y
+PUB_ABA20243001023642_8,고용24_사업주훈련,PUBLIC_API,인사평가체계 구축 및 운영 방법,COMP_HR_01,인력채용,Skill,VERIFIED,공공 API 실측 수집 및 '인사평가체계 구축 및 운영 방법' 과정명·직무역량 일치 확인,Y
+PUB_AIG20240000472845_1,고용24_사업주훈련,PUBLIC_API,실전! 인사평가제도 기획 방법론,COMP_HR_01,인력채용,Skill,VERIFIED,공공 API 실측 수집 및 '실전! 인사평가제도 기획 방법론' 과정명·직무역량 일치 확인,Y
+PUB_ABA20243001000115_24,고용24_사업주훈련,PUBLIC_API,인사평가체계 구축 및 운영 방법,COMP_HR_01,인력채용,Skill,VERIFIED,공공 API 실측 수집 및 '인사평가체계 구축 및 운영 방법' 과정명·직무역량 일치 확인,Y
+PUB_ABA20243001012801_206,고용24_사업주훈련,PUBLIC_API,총무기획과 총무자산관리,COMP_GA_02,비품 및 자산관리,Skill,VERIFIED,공공 API 실측 수집 및 '총무기획과 총무자산관리' 과정명·직무역량 일치 확인,Y
+PUB_ABA20243001012801_207,고용24_사업주훈련,PUBLIC_API,총무기획과 총무자산관리,COMP_GA_02,비품 및 자산관리,Skill,VERIFIED,공공 API 실측 수집 및 '총무기획과 총무자산관리' 과정명·직무역량 일치 확인,Y
+PUB_ABA20243001012801_208,고용24_사업주훈련,PUBLIC_API,총무기획과 총무자산관리,COMP_GA_02,비품 및 자산관리,Skill,VERIFIED,공공 API 실측 수집 및 '총무기획과 총무자산관리' 과정명·직무역량 일치 확인,Y
+PUB_ABA20243001012801_209,고용24_사업주훈련,PUBLIC_API,총무기획과 총무자산관리,COMP_GA_02,비품 및 자산관리,Skill,VERIFIED,공공 API 실측 수집 및 '총무기획과 총무자산관리' 과정명·직무역량 일치 확인,Y
+PUB_ABA20243001012801_210,고용24_사업주훈련,PUBLIC_API,총무기획과 총무자산관리,COMP_GA_02,비품 및 자산관리,Skill,VERIFIED,공공 API 실측 수집 및 '총무기획과 총무자산관리' 과정명·직무역량 일치 확인,Y
+PUB_ABA20243001036526_9,고용24_사업주훈련,PUBLIC_API,급변하는 비즈니스 환경의 총무관리 역할,COMP_GA_01,문서작성 및 기획,Skill,VERIFIED,공공 API 실측 수집 및 '급변하는 비즈니스 환경의 총무관리 역할' 과정명·직무역량 일치 확인,Y
+PUB_ABA20243001058355_1,고용24_사업주훈련,PUBLIC_API,농협은행 자산관리 전문역 양성,COMP_GA_02,비품 및 자산관리,Skill,VERIFIED,공공 API 실측 수집 및 '농협은행 자산관리 전문역 양성' 과정명·직무역량 일치 확인,Y
+SQL_FASTCAMPUS_210569,FASTCAMPUS,SQLITE_DB,문서의 신이 알려주는 보고서의 법칙 : 비즈니스 글쓰기의 모든 것,COMP_GA_01,문서작성 및 기획,Skill,VERIFIED,FASTCAMPUS 직무교육 '문서의 신이 알려주는 보고서의 법칙 : 비즈니스 글쓰기의 모든 것'(공통·사무기획) 원문 실무 커리큘럼 부합,Y
+SQL_FASTCAMPUS_243273,FASTCAMPUS,SQLITE_DB,세계 3대 컨설팅펌 출신 김영롱에게 배우는 1조 가치 보고서 작성법,COMP_GA_01,문서작성 및 기획,Skill,VERIFIED,FASTCAMPUS 직무교육 '세계 3대 컨설팅펌 출신 김영롱에게 배우는 1조 가치 보고서 작성법'(공통·사무기획) 원문 실무 커리큘럼 부합,Y
+SQL_FASTCAMPUS_249157,FASTCAMPUS,SQLITE_DB,맥킨지·제일기획 출신 김재성의 연봉을 올리는 보고서 & 프레젠테이션 공식,COMP_HR_02,인사평가 및 보상,Knowledge,VERIFIED,FASTCAMPUS 직무교육 '맥킨지·제일기획 출신 김재성의 연봉을 올리는 보고서 & 프레젠테이션 공식'(인사·평가보상) 원문 실무 커리큘럼 부합,Y
+SQL_FASTCAMPUS_252453,FASTCAMPUS,SQLITE_DB,평범한 대학생에서 억대 연봉 작가로! 500개 예제로 끝내는 이모티콘 족집게 트레이닝,COMP_HR_02,인사평가 및 보상,Knowledge,VERIFIED,FASTCAMPUS 직무교육 '평범한 대학생에서 억대 연봉 작가로! 500개 예제로 끝내는 이모티콘 족집게 트레이닝'(인사·평가보상) 원문 실무 커리큘럼 부합,Y
+SQL_FASTCAMPUS_261333,FASTCAMPUS,SQLITE_DB,콜롬버스의 탐색 - 글로벌 시장 트렌드 분석 보고서 작성,COMP_GA_01,문서작성 및 기획,Skill,VERIFIED,FASTCAMPUS 직무교육 '콜롬버스의 탐색 - 글로벌 시장 트렌드 분석 보고서 작성'(공통·사무기획) 원문 실무 커리큘럼 부합,Y
+SQL_GSEEK_3217,GSEEK,SQLITE_DB,[창업공통]필수 근로기준법과 인사서식,COMP_LABOR_01,근로관계 법률 준수,Knowledge,VERIFIED,GSEEK 직무교육 '[창업공통]필수 근로기준법과 인사서식'(노무관리) 원문 실무 커리큘럼 부합,Y
+SQL_GSEEK_4378,GSEEK,SQLITE_DB,사용자에게 꼭 필요한 사이다 노동법,COMP_LABOR_01,근로관계 법률 준수,Knowledge,VERIFIED,GSEEK 직무교육 '사용자에게 꼭 필요한 사이다 노동법'(노무관리) 원문 실무 커리큘럼 부합,Y
+SQL_GSEEK_5045,GSEEK,SQLITE_DB,소규모 사업장 랜선노동법,COMP_LABOR_01,근로관계 법률 준수,Knowledge,VERIFIED,GSEEK 직무교육 '소규모 사업장 랜선노동법'(노무관리) 원문 실무 커리큘럼 부합,Y
+SQL_GSEEK_5793,GSEEK,SQLITE_DB,소규모사업주가 알아야 할 노동법 상식,COMP_LABOR_01,근로관계 법률 준수,Knowledge,VERIFIED,GSEEK 직무교육 '소규모사업주가 알아야 할 노동법 상식'(노무관리) 원문 실무 커리큘럼 부합,Y
+SQL_GSEEK_5794,GSEEK,SQLITE_DB,알바가 꼭 알아야 할 기초노동법,COMP_LABOR_01,근로관계 법률 준수,Knowledge,VERIFIED,GSEEK 직무교육 '알바가 꼭 알아야 할 기초노동법'(노무관리) 원문 실무 커리큘럼 부합,Y
+SQL_GSEEK_7414,GSEEK,SQLITE_DB,(왕초보)컴퓨터로 문서작성 도전,COMP_GA_01,문서작성 및 기획,Skill,VERIFIED,GSEEK 직무교육 '(왕초보)컴퓨터로 문서작성 도전'(공통·사무기획) 원문 실무 커리큘럼 부합,Y
+SQL_GSEEK_7759,GSEEK,SQLITE_DB,핵심만 콕! 비즈니스 글쓰기와 보고서 작성 노하우,COMP_GA_01,문서작성 및 기획,Skill,VERIFIED,GSEEK 직무교육 '핵심만 콕! 비즈니스 글쓰기와 보고서 작성 노하우'(공통·사무기획) 원문 실무 커리큘럼 부합,Y
+SQL_GSEEK_8297,GSEEK,SQLITE_DB,[오늘부터 정시퇴근] 엑셀 실무 테크닉 - 일잘러의 보고서 작성편,COMP_GA_01,문서작성 및 기획,Skill,VERIFIED,GSEEK 직무교육 '[오늘부터 정시퇴근] 엑셀 실무 테크닉 - 일잘러의 보고서 작성편'(공통·사무기획) 원문 실무 커리큘럼 부합,Y
+SQL_GSEEK_51667,GSEEK,SQLITE_DB,따라만 하면 OK! 말이 되는 보고서 작성 원칙,COMP_GA_01,문서작성 및 기획,Skill,VERIFIED,GSEEK 직무교육 '따라만 하면 OK! 말이 되는 보고서 작성 원칙'(공통·사무기획) 원문 실무 커리큘럼 부합,Y
+SQL_GSEEK_51955,GSEEK,SQLITE_DB,[레전드 스킬] 어쩐지 끌리는 사람의 비즈니스 매너,COMP_SEC_01,비즈니스 매너 및 커뮤니케이션,Attitude,VERIFIED,GSEEK 직무교육 '[레전드 스킬] 어쩐지 끌리는 사람의 비즈니스 매너'(비서·사무지원) 원문 실무 커리큘럼 부합,Y
+SQL_GSEEK_52754,GSEEK,SQLITE_DB,[칼퇴를 부르는 치트키_보고서편] 핵심만 콕! 비즈니스 문서작성의 핵심과 실무 스킬,COMP_GA_01,문서작성 및 기획,Skill,VERIFIED,GSEEK 직무교육 '[칼퇴를 부르는 치트키_보고서편] 핵심만 콕! 비즈니스 문서작성의 핵심과 실무 스킬'(공통·사무기획) 원문 실무 커리큘럼 부합,Y
+SQL_GSEEK_55196,GSEEK,SQLITE_DB,인사담당자에게 묻는다! 면접 합격의 비밀,COMP_HR_01,인력채용,Skill,VERIFIED,GSEEK 직무교육 '인사담당자에게 묻는다! 면접 합격의 비밀'(인사·채용관리) 원문 실무 커리큘럼 부합,Y
+SQL_GSEEK_55218,GSEEK,SQLITE_DB,경기도 스파크 노동법,COMP_LABOR_01,근로관계 법률 준수,Knowledge,VERIFIED,GSEEK 직무교육 '경기도 스파크 노동법'(노무관리) 원문 실무 커리큘럼 부합,Y
+SQL_GSEEK_56932,GSEEK,SQLITE_DB,(리프레시) 핵심만 콕! 신입사원 온보딩,COMP_HR_01,인력채용,Skill,VERIFIED,GSEEK 직무교육 '(리프레시) 핵심만 콕! 신입사원 온보딩'(인사·채용관리) 원문 실무 커리큘럼 부합,Y
+SQL_GSEEK_57049,GSEEK,SQLITE_DB,"HR, AI가 트렌드다 : 채용부터 퇴사까지",COMP_HR_01,인력채용,Skill,VERIFIED,"GSEEK 직무교육 'HR, AI가 트렌드다 : 채용부터 퇴사까지'(인사·채용관리) 원문 실무 커리큘럼 부합",Y
+SQL_GSEEK_57110,GSEEK,SQLITE_DB,"입사에서 퇴사까지, 직장인을 위한 노동법 이야기",COMP_LABOR_01,근로관계 법률 준수,Knowledge,VERIFIED,"GSEEK 직무교육 '입사에서 퇴사까지, 직장인을 위한 노동법 이야기'(노무관리) 원문 실무 커리큘럼 부합",Y
+SQL_GSEEK_57944,GSEEK,SQLITE_DB,"신규입사자의 온보딩 과정, 워(Work).플(People).킹(Networking)",COMP_HR_01,인력채용,Skill,VERIFIED,"GSEEK 직무교육 '신규입사자의 온보딩 과정, 워(Work).플(People).킹(Networking)'(인사·채용관리) 원문 실무 커리큘럼 부합",Y
+SQL_HUNET_Y00394865,HUNET,SQLITE_DB,성과와 신뢰를 만드는 신임리더 온보딩,COMP_HR_01,인력채용,Skill,VERIFIED,HUNET 직무교육 '성과와 신뢰를 만드는 신임리더 온보딩'(인사·채용관리) 원문 실무 커리큘럼 부합,Y
+SQL_HUNET_Y00391506,HUNET,SQLITE_DB,"AI로 조사하고, AI로 작성하는 하루 만에 끝내는 보고서 작성법",COMP_GA_01,문서작성 및 기획,Skill,VERIFIED,"HUNET 직무교육 'AI로 조사하고, AI로 작성하는 하루 만에 끝내는 보고서 작성법'(공통·사무기획) 원문 실무 커리큘럼 부합",Y
+SQL_HUNET_Y00386285,HUNET,SQLITE_DB,이게 진짜 기준! 직장인 노동법 팩트 체크,COMP_LABOR_01,근로관계 법률 준수,Knowledge,VERIFIED,HUNET 직무교육 '이게 진짜 기준! 직장인 노동법 팩트 체크'(노무관리) 원문 실무 커리큘럼 부합,Y
+SQL_HUNET_Y00381740,HUNET,SQLITE_DB,[HRethink] 데이터가 흐르는 Digital HR,COMP_GA_01,문서작성 및 기획,Skill,VERIFIED,HUNET 직무교육 '[HRethink] 데이터가 흐르는 Digital HR'(인사·조직관리) 원문 실무 커리큘럼 부합,Y
+SQL_HUNET_Y00381743,HUNET,SQLITE_DB,"[일잘러의 3종 스킬] 기획력, 문서작성력, 보고법",COMP_GA_01,문서작성 및 기획,Skill,VERIFIED,"HUNET 직무교육 '[일잘러의 3종 스킬] 기획력, 문서작성력, 보고법'(공통·사무기획) 원문 실무 커리큘럼 부합",Y
+SQL_HUNET_Y00370512,HUNET,SQLITE_DB,2026 안전보건교육 일용 및 초단기 기간제근로자(채용 시_보건업),COMP_HR_01,인력채용,Skill,VERIFIED,HUNET 직무교육 '2026 안전보건교육 일용 및 초단기 기간제근로자(채용 시_보건업)'(인사·채용관리) 원문 실무 커리큘럼 부합,Y
+SQL_HUNET_Y00370513,HUNET,SQLITE_DB,2026 안전보건교육 일용 및 초단기 기간제근로자(채용 시_기타사업),COMP_HR_01,인력채용,Skill,VERIFIED,HUNET 직무교육 '2026 안전보건교육 일용 및 초단기 기간제근로자(채용 시_기타사업)'(인사·채용관리) 원문 실무 커리큘럼 부합,Y
+SQL_HUNET_Y00370514,HUNET,SQLITE_DB,2026 안전보건교육 일용 및 초단기 기간제근로자(채용 시_금융업),COMP_HR_01,인력채용,Skill,VERIFIED,HUNET 직무교육 '2026 안전보건교육 일용 및 초단기 기간제근로자(채용 시_금융업)'(인사·채용관리) 원문 실무 커리큘럼 부합,Y
+SQL_HUNET_Y00370515,HUNET,SQLITE_DB,2026 안전보건교육 일용 및 초단기 기간제근로자(채용 시_건설업),COMP_HR_01,인력채용,Skill,VERIFIED,HUNET 직무교육 '2026 안전보건교육 일용 및 초단기 기간제근로자(채용 시_건설업)'(인사·채용관리) 원문 실무 커리큘럼 부합,Y
+SQL_HUNET_Y00370516,HUNET,SQLITE_DB,2026 안전보건교육 일반근로자(채용 시_제조업),COMP_HR_01,인력채용,Skill,VERIFIED,HUNET 직무교육 '2026 안전보건교육 일반근로자(채용 시_제조업)'(인사·채용관리) 원문 실무 커리큘럼 부합,Y
+SQL_HUNET_Y00370517,HUNET,SQLITE_DB,2026 안전보건교육 일반근로자(채용 시_유통업),COMP_HR_01,인력채용,Skill,VERIFIED,HUNET 직무교육 '2026 안전보건교육 일반근로자(채용 시_유통업)'(인사·채용관리) 원문 실무 커리큘럼 부합,Y
+SQL_HUNET_Y00370518,HUNET,SQLITE_DB,2026 안전보건교육 일반근로자(채용 시_서비스업),COMP_HR_01,인력채용,Skill,VERIFIED,HUNET 직무교육 '2026 안전보건교육 일반근로자(채용 시_서비스업)'(인사·채용관리) 원문 실무 커리큘럼 부합,Y
+SQL_HUNET_Y00370519,HUNET,SQLITE_DB,2026 안전보건교육 일반근로자(채용 시_보건업),COMP_HR_01,인력채용,Skill,VERIFIED,HUNET 직무교육 '2026 안전보건교육 일반근로자(채용 시_보건업)'(인사·채용관리) 원문 실무 커리큘럼 부합,Y
+SQL_HUNET_Y00370520,HUNET,SQLITE_DB,2026 안전보건교육 일반근로자(채용 시_기타사업),COMP_HR_01,인력채용,Skill,VERIFIED,HUNET 직무교육 '2026 안전보건교육 일반근로자(채용 시_기타사업)'(인사·채용관리) 원문 실무 커리큘럼 부합,Y
+SQL_HUNET_Y00370521,HUNET,SQLITE_DB,2026 안전보건교육 일반근로자(채용 시_금융업),COMP_HR_01,인력채용,Skill,VERIFIED,HUNET 직무교육 '2026 안전보건교육 일반근로자(채용 시_금융업)'(인사·채용관리) 원문 실무 커리큘럼 부합,Y
+SQL_HUNET_Y00370522,HUNET,SQLITE_DB,2026 안전보건교육 일반근로자(채용 시_건설업),COMP_HR_01,인력채용,Skill,VERIFIED,HUNET 직무교육 '2026 안전보건교육 일반근로자(채용 시_건설업)'(인사·채용관리) 원문 실무 커리큘럼 부합,Y
+SQL_HUNET_Y00370555,HUNET,SQLITE_DB,2026 안전보건교육 기간제근로자(채용 시_금융업),COMP_HR_01,인력채용,Skill,VERIFIED,HUNET 직무교육 '2026 안전보건교육 기간제근로자(채용 시_금융업)'(인사·채용관리) 원문 실무 커리큘럼 부합,Y
+SQL_HUNET_Y00370556,HUNET,SQLITE_DB,2026 안전보건교육 기간제근로자(채용 시_건설업),COMP_HR_01,인력채용,Skill,VERIFIED,HUNET 직무교육 '2026 안전보건교육 기간제근로자(채용 시_건설업)'(인사·채용관리) 원문 실무 커리큘럼 부합,Y
+SQL_HUNET_Y00370477,HUNET,SQLITE_DB,2026 안전보건교육(관리감독자_채용 시_제조업),COMP_HR_01,인력채용,Skill,VERIFIED,HUNET 직무교육 '2026 안전보건교육(관리감독자_채용 시_제조업)'(인사·채용관리) 원문 실무 커리큘럼 부합,Y
+SQL_HUNET_Y00370478,HUNET,SQLITE_DB,2026 안전보건교육(관리감독자_채용 시_유통업),COMP_HR_01,인력채용,Skill,VERIFIED,HUNET 직무교육 '2026 안전보건교육(관리감독자_채용 시_유통업)'(인사·채용관리) 원문 실무 커리큘럼 부합,Y
+SQL_HUNET_Y00370479,HUNET,SQLITE_DB,2026 안전보건교육(관리감독자_채용 시_서비스업),COMP_HR_01,인력채용,Skill,VERIFIED,HUNET 직무교육 '2026 안전보건교육(관리감독자_채용 시_서비스업)'(인사·채용관리) 원문 실무 커리큘럼 부합,Y
+SQL_HUNET_Y00370480,HUNET,SQLITE_DB,2026 안전보건교육(관리감독자_채용 시_보건업),COMP_HR_01,인력채용,Skill,VERIFIED,HUNET 직무교육 '2026 안전보건교육(관리감독자_채용 시_보건업)'(인사·채용관리) 원문 실무 커리큘럼 부합,Y
+SQL_HUNET_Y00370481,HUNET,SQLITE_DB,2026 안전보건교육(관리감독자_채용 시_기타사업),COMP_HR_01,인력채용,Skill,VERIFIED,HUNET 직무교육 '2026 안전보건교육(관리감독자_채용 시_기타사업)'(인사·채용관리) 원문 실무 커리큘럼 부합,Y
+SQL_HUNET_Y00370482,HUNET,SQLITE_DB,2026 안전보건교육(관리감독자_채용 시_금융업),COMP_HR_01,인력채용,Skill,VERIFIED,HUNET 직무교육 '2026 안전보건교육(관리감독자_채용 시_금융업)'(인사·채용관리) 원문 실무 커리큘럼 부합,Y
+SQL_HUNET_Y00370483,HUNET,SQLITE_DB,2026 안전보건교육(관리감독자_채용 시_건설업),COMP_HR_01,인력채용,Skill,VERIFIED,HUNET 직무교육 '2026 안전보건교육(관리감독자_채용 시_건설업)'(인사·채용관리) 원문 실무 커리큘럼 부합,Y
+SQL_HUNET_Y00370509,HUNET,SQLITE_DB,2026 안전보건교육 일용 및 초단기 기간제근로자(채용 시_제조업),COMP_HR_01,인력채용,Skill,VERIFIED,HUNET 직무교육 '2026 안전보건교육 일용 및 초단기 기간제근로자(채용 시_제조업)'(인사·채용관리) 원문 실무 커리큘럼 부합,Y
+SQL_HUNET_Y00370510,HUNET,SQLITE_DB,2026 안전보건교육 일용 및 초단기 기간제근로자(채용 시_유통업),COMP_HR_01,인력채용,Skill,VERIFIED,HUNET 직무교육 '2026 안전보건교육 일용 및 초단기 기간제근로자(채용 시_유통업)'(인사·채용관리) 원문 실무 커리큘럼 부합,Y
+SQL_HUNET_Y00370511,HUNET,SQLITE_DB,2026 안전보건교육 일용 및 초단기 기간제근로자(채용 시_서비스업),COMP_HR_01,인력채용,Skill,VERIFIED,HUNET 직무교육 '2026 안전보건교육 일용 및 초단기 기간제근로자(채용 시_서비스업)'(인사·채용관리) 원문 실무 커리큘럼 부합,Y
+SQL_HUNET_Y00370550,HUNET,SQLITE_DB,2026 안전보건교육 기간제근로자(채용 시_제조업),COMP_HR_01,인력채용,Skill,VERIFIED,HUNET 직무교육 '2026 안전보건교육 기간제근로자(채용 시_제조업)'(인사·채용관리) 원문 실무 커리큘럼 부합,Y
+SQL_HUNET_Y00370551,HUNET,SQLITE_DB,2026 안전보건교육 기간제근로자(채용 시_유통업),COMP_HR_01,인력채용,Skill,VERIFIED,HUNET 직무교육 '2026 안전보건교육 기간제근로자(채용 시_유통업)'(인사·채용관리) 원문 실무 커리큘럼 부합,Y
+SQL_HUNET_Y00370552,HUNET,SQLITE_DB,2026 안전보건교육 기간제근로자(채용 시_서비스업),COMP_HR_01,인력채용,Skill,VERIFIED,HUNET 직무교육 '2026 안전보건교육 기간제근로자(채용 시_서비스업)'(인사·채용관리) 원문 실무 커리큘럼 부합,Y
+SQL_HUNET_Y00370553,HUNET,SQLITE_DB,2026 안전보건교육 기간제근로자(채용 시_보건업),COMP_HR_01,인력채용,Skill,VERIFIED,HUNET 직무교육 '2026 안전보건교육 기간제근로자(채용 시_보건업)'(인사·채용관리) 원문 실무 커리큘럼 부합,Y
+SQL_HUNET_Y00370554,HUNET,SQLITE_DB,2026 안전보건교육 기간제근로자(채용 시_기타사업),COMP_HR_01,인력채용,Skill,VERIFIED,HUNET 직무교육 '2026 안전보건교육 기간제근로자(채용 시_기타사업)'(인사·채용관리) 원문 실무 커리큘럼 부합,Y
+SQL_HUNET_Y00369136,HUNET,SQLITE_DB,"HR, AI가 트렌드다 : 채용부터 퇴사까지",COMP_HR_01,인력채용,Skill,VERIFIED,"HUNET 직무교육 'HR, AI가 트렌드다 : 채용부터 퇴사까지'(인사·채용관리) 원문 실무 커리큘럼 부합",Y
+SQL_HUNET_Y00367788,HUNET,SQLITE_DB,ChatGPT가 다 해주는 요즘 보고서 작성법,COMP_GA_01,문서작성 및 기획,Skill,VERIFIED,HUNET 직무교육 'ChatGPT가 다 해주는 요즘 보고서 작성법'(공통·사무기획) 원문 실무 커리큘럼 부합,Y
+SQL_HUNET_Y00354154,HUNET,SQLITE_DB,[팀장리더십] 탁월한 팀장의 조건 - 성과관리,COMP_HR_02,인사평가 및 보상,Knowledge,VERIFIED,HUNET 직무교육 '[팀장리더십] 탁월한 팀장의 조건 - 성과관리'(인사·평가보상) 원문 실무 커리큘럼 부합,Y
+SQL_HUNET_Y00337189,HUNET,SQLITE_DB,[온보딩저니] 경력사원 과정,COMP_HR_01,인력채용,Skill,VERIFIED,HUNET 직무교육 '[온보딩저니] 경력사원 과정'(인사·채용관리) 원문 실무 커리큘럼 부합,Y
+SQL_HUNET_Y00350958,HUNET,SQLITE_DB,부장님은 내 기획서가 쓰레기라고 말했지,COMP_GA_01,문서작성 및 기획,Skill,VERIFIED,HUNET 직무교육 '부장님은 내 기획서가 쓰레기라고 말했지'(공통·사무기획) 원문 실무 커리큘럼 부합,Y
+SQL_HUNET_Y00350960,HUNET,SQLITE_DB,[팀장리더십] 애자일 성과관리,COMP_HR_02,인사평가 및 보상,Knowledge,VERIFIED,HUNET 직무교육 '[팀장리더십] 애자일 성과관리'(인사·평가보상) 원문 실무 커리큘럼 부합,Y
+SQL_HUNET_Y00347025,HUNET,SQLITE_DB,"리더십 4.0 시대, 일잘러의 IT 프로젝트 성과관리",COMP_HR_02,인사평가 및 보상,Knowledge,VERIFIED,"HUNET 직무교육 '리더십 4.0 시대, 일잘러의 IT 프로젝트 성과관리'(인사·평가보상) 원문 실무 커리큘럼 부합",Y
+SQL_HUNET_Y00319690,HUNET,SQLITE_DB,"평가에서 성과관리로, 프레임을 전환하라!",COMP_HR_02,인사평가 및 보상,Knowledge,VERIFIED,"HUNET 직무교육 '평가에서 성과관리로, 프레임을 전환하라!'(인사·평가보상) 원문 실무 커리큘럼 부합",Y
+SQL_HUNET_Y00317658,HUNET,SQLITE_DB,"채용을 디자인하라, 기업에 FIT한 인재 확보 전략",COMP_HR_01,인력채용,Skill,VERIFIED,"HUNET 직무교육 '채용을 디자인하라, 기업에 FIT한 인재 확보 전략'(인사·채용관리) 원문 실무 커리큘럼 부합",Y
+SQL_HUNET_Y00317659,HUNET,SQLITE_DB,"엔지니어 채용의 모든 것, 테크 리크루팅 A TO Z",COMP_HR_01,인력채용,Skill,VERIFIED,"HUNET 직무교육 '엔지니어 채용의 모든 것, 테크 리크루팅 A TO Z'(인사·채용관리) 원문 실무 커리큘럼 부합",Y
+SQL_HUNET_Y00303172,HUNET,SQLITE_DB,터닝포인트 팀장리더십 : 성과관리,COMP_HR_02,인사평가 및 보상,Knowledge,VERIFIED,HUNET 직무교육 '터닝포인트 팀장리더십 : 성과관리'(인사·평가보상) 원문 실무 커리큘럼 부합,Y
+SQL_HUNET_Y00311834,HUNET,SQLITE_DB,ChatGPT를 활용한 프리젠테이션&기획서 순삭하기,COMP_GA_01,문서작성 및 기획,Skill,VERIFIED,HUNET 직무교육 'ChatGPT를 활용한 프리젠테이션&기획서 순삭하기'(공통·사무기획) 원문 실무 커리큘럼 부합,Y
+SQL_HUNET_Y00300119,HUNET,SQLITE_DB,글쓰기가 두려운 직장인을 위한 비즈니스 글쓰기 공략zip,COMP_GA_01,문서작성 및 기획,Skill,VERIFIED,HUNET 직무교육 '글쓰기가 두려운 직장인을 위한 비즈니스 글쓰기 공략zip'(공통·사무기획) 원문 실무 커리큘럼 부합,Y
+SQL_HUNET_Y00298379,HUNET,SQLITE_DB,컴팩트한 문서작성과 퍼펙트한 보고기법!,COMP_GA_01,문서작성 및 기획,Skill,VERIFIED,HUNET 직무교육 '컴팩트한 문서작성과 퍼펙트한 보고기법!'(공통·사무기획) 원문 실무 커리큘럼 부합,Y
+SQL_HUNET_Y00298381,HUNET,SQLITE_DB,인재전쟁에서 승리하는 면접관 인터뷰 스킬,COMP_HR_01,인력채용,Skill,VERIFIED,HUNET 직무교육 '인재전쟁에서 승리하는 면접관 인터뷰 스킬'(인사·채용관리) 원문 실무 커리큘럼 부합,Y
+SQL_HUNET_Y00271317,HUNET,SQLITE_DB,"입사에서 퇴사까지, 직장인을 위한 노동법 이야기",COMP_LABOR_01,근로관계 법률 준수,Knowledge,VERIFIED,"HUNET 직무교육 '입사에서 퇴사까지, 직장인을 위한 노동법 이야기'(노무관리) 원문 실무 커리큘럼 부합",Y
+SQL_HUNET_Y00269209,HUNET,SQLITE_DB,인사평가체계 구축 및 운영 방법,COMP_HR_02,인사평가 및 보상,Knowledge,VERIFIED,HUNET 직무교육 '인사평가체계 구축 및 운영 방법'(인사·평가보상) 원문 실무 커리큘럼 부합,Y
+SQL_HUNET_Y00265994,HUNET,SQLITE_DB,SSS급 확보를 위한 면접관 교육 (feat. AI 시뮬레이션),COMP_HR_01,인력채용,Skill,VERIFIED,HUNET 직무교육 'SSS급 확보를 위한 면접관 교육 (feat. AI 시뮬레이션)'(인사·채용관리) 원문 실무 커리큘럼 부합,Y
+SQL_HUNET_Y00265995,HUNET,SQLITE_DB,핵심인재를 부르는 고용주 브랜딩과 채용 경험 디자인,COMP_HR_01,인력채용,Skill,VERIFIED,HUNET 직무교육 '핵심인재를 부르는 고용주 브랜딩과 채용 경험 디자인'(인사·채용관리) 원문 실무 커리큘럼 부합,Y
+SQL_HUNET_Y00265996,HUNET,SQLITE_DB,"오늘 온 신입사원, 온보딩 전략 ON 하기",COMP_HR_01,인력채용,Skill,VERIFIED,"HUNET 직무교육 '오늘 온 신입사원, 온보딩 전략 ON 하기'(인사·채용관리) 원문 실무 커리큘럼 부합",Y
+SQL_HUNET_Y00260034,HUNET,SQLITE_DB,SSS급 확보를 위한 면접관 교육,COMP_HR_01,인력채용,Skill,VERIFIED,HUNET 직무교육 'SSS급 확보를 위한 면접관 교육'(인사·채용관리) 원문 실무 커리큘럼 부합,Y
+SQL_HUNET_Y00256639,HUNET,SQLITE_DB,[레전드 스킬] 어쩐지 끌리는 사람의 비즈니스 매너,COMP_SEC_01,비즈니스 매너 및 커뮤니케이션,Attitude,VERIFIED,HUNET 직무교육 '[레전드 스킬] 어쩐지 끌리는 사람의 비즈니스 매너'(비서·사무지원) 원문 실무 커리큘럼 부합,Y
+SQL_HUNET_Y00245649,HUNET,SQLITE_DB,핵심만 콕! 신입사원 온보딩,COMP_HR_01,인력채용,Skill,VERIFIED,HUNET 직무교육 '핵심만 콕! 신입사원 온보딩'(인사·채용관리) 원문 실무 커리큘럼 부합,Y
+SQL_HUNET_Y00245653,HUNET,SQLITE_DB,핵심만 콕! 비즈니스 글쓰기와 보고서 작성 노하우,COMP_GA_01,문서작성 및 기획,Skill,VERIFIED,HUNET 직무교육 '핵심만 콕! 비즈니스 글쓰기와 보고서 작성 노하우'(공통·사무기획) 원문 실무 커리큘럼 부합,Y
+SQL_HUNET_Y00216064,HUNET,SQLITE_DB,[북러닝] 투잡하는 김 대리는 취업규칙을 위반했을까?(도서 제공),COMP_LABOR_01,근로관계 법률 준수,Knowledge,VERIFIED,HUNET 직무교육 '[북러닝] 투잡하는 김 대리는 취업규칙을 위반했을까?(도서 제공)'(노무관리) 원문 실무 커리큘럼 부합,Y
+SQL_HUNET_Y00183408,HUNET,SQLITE_DB,[북러닝] 일잘러는 이렇게 일한다 - 일잘러의 보고서 작성법(도서 제공),COMP_GA_01,문서작성 및 기획,Skill,VERIFIED,HUNET 직무교육 '[북러닝] 일잘러는 이렇게 일한다 - 일잘러의 보고서 작성법(도서 제공)'(공통·사무기획) 원문 실무 커리큘럼 부합,Y
+SQL_HUNET_Y00161578,HUNET,SQLITE_DB,"실례합니다만, 비즈니스 매너는 지켜주시겠어요?",COMP_SEC_01,비즈니스 매너 및 커뮤니케이션,Attitude,VERIFIED,"HUNET 직무교육 '실례합니다만, 비즈니스 매너는 지켜주시겠어요?'(비서·사무지원) 원문 실무 커리큘럼 부합",Y
+SQL_HUNET_Y00161582,HUNET,SQLITE_DB,[오늘부터 정시퇴근] 엑셀 실무 테크닉 - 일잘러의 보고서 작성편,COMP_GA_01,문서작성 및 기획,Skill,VERIFIED,HUNET 직무교육 '[오늘부터 정시퇴근] 엑셀 실무 테크닉 - 일잘러의 보고서 작성편'(공통·사무기획) 원문 실무 커리큘럼 부합,Y
+SQL_HUNET_Y00141106,HUNET,SQLITE_DB,[카드뉴스] 슬기로운 기획생활 (기획서 작성부터 보고까지),COMP_GA_01,문서작성 및 기획,Skill,VERIFIED,HUNET 직무교육 '[카드뉴스] 슬기로운 기획생활 (기획서 작성부터 보고까지)'(공통·사무기획) 원문 실무 커리큘럼 부합,Y
+SQL_HUNET_Y00117074,HUNET,SQLITE_DB,1 PAGE로 승부하라 : 강력한 한 장의 기획서,COMP_GA_01,문서작성 및 기획,Skill,VERIFIED,HUNET 직무교육 '1 PAGE로 승부하라 : 강력한 한 장의 기획서'(공통·사무기획) 원문 실무 커리큘럼 부합,Y
+SQL_HUNET_Y00030777,HUNET,SQLITE_DB,전략적 인재 육성을 위한 HRD 에센스,COMP_GA_01,문서작성 및 기획,Skill,VERIFIED,HUNET 직무교육 '전략적 인재 육성을 위한 HRD 에센스'(인사·조직관리) 원문 실무 커리큘럼 부합,Y
+SQL_HUNET_Y00004543,HUNET,SQLITE_DB,직장인을 위한 비즈니스 매너 에센스,COMP_SEC_01,비즈니스 매너 및 커뮤니케이션,Attitude,VERIFIED,HUNET 직무교육 '직장인을 위한 비즈니스 매너 에센스'(비서·사무지원) 원문 실무 커리큘럼 부합,Y
+SQL_KMA_110936,KMA,SQLITE_DB,[미국] HR Tech 2026 한국대표단,COMP_GA_01,문서작성 및 기획,Skill,VERIFIED,KMA 직무교육 '[미국] HR Tech 2026 한국대표단'(인사·조직관리) 원문 실무 커리큘럼 부합,Y
+SQL_KMA_111429,KMA,SQLITE_DB,[여의도] 교육과정 기획과 개발,COMP_GA_01,문서작성 및 기획,Skill,VERIFIED,KMA 직무교육 '[여의도] 교육과정 기획과 개발'(인사·조직관리) 원문 실무 커리큘럼 부합,Y
+SQL_KMA_111431,KMA,SQLITE_DB,[여의도] [민간자격] 기업교육(HRD) 게이미피케이션 활용 스킬업,COMP_GA_01,문서작성 및 기획,Skill,VERIFIED,KMA 직무교육 '[여의도] [민간자격] 기업교육(HRD) 게이미피케이션 활용 스킬업'(인사·조직관리) 원문 실무 커리큘럼 부합,Y
+SQL_KMA_111203,KMA,SQLITE_DB,[강남] [민간자격] 기업교육(HRD) 게이미피케이션 활용 스킬업,COMP_GA_01,문서작성 및 기획,Skill,VERIFIED,KMA 직무교육 '[강남] [민간자격] 기업교육(HRD) 게이미피케이션 활용 스킬업'(인사·조직관리) 원문 실무 커리큘럼 부합,Y
+SQL_KMA_111455,KMA,SQLITE_DB,[여의도] 리더의 성과관리 핵심 매뉴얼,COMP_HR_02,인사평가 및 보상,Knowledge,VERIFIED,KMA 직무교육 '[여의도] 리더의 성과관리 핵심 매뉴얼'(인사·평가보상) 원문 실무 커리큘럼 부합,Y
+SQL_KMA_111454,KMA,SQLITE_DB,[여의도] 리더를 위한 차세대 성과관리 전략 &#39;피드포워드&#39;,COMP_HR_02,인사평가 및 보상,Knowledge,VERIFIED,KMA 직무교육 '[여의도] 리더를 위한 차세대 성과관리 전략 &#39;피드포워드&#39;'(인사·평가보상) 원문 실무 커리큘럼 부합,Y
+SQL_KMA_111663,KMA,SQLITE_DB,[여의도] 수시 경력입사자 온보딩,COMP_HR_01,인력채용,Skill,VERIFIED,KMA 직무교육 '[여의도] 수시 경력입사자 온보딩'(인사·채용관리) 원문 실무 커리큘럼 부합,Y
+SQL_KMA_111391,KMA,SQLITE_DB,[여의도] 설득력 있는 실전 보고서 작성 스킬(with MS Office),COMP_GA_01,문서작성 및 기획,Skill,VERIFIED,KMA 직무교육 '[여의도] 설득력 있는 실전 보고서 작성 스킬(with MS Office)'(공통·사무기획) 원문 실무 커리큘럼 부합,Y
+SQL_KMA_112242,KMA,SQLITE_DB,[여의도] AI와 MS Office로 끝내는 기획·보고서 작성 실무,COMP_GA_01,문서작성 및 기획,Skill,VERIFIED,KMA 직무교육 '[여의도] AI와 MS Office로 끝내는 기획·보고서 작성 실무'(공통·사무기획) 원문 실무 커리큘럼 부합,Y
+SQL_KMA_111395,KMA,SQLITE_DB,[여의도] 정책보고서 작성의 길잡이,COMP_GA_01,문서작성 및 기획,Skill,VERIFIED,KMA 직무교육 '[여의도] 정책보고서 작성의 길잡이'(공통·사무기획) 원문 실무 커리큘럼 부합,Y
+SQL_KMA_111308,KMA,SQLITE_DB,[여의도] GPT-5 ∙ R ∙ Python을 활용한 빅데이터 분석 및 보고서 작성,COMP_GA_01,문서작성 및 기획,Skill,VERIFIED,KMA 직무교육 '[여의도] GPT-5 ∙ R ∙ Python을 활용한 빅데이터 분석 및 보고서 작성'(공통·사무기획) 원문 실무 커리큘럼 부합,Y
+SQL_KMA_111156,KMA,SQLITE_DB,[여의도] 생성형 AI 엑셀/PPT 보고서 작성,COMP_GA_01,문서작성 및 기획,Skill,VERIFIED,KMA 직무교육 '[여의도] 생성형 AI 엑셀/PPT 보고서 작성'(공통·사무기획) 원문 실무 커리큘럼 부합,Y
+SQL_KMA_111157,KMA,SQLITE_DB,[여의도] AI로 더 빠른! 일잘러의 원페이지 보고서 작성 비법,COMP_GA_01,문서작성 및 기획,Skill,VERIFIED,KMA 직무교육 '[여의도] AI로 더 빠른! 일잘러의 원페이지 보고서 작성 비법'(공통·사무기획) 원문 실무 커리큘럼 부합,Y
+SQL_KMA_111399,KMA,SQLITE_DB,[여의도] 맥킨지 방식의 비즈니스 보고서 작성 스킬,COMP_GA_01,문서작성 및 기획,Skill,VERIFIED,KMA 직무교육 '[여의도] 맥킨지 방식의 비즈니스 보고서 작성 스킬'(공통·사무기획) 원문 실무 커리큘럼 부합,Y
+SQL_KMA_111158,KMA,SQLITE_DB,[여의도] 일잘러의 AI 활용 기획 및 기획서 작성 A to Z,COMP_GA_01,문서작성 및 기획,Skill,VERIFIED,KMA 직무교육 '[여의도] 일잘러의 AI 활용 기획 및 기획서 작성 A to Z'(공통·사무기획) 원문 실무 커리큘럼 부합,Y
+SQL_KMA_111215,KMA,SQLITE_DB,[비대면] AI로 더 빠른! 일잘러의 원페이지 보고서 작성 비법,COMP_GA_01,문서작성 및 기획,Skill,VERIFIED,KMA 직무교육 '[비대면] AI로 더 빠른! 일잘러의 원페이지 보고서 작성 비법'(공통·사무기획) 원문 실무 커리큘럼 부합,Y
+SQL_KMA_111216,KMA,SQLITE_DB,[비대면] 일잘러의 AI 활용 기획 및 기획서 작성 A to Z,COMP_GA_01,문서작성 및 기획,Skill,VERIFIED,KMA 직무교육 '[비대면] 일잘러의 AI 활용 기획 및 기획서 작성 A to Z'(공통·사무기획) 원문 실무 커리큘럼 부합,Y
+SQL_KMA_111394,KMA,SQLITE_DB,[여의도] 맥킨지컨설팅 방식의 비즈니스 보고서 작성 실무,COMP_GA_01,문서작성 및 기획,Skill,VERIFIED,KMA 직무교육 '[여의도] 맥킨지컨설팅 방식의 비즈니스 보고서 작성 실무'(공통·사무기획) 원문 실무 커리큘럼 부합,Y
+SQL_KMA_111398,KMA,SQLITE_DB,[여의도] 한번에 통하는 원페이지 보고서 작성 실무,COMP_GA_01,문서작성 및 기획,Skill,VERIFIED,KMA 직무교육 '[여의도] 한번에 통하는 원페이지 보고서 작성 실무'(공통·사무기획) 원문 실무 커리큘럼 부합,Y
+SQL_KMA_112195,KMA,SQLITE_DB,[여의도] 한번에 통하는 원페이지 보고서 작성 스킬 (with AI),COMP_GA_01,문서작성 및 기획,Skill,VERIFIED,KMA 직무교육 '[여의도] 한번에 통하는 원페이지 보고서 작성 스킬 (with AI)'(공통·사무기획) 원문 실무 커리큘럼 부합,Y
+SQL_KMA_112193,KMA,SQLITE_DB,[여의도] 맥킨지컨설팅 방식의 비즈니스 보고서 작성 실무 (with AI),COMP_GA_01,문서작성 및 기획,Skill,VERIFIED,KMA 직무교육 '[여의도] 맥킨지컨설팅 방식의 비즈니스 보고서 작성 실무 (with AI)'(공통·사무기획) 원문 실무 커리큘럼 부합,Y
+SQL_KMA_112092,KMA,SQLITE_DB,[여의도] 업무를 혁신하는 생성형AI 활용 텍스트 분석과 보고서 작성,COMP_GA_01,문서작성 및 기획,Skill,VERIFIED,KMA 직무교육 '[여의도] 업무를 혁신하는 생성형AI 활용 텍스트 분석과 보고서 작성'(공통·사무기획) 원문 실무 커리큘럼 부합,Y
+SQL_KMA_111870,KMA,SQLITE_DB,"[여의도] AI 활용, 기획안 설득력 · 기획서 전달력 마스터",COMP_GA_01,문서작성 및 기획,Skill,VERIFIED,"KMA 직무교육 '[여의도] AI 활용, 기획안 설득력 · 기획서 전달력 마스터'(공통·사무기획) 원문 실무 커리큘럼 부합",Y
+SQL_KMA_111311,KMA,SQLITE_DB,"[여의도] 웹 데이터(논문, 뉴스, 특허) 수집 및 비정형 보고서 작성 실무",COMP_GA_01,문서작성 및 기획,Skill,VERIFIED,"KMA 직무교육 '[여의도] 웹 데이터(논문, 뉴스, 특허) 수집 및 비정형 보고서 작성 실무'(공통·사무기획) 원문 실무 커리큘럼 부합",Y
+SQL_KMA_112095,KMA,SQLITE_DB,[여의도] 클릭만으로 배우는 생성형 AI 빅데이터 분석 및 보고서 작성 (with 크롬확장프로그램),COMP_GA_01,문서작성 및 기획,Skill,VERIFIED,KMA 직무교육 '[여의도] 클릭만으로 배우는 생성형 AI 빅데이터 분석 및 보고서 작성 (with 크롬확장프로그램)'(공통·사무기획) 원문 실무 커리큘럼 부합,Y
+SQL_KMA_112093,KMA,SQLITE_DB,"[여의도] 웹 데이터(논문, 뉴스, 특허) 수집 및 보고서 작성 (with 크롬확장프로그램)",COMP_GA_01,문서작성 및 기획,Skill,VERIFIED,"KMA 직무교육 '[여의도] 웹 데이터(논문, 뉴스, 특허) 수집 및 보고서 작성 (with 크롬확장프로그램)'(공통·사무기획) 원문 실무 커리큘럼 부합",Y
+SQL_KMA_111553,KMA,SQLITE_DB,[여의도] 공공기관 실무자를 위한 보고서 작성 실무,COMP_GA_01,문서작성 및 기획,Skill,VERIFIED,KMA 직무교육 '[여의도] 공공기관 실무자를 위한 보고서 작성 실무'(공통·사무기획) 원문 실무 커리큘럼 부합,Y
+SQL_KMA_111290,KMA,SQLITE_DB,[여의도] AI기반 금융 데이터 분석 및 보고서 작성 자동화,COMP_GA_01,문서작성 및 기획,Skill,VERIFIED,KMA 직무교육 '[여의도] AI기반 금융 데이터 분석 및 보고서 작성 자동화'(공통·사무기획) 원문 실무 커리큘럼 부합,Y
+SQL_KMA_111186,KMA,SQLITE_DB,[여의도] HRD 전략과 교육체계 수립,COMP_GA_01,문서작성 및 기획,Skill,VERIFIED,KMA 직무교육 '[여의도] HRD 전략과 교육체계 수립'(인사·조직관리) 원문 실무 커리큘럼 부합,Y
+SQL_KMA_111662,KMA,SQLITE_DB,[여의도] HRD 성과평가 실무,COMP_GA_01,문서작성 및 기획,Skill,VERIFIED,KMA 직무교육 '[여의도] HRD 성과평가 실무'(인사·조직관리) 원문 실무 커리큘럼 부합,Y
+SQL_KMA_111450,KMA,SQLITE_DB,[여의도] 안정적인 노사관계를 위한 노동법 및 노사협의회 운영 실무,COMP_LABOR_01,근로관계 법률 준수,Knowledge,VERIFIED,KMA 직무교육 '[여의도] 안정적인 노사관계를 위한 노동법 및 노사협의회 운영 실무'(노무관리) 원문 실무 커리큘럼 부합,Y
+SQL_KMA_111439,KMA,SQLITE_DB,[여의도] 인사담당자가 꼭 알아야 할 면접스킬,COMP_HR_01,인력채용,Skill,VERIFIED,KMA 직무교육 '[여의도] 인사담당자가 꼭 알아야 할 면접스킬'(인사·채용관리) 원문 실무 커리큘럼 부합,Y
+SQL_KMA_111438,KMA,SQLITE_DB,[여의도] 채용 법률과 트렌드: 실무자 필수 가이드,COMP_HR_01,인력채용,Skill,VERIFIED,KMA 직무교육 '[여의도] 채용 법률과 트렌드: 실무자 필수 가이드'(인사·채용관리) 원문 실무 커리큘럼 부합,Y
+SQL_KMA_111440,KMA,SQLITE_DB,[여의도] 채용면접위원 양성,COMP_HR_01,인력채용,Skill,VERIFIED,KMA 직무교육 '[여의도] 채용면접위원 양성'(인사·채용관리) 원문 실무 커리큘럼 부합,Y
+SQL_KMA_111205,KMA,SQLITE_DB,"[강남] 성과 향상을 위한 인사평가(성과평가, 다면평가) 면담 Skill",COMP_HR_02,인사평가 및 보상,Knowledge,VERIFIED,"KMA 직무교육 '[강남] 성과 향상을 위한 인사평가(성과평가, 다면평가) 면담 Skill'(인사·평가보상) 원문 실무 커리큘럼 부합",Y
+SQL_KMA_112331,KMA,SQLITE_DB,[여의도] 안정적인 노사관계를 위한 노동법 및 노사협의회 운영실무,COMP_LABOR_01,근로관계 법률 준수,Knowledge,VERIFIED,KMA 직무교육 '[여의도] 안정적인 노사관계를 위한 노동법 및 노사협의회 운영실무'(노무관리) 원문 실무 커리큘럼 부합,Y
+SQL_KMA_112029,KMA,SQLITE_DB,[온라인][자격] 채용면접전문가,COMP_HR_01,인력채용,Skill,VERIFIED,KMA 직무교육 '[온라인][자격] 채용면접전문가'(인사·채용관리) 원문 실무 커리큘럼 부합,Y
+SQL_KMA_110300,KMA,SQLITE_DB,[자격][온라인] 채용전문면접관,COMP_HR_01,인력채용,Skill,VERIFIED,KMA 직무교육 '[자격][온라인] 채용전문면접관'(인사·채용관리) 원문 실무 커리큘럼 부합,Y
+SQL_KMA_112121,KMA,SQLITE_DB,"[비대면] AI 시대, 실무에 바로 쓰는 공문서 및 보고서 작성 실무",COMP_GA_01,문서작성 및 기획,Skill,VERIFIED,"KMA 직무교육 '[비대면] AI 시대, 실무에 바로 쓰는 공문서 및 보고서 작성 실무'(공통·사무기획) 원문 실무 커리큘럼 부합",Y
+SQL_KPC_47493,KPC,SQLITE_DB,공공기관 보고서 작성 Total Skill Up(Feat. AI & 한글),COMP_GA_01,문서작성 및 기획,Skill,VERIFIED,KPC 직무교육 '공공기관 보고서 작성 Total Skill Up(Feat. AI & 한글)'(공통·사무기획) 원문 실무 커리큘럼 부합,Y
+SQL_KPC_46981,KPC,SQLITE_DB,[온앤오프] 인사관리기본,COMP_GA_01,문서작성 및 기획,Skill,VERIFIED,KPC 직무교육 '[온앤오프] 인사관리기본'(인사·조직관리) 원문 실무 커리큘럼 부합,Y
+SQL_KPC_47024,KPC,SQLITE_DB,고충처리 실무(성희롱 · 괴롭힘) (feat. 조사보고서 작성까지),COMP_GA_01,문서작성 및 기획,Skill,VERIFIED,KPC 직무교육 '고충처리 실무(성희롱 · 괴롭힘) (feat. 조사보고서 작성까지)'(공통·사무기획) 원문 실무 커리큘럼 부합,Y
+SQL_KPC_46984,KPC,SQLITE_DB,[온앤오프] 인사담당자를 위한 노동법 완전정복,COMP_LABOR_01,근로관계 법률 준수,Knowledge,VERIFIED,KPC 직무교육 '[온앤오프] 인사담당자를 위한 노동법 완전정복'(노무관리) 원문 실무 커리큘럼 부합,Y
+SQL_KPC_47312,KPC,SQLITE_DB,[HRD] 역량기반 교육체계 및 인재육성 로드맵 구축,COMP_GA_01,문서작성 및 기획,Skill,VERIFIED,KPC 직무교육 '[HRD] 역량기반 교육체계 및 인재육성 로드맵 구축'(인사·조직관리) 원문 실무 커리큘럼 부합,Y
+SQL_KPC_48201,KPC,SQLITE_DB,[AI] 관리자를 위한 AI활용 성과관리 역량향상,COMP_HR_02,인사평가 및 보상,Knowledge,VERIFIED,KPC 직무교육 '[AI] 관리자를 위한 AI활용 성과관리 역량향상'(인사·평가보상) 원문 실무 커리큘럼 부합,Y
+SQL_KPC_47021,KPC,SQLITE_DB,[DX&AI] 채용 분석 실무,COMP_HR_01,인력채용,Skill,VERIFIED,KPC 직무교육 '[DX&AI] 채용 분석 실무'(인사·채용관리) 원문 실무 커리큘럼 부합,Y
+SQL_KPC_47484,KPC,SQLITE_DB,1Page 보고서 작성(실무),COMP_GA_01,문서작성 및 기획,Skill,VERIFIED,KPC 직무교육 '1Page 보고서 작성(실무)'(공통·사무기획) 원문 실무 커리큘럼 부합,Y
+SQL_KPC_48450,KPC,SQLITE_DB,두산_인사 전문가_성과중심 인사평가,COMP_HR_02,인사평가 및 보상,Knowledge,VERIFIED,KPC 직무교육 '두산_인사 전문가_성과중심 인사평가'(인사·평가보상) 원문 실무 커리큘럼 부합,Y
+SQL_KPC_46996,KPC,SQLITE_DB,[온앤오프] 근로기준법실무,COMP_LABOR_01,근로관계 법률 준수,Knowledge,VERIFIED,KPC 직무교육 '[온앤오프] 근로기준법실무'(노무관리) 원문 실무 커리큘럼 부합,Y
+SQL_KPC_47489,KPC,SQLITE_DB,비즈니스문서작성실무,COMP_GA_01,문서작성 및 기획,Skill,VERIFIED,KPC 직무교육 '비즈니스문서작성실무'(공통·사무기획) 원문 실무 커리큘럼 부합,Y
+SQL_KPC_47464,KPC,SQLITE_DB,글로벌 비즈니스 매너,COMP_SEC_01,비즈니스 매너 및 커뮤니케이션,Attitude,VERIFIED,KPC 직무교육 '글로벌 비즈니스 매너'(비서·사무지원) 원문 실무 커리큘럼 부합,Y
+SQL_KPC_47303,KPC,SQLITE_DB,[HRD] [사례중심] HRD실무역량 강화,COMP_GA_01,문서작성 및 기획,Skill,VERIFIED,KPC 직무교육 '[HRD] [사례중심] HRD실무역량 강화'(인사·조직관리) 원문 실무 커리큘럼 부합,Y
+SQL_KPC_47123,KPC,SQLITE_DB,[AI 직무혁신] 부실기업의 재무적 특징과 보고서 작성실무,COMP_GA_01,문서작성 및 기획,Skill,VERIFIED,KPC 직무교육 '[AI 직무혁신] 부실기업의 재무적 특징과 보고서 작성실무'(공통·사무기획) 원문 실무 커리큘럼 부합,Y
+SQL_KPC_47257,KPC,SQLITE_DB,[1Day] 인사담당자를 위한 계약서 완전정복,COMP_GA_01,문서작성 및 기획,Skill,VERIFIED,KPC 직무교육 '[1Day] 인사담당자를 위한 계약서 완전정복'(인사·조직관리) 원문 실무 커리큘럼 부합,Y
+SQL_KPC_48405,KPC,SQLITE_DB,[AI] [HRD] 교육담당자를 위한 AI프롬프트 엔지니어링,COMP_GA_01,문서작성 및 기획,Skill,VERIFIED,KPC 직무교육 '[AI] [HRD] 교육담당자를 위한 AI프롬프트 엔지니어링'(인사·조직관리) 원문 실무 커리큘럼 부합,Y
+SQL_KPC_46676,KPC,SQLITE_DB,[온앤오프] 기획담당자를 위한 전략기획서 작성실무,COMP_GA_01,문서작성 및 기획,Skill,VERIFIED,KPC 직무교육 '[온앤오프] 기획담당자를 위한 전략기획서 작성실무'(공통·사무기획) 원문 실무 커리큘럼 부합,Y
+SQL_KPC_47017,KPC,SQLITE_DB,노동위원회 사례로 배우는 노무관리실무,COMP_LABOR_01,근로관계 법률 준수,Knowledge,VERIFIED,KPC 직무교육 '노동위원회 사례로 배우는 노무관리실무'(노무관리) 원문 실무 커리큘럼 부합,Y
+SQL_KPC_46681,KPC,SQLITE_DB,[AI WORKS] ChatGPT 활용 전략기획서 작성 실무,COMP_GA_01,문서작성 및 기획,Skill,VERIFIED,KPC 직무교육 '[AI WORKS] ChatGPT 활용 전략기획서 작성 실무'(공통·사무기획) 원문 실무 커리큘럼 부합,Y
+SQL_KPC_47011,KPC,SQLITE_DB,우수인재 선발을 위한 면접관 역량개발,COMP_HR_01,인력채용,Skill,VERIFIED,KPC 직무교육 '우수인재 선발을 위한 면접관 역량개발'(인사·채용관리) 원문 실무 커리큘럼 부합,Y
+SQL_KPC_49013,KPC,SQLITE_DB,[하루완성] 설득력 있는 보고서 작성 핵심 스킬,COMP_GA_01,문서작성 및 기획,Skill,VERIFIED,KPC 직무교육 '[하루완성] 설득력 있는 보고서 작성 핵심 스킬'(공통·사무기획) 원문 실무 커리큘럼 부합,Y
+SQL_KPC_49312,KPC,SQLITE_DB,2026년 KPC HRD 트렌드 세미나(무료),COMP_GA_01,문서작성 및 기획,Skill,VERIFIED,KPC 직무교육 '2026년 KPC HRD 트렌드 세미나(무료)'(인사·조직관리) 원문 실무 커리큘럼 부합,Y
+SQL_KPC_47005,KPC,SQLITE_DB,2026년 하루에 배우는 최신노무관리 Essence,COMP_LABOR_01,근로관계 법률 준수,Knowledge,VERIFIED,KPC 직무교육 '2026년 하루에 배우는 최신노무관리 Essence'(노무관리) 원문 실무 커리큘럼 부합,Y
+SQL_KPC_47302,KPC,SQLITE_DB,[HRD] [Advanced] HRD전문가 양성과정,COMP_GA_01,문서작성 및 기획,Skill,VERIFIED,KPC 직무교육 '[HRD] [Advanced] HRD전문가 양성과정'(인사·조직관리) 원문 실무 커리큘럼 부합,Y
+SQL_KPC_47306,KPC,SQLITE_DB,[HRD] 교육기획 및 운영실무,COMP_GA_01,문서작성 및 기획,Skill,VERIFIED,KPC 직무교육 '[HRD] 교육기획 및 운영실무'(인사·조직관리) 원문 실무 커리큘럼 부합,Y
+SQL_KPC_46982,KPC,SQLITE_DB,[온앤오프] 인사관리종합,COMP_GA_01,문서작성 및 기획,Skill,VERIFIED,KPC 직무교육 '[온앤오프] 인사관리종합'(인사·조직관리) 원문 실무 커리큘럼 부합,Y
+SQL_KPC_48871,KPC,SQLITE_DB,"[1Day] 인사평가 트랜드, 절대평가와 Calibration Meeting",COMP_HR_02,인사평가 및 보상,Knowledge,VERIFIED,"KPC 직무교육 '[1Day] 인사평가 트랜드, 절대평가와 Calibration Meeting'(인사·평가보상) 원문 실무 커리큘럼 부합",Y
+SQL_KPC_47001,KPC,SQLITE_DB,[온앤오프] 근로기준법 기본해설,COMP_LABOR_01,근로관계 법률 준수,Knowledge,VERIFIED,KPC 직무교육 '[온앤오프] 근로기준법 기본해설'(노무관리) 원문 실무 커리큘럼 부합,Y
+SQL_KPC_47841,KPC,SQLITE_DB,"(ChatGPT 활용) 마케팅 보고서 작성 실무 (분석, 보고서, PPT 작성까지)(지역)",COMP_GA_01,문서작성 및 기획,Skill,VERIFIED,"KPC 직무교육 '(ChatGPT 활용) 마케팅 보고서 작성 실무 (분석, 보고서, PPT 작성까지)(지역)'(공통·사무기획) 원문 실무 커리큘럼 부합",Y
+SQL_KPC_47301,KPC,SQLITE_DB,[온보딩] 슬기로운 조직생활,COMP_HR_01,인력채용,Skill,VERIFIED,KPC 직무교육 '[온보딩] 슬기로운 조직생활'(인사·채용관리) 원문 실무 커리큘럼 부합,Y
+SQL_KPC_46979,KPC,SQLITE_DB,[온앤오프] HR·GA 온보딩 패키지,COMP_HR_01,인력채용,Skill,VERIFIED,KPC 직무교육 '[온앤오프] HR·GA 온보딩 패키지'(인사·채용관리) 원문 실무 커리큘럼 부합,Y
+SQL_KPC_46980,KPC,SQLITE_DB,성과관리실무,COMP_HR_02,인사평가 및 보상,Knowledge,VERIFIED,KPC 직무교육 '성과관리실무'(인사·평가보상) 원문 실무 커리큘럼 부합,Y
+SQL_KPC_47362,KPC,SQLITE_DB,1page 연구보고서 작성 노하우,COMP_GA_01,문서작성 및 기획,Skill,VERIFIED,KPC 직무교육 '1page 연구보고서 작성 노하우'(공통·사무기획) 원문 실무 커리큘럼 부합,Y
+SQL_KPC_46976,KPC,SQLITE_DB,인사평가시스템 구축실무,COMP_HR_02,인사평가 및 보상,Knowledge,VERIFIED,KPC 직무교육 '인사평가시스템 구축실무'(인사·평가보상) 원문 실무 커리큘럼 부합,Y
+SQL_KPC_46714,KPC,SQLITE_DB,[AI WORKS] AI 활용 ESG 보고서 작성 효율화,COMP_GA_01,문서작성 및 기획,Skill,VERIFIED,KPC 직무교육 '[AI WORKS] AI 활용 ESG 보고서 작성 효율화'(공통·사무기획) 원문 실무 커리큘럼 부합,Y
+SQL_KPC_47487,KPC,SQLITE_DB,엑셀을 활용한 보고서 작성,COMP_GA_01,문서작성 및 기획,Skill,VERIFIED,KPC 직무교육 '엑셀을 활용한 보고서 작성'(공통·사무기획) 원문 실무 커리큘럼 부합,Y
+SQL_KPC_47354,KPC,SQLITE_DB,연구데이터 분석 및 보고서 작성(데이터로 말하기),COMP_GA_01,문서작성 및 기획,Skill,VERIFIED,KPC 직무교육 '연구데이터 분석 및 보고서 작성(데이터로 말하기)'(공통·사무기획) 원문 실무 커리큘럼 부합,Y
+SQL_KPC_47022,KPC,SQLITE_DB,[DX&AI] 평가보상 설계 실무(밀코비치 기반),COMP_HR_02,인사평가 및 보상,Knowledge,VERIFIED,KPC 직무교육 '[DX&AI] 평가보상 설계 실무(밀코비치 기반)'(인사·평가보상) 원문 실무 커리큘럼 부합,Y
+SQL_KPC_47648,KPC,SQLITE_DB,영업이익분석 및 성과관리 실무 (생성형 AI 활용),COMP_HR_02,인사평가 및 보상,Knowledge,VERIFIED,KPC 직무교육 '영업이익분석 및 성과관리 실무 (생성형 AI 활용)'(인사·평가보상) 원문 실무 커리큘럼 부합,Y
+SQL_KPC_46645,KPC,SQLITE_DB,[온앤오프] 공공기관 경영평가 보고서 작성실무,COMP_GA_01,문서작성 및 기획,Skill,VERIFIED,KPC 직무교육 '[온앤오프] 공공기관 경영평가 보고서 작성실무'(공통·사무기획) 원문 실무 커리큘럼 부합,Y
+SQL_KPC_47307,KPC,SQLITE_DB,[HRD] HRD담당자 기본,COMP_GA_01,문서작성 및 기획,Skill,VERIFIED,KPC 직무교육 '[HRD] HRD담당자 기본'(인사·조직관리) 원문 실무 커리큘럼 부합,Y
+SQL_KPC_46995,KPC,SQLITE_DB,[온앤오프] 채용에서 퇴직까지 법률문제,COMP_HR_01,인력채용,Skill,VERIFIED,KPC 직무교육 '[온앤오프] 채용에서 퇴직까지 법률문제'(인사·채용관리) 원문 실무 커리큘럼 부합,Y
+SQL_KPC_47304,KPC,SQLITE_DB,[HRD] 교육평가 및 결과보고서 작성실무,COMP_GA_01,문서작성 및 기획,Skill,VERIFIED,KPC 직무교육 '[HRD] 교육평가 및 결과보고서 작성실무'(공통·사무기획) 원문 실무 커리큘럼 부합,Y
+SQL_KPC_46698,KPC,SQLITE_DB,"ESG, 지속가능경영보고서 작성실무",COMP_GA_01,문서작성 및 기획,Skill,VERIFIED,"KPC 직무교육 'ESG, 지속가능경영보고서 작성실무'(공통·사무기획) 원문 실무 커리큘럼 부합",Y
+SQL_KPC_47366,KPC,SQLITE_DB,ChatGPT로 배우는 R&D 기획서 작성 실무,COMP_GA_01,문서작성 및 기획,Skill,VERIFIED,KPC 직무교육 'ChatGPT로 배우는 R&D 기획서 작성 실무'(공통·사무기획) 원문 실무 커리큘럼 부합,Y
+SQL_KPC_47305,KPC,SQLITE_DB,[HRD] 직무분석을 활용한 교육프로그램 개발,COMP_GA_01,문서작성 및 기획,Skill,VERIFIED,KPC 직무교육 '[HRD] 직무분석을 활용한 교육프로그램 개발'(인사·조직관리) 원문 실무 커리큘럼 부합,Y
+SQL_KPC_47003,KPC,SQLITE_DB,[온앤오프] 현장에서 알아야 하는 노무관리 솔루션,COMP_LABOR_01,근로관계 법률 준수,Knowledge,VERIFIED,KPC 직무교육 '[온앤오프] 현장에서 알아야 하는 노무관리 솔루션'(노무관리) 원문 실무 커리큘럼 부합,Y
+SQL_KPC_47009,KPC,SQLITE_DB,[온앤오프] 노동법 핵심해설,COMP_LABOR_01,근로관계 법률 준수,Knowledge,VERIFIED,KPC 직무교육 '[온앤오프] 노동법 핵심해설'(노무관리) 원문 실무 커리큘럼 부합,Y
+SQL_KPC_46993,KPC,SQLITE_DB,[인력계획부터 육성까지] 인사기획실무,COMP_GA_01,문서작성 및 기획,Skill,VERIFIED,KPC 직무교육 '[인력계획부터 육성까지] 인사기획실무'(인사·조직관리) 원문 실무 커리큘럼 부합,Y
+SQL_KPC_47210,KPC,SQLITE_DB,구성원을 성장시키는 성과관리 리더십,COMP_HR_02,인사평가 및 보상,Knowledge,VERIFIED,KPC 직무교육 '구성원을 성장시키는 성과관리 리더십'(인사·평가보상) 원문 실무 커리큘럼 부합,Y
+SQL_KPC_47016,KPC,SQLITE_DB,노동법 쟁점 88선 해설,COMP_LABOR_01,근로관계 법률 준수,Knowledge,VERIFIED,KPC 직무교육 '노동법 쟁점 88선 해설'(노무관리) 원문 실무 커리큘럼 부합,Y
+SQL_KPC_46998,KPC,SQLITE_DB,Case Story와 함께하는 노무관리,COMP_LABOR_01,근로관계 법률 준수,Knowledge,VERIFIED,KPC 직무교육 'Case Story와 함께하는 노무관리'(노무관리) 원문 실무 커리큘럼 부합,Y
+SQL_KPC_48063,KPC,SQLITE_DB,[HRD] [사례중심] 신규 HRD담당자를 위한 1DAY 핵심 스킬업,COMP_GA_01,문서작성 및 기획,Skill,VERIFIED,KPC 직무교육 '[HRD] [사례중심] 신규 HRD담당자를 위한 1DAY 핵심 스킬업'(인사·조직관리) 원문 실무 커리큘럼 부합,Y
+SQL_KPC_47322,KPC,SQLITE_DB,[AI] [HRD] 디지털트렌스포메이션 In HRD(Feat.AI),COMP_GA_01,문서작성 및 기획,Skill,VERIFIED,KPC 직무교육 '[AI] [HRD] 디지털트렌스포메이션 In HRD(Feat.AI)'(인사·조직관리) 원문 실무 커리큘럼 부합,Y
+SQL_KPC_48106,KPC,SQLITE_DB,[HRD] 조직 성장을 이끄는 HRD전략과 트렌드 기반 교육계획수립,COMP_GA_01,문서작성 및 기획,Skill,VERIFIED,KPC 직무교육 '[HRD] 조직 성장을 이끄는 HRD전략과 트렌드 기반 교육계획수립'(인사·조직관리) 원문 실무 커리큘럼 부합,Y
+SQL_KPC_48545,KPC,SQLITE_DB,[1Day] 마케팅 보고서 작성 실무(ChatGPT 활용),COMP_GA_01,문서작성 및 기획,Skill,VERIFIED,KPC 직무교육 '[1Day] 마케팅 보고서 작성 실무(ChatGPT 활용)'(공통·사무기획) 원문 실무 커리큘럼 부합,Y
+SQL_KPC_48884,KPC,SQLITE_DB,보고서 작성 Total Skill Up(Feat. AI),COMP_GA_01,문서작성 및 기획,Skill,VERIFIED,KPC 직무교육 '보고서 작성 Total Skill Up(Feat. AI)'(공통·사무기획) 원문 실무 커리큘럼 부합,Y
+SQL_KPC_47006,KPC,SQLITE_DB,[온앤오프] 노무분쟁 예방을 위한 전략적 노무관리,COMP_LABOR_01,근로관계 법률 준수,Knowledge,VERIFIED,KPC 직무교육 '[온앤오프] 노무분쟁 예방을 위한 전략적 노무관리'(노무관리) 원문 실무 커리큘럼 부합,Y
+SQL_KPC_46649,KPC,SQLITE_DB,[온앤오프] 공공기관 ESG 보고서 작성실무,COMP_GA_01,문서작성 및 기획,Skill,VERIFIED,KPC 직무교육 '[온앤오프] 공공기관 ESG 보고서 작성실무'(공통·사무기획) 원문 실무 커리큘럼 부합,Y
+SQL_KPC_47692,KPC,SQLITE_DB,"(ChatGPT 활용) 마케팅 보고서 작성 실무 (분석, 보고서, PPT 작성까지)",COMP_GA_01,문서작성 및 기획,Skill,VERIFIED,"KPC 직무교육 '(ChatGPT 활용) 마케팅 보고서 작성 실무 (분석, 보고서, PPT 작성까지)'(공통·사무기획) 원문 실무 커리큘럼 부합",Y
+SQL_KPC_46991,KPC,SQLITE_DB,2026년 인사담당자를 위한 채용트렌드 분석 및 전략,COMP_HR_01,인력채용,Skill,VERIFIED,KPC 직무교육 '2026년 인사담당자를 위한 채용트렌드 분석 및 전략'(인사·채용관리) 원문 실무 커리큘럼 부합,Y
+SQL_KPC_46702,KPC,SQLITE_DB,기후공시 전략 수립 및 보고서 작성 실무,COMP_GA_01,문서작성 및 기획,Skill,VERIFIED,KPC 직무교육 '기후공시 전략 수립 및 보고서 작성 실무'(공통·사무기획) 원문 실무 커리큘럼 부합,Y
+SQL_MULTICAMPUS_FA00A0,MULTICAMPUS,SQLITE_DB,[Live] 한 장 보고서 작성의 기술,COMP_GA_01,문서작성 및 기획,Skill,VERIFIED,MULTICAMPUS 직무교육 '[Live] 한 장 보고서 작성의 기술'(공통·사무기획) 원문 실무 커리큘럼 부합,Y
+SQL_MULTICAMPUS_FA015O,MULTICAMPUS,SQLITE_DB,[Ctrl+AI] 생성형AI를 활용한 실무 문서작성 AtoZ,COMP_GA_01,문서작성 및 기획,Skill,VERIFIED,MULTICAMPUS 직무교육 '[Ctrl+AI] 생성형AI를 활용한 실무 문서작성 AtoZ'(공통·사무기획) 원문 실무 커리큘럼 부합,Y
+SQL_MULTICAMPUS_Q29940,MULTICAMPUS,SQLITE_DB,한 장 보고서 작성의 기술,COMP_GA_01,문서작성 및 기획,Skill,VERIFIED,MULTICAMPUS 직무교육 '한 장 보고서 작성의 기술'(공통·사무기획) 원문 실무 커리큘럼 부합,Y
+SQL_MULTICAMPUS_FB00A4,MULTICAMPUS,SQLITE_DB,[패스트트랙] 신입 온보딩 과정,COMP_HR_01,인력채용,Skill,VERIFIED,MULTICAMPUS 직무교육 '[패스트트랙] 신입 온보딩 과정'(인사·채용관리) 원문 실무 커리큘럼 부합,Y
+SQL_MULTICAMPUS_FB00A5,MULTICAMPUS,SQLITE_DB,[패스트트랙] 신입 온보딩 과정-관계관리 편,COMP_HR_01,인력채용,Skill,VERIFIED,MULTICAMPUS 직무교육 '[패스트트랙] 신입 온보딩 과정-관계관리 편'(인사·채용관리) 원문 실무 커리큘럼 부합,Y
+SQL_MULTICAMPUS_FB00A6,MULTICAMPUS,SQLITE_DB,[패스트트랙] 신입 온보딩 과정-업무관리 편,COMP_HR_01,인력채용,Skill,VERIFIED,MULTICAMPUS 직무교육 '[패스트트랙] 신입 온보딩 과정-업무관리 편'(인사·채용관리) 원문 실무 커리큘럼 부합,Y
+SQL_MULTICAMPUS_EA09X3,MULTICAMPUS,SQLITE_DB,[리더의 격]조직을 성공으로 이끄는 성과관리 디테일(참고도서제공),COMP_HR_02,인사평가 및 보상,Knowledge,VERIFIED,MULTICAMPUS 직무교육 '[리더의 격]조직을 성공으로 이끄는 성과관리 디테일(참고도서제공)'(인사·평가보상) 원문 실무 커리큘럼 부합,Y
+SQL_MULTICAMPUS_EA0D0U,MULTICAMPUS,SQLITE_DB,신뢰받는 중간 관리자의 역량-성과관리 편,COMP_HR_02,인사평가 및 보상,Knowledge,VERIFIED,MULTICAMPUS 직무교육 '신뢰받는 중간 관리자의 역량-성과관리 편'(인사·평가보상) 원문 실무 커리큘럼 부합,Y
+SQL_MULTICAMPUS_FA01P1,MULTICAMPUS,SQLITE_DB,"인사관리, AI로 업그레이드",COMP_GA_01,문서작성 및 기획,Skill,VERIFIED,"MULTICAMPUS 직무교육 '인사관리, AI로 업그레이드'(인사·조직관리) 원문 실무 커리큘럼 부합",Y
+SQL_MULTICAMPUS_FA01U8,MULTICAMPUS,SQLITE_DB,AI로 완성하는 한 장 보고서 작성,COMP_GA_01,문서작성 및 기획,Skill,VERIFIED,MULTICAMPUS 직무교육 'AI로 완성하는 한 장 보고서 작성'(공통·사무기획) 원문 실무 커리큘럼 부합,Y
+SQL_MULTICAMPUS_FA01LB,MULTICAMPUS,SQLITE_DB,AI로 완성하는 리더의 성과관리,COMP_HR_02,인사평가 및 보상,Knowledge,VERIFIED,MULTICAMPUS 직무교육 'AI로 완성하는 리더의 성과관리'(인사·평가보상) 원문 실무 커리큘럼 부합,Y

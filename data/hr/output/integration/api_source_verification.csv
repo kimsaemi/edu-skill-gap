@@ -1,0 +1,7 @@
+﻿round,api_source,endpoint,search_condition,raw_file,raw_count,unique_count,included_count,review_count,excluded_count,audit_note
+1차 수집,고용24 국민내일배움카드,https://www.work24.go.kr/.../callOpenApiSvcInfo310L01.do,srchTraProcess=인사 (목록 무작위 20건),data/hr/raw/kmbc_courses_raw.json,20,20,2,3,15,1차 수집 시 파라미터명 오류(srchTraProcess)로 비타겟 강좌 수신됨. 전수 감사 후 오분류 15건 제외
+1차 수집,고용24 사업주훈련,https://www.work24.go.kr/.../callOpenApiSvcInfo311L01.do,srchTraProcess=총무 (목록 무작위 20건),data/hr/raw/employer_courses_raw.json,20,20,7,9,4,"총무 및 사무기획 7건 확정 포함, 마케팅/시사 9건 검토, IT개발 등 4건 제외"
+1차 수집,한국산업인력공단 NCS 교육과정,http://apis.data.go.kr/B490007/ncsEduCource/openapi20,ncsLclasCd=02 (경영회계사무 p1 10건),data/hr/raw/ncs_courses_raw.json,10,10,0,10,0,전문대/마이스터고 정규 학과목 10건으로 직무교육 추천 풀 편입 보류(REVIEW_NEEDED 유지)
+2차 수집,고용24 국민내일배움카드,https://www.work24.go.kr/.../callOpenApiSvcInfo310L01.do,"srchTraProcessNm=인사관리,채용,노무,평가,총무,자산 (각 10건)",data/hr/raw/round2/kmbc_round2_raw.json,60,45,43,2,0,정규 파라미터(srchTraProcessNm) 적용으로 인사·총무 직결 강좌 45건 확보 (15건 키워드 간 중복 제거)
+2차 수집,고용24 사업주훈련,https://www.work24.go.kr/.../callOpenApiSvcInfo311L01.do,"srchTraProcessNm=인사관리,채용,노무,평가,총무,자산 (각 10건)",data/hr/raw/round2/employer_round2_raw.json,60,45,44,1,0,정규 파라미터 적용으로 현업 환급 실무 강좌 45건 확보 (15건 키워드 간 중복 제거)
+2차 수집,한국산업인력공단 NCS 교육과정,http://apis.data.go.kr/B490007/ncsEduCource/openapi20,"ncsLclasCd=02 (p2, p3 호출)",data/hr/raw/round2/ncs_round2_raw.json,0,0,0,0,0,공공데이터포털 등록 데이터상 대분류 02에 1페이지 10건 외 추가 페이지 미등록 확인

@@ -1,0 +1,91 @@
+{
+  "timestamp": "2026-10-09T23:54:43.204570+00:00",
+  "step": "STEP 3 2차 전처리 및 통합 검증",
+  "dataset_summary": {
+    "total_raw_count": 50,
+    "total_processed_count": 50,
+    "included_count": 9,
+    "review_needed_count": 22,
+    "excluded_count": 19,
+    "sum_check_passed": true
+  },
+  "included_courses": [
+    {
+      "instance_key": "ACG20243000973001_324",
+      "source_api": "국민내일배움카드",
+      "course_name_std": "알베르토와 함께하는 글로벌 비즈니스 매너",
+      "step3_target_job": "총무·비서행정"
+    },
+    {
+      "instance_key": "ACG20243001004189_245",
+      "source_api": "국민내일배움카드",
+      "course_name_std": "기획력, 어떻게 끌리는 플랜을 세울 것인가?",
+      "step3_target_job": "총무·일반사무"
+    },
+    {
+      "instance_key": "ABA20243001045717_58",
+      "source_api": "사업주훈련",
+      "course_name_std": "핵심만 콕! 회사의 가치를 높여주는 홍보전략",
+      "step3_target_job": "총무·홍보지원"
+    },
+    {
+      "instance_key": "ABA20243001011994_6",
+      "source_api": "사업주훈련",
+      "course_name_std": "품격 있게 승리하는 직장인의 말하기 기술",
+      "step3_target_job": "총무·일반사무"
+    },
+    {
+      "instance_key": "ABA20243001012836_203",
+      "source_api": "사업주훈련",
+      "course_name_std": "달콤한 업무꿀팁! 평범한 당신이 비범하게 일하는 기술",
+      "step3_target_job": "총무·일반사무"
+    },
+    {
+      "instance_key": "ABA20243000994834_261",
+      "source_api": "사업주훈련",
+      "course_name_std": "핵심만 콕! 비즈니스 글쓰기와 보고서 작성 노하우",
+      "step3_target_job": "총무·일반사무"
+    },
+    {
+      "instance_key": "ABA20243001049771_3",
+      "source_api": "사업주훈련",
+      "course_name_std": "빨리 배워 바로 쓰는 엑셀 2013",
+      "step3_target_job": "총무·일반사무"
+    },
+    {
+      "instance_key": "ABA20243001011985_5",
+      "source_api": "사업주훈련",
+      "course_name_std": "직장 생존력 UP! 데이터 마인드셋 장착하기",
+      "step3_target_job": "총무·일반사무"
+    },
+    {
+      "instance_key": "ABA20243000972962_324",
+      "source_api": "사업주훈련",
+      "course_name_std": "한달 공부로 실무에 바로 통하는 데이터분석",
+      "step3_target_job": "총무·일반사무"
+    }
+  ],
+  "excluded_breakdown": {
+    "IT·소프트웨어개발": 5,
+    "전기·전자·반도체": 3,
+    "보건·의료·간호": 2,
+    "안전관리·소방": 2,
+    "부동산·투자": 1,
+    "건설·플랜트": 1,
+    "물류·유통(공장물류)": 1,
+    "영업·마케팅": 1,
+    "IT윤리·자격": 1,
+    "경비·청원경찰": 1,
+    "기계·자동차품질": 1
+  },
+  "review_breakdown": {
+    "사회적경제·학사과정": 10,
+    "경영·일반교양": 3,
+    "마케팅·영업기획": 3,
+    "경영기획·프로젝트": 2,
+    "사무·데이터분석(AI)": 2,
+    "인사·리더십코칭": 1,
+    "사내보안·총무지원": 1
+  },
+  "competency_verified_count": 9
+}

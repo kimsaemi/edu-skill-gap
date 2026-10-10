@@ -50,3 +50,6 @@ data/raw/
 .idea/
 .DS_Store
 Thumbs.db
+
+# Nested clone
+edu-skill-gap/

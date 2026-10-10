@@ -1,0 +1,30 @@
+{
+  "total_courses": 295,
+  "mapping_quality": {
+    "verified_core_count": 268,
+    "review_needed_count": 27,
+    "single_competency_courses": 233,
+    "multi_competency_courses": 62,
+    "total_mappings_generated": 358
+  },
+  "level_quality": {
+    "explicit_keyword_count": 30,
+    "inferred_default_count": 265,
+    "beginner_count": 14,
+    "intermediate_count": 265,
+    "advanced_count": 16
+  },
+  "fee_and_hours_quality": {
+    "free_count": 64,
+    "standard_paid_count": 165,
+    "unspecified_fee_count": 65,
+    "outlier_fee_count": 1,
+    "recorded_hours_count": 112,
+    "missing_hours_count": 183
+  },
+  "recommendation_readiness": {
+    "tier1_ready": 205,
+    "tier2_conditional": 89,
+    "excluded_outlier": 1
+  }
+}

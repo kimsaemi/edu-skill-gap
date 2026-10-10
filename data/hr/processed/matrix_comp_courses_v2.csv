@@ -1,0 +1,8 @@
+﻿competency_id,competency_name,ksa_type,round1_course_count,round1_status,round2_course_count,round2_status,increase
+COMP_HR_01,인력채용,Skill,0,사각지대(0건),26,충분 공급,+26건
+COMP_HR_02,인사평가 및 보상,Knowledge,0,사각지대(0건),20,충분 공급,+20건
+COMP_LABOR_01,근로관계 법률 준수,Knowledge,0,사각지대(0건),20,충분 공급,+20건
+COMP_GA_01,문서작성 및 기획,Skill,7,교육 연결,8,공급 개시,+1건
+COMP_GA_02,비품 및 자산관리,Skill,0,사각지대(0건),20,충분 공급,+20건
+COMP_SEC_01,비즈니스 매너 및 커뮤니케이션,Attitude,2,교육 연결,2,공급 개시,0건
+COMP_MGMT_01,애자일 프로젝트 관리,Skill,0,사각지대(0건),0,사각지대,0건
