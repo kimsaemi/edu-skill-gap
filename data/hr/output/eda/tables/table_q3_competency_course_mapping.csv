@@ -1,0 +1,8 @@
+﻿competency_id,course_count,competency_name,ksa_type
+COMP_HR_01,104,인력채용,Skill
+COMP_GA_01,101,문서작성 및 기획,Skill
+COMP_LABOR_01,42,근로관계 법률 준수,Knowledge
+COMP_HR_02,22,인사평가 및 보상,Knowledge
+COMP_GA_02,20,비품 및 자산관리,Skill
+COMP_SEC_01,6,비즈니스 매너 및 커뮤니케이션,Attitude
+COMP_MGMT_01,0,애자일 프로젝트 관리,Skill

@@ -152,6 +152,14 @@ def run_step3_extension():
 
     integrated_candidates = []
 
+    # Round 1 이력 파일 로드
+    df_eda_r1 = pd.read_csv(PROCESSED_DIR / "hr_courses_eda.csv", dtype=str)
+    df_exc_r1 = pd.read_csv(PROCESSED_DIR / "hr_courses_excluded.csv", dtype=str)
+    df_rev_r1 = pd.read_csv(PROCESSED_DIR / "hr_courses_review.csv", dtype=str)
+    r1_eda_keys = set(df_eda_r1["instance_key"])
+    r1_exc_keys = set(df_exc_r1["instance_key"])
+    r1_rev_keys = set(df_rev_r1["instance_key"])
+
     # [1] API 140건 변환
     for _, r in df_api_all.iterrows():
         key = str(r["instance_key"])
@@ -161,28 +169,56 @@ def run_step3_extension():
         c_name = clean_text(r["course_name_std"])
         inst_name = clean_text(r["institution_name_std"])
         ncs_cd = str(r.get("ncs_classification_code", "")).zfill(8) if pd.notna(r.get("ncs_classification_code")) and str(r.get("ncs_classification_code")).strip() != "" else np.nan
-        
-        status = str(r.get("step3_status", "REVIEW_NEEDED"))
-        if pd.isna(status) or status == "" or status == "nan":
-            status = "REVIEW_NEEDED"
-            
-        target_job = str(r.get("step3_target_job", ""))
-        
-        # job_group & job_category 세분화
-        if "인사" in target_job or "채용" in target_job:
-            jg, jc = "인사(HR)", "인사·채용관리"
-        elif "노무" in target_job or "근로" in target_job:
-            jg, jc = "인사(HR)", "노무관리"
-        elif "평가" in target_job:
-            jg, jc = "인사(HR)", "인사·평가보상"
-        elif "자산" in target_job or "비품" in target_job:
-            jg, jc = "총무·사무행정", "총무·자산관리"
-        elif "총무" in target_job or "사무" in target_job:
-            jg, jc = "총무·사무행정", "총무·일반사무"
-        elif status == "EXCLUDED":
-            jg, jc = "비관련(타분야)", "타직종제외"
+        r_round = str(r.get("round", ""))
+
+        if "1차" in r_round:
+            if key in r1_eda_keys:
+                status = "INCLUDED"
+                jg, jc = "총무·사무행정", "총무·일반사무"
+                m_stat = "REVIEW_NEEDED"
+                m_ev = "1차 수집 직무 적합(총무) 확정, 상세 KSA 매핑은 보조 검토 대상"
+            elif key in r1_exc_keys:
+                status = "EXCLUDED"
+                jg, jc = "비관련(타분야)", "타직종제외"
+                m_stat = "UNSUPPORTED"
+                m_ev = "인사·총무 직무 범위 외 타 분야 강좌"
+            else:
+                status = "REVIEW_NEEDED"
+                jg, jc = "인접/검토", "학사과정/인접기획"
+                m_stat = "REVIEW_NEEDED"
+                m_ev = "대학 학사과정 또는 인접 영역으로 추가 검토 필요"
         else:
-            jg, jc = "인접/검토", "학사과정/인접기획"
+            status = str(r.get("step3_status", "REVIEW_NEEDED"))
+            if pd.isna(status) or status == "" or status == "nan":
+                status = "REVIEW_NEEDED"
+                
+            target_job = str(r.get("step3_target_job", ""))
+            
+            # job_group & job_category 세분화
+            if "인사" in target_job or "채용" in target_job:
+                jg, jc = "인사(HR)", "인사·채용관리"
+            elif "노무" in target_job or "근로" in target_job:
+                jg, jc = "인사(HR)", "노무관리"
+            elif "평가" in target_job:
+                jg, jc = "인사(HR)", "인사·평가보상"
+            elif "자산" in target_job or "비품" in target_job:
+                jg, jc = "총무·사무행정", "총무·자산관리"
+            elif "총무" in target_job or "사무" in target_job:
+                jg, jc = "총무·사무행정", "총무·일반사무"
+            elif status == "EXCLUDED":
+                jg, jc = "비관련(타분야)", "타직종제외"
+            else:
+                jg, jc = "인접/검토", "학사과정/인접기획"
+
+            if status == "INCLUDED":
+                m_stat = "VERIFIED"
+                m_ev = f"공공 API 실측 수집 및 '{c_name}' 과정명·직무역량 일치 확인"
+            elif status == "EXCLUDED":
+                m_stat = "UNSUPPORTED"
+                m_ev = "인사·총무 직무 범위 외 타 분야 강좌로 역량 매핑 대상 아님"
+            else:
+                m_stat = "REVIEW_NEEDED"
+                m_ev = "대학 학사과정 또는 인접 영역으로 추가 검토 필요"
 
         # 수강료
         fee = r.get("cost_total")
