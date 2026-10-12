@@ -106,6 +106,34 @@ def load_main_datasets():
     p_summary_job = DATA_RECOM / "summary_job_family_stats.csv"
     df_summary_job = pd.read_csv(p_summary_job) if p_summary_job.exists() else pd.DataFrame()
 
+    # 7. STEP 8 군집화 및 하이브리드 추천 데이터셋
+    p_k_comp = DATA_RECOM / "cluster_metrics_comparison_k_values.csv"
+    df_k_comp = pd.read_csv(p_k_comp) if p_k_comp.exists() else pd.DataFrame()
+
+    p_c8_summary = DATA_RECOM / "integrated_cluster_summary_k8.csv"
+    df_c8_summary = pd.read_csv(p_c8_summary) if p_c8_summary.exists() else pd.DataFrame()
+
+    p_c8_top10 = DATA_RECOM / "integrated_cluster_top10_keywords.csv"
+    df_c8_top10 = pd.read_csv(p_c8_top10) if p_c8_top10.exists() else pd.DataFrame()
+
+    p_c8_rep = DATA_RECOM / "integrated_cluster_rep_courses.csv"
+    df_c8_rep = pd.read_csv(p_c8_rep) if p_c8_rep.exists() else pd.DataFrame()
+
+    p_c8_courses = DATA_RECOM / "integrated_course_clusters_k8.csv"
+    df_c8_courses = pd.read_csv(p_c8_courses) if p_c8_courses.exists() else pd.DataFrame()
+
+    p_hybrid_eval = DATA_RECOM / "hybrid_recommendation_evaluated_benchmark.csv"
+    df_hybrid_eval = pd.read_csv(p_hybrid_eval) if p_hybrid_eval.exists() else pd.DataFrame()
+
+    p_r295_summary = DATA_RECOM / "reproduced_295_cluster_summary_k8.csv"
+    df_r295_summary = pd.read_csv(p_r295_summary) if p_r295_summary.exists() else pd.DataFrame()
+
+    p_r295_bench = DATA_RECOM / "reproduced_295_hybrid_benchmark.csv"
+    df_r295_bench = pd.read_csv(p_r295_bench) if p_r295_bench.exists() else pd.DataFrame()
+
+    p_sim_top5 = DATA_RECOM / "pilot_course_to_course_top5.csv"
+    df_sim_top5 = pd.read_csv(p_sim_top5) if p_sim_top5.exists() else pd.DataFrame()
+
     return {
         "df_main": df_main,
         "df_step4": df_step4,
@@ -122,7 +150,16 @@ def load_main_datasets():
         "df_pivot_wide": df_pivot_wide,
         "df_summary_prov": df_summary_prov,
         "df_summary_comp": df_summary_comp,
-        "df_summary_job": df_summary_job
+        "df_summary_job": df_summary_job,
+        "df_k_comp": df_k_comp,
+        "df_c8_summary": df_c8_summary,
+        "df_c8_top10": df_c8_top10,
+        "df_c8_rep": df_c8_rep,
+        "df_c8_courses": df_c8_courses,
+        "df_hybrid_eval": df_hybrid_eval,
+        "df_r295_summary": df_r295_summary,
+        "df_r295_bench": df_r295_bench,
+        "df_sim_top5": df_sim_top5
     }
 
 @st.cache_resource(show_spinner=False)
@@ -177,14 +214,15 @@ st.markdown(
     "TF-IDF 핵심 키워드, TF-IDF vs BM25 어휘 검색 벤치마크 및 데이터 품질 정제 결과를 통합 시각화합니다."
 )
 
-tab1, tab2, tab3, tab4, tab5, tab6, tab7 = st.tabs([
+tab1, tab2, tab3, tab4, tab5, tab6, tab7, tab8 = st.tabs([
     "📊 탭 1. 교육 데이터 현황",
     "📈 탭 2. EDA 분석 (STEP 4 & 5)",
     "🧠 탭 3. NCS·KSA 역량 분석",
     "🔑 탭 4. 교육과정 키워드 분석",
     "🔍 탭 5. TF-IDF vs BM25 검색 벤치마크",
     "🛡️ 탭 6. 데이터 품질 및 이상치 관리",
-    "📐 탭 7. Long/Wide-form 구조화 & 교차집계"
+    "📐 탭 7. Long/Wide-form 구조화 & 교차집계",
+    "🎯 탭 8. 군집 분석 & 하이브리드 추천"
 ])
 
 # ------------------------------------------------------------------------------
@@ -1096,4 +1134,211 @@ with tab7:
             "- **장점**: 한눈에 전체 역량 보유 프로필 조망 가능, 행렬 연산 및 기계학습 모델 입력에 최적화\n"
             "- **용도**: Scikit-learn 특성 행렬(X), 추천 코사인 유사도 연산, 엑셀/스프레드시트 보고서"
         )
+
+# ------------------------------------------------------------------------------
+# 탭 8: 군집 분석 & 하이브리드 추천 엔진
+# ------------------------------------------------------------------------------
+with tab8:
+    st.subheader("🎯 탭 8. K-Means 군집 분석 & 하이브리드 추천 엔진 (LSA + BM25)")
+    st.caption(
+        "팀원(d2ochi06)의 NLP 군집화·추천 프로토타입을 안전하게 검증·재현하고, 통합 코퍼스(8,645건)로 연계 확장하여 "
+        "다차원 K-Means 군집화와 정규화 및 다회차 중복 제거가 적용된 하이브리드 추천을 제공합니다."
+    )
+
+    df_k_comp = datasets["df_k_comp"]
+    df_c8_summary = datasets["df_c8_summary"]
+    df_c8_top10 = datasets["df_c8_top10"]
+    df_c8_rep = datasets["df_c8_rep"]
+    df_c8_courses = datasets["df_c8_courses"]
+    df_hybrid_eval = datasets["df_hybrid_eval"]
+    df_r295_summary = datasets["df_r295_summary"]
+    df_r295_bench = datasets["df_r295_bench"]
+    df_sim_top5 = datasets["df_sim_top5"]
+
+    # 상단 데이터셋 선택 토글
+    data_mode = st.radio(
+        "🔎 분석 대상 데이터셋 선택:",
+        options=["통합 코퍼스 확장 (8,645건 대상)", "팀원 프로토타입 표본 (295건 재현)"],
+        horizontal=True,
+        key="tab8_data_mode"
+    )
+
+    st.markdown("---")
+
+    if data_mode == "통합 코퍼스 확장 (8,645건 대상)":
+        # 1. k값 비교 평가
+        st.markdown("#### 1. K-Means 최적 군집 수($k$) 비교 평가 (k = 5, 6, 8, 10, 12)")
+        col_k1, col_k2 = st.columns([3, 2])
+        
+        with col_k1:
+            if not df_k_comp.empty:
+                fig_k = go.Figure()
+                fig_k.add_trace(go.Scatter(
+                    x=df_k_comp["k"], y=df_k_comp["silhouette_cosine"],
+                    mode="lines+markers", name="실루엣 점수 (코사인)",
+                    line=dict(color="#1A73E8", width=3)
+                ))
+                fig_k.update_layout(
+                    title="군집 수 k별 코사인 실루엣 점수 추이",
+                    xaxis_title="군집 수 (k)",
+                    yaxis_title="Silhouette Score (높을수록 좋음)",
+                    template="plotly_white"
+                )
+                st.plotly_chart(fig_k, use_container_width=True)
+
+        with col_k2:
+            if not df_k_comp.empty:
+                st.dataframe(
+                    df_k_comp[["k", "silhouette_cosine", "inertia", "min_cluster_size", "max_cluster_size"]],
+                    column_config={
+                        "k": "군집 수 k",
+                        "silhouette_cosine": st.column_config.NumberColumn("실루엣 점수", format="%.4f"),
+                        "inertia": st.column_config.NumberColumn("Inertia", format="%.1f"),
+                        "min_cluster_size": st.column_config.NumberColumn("최소 군집 크기", format="%d건"),
+                        "max_cluster_size": st.column_config.NumberColumn("최대 군집 크기", format="%d건")
+                    },
+                    hide_index=True,
+                    use_container_width=True
+                )
+            st.info("💡 **선정 배경**: 팀원의 기존 분류 체계(k=8)와의 연속성을 유지하면서 직무 세분화 및 해석 가능성을 종합 고려하여 기준 모델로 k=8을 적용했습니다.")
+
+        st.markdown("---")
+
+        # 2. 8대 직무 군집 현황
+        st.markdown("#### 2. 8대 직무 군집(Cluster) 현황 및 대표 키워드")
+        st.warning("⚠️ **주의**: 아래 군집명은 비지도학습(K-Means)으로 자동 도출된 **'분석용 임시 명칭'**이며, 공식 국가직무능력표준(NCS) 분류 체계가 아닙니다.")
+
+        if not df_c8_summary.empty:
+            col_b1, col_b2 = st.columns([3, 2])
+            with col_b1:
+                fig_c8 = px.bar(
+                    df_c8_summary,
+                    x="n_courses",
+                    y="temporary_name",
+                    orientation="h",
+                    text="n_courses",
+                    color="n_courses",
+                    color_continuous_scale="Blues",
+                    title="8대 군집별 교육과정 규모 (건수)",
+                    labels={"n_courses": "과정 수", "temporary_name": "군집 (임시 명칭)"},
+                    template="plotly_white"
+                )
+                fig_c8.update_traces(texttemplate="%{text:,}건", textposition="outside")
+                fig_c8.update_layout(yaxis={"autorange": "reversed"}, coloraxis_showscale=False)
+                st.plotly_chart(fig_c8, use_container_width=True)
+
+            with col_b2:
+                st.dataframe(
+                    df_c8_summary[["temporary_name", "n_courses", "ratio_pct", "top_10_keywords"]],
+                    column_config={
+                        "temporary_name": "군집 임시 명칭",
+                        "n_courses": st.column_config.NumberColumn("과정 수", format="%d건"),
+                        "ratio_pct": st.column_config.NumberColumn("비중", format="%.1f%%"),
+                        "top_10_keywords": "Top 10 핵심 키워드"
+                    },
+                    hide_index=True,
+                    use_container_width=True
+                )
+
+        st.markdown("---")
+
+        # 3. 군집별 대표 교육과정 탐색기
+        st.markdown("#### 3. 군집별 중심 대표 교육과정 (Centroid 기준 Top 5)")
+        if not df_c8_rep.empty and not df_c8_summary.empty:
+            sel_c_id = st.selectbox(
+                "조회할 군집 선택:",
+                options=df_c8_summary["cluster_id"].tolist(),
+                format_func=lambda x: df_c8_summary.loc[df_c8_summary["cluster_id"] == x, "temporary_name"].iloc[0]
+            )
+            rep_subset = df_c8_rep[df_c8_rep["cluster_id"] == sel_c_id]
+            st.dataframe(
+                rep_subset[["representative_rank", "title", "provider", "price", "duration_hours", "centroid_cosine_similarity"]],
+                column_config={
+                    "representative_rank": "순위",
+                    "title": "과정명",
+                    "provider": "교육기관",
+                    "price": st.column_config.NumberColumn("수강료", format="%d원"),
+                    "duration_hours": st.column_config.NumberColumn("교육시간", format="%.1f시간"),
+                    "centroid_cosine_similarity": st.column_config.NumberColumn("중심점 코사인 유사도", format="%.4f")
+                },
+                hide_index=True,
+                use_container_width=True
+            )
+
+        st.markdown("---")
+
+        # 4. 하이브리드 추천 엔진 벤치마크 (5대 실무 시나리오)
+        st.markdown("#### 4. AI 하이브리드 추천 엔진 벤치마크 (5대 실무 시나리오)")
+        st.markdown(
+            "> **수식 검토 및 보정**: $\\text{최종 추천 점수} = (0.50 \\times \\text{LSA 의미}) + (0.35 \\times \\text{BM25 키워드}) + (0.15 \\times \\text{평점 신뢰성})$\n"
+            "> - **개선 사항**: BM25 및 LSA 원점수를 [0, 100] Min-Max 정규화 적용\n"
+            "> - **평점 결측 보정**: 평점이 없는 공공/신규 강좌는 Bayesian 중립값(80점) 부여\n"
+            "> - **다회차 중복 제거**: 동일 강좌 반복 개설건을 배제하고 고유 과정만 상위 추천"
+        )
+
+        if not df_hybrid_eval.empty:
+            scenarios = df_hybrid_eval["scenario"].drop_duplicates().tolist()
+            sel_sc = st.selectbox("실무 시나리오 선택:", options=scenarios)
+            sc_subset = df_hybrid_eval[df_hybrid_eval["scenario"] == sel_sc]
+            
+            if not sc_subset.empty:
+                q_text = sc_subset.iloc[0]["query"]
+                dom = sc_subset.iloc[0]["target_domain"]
+                st.info(f"**실무 질문**: \"{q_text}\" (타겟 직무: {dom})")
+
+                st.dataframe(
+                    sc_subset[[
+                        "rank", "title", "provider", "final_hybrid_score",
+                        "lsa_dense_score", "bm25_sparse_score", "price", "duration_hours"
+                    ]],
+                    column_config={
+                        "rank": "추천 순위",
+                        "title": "추천 교육과정",
+                        "provider": "교육기관",
+                        "final_hybrid_score": st.column_config.NumberColumn("종합 점수", format="%.1f점"),
+                        "lsa_dense_score": st.column_config.NumberColumn("LSA 의미 점수 (50%)", format="%.1f점"),
+                        "bm25_sparse_score": st.column_config.NumberColumn("BM25 키워드 점수 (35%)", format="%.1f점"),
+                        "price": st.column_config.NumberColumn("수강료", format="%d원"),
+                        "duration_hours": st.column_config.NumberColumn("교육시간", format="%.1f시간")
+                    },
+                    hide_index=True,
+                    use_container_width=True
+                )
+
+    else:
+        # 295건 프로토타입 재현 화면
+        st.markdown("#### 🧪 팀원 295건 표본 원본 재현 결과")
+        st.caption("팀원(d2ochi06)의 마리모 노트북 실행 결과를 동일한 295건 입력 데이터와 파라미터로 100% 재현한 대조 화면입니다.")
+
+        col_r1, col_r2 = st.columns(2)
+        with col_r1:
+            st.markdown("##### (1) 재현된 K-Means 8대 군집 요약")
+            if not df_r295_summary.empty:
+                st.dataframe(
+                    df_r295_summary[["cluster", "n_courses", "top_keywords"]],
+                    column_config={
+                        "cluster": "군집 ID",
+                        "n_courses": st.column_config.NumberColumn("과정 수", format="%d건"),
+                        "top_keywords": "대표 키워드"
+                    },
+                    hide_index=True,
+                    use_container_width=True
+                )
+
+        with col_r2:
+            st.markdown("##### (2) 3대 시나리오 하이브리드 추천 재현")
+            if not df_r295_bench.empty:
+                st.dataframe(
+                    df_r295_bench[["scenario", "rank", "course_title", "final_score", "semantic_sim", "bm25_score"]],
+                    column_config={
+                        "scenario": "시나리오",
+                        "rank": "순위",
+                        "course_title": "과정명",
+                        "final_score": st.column_config.NumberColumn("종합 점수", format="%.1f점"),
+                        "semantic_sim": st.column_config.NumberColumn("의미 유사도", format="%.1f"),
+                        "bm25_score": st.column_config.NumberColumn("BM25", format="%.1f")
+                    },
+                    hide_index=True,
+                    use_container_width=True
+                )
 

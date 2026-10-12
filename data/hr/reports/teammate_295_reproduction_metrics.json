@@ -1,0 +1,19 @@
+{
+  "status": "REPRODUCED_SUCCESS",
+  "input_courses_count": 295,
+  "vocab_size": 1203,
+  "k_clusters": 8,
+  "silhouette_score_cosine": 0.0452,
+  "cluster_distribution": {
+    "5": 86,
+    "3": 53,
+    "0": 45,
+    "1": 32,
+    "2": 31,
+    "7": 20,
+    "4": 16,
+    "6": 12
+  },
+  "benchmark_scenarios_tested": 3,
+  "execution_time_sec": 2.48
+}
