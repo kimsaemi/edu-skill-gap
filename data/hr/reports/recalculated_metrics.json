@@ -1,0 +1,329 @@
+{
+  "summary": {
+    "total_queries": 15,
+    "top1_uid_match_count": 3,
+    "top1_uid_match_rate": 20.0,
+    "top1_name_match_count": 5,
+    "top1_name_match_rate": 33.33,
+    "mean_overlap_count": 4.27,
+    "mean_jaccard_uid": 30.63,
+    "mean_jaccard_name": 35.53
+  },
+  "query_details": [
+    {
+      "query_id": "Q01",
+      "query": "신입사원 온보딩 및 채용 프로세스 실무",
+      "category": "인사",
+      "tfidf_top1": {
+        "uid": "HUNET_Y00245649",
+        "name": "핵심만 콕! 신입사원 온보딩",
+        "score": 0.7379
+      },
+      "bm25_top1": {
+        "uid": "HUNET_Y00245649",
+        "name": "핵심만 콕! 신입사원 온보딩",
+        "score": 28.3851
+      },
+      "uid_match": true,
+      "name_match": true,
+      "top10_overlap_count": 3,
+      "top10_overlap_pct": 30.0,
+      "top10_jaccard_uid": 0.1765,
+      "top10_jaccard_name": 0.25
+    },
+    {
+      "query_id": "Q02",
+      "query": "근로기준법 개정사항 및 취업규칙 작성 실무",
+      "category": "인사",
+      "tfidf_top1": {
+        "uid": "PUB_ACG20243001036448_16",
+        "name": "실무사례로 알아보는 근로기준법",
+        "score": 0.4383
+      },
+      "bm25_top1": {
+        "uid": "GSEEK_2835",
+        "name": "인생 봄날 만드는 똑똑한 근로계약서",
+        "score": 17.5026
+      },
+      "uid_match": false,
+      "name_match": false,
+      "top10_overlap_count": 0,
+      "top10_overlap_pct": 0.0,
+      "top10_jaccard_uid": 0.0,
+      "top10_jaccard_name": 0.0
+    },
+    {
+      "query_id": "Q03",
+      "query": "연말정산 및 4대보험 급여 계산 실무",
+      "category": "인사",
+      "tfidf_top1": {
+        "uid": "KMA_111436_125946",
+        "name": "[여의도] 경영관리 신입사원을 위한 인사·회계·법무 입문",
+        "score": 0.3284
+      },
+      "bm25_top1": {
+        "uid": "KMA_111436_125946",
+        "name": "[여의도] 경영관리 신입사원을 위한 인사·회계·법무 입문",
+        "score": 30.2476
+      },
+      "uid_match": true,
+      "name_match": true,
+      "top10_overlap_count": 7,
+      "top10_overlap_pct": 70.0,
+      "top10_jaccard_uid": 0.5385,
+      "top10_jaccard_name": 0.5556
+    },
+    {
+      "query_id": "Q04",
+      "query": "직무분석 및 KPI 성과평가 보상체계 설계",
+      "category": "인사",
+      "tfidf_top1": {
+        "uid": "HUNET_Y00260424",
+        "name": "인재 밀도를 UP시키는 성과 평가 ＆ 보상 전략",
+        "score": 0.3334
+      },
+      "bm25_top1": {
+        "uid": "KPC_47022_157546",
+        "name": "[DX&AI] 평가보상 설계 실무(밀코비치 기반)",
+        "score": 28.9616
+      },
+      "uid_match": false,
+      "name_match": false,
+      "top10_overlap_count": 2,
+      "top10_overlap_pct": 20.0,
+      "top10_jaccard_uid": 0.1111,
+      "top10_jaccard_name": 0.25
+    },
+    {
+      "query_id": "Q05",
+      "query": "부당해고 구제신청 및 노사관계 노무관리",
+      "category": "인사",
+      "tfidf_top1": {
+        "uid": "KPC_47007_149787",
+        "name": "[온앤오프] 현장노무담당자 역량강화",
+        "score": 0.2491
+      },
+      "bm25_top1": {
+        "uid": "KPC_47007_149788",
+        "name": "[온앤오프] 현장노무담당자 역량강화",
+        "score": 24.345
+      },
+      "uid_match": false,
+      "name_match": true,
+      "top10_overlap_count": 2,
+      "top10_overlap_pct": 20.0,
+      "top10_jaccard_uid": 0.1111,
+      "top10_jaccard_name": 0.1429
+    },
+    {
+      "query_id": "Q06",
+      "query": "비품 구매 계약 및 공급업체 관리",
+      "category": "총무",
+      "tfidf_top1": {
+        "uid": "KMA_111486_126126",
+        "name": "[여의도] 협력업체 관리실무",
+        "score": 0.2522
+      },
+      "bm25_top1": {
+        "uid": "KMA_111486_126126",
+        "name": "[여의도] 협력업체 관리실무",
+        "score": 17.3111
+      },
+      "uid_match": true,
+      "name_match": true,
+      "top10_overlap_count": 8,
+      "top10_overlap_pct": 80.0,
+      "top10_jaccard_uid": 0.6667,
+      "top10_jaccard_name": 0.5
+    },
+    {
+      "query_id": "Q07",
+      "query": "고정자산 실사 및 사옥 시설관리",
+      "category": "총무",
+      "tfidf_top1": {
+        "uid": "KPC_47745_152336",
+        "name": "부동산시설유지관리실무",
+        "score": 0.3313
+      },
+      "bm25_top1": {
+        "uid": "KPC_45994_151714",
+        "name": "[온앤오프] 자산 관리 기본",
+        "score": 18.0552
+      },
+      "uid_match": false,
+      "name_match": false,
+      "top10_overlap_count": 9,
+      "top10_overlap_pct": 90.0,
+      "top10_jaccard_uid": 0.8182,
+      "top10_jaccard_name": 0.8
+    },
+    {
+      "query_id": "Q08",
+      "query": "공문서 작성법 및 기획보고서 피드백",
+      "category": "총무",
+      "tfidf_top1": {
+        "uid": "KPC_47901_156230",
+        "name": "[공공기관] 생성형AI 활용 공공문서 작성실무",
+        "score": 0.4758
+      },
+      "bm25_top1": {
+        "uid": "KPC_47901_152798",
+        "name": "[공공기관] 생성형AI 활용 공공문서 작성실무",
+        "score": 21.2369
+      },
+      "uid_match": false,
+      "name_match": true,
+      "top10_overlap_count": 6,
+      "top10_overlap_pct": 60.0,
+      "top10_jaccard_uid": 0.4286,
+      "top10_jaccard_name": 0.75
+    },
+    {
+      "query_id": "Q09",
+      "query": "엑셀 실무 데이터 가공 및 함수 활용",
+      "category": "총무",
+      "tfidf_top1": {
+        "uid": "HUNET_Y00339583",
+        "name": "일잘러의 엑셀 스킬! 함수&수식 마스터",
+        "score": 0.3794
+      },
+      "bm25_top1": {
+        "uid": "KPC_47586_152054",
+        "name": "[엑셀데이터활용] Power BI를 활용한 데이터 시각화_심화",
+        "score": 21.6107
+      },
+      "uid_match": false,
+      "name_match": false,
+      "top10_overlap_count": 3,
+      "top10_overlap_pct": 30.0,
+      "top10_jaccard_uid": 0.1765,
+      "top10_jaccard_name": 0.2727
+    },
+    {
+      "query_id": "Q10",
+      "query": "사내 행사 기획 및 워크숍 운영 총무 실무",
+      "category": "총무",
+      "tfidf_top1": {
+        "uid": "PUB_ABA20243001012836_203",
+        "name": "달콤한 업무꿀팁! 평범한 당신이 비범하게 일하는 기술",
+        "score": 0.2807
+      },
+      "bm25_top1": {
+        "uid": "KPC_47246_151699",
+        "name": "[온앤오프] 총무 업무 기본",
+        "score": 23.4303
+      },
+      "uid_match": false,
+      "name_match": false,
+      "top10_overlap_count": 2,
+      "top10_overlap_pct": 20.0,
+      "top10_jaccard_uid": 0.1111,
+      "top10_jaccard_name": 0.1667
+    },
+    {
+      "query_id": "Q11",
+      "query": "비즈니스 매너 및 사내 커뮤니케이션 에티켓",
+      "category": "경영지원",
+      "tfidf_top1": {
+        "uid": "KPC_47464_151642",
+        "name": "글로벌 비즈니스 매너",
+        "score": 0.4376
+      },
+      "bm25_top1": {
+        "uid": "GSEEK_51955",
+        "name": "[레전드 스킬] 어쩐지 끌리는 사람의 비즈니스 매너",
+        "score": 23.9817
+      },
+      "uid_match": false,
+      "name_match": false,
+      "top10_overlap_count": 2,
+      "top10_overlap_pct": 20.0,
+      "top10_jaccard_uid": 0.1111,
+      "top10_jaccard_name": 0.2222
+    },
+    {
+      "query_id": "Q12",
+      "query": "임원 비서 실무 및 의전 가이드",
+      "category": "경영지원",
+      "tfidf_top1": {
+        "uid": "KMA_111725_127445",
+        "name": "L.E.A.D. 임원역량과정",
+        "score": 0.4062
+      },
+      "bm25_top1": {
+        "uid": "KPC_47246_151699",
+        "name": "[온앤오프] 총무 업무 기본",
+        "score": 21.1746
+      },
+      "uid_match": false,
+      "name_match": false,
+      "top10_overlap_count": 5,
+      "top10_overlap_pct": 50.0,
+      "top10_jaccard_uid": 0.3333,
+      "top10_jaccard_name": 0.3077
+    },
+    {
+      "query_id": "Q13",
+      "query": "애자일 프로젝트 관리 및 스크럼 스프린트",
+      "category": "경영지원",
+      "tfidf_top1": {
+        "uid": "MULTICAMPUS_FA01FS",
+        "name": "실습으로 배우는 1Day 애자일 프로젝트 관리",
+        "score": 0.6907
+      },
+      "bm25_top1": {
+        "uid": "KPC_47875_152760",
+        "name": "Agile 프로젝트 관리 실무",
+        "score": 25.8398
+      },
+      "uid_match": false,
+      "name_match": false,
+      "top10_overlap_count": 4,
+      "top10_overlap_pct": 40.0,
+      "top10_jaccard_uid": 0.25,
+      "top10_jaccard_name": 0.25
+    },
+    {
+      "query_id": "Q14",
+      "query": "사업계획서 수립 및 재무제표 분석 기초",
+      "category": "경영지원",
+      "tfidf_top1": {
+        "uid": "GSEEK_3216",
+        "name": "[창업공통]창업 트렌드 분석과 전략적 사업계획서 작성하기",
+        "score": 0.3915
+      },
+      "bm25_top1": {
+        "uid": "KPC_47082_149937",
+        "name": "추정재무제표작성 및 현금흐름표활용기초",
+        "score": 21.69
+      },
+      "uid_match": false,
+      "name_match": false,
+      "top10_overlap_count": 5,
+      "top10_overlap_pct": 50.0,
+      "top10_jaccard_uid": 0.3333,
+      "top10_jaccard_name": 0.4
+    },
+    {
+      "query_id": "Q15",
+      "query": "주52시간 근로시간 관리 및 유연근무제 운영",
+      "category": "경영지원",
+      "tfidf_top1": {
+        "uid": "HUNET_Y00099166",
+        "name": "핵심만 쏙! 주52시간 근무제와 HR의 변화",
+        "score": 0.2813
+      },
+      "bm25_top1": {
+        "uid": "KMA_111446_125985",
+        "name": "[여의도] HR 실무자를 위한 근로시간 및 연차휴가 관리 실전 노하우",
+        "score": 17.96
+      },
+      "uid_match": false,
+      "name_match": false,
+      "top10_overlap_count": 6,
+      "top10_overlap_pct": 60.0,
+      "top10_jaccard_uid": 0.4286,
+      "top10_jaccard_name": 0.4615
+    }
+  ]
+}

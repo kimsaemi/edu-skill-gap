@@ -1,0 +1,105 @@
+{
+  "top_10_longest": [
+    {
+      "course_uid": "KPC_46980_149684",
+      "provider": "한국생산성본부(KPC)",
+      "title": "성과관리실무",
+      "session_id": "",
+      "total_chars": 2711778,
+      "intro_len": 1355470,
+      "goals_len": 1355470,
+      "curric_len": 772
+    },
+    {
+      "course_uid": "KPC_46996_149756",
+      "provider": "한국생산성본부(KPC)",
+      "title": "[온앤오프] 근로기준법실무",
+      "session_id": "",
+      "total_chars": 2036574,
+      "intro_len": 1017732,
+      "goals_len": 1017732,
+      "curric_len": 1055
+    },
+    {
+      "course_uid": "KPC_46996_149757",
+      "provider": "한국생산성본부(KPC)",
+      "title": "[온앤오프] 근로기준법실무",
+      "session_id": "",
+      "total_chars": 2036574,
+      "intro_len": 1017732,
+      "goals_len": 1017732,
+      "curric_len": 1055
+    },
+    {
+      "course_uid": "KPC_46996_149758",
+      "provider": "한국생산성본부(KPC)",
+      "title": "[온앤오프] 근로기준법실무",
+      "session_id": "",
+      "total_chars": 2036574,
+      "intro_len": 1017732,
+      "goals_len": 1017732,
+      "curric_len": 1055
+    },
+    {
+      "course_uid": "KPC_46996_149759",
+      "provider": "한국생산성본부(KPC)",
+      "title": "[온앤오프] 근로기준법실무",
+      "session_id": "",
+      "total_chars": 2036574,
+      "intro_len": 1017732,
+      "goals_len": 1017732,
+      "curric_len": 1055
+    },
+    {
+      "course_uid": "KPC_46976_157561",
+      "provider": "한국생산성본부(KPC)",
+      "title": "인사평가시스템 구축실무",
+      "session_id": "",
+      "total_chars": 1822231,
+      "intro_len": 910477,
+      "goals_len": 910477,
+      "curric_len": 1184
+    },
+    {
+      "course_uid": "KPC_46976_149676",
+      "provider": "한국생산성본부(KPC)",
+      "title": "인사평가시스템 구축실무",
+      "session_id": "",
+      "total_chars": 1822231,
+      "intro_len": 910477,
+      "goals_len": 910477,
+      "curric_len": 1184
+    },
+    {
+      "course_uid": "KPC_46976_157562",
+      "provider": "한국생산성본부(KPC)",
+      "title": "인사평가시스템 구축실무",
+      "session_id": "",
+      "total_chars": 1822231,
+      "intro_len": 910477,
+      "goals_len": 910477,
+      "curric_len": 1184
+    },
+    {
+      "course_uid": "KPC_46998_149779",
+      "provider": "한국생산성본부(KPC)",
+      "title": "Case Story와 함께하는 노무관리",
+      "session_id": "",
+      "total_chars": 1666034,
+      "intro_len": 832625,
+      "goals_len": 832625,
+      "curric_len": 729
+    },
+    {
+      "course_uid": "KPC_46977_149664",
+      "provider": "한국생산성본부(KPC)",
+      "title": "[온앤오프] 직무분석실무",
+      "session_id": "",
+      "total_chars": 1600787,
+      "intro_len": 799990,
+      "goals_len": 799990,
+      "curric_len": 738
+    }
+  ],
+  "sample_snippet": "◆ 교육목표\n- 자사에 맞는 성과관리시스템 설계 및 운용방향 제시\n- 성과목표설정 및 실행진도관리방법 제시\n- 성과관리시스템 구축사례를 통한 평가 및 피드백 방법 능력 배양\n[이미지] https://www.kpc.or.krdata:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAtAAAAZsCAYAAAAgELCBAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAP+lSURBVHhe7L0FoCfLVedfI9d9XJ9FCe4SPLgG2MUDy+KLa4IkBAgSgkPw/eOwiyxZXJbFCQ4h8vJk3rw3LtddZ/7nc06d7urq7t/vd+/MJAvhe2/9uurUqVOnpKtPV1dX77t69ertINjHD7/mCbdv31bv+uZWmF5YDlvbt8LBAwfD3Oz1sLq2FoYGR8Kxw4fCocmxsG/f7bC1tR0u35wPG9s7mn6fpr4dbt3alrSbYXH2hvhvh6HhMUl3LIwMD4YdCYvYsF9Yb9/aEb6tMDs7E2ZmroXJycPhgfueHgYGBiTdLclDxQrEY/8lNJxQ3CslI50WUH/kcPtWGBw4GEaGBiW0T8tpkSSKTKmsGq0tDFIZVTRTm3MqACFlAG2Caqgy9pQsMlm2t+WvU5mtrFp9jegU1wZJQ5/YkU4RoTnKD7LMX2lpQ41wp3CBTeVOAR1aGt9dmVtSmP3S6RcXlsLy6nI4efyEFMvSpak1twbRJWeqT5rSUFAqUbH+6uyC5jijlcTKuchvDBctU7IqKJu7NwXsnH7Lwt2oWx3zEzl5eK9Azm0Zw9Wvvw2AR48akoN5qk1ZHVO0ndNw8ls9VNPVUUlpaOCH5LVRyIOQRmSAjyr0o9NSOP3W7X1haWkx3NrZDlNTh3Qc5NrIWFFDmn+CzuWsQtsXASqjntBlpV2gV/nwkQx21Odaf/HK5bC0vBQmJw6HHSnb0OBAGB8dkXJuh6XV9bAiYyHpRoaGw8GDB8KBA/tNP5VzO4wODYS+vv5w6fKlsLm1LrbBsNgTwwEu8qE8UxNjYXR4JMzOL4aFpVXJdyccEAX6DvapnKINNEUQWwCZfZqWrDRavBYbwzENwOvXRfuFM2GIQL7yxmhsGDyWv8ZIvcgxqVyjCqSuKP+w2EjUwebGRrh05VrY2tkXNjbXwoGD/VpG5Rd7pv/g/nDsyFQ42N8v9bsably7qn1maXVV7LNJKd+Alk/LqGnkh6w5JPmTZmBA7KJI0/4hfguWfI4kqcLbCpRJjJbyuryCVESafoC8sRd3pN52xKY8cOBAGJL2379fWlv487prAnXOuLMjNiii94v9auWV9PGcmp2Zlrq9Gvql3MePHg3DYhei2X76nuTlKHMi3+gVFByo7p0KkBGhwf6+cHxqXDp1vyi0o/SDKth4rRz7pUBWMKR71Zg8DxtNecwrDLfCihjjq2JF7zvQJx2hLxw+fDScOHFfWFycC48+9tqwvLyolVZCZNIZzGeAlPzxr45D6pc/dF3f2JGOti5xkq+KRiGYCsXiEUBL6R5OBCuc1gxP5e6O4AJqgtrz74isKIj1QQJ4e1YhCeS/KcYgqWJkO08OSSMdO21vV0tl6E9s4yJmL3CNcs08nOaa8ng4pefx3cG5y43CyIhcAAaHw7YMEMXgljgV5wHxy32qOkXkV6iXn4SWoimqkd1qtk4HJTHNOkULuT1Bj0gH/yZ0ivsPGNrqKKXb+F0iD98JyKVRgzSiYDBPVefUD8owvkpsDBS0SmSKWkoDpIaiO0nVIuCEDtVEFXoxOLpfL4NZOi72a6sbavCgA9G0QaUaHBppXkUHuU0o6lYHFFw9US6rUY8GwKfpPL2M5/ML82FRbg5GRsYkXmwIMYhGh4fEfyusrm+KYbghNw4Y1WI0ivGohpJKi3rIkTGzgMiAvj+qT92NiDzG1KWV1cJ4JrLv4EFjUmZ8jCdBjfG+voMa9syMo4RkI4iREVhGJSX6iv"
+}

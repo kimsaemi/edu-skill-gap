@@ -1,0 +1,101 @@
+﻿query_id,category,query,model,rank,course_uid,title,provider,score,source_url
+Q01,인사/채용,신입사원 온보딩 및 채용 프로세스 실무,TF-IDF (400건 파일럿),1,HUNET_Y00245649,핵심만 콕! 신입사원 온보딩,휴넷,0.7124,https://hbs.hunet.co.kr/Education/Detail?gid=Y00245649
+Q01,인사/채용,신입사원 온보딩 및 채용 프로세스 실무,TF-IDF (400건 파일럿),2,HUNET_Y00265996,"오늘 온 신입사원, 온보딩 전략 ON 하기",휴넷,0.5861,https://hbs.hunet.co.kr/Education/Detail?gid=Y00265996
+Q01,인사/채용,신입사원 온보딩 및 채용 프로세스 실무,TF-IDF (400건 파일럿),3,MULTICAMPUS_FB00A4,[패스트트랙] 신입 온보딩 과정,멀티캠퍼스,0.5071,https://m.multicampus.com/course/crsDetail?corsCd=FB00A4
+Q01,인사/채용,신입사원 온보딩 및 채용 프로세스 실무,TF-IDF (400건 파일럿),4,MULTICAMPUS_FB00A6,[패스트트랙] 신입 온보딩 과정-업무관리 편,멀티캠퍼스,0.4787,https://m.multicampus.com/course/crsDetail?corsCd=FB00A6
+Q01,인사/채용,신입사원 온보딩 및 채용 프로세스 실무,TF-IDF (400건 파일럿),5,MULTICAMPUS_FB00A5,[패스트트랙] 신입 온보딩 과정-관계관리 편,멀티캠퍼스,0.465,https://m.multicampus.com/course/crsDetail?corsCd=FB00A5
+Q01,인사/채용,신입사원 온보딩 및 채용 프로세스 실무,TF-IDF (400건 파일럿),6,KPC_47195_150813,신입사원 역량강화,한국생산성본부(KPC),0.4356,https://www.kpc.or.kr/PTWED003_dtil_view.do?ecno=47195&cono=150813
+Q01,인사/채용,신입사원 온보딩 및 채용 프로세스 실무,TF-IDF (400건 파일럿),7,HUNET_Y00180494,New 회사가 원하는 신입사원_ 업무 스킬 편,휴넷,0.3904,https://hbs.hunet.co.kr/Education/Detail?gid=Y00180494
+Q01,인사/채용,신입사원 온보딩 및 채용 프로세스 실무,TF-IDF (400건 파일럿),8,HUNET_Y00037222,New 회사가 원하는 신입사원_ 태도 편,휴넷,0.3691,https://hbs.hunet.co.kr/Education/Detail?gid=Y00037222
+Q01,인사/채용,신입사원 온보딩 및 채용 프로세스 실무,TF-IDF (400건 파일럿),9,KPC_48167_155408,[AI] 신입사원을 위한 AI 기초역량 향상(프롬프팅과 콘텐츠 제작),한국생산성본부(KPC),0.3394,https://www.kpc.or.kr/PTWED003_dtil_view.do?ecno=48167&cono=155408
+Q01,인사/채용,신입사원 온보딩 및 채용 프로세스 실무,TF-IDF (400건 파일럿),10,HUNET_Y00181289,[카드뉴스] 밀레니얼 신입팀장 Z세대 신입사원을 만나다,휴넷,0.3169,https://hbs.hunet.co.kr/Education/Detail?gid=Y00181289
+Q01,인사/채용,신입사원 온보딩 및 채용 프로세스 실무,BM25 (400건 파일럿),1,HUNET_Y00245649,핵심만 콕! 신입사원 온보딩,휴넷,19.2147,https://hbs.hunet.co.kr/Education/Detail?gid=Y00245649
+Q01,인사/채용,신입사원 온보딩 및 채용 프로세스 실무,BM25 (400건 파일럿),2,HUNET_Y00265996,"오늘 온 신입사원, 온보딩 전략 ON 하기",휴넷,19.0825,https://hbs.hunet.co.kr/Education/Detail?gid=Y00265996
+Q01,인사/채용,신입사원 온보딩 및 채용 프로세스 실무,BM25 (400건 파일럿),3,GSEEK_56932,(리프레시) 핵심만 콕! 신입사원 온보딩,GSEEK,16.9017,https://www.gseek.kr/user/course/online/view?s_sbjct_sn=56932
+Q01,인사/채용,신입사원 온보딩 및 채용 프로세스 실무,BM25 (400건 파일럿),4,KPC_46979_157552,[온앤오프] HR·GA 온보딩 패키지,한국생산성본부(KPC),15.3903,https://www.kpc.or.kr/PTWED003_dtil_view.do?ecno=46979&cono=157552
+Q01,인사/채용,신입사원 온보딩 및 채용 프로세스 실무,BM25 (400건 파일럿),5,GSEEK_57944,"신규입사자의 온보딩 과정, 워(Work).플(People).킹(Networking)",GSEEK,14.3234,https://www.gseek.kr/user/course/online/view?s_sbjct_sn=57944
+Q01,인사/채용,신입사원 온보딩 및 채용 프로세스 실무,BM25 (400건 파일럿),6,GSEEK_57049,"HR, AI가 트렌드다 : 채용부터 퇴사까지",GSEEK,14.004,https://www.gseek.kr/user/course/online/view?s_sbjct_sn=57049
+Q01,인사/채용,신입사원 온보딩 및 채용 프로세스 실무,BM25 (400건 파일럿),7,KPC_47195_150813,신입사원 역량강화,한국생산성본부(KPC),13.2954,https://www.kpc.or.kr/PTWED003_dtil_view.do?ecno=47195&cono=150813
+Q01,인사/채용,신입사원 온보딩 및 채용 프로세스 실무,BM25 (400건 파일럿),8,MULTICAMPUS_FB00A4,[패스트트랙] 신입 온보딩 과정,멀티캠퍼스,13.2283,https://m.multicampus.com/course/crsDetail?corsCd=FB00A4
+Q01,인사/채용,신입사원 온보딩 및 채용 프로세스 실무,BM25 (400건 파일럿),9,MULTICAMPUS_FB00A5,[패스트트랙] 신입 온보딩 과정-관계관리 편,멀티캠퍼스,13.0431,https://m.multicampus.com/course/crsDetail?corsCd=FB00A5
+Q01,인사/채용,신입사원 온보딩 및 채용 프로세스 실무,BM25 (400건 파일럿),10,MULTICAMPUS_FB00A6,[패스트트랙] 신입 온보딩 과정-업무관리 편,멀티캠퍼스,13.0431,https://m.multicampus.com/course/crsDetail?corsCd=FB00A6
+Q02,노무/근로기준,근로기준법 개정사항 및 취업규칙 작성 실무,TF-IDF (400건 파일럿),1,PUB_ACG20243001036448_16,실무사례로 알아보는 근로기준법,중앙법률원격평생교육원,0.4708,https://www.work24.go.kr
+Q02,노무/근로기준,근로기준법 개정사항 및 취업규칙 작성 실무,TF-IDF (400건 파일럿),2,PUB_ABA20253001062023_1,실무사례로 알아보는 근로기준법,중앙법률원격평생교육원,0.4708,https://www.work24.go.kr
+Q02,노무/근로기준,근로기준법 개정사항 및 취업규칙 작성 실무,TF-IDF (400건 파일럿),3,PUB_ABA20243001036557_15,실무사례로 알아보는 근로기준법,중앙법률원격평생교육원,0.4708,https://www.work24.go.kr
+Q02,노무/근로기준,근로기준법 개정사항 및 취업규칙 작성 실무,TF-IDF (400건 파일럿),4,PUB_ACG20243000974723_339,NEW 업무에서 활용가능한 실전 근로기준법,윈스펙원격평생교육원,0.2439,https://www.work24.go.kr
+Q02,노무/근로기준,근로기준법 개정사항 및 취업규칙 작성 실무,TF-IDF (400건 파일럿),5,PUB_ACG20243001057596_1,NEW 업무에서 활용가능한 실전 근로기준법,윈스펙원격평생교육원,0.2439,https://www.work24.go.kr
+Q02,노무/근로기준,근로기준법 개정사항 및 취업규칙 작성 실무,TF-IDF (400건 파일럿),6,PUB_ACG20243001052023_28,NEW 업무에서 활용가능한 실전 근로기준법,에듀퓨어,0.2439,https://www.work24.go.kr
+Q02,노무/근로기준,근로기준법 개정사항 및 취업규칙 작성 실무,TF-IDF (400건 파일럿),7,GSEEK_3217,[창업공통]필수 근로기준법과 인사서식,GSEEK,0.1904,https://www.gseek.kr/user/course/online/view?s_sbjct_sn=3217
+Q02,노무/근로기준,근로기준법 개정사항 및 취업규칙 작성 실무,TF-IDF (400건 파일럿),8,KPC_48451_156247,두산_인사 전문가_인사노무 리스크 예방,한국생산성본부(KPC),0.1896,https://www.kpc.or.kr/PTWED003_dtil_view.do?ecno=48451&cono=156247
+Q02,노무/근로기준,근로기준법 개정사항 및 취업규칙 작성 실무,TF-IDF (400건 파일럿),9,HUNET_Y00216064,[북러닝] 투잡하는 김 대리는 취업규칙을 위반했을까?(도서 제공),휴넷,0.184,https://hbs.hunet.co.kr/Education/Detail?gid=Y00216064
+Q02,노무/근로기준,근로기준법 개정사항 및 취업규칙 작성 실무,TF-IDF (400건 파일럿),10,GSEEK_57124,새롭게 개정된 실전 노무법 & 노무 이슈,GSEEK,0.1802,https://www.gseek.kr/user/course/online/view?s_sbjct_sn=57124
+Q02,노무/근로기준,근로기준법 개정사항 및 취업규칙 작성 실무,BM25 (400건 파일럿),1,GSEEK_2835,인생 봄날 만드는 똑똑한 근로계약서,GSEEK,10.545,https://www.gseek.kr/user/course/online/view?s_sbjct_sn=2835
+Q02,노무/근로기준,근로기준법 개정사항 및 취업규칙 작성 실무,BM25 (400건 파일럿),2,KPC_48451_156247,두산_인사 전문가_인사노무 리스크 예방,한국생산성본부(KPC),9.5638,https://www.kpc.or.kr/PTWED003_dtil_view.do?ecno=48451&cono=156247
+Q02,노무/근로기준,근로기준법 개정사항 및 취업규칙 작성 실무,BM25 (400건 파일럿),3,GSEEK_11597,유통 하도급 분야 공정거래 교육,GSEEK,9.3371,https://www.gseek.kr/user/course/online/view?s_sbjct_sn=11597
+Q02,노무/근로기준,근로기준법 개정사항 및 취업규칙 작성 실무,BM25 (400건 파일럿),4,KPC_47001_149763,[온앤오프] 근로기준법 기본해설,한국생산성본부(KPC),9.1209,https://www.kpc.or.kr/PTWED003_dtil_view.do?ecno=47001&cono=149763
+Q02,노무/근로기준,근로기준법 개정사항 및 취업규칙 작성 실무,BM25 (400건 파일럿),5,GSEEK_57124,새롭게 개정된 실전 노무법 & 노무 이슈,GSEEK,9.1143,https://www.gseek.kr/user/course/online/view?s_sbjct_sn=57124
+Q02,노무/근로기준,근로기준법 개정사항 및 취업규칙 작성 실무,BM25 (400건 파일럿),6,GSEEK_57110,"입사에서 퇴사까지, 직장인을 위한 노동법 이야기",GSEEK,8.985,https://www.gseek.kr/user/course/online/view?s_sbjct_sn=57110
+Q02,노무/근로기준,근로기준법 개정사항 및 취업규칙 작성 실무,BM25 (400건 파일럿),7,KPC_46995_149744,[온앤오프] 채용에서 퇴직까지 법률문제,한국생산성본부(KPC),8.9417,https://www.kpc.or.kr/PTWED003_dtil_view.do?ecno=46995&cono=149744
+Q02,노무/근로기준,근로기준법 개정사항 및 취업규칙 작성 실무,BM25 (400건 파일럿),8,KPC_46996_149758,[온앤오프] 근로기준법실무,한국생산성본부(KPC),8.8531,https://www.kpc.or.kr/PTWED003_dtil_view.do?ecno=46996&cono=149758
+Q02,노무/근로기준,근로기준법 개정사항 및 취업규칙 작성 실무,BM25 (400건 파일럿),9,KPC_47005_157482,2026년 하루에 배우는 최신노무관리 Essence,한국생산성본부(KPC),8.2447,https://www.kpc.or.kr/PTWED003_dtil_view.do?ecno=47005&cono=157482
+Q02,노무/근로기준,근로기준법 개정사항 및 취업규칙 작성 실무,BM25 (400건 파일럿),10,KPC_47008_156438,[온앤오프] 근로감독 대응실무 체크포인트,한국생산성본부(KPC),7.7215,https://www.kpc.or.kr/PTWED003_dtil_view.do?ecno=47008&cono=156438
+Q04,인사/평가보상,직무분석 및 KPI 성과평가 보상체계 설계,TF-IDF (400건 파일럿),1,KPC_48450_156250,두산_인사 전문가_성과중심 인사평가,한국생산성본부(KPC),0.348,https://www.kpc.or.kr/PTWED003_dtil_view.do?ecno=48450&cono=156250
+Q04,인사/평가보상,직무분석 및 KPI 성과평가 보상체계 설계,TF-IDF (400건 파일럿),2,KPC_46993_149657,[인력계획부터 육성까지] 인사기획실무,한국생산성본부(KPC),0.2785,https://www.kpc.or.kr/PTWED003_dtil_view.do?ecno=46993&cono=149657
+Q04,인사/평가보상,직무분석 및 KPI 성과평가 보상체계 설계,TF-IDF (400건 파일럿),3,HUNET_Y00260424,인재 밀도를 UP시키는 성과 평가 ＆ 보상 전략,휴넷,0.276,https://hbs.hunet.co.kr/Education/Detail?gid=Y00260424
+Q04,인사/평가보상,직무분석 및 KPI 성과평가 보상체계 설계,TF-IDF (400건 파일럿),4,KMA_111441_125966,[여의도] HR 담당자를 위한 직무분석 실무,한국능률협회(KMA),0.2709,https://www.kma.or.kr/usrs/eduRegMgnt/eduRegInfoDetailForm.do?p_edutype_cd=001&p_crscd=111441&p_crsseq_id=125966&p_ctgry_id=661&p_hmpgcd=30&mkey=37148
+Q04,인사/평가보상,직무분석 및 KPI 성과평가 보상체계 설계,TF-IDF (400건 파일럿),5,KPC_46977_149666,[온앤오프] 직무분석실무,한국생산성본부(KPC),0.2656,https://www.kpc.or.kr/PTWED003_dtil_view.do?ecno=46977&cono=149666
+Q04,인사/평가보상,직무분석 및 KPI 성과평가 보상체계 설계,TF-IDF (400건 파일럿),6,KPC_46981_149646,[온앤오프] 인사관리기본,한국생산성본부(KPC),0.2616,https://www.kpc.or.kr/PTWED003_dtil_view.do?ecno=46981&cono=149646
+Q04,인사/평가보상,직무분석 및 KPI 성과평가 보상체계 설계,TF-IDF (400건 파일럿),7,KPC_47022_157545,[DX&AI] 평가보상 설계 실무(밀코비치 기반),한국생산성본부(KPC),0.2547,https://www.kpc.or.kr/PTWED003_dtil_view.do?ecno=47022&cono=157545
+Q04,인사/평가보상,직무분석 및 KPI 성과평가 보상체계 설계,TF-IDF (400건 파일럿),8,KPC_46990_149679,[온앤오프] 평가 및 보상제도 운영실무,한국생산성본부(KPC),0.2531,https://www.kpc.or.kr/PTWED003_dtil_view.do?ecno=46990&cono=149679
+Q04,인사/평가보상,직무분석 및 KPI 성과평가 보상체계 설계,TF-IDF (400건 파일럿),9,KPC_46985_149669,[온앤오프] 직무분석기본: HR의 첫걸음,한국생산성본부(KPC),0.2471,https://www.kpc.or.kr/PTWED003_dtil_view.do?ecno=46985&cono=149669
+Q04,인사/평가보상,직무분석 및 KPI 성과평가 보상체계 설계,TF-IDF (400건 파일럿),10,KMA_112345_128564,[여의도] AI 활용 HR담당자를 위한 직무분석 실무,한국능률협회(KMA),0.2468,https://www.kma.or.kr/usrs/eduRegMgnt/eduRegInfoDetailForm.do?p_edutype_cd=001&p_crscd=112345&p_crsseq_id=128564&p_ctgry_id=686&p_hmpgcd=30&mkey=37227
+Q04,인사/평가보상,직무분석 및 KPI 성과평가 보상체계 설계,BM25 (400건 파일럿),1,KPC_47022_157545,[DX&AI] 평가보상 설계 실무(밀코비치 기반),한국생산성본부(KPC),18.5452,https://www.kpc.or.kr/PTWED003_dtil_view.do?ecno=47022&cono=157545
+Q04,인사/평가보상,직무분석 및 KPI 성과평가 보상체계 설계,BM25 (400건 파일럿),2,KPC_48450_156250,두산_인사 전문가_성과중심 인사평가,한국생산성본부(KPC),17.5255,https://www.kpc.or.kr/PTWED003_dtil_view.do?ecno=48450&cono=156250
+Q04,인사/평가보상,직무분석 및 KPI 성과평가 보상체계 설계,BM25 (400건 파일럿),3,KPC_46993_149657,[인력계획부터 육성까지] 인사기획실무,한국생산성본부(KPC),17.4347,https://www.kpc.or.kr/PTWED003_dtil_view.do?ecno=46993&cono=149657
+Q04,인사/평가보상,직무분석 및 KPI 성과평가 보상체계 설계,BM25 (400건 파일럿),4,GSEEK_57075,직급이 아닌 직무에 Focus하라. 직무급제의 모든것!,GSEEK,16.7362,https://www.gseek.kr/user/course/online/view?s_sbjct_sn=57075
+Q04,인사/평가보상,직무분석 및 KPI 성과평가 보상체계 설계,BM25 (400건 파일럿),5,KPC_46981_149646,[온앤오프] 인사관리기본,한국생산성본부(KPC),16.7297,https://www.kpc.or.kr/PTWED003_dtil_view.do?ecno=46981&cono=149646
+Q04,인사/평가보상,직무분석 및 KPI 성과평가 보상체계 설계,BM25 (400건 파일럿),6,KPC_46990_149679,[온앤오프] 평가 및 보상제도 운영실무,한국생산성본부(KPC),15.8432,https://www.kpc.or.kr/PTWED003_dtil_view.do?ecno=46990&cono=149679
+Q04,인사/평가보상,직무분석 및 KPI 성과평가 보상체계 설계,BM25 (400건 파일럿),7,KPC_46977_149664,[온앤오프] 직무분석실무,한국생산성본부(KPC),15.2133,https://www.kpc.or.kr/PTWED003_dtil_view.do?ecno=46977&cono=149664
+Q04,인사/평가보상,직무분석 및 KPI 성과평가 보상체계 설계,BM25 (400건 파일럿),8,KPC_46980_149684,성과관리실무,한국생산성본부(KPC),15.078,https://www.kpc.or.kr/PTWED003_dtil_view.do?ecno=46980&cono=149684
+Q04,인사/평가보상,직무분석 및 KPI 성과평가 보상체계 설계,BM25 (400건 파일럿),9,KMA_111441_125966,[여의도] HR 담당자를 위한 직무분석 실무,한국능률협회(KMA),14.8505,https://www.kma.or.kr/usrs/eduRegMgnt/eduRegInfoDetailForm.do?p_edutype_cd=001&p_crscd=111441&p_crsseq_id=125966&p_ctgry_id=661&p_hmpgcd=30&mkey=37148
+Q04,인사/평가보상,직무분석 및 KPI 성과평가 보상체계 설계,BM25 (400건 파일럿),10,KPC_46976_149676,인사평가시스템 구축실무,한국생산성본부(KPC),13.7956,https://www.kpc.or.kr/PTWED003_dtil_view.do?ecno=46976&cono=149676
+Q06,총무/구매,비품 구매 계약 및 공급업체 관리,TF-IDF (400건 파일럿),1,KMA_111486_126126,[여의도] 협력업체 관리실무,한국능률협회(KMA),0.1922,https://www.kma.or.kr/usrs/eduRegMgnt/eduRegInfoDetailForm.do?p_edutype_cd=001&p_crscd=111486&p_crsseq_id=126126&p_ctgry_id=651&p_hmpgcd=30&mkey=37155
+Q06,총무/구매,비품 구매 계약 및 공급업체 관리,TF-IDF (400건 파일럿),2,KMA_111481_126111,[여의도] 구매관리 기본,한국능률협회(KMA),0.1865,https://www.kma.or.kr/usrs/eduRegMgnt/eduRegInfoDetailForm.do?p_edutype_cd=001&p_crscd=111481&p_crsseq_id=126111&p_ctgry_id=651&p_hmpgcd=30&mkey=37155
+Q06,총무/구매,비품 구매 계약 및 공급업체 관리,TF-IDF (400건 파일럿),3,KPC_47856_154585,구매계약과 공정거래하도급법의 이해,한국생산성본부(KPC),0.1856,https://www.kpc.or.kr/PTWED003_dtil_view.do?ecno=47856&cono=154585
+Q06,총무/구매,비품 구매 계약 및 공급업체 관리,TF-IDF (400건 파일럿),4,KMA_111207_126893,[강남] 구매관리 기본,한국능률협회(KMA),0.1843,https://www.kma.or.kr/usrs/eduRegMgnt/eduRegInfoDetailForm.do?p_edutype_cd=001&p_crscd=111207&p_crsseq_id=126893&p_ctgry_id=651&p_hmpgcd=30&mkey=37155
+Q06,총무/구매,비품 구매 계약 및 공급업체 관리,TF-IDF (400건 파일럿),5,KPC_48570_156562,[1Day] 구매관리실무,한국생산성본부(KPC),0.1788,https://www.kpc.or.kr/PTWED003_dtil_view.do?ecno=48570&cono=156562
+Q06,총무/구매,비품 구매 계약 및 공급업체 관리,TF-IDF (400건 파일럿),6,HUNET_Y00316399,실무 꿀 tip! 총무 업무 지침서,휴넷,0.1701,https://hbs.hunet.co.kr/Education/Detail?gid=Y00316399
+Q06,총무/구매,비품 구매 계약 및 공급업체 관리,TF-IDF (400건 파일럿),7,KPC_47857_154660,구매담당자 리스크관리능력향상,한국생산성본부(KPC),0.1689,https://www.kpc.or.kr/PTWED003_dtil_view.do?ecno=47857&cono=154660
+Q06,총무/구매,비품 구매 계약 및 공급업체 관리,TF-IDF (400건 파일럿),8,KPC_47861_154594,협력업체관리실무,한국생산성본부(KPC),0.1645,https://www.kpc.or.kr/PTWED003_dtil_view.do?ecno=47861&cono=154594
+Q06,총무/구매,비품 구매 계약 및 공급업체 관리,TF-IDF (400건 파일럿),9,KPC_47849_157424,구매관리기본,한국생산성본부(KPC),0.1605,https://www.kpc.or.kr/PTWED003_dtil_view.do?ecno=47849&cono=157424
+Q06,총무/구매,비품 구매 계약 및 공급업체 관리,TF-IDF (400건 파일럿),10,KPC_47346_154664,간접구매관리실무,한국생산성본부(KPC),0.1576,https://www.kpc.or.kr/PTWED003_dtil_view.do?ecno=47346&cono=154664
+Q06,총무/구매,비품 구매 계약 및 공급업체 관리,BM25 (400건 파일럿),1,KMA_111486_126126,[여의도] 협력업체 관리실무,한국능률협회(KMA),10.9392,https://www.kma.or.kr/usrs/eduRegMgnt/eduRegInfoDetailForm.do?p_edutype_cd=001&p_crscd=111486&p_crsseq_id=126126&p_ctgry_id=651&p_hmpgcd=30&mkey=37155
+Q06,총무/구매,비품 구매 계약 및 공급업체 관리,BM25 (400건 파일럿),2,KPC_47856_154584,구매계약과 공정거래하도급법의 이해,한국생산성본부(KPC),10.7372,https://www.kpc.or.kr/PTWED003_dtil_view.do?ecno=47856&cono=154584
+Q06,총무/구매,비품 구매 계약 및 공급업체 관리,BM25 (400건 파일럿),3,KPC_47861_154594,협력업체관리실무,한국생산성본부(KPC),10.4701,https://www.kpc.or.kr/PTWED003_dtil_view.do?ecno=47861&cono=154594
+Q06,총무/구매,비품 구매 계약 및 공급업체 관리,BM25 (400건 파일럿),4,HUNET_Y00316399,실무 꿀 tip! 총무 업무 지침서,휴넷,10.3967,https://hbs.hunet.co.kr/Education/Detail?gid=Y00316399
+Q06,총무/구매,비품 구매 계약 및 공급업체 관리,BM25 (400건 파일럿),5,KPC_47857_154660,구매담당자 리스크관리능력향상,한국생산성본부(KPC),10.3365,https://www.kpc.or.kr/PTWED003_dtil_view.do?ecno=47857&cono=154660
+Q06,총무/구매,비품 구매 계약 및 공급업체 관리,BM25 (400건 파일럿),6,MULTICAMPUS_FB006M,[공인] [S/4HANA MM 아카데미] 3주차: Inventory Management,멀티캠퍼스,9.6728,https://m.multicampus.com/course/crsDetail?corsCd=FB006M
+Q06,총무/구매,비품 구매 계약 및 공급업체 관리,BM25 (400건 파일럿),7,MULTICAMPUS_FB006L,[공인] [S/4HANA MM 아카데미] 2주차: Process Details & Master Data,멀티캠퍼스,9.6126,https://m.multicampus.com/course/crsDetail?corsCd=FB006L
+Q06,총무/구매,비품 구매 계약 및 공급업체 관리,BM25 (400건 파일럿),8,KPC_47346_154664,간접구매관리실무,한국생산성본부(KPC),9.61,https://www.kpc.or.kr/PTWED003_dtil_view.do?ecno=47346&cono=154664
+Q06,총무/구매,비품 구매 계약 및 공급업체 관리,BM25 (400건 파일럿),9,MULTICAMPUS_FB006N,[공인] [S/4HANA MM 아카데미] 4주차: Invoice Verification and Customizing,멀티캠퍼스,9.5928,https://m.multicampus.com/course/crsDetail?corsCd=FB006N
+Q06,총무/구매,비품 구매 계약 및 공급업체 관리,BM25 (400건 파일럿),10,KPC_48570_156561,[1Day] 구매관리실무,한국생산성본부(KPC),9.0243,https://www.kpc.or.kr/PTWED003_dtil_view.do?ecno=48570&cono=156561
+Q09,실무스킬,엑셀 실무 데이터 가공 및 함수 활용,TF-IDF (400건 파일럿),1,PUB_ABA20243001049771_3,빨리 배워 바로 쓰는 엑셀 2013,휴넷,0.4498,https://www.work24.go.kr
+Q09,실무스킬,엑셀 실무 데이터 가공 및 함수 활용,TF-IDF (400건 파일럿),2,KMA_111189_124879,[여의도] 엑셀 비즈니스 활용 실무,한국능률협회(KMA),0.4244,https://www.kma.or.kr/usrs/eduRegMgnt/eduRegInfoDetailForm.do?p_edutype_cd=001&p_crscd=111189&p_crsseq_id=124879&p_ctgry_id=556&p_hmpgcd=30&mkey=36324
+Q09,실무스킬,엑셀 실무 데이터 가공 및 함수 활용,TF-IDF (400건 파일럿),3,HUNET_Y00339583,일잘러의 엑셀 스킬! 함수&수식 마스터,휴넷,0.3962,https://hbs.hunet.co.kr/Education/Detail?gid=Y00339583
+Q09,실무스킬,엑셀 실무 데이터 가공 및 함수 활용,TF-IDF (400건 파일럿),4,HUNET_Y00342165,빨리 배워 바로 쓰는 엑셀 2013,휴넷,0.3678,https://hbs.hunet.co.kr/Education/Detail?gid=Y00342165
+Q09,실무스킬,엑셀 실무 데이터 가공 및 함수 활용,TF-IDF (400건 파일럿),5,GSEEK_12320,취업 준비를 위한 OA (Excel) 실무 2023 (오피스365 활용) Part.1,GSEEK,0.3672,https://www.gseek.kr/user/course/online/view?s_sbjct_sn=12320
+Q09,실무스킬,엑셀 실무 데이터 가공 및 함수 활용,TF-IDF (400건 파일럿),6,GSEEK_52747,일잘러의 엑셀 스킬! 함수&수식 마스터,GSEEK,0.3634,https://www.gseek.kr/user/course/online/view?s_sbjct_sn=52747
+Q09,실무스킬,엑셀 실무 데이터 가공 및 함수 활용,TF-IDF (400건 파일럿),7,KPC_47586_152054,[엑셀데이터활용] Power BI를 활용한 데이터 시각화_심화,한국생산성본부(KPC),0.3616,https://www.kpc.or.kr/PTWED003_dtil_view.do?ecno=47586&cono=152054
+Q09,실무스킬,엑셀 실무 데이터 가공 및 함수 활용,TF-IDF (400건 파일럿),8,GSEEK_51916,오피스 마스터가 알려주는 진짜 엑셀,GSEEK,0.3564,https://www.gseek.kr/user/course/online/view?s_sbjct_sn=51916
+Q09,실무스킬,엑셀 실무 데이터 가공 및 함수 활용,TF-IDF (400건 파일럿),9,MULTICAMPUS_EA0DGQ,업무 예제로 배우는 엑셀 활용법(참고도서제공),멀티캠퍼스,0.3544,https://m.multicampus.com/course/crsDetail?corsCd=EA0DGQ
+Q09,실무스킬,엑셀 실무 데이터 가공 및 함수 활용,TF-IDF (400건 파일럿),10,GSEEK_7614,회사에서 자주 쓰는 실무 엑셀 배우기,GSEEK,0.3466,https://www.gseek.kr/user/course/online/view?s_sbjct_sn=7614
+Q09,실무스킬,엑셀 실무 데이터 가공 및 함수 활용,BM25 (400건 파일럿),1,GSEEK_12320,취업 준비를 위한 OA (Excel) 실무 2023 (오피스365 활용) Part.1,GSEEK,19.2539,https://www.gseek.kr/user/course/online/view?s_sbjct_sn=12320
+Q09,실무스킬,엑셀 실무 데이터 가공 및 함수 활용,BM25 (400건 파일럿),2,KPC_47586_152054,[엑셀데이터활용] Power BI를 활용한 데이터 시각화_심화,한국생산성본부(KPC),19.2368,https://www.kpc.or.kr/PTWED003_dtil_view.do?ecno=47586&cono=152054
+Q09,실무스킬,엑셀 실무 데이터 가공 및 함수 활용,BM25 (400건 파일럿),3,KPC_47569_152934,"엑셀, 데이터베이스, 파이썬 기반의 빅데이터 분석 실무",한국생산성본부(KPC),18.3401,https://www.kpc.or.kr/PTWED003_dtil_view.do?ecno=47569&cono=152934
+Q09,실무스킬,엑셀 실무 데이터 가공 및 함수 활용,BM25 (400건 파일럿),4,KMA_111382_125650,[여의도] 엑셀 비즈니스 활용 기초,한국능률협회(KMA),18.3167,https://www.kma.or.kr/usrs/eduRegMgnt/eduRegInfoDetailForm.do?p_edutype_cd=001&p_crscd=111382&p_crsseq_id=125650&p_ctgry_id=556&p_hmpgcd=30&mkey=36324
+Q09,실무스킬,엑셀 실무 데이터 가공 및 함수 활용,BM25 (400건 파일럿),5,KMA_111200_126896,[강남] 엑셀 비즈니스 활용 기초,한국능률협회(KMA),18.3167,https://www.kma.or.kr/usrs/eduRegMgnt/eduRegInfoDetailForm.do?p_edutype_cd=001&p_crscd=111200&p_crsseq_id=126896&p_ctgry_id=556&p_hmpgcd=30&mkey=36324
+Q09,실무스킬,엑셀 실무 데이터 가공 및 함수 활용,BM25 (400건 파일럿),6,HUNET_Y00339583,일잘러의 엑셀 스킬! 함수&수식 마스터,휴넷,18.2175,https://hbs.hunet.co.kr/Education/Detail?gid=Y00339583
+Q09,실무스킬,엑셀 실무 데이터 가공 및 함수 활용,BM25 (400건 파일럿),7,GSEEK_52747,일잘러의 엑셀 스킬! 함수&수식 마스터,GSEEK,17.8613,https://www.gseek.kr/user/course/online/view?s_sbjct_sn=52747
+Q09,실무스킬,엑셀 실무 데이터 가공 및 함수 활용,BM25 (400건 파일럿),8,MULTICAMPUS_FA01QX,엑셀 업무 시간을 단축하는 Claude X Excel 업무자동화,멀티캠퍼스,17.7038,https://m.multicampus.com/course/crsDetail?corsCd=FA01QX
+Q09,실무스킬,엑셀 실무 데이터 가공 및 함수 활용,BM25 (400건 파일럿),9,HUNET_Y00342165,빨리 배워 바로 쓰는 엑셀 2013,휴넷,17.4898,https://hbs.hunet.co.kr/Education/Detail?gid=Y00342165
+Q09,실무스킬,엑셀 실무 데이터 가공 및 함수 활용,BM25 (400건 파일럿),10,KMA_111240_125019,[비대면] 비즈니스 엑셀 BOOST : 실무 감각 깨우기,한국능률협회(KMA),17.4393,https://www.kma.or.kr/usrs/eduRegMgnt/eduRegInfoDetailForm.do?p_edutype_cd=001&p_crscd=111240&p_crsseq_id=125019&p_ctgry_id=556&p_hmpgcd=30&mkey=36324

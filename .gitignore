@@ -60,6 +60,11 @@ data/raw/
 data/courses/
 *.sqlite
 *.db
+*.npy
+*.npz
+*.pt
+*.bin
+*.pkl
 
 # DB exceptions for managed datasets (must be after *.db)
 !data/hr/raw/external_courses/*.db

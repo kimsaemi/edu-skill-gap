@@ -1,0 +1,1092 @@
+[
+  {
+    "course_uid": "HUNET_Y00386276",
+    "provider": "휴넷",
+    "title": "Claude로 100배 빠르게 만드는 의료 문서",
+    "ncs_code": "COMP_GA_01",
+    "mapping_status": "VERIFIED",
+    "confidence": "HIGH",
+    "matched_suspicious_keyword": "의료",
+    "reason": "기술/IT/기능/자격증 과정('의료')이 HR/총무 역량(COMP_GA_01)으로 자동 분류됨"
+  },
+  {
+    "course_uid": "HUNET_Y00386300",
+    "provider": "휴넷",
+    "title": "코딩? 몰라도 돼! 잔마왕이 알려주는 공정 데이터 시각화 with 바이브 코딩",
+    "ncs_code": "COMP_SEC_01",
+    "mapping_status": "REVIEW_NEEDED",
+    "confidence": "LOW",
+    "matched_suspicious_keyword": "코딩",
+    "reason": "기술/IT/기능/자격증 과정('코딩')이 HR/총무 역량(COMP_SEC_01)으로 자동 분류됨"
+  },
+  {
+    "course_uid": "HUNET_Y00379352",
+    "provider": "휴넷",
+    "title": "바이브 코딩으로 완성하는 MCP 업무 자동화",
+    "ncs_code": "COMP_GA_01",
+    "mapping_status": "VERIFIED",
+    "confidence": "MEDIUM",
+    "matched_suspicious_keyword": "코딩",
+    "reason": "기술/IT/기능/자격증 과정('코딩')이 HR/총무 역량(COMP_GA_01)으로 자동 분류됨"
+  },
+  {
+    "course_uid": "HUNET_Y00368335",
+    "provider": "휴넷",
+    "title": "짜지 말고 시켜라! 백엔드 개발자를 위한 Java 바이브코딩",
+    "ncs_code": "COMP_GA_01",
+    "mapping_status": "VERIFIED",
+    "confidence": "MEDIUM",
+    "matched_suspicious_keyword": "코딩",
+    "reason": "기술/IT/기능/자격증 과정('코딩')이 HR/총무 역량(COMP_GA_01)으로 자동 분류됨"
+  },
+  {
+    "course_uid": "HUNET_Y00355430",
+    "provider": "휴넷",
+    "title": "파이썬으로 만드는 AI Agentic 어플리케이션(feat. LangChain)",
+    "ncs_code": "COMP_GA_01",
+    "mapping_status": "REVIEW_NEEDED",
+    "confidence": "LOW",
+    "matched_suspicious_keyword": "파이썬",
+    "reason": "기술/IT/기능/자격증 과정('파이썬')이 HR/총무 역량(COMP_GA_01)으로 자동 분류됨"
+  },
+  {
+    "course_uid": "HUNET_Y00355433",
+    "provider": "휴넷",
+    "title": "대화로 시작하는 생성형 AI 코딩, 바이브코딩 입문",
+    "ncs_code": "COMP_GA_01",
+    "mapping_status": "REVIEW_NEEDED",
+    "confidence": "LOW",
+    "matched_suspicious_keyword": "코딩",
+    "reason": "기술/IT/기능/자격증 과정('코딩')이 HR/총무 역량(COMP_GA_01)으로 자동 분류됨"
+  },
+  {
+    "course_uid": "HUNET_Y00354149",
+    "provider": "휴넷",
+    "title": "처음 시작하는 자바 프로그래밍-초급",
+    "ncs_code": "COMP_GA_01",
+    "mapping_status": "REVIEW_NEEDED",
+    "confidence": "LOW",
+    "matched_suspicious_keyword": "자바",
+    "reason": "기술/IT/기능/자격증 과정('자바')이 HR/총무 역량(COMP_GA_01)으로 자동 분류됨"
+  },
+  {
+    "course_uid": "HUNET_Y00353446",
+    "provider": "휴넷",
+    "title": "AWS 마스터 클래스 : 클라우드 기초부터 네이티브까지",
+    "ncs_code": "COMP_HR_01",
+    "mapping_status": "REVIEW_NEEDED",
+    "confidence": "LOW",
+    "matched_suspicious_keyword": "클라우드",
+    "reason": "기술/IT/기능/자격증 과정('클라우드')이 HR/총무 역량(COMP_HR_01)으로 자동 분류됨"
+  },
+  {
+    "course_uid": "HUNET_Y00340784",
+    "provider": "휴넷",
+    "title": "코딩 생산성 200% UP! 파이썬 프로그래밍 자동화 w. Github Copilot",
+    "ncs_code": "COMP_GA_01",
+    "mapping_status": "REVIEW_NEEDED",
+    "confidence": "LOW",
+    "matched_suspicious_keyword": "파이썬",
+    "reason": "기술/IT/기능/자격증 과정('파이썬')이 HR/총무 역량(COMP_GA_01)으로 자동 분류됨"
+  },
+  {
+    "course_uid": "HUNET_Y00345310",
+    "provider": "휴넷",
+    "title": "공공 데이터로 부동산 실거래가 분석하기(feat. 파이썬, ChatGPT)",
+    "ncs_code": "COMP_GA_01",
+    "mapping_status": "VERIFIED",
+    "confidence": "MEDIUM",
+    "matched_suspicious_keyword": "파이썬",
+    "reason": "기술/IT/기능/자격증 과정('파이썬')이 HR/총무 역량(COMP_GA_01)으로 자동 분류됨"
+  },
+  {
+    "course_uid": "HUNET_Y00320759",
+    "provider": "휴넷",
+    "title": "나의 첫 웹크롤링 & 텍스트마이닝 with 파이썬 (도서 제공)",
+    "ncs_code": "COMP_GA_01",
+    "mapping_status": "VERIFIED",
+    "confidence": "HIGH",
+    "matched_suspicious_keyword": "파이썬",
+    "reason": "기술/IT/기능/자격증 과정('파이썬')이 HR/총무 역량(COMP_GA_01)으로 자동 분류됨"
+  },
+  {
+    "course_uid": "HUNET_Y00317859",
+    "provider": "휴넷",
+    "title": "ChatGPT로 쉽게 하는 파이썬 업무자동화",
+    "ncs_code": "COMP_SEC_01",
+    "mapping_status": "VERIFIED",
+    "confidence": "MEDIUM",
+    "matched_suspicious_keyword": "파이썬",
+    "reason": "기술/IT/기능/자격증 과정('파이썬')이 HR/총무 역량(COMP_SEC_01)으로 자동 분류됨"
+  },
+  {
+    "course_uid": "HUNET_Y00317861",
+    "provider": "휴넷",
+    "title": "코딩 없이 하는 업무자동화, GPTs로 나만의 챗봇 만들기",
+    "ncs_code": "COMP_GA_01",
+    "mapping_status": "REVIEW_NEEDED",
+    "confidence": "LOW",
+    "matched_suspicious_keyword": "코딩",
+    "reason": "기술/IT/기능/자격증 과정('코딩')이 HR/총무 역량(COMP_GA_01)으로 자동 분류됨"
+  },
+  {
+    "course_uid": "HUNET_Y00317518",
+    "provider": "휴넷",
+    "title": "안녕, 파이썬! 생성형AI로 데이터 분석해줘!",
+    "ncs_code": "COMP_GA_01",
+    "mapping_status": "REVIEW_NEEDED",
+    "confidence": "LOW",
+    "matched_suspicious_keyword": "파이썬",
+    "reason": "기술/IT/기능/자격증 과정('파이썬')이 HR/총무 역량(COMP_GA_01)으로 자동 분류됨"
+  },
+  {
+    "course_uid": "HUNET_Y00317138",
+    "provider": "휴넷",
+    "title": "ChatGPT와 함께하는 데이터 분석 완전정복(feat. 파이썬)",
+    "ncs_code": "COMP_GA_01",
+    "mapping_status": "VERIFIED",
+    "confidence": "HIGH",
+    "matched_suspicious_keyword": "파이썬",
+    "reason": "기술/IT/기능/자격증 과정('파이썬')이 HR/총무 역량(COMP_GA_01)으로 자동 분류됨"
+  },
+  {
+    "course_uid": "HUNET_Y00316368",
+    "provider": "휴넷",
+    "title": "의료기관 종사자의 역량 UP_병원 CS 외부 고객 관리편",
+    "ncs_code": "COMP_SEC_01",
+    "mapping_status": "REVIEW_NEEDED",
+    "confidence": "LOW",
+    "matched_suspicious_keyword": "의료",
+    "reason": "기술/IT/기능/자격증 과정('의료')이 HR/총무 역량(COMP_SEC_01)으로 자동 분류됨"
+  },
+  {
+    "course_uid": "HUNET_Y00316370",
+    "provider": "휴넷",
+    "title": "의료 혁명 시대! 스마트 헬스케어로 개척하기",
+    "ncs_code": "COMP_GA_01",
+    "mapping_status": "REVIEW_NEEDED",
+    "confidence": "LOW",
+    "matched_suspicious_keyword": "의료",
+    "reason": "기술/IT/기능/자격증 과정('의료')이 HR/총무 역량(COMP_GA_01)으로 자동 분류됨"
+  },
+  {
+    "course_uid": "HUNET_Y00271316",
+    "provider": "휴넷",
+    "title": "라이프스타일 비즈니스가 온다",
+    "ncs_code": "COMP_GA_01",
+    "mapping_status": "VERIFIED",
+    "confidence": "HIGH",
+    "matched_suspicious_keyword": "타일",
+    "reason": "기술/IT/기능/자격증 과정('타일')이 HR/총무 역량(COMP_GA_01)으로 자동 분류됨"
+  },
+  {
+    "course_uid": "GSEEK_2440",
+    "provider": "GSEEK",
+    "title": "누구나 코딩, 파이썬 시작하기(기초편)",
+    "ncs_code": "COMP_GA_01",
+    "mapping_status": "REVIEW_NEEDED",
+    "confidence": "LOW",
+    "matched_suspicious_keyword": "파이썬",
+    "reason": "기술/IT/기능/자격증 과정('파이썬')이 HR/총무 역량(COMP_GA_01)으로 자동 분류됨"
+  },
+  {
+    "course_uid": "GSEEK_3556",
+    "provider": "GSEEK",
+    "title": "내 손 안의 데이터 저장소 클라우드 활용법",
+    "ncs_code": "COMP_GA_01",
+    "mapping_status": "REVIEW_NEEDED",
+    "confidence": "LOW",
+    "matched_suspicious_keyword": "클라우드",
+    "reason": "기술/IT/기능/자격증 과정('클라우드')이 HR/총무 역량(COMP_GA_01)으로 자동 분류됨"
+  },
+  {
+    "course_uid": "GSEEK_7568",
+    "provider": "GSEEK",
+    "title": "보이는 고민상담소 보육과 노무사이",
+    "ncs_code": "COMP_LABOR_01",
+    "mapping_status": "VERIFIED",
+    "confidence": "HIGH",
+    "matched_suspicious_keyword": "보육",
+    "reason": "기술/IT/기능/자격증 과정('보육')이 HR/총무 역량(COMP_LABOR_01)으로 자동 분류됨"
+  },
+  {
+    "course_uid": "GSEEK_51903",
+    "provider": "GSEEK",
+    "title": "안녕, 파이썬! 생성형AI로 데이터 분석해줘!",
+    "ncs_code": "COMP_GA_01",
+    "mapping_status": "REVIEW_NEEDED",
+    "confidence": "LOW",
+    "matched_suspicious_keyword": "파이썬",
+    "reason": "기술/IT/기능/자격증 과정('파이썬')이 HR/총무 역량(COMP_GA_01)으로 자동 분류됨"
+  },
+  {
+    "course_uid": "GSEEK_51908",
+    "provider": "GSEEK",
+    "title": "코딩 없이 하는 업무자동화, GPTs로 나만의 챗봇 만들기",
+    "ncs_code": "COMP_GA_01",
+    "mapping_status": "REVIEW_NEEDED",
+    "confidence": "LOW",
+    "matched_suspicious_keyword": "코딩",
+    "reason": "기술/IT/기능/자격증 과정('코딩')이 HR/총무 역량(COMP_GA_01)으로 자동 분류됨"
+  },
+  {
+    "course_uid": "GSEEK_51909",
+    "provider": "GSEEK",
+    "title": "파이썬은 모르지만 데이터 분석은 하고 싶어 (with. ChatGPT)",
+    "ncs_code": "COMP_SEC_01",
+    "mapping_status": "REVIEW_NEEDED",
+    "confidence": "LOW",
+    "matched_suspicious_keyword": "파이썬",
+    "reason": "기술/IT/기능/자격증 과정('파이썬')이 HR/총무 역량(COMP_SEC_01)으로 자동 분류됨"
+  },
+  {
+    "course_uid": "GSEEK_52127",
+    "provider": "GSEEK",
+    "title": "업무자동화까지 완성하는 파이썬 퀵스타트",
+    "ncs_code": "COMP_GA_01",
+    "mapping_status": "VERIFIED",
+    "confidence": "MEDIUM",
+    "matched_suspicious_keyword": "파이썬",
+    "reason": "기술/IT/기능/자격증 과정('파이썬')이 HR/총무 역량(COMP_GA_01)으로 자동 분류됨"
+  },
+  {
+    "course_uid": "GSEEK_56924",
+    "provider": "GSEEK",
+    "title": "[핵심공략]정보처리기사_실기_종합",
+    "ncs_code": "COMP_GA_01",
+    "mapping_status": "REVIEW_NEEDED",
+    "confidence": "LOW",
+    "matched_suspicious_keyword": "정보처리기사",
+    "reason": "기술/IT/기능/자격증 과정('정보처리기사')이 HR/총무 역량(COMP_GA_01)으로 자동 분류됨"
+  },
+  {
+    "course_uid": "GSEEK_56925",
+    "provider": "GSEEK",
+    "title": "[핵심공략]정보처리기사_필기_데이터베이스",
+    "ncs_code": "COMP_GA_01",
+    "mapping_status": "REVIEW_NEEDED",
+    "confidence": "LOW",
+    "matched_suspicious_keyword": "정보처리기사",
+    "reason": "기술/IT/기능/자격증 과정('정보처리기사')이 HR/총무 역량(COMP_GA_01)으로 자동 분류됨"
+  },
+  {
+    "course_uid": "GSEEK_56926",
+    "provider": "GSEEK",
+    "title": "[핵심공략]정보처리기사_필기_소프트웨어개발",
+    "ncs_code": "COMP_GA_01",
+    "mapping_status": "REVIEW_NEEDED",
+    "confidence": "LOW",
+    "matched_suspicious_keyword": "정보처리기사",
+    "reason": "기술/IT/기능/자격증 과정('정보처리기사')이 HR/총무 역량(COMP_GA_01)으로 자동 분류됨"
+  },
+  {
+    "course_uid": "GSEEK_56927",
+    "provider": "GSEEK",
+    "title": "[핵심공략]정보처리기사_필기_소프트웨어설계",
+    "ncs_code": "COMP_GA_01",
+    "mapping_status": "REVIEW_NEEDED",
+    "confidence": "LOW",
+    "matched_suspicious_keyword": "정보처리기사",
+    "reason": "기술/IT/기능/자격증 과정('정보처리기사')이 HR/총무 역량(COMP_GA_01)으로 자동 분류됨"
+  },
+  {
+    "course_uid": "GSEEK_56928",
+    "provider": "GSEEK",
+    "title": "[핵심공략]정보처리기사_필기_정보시스템구축관리",
+    "ncs_code": "COMP_GA_01",
+    "mapping_status": "REVIEW_NEEDED",
+    "confidence": "LOW",
+    "matched_suspicious_keyword": "정보처리기사",
+    "reason": "기술/IT/기능/자격증 과정('정보처리기사')이 HR/총무 역량(COMP_GA_01)으로 자동 분류됨"
+  },
+  {
+    "course_uid": "GSEEK_56929",
+    "provider": "GSEEK",
+    "title": "[핵심공략]정보처리기사_필기_프로그래밍언어활용",
+    "ncs_code": "COMP_GA_01",
+    "mapping_status": "REVIEW_NEEDED",
+    "confidence": "LOW",
+    "matched_suspicious_keyword": "정보처리기사",
+    "reason": "기술/IT/기능/자격증 과정('정보처리기사')이 HR/총무 역량(COMP_GA_01)으로 자동 분류됨"
+  },
+  {
+    "course_uid": "GSEEK_56946",
+    "provider": "GSEEK",
+    "title": "[HD]파이썬 스마트 자동화 PyCharm (반복 업무는 AI에게 맡기자) Part.3",
+    "ncs_code": "COMP_GA_01",
+    "mapping_status": "REVIEW_NEEDED",
+    "confidence": "LOW",
+    "matched_suspicious_keyword": "파이썬",
+    "reason": "기술/IT/기능/자격증 과정('파이썬')이 HR/총무 역량(COMP_GA_01)으로 자동 분류됨"
+  },
+  {
+    "course_uid": "GSEEK_57048",
+    "provider": "GSEEK",
+    "title": "대화로 시작하는 생성형 AI 코딩, 바이브코딩 입문",
+    "ncs_code": "COMP_GA_01",
+    "mapping_status": "REVIEW_NEEDED",
+    "confidence": "LOW",
+    "matched_suspicious_keyword": "코딩",
+    "reason": "기술/IT/기능/자격증 과정('코딩')이 HR/총무 역량(COMP_GA_01)으로 자동 분류됨"
+  },
+  {
+    "course_uid": "GSEEK_57212",
+    "provider": "GSEEK",
+    "title": "보육교직원 인식개선 및 권익보호",
+    "ncs_code": "COMP_LABOR_01",
+    "mapping_status": "REVIEW_NEEDED",
+    "confidence": "LOW",
+    "matched_suspicious_keyword": "보육",
+    "reason": "기술/IT/기능/자격증 과정('보육')이 HR/총무 역량(COMP_LABOR_01)으로 자동 분류됨"
+  },
+  {
+    "course_uid": "GSEEK_61620",
+    "provider": "GSEEK",
+    "title": "2027 [사회복지사 1교시] 사회복지조사론 (이론과정)",
+    "ncs_code": "COMP_HR_01",
+    "mapping_status": "REVIEW_NEEDED",
+    "confidence": "LOW",
+    "matched_suspicious_keyword": "사회복지",
+    "reason": "기술/IT/기능/자격증 과정('사회복지')이 HR/총무 역량(COMP_HR_01)으로 자동 분류됨"
+  },
+  {
+    "course_uid": "GSEEK_61622",
+    "provider": "GSEEK",
+    "title": "2027 [사회복지사 2교시] 사회복지실천론 (이론과정)",
+    "ncs_code": "COMP_HR_01",
+    "mapping_status": "REVIEW_NEEDED",
+    "confidence": "LOW",
+    "matched_suspicious_keyword": "사회복지",
+    "reason": "기술/IT/기능/자격증 과정('사회복지')이 HR/총무 역량(COMP_HR_01)으로 자동 분류됨"
+  },
+  {
+    "course_uid": "GSEEK_61624",
+    "provider": "GSEEK",
+    "title": "2027 [사회복지사 2교시] 사회복지실천기술론 (이론과정)",
+    "ncs_code": "COMP_HR_01",
+    "mapping_status": "REVIEW_NEEDED",
+    "confidence": "LOW",
+    "matched_suspicious_keyword": "사회복지",
+    "reason": "기술/IT/기능/자격증 과정('사회복지')이 HR/총무 역량(COMP_HR_01)으로 자동 분류됨"
+  },
+  {
+    "course_uid": "GSEEK_61627",
+    "provider": "GSEEK",
+    "title": "2027 [사회복지사 3교시] 사회복지행정론 (이론과정)",
+    "ncs_code": "COMP_GA_01",
+    "mapping_status": "VERIFIED",
+    "confidence": "MEDIUM",
+    "matched_suspicious_keyword": "사회복지",
+    "reason": "기술/IT/기능/자격증 과정('사회복지')이 HR/총무 역량(COMP_GA_01)으로 자동 분류됨"
+  },
+  {
+    "course_uid": "KMA_111266_125143",
+    "provider": "한국능률협회(KMA)",
+    "title": "[여의도] 문과생도 쉽게! ChatGPT와 파이썬 업무자동화 입문",
+    "ncs_code": "COMP_GA_01",
+    "mapping_status": "VERIFIED",
+    "confidence": "MEDIUM",
+    "matched_suspicious_keyword": "파이썬",
+    "reason": "기술/IT/기능/자격증 과정('파이썬')이 HR/총무 역량(COMP_GA_01)으로 자동 분류됨"
+  },
+  {
+    "course_uid": "KMA_111266_126938",
+    "provider": "한국능률협회(KMA)",
+    "title": "[여의도] 문과생도 쉽게! ChatGPT와 파이썬 업무자동화 입문",
+    "ncs_code": "COMP_GA_01",
+    "mapping_status": "VERIFIED",
+    "confidence": "MEDIUM",
+    "matched_suspicious_keyword": "파이썬",
+    "reason": "기술/IT/기능/자격증 과정('파이썬')이 HR/총무 역량(COMP_GA_01)으로 자동 분류됨"
+  },
+  {
+    "course_uid": "KMA_111412_125804",
+    "provider": "한국능률협회(KMA)",
+    "title": "[여의도] 코딩 없이 나만의 앱 만들기 (with Google AppSheet)",
+    "ncs_code": "COMP_GA_01",
+    "mapping_status": "REVIEW_NEEDED",
+    "confidence": "LOW",
+    "matched_suspicious_keyword": "코딩",
+    "reason": "기술/IT/기능/자격증 과정('코딩')이 HR/총무 역량(COMP_GA_01)으로 자동 분류됨"
+  },
+  {
+    "course_uid": "KMA_111266_125144",
+    "provider": "한국능률협회(KMA)",
+    "title": "[여의도] 문과생도 쉽게! ChatGPT와 파이썬 업무자동화 입문",
+    "ncs_code": "COMP_GA_01",
+    "mapping_status": "VERIFIED",
+    "confidence": "MEDIUM",
+    "matched_suspicious_keyword": "파이썬",
+    "reason": "기술/IT/기능/자격증 과정('파이썬')이 HR/총무 역량(COMP_GA_01)으로 자동 분류됨"
+  },
+  {
+    "course_uid": "KMA_111266_125145",
+    "provider": "한국능률협회(KMA)",
+    "title": "[여의도] 문과생도 쉽게! ChatGPT와 파이썬 업무자동화 입문",
+    "ncs_code": "COMP_GA_01",
+    "mapping_status": "VERIFIED",
+    "confidence": "MEDIUM",
+    "matched_suspicious_keyword": "파이썬",
+    "reason": "기술/IT/기능/자격증 과정('파이썬')이 HR/총무 역량(COMP_GA_01)으로 자동 분류됨"
+  },
+  {
+    "course_uid": "KMA_112120_127618",
+    "provider": "한국능률협회(KMA)",
+    "title": "[여의도] AI AGENT를 활용한 파이썬 바이브코딩 업무자동화 (with antigravity)",
+    "ncs_code": "COMP_GA_01",
+    "mapping_status": "VERIFIED",
+    "confidence": "MEDIUM",
+    "matched_suspicious_keyword": "파이썬",
+    "reason": "기술/IT/기능/자격증 과정('파이썬')이 HR/총무 역량(COMP_GA_01)으로 자동 분류됨"
+  },
+  {
+    "course_uid": "KMA_112120_127619",
+    "provider": "한국능률협회(KMA)",
+    "title": "[여의도] AI AGENT를 활용한 파이썬 바이브코딩 업무자동화 (with antigravity)",
+    "ncs_code": "COMP_GA_01",
+    "mapping_status": "VERIFIED",
+    "confidence": "MEDIUM",
+    "matched_suspicious_keyword": "파이썬",
+    "reason": "기술/IT/기능/자격증 과정('파이썬')이 HR/총무 역량(COMP_GA_01)으로 자동 분류됨"
+  },
+  {
+    "course_uid": "KMA_112120_127620",
+    "provider": "한국능률협회(KMA)",
+    "title": "[여의도] AI AGENT를 활용한 파이썬 바이브코딩 업무자동화 (with antigravity)",
+    "ncs_code": "COMP_GA_01",
+    "mapping_status": "VERIFIED",
+    "confidence": "MEDIUM",
+    "matched_suspicious_keyword": "파이썬",
+    "reason": "기술/IT/기능/자격증 과정('파이썬')이 HR/총무 역량(COMP_GA_01)으로 자동 분류됨"
+  },
+  {
+    "course_uid": "KMA_112120_127621",
+    "provider": "한국능률협회(KMA)",
+    "title": "[여의도] AI AGENT를 활용한 파이썬 바이브코딩 업무자동화 (with antigravity)",
+    "ncs_code": "COMP_GA_01",
+    "mapping_status": "VERIFIED",
+    "confidence": "MEDIUM",
+    "matched_suspicious_keyword": "파이썬",
+    "reason": "기술/IT/기능/자격증 과정('파이썬')이 HR/총무 역량(COMP_GA_01)으로 자동 분류됨"
+  },
+  {
+    "course_uid": "KMA_112120_127622",
+    "provider": "한국능률협회(KMA)",
+    "title": "[여의도] AI AGENT를 활용한 파이썬 바이브코딩 업무자동화 (with antigravity)",
+    "ncs_code": "COMP_GA_01",
+    "mapping_status": "VERIFIED",
+    "confidence": "MEDIUM",
+    "matched_suspicious_keyword": "파이썬",
+    "reason": "기술/IT/기능/자격증 과정('파이썬')이 HR/총무 역량(COMP_GA_01)으로 자동 분류됨"
+  },
+  {
+    "course_uid": "KMA_112120_127623",
+    "provider": "한국능률협회(KMA)",
+    "title": "[여의도] AI AGENT를 활용한 파이썬 바이브코딩 업무자동화 (with antigravity)",
+    "ncs_code": "COMP_GA_01",
+    "mapping_status": "VERIFIED",
+    "confidence": "MEDIUM",
+    "matched_suspicious_keyword": "파이썬",
+    "reason": "기술/IT/기능/자격증 과정('파이썬')이 HR/총무 역량(COMP_GA_01)으로 자동 분류됨"
+  },
+  {
+    "course_uid": "KMA_111309_127301",
+    "provider": "한국능률협회(KMA)",
+    "title": "[여의도] 생성형 AI를 활용한 파이썬 날개 달기",
+    "ncs_code": "COMP_GA_01",
+    "mapping_status": "VERIFIED",
+    "confidence": "MEDIUM",
+    "matched_suspicious_keyword": "파이썬",
+    "reason": "기술/IT/기능/자격증 과정('파이썬')이 HR/총무 역량(COMP_GA_01)으로 자동 분류됨"
+  },
+  {
+    "course_uid": "KMA_111309_127302",
+    "provider": "한국능률협회(KMA)",
+    "title": "[여의도] 생성형 AI를 활용한 파이썬 날개 달기",
+    "ncs_code": "COMP_GA_01",
+    "mapping_status": "VERIFIED",
+    "confidence": "MEDIUM",
+    "matched_suspicious_keyword": "파이썬",
+    "reason": "기술/IT/기능/자격증 과정('파이썬')이 HR/총무 역량(COMP_GA_01)으로 자동 분류됨"
+  },
+  {
+    "course_uid": "KMA_112090_127488",
+    "provider": "한국능률협회(KMA)",
+    "title": "[여의도] 생성형 AI를 활용한 파이썬 날개 달기",
+    "ncs_code": "COMP_GA_01",
+    "mapping_status": "VERIFIED",
+    "confidence": "MEDIUM",
+    "matched_suspicious_keyword": "파이썬",
+    "reason": "기술/IT/기능/자격증 과정('파이썬')이 HR/총무 역량(COMP_GA_01)으로 자동 분류됨"
+  },
+  {
+    "course_uid": "KMA_112090_127489",
+    "provider": "한국능률협회(KMA)",
+    "title": "[여의도] 생성형 AI를 활용한 파이썬 날개 달기",
+    "ncs_code": "COMP_GA_01",
+    "mapping_status": "VERIFIED",
+    "confidence": "MEDIUM",
+    "matched_suspicious_keyword": "파이썬",
+    "reason": "기술/IT/기능/자격증 과정('파이썬')이 HR/총무 역량(COMP_GA_01)으로 자동 분류됨"
+  },
+  {
+    "course_uid": "KMA_112090_127490",
+    "provider": "한국능률협회(KMA)",
+    "title": "[여의도] 생성형 AI를 활용한 파이썬 날개 달기",
+    "ncs_code": "COMP_GA_01",
+    "mapping_status": "VERIFIED",
+    "confidence": "MEDIUM",
+    "matched_suspicious_keyword": "파이썬",
+    "reason": "기술/IT/기능/자격증 과정('파이썬')이 HR/총무 역량(COMP_GA_01)으로 자동 분류됨"
+  },
+  {
+    "course_uid": "KMA_112090_127491",
+    "provider": "한국능률협회(KMA)",
+    "title": "[여의도] 생성형 AI를 활용한 파이썬 날개 달기",
+    "ncs_code": "COMP_GA_01",
+    "mapping_status": "VERIFIED",
+    "confidence": "MEDIUM",
+    "matched_suspicious_keyword": "파이썬",
+    "reason": "기술/IT/기능/자격증 과정('파이썬')이 HR/총무 역량(COMP_GA_01)으로 자동 분류됨"
+  },
+  {
+    "course_uid": "KMA_112091_127494",
+    "provider": "한국능률협회(KMA)",
+    "title": "[강남] 생성형 AI를 활용한 파이썬 날개 달기",
+    "ncs_code": "COMP_GA_01",
+    "mapping_status": "VERIFIED",
+    "confidence": "MEDIUM",
+    "matched_suspicious_keyword": "파이썬",
+    "reason": "기술/IT/기능/자격증 과정('파이썬')이 HR/총무 역량(COMP_GA_01)으로 자동 분류됨"
+  },
+  {
+    "course_uid": "KMA_112090_127492",
+    "provider": "한국능률협회(KMA)",
+    "title": "[여의도] 생성형 AI를 활용한 파이썬 날개 달기",
+    "ncs_code": "COMP_GA_01",
+    "mapping_status": "VERIFIED",
+    "confidence": "MEDIUM",
+    "matched_suspicious_keyword": "파이썬",
+    "reason": "기술/IT/기능/자격증 과정('파이썬')이 HR/총무 역량(COMP_GA_01)으로 자동 분류됨"
+  },
+  {
+    "course_uid": "KMA_112090_127493",
+    "provider": "한국능률협회(KMA)",
+    "title": "[여의도] 생성형 AI를 활용한 파이썬 날개 달기",
+    "ncs_code": "COMP_GA_01",
+    "mapping_status": "VERIFIED",
+    "confidence": "MEDIUM",
+    "matched_suspicious_keyword": "파이썬",
+    "reason": "기술/IT/기능/자격증 과정('파이썬')이 HR/총무 역량(COMP_GA_01)으로 자동 분류됨"
+  },
+  {
+    "course_uid": "KMA_111715_126855",
+    "provider": "한국능률협회(KMA)",
+    "title": "[상시모집/온라인] 사회복지사 2급 취득",
+    "ncs_code": "COMP_HR_01",
+    "mapping_status": "VERIFIED",
+    "confidence": "HIGH",
+    "matched_suspicious_keyword": "사회복지",
+    "reason": "기술/IT/기능/자격증 과정('사회복지')이 HR/총무 역량(COMP_HR_01)으로 자동 분류됨"
+  },
+  {
+    "course_uid": "KMA_111715_126856",
+    "provider": "한국능률협회(KMA)",
+    "title": "[상시모집/온라인] 사회복지사 2급 취득",
+    "ncs_code": "COMP_HR_01",
+    "mapping_status": "VERIFIED",
+    "confidence": "HIGH",
+    "matched_suspicious_keyword": "사회복지",
+    "reason": "기술/IT/기능/자격증 과정('사회복지')이 HR/총무 역량(COMP_HR_01)으로 자동 분류됨"
+  },
+  {
+    "course_uid": "KMA_111715_126857",
+    "provider": "한국능률협회(KMA)",
+    "title": "[상시모집/온라인] 사회복지사 2급 취득",
+    "ncs_code": "COMP_HR_01",
+    "mapping_status": "VERIFIED",
+    "confidence": "HIGH",
+    "matched_suspicious_keyword": "사회복지",
+    "reason": "기술/IT/기능/자격증 과정('사회복지')이 HR/총무 역량(COMP_HR_01)으로 자동 분류됨"
+  },
+  {
+    "course_uid": "KMA_111829_127072",
+    "provider": "한국능률협회(KMA)",
+    "title": "[여의도] 하루완성! 바이브코딩으로 팀/조직 진단 웹사이트 만들기",
+    "ncs_code": "COMP_HR_01",
+    "mapping_status": "REVIEW_NEEDED",
+    "confidence": "LOW",
+    "matched_suspicious_keyword": "코딩",
+    "reason": "기술/IT/기능/자격증 과정('코딩')이 HR/총무 역량(COMP_HR_01)으로 자동 분류됨"
+  },
+  {
+    "course_uid": "KMA_111947_127258",
+    "provider": "한국능률협회(KMA)",
+    "title": "[여의도] AI AGENT를 활용한 파이썬 업무자동화 (with antigravity)",
+    "ncs_code": "COMP_GA_01",
+    "mapping_status": "VERIFIED",
+    "confidence": "MEDIUM",
+    "matched_suspicious_keyword": "파이썬",
+    "reason": "기술/IT/기능/자격증 과정('파이썬')이 HR/총무 역량(COMP_GA_01)으로 자동 분류됨"
+  },
+  {
+    "course_uid": "KMA_112106_127552",
+    "provider": "한국능률협회(KMA)",
+    "title": "[여의도] 바이브코딩으로 구축하는 사내 AI 챗봇·지식 에이전트(with Claude Code)",
+    "ncs_code": "COMP_GA_01",
+    "mapping_status": "VERIFIED",
+    "confidence": "MEDIUM",
+    "matched_suspicious_keyword": "코딩",
+    "reason": "기술/IT/기능/자격증 과정('코딩')이 HR/총무 역량(COMP_GA_01)으로 자동 분류됨"
+  },
+  {
+    "course_uid": "KMA_112107_127558",
+    "provider": "한국능률협회(KMA)",
+    "title": "[여의도] 바이브코딩으로 나만의 웹사이트 만들고 배포하기",
+    "ncs_code": "COMP_GA_01",
+    "mapping_status": "REVIEW_NEEDED",
+    "confidence": "LOW",
+    "matched_suspicious_keyword": "코딩",
+    "reason": "기술/IT/기능/자격증 과정('코딩')이 HR/총무 역량(COMP_GA_01)으로 자동 분류됨"
+  },
+  {
+    "course_uid": "KMA_112128_127664",
+    "provider": "한국능률협회(KMA)",
+    "title": "[여의도] AI로 만드는 &#39;우리 팀 사용설명서&#39; — 바이브 코딩으로 진단형 웹사이트까지",
+    "ncs_code": "COMP_GA_01",
+    "mapping_status": "VERIFIED",
+    "confidence": "MEDIUM",
+    "matched_suspicious_keyword": "코딩",
+    "reason": "기술/IT/기능/자격증 과정('코딩')이 HR/총무 역량(COMP_GA_01)으로 자동 분류됨"
+  },
+  {
+    "course_uid": "KMA_112106_127553",
+    "provider": "한국능률협회(KMA)",
+    "title": "[여의도] 바이브코딩으로 구축하는 사내 AI 챗봇·지식 에이전트(with Claude Code)",
+    "ncs_code": "COMP_GA_01",
+    "mapping_status": "VERIFIED",
+    "confidence": "MEDIUM",
+    "matched_suspicious_keyword": "코딩",
+    "reason": "기술/IT/기능/자격증 과정('코딩')이 HR/총무 역량(COMP_GA_01)으로 자동 분류됨"
+  },
+  {
+    "course_uid": "KMA_112106_127554",
+    "provider": "한국능률협회(KMA)",
+    "title": "[여의도] 바이브코딩으로 구축하는 사내 AI 챗봇·지식 에이전트(with Claude Code)",
+    "ncs_code": "COMP_GA_01",
+    "mapping_status": "VERIFIED",
+    "confidence": "MEDIUM",
+    "matched_suspicious_keyword": "코딩",
+    "reason": "기술/IT/기능/자격증 과정('코딩')이 HR/총무 역량(COMP_GA_01)으로 자동 분류됨"
+  },
+  {
+    "course_uid": "KMA_112107_127559",
+    "provider": "한국능률협회(KMA)",
+    "title": "[여의도] 바이브코딩으로 나만의 웹사이트 만들고 배포하기",
+    "ncs_code": "COMP_GA_01",
+    "mapping_status": "REVIEW_NEEDED",
+    "confidence": "LOW",
+    "matched_suspicious_keyword": "코딩",
+    "reason": "기술/IT/기능/자격증 과정('코딩')이 HR/총무 역량(COMP_GA_01)으로 자동 분류됨"
+  },
+  {
+    "course_uid": "KMA_112128_127665",
+    "provider": "한국능률협회(KMA)",
+    "title": "[여의도] AI로 만드는 &#39;우리 팀 사용설명서&#39; — 바이브 코딩으로 진단형 웹사이트까지",
+    "ncs_code": "COMP_GA_01",
+    "mapping_status": "VERIFIED",
+    "confidence": "MEDIUM",
+    "matched_suspicious_keyword": "코딩",
+    "reason": "기술/IT/기능/자격증 과정('코딩')이 HR/총무 역량(COMP_GA_01)으로 자동 분류됨"
+  },
+  {
+    "course_uid": "KMA_112106_127555",
+    "provider": "한국능률협회(KMA)",
+    "title": "[여의도] 바이브코딩으로 구축하는 사내 AI 챗봇·지식 에이전트(with Claude Code)",
+    "ncs_code": "COMP_GA_01",
+    "mapping_status": "VERIFIED",
+    "confidence": "MEDIUM",
+    "matched_suspicious_keyword": "코딩",
+    "reason": "기술/IT/기능/자격증 과정('코딩')이 HR/총무 역량(COMP_GA_01)으로 자동 분류됨"
+  },
+  {
+    "course_uid": "KMA_112107_127560",
+    "provider": "한국능률협회(KMA)",
+    "title": "[여의도] 바이브코딩으로 나만의 웹사이트 만들고 배포하기",
+    "ncs_code": "COMP_GA_01",
+    "mapping_status": "REVIEW_NEEDED",
+    "confidence": "LOW",
+    "matched_suspicious_keyword": "코딩",
+    "reason": "기술/IT/기능/자격증 과정('코딩')이 HR/총무 역량(COMP_GA_01)으로 자동 분류됨"
+  },
+  {
+    "course_uid": "KMA_112128_127666",
+    "provider": "한국능률협회(KMA)",
+    "title": "[여의도] AI로 만드는 &#39;우리 팀 사용설명서&#39; — 바이브 코딩으로 진단형 웹사이트까지",
+    "ncs_code": "COMP_GA_01",
+    "mapping_status": "VERIFIED",
+    "confidence": "MEDIUM",
+    "matched_suspicious_keyword": "코딩",
+    "reason": "기술/IT/기능/자격증 과정('코딩')이 HR/총무 역량(COMP_GA_01)으로 자동 분류됨"
+  },
+  {
+    "course_uid": "KMA_112106_127556",
+    "provider": "한국능률협회(KMA)",
+    "title": "[여의도] 바이브코딩으로 구축하는 사내 AI 챗봇·지식 에이전트(with Claude Code)",
+    "ncs_code": "COMP_GA_01",
+    "mapping_status": "VERIFIED",
+    "confidence": "MEDIUM",
+    "matched_suspicious_keyword": "코딩",
+    "reason": "기술/IT/기능/자격증 과정('코딩')이 HR/총무 역량(COMP_GA_01)으로 자동 분류됨"
+  },
+  {
+    "course_uid": "KMA_112107_127561",
+    "provider": "한국능률협회(KMA)",
+    "title": "[여의도] 바이브코딩으로 나만의 웹사이트 만들고 배포하기",
+    "ncs_code": "COMP_GA_01",
+    "mapping_status": "REVIEW_NEEDED",
+    "confidence": "LOW",
+    "matched_suspicious_keyword": "코딩",
+    "reason": "기술/IT/기능/자격증 과정('코딩')이 HR/총무 역량(COMP_GA_01)으로 자동 분류됨"
+  },
+  {
+    "course_uid": "KMA_112106_127557",
+    "provider": "한국능률협회(KMA)",
+    "title": "[여의도] 바이브코딩으로 구축하는 사내 AI 챗봇·지식 에이전트(with Claude Code)",
+    "ncs_code": "COMP_GA_01",
+    "mapping_status": "VERIFIED",
+    "confidence": "MEDIUM",
+    "matched_suspicious_keyword": "코딩",
+    "reason": "기술/IT/기능/자격증 과정('코딩')이 HR/총무 역량(COMP_GA_01)으로 자동 분류됨"
+  },
+  {
+    "course_uid": "KPC_47569_152932",
+    "provider": "한국생산성본부(KPC)",
+    "title": "엑셀, 데이터베이스, 파이썬 기반의 빅데이터 분석 실무",
+    "ncs_code": "COMP_GA_01",
+    "mapping_status": "VERIFIED",
+    "confidence": "HIGH",
+    "matched_suspicious_keyword": "파이썬",
+    "reason": "기술/IT/기능/자격증 과정('파이썬')이 HR/총무 역량(COMP_GA_01)으로 자동 분류됨"
+  },
+  {
+    "course_uid": "KPC_49285_158917",
+    "provider": "한국생산성본부(KPC)",
+    "title": "[바이브코딩] 바이브코딩을 활용한 웹앱개발(무료교육)",
+    "ncs_code": "COMP_GA_01",
+    "mapping_status": "REVIEW_NEEDED",
+    "confidence": "LOW",
+    "matched_suspicious_keyword": "코딩",
+    "reason": "기술/IT/기능/자격증 과정('코딩')이 HR/총무 역량(COMP_GA_01)으로 자동 분류됨"
+  },
+  {
+    "course_uid": "KPC_47204_158323",
+    "provider": "한국생산성본부(KPC)",
+    "title": "ChatGPT를 활용한 비전공자를 위한 파이썬",
+    "ncs_code": "COMP_GA_01",
+    "mapping_status": "REVIEW_NEEDED",
+    "confidence": "LOW",
+    "matched_suspicious_keyword": "파이썬",
+    "reason": "기술/IT/기능/자격증 과정('파이썬')이 HR/총무 역량(COMP_GA_01)으로 자동 분류됨"
+  },
+  {
+    "course_uid": "KPC_47716_152456",
+    "provider": "한국생산성본부(KPC)",
+    "title": "AI 클라우드 서비스 도입 및 활용",
+    "ncs_code": "COMP_GA_01",
+    "mapping_status": "VERIFIED",
+    "confidence": "MEDIUM",
+    "matched_suspicious_keyword": "클라우드",
+    "reason": "기술/IT/기능/자격증 과정('클라우드')이 HR/총무 역량(COMP_GA_01)으로 자동 분류됨"
+  },
+  {
+    "course_uid": "KPC_47571_152970",
+    "provider": "한국생산성본부(KPC)",
+    "title": "업무 성과 향상! 파이썬 텍스트 분석 마스터",
+    "ncs_code": "COMP_GA_01",
+    "mapping_status": "VERIFIED",
+    "confidence": "MEDIUM",
+    "matched_suspicious_keyword": "파이썬",
+    "reason": "기술/IT/기능/자격증 과정('파이썬')이 HR/총무 역량(COMP_GA_01)으로 자동 분류됨"
+  },
+  {
+    "course_uid": "KPC_49285_158918",
+    "provider": "한국생산성본부(KPC)",
+    "title": "[바이브코딩] 바이브코딩을 활용한 웹앱개발(무료교육)",
+    "ncs_code": "COMP_GA_01",
+    "mapping_status": "REVIEW_NEEDED",
+    "confidence": "LOW",
+    "matched_suspicious_keyword": "코딩",
+    "reason": "기술/IT/기능/자격증 과정('코딩')이 HR/총무 역량(COMP_GA_01)으로 자동 분류됨"
+  },
+  {
+    "course_uid": "KPC_47176_152561",
+    "provider": "한국생산성본부(KPC)",
+    "title": "코딩 없이 만드는 구글앱시트 업무 앱",
+    "ncs_code": "COMP_GA_01",
+    "mapping_status": "VERIFIED",
+    "confidence": "HIGH",
+    "matched_suspicious_keyword": "코딩",
+    "reason": "기술/IT/기능/자격증 과정('코딩')이 HR/총무 역량(COMP_GA_01)으로 자동 분류됨"
+  },
+  {
+    "course_uid": "KPC_47216_156901",
+    "provider": "한국생산성본부(KPC)",
+    "title": "비개발자를 위한 바이브 코딩 기초",
+    "ncs_code": "COMP_GA_01",
+    "mapping_status": "VERIFIED",
+    "confidence": "MEDIUM",
+    "matched_suspicious_keyword": "코딩",
+    "reason": "기술/IT/기능/자격증 과정('코딩')이 HR/총무 역량(COMP_GA_01)으로 자동 분류됨"
+  },
+  {
+    "course_uid": "KPC_47723_152449",
+    "provider": "한국생산성본부(KPC)",
+    "title": "AX를 위한 클라우드 네이티브 도입 전략기획",
+    "ncs_code": "COMP_GA_01",
+    "mapping_status": "VERIFIED",
+    "confidence": "HIGH",
+    "matched_suspicious_keyword": "클라우드",
+    "reason": "기술/IT/기능/자격증 과정('클라우드')이 HR/총무 역량(COMP_GA_01)으로 자동 분류됨"
+  },
+  {
+    "course_uid": "KPC_47569_152933",
+    "provider": "한국생산성본부(KPC)",
+    "title": "엑셀, 데이터베이스, 파이썬 기반의 빅데이터 분석 실무",
+    "ncs_code": "COMP_GA_01",
+    "mapping_status": "VERIFIED",
+    "confidence": "HIGH",
+    "matched_suspicious_keyword": "파이썬",
+    "reason": "기술/IT/기능/자격증 과정('파이썬')이 HR/총무 역량(COMP_GA_01)으로 자동 분류됨"
+  },
+  {
+    "course_uid": "KPC_47219_152537",
+    "provider": "한국생산성본부(KPC)",
+    "title": "웹 취약점 분석과 시큐어코딩",
+    "ncs_code": "COMP_GA_01",
+    "mapping_status": "REVIEW_NEEDED",
+    "confidence": "LOW",
+    "matched_suspicious_keyword": "코딩",
+    "reason": "기술/IT/기능/자격증 과정('코딩')이 HR/총무 역량(COMP_GA_01)으로 자동 분류됨"
+  },
+  {
+    "course_uid": "KPC_47569_152934",
+    "provider": "한국생산성본부(KPC)",
+    "title": "엑셀, 데이터베이스, 파이썬 기반의 빅데이터 분석 실무",
+    "ncs_code": "COMP_GA_01",
+    "mapping_status": "VERIFIED",
+    "confidence": "HIGH",
+    "matched_suspicious_keyword": "파이썬",
+    "reason": "기술/IT/기능/자격증 과정('파이썬')이 HR/총무 역량(COMP_GA_01)으로 자동 분류됨"
+  },
+  {
+    "course_uid": "KPC_47549_155048",
+    "provider": "한국생산성본부(KPC)",
+    "title": "[AI 특화] 기획자를 위한 머신러닝·딥러닝 이해",
+    "ncs_code": "COMP_GA_01",
+    "mapping_status": "VERIFIED",
+    "confidence": "HIGH",
+    "matched_suspicious_keyword": "머신러닝",
+    "reason": "기술/IT/기능/자격증 과정('머신러닝')이 HR/총무 역량(COMP_GA_01)으로 자동 분류됨"
+  },
+  {
+    "course_uid": "KPC_47213_152614",
+    "provider": "한국생산성본부(KPC)",
+    "title": "자바 디자인패턴 마스터",
+    "ncs_code": "COMP_GA_01",
+    "mapping_status": "REVIEW_NEEDED",
+    "confidence": "LOW",
+    "matched_suspicious_keyword": "자바",
+    "reason": "기술/IT/기능/자격증 과정('자바')이 HR/총무 역량(COMP_GA_01)으로 자동 분류됨"
+  },
+  {
+    "course_uid": "KPC_48695_156920",
+    "provider": "한국생산성본부(KPC)",
+    "title": "[AI] 핵심인재를 위한 AI 기반의 파이썬 업무자동화 스킬",
+    "ncs_code": "COMP_GA_01",
+    "mapping_status": "VERIFIED",
+    "confidence": "MEDIUM",
+    "matched_suspicious_keyword": "파이썬",
+    "reason": "기술/IT/기능/자격증 과정('파이썬')이 HR/총무 역량(COMP_GA_01)으로 자동 분류됨"
+  },
+  {
+    "course_uid": "KPC_47214_152618",
+    "provider": "한국생산성본부(KPC)",
+    "title": "AX시대 코딩어시스턴트를 활용한 프로그래밍 입문",
+    "ncs_code": "COMP_GA_01",
+    "mapping_status": "REVIEW_NEEDED",
+    "confidence": "LOW",
+    "matched_suspicious_keyword": "코딩",
+    "reason": "기술/IT/기능/자격증 과정('코딩')이 HR/총무 역량(COMP_GA_01)으로 자동 분류됨"
+  },
+  {
+    "course_uid": "KPC_47715_152446",
+    "provider": "한국생산성본부(KPC)",
+    "title": "클라우드의 핵심 이해와 활용",
+    "ncs_code": "COMP_GA_01",
+    "mapping_status": "REVIEW_NEEDED",
+    "confidence": "LOW",
+    "matched_suspicious_keyword": "클라우드",
+    "reason": "기술/IT/기능/자격증 과정('클라우드')이 HR/총무 역량(COMP_GA_01)으로 자동 분류됨"
+  },
+  {
+    "course_uid": "KPC_47569_152935",
+    "provider": "한국생산성본부(KPC)",
+    "title": "엑셀, 데이터베이스, 파이썬 기반의 빅데이터 분석 실무",
+    "ncs_code": "COMP_GA_01",
+    "mapping_status": "VERIFIED",
+    "confidence": "HIGH",
+    "matched_suspicious_keyword": "파이썬",
+    "reason": "기술/IT/기능/자격증 과정('파이썬')이 HR/총무 역량(COMP_GA_01)으로 자동 분류됨"
+  },
+  {
+    "course_uid": "KPC_47204_152605",
+    "provider": "한국생산성본부(KPC)",
+    "title": "ChatGPT를 활용한 비전공자를 위한 파이썬",
+    "ncs_code": "COMP_GA_01",
+    "mapping_status": "REVIEW_NEEDED",
+    "confidence": "LOW",
+    "matched_suspicious_keyword": "파이썬",
+    "reason": "기술/IT/기능/자격증 과정('파이썬')이 HR/총무 역량(COMP_GA_01)으로 자동 분류됨"
+  },
+  {
+    "course_uid": "KPC_47216_152624",
+    "provider": "한국생산성본부(KPC)",
+    "title": "비개발자를 위한 바이브 코딩 기초",
+    "ncs_code": "COMP_GA_01",
+    "mapping_status": "VERIFIED",
+    "confidence": "MEDIUM",
+    "matched_suspicious_keyword": "코딩",
+    "reason": "기술/IT/기능/자격증 과정('코딩')이 HR/총무 역량(COMP_GA_01)으로 자동 분류됨"
+  },
+  {
+    "course_uid": "KPC_48177_155430",
+    "provider": "한국생산성본부(KPC)",
+    "title": "업무에 쉽게 적용하는 머신러닝·생성형 AI",
+    "ncs_code": "COMP_GA_01",
+    "mapping_status": "REVIEW_NEEDED",
+    "confidence": "LOW",
+    "matched_suspicious_keyword": "머신러닝",
+    "reason": "기술/IT/기능/자격증 과정('머신러닝')이 HR/총무 역량(COMP_GA_01)으로 자동 분류됨"
+  },
+  {
+    "course_uid": "MULTICAMPUS_FA01GK",
+    "provider": "멀티캠퍼스",
+    "title": "ChatGPT와 파이썬으로 쉽게 시작하는 업무자동화",
+    "ncs_code": "COMP_GA_01",
+    "mapping_status": "REVIEW_NEEDED",
+    "confidence": "LOW",
+    "matched_suspicious_keyword": "파이썬",
+    "reason": "기술/IT/기능/자격증 과정('파이썬')이 HR/총무 역량(COMP_GA_01)으로 자동 분류됨"
+  },
+  {
+    "course_uid": "MULTICAMPUS_FA01IK",
+    "provider": "멀티캠퍼스",
+    "title": "바이브코딩으로 시작하는 생성형AI 업무자동화",
+    "ncs_code": "COMP_GA_01",
+    "mapping_status": "REVIEW_NEEDED",
+    "confidence": "LOW",
+    "matched_suspicious_keyword": "코딩",
+    "reason": "기술/IT/기능/자격증 과정('코딩')이 HR/총무 역량(COMP_GA_01)으로 자동 분류됨"
+  },
+  {
+    "course_uid": "MULTICAMPUS_FA01OM",
+    "provider": "멀티캠퍼스",
+    "title": "Google AI Studio로 시작하는 바이브코딩 입문",
+    "ncs_code": "COMP_GA_01",
+    "mapping_status": "REVIEW_NEEDED",
+    "confidence": "LOW",
+    "matched_suspicious_keyword": "코딩",
+    "reason": "기술/IT/기능/자격증 과정('코딩')이 HR/총무 역량(COMP_GA_01)으로 자동 분류됨"
+  },
+  {
+    "course_uid": "MULTICAMPUS_FA01RQ",
+    "provider": "멀티캠퍼스",
+    "title": "비개발자를 위한 바이브코딩 입문 with 클로드 코드",
+    "ncs_code": "COMP_GA_01",
+    "mapping_status": "VERIFIED",
+    "confidence": "MEDIUM",
+    "matched_suspicious_keyword": "코딩",
+    "reason": "기술/IT/기능/자격증 과정('코딩')이 HR/총무 역량(COMP_GA_01)으로 자동 분류됨"
+  },
+  {
+    "course_uid": "MULTICAMPUS_FA01T3",
+    "provider": "멀티캠퍼스",
+    "title": "바이브코딩으로 완성하는 데이터 전처리와 머신러닝",
+    "ncs_code": "COMP_GA_01",
+    "mapping_status": "REVIEW_NEEDED",
+    "confidence": "LOW",
+    "matched_suspicious_keyword": "머신러닝",
+    "reason": "기술/IT/기능/자격증 과정('머신러닝')이 HR/총무 역량(COMP_GA_01)으로 자동 분류됨"
+  },
+  {
+    "course_uid": "MULTICAMPUS_EA0012",
+    "provider": "멀티캠퍼스",
+    "title": "[직딩잇템]파이썬 시각화 라이브러리로 엑셀 대시보드 만들기",
+    "ncs_code": "COMP_GA_01",
+    "mapping_status": "VERIFIED",
+    "confidence": "HIGH",
+    "matched_suspicious_keyword": "파이썬",
+    "reason": "기술/IT/기능/자격증 과정('파이썬')이 HR/총무 역량(COMP_GA_01)으로 자동 분류됨"
+  },
+  {
+    "course_uid": "MULTICAMPUS_EA0014",
+    "provider": "멀티캠퍼스",
+    "title": "[직딩잇템]Pandas와 엑셀을 활용한 파이썬 데이터 분석",
+    "ncs_code": "COMP_GA_01",
+    "mapping_status": "VERIFIED",
+    "confidence": "HIGH",
+    "matched_suspicious_keyword": "파이썬",
+    "reason": "기술/IT/기능/자격증 과정('파이썬')이 HR/총무 역량(COMP_GA_01)으로 자동 분류됨"
+  },
+  {
+    "course_uid": "MULTICAMPUS_EA0G2Q",
+    "provider": "멀티캠퍼스",
+    "title": "[바이브코딩]바이브코딩으로 시작하는 생성형AI 업무자동화(참고도서제공)",
+    "ncs_code": "COMP_GA_01",
+    "mapping_status": "REVIEW_NEEDED",
+    "confidence": "LOW",
+    "matched_suspicious_keyword": "코딩",
+    "reason": "기술/IT/기능/자격증 과정('코딩')이 HR/총무 역량(COMP_GA_01)으로 자동 분류됨"
+  },
+  {
+    "course_uid": "MULTICAMPUS_EA0HEL",
+    "provider": "멀티캠퍼스",
+    "title": "[바이브코딩] 영업 목표 달성을 위한 생성형 AI 업무 자동화",
+    "ncs_code": "COMP_GA_01",
+    "mapping_status": "REVIEW_NEEDED",
+    "confidence": "LOW",
+    "matched_suspicious_keyword": "코딩",
+    "reason": "기술/IT/기능/자격증 과정('코딩')이 HR/총무 역량(COMP_GA_01)으로 자동 분류됨"
+  },
+  {
+    "course_uid": "MULTICAMPUS_EB1CLK",
+    "provider": "멀티캠퍼스",
+    "title": "ES6 문법과 함께하는 모던 Javascript(자바스크립트) 중급 Part.1",
+    "ncs_code": "COMP_GA_01",
+    "mapping_status": "REVIEW_NEEDED",
+    "confidence": "LOW",
+    "matched_suspicious_keyword": "자바",
+    "reason": "기술/IT/기능/자격증 과정('자바')이 HR/총무 역량(COMP_GA_01)으로 자동 분류됨"
+  },
+  {
+    "course_uid": "MULTICAMPUS_EA0DNJ",
+    "provider": "멀티캠퍼스",
+    "title": "2일만에 끝내는 파이썬 업무 자동화 프로젝트 with ChatGPT(참고도서제공)",
+    "ncs_code": "COMP_GA_01",
+    "mapping_status": "REVIEW_NEEDED",
+    "confidence": "LOW",
+    "matched_suspicious_keyword": "파이썬",
+    "reason": "기술/IT/기능/자격증 과정('파이썬')이 HR/총무 역량(COMP_GA_01)으로 자동 분류됨"
+  },
+  {
+    "course_uid": "MULTICAMPUS_EA0JGM",
+    "provider": "멀티캠퍼스",
+    "title": "[바이브코딩] 클로드 MCP로 끝내주는 업무 효율화(참고도서제공)",
+    "ncs_code": "COMP_GA_01",
+    "mapping_status": "VERIFIED",
+    "confidence": "MEDIUM",
+    "matched_suspicious_keyword": "코딩",
+    "reason": "기술/IT/기능/자격증 과정('코딩')이 HR/총무 역량(COMP_GA_01)으로 자동 분류됨"
+  }
+]

@@ -1,0 +1,151 @@
+﻿query_id,category,query,rank,course_uid,title,provider,score,total_sessions,url
+Q01,인사,신입사원 온보딩 및 채용 프로세스 실무,1,HUNET_Y00245649,핵심만 콕! 신입사원 온보딩,휴넷,28.6611,1,https://hbs.hunet.co.kr/Education/Detail?gid=Y00245649
+Q01,인사,신입사원 온보딩 및 채용 프로세스 실무,2,HUNET_Y00265996,"오늘 온 신입사원, 온보딩 전략 ON 하기",휴넷,28.4491,1,https://hbs.hunet.co.kr/Education/Detail?gid=Y00265996
+Q01,인사,신입사원 온보딩 및 채용 프로세스 실무,3,GSEEK_56932,(리프레시) 핵심만 콕! 신입사원 온보딩,GSEEK,24.8451,1,https://www.gseek.kr/user/course/online/view?s_sbjct_sn=56932
+Q01,인사,신입사원 온보딩 및 채용 프로세스 실무,4,KPC_46979_149655,[온앤오프] HR·GA 온보딩 패키지,한국생산성본부(KPC),23.7022,3,https://www.kpc.or.kr/PTWED003_dtil_view.do?ecno=46979&cono=149655
+Q01,인사,신입사원 온보딩 및 채용 프로세스 실무,5,GSEEK_57049,"HR, AI가 트렌드다 : 채용부터 퇴사까지",GSEEK,23.3896,1,https://www.gseek.kr/user/course/online/view?s_sbjct_sn=57049
+Q01,인사,신입사원 온보딩 및 채용 프로세스 실무,6,GSEEK_57944,"신규입사자의 온보딩 과정, 워(Work).플(People).킹(Networking)",GSEEK,21.4039,1,https://www.gseek.kr/user/course/online/view?s_sbjct_sn=57944
+Q01,인사,신입사원 온보딩 및 채용 프로세스 실무,7,HUNET_Y00369136,"HR, AI가 트렌드다 : 채용부터 퇴사까지",휴넷,21.1368,1,https://hbs.hunet.co.kr/Education/Detail?gid=Y00369136
+Q01,인사,신입사원 온보딩 및 채용 프로세스 실무,8,MULTICAMPUS_FB00A4,[패스트트랙] 신입 온보딩 과정,멀티캠퍼스,20.9768,1,https://m.multicampus.com/course/crsDetail?corsCd=FB00A4
+Q01,인사,신입사원 온보딩 및 채용 프로세스 실무,9,MULTICAMPUS_FB00A6,[패스트트랙] 신입 온보딩 과정-업무관리 편,멀티캠퍼스,20.6606,1,https://m.multicampus.com/course/crsDetail?corsCd=FB00A6
+Q01,인사,신입사원 온보딩 및 채용 프로세스 실무,10,MULTICAMPUS_FB00A5,[패스트트랙] 신입 온보딩 과정-관계관리 편,멀티캠퍼스,20.6606,1,https://m.multicampus.com/course/crsDetail?corsCd=FB00A5
+Q02,인사,근로기준법 개정사항 및 취업규칙 작성 실무,1,GSEEK_2835,인생 봄날 만드는 똑똑한 근로계약서,GSEEK,17.3792,1,https://www.gseek.kr/user/course/online/view?s_sbjct_sn=2835
+Q02,인사,근로기준법 개정사항 및 취업규칙 작성 실무,2,KPC_46996_149756,[온앤오프] 근로기준법실무,한국생산성본부(KPC),16.0415,4,https://www.kpc.or.kr/PTWED003_dtil_view.do?ecno=46996&cono=149756
+Q02,인사,근로기준법 개정사항 및 취업규칙 작성 실무,3,KPC_48451_156247,두산_인사 전문가_인사노무 리스크 예방,한국생산성본부(KPC),15.9977,1,https://www.kpc.or.kr/PTWED003_dtil_view.do?ecno=48451&cono=156247
+Q02,인사,근로기준법 개정사항 및 취업규칙 작성 실무,4,GSEEK_57110,"입사에서 퇴사까지, 직장인을 위한 노동법 이야기",GSEEK,15.8097,1,https://www.gseek.kr/user/course/online/view?s_sbjct_sn=57110
+Q02,인사,근로기준법 개정사항 및 취업규칙 작성 실무,5,KPC_47001_149764,[온앤오프] 근로기준법 기본해설,한국생산성본부(KPC),14.6285,2,https://www.kpc.or.kr/PTWED003_dtil_view.do?ecno=47001&cono=149764
+Q02,인사,근로기준법 개정사항 및 취업규칙 작성 실무,6,GSEEK_3217,[창업공통]필수 근로기준법과 인사서식,GSEEK,14.3862,1,https://www.gseek.kr/user/course/online/view?s_sbjct_sn=3217
+Q02,인사,근로기준법 개정사항 및 취업규칙 작성 실무,7,KPC_47008_156438,[온앤오프] 근로감독 대응실무 체크포인트,한국생산성본부(KPC),14.141,1,https://www.kpc.or.kr/PTWED003_dtil_view.do?ecno=47008&cono=156438
+Q02,인사,근로기준법 개정사항 및 취업규칙 작성 실무,8,GSEEK_57124,새롭게 개정된 실전 노무법 & 노무 이슈,GSEEK,13.7257,1,https://www.gseek.kr/user/course/online/view?s_sbjct_sn=57124
+Q02,인사,근로기준법 개정사항 및 취업규칙 작성 실무,9,GSEEK_11597,유통 하도급 분야 공정거래 교육,GSEEK,12.5314,1,https://www.gseek.kr/user/course/online/view?s_sbjct_sn=11597
+Q02,인사,근로기준법 개정사항 및 취업규칙 작성 실무,10,PUB_ABA20243001036557_16,실무사례로 알아보는 근로기준법,중앙법률원격평생교육원,12.4889,1,https://www.work24.go.kr
+Q03,인사,연말정산 및 4대보험 급여 계산 실무,1,KMA_111436_125946,[여의도] 경영관리 신입사원을 위한 인사·회계·법무 입문,한국능률협회(KMA),29.7033,1,https://www.kma.or.kr/usrs/eduRegMgnt/eduRegInfoDetailForm.do?p_edutype_cd=001&p_crscd=111436&p_crsseq_id=125946&p_ctgry_id=661&p_hmpgcd=30&mkey=37148
+Q03,인사,연말정산 및 4대보험 급여 계산 실무,2,KPC_46978_149690,급여담당자 운용기초,한국생산성본부(KPC),23.8964,1,https://www.kpc.or.kr/PTWED003_dtil_view.do?ecno=46978&cono=149690
+Q03,인사,연말정산 및 4대보험 급여 계산 실무,3,KMA_111447_126378,[여의도] 급여담당자를 위한 급여관리 실무,한국능률협회(KMA),22.9553,1,https://www.kma.or.kr/usrs/eduRegMgnt/eduRegInfoDetailForm.do?p_edutype_cd=001&p_crscd=111447&p_crsseq_id=126378&p_ctgry_id=661&p_hmpgcd=30&mkey=37148
+Q03,인사,연말정산 및 4대보험 급여 계산 실무,4,KPC_46989_149697,[온앤오프] 급여 및 4대보험 관리실무,한국생산성본부(KPC),22.8836,3,https://www.kpc.or.kr/PTWED003_dtil_view.do?ecno=46989&cono=149697
+Q03,인사,연말정산 및 4대보험 급여 계산 실무,5,KMA_111544_126288,[여의도] 원천징수와 연말정산,한국능률협회(KMA),17.9444,2,https://www.kma.or.kr/usrs/eduRegMgnt/eduRegInfoDetailForm.do?p_edutype_cd=001&p_crscd=111544&p_crsseq_id=126288&p_ctgry_id=552&p_hmpgcd=30&mkey=36320
+Q03,인사,연말정산 및 4대보험 급여 계산 실무,6,KPC_47134_150591,인건비 세무관리와 4대보험실무,한국생산성본부(KPC),13.9361,1,https://www.kpc.or.kr/PTWED003_dtil_view.do?ecno=47134&cono=150591
+Q03,인사,연말정산 및 4대보험 급여 계산 실무,7,KPC_47139_150609,연말정산실무,한국생산성본부(KPC),13.2048,8,https://www.kpc.or.kr/PTWED003_dtil_view.do?ecno=47139&cono=150609
+Q03,인사,연말정산 및 4대보험 급여 계산 실무,8,KPC_47140_150599,연말정산입문,한국생산성본부(KPC),12.2813,1,https://www.kpc.or.kr/PTWED003_dtil_view.do?ecno=47140&cono=150599
+Q03,인사,연말정산 및 4대보험 급여 계산 실무,9,KPC_47003_149790,[온앤오프] 현장에서 알아야 하는 노무관리 솔루션,한국생산성본부(KPC),11.8991,1,https://www.kpc.or.kr/PTWED003_dtil_view.do?ecno=47003&cono=149790
+Q03,인사,연말정산 및 4대보험 급여 계산 실무,10,GSEEK_5793,소규모사업주가 알아야 할 노동법 상식,GSEEK,11.813,1,https://www.gseek.kr/user/course/online/view?s_sbjct_sn=5793
+Q04,인사,직무분석 및 KPI 성과평가 보상체계 설계,1,KPC_47022_157545,[DX&AI] 평가보상 설계 실무(밀코비치 기반),한국생산성본부(KPC),28.1894,2,https://www.kpc.or.kr/PTWED003_dtil_view.do?ecno=47022&cono=157545
+Q04,인사,직무분석 및 KPI 성과평가 보상체계 설계,2,GSEEK_57075,직급이 아닌 직무에 Focus하라. 직무급제의 모든것!,GSEEK,26.8461,1,https://www.gseek.kr/user/course/online/view?s_sbjct_sn=57075
+Q04,인사,직무분석 및 KPI 성과평가 보상체계 설계,3,KPC_48450_156250,두산_인사 전문가_성과중심 인사평가,한국생산성본부(KPC),26.1113,1,https://www.kpc.or.kr/PTWED003_dtil_view.do?ecno=48450&cono=156250
+Q04,인사,직무분석 및 KPI 성과평가 보상체계 설계,4,KPC_46981_149646,[온앤오프] 인사관리기본,한국생산성본부(KPC),25.7933,4,https://www.kpc.or.kr/PTWED003_dtil_view.do?ecno=46981&cono=149646
+Q04,인사,직무분석 및 KPI 성과평가 보상체계 설계,5,KPC_46993_149657,[인력계획부터 육성까지] 인사기획실무,한국생산성본부(KPC),24.7186,2,https://www.kpc.or.kr/PTWED003_dtil_view.do?ecno=46993&cono=149657
+Q04,인사,직무분석 및 KPI 성과평가 보상체계 설계,6,KPC_46977_149666,[온앤오프] 직무분석실무,한국생산성본부(KPC),23.8588,3,https://www.kpc.or.kr/PTWED003_dtil_view.do?ecno=46977&cono=149666
+Q04,인사,직무분석 및 KPI 성과평가 보상체계 설계,7,KPC_46990_149679,[온앤오프] 평가 및 보상제도 운영실무,한국생산성본부(KPC),23.7385,2,https://www.kpc.or.kr/PTWED003_dtil_view.do?ecno=46990&cono=149679
+Q04,인사,직무분석 및 KPI 성과평가 보상체계 설계,8,KMA_111441_125966,[여의도] HR 담당자를 위한 직무분석 실무,한국능률협회(KMA),21.1996,1,https://www.kma.or.kr/usrs/eduRegMgnt/eduRegInfoDetailForm.do?p_edutype_cd=001&p_crscd=111441&p_crsseq_id=125966&p_ctgry_id=661&p_hmpgcd=30&mkey=37148
+Q04,인사,직무분석 및 KPI 성과평가 보상체계 설계,9,KPC_46983_149700,[온앤오프] 직무급제 바로알기: 제도설계부터 실행까지,한국생산성본부(KPC),20.7479,1,https://www.kpc.or.kr/PTWED003_dtil_view.do?ecno=46983&cono=149700
+Q04,인사,직무분석 및 KPI 성과평가 보상체계 설계,10,KPC_46985_149669,[온앤오프] 직무분석기본: HR의 첫걸음,한국생산성본부(KPC),20.3822,1,https://www.kpc.or.kr/PTWED003_dtil_view.do?ecno=46985&cono=149669
+Q05,인사,부당해고 구제신청 및 노사관계 노무관리,1,KPC_47007_149788,[온앤오프] 현장노무담당자 역량강화,한국생산성본부(KPC),26.0881,2,https://www.kpc.or.kr/PTWED003_dtil_view.do?ecno=47007&cono=149788
+Q05,인사,부당해고 구제신청 및 노사관계 노무관리,2,KPC_47003_149790,[온앤오프] 현장에서 알아야 하는 노무관리 솔루션,한국생산성본부(KPC),17.3405,1,https://www.kpc.or.kr/PTWED003_dtil_view.do?ecno=47003&cono=149790
+Q05,인사,부당해고 구제신청 및 노사관계 노무관리,3,KMA_112331_128543,[여의도] 안정적인 노사관계를 위한 노동법 및 노사협의회 운영실무,한국능률협회(KMA),16.9141,4,https://www.kma.or.kr/usrs/eduRegMgnt/eduRegInfoDetailForm.do?p_edutype_cd=001&p_crscd=112331&p_crsseq_id=128543&p_ctgry_id=661&p_hmpgcd=30&mkey=37148
+Q05,인사,부당해고 구제신청 및 노사관계 노무관리,4,KPC_47001_149763,[온앤오프] 근로기준법 기본해설,한국생산성본부(KPC),15.3854,2,https://www.kpc.or.kr/PTWED003_dtil_view.do?ecno=47001&cono=149763
+Q05,인사,부당해고 구제신청 및 노사관계 노무관리,5,KMA_111450_125998,[여의도] 안정적인 노사관계를 위한 노동법 및 노사협의회 운영 실무,한국능률협회(KMA),15.1478,1,https://www.kma.or.kr/usrs/eduRegMgnt/eduRegInfoDetailForm.do?p_edutype_cd=001&p_crscd=111450&p_crsseq_id=125998&p_ctgry_id=661&p_hmpgcd=30&mkey=37148
+Q05,인사,부당해고 구제신청 및 노사관계 노무관리,6,KPC_47006_149777,[온앤오프] 노무분쟁 예방을 위한 전략적 노무관리,한국생산성본부(KPC),14.6831,1,https://www.kpc.or.kr/PTWED003_dtil_view.do?ecno=47006&cono=149777
+Q05,인사,부당해고 구제신청 및 노사관계 노무관리,7,KPC_47005_156435,2026년 하루에 배우는 최신노무관리 Essence,한국생산성본부(KPC),14.1986,2,https://www.kpc.or.kr/PTWED003_dtil_view.do?ecno=47005&cono=156435
+Q05,인사,부당해고 구제신청 및 노사관계 노무관리,8,GSEEK_4378,사용자에게 꼭 필요한 사이다 노동법,GSEEK,14.0914,1,https://www.gseek.kr/user/course/online/view?s_sbjct_sn=4378
+Q05,인사,부당해고 구제신청 및 노사관계 노무관리,9,KPC_47018_149796,노동위원회 사건대리 최고역량 과정,한국생산성본부(KPC),14.0527,1,https://www.kpc.or.kr/PTWED003_dtil_view.do?ecno=47018&cono=149796
+Q05,인사,부당해고 구제신청 및 노사관계 노무관리,10,KPC_46996_149758,[온앤오프] 근로기준법실무,한국생산성본부(KPC),13.6999,1,https://www.kpc.or.kr/PTWED003_dtil_view.do?ecno=46996&cono=149758
+Q06,총무,비품 구매 계약 및 공급업체 관리,1,KMA_111486_126126,[여의도] 협력업체 관리실무,한국능률협회(KMA),17.4494,1,https://www.kma.or.kr/usrs/eduRegMgnt/eduRegInfoDetailForm.do?p_edutype_cd=001&p_crscd=111486&p_crsseq_id=126126&p_ctgry_id=651&p_hmpgcd=30&mkey=37155
+Q06,총무,비품 구매 계약 및 공급업체 관리,2,KPC_47861_154595,협력업체관리실무,한국생산성본부(KPC),16.9093,2,https://www.kpc.or.kr/PTWED003_dtil_view.do?ecno=47861&cono=154595
+Q06,총무,비품 구매 계약 및 공급업체 관리,3,KPC_47856_154585,구매계약과 공정거래하도급법의 이해,한국생산성본부(KPC),16.6562,4,https://www.kpc.or.kr/PTWED003_dtil_view.do?ecno=47856&cono=154585
+Q06,총무,비품 구매 계약 및 공급업체 관리,4,KPC_47857_154660,구매담당자 리스크관리능력향상,한국생산성본부(KPC),16.4973,1,https://www.kpc.or.kr/PTWED003_dtil_view.do?ecno=47857&cono=154660
+Q06,총무,비품 구매 계약 및 공급업체 관리,5,HUNET_Y00316399,실무 꿀 tip! 총무 업무 지침서,휴넷,16.3247,1,https://hbs.hunet.co.kr/Education/Detail?gid=Y00316399
+Q06,총무,비품 구매 계약 및 공급업체 관리,6,MULTICAMPUS_FB006M,[공인] [S/4HANA MM 아카데미] 3주차: Inventory Management,멀티캠퍼스,15.3913,1,https://m.multicampus.com/course/crsDetail?corsCd=FB006M
+Q06,총무,비품 구매 계약 및 공급업체 관리,7,MULTICAMPUS_FB006L,[공인] [S/4HANA MM 아카데미] 2주차: Process Details & Master Data,멀티캠퍼스,15.289,1,https://m.multicampus.com/course/crsDetail?corsCd=FB006L
+Q06,총무,비품 구매 계약 및 공급업체 관리,8,MULTICAMPUS_FB006N,[공인] [S/4HANA MM 아카데미] 4주차: Invoice Verification and Customizing,멀티캠퍼스,15.2553,1,https://m.multicampus.com/course/crsDetail?corsCd=FB006N
+Q06,총무,비품 구매 계약 및 공급업체 관리,9,KPC_47346_154664,간접구매관리실무,한국생산성본부(KPC),15.1272,1,https://www.kpc.or.kr/PTWED003_dtil_view.do?ecno=47346&cono=154664
+Q06,총무,비품 구매 계약 및 공급업체 관리,10,KPC_47852_154683,외자구매(글로벌소싱)기본,한국생산성본부(KPC),14.253,1,https://www.kpc.or.kr/PTWED003_dtil_view.do?ecno=47852&cono=154683
+Q07,총무,고정자산 실사 및 사옥 시설관리,1,GSEEK_11748,도시재생 전문과정 지역자산화과정 및 거점시설 우수사례,GSEEK,17.7115,1,https://www.gseek.kr/user/course/online/view?s_sbjct_sn=11748
+Q07,총무,고정자산 실사 및 사옥 시설관리,2,KPC_45994_151713,[온앤오프] 자산 관리 기본,한국생산성본부(KPC),17.1844,2,https://www.kpc.or.kr/PTWED003_dtil_view.do?ecno=45994&cono=151713
+Q07,총무,고정자산 실사 및 사옥 시설관리,3,KPC_47284_151690,총무 자산관리 핵심,한국생산성본부(KPC),14.9466,1,https://www.kpc.or.kr/PTWED003_dtil_view.do?ecno=47284&cono=151690
+Q07,총무,고정자산 실사 및 사옥 시설관리,4,KPC_46716_148679,인권실사 전문가 양성,한국생산성본부(KPC),14.7087,1,https://www.kpc.or.kr/PTWED003_dtil_view.do?ecno=46716&cono=148679
+Q07,총무,고정자산 실사 및 사옥 시설관리,5,GSEEK_64306,사회조사분석사 2급 한방에 끝내기 : 필기_조사방법과 설계,GSEEK,14.6978,1,https://www.gseek.kr/user/course/online/view?s_sbjct_sn=64306
+Q07,총무,고정자산 실사 및 사옥 시설관리,6,KPC_46715_148676,RBA Standards 이해 및 Audit 대응 실무,한국생산성본부(KPC),14.4941,1,https://www.kpc.or.kr/PTWED003_dtil_view.do?ecno=46715&cono=148676
+Q07,총무,고정자산 실사 및 사옥 시설관리,7,KPC_46700_148680,공급망 ESG 평가 대응,한국생산성본부(KPC),13.8355,1,https://www.kpc.or.kr/PTWED003_dtil_view.do?ecno=46700&cono=148680
+Q07,총무,고정자산 실사 및 사옥 시설관리,8,KPC_48250_155852,[자격과정] 공급망 ESG 평가사,한국생산성본부(KPC),13.319,1,https://www.kpc.or.kr/PTWED003_dtil_view.do?ecno=48250&cono=155852
+Q07,총무,고정자산 실사 및 사옥 시설관리,9,KPC_47251_151717,부동산 자산 관리 실무,한국생산성본부(KPC),13.2461,1,https://www.kpc.or.kr/PTWED003_dtil_view.do?ecno=47251&cono=151717
+Q07,총무,고정자산 실사 및 사옥 시설관리,10,HUNET_Y00333589,핵심만 콕! 시설관리 및 자산관리,휴넷,13.0097,1,https://hbs.hunet.co.kr/Education/Detail?gid=Y00333589
+Q08,총무,공문서 작성법 및 기획보고서 피드백,1,KMA_112121_127624,"[비대면] AI 시대, 실무에 바로 쓰는 공문서 및 보고서 작성 실무",한국능률협회(KMA),20.3549,4,https://www.kma.or.kr/usrs/eduRegMgnt/eduRegInfoDetailForm.do?p_edutype_cd=001&p_crscd=112121&p_crsseq_id=127624&p_ctgry_id=685&p_hmpgcd=30&mkey=37226
+Q08,총무,공문서 작성법 및 기획보고서 피드백,2,KPC_47493_157062,공공기관 보고서 작성 Total Skill Up(Feat. AI & 한글),한국생산성본부(KPC),19.4556,6,https://www.kpc.or.kr/PTWED003_dtil_view.do?ecno=47493&cono=157062
+Q08,총무,공문서 작성법 및 기획보고서 피드백,3,KPC_47901_152798,[공공기관] 생성형AI 활용 공공문서 작성실무,한국생산성본부(KPC),18.5564,3,https://www.kpc.or.kr/PTWED003_dtil_view.do?ecno=47901&cono=152798
+Q08,총무,공문서 작성법 및 기획보고서 피드백,4,KMA_109989_126560,[온라인][자격] 비즈니스라이팅,한국능률협회(KMA),17.2728,2,https://www.kma.or.kr/usrs/eduRegMgnt/eduRegInfoDetailForm.do?p_edutype_cd=002&p_crscd=109989&p_crsseq_id=126560&p_ctgry_id=664&p_hmpgcd=30&mkey=37172
+Q08,총무,공문서 작성법 및 기획보고서 피드백,5,KMA_111553_126304,[여의도] 공공기관 실무자를 위한 보고서 작성 실무,한국능률협회(KMA),14.4504,1,https://www.kma.or.kr/usrs/eduRegMgnt/eduRegInfoDetailForm.do?p_edutype_cd=001&p_crscd=111553&p_crsseq_id=126304&p_ctgry_id=654&p_hmpgcd=30&mkey=37151
+Q08,총무,공문서 작성법 및 기획보고서 피드백,6,KMA_111398_125754,[여의도] 한번에 통하는 원페이지 보고서 작성 실무,한국능률협회(KMA),13.1698,1,https://www.kma.or.kr/usrs/eduRegMgnt/eduRegInfoDetailForm.do?p_edutype_cd=001&p_crscd=111398&p_crsseq_id=125754&p_ctgry_id=557&p_hmpgcd=30&mkey=36325
+Q08,총무,공문서 작성법 및 기획보고서 피드백,7,KMA_111870_127436,"[여의도] AI 활용, 기획안 설득력 · 기획서 전달력 마스터",한국능률협회(KMA),13.0525,1,https://www.kma.or.kr/usrs/eduRegMgnt/eduRegInfoDetailForm.do?p_edutype_cd=001&p_crscd=111870&p_crsseq_id=127436&p_ctgry_id=698&p_hmpgcd=30&mkey=37240
+Q08,총무,공문서 작성법 및 기획보고서 피드백,8,KMA_112191_128012,[여의도] 기획역량 향상 : 분석-대안-보고서까지,한국능률협회(KMA),12.9372,8,https://www.kma.or.kr/usrs/eduRegMgnt/eduRegInfoDetailForm.do?p_edutype_cd=001&p_crscd=112191&p_crsseq_id=128012&p_ctgry_id=561&p_hmpgcd=30&mkey=36329
+Q08,총무,공문서 작성법 및 기획보고서 피드백,9,KMA_111396_125737,[여의도] 비즈니스 문서 작성 실전 클리닉,한국능률협회(KMA),12.9231,1,https://www.kma.or.kr/usrs/eduRegMgnt/eduRegInfoDetailForm.do?p_edutype_cd=001&p_crscd=111396&p_crsseq_id=125737&p_ctgry_id=557&p_hmpgcd=30&mkey=36325
+Q08,총무,공문서 작성법 및 기획보고서 피드백,10,KMA_111397_125747,[여의도] 기획역량 향상 : 분석-대안-보고서까지,한국능률협회(KMA),12.8613,1,https://www.kma.or.kr/usrs/eduRegMgnt/eduRegInfoDetailForm.do?p_edutype_cd=001&p_crscd=111397&p_crsseq_id=125747&p_ctgry_id=561&p_hmpgcd=30&mkey=36329
+Q09,총무,엑셀 실무 데이터 가공 및 함수 활용,1,GSEEK_12320,취업 준비를 위한 OA (Excel) 실무 2023 (오피스365 활용) Part.1,GSEEK,21.5574,1,https://www.gseek.kr/user/course/online/view?s_sbjct_sn=12320
+Q09,총무,엑셀 실무 데이터 가공 및 함수 활용,2,KPC_47586_152054,[엑셀데이터활용] Power BI를 활용한 데이터 시각화_심화,한국생산성본부(KPC),20.8063,1,https://www.kpc.or.kr/PTWED003_dtil_view.do?ecno=47586&cono=152054
+Q09,총무,엑셀 실무 데이터 가공 및 함수 활용,3,KPC_47569_152935,"엑셀, 데이터베이스, 파이썬 기반의 빅데이터 분석 실무",한국생산성본부(KPC),20.2474,4,https://www.kpc.or.kr/PTWED003_dtil_view.do?ecno=47569&cono=152935
+Q09,총무,엑셀 실무 데이터 가공 및 함수 활용,4,HUNET_Y00339583,일잘러의 엑셀 스킬! 함수&수식 마스터,휴넷,19.7363,1,https://hbs.hunet.co.kr/Education/Detail?gid=Y00339583
+Q09,총무,엑셀 실무 데이터 가공 및 함수 활용,5,KMA_111200_126896,[강남] 엑셀 비즈니스 활용 기초,한국능률협회(KMA),19.4526,1,https://www.kma.or.kr/usrs/eduRegMgnt/eduRegInfoDetailForm.do?p_edutype_cd=001&p_crscd=111200&p_crsseq_id=126896&p_ctgry_id=556&p_hmpgcd=30&mkey=36324
+Q09,총무,엑셀 실무 데이터 가공 및 함수 활용,6,KMA_111382_125650,[여의도] 엑셀 비즈니스 활용 기초,한국능률협회(KMA),19.4526,1,https://www.kma.or.kr/usrs/eduRegMgnt/eduRegInfoDetailForm.do?p_edutype_cd=001&p_crscd=111382&p_crsseq_id=125650&p_ctgry_id=556&p_hmpgcd=30&mkey=36324
+Q09,총무,엑셀 실무 데이터 가공 및 함수 활용,7,KMA_112227_128159,[비대면] 비즈니스 엑셀 BOOST : 실무 감각 깨우기,한국능률협회(KMA),19.4016,4,https://www.kma.or.kr/usrs/eduRegMgnt/eduRegInfoDetailForm.do?p_edutype_cd=001&p_crscd=112227&p_crsseq_id=128159&p_ctgry_id=556&p_hmpgcd=30&mkey=36324
+Q09,총무,엑셀 실무 데이터 가공 및 함수 활용,8,KMA_111240_125019,[비대면] 비즈니스 엑셀 BOOST : 실무 감각 깨우기,한국능률협회(KMA),19.4016,1,https://www.kma.or.kr/usrs/eduRegMgnt/eduRegInfoDetailForm.do?p_edutype_cd=001&p_crscd=111240&p_crsseq_id=125019&p_ctgry_id=556&p_hmpgcd=30&mkey=36324
+Q09,총무,엑셀 실무 데이터 가공 및 함수 활용,9,MULTICAMPUS_FA01QX,엑셀 업무 시간을 단축하는 Claude X Excel 업무자동화,멀티캠퍼스,19.3242,1,https://m.multicampus.com/course/crsDetail?corsCd=FA01QX
+Q09,총무,엑셀 실무 데이터 가공 및 함수 활용,10,GSEEK_52747,일잘러의 엑셀 스킬! 함수&수식 마스터,GSEEK,19.2882,1,https://www.gseek.kr/user/course/online/view?s_sbjct_sn=52747
+Q10,총무,사내 행사 기획 및 워크숍 운영 총무 실무,1,KPC_47246_151699,[온앤오프] 총무 업무 기본,한국생산성본부(KPC),25.8827,1,https://www.kpc.or.kr/PTWED003_dtil_view.do?ecno=47246&cono=151699
+Q10,총무,사내 행사 기획 및 워크숍 운영 총무 실무,2,HUNET_Y00316399,실무 꿀 tip! 총무 업무 지침서,휴넷,24.3259,1,https://hbs.hunet.co.kr/Education/Detail?gid=Y00316399
+Q10,총무,사내 행사 기획 및 워크숍 운영 총무 실무,3,KPC_47247_151704,[온앤오프] 총무 업무 종합,한국생산성본부(KPC),23.4251,1,https://www.kpc.or.kr/PTWED003_dtil_view.do?ecno=47247&cono=151704
+Q10,총무,사내 행사 기획 및 워크숍 운영 총무 실무,4,KPC_48576_156482,생성형 AI 기반 총무 업무 효율화·자동화 실무,한국생산성본부(KPC),20.1448,1,https://www.kpc.or.kr/PTWED003_dtil_view.do?ecno=48576&cono=156482
+Q10,총무,사내 행사 기획 및 워크숍 운영 총무 실무,5,KPC_47250_151725,행사 의전 실무,한국생산성본부(KPC),17.8437,1,https://www.kpc.or.kr/PTWED003_dtil_view.do?ecno=47250&cono=151725
+Q10,총무,사내 행사 기획 및 워크숍 운영 총무 실무,6,KMA_112106_127555,[여의도] 바이브코딩으로 구축하는 사내 AI 챗봇·지식 에이전트(with Claude Code),한국능률협회(KMA),16.8615,6,https://www.kma.or.kr/usrs/eduRegMgnt/eduRegInfoDetailForm.do?p_edutype_cd=001&p_crscd=112106&p_crsseq_id=127555&p_ctgry_id=685&p_hmpgcd=30&mkey=37226
+Q10,총무,사내 행사 기획 및 워크숍 운영 총무 실무,7,KPC_46979_157553,[온앤오프] HR·GA 온보딩 패키지,한국생산성본부(KPC),16.7153,3,https://www.kpc.or.kr/PTWED003_dtil_view.do?ecno=46979&cono=157553
+Q10,총무,사내 행사 기획 및 워크숍 운영 총무 실무,8,KMA_111551_126319,[여의도] 의전행사 실무,한국능률협회(KMA),15.8679,2,https://www.kma.or.kr/usrs/eduRegMgnt/eduRegInfoDetailForm.do?p_edutype_cd=001&p_crscd=111551&p_crsseq_id=126319&p_ctgry_id=654&p_hmpgcd=30&mkey=37151
+Q10,총무,사내 행사 기획 및 워크숍 운영 총무 실무,9,KPC_47248_151708,[온앤오프] 총무 기획 실무,한국생산성본부(KPC),14.6086,1,https://www.kpc.or.kr/PTWED003_dtil_view.do?ecno=47248&cono=151708
+Q10,총무,사내 행사 기획 및 워크숍 운영 총무 실무,10,KPC_48333_155882,[AI] [Advanced] AI를 활용한 사내강사 기획역량 향상,한국생산성본부(KPC),13.4525,1,https://www.kpc.or.kr/PTWED003_dtil_view.do?ecno=48333&cono=155882
+Q11,경영지원,비즈니스 매너 및 사내 커뮤니케이션 에티켓,1,GSEEK_51955,[레전드 스킬] 어쩐지 끌리는 사람의 비즈니스 매너,GSEEK,24.2237,1,https://www.gseek.kr/user/course/online/view?s_sbjct_sn=51955
+Q11,경영지원,비즈니스 매너 및 사내 커뮤니케이션 에티켓,2,HUNET_Y00316461,글로벌 비즈니스 리더의 기술_기업 이미지 UP 프로젝트,휴넷,22.3165,1,https://hbs.hunet.co.kr/Education/Detail?gid=Y00316461
+Q11,경영지원,비즈니스 매너 및 사내 커뮤니케이션 에티켓,3,KMA_111178_124768,[여의도] 신입사원 Good Start,한국능률협회(KMA),19.2884,3,https://www.kma.or.kr/usrs/eduRegMgnt/eduRegInfoDetailForm.do?p_edutype_cd=001&p_crscd=111178&p_crsseq_id=124768&p_ctgry_id=544&p_hmpgcd=30&mkey=36312
+Q11,경영지원,비즈니스 매너 및 사내 커뮤니케이션 에티켓,4,KMA_112174_127900,[여의도] 신입사원 Good Start,한국능률협회(KMA),19.2884,11,https://www.kma.or.kr/usrs/eduRegMgnt/eduRegInfoDetailForm.do?p_edutype_cd=001&p_crscd=112174&p_crsseq_id=127900&p_ctgry_id=544&p_hmpgcd=30&mkey=36312
+Q11,경영지원,비즈니스 매너 및 사내 커뮤니케이션 에티켓,5,KPC_47528_151499,Global Business Proposal and Presentation,한국생산성본부(KPC),13.9885,1,https://www.kpc.or.kr/PTWED003_dtil_view.do?ecno=47528&cono=151499
+Q11,경영지원,비즈니스 매너 및 사내 커뮤니케이션 에티켓,6,KPC_47464_151642,글로벌 비즈니스 매너,한국생산성본부(KPC),13.8051,1,https://www.kpc.or.kr/PTWED003_dtil_view.do?ecno=47464&cono=151642
+Q11,경영지원,비즈니스 매너 및 사내 커뮤니케이션 에티켓,7,PUB_ACG20243000973001_324,알베르토와 함께하는 글로벌 비즈니스 매너,에듀퓨어,13.6998,1,https://www.work24.go.kr
+Q11,경영지원,비즈니스 매너 및 사내 커뮤니케이션 에티켓,8,HUNET_Y00161578,"실례합니다만, 비즈니스 매너는 지켜주시겠어요?",휴넷,13.4941,1,https://hbs.hunet.co.kr/Education/Detail?gid=Y00161578
+Q11,경영지원,비즈니스 매너 및 사내 커뮤니케이션 에티켓,9,HUNET_Y00004543,직장인을 위한 비즈니스 매너 에센스,휴넷,13.3935,1,https://hbs.hunet.co.kr/Education/Detail?gid=Y00004543
+Q11,경영지원,비즈니스 매너 및 사내 커뮤니케이션 에티켓,10,GSEEK_51957,[레전드 스킬] 함께 이야기하고 싶은 사람이 되는 법,GSEEK,13.3285,1,https://www.gseek.kr/user/course/online/view?s_sbjct_sn=51957
+Q12,경영지원,임원 비서 실무 및 의전 가이드,1,KPC_47246_151699,[온앤오프] 총무 업무 기본,한국생산성본부(KPC),21.0775,1,https://www.kpc.or.kr/PTWED003_dtil_view.do?ecno=47246&cono=151699
+Q12,경영지원,임원 비서 실무 및 의전 가이드,2,KMA_111551_126318,[여의도] 의전행사 실무,한국능률협회(KMA),15.8529,2,https://www.kma.or.kr/usrs/eduRegMgnt/eduRegInfoDetailForm.do?p_edutype_cd=001&p_crscd=111551&p_crsseq_id=126318&p_ctgry_id=654&p_hmpgcd=30&mkey=37151
+Q12,경영지원,임원 비서 실무 및 의전 가이드,3,KPC_47250_151725,행사 의전 실무,한국생산성본부(KPC),14.8704,1,https://www.kpc.or.kr/PTWED003_dtil_view.do?ecno=47250&cono=151725
+Q12,경영지원,임원 비서 실무 및 의전 가이드,4,HUNET_Y00316461,글로벌 비즈니스 리더의 기술_기업 이미지 UP 프로젝트,휴넷,13.6122,1,https://hbs.hunet.co.kr/Education/Detail?gid=Y00316461
+Q12,경영지원,임원 비서 실무 및 의전 가이드,5,KPC_47247_151704,[온앤오프] 총무 업무 종합,한국생산성본부(KPC),13.3591,1,https://www.kpc.or.kr/PTWED003_dtil_view.do?ecno=47247&cono=151704
+Q12,경영지원,임원 비서 실무 및 의전 가이드,6,KMA_111867_127472,[여의도] AI와 최강 비서 역량 마스터,한국능률협회(KMA),12.857,1,https://www.kma.or.kr/usrs/eduRegMgnt/eduRegInfoDetailForm.do?p_edutype_cd=001&p_crscd=111867&p_crsseq_id=127472&p_ctgry_id=698&p_hmpgcd=30&mkey=37240
+Q12,경영지원,임원 비서 실무 및 의전 가이드,7,HUNET_Y00321641,신임 임원을 위한 9 Weeks Journey,휴넷,11.2006,1,https://hbs.hunet.co.kr/Education/Detail?gid=Y00321641
+Q12,경영지원,임원 비서 실무 및 의전 가이드,8,HUNET_Y00353447,리더의 업무 생산성 향상을 위한 생성형 AI 완전정복,휴넷,11.0187,1,https://hbs.hunet.co.kr/Education/Detail?gid=Y00353447
+Q12,경영지원,임원 비서 실무 및 의전 가이드,9,KMA_112172_127868,[여의도] 신임임원 역량강화,한국능률협회(KMA),10.1791,9,https://www.kma.or.kr/usrs/eduRegMgnt/eduRegInfoDetailForm.do?p_edutype_cd=001&p_crscd=112172&p_crsseq_id=127868&p_ctgry_id=544&p_hmpgcd=30&mkey=36312
+Q12,경영지원,임원 비서 실무 및 의전 가이드,10,KMA_111374_125598,[여의도] 신임임원 역량강화,한국능률협회(KMA),10.1791,1,https://www.kma.or.kr/usrs/eduRegMgnt/eduRegInfoDetailForm.do?p_edutype_cd=001&p_crscd=111374&p_crsseq_id=125598&p_ctgry_id=544&p_hmpgcd=30&mkey=36312
+Q13,경영지원,애자일 프로젝트 관리 및 스크럼 스프린트,1,KPC_47875_152760,Agile 프로젝트 관리 실무,한국생산성본부(KPC),23.4779,1,https://www.kpc.or.kr/PTWED003_dtil_view.do?ecno=47875&cono=152760
+Q13,경영지원,애자일 프로젝트 관리 및 스크럼 스프린트,2,MULTICAMPUS_FA01FS,실습으로 배우는 1Day 애자일 프로젝트 관리,멀티캠퍼스,18.1848,1,https://m.multicampus.com/course/crsDetail?corsCd=FA01FS
+Q13,경영지원,애자일 프로젝트 관리 및 스크럼 스프린트,3,PUB_ABA20243000983062_296,애자일 프로젝트 실무(입문),에듀퓨어,16.5047,1,https://www.work24.go.kr
+Q13,경영지원,애자일 프로젝트 관리 및 스크럼 스프린트,4,HUNET_Y00381737,"[SSS급 인재] 실리콘밸리식 협업 스킬, 애자일 커뮤니케이션",휴넷,15.1756,1,https://hbs.hunet.co.kr/Education/Detail?gid=Y00381737
+Q13,경영지원,애자일 프로젝트 관리 및 스크럼 스프린트,5,KMA_111246_125037,[비대면] 하루만에 끝내는 프로젝트 관리,한국능률협회(KMA),12.7732,1,https://www.kma.or.kr/usrs/eduRegMgnt/eduRegInfoDetailForm.do?p_edutype_cd=001&p_crscd=111246&p_crsseq_id=125037&p_ctgry_id=657&p_hmpgcd=30&mkey=37145
+Q13,경영지원,애자일 프로젝트 관리 및 스크럼 스프린트,6,KMA_111468_126072,[여의도] 하루만에 끝내는 프로젝트 관리,한국능률협회(KMA),12.7732,1,https://www.kma.or.kr/usrs/eduRegMgnt/eduRegInfoDetailForm.do?p_edutype_cd=001&p_crscd=111468&p_crsseq_id=126072&p_ctgry_id=657&p_hmpgcd=30&mkey=37145
+Q13,경영지원,애자일 프로젝트 관리 및 스크럼 스프린트,7,KPC_48072_155109,Agile 기반의 프로젝트 관리 전문가 (PMI-ACP),한국생산성본부(KPC),12.7176,1,https://www.kpc.or.kr/PTWED003_dtil_view.do?ecno=48072&cono=155109
+Q13,경영지원,애자일 프로젝트 관리 및 스크럼 스프린트,8,HUNET_Y00354152,[PO스쿨] 프로덕트 오너가 일하는 방법,휴넷,12.0872,1,https://hbs.hunet.co.kr/Education/Detail?gid=Y00354152
+Q13,경영지원,애자일 프로젝트 관리 및 스크럼 스프린트,9,KMA_111469_126075,[여의도] PM(Project Manager) 양성,한국능률협회(KMA),11.6063,1,https://www.kma.or.kr/usrs/eduRegMgnt/eduRegInfoDetailForm.do?p_edutype_cd=001&p_crscd=111469&p_crsseq_id=126075&p_ctgry_id=698&p_hmpgcd=30&mkey=37240
+Q13,경영지원,애자일 프로젝트 관리 및 스크럼 스프린트,10,KPC_48720_158347,실전에서 통하는 프로젝트 조직관리,한국생산성본부(KPC),11.2061,1,https://www.kpc.or.kr/PTWED003_dtil_view.do?ecno=48720&cono=158347
+Q14,경영지원,사업계획서 수립 및 재무제표 분석 기초,1,KPC_47082_149937,추정재무제표작성 및 현금흐름표활용기초,한국생산성본부(KPC),21.446,1,https://www.kpc.or.kr/PTWED003_dtil_view.do?ecno=47082&cono=149937
+Q14,경영지원,사업계획서 수립 및 재무제표 분석 기초,2,KMA_111465_126060,[여의도] 신사업 타당성 분석 및 의사결정 실무,한국능률협회(KMA),20.5624,2,https://www.kma.or.kr/usrs/eduRegMgnt/eduRegInfoDetailForm.do?p_edutype_cd=001&p_crscd=111465&p_crsseq_id=126060&p_ctgry_id=564&p_hmpgcd=30&mkey=36332
+Q14,경영지원,사업계획서 수립 및 재무제표 분석 기초,3,GSEEK_3221,창업자를 위한 온라인 교육,GSEEK,18.1967,1,https://www.gseek.kr/user/course/online/view?s_sbjct_sn=3221
+Q14,경영지원,사업계획서 수립 및 재무제표 분석 기초,4,GSEEK_3216,[창업공통]창업 트렌드 분석과 전략적 사업계획서 작성하기,GSEEK,17.7518,1,https://www.gseek.kr/user/course/online/view?s_sbjct_sn=3216
+Q14,경영지원,사업계획서 수립 및 재무제표 분석 기초,5,KPC_46671_148506,[온앤오프] 사업계획수립실무,한국생산성본부(KPC),17.2308,2,https://www.kpc.or.kr/PTWED003_dtil_view.do?ecno=46671&cono=148506
+Q14,경영지원,사업계획서 수립 및 재무제표 분석 기초,6,KPC_48583_156511,[1day] 사업계획수립실무,한국생산성본부(KPC),16.7397,2,https://www.kpc.or.kr/PTWED003_dtil_view.do?ecno=48583&cono=156511
+Q14,경영지원,사업계획서 수립 및 재무제표 분석 기초,7,KPC_46662_147982,신규사업개발과 사업계획수립실무 (지역),한국생산성본부(KPC),15.886,1,https://www.kpc.or.kr/PTWED003_dtil_view.do?ecno=46662&cono=147982
+Q14,경영지원,사업계획서 수립 및 재무제표 분석 기초,8,HUNET_Y00323309,"불확실성을 돌파하는 필승전략, 사업 타당성 분석",휴넷,15.7218,1,https://hbs.hunet.co.kr/Education/Detail?gid=Y00323309
+Q14,경영지원,사업계획서 수립 및 재무제표 분석 기초,9,KPC_46647_148639,공공기관을 위한 경영전략 및 사업혁신,한국생산성본부(KPC),15.6869,1,https://www.kpc.or.kr/PTWED003_dtil_view.do?ecno=46647&cono=148639
+Q14,경영지원,사업계획서 수립 및 재무제표 분석 기초,10,KPC_49289_158925,[정부지원사업]정부지원사업 사업계획서 작성전략(무료교육),한국생산성본부(KPC),15.6086,1,https://www.kpc.or.kr/PTWED003_dtil_view.do?ecno=49289&cono=158925
+Q15,경영지원,주52시간 근로시간 관리 및 유연근무제 운영,1,KMA_111446_125985,[여의도] HR 실무자를 위한 근로시간 및 연차휴가 관리 실전 노하우,한국능률협회(KMA),17.8454,1,https://www.kma.or.kr/usrs/eduRegMgnt/eduRegInfoDetailForm.do?p_edutype_cd=001&p_crscd=111446&p_crsseq_id=125985&p_ctgry_id=661&p_hmpgcd=30&mkey=37148
+Q15,경영지원,주52시간 근로시간 관리 및 유연근무제 운영,2,KMA_111437_125950,[여의도] HR 담당자를 위한 인사∙노무 실무,한국능률협회(KMA),17.1112,1,https://www.kma.or.kr/usrs/eduRegMgnt/eduRegInfoDetailForm.do?p_edutype_cd=001&p_crscd=111437&p_crsseq_id=125950&p_ctgry_id=661&p_hmpgcd=30&mkey=37148
+Q15,경영지원,주52시간 근로시간 관리 및 유연근무제 운영,3,KMA_111204_124936,[강남] HR 담당자를 위한 인사∙노무 실무,한국능률협회(KMA),17.1112,1,https://www.kma.or.kr/usrs/eduRegMgnt/eduRegInfoDetailForm.do?p_edutype_cd=001&p_crscd=111204&p_crsseq_id=124936&p_ctgry_id=661&p_hmpgcd=30&mkey=37148
+Q15,경영지원,주52시간 근로시간 관리 및 유연근무제 운영,4,KMA_112349_128565,[비대면] HR 담당자를 위한 인사∙노무 실무,한국능률협회(KMA),16.8289,2,https://www.kma.or.kr/usrs/eduRegMgnt/eduRegInfoDetailForm.do?p_edutype_cd=001&p_crscd=112349&p_crsseq_id=128565&p_ctgry_id=661&p_hmpgcd=30&mkey=37148
+Q15,경영지원,주52시간 근로시간 관리 및 유연근무제 운영,5,HUNET_Y00351199,새롭게 개정된 실전 노무법 & 노무 이슈,휴넷,15.7286,1,https://hbs.hunet.co.kr/Education/Detail?gid=Y00351199
+Q15,경영지원,주52시간 근로시간 관리 및 유연근무제 운영,6,HUNET_Y00370506,2026 안전보건교육 특수형태근로종사자(특별교육_단기 및 간헐적 종사자),휴넷,15.7161,1,https://hbs.hunet.co.kr/Education/Detail?gid=Y00370506
+Q15,경영지원,주52시간 근로시간 관리 및 유연근무제 운영,7,KPC_47016_149794,노동법 쟁점 88선 해설,한국생산성본부(KPC),15.5583,1,https://www.kpc.or.kr/PTWED003_dtil_view.do?ecno=47016&cono=149794
+Q15,경영지원,주52시간 근로시간 관리 및 유연근무제 운영,8,HUNET_Y00370507,2026 안전보건교육 특수형태근로종사자(최초 노무제공 시_일반근로자),휴넷,15.513,1,https://hbs.hunet.co.kr/Education/Detail?gid=Y00370507
+Q15,경영지원,주52시간 근로시간 관리 및 유연근무제 운영,9,HUNET_Y00370508,2026 안전보건교육 특수형태근로종사자(최초 노무제공 시_단기 및 간헐적 종사자),휴넷,15.4414,1,https://hbs.hunet.co.kr/Education/Detail?gid=Y00370508
+Q15,경영지원,주52시간 근로시간 관리 및 유연근무제 운영,10,HUNET_Y00370505,2026 안전보건교육 특수형태근로종사자(특별교육_일반근로자),휴넷,15.2783,1,https://hbs.hunet.co.kr/Education/Detail?gid=Y00370505

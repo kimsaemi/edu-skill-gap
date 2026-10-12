@@ -1,0 +1,74 @@
+{
+  "hardware": {
+    "device": "cuda",
+    "gpu_name": "NVIDIA GeForce RTX 3060"
+  },
+  "models": {
+    "klue_bert_base": {
+      "load_time_sec": 1.41,
+      "infer_time_sec": 3.17,
+      "peak_vram_mb": 433.0,
+      "dimension": 768,
+      "pooling": "mean_pooling"
+    },
+    "ko_sroberta_multitask": {
+      "load_time_sec": 3.35,
+      "infer_time_sec": 1.37,
+      "peak_vram_mb": 856.4,
+      "dimension": 768,
+      "pooling": "mean_pooling (sentence-transformers STS fine-tuned)"
+    }
+  },
+  "overlap_summary": [
+    {
+      "query_id": "Q01",
+      "query": "신입사원 온보딩 및 채용 프로세스 실무",
+      "tfidf_vs_roberta_overlap": 6,
+      "bm25_vs_roberta_overlap": 8,
+      "klue_vs_roberta_overlap": 4,
+      "tfidf_vs_bm25_overlap": 6,
+      "latency_tfidf_ms": 1.48,
+      "latency_bm25_ms": 0.52
+    },
+    {
+      "query_id": "Q02",
+      "query": "근로기준법 개정사항 및 취업규칙 작성 실무",
+      "tfidf_vs_roberta_overlap": 7,
+      "bm25_vs_roberta_overlap": 2,
+      "klue_vs_roberta_overlap": 4,
+      "tfidf_vs_bm25_overlap": 2,
+      "latency_tfidf_ms": 1.14,
+      "latency_bm25_ms": 0.44
+    },
+    {
+      "query_id": "Q04",
+      "query": "직무분석 및 KPI 성과평가 보상체계 설계",
+      "tfidf_vs_roberta_overlap": 4,
+      "bm25_vs_roberta_overlap": 5,
+      "klue_vs_roberta_overlap": 5,
+      "tfidf_vs_bm25_overlap": 6,
+      "latency_tfidf_ms": 1.07,
+      "latency_bm25_ms": 0.56
+    },
+    {
+      "query_id": "Q06",
+      "query": "비품 구매 계약 및 공급업체 관리",
+      "tfidf_vs_roberta_overlap": 4,
+      "bm25_vs_roberta_overlap": 6,
+      "klue_vs_roberta_overlap": 3,
+      "tfidf_vs_bm25_overlap": 5,
+      "latency_tfidf_ms": 1.07,
+      "latency_bm25_ms": 0.45
+    },
+    {
+      "query_id": "Q09",
+      "query": "엑셀 실무 데이터 가공 및 함수 활용",
+      "tfidf_vs_roberta_overlap": 5,
+      "bm25_vs_roberta_overlap": 7,
+      "klue_vs_roberta_overlap": 2,
+      "tfidf_vs_bm25_overlap": 5,
+      "latency_tfidf_ms": 1.19,
+      "latency_bm25_ms": 0.46
+    }
+  ]
+}

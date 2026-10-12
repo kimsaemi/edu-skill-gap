@@ -1,0 +1,19 @@
+{
+  "status": "PASS",
+  "total_courses": 8645,
+  "total_competency_links_long": 8291,
+  "total_competency_links_wide": 8291,
+  "is_links_count_matched": true,
+  "unique_courses_with_mapping": 4966,
+  "courses_without_mapping": 3679,
+  "total_keyword_records_long": 68348,
+  "unique_courses_with_keywords": 8645,
+  "distinct_check_summary": {
+    "GSEEK_links": 642,
+    "GSEEK_unique_mapped_courses": 542,
+    "KMA_links": 3283,
+    "KMA_unique_mapped_courses": 1717,
+    "KPC_links": 2637,
+    "KPC_unique_mapped_courses": 1415
+  }
+}

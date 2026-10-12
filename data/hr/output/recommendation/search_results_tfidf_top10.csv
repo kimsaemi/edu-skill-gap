@@ -1,0 +1,151 @@
+﻿query_id,category,query,search_method,rank,course_uid,course_name,provider,score,matched_keywords,source_url,is_duplicate_run
+Q01,인사,신입사원 온보딩 및 채용 프로세스 실무,TF-IDF,1,HUNET_Y00245649,핵심만 콕! 신입사원 온보딩,휴넷,0.7379,"신입, 사원, 온보딩",https://hbs.hunet.co.kr/Education/Detail?gid=Y00245649,단독 개설 강좌
+Q01,인사,신입사원 온보딩 및 채용 프로세스 실무,TF-IDF,2,HUNET_Y00265996,"오늘 온 신입사원, 온보딩 전략 ON 하기",휴넷,0.6384,"신입, 사원, 온보딩",https://hbs.hunet.co.kr/Education/Detail?gid=Y00265996,단독 개설 강좌
+Q01,인사,신입사원 온보딩 및 채용 프로세스 실무,TF-IDF,3,MULTICAMPUS_FB00A6,[패스트트랙] 신입 온보딩 과정-업무관리 편,멀티캠퍼스,0.5161,"신입, 온보딩",https://m.multicampus.com/course/crsDetail?corsCd=FB00A6,단독 개설 강좌
+Q01,인사,신입사원 온보딩 및 채용 프로세스 실무,TF-IDF,4,MULTICAMPUS_FB00A4,[패스트트랙] 신입 온보딩 과정,멀티캠퍼스,0.5147,"신입, 온보딩",https://m.multicampus.com/course/crsDetail?corsCd=FB00A4,단독 개설 강좌
+Q01,인사,신입사원 온보딩 및 채용 프로세스 실무,TF-IDF,5,MULTICAMPUS_FB00A5,[패스트트랙] 신입 온보딩 과정-관계관리 편,멀티캠퍼스,0.5078,"신입, 온보딩",https://m.multicampus.com/course/crsDetail?corsCd=FB00A5,단독 개설 강좌
+Q01,인사,신입사원 온보딩 및 채용 프로세스 실무,TF-IDF,6,HUNET_Y00180494,New 회사가 원하는 신입사원_ 업무 스킬 편,휴넷,0.3985,"신입, 사원",https://hbs.hunet.co.kr/Education/Detail?gid=Y00180494,단독 개설 강좌
+Q01,인사,신입사원 온보딩 및 채용 프로세스 실무,TF-IDF,7,HUNET_Y00037222,New 회사가 원하는 신입사원_ 태도 편,휴넷,0.3899,"신입, 사원",https://hbs.hunet.co.kr/Education/Detail?gid=Y00037222,단독 개설 강좌
+Q01,인사,신입사원 온보딩 및 채용 프로세스 실무,TF-IDF,8,KPC_47195_150815,신입사원 역량강화,한국생산성본부(KPC),0.3699,"신입, 사원",https://www.kpc.or.kr/PTWED003_dtil_view.do?ecno=47195&cono=150815,다회차 개설 강좌
+Q01,인사,신입사원 온보딩 및 채용 프로세스 실무,TF-IDF,9,KPC_47195_150813,신입사원 역량강화,한국생산성본부(KPC),0.3699,"신입, 사원",https://www.kpc.or.kr/PTWED003_dtil_view.do?ecno=47195&cono=150813,다회차 개설 강좌
+Q01,인사,신입사원 온보딩 및 채용 프로세스 실무,TF-IDF,10,KPC_47195_150814,신입사원 역량강화,한국생산성본부(KPC),0.3699,"신입, 사원",https://www.kpc.or.kr/PTWED003_dtil_view.do?ecno=47195&cono=150814,다회차 개설 강좌
+Q02,인사,근로기준법 개정사항 및 취업규칙 작성 실무,TF-IDF,1,PUB_ACG20243001036448_16,실무사례로 알아보는 근로기준법,중앙법률원격평생교육원,0.4383,"근로기준법, 실무",https://www.work24.go.kr,다회차 개설 강좌
+Q02,인사,근로기준법 개정사항 및 취업규칙 작성 실무,TF-IDF,2,PUB_ABA20243001036557_17,실무사례로 알아보는 근로기준법,중앙법률원격평생교육원,0.4383,"근로기준법, 실무",https://www.work24.go.kr,다회차 개설 강좌
+Q02,인사,근로기준법 개정사항 및 취업규칙 작성 실무,TF-IDF,3,PUB_ABA20243001036557_18,실무사례로 알아보는 근로기준법,중앙법률원격평생교육원,0.4383,"근로기준법, 실무",https://www.work24.go.kr,다회차 개설 강좌
+Q02,인사,근로기준법 개정사항 및 취업규칙 작성 실무,TF-IDF,4,PUB_ABA20243001036557_19,실무사례로 알아보는 근로기준법,중앙법률원격평생교육원,0.4383,"근로기준법, 실무",https://www.work24.go.kr,다회차 개설 강좌
+Q02,인사,근로기준법 개정사항 및 취업규칙 작성 실무,TF-IDF,5,PUB_ABA20243001036557_20,실무사례로 알아보는 근로기준법,중앙법률원격평생교육원,0.4383,"근로기준법, 실무",https://www.work24.go.kr,다회차 개설 강좌
+Q02,인사,근로기준법 개정사항 및 취업규칙 작성 실무,TF-IDF,6,PUB_ABA20253001062023_1,실무사례로 알아보는 근로기준법,중앙법률원격평생교육원,0.4383,"근로기준법, 실무",https://www.work24.go.kr,다회차 개설 강좌
+Q02,인사,근로기준법 개정사항 및 취업규칙 작성 실무,TF-IDF,7,PUB_ABA20243001036557_21,실무사례로 알아보는 근로기준법,중앙법률원격평생교육원,0.4383,"근로기준법, 실무",https://www.work24.go.kr,다회차 개설 강좌
+Q02,인사,근로기준법 개정사항 및 취업규칙 작성 실무,TF-IDF,8,PUB_ABA20243001036557_15,실무사례로 알아보는 근로기준법,중앙법률원격평생교육원,0.4383,"근로기준법, 실무",https://www.work24.go.kr,다회차 개설 강좌
+Q02,인사,근로기준법 개정사항 및 취업규칙 작성 실무,TF-IDF,9,PUB_ABA20243001036557_16,실무사례로 알아보는 근로기준법,중앙법률원격평생교육원,0.4383,"근로기준법, 실무",https://www.work24.go.kr,다회차 개설 강좌
+Q02,인사,근로기준법 개정사항 및 취업규칙 작성 실무,TF-IDF,10,PUB_ACG20243001052023_28,NEW 업무에서 활용가능한 실전 근로기준법,에듀퓨어,0.3168,근로기준법,https://www.work24.go.kr,다회차 개설 강좌
+Q03,인사,연말정산 및 4대보험 급여 계산 실무,TF-IDF,1,KMA_111436_125946,[여의도] 경영관리 신입사원을 위한 인사·회계·법무 입문,한국능률협회(KMA),0.3284,"연말정산, 4대보험, 급여, 실무",https://www.kma.or.kr/usrs/eduRegMgnt/eduRegInfoDetailForm.do?p_edutype_cd=001&p_crscd=111436&p_crsseq_id=125946&p_ctgry_id=661&p_hmpgcd=30&mkey=37148,단독 개설 강좌
+Q03,인사,연말정산 및 4대보험 급여 계산 실무,TF-IDF,2,KPC_46978_149690,급여담당자 운용기초,한국생산성본부(KPC),0.2521,"4대보험, 급여, 계산, 실무",https://www.kpc.or.kr/PTWED003_dtil_view.do?ecno=46978&cono=149690,단독 개설 강좌
+Q03,인사,연말정산 및 4대보험 급여 계산 실무,TF-IDF,3,KPC_46989_149698,[온앤오프] 급여 및 4대보험 관리실무,한국생산성본부(KPC),0.2422,"4대보험, 급여, 실무",https://www.kpc.or.kr/PTWED003_dtil_view.do?ecno=46989&cono=149698,다회차 개설 강좌
+Q03,인사,연말정산 및 4대보험 급여 계산 실무,TF-IDF,4,KPC_46989_149697,[온앤오프] 급여 및 4대보험 관리실무,한국생산성본부(KPC),0.2422,"4대보험, 급여, 실무",https://www.kpc.or.kr/PTWED003_dtil_view.do?ecno=46989&cono=149697,다회차 개설 강좌
+Q03,인사,연말정산 및 4대보험 급여 계산 실무,TF-IDF,5,KPC_46989_157053,[온앤오프] 급여 및 4대보험 관리실무,한국생산성본부(KPC),0.2422,"4대보험, 급여, 실무",https://www.kpc.or.kr/PTWED003_dtil_view.do?ecno=46989&cono=157053,다회차 개설 강좌
+Q03,인사,연말정산 및 4대보험 급여 계산 실무,TF-IDF,6,KMA_111447_126378,[여의도] 급여담당자를 위한 급여관리 실무,한국능률협회(KMA),0.2368,"연말정산, 4대보험, 급여, 계산, 실무",https://www.kma.or.kr/usrs/eduRegMgnt/eduRegInfoDetailForm.do?p_edutype_cd=001&p_crscd=111447&p_crsseq_id=126378&p_ctgry_id=661&p_hmpgcd=30&mkey=37148,단독 개설 강좌
+Q03,인사,연말정산 및 4대보험 급여 계산 실무,TF-IDF,7,KPC_47140_150599,연말정산입문,한국생산성본부(KPC),0.2354,연말정산,https://www.kpc.or.kr/PTWED003_dtil_view.do?ecno=47140&cono=150599,단독 개설 강좌
+Q03,인사,연말정산 및 4대보험 급여 계산 실무,TF-IDF,8,KPC_47134_150591,인건비 세무관리와 4대보험실무,한국생산성본부(KPC),0.2243,"4대보험, 실무",https://www.kpc.or.kr/PTWED003_dtil_view.do?ecno=47134&cono=150591,단독 개설 강좌
+Q03,인사,연말정산 및 4대보험 급여 계산 실무,TF-IDF,9,KPC_47139_150610,연말정산실무,한국생산성본부(KPC),0.2124,"연말정산, 실무",https://www.kpc.or.kr/PTWED003_dtil_view.do?ecno=47139&cono=150610,다회차 개설 강좌
+Q03,인사,연말정산 및 4대보험 급여 계산 실무,TF-IDF,10,KPC_47139_157365,연말정산실무,한국생산성본부(KPC),0.2124,"연말정산, 실무",https://www.kpc.or.kr/PTWED003_dtil_view.do?ecno=47139&cono=157365,다회차 개설 강좌
+Q04,인사,직무분석 및 KPI 성과평가 보상체계 설계,TF-IDF,1,HUNET_Y00260424,인재 밀도를 UP시키는 성과 평가 ＆ 보상 전략,휴넷,0.3334,"성과, 평가, 보상",https://hbs.hunet.co.kr/Education/Detail?gid=Y00260424,단독 개설 강좌
+Q04,인사,직무분석 및 KPI 성과평가 보상체계 설계,TF-IDF,2,KMA_111441_125966,[여의도] HR 담당자를 위한 직무분석 실무,한국능률협회(KMA),0.3274,"직무분석, kpi, 성과",https://www.kma.or.kr/usrs/eduRegMgnt/eduRegInfoDetailForm.do?p_edutype_cd=001&p_crscd=111441&p_crsseq_id=125966&p_ctgry_id=661&p_hmpgcd=30&mkey=37148,단독 개설 강좌
+Q04,인사,직무분석 및 KPI 성과평가 보상체계 설계,TF-IDF,3,KPC_48450_156250,두산_인사 전문가_성과중심 인사평가,한국생산성본부(KPC),0.325,"성과, 평가, 보상, 체계, 설계",https://www.kpc.or.kr/PTWED003_dtil_view.do?ecno=48450&cono=156250,단독 개설 강좌
+Q04,인사,직무분석 및 KPI 성과평가 보상체계 설계,TF-IDF,4,KMA_112345_128561,[여의도] AI 활용 HR담당자를 위한 직무분석 실무,한국능률협회(KMA),0.3077,"직무분석, kpi, 성과",https://www.kma.or.kr/usrs/eduRegMgnt/eduRegInfoDetailForm.do?p_edutype_cd=001&p_crscd=112345&p_crsseq_id=128561&p_ctgry_id=686&p_hmpgcd=30&mkey=37227,다회차 개설 강좌
+Q04,인사,직무분석 및 KPI 성과평가 보상체계 설계,TF-IDF,5,KMA_112345_128563,[여의도] AI 활용 HR담당자를 위한 직무분석 실무,한국능률협회(KMA),0.3077,"직무분석, kpi, 성과",https://www.kma.or.kr/usrs/eduRegMgnt/eduRegInfoDetailForm.do?p_edutype_cd=001&p_crscd=112345&p_crsseq_id=128563&p_ctgry_id=686&p_hmpgcd=30&mkey=37227,다회차 개설 강좌
+Q04,인사,직무분석 및 KPI 성과평가 보상체계 설계,TF-IDF,6,KMA_112345_128562,[여의도] AI 활용 HR담당자를 위한 직무분석 실무,한국능률협회(KMA),0.3077,"직무분석, kpi, 성과",https://www.kma.or.kr/usrs/eduRegMgnt/eduRegInfoDetailForm.do?p_edutype_cd=001&p_crscd=112345&p_crsseq_id=128562&p_ctgry_id=686&p_hmpgcd=30&mkey=37227,다회차 개설 강좌
+Q04,인사,직무분석 및 KPI 성과평가 보상체계 설계,TF-IDF,7,KMA_112345_128560,[여의도] AI 활용 HR담당자를 위한 직무분석 실무,한국능률협회(KMA),0.3077,"직무분석, kpi, 성과",https://www.kma.or.kr/usrs/eduRegMgnt/eduRegInfoDetailForm.do?p_edutype_cd=001&p_crscd=112345&p_crsseq_id=128560&p_ctgry_id=686&p_hmpgcd=30&mkey=37227,다회차 개설 강좌
+Q04,인사,직무분석 및 KPI 성과평가 보상체계 설계,TF-IDF,8,KMA_112345_128564,[여의도] AI 활용 HR담당자를 위한 직무분석 실무,한국능률협회(KMA),0.3077,"직무분석, kpi, 성과",https://www.kma.or.kr/usrs/eduRegMgnt/eduRegInfoDetailForm.do?p_edutype_cd=001&p_crscd=112345&p_crsseq_id=128564&p_ctgry_id=686&p_hmpgcd=30&mkey=37227,다회차 개설 강좌
+Q04,인사,직무분석 및 KPI 성과평가 보상체계 설계,TF-IDF,9,KMA_112345_128559,[여의도] AI 활용 HR담당자를 위한 직무분석 실무,한국능률협회(KMA),0.3077,"직무분석, kpi, 성과",https://www.kma.or.kr/usrs/eduRegMgnt/eduRegInfoDetailForm.do?p_edutype_cd=001&p_crscd=112345&p_crsseq_id=128559&p_ctgry_id=686&p_hmpgcd=30&mkey=37227,다회차 개설 강좌
+Q04,인사,직무분석 및 KPI 성과평가 보상체계 설계,TF-IDF,10,KPC_47022_157546,[DX&AI] 평가보상 설계 실무(밀코비치 기반),한국생산성본부(KPC),0.3029,"직무분석, kpi, 성과, 평가, 보상, 체계, 설계",https://www.kpc.or.kr/PTWED003_dtil_view.do?ecno=47022&cono=157546,다회차 개설 강좌
+Q05,인사,부당해고 구제신청 및 노사관계 노무관리,TF-IDF,1,KPC_47007_149787,[온앤오프] 현장노무담당자 역량강화,한국생산성본부(KPC),0.2491,"신청, 노사관계, 노무, 관리",https://www.kpc.or.kr/PTWED003_dtil_view.do?ecno=47007&cono=149787,다회차 개설 강좌
+Q05,인사,부당해고 구제신청 및 노사관계 노무관리,TF-IDF,2,KPC_47007_149788,[온앤오프] 현장노무담당자 역량강화,한국생산성본부(KPC),0.2491,"신청, 노사관계, 노무, 관리",https://www.kpc.or.kr/PTWED003_dtil_view.do?ecno=47007&cono=149788,다회차 개설 강좌
+Q05,인사,부당해고 구제신청 및 노사관계 노무관리,TF-IDF,3,HUNET_Y00260043,리더를 위한 노무 인사이트,휴넷,0.2091,노무,https://hbs.hunet.co.kr/Education/Detail?gid=Y00260043,단독 개설 강좌
+Q05,인사,부당해고 구제신청 및 노사관계 노무관리,TF-IDF,4,PUB_ABA20233000970284_6,채용에서 퇴직까지 인사노무관리 핵심실무,러닝플러스,0.1896,"노무, 관리",https://www.work24.go.kr,다회차 개설 강좌
+Q05,인사,부당해고 구제신청 및 노사관계 노무관리,TF-IDF,5,PUB_ABA20243001052733_2,채용에서 퇴직까지 인사노무관리 핵심실무,케이지에듀원 원격평생교육원,0.1896,"노무, 관리",https://www.work24.go.kr,다회차 개설 강좌
+Q05,인사,부당해고 구제신청 및 노사관계 노무관리,TF-IDF,6,PUB_ABA20243001052733_1,채용에서 퇴직까지 인사노무관리 핵심실무,케이지에듀원 원격평생교육원,0.1896,"노무, 관리",https://www.work24.go.kr,다회차 개설 강좌
+Q05,인사,부당해고 구제신청 및 노사관계 노무관리,TF-IDF,7,PUB_ACG20243001051920_29,채용에서 퇴직까지 인사노무관리 핵심실무,아카스타,0.1896,"노무, 관리",https://www.work24.go.kr,다회차 개설 강좌
+Q05,인사,부당해고 구제신청 및 노사관계 노무관리,TF-IDF,8,PUB_ACG20243001054796_4,채용에서 퇴직까지 인사노무관리 핵심실무,케이지에듀원 원격평생교육원,0.1896,"노무, 관리",https://www.work24.go.kr,다회차 개설 강좌
+Q05,인사,부당해고 구제신청 및 노사관계 노무관리,TF-IDF,9,PUB_ACG20243000985011_42,채용에서 퇴직까지 인사노무관리 핵심실무,한국이러닝협회,0.1896,"노무, 관리",https://www.work24.go.kr,다회차 개설 강좌
+Q05,인사,부당해고 구제신청 및 노사관계 노무관리,TF-IDF,10,PUB_ACG20243000985011_43,채용에서 퇴직까지 인사노무관리 핵심실무,한국이러닝협회,0.1896,"노무, 관리",https://www.work24.go.kr,다회차 개설 강좌
+Q06,총무,비품 구매 계약 및 공급업체 관리,TF-IDF,1,KMA_111486_126126,[여의도] 협력업체 관리실무,한국능률협회(KMA),0.2522,"구매, 계약, 관리",https://www.kma.or.kr/usrs/eduRegMgnt/eduRegInfoDetailForm.do?p_edutype_cd=001&p_crscd=111486&p_crsseq_id=126126&p_ctgry_id=651&p_hmpgcd=30&mkey=37155,단독 개설 강좌
+Q06,총무,비품 구매 계약 및 공급업체 관리,TF-IDF,2,KMA_111481_126111,[여의도] 구매관리 기본,한국능률협회(KMA),0.2336,"구매, 계약, 관리",https://www.kma.or.kr/usrs/eduRegMgnt/eduRegInfoDetailForm.do?p_edutype_cd=001&p_crscd=111481&p_crsseq_id=126111&p_ctgry_id=651&p_hmpgcd=30&mkey=37155,단독 개설 강좌
+Q06,총무,비품 구매 계약 및 공급업체 관리,TF-IDF,3,KMA_111207_126893,[강남] 구매관리 기본,한국능률협회(KMA),0.2308,"구매, 계약, 관리",https://www.kma.or.kr/usrs/eduRegMgnt/eduRegInfoDetailForm.do?p_edutype_cd=001&p_crscd=111207&p_crsseq_id=126893&p_ctgry_id=651&p_hmpgcd=30&mkey=37155,단독 개설 강좌
+Q06,총무,비품 구매 계약 및 공급업체 관리,TF-IDF,4,KPC_47861_154594,협력업체관리실무,한국생산성본부(KPC),0.2283,"구매, 계약, 공급업체, 관리",https://www.kpc.or.kr/PTWED003_dtil_view.do?ecno=47861&cono=154594,다회차 개설 강좌
+Q06,총무,비품 구매 계약 및 공급업체 관리,TF-IDF,5,KPC_47861_154595,협력업체관리실무,한국생산성본부(KPC),0.2283,"구매, 계약, 공급업체, 관리",https://www.kpc.or.kr/PTWED003_dtil_view.do?ecno=47861&cono=154595,다회차 개설 강좌
+Q06,총무,비품 구매 계약 및 공급업체 관리,TF-IDF,6,KPC_47856_154584,구매계약과 공정거래하도급법의 이해,한국생산성본부(KPC),0.2236,"구매, 계약, 관리",https://www.kpc.or.kr/PTWED003_dtil_view.do?ecno=47856&cono=154584,다회차 개설 강좌
+Q06,총무,비품 구매 계약 및 공급업체 관리,TF-IDF,7,KPC_47856_154585,구매계약과 공정거래하도급법의 이해,한국생산성본부(KPC),0.2236,"구매, 계약, 관리",https://www.kpc.or.kr/PTWED003_dtil_view.do?ecno=47856&cono=154585,다회차 개설 강좌
+Q06,총무,비품 구매 계약 및 공급업체 관리,TF-IDF,8,KPC_47856_154583,구매계약과 공정거래하도급법의 이해,한국생산성본부(KPC),0.2236,"구매, 계약, 관리",https://www.kpc.or.kr/PTWED003_dtil_view.do?ecno=47856&cono=154583,다회차 개설 강좌
+Q06,총무,비품 구매 계약 및 공급업체 관리,TF-IDF,9,KPC_47856_154582,구매계약과 공정거래하도급법의 이해,한국생산성본부(KPC),0.2236,"구매, 계약, 관리",https://www.kpc.or.kr/PTWED003_dtil_view.do?ecno=47856&cono=154582,다회차 개설 강좌
+Q06,총무,비품 구매 계약 및 공급업체 관리,TF-IDF,10,KPC_47857_154660,구매담당자 리스크관리능력향상,한국생산성본부(KPC),0.2188,"구매, 계약, 관리",https://www.kpc.or.kr/PTWED003_dtil_view.do?ecno=47857&cono=154660,단독 개설 강좌
+Q07,총무,고정자산 실사 및 사옥 시설관리,TF-IDF,1,KPC_47745_152336,부동산시설유지관리실무,한국생산성본부(KPC),0.3313,"시설, 관리",https://www.kpc.or.kr/PTWED003_dtil_view.do?ecno=47745&cono=152336,단독 개설 강좌
+Q07,총무,고정자산 실사 및 사옥 시설관리,TF-IDF,2,GSEEK_11748,도시재생 전문과정 지역자산화과정 및 거점시설 우수사례,GSEEK,0.2656,"자산, 시설",https://www.gseek.kr/user/course/online/view?s_sbjct_sn=11748,단독 개설 강좌
+Q07,총무,고정자산 실사 및 사옥 시설관리,TF-IDF,3,KPC_46716_148679,인권실사 전문가 양성,한국생산성본부(KPC),0.2443,"실사, 관리",https://www.kpc.or.kr/PTWED003_dtil_view.do?ecno=46716&cono=148679,단독 개설 강좌
+Q07,총무,고정자산 실사 및 사옥 시설관리,TF-IDF,4,HUNET_Y00333589,핵심만 콕! 시설관리 및 자산관리,휴넷,0.2343,"시설, 관리",https://hbs.hunet.co.kr/Education/Detail?gid=Y00333589,단독 개설 강좌
+Q07,총무,고정자산 실사 및 사옥 시설관리,TF-IDF,5,KPC_45994_151713,[온앤오프] 자산 관리 기본,한국생산성본부(KPC),0.2108,"고정, 자산, 관리",https://www.kpc.or.kr/PTWED003_dtil_view.do?ecno=45994&cono=151713,다회차 개설 강좌
+Q07,총무,고정자산 실사 및 사옥 시설관리,TF-IDF,6,KPC_45994_151714,[온앤오프] 자산 관리 기본,한국생산성본부(KPC),0.2108,"고정, 자산, 관리",https://www.kpc.or.kr/PTWED003_dtil_view.do?ecno=45994&cono=151714,다회차 개설 강좌
+Q07,총무,고정자산 실사 및 사옥 시설관리,TF-IDF,7,KPC_46715_148676,RBA Standards 이해 및 Audit 대응 실무,한국생산성본부(KPC),0.2066,"실사, 관리",https://www.kpc.or.kr/PTWED003_dtil_view.do?ecno=46715&cono=148676,단독 개설 강좌
+Q07,총무,고정자산 실사 및 사옥 시설관리,TF-IDF,8,GSEEK_64306,사회조사분석사 2급 한방에 끝내기 : 필기_조사방법과 설계,GSEEK,0.2049,"실사, 관리",https://www.gseek.kr/user/course/online/view?s_sbjct_sn=64306,단독 개설 강좌
+Q07,총무,고정자산 실사 및 사옥 시설관리,TF-IDF,9,KPC_46700_148680,공급망 ESG 평가 대응,한국생산성본부(KPC),0.2016,"실사, 관리",https://www.kpc.or.kr/PTWED003_dtil_view.do?ecno=46700&cono=148680,단독 개설 강좌
+Q07,총무,고정자산 실사 및 사옥 시설관리,TF-IDF,10,KPC_47284_151690,총무 자산관리 핵심,한국생산성본부(KPC),0.1821,"고정, 자산, 관리",https://www.kpc.or.kr/PTWED003_dtil_view.do?ecno=47284&cono=151690,단독 개설 강좌
+Q08,총무,공문서 작성법 및 기획보고서 피드백,TF-IDF,1,KPC_47901_156230,[공공기관] 생성형AI 활용 공공문서 작성실무,한국생산성본부(KPC),0.4758,"공문서, 작성, 기획, 보고서",https://www.kpc.or.kr/PTWED003_dtil_view.do?ecno=47901&cono=156230,다회차 개설 강좌
+Q08,총무,공문서 작성법 및 기획보고서 피드백,TF-IDF,2,KPC_47901_152798,[공공기관] 생성형AI 활용 공공문서 작성실무,한국생산성본부(KPC),0.4758,"공문서, 작성, 기획, 보고서",https://www.kpc.or.kr/PTWED003_dtil_view.do?ecno=47901&cono=152798,다회차 개설 강좌
+Q08,총무,공문서 작성법 및 기획보고서 피드백,TF-IDF,3,KPC_47901_156089,[공공기관] 생성형AI 활용 공공문서 작성실무,한국생산성본부(KPC),0.4758,"공문서, 작성, 기획, 보고서",https://www.kpc.or.kr/PTWED003_dtil_view.do?ecno=47901&cono=156089,다회차 개설 강좌
+Q08,총무,공문서 작성법 및 기획보고서 피드백,TF-IDF,4,KMA_112121_127626,"[비대면] AI 시대, 실무에 바로 쓰는 공문서 및 보고서 작성 실무",한국능률협회(KMA),0.4012,"공문서, 작성, 보고서",https://www.kma.or.kr/usrs/eduRegMgnt/eduRegInfoDetailForm.do?p_edutype_cd=001&p_crscd=112121&p_crsseq_id=127626&p_ctgry_id=685&p_hmpgcd=30&mkey=37226,다회차 개설 강좌
+Q08,총무,공문서 작성법 및 기획보고서 피드백,TF-IDF,5,KMA_112121_127627,"[비대면] AI 시대, 실무에 바로 쓰는 공문서 및 보고서 작성 실무",한국능률협회(KMA),0.4012,"공문서, 작성, 보고서",https://www.kma.or.kr/usrs/eduRegMgnt/eduRegInfoDetailForm.do?p_edutype_cd=001&p_crscd=112121&p_crsseq_id=127627&p_ctgry_id=685&p_hmpgcd=30&mkey=37226,다회차 개설 강좌
+Q08,총무,공문서 작성법 및 기획보고서 피드백,TF-IDF,6,KMA_112121_127625,"[비대면] AI 시대, 실무에 바로 쓰는 공문서 및 보고서 작성 실무",한국능률협회(KMA),0.4012,"공문서, 작성, 보고서",https://www.kma.or.kr/usrs/eduRegMgnt/eduRegInfoDetailForm.do?p_edutype_cd=001&p_crscd=112121&p_crsseq_id=127625&p_ctgry_id=685&p_hmpgcd=30&mkey=37226,다회차 개설 강좌
+Q08,총무,공문서 작성법 및 기획보고서 피드백,TF-IDF,7,KMA_112121_127624,"[비대면] AI 시대, 실무에 바로 쓰는 공문서 및 보고서 작성 실무",한국능률협회(KMA),0.4012,"공문서, 작성, 보고서",https://www.kma.or.kr/usrs/eduRegMgnt/eduRegInfoDetailForm.do?p_edutype_cd=001&p_crscd=112121&p_crsseq_id=127624&p_ctgry_id=685&p_hmpgcd=30&mkey=37226,다회차 개설 강좌
+Q08,총무,공문서 작성법 및 기획보고서 피드백,TF-IDF,8,MULTICAMPUS_FA01L9,AI보고서 피드백 솔루션,멀티캠퍼스,0.2802,"보고서, 피드백",https://m.multicampus.com/course/crsDetail?corsCd=FA01L9,단독 개설 강좌
+Q08,총무,공문서 작성법 및 기획보고서 피드백,TF-IDF,9,KPC_47493_151291,공공기관 보고서 작성 Total Skill Up(Feat. AI & 한글),한국생산성본부(KPC),0.2775,"공문서, 작성, 기획, 보고서, 피드백",https://www.kpc.or.kr/PTWED003_dtil_view.do?ecno=47493&cono=151291,다회차 개설 강좌
+Q08,총무,공문서 작성법 및 기획보고서 피드백,TF-IDF,10,KPC_47493_151292,공공기관 보고서 작성 Total Skill Up(Feat. AI & 한글),한국생산성본부(KPC),0.2775,"공문서, 작성, 기획, 보고서, 피드백",https://www.kpc.or.kr/PTWED003_dtil_view.do?ecno=47493&cono=151292,다회차 개설 강좌
+Q09,총무,엑셀 실무 데이터 가공 및 함수 활용,TF-IDF,1,HUNET_Y00339583,일잘러의 엑셀 스킬! 함수&수식 마스터,휴넷,0.3794,"엑셀, 실무, 데이터, 함수, 활용",https://hbs.hunet.co.kr/Education/Detail?gid=Y00339583,다회차 개설 강좌
+Q09,총무,엑셀 실무 데이터 가공 및 함수 활용,TF-IDF,2,KMA_111189_124879,[여의도] 엑셀 비즈니스 활용 실무,한국능률협회(KMA),0.3654,"엑셀, 실무, 활용",https://www.kma.or.kr/usrs/eduRegMgnt/eduRegInfoDetailForm.do?p_edutype_cd=001&p_crscd=111189&p_crsseq_id=124879&p_ctgry_id=556&p_hmpgcd=30&mkey=36324,다회차 개설 강좌
+Q09,총무,엑셀 실무 데이터 가공 및 함수 활용,TF-IDF,3,KMA_111189_124882,[여의도] 엑셀 비즈니스 활용 실무,한국능률협회(KMA),0.3654,"엑셀, 실무, 활용",https://www.kma.or.kr/usrs/eduRegMgnt/eduRegInfoDetailForm.do?p_edutype_cd=001&p_crscd=111189&p_crsseq_id=124882&p_ctgry_id=556&p_hmpgcd=30&mkey=36324,다회차 개설 강좌
+Q09,총무,엑셀 실무 데이터 가공 및 함수 활용,TF-IDF,4,KMA_111189_126377,[여의도] 엑셀 비즈니스 활용 실무,한국능률협회(KMA),0.3654,"엑셀, 실무, 활용",https://www.kma.or.kr/usrs/eduRegMgnt/eduRegInfoDetailForm.do?p_edutype_cd=001&p_crscd=111189&p_crsseq_id=126377&p_ctgry_id=556&p_hmpgcd=30&mkey=36324,다회차 개설 강좌
+Q09,총무,엑셀 실무 데이터 가공 및 함수 활용,TF-IDF,5,GSEEK_12320,취업 준비를 위한 OA (Excel) 실무 2023 (오피스365 활용) Part.1,GSEEK,0.3623,"엑셀, 실무, 데이터, 가공, 함수, 활용",https://www.gseek.kr/user/course/online/view?s_sbjct_sn=12320,단독 개설 강좌
+Q09,총무,엑셀 실무 데이터 가공 및 함수 활용,TF-IDF,6,HUNET_Y00342165,빨리 배워 바로 쓰는 엑셀 2013,휴넷,0.356,"엑셀, 실무, 데이터, 함수, 활용",https://hbs.hunet.co.kr/Education/Detail?gid=Y00342165,다회차 개설 강좌
+Q09,총무,엑셀 실무 데이터 가공 및 함수 활용,TF-IDF,7,GSEEK_51916,오피스 마스터가 알려주는 진짜 엑셀,GSEEK,0.3547,"엑셀, 실무, 데이터, 함수, 활용",https://www.gseek.kr/user/course/online/view?s_sbjct_sn=51916,다회차 개설 강좌
+Q09,총무,엑셀 실무 데이터 가공 및 함수 활용,TF-IDF,8,MULTICAMPUS_EA000X,[직딩꿀템]검색해도 찾기 힘든 꼭 필요한 엑셀 함수,멀티캠퍼스,0.3541,"엑셀, 실무, 함수, 활용",https://m.multicampus.com/course/crsDetail?corsCd=EA000X,단독 개설 강좌
+Q09,총무,엑셀 실무 데이터 가공 및 함수 활용,TF-IDF,9,KPC_47586_152054,[엑셀데이터활용] Power BI를 활용한 데이터 시각화_심화,한국생산성본부(KPC),0.3505,"엑셀, 실무, 데이터, 가공, 함수, 활용",https://www.kpc.or.kr/PTWED003_dtil_view.do?ecno=47586&cono=152054,단독 개설 강좌
+Q09,총무,엑셀 실무 데이터 가공 및 함수 활용,TF-IDF,10,GSEEK_52747,일잘러의 엑셀 스킬! 함수&수식 마스터,GSEEK,0.3472,"엑셀, 실무, 데이터, 함수, 활용",https://www.gseek.kr/user/course/online/view?s_sbjct_sn=52747,다회차 개설 강좌
+Q10,총무,사내 행사 기획 및 워크숍 운영 총무 실무,TF-IDF,1,PUB_ABA20243001012836_203,달콤한 업무꿀팁! 평범한 당신이 비범하게 일하는 기술,에듀퓨어,0.2807,총무,https://www.work24.go.kr,단독 개설 강좌
+Q10,총무,사내 행사 기획 및 워크숍 운영 총무 실무,TF-IDF,2,HUNET_Y00316399,실무 꿀 tip! 총무 업무 지침서,휴넷,0.2799,"행사, 워크숍, 운영, 총무, 실무",https://hbs.hunet.co.kr/Education/Detail?gid=Y00316399,단독 개설 강좌
+Q10,총무,사내 행사 기획 및 워크숍 운영 총무 실무,TF-IDF,3,HUNET_Y00381719,조직의 변화를 이끄는 사내강사의 모든 것,휴넷,0.279,"사내, 총무",https://hbs.hunet.co.kr/Education/Detail?gid=Y00381719,단독 개설 강좌
+Q10,총무,사내 행사 기획 및 워크숍 운영 총무 실무,TF-IDF,4,PUB_ABA20243000972962_324,한달 공부로 실무에 바로 통하는 데이터분석,에듀퓨어,0.2786,"총무, 실무",https://www.work24.go.kr,단독 개설 강좌
+Q10,총무,사내 행사 기획 및 워크숍 운영 총무 실무,TF-IDF,5,PUB_ABA20243001049771_3,빨리 배워 바로 쓰는 엑셀 2013,휴넷,0.2757,총무,https://www.work24.go.kr,다회차 개설 강좌
+Q10,총무,사내 행사 기획 및 워크숍 운영 총무 실무,TF-IDF,6,PUB_ABA20243001036526_9,급변하는 비즈니스 환경의 총무관리 역할,한국직장인교육센터평생교육원,0.272,총무,https://www.work24.go.kr,단독 개설 강좌
+Q10,총무,사내 행사 기획 및 워크숍 운영 총무 실무,TF-IDF,7,KPC_47246_151699,[온앤오프] 총무 업무 기본,한국생산성본부(KPC),0.2631,"사내, 행사, 기획, 총무, 실무",https://www.kpc.or.kr/PTWED003_dtil_view.do?ecno=47246&cono=151699,단독 개설 강좌
+Q10,총무,사내 행사 기획 및 워크숍 운영 총무 실무,TF-IDF,8,PUB_ABA20243001012801_205,총무기획과 총무자산관리,에듀퓨어,0.2517,총무,https://www.work24.go.kr,다회차 개설 강좌
+Q10,총무,사내 행사 기획 및 워크숍 운영 총무 실무,TF-IDF,9,PUB_ACG20243001013346_207,총무기획과 총무자산관리,에듀퓨어,0.2517,총무,https://www.work24.go.kr,다회차 개설 강좌
+Q10,총무,사내 행사 기획 및 워크숍 운영 총무 실무,TF-IDF,10,PUB_ACG20243001027168_97,총무기획과 총무자산관리,러닝플러스,0.2517,총무,https://www.work24.go.kr,다회차 개설 강좌
+Q11,경영지원,비즈니스 매너 및 사내 커뮤니케이션 에티켓,TF-IDF,1,KPC_47464_151642,글로벌 비즈니스 매너,한국생산성본부(KPC),0.4376,"비즈니스, 매너",https://www.kpc.or.kr/PTWED003_dtil_view.do?ecno=47464&cono=151642,단독 개설 강좌
+Q11,경영지원,비즈니스 매너 및 사내 커뮤니케이션 에티켓,TF-IDF,2,PUB_ACG20243000973001_324,알베르토와 함께하는 글로벌 비즈니스 매너,에듀퓨어,0.3358,"비즈니스, 매너",https://www.work24.go.kr,단독 개설 강좌
+Q11,경영지원,비즈니스 매너 및 사내 커뮤니케이션 에티켓,TF-IDF,3,GSEEK_51955,[레전드 스킬] 어쩐지 끌리는 사람의 비즈니스 매너,GSEEK,0.3272,"비즈니스, 매너, 사내, 에티켓",https://www.gseek.kr/user/course/online/view?s_sbjct_sn=51955,다회차 개설 강좌
+Q11,경영지원,비즈니스 매너 및 사내 커뮤니케이션 에티켓,TF-IDF,4,HUNET_Y00161578,"실례합니다만, 비즈니스 매너는 지켜주시겠어요?",휴넷,0.3199,"비즈니스, 매너",https://hbs.hunet.co.kr/Education/Detail?gid=Y00161578,단독 개설 강좌
+Q11,경영지원,비즈니스 매너 및 사내 커뮤니케이션 에티켓,TF-IDF,5,HUNET_Y00256639,[레전드 스킬] 어쩐지 끌리는 사람의 비즈니스 매너,휴넷,0.309,"비즈니스, 매너",https://hbs.hunet.co.kr/Education/Detail?gid=Y00256639,다회차 개설 강좌
+Q11,경영지원,비즈니스 매너 및 사내 커뮤니케이션 에티켓,TF-IDF,6,HUNET_Y00004543,직장인을 위한 비즈니스 매너 에센스,휴넷,0.3089,"비즈니스, 매너",https://hbs.hunet.co.kr/Education/Detail?gid=Y00004543,단독 개설 강좌
+Q11,경영지원,비즈니스 매너 및 사내 커뮤니케이션 에티켓,TF-IDF,7,HUNET_Y00386286,[일잘러의 매너] 왜 저 사람은 같이 일하기 편할까?,휴넷,0.2859,매너,https://hbs.hunet.co.kr/Education/Detail?gid=Y00386286,단독 개설 강좌
+Q11,경영지원,비즈니스 매너 및 사내 커뮤니케이션 에티켓,TF-IDF,8,KMA_112031_127371,[온라인][자격] 비즈니스커뮤니케이션,한국능률협회(KMA),0.2578,"비즈니스, 커뮤니케이션",https://www.kma.or.kr/usrs/eduRegMgnt/eduRegInfoDetailForm.do?p_edutype_cd=002&p_crscd=112031&p_crsseq_id=127371&p_ctgry_id=664&p_hmpgcd=30&mkey=37172,다회차 개설 강좌
+Q11,경영지원,비즈니스 매너 및 사내 커뮤니케이션 에티켓,TF-IDF,9,KMA_112031_127372,[온라인][자격] 비즈니스커뮤니케이션,한국능률협회(KMA),0.2578,"비즈니스, 커뮤니케이션",https://www.kma.or.kr/usrs/eduRegMgnt/eduRegInfoDetailForm.do?p_edutype_cd=002&p_crscd=112031&p_crsseq_id=127372&p_ctgry_id=664&p_hmpgcd=30&mkey=37172,다회차 개설 강좌
+Q11,경영지원,비즈니스 매너 및 사내 커뮤니케이션 에티켓,TF-IDF,10,HUNET_Y00316461,글로벌 비즈니스 리더의 기술_기업 이미지 UP 프로젝트,휴넷,0.2548,"비즈니스, 매너, 커뮤니케이션, 에티켓",https://hbs.hunet.co.kr/Education/Detail?gid=Y00316461,단독 개설 강좌
+Q12,경영지원,임원 비서 실무 및 의전 가이드,TF-IDF,1,KMA_111725_127445,L.E.A.D. 임원역량과정,한국능률협회(KMA),0.4062,임원,https://www.kma.or.kr/usrs/eduRegMgnt/eduRegInfoDetailForm.do?p_edutype_cd=002&p_crscd=111725&p_crsseq_id=127445&p_ctgry_id=663&p_hmpgcd=30&mkey=37158,단독 개설 강좌
+Q12,경영지원,임원 비서 실무 및 의전 가이드,TF-IDF,2,KMA_111551_126318,[여의도] 의전행사 실무,한국능률협회(KMA),0.3061,"실무, 의전",https://www.kma.or.kr/usrs/eduRegMgnt/eduRegInfoDetailForm.do?p_edutype_cd=001&p_crscd=111551&p_crsseq_id=126318&p_ctgry_id=654&p_hmpgcd=30&mkey=37151,다회차 개설 강좌
+Q12,경영지원,임원 비서 실무 및 의전 가이드,TF-IDF,3,KMA_111551_126319,[여의도] 의전행사 실무,한국능률협회(KMA),0.3061,"실무, 의전",https://www.kma.or.kr/usrs/eduRegMgnt/eduRegInfoDetailForm.do?p_edutype_cd=001&p_crscd=111551&p_crsseq_id=126319&p_ctgry_id=654&p_hmpgcd=30&mkey=37151,다회차 개설 강좌
+Q12,경영지원,임원 비서 실무 및 의전 가이드,TF-IDF,4,KPC_47246_151699,[온앤오프] 총무 업무 기본,한국생산성본부(KPC),0.2716,"임원, 비서, 실무, 의전",https://www.kpc.or.kr/PTWED003_dtil_view.do?ecno=47246&cono=151699,단독 개설 강좌
+Q12,경영지원,임원 비서 실무 및 의전 가이드,TF-IDF,5,KMA_111518_126243,[여의도] Smart 전문비서 역량개발,한국능률협회(KMA),0.2672,비서,https://www.kma.or.kr/usrs/eduRegMgnt/eduRegInfoDetailForm.do?p_edutype_cd=001&p_crscd=111518&p_crsseq_id=126243&p_ctgry_id=674&p_hmpgcd=30&mkey=37207,다회차 개설 강좌
+Q12,경영지원,임원 비서 실무 및 의전 가이드,TF-IDF,6,KMA_111518_126242,[여의도] Smart 전문비서 역량개발,한국능률협회(KMA),0.2672,비서,https://www.kma.or.kr/usrs/eduRegMgnt/eduRegInfoDetailForm.do?p_edutype_cd=001&p_crscd=111518&p_crsseq_id=126242&p_ctgry_id=674&p_hmpgcd=30&mkey=37207,다회차 개설 강좌
+Q12,경영지원,임원 비서 실무 및 의전 가이드,TF-IDF,7,MULTICAMPUS_FA017F,리더의 격(格)-고위 임원 과정,멀티캠퍼스,0.2556,임원,https://m.multicampus.com/course/crsDetail?corsCd=FA017F,단독 개설 강좌
+Q12,경영지원,임원 비서 실무 및 의전 가이드,TF-IDF,8,KPC_47250_151725,행사 의전 실무,한국생산성본부(KPC),0.2296,"실무, 의전",https://www.kpc.or.kr/PTWED003_dtil_view.do?ecno=47250&cono=151725,단독 개설 강좌
+Q12,경영지원,임원 비서 실무 및 의전 가이드,TF-IDF,9,HUNET_Y00386302,"제조 데이터 정리부터 보고서 작성까지, Claude 업무 비서 만들기",휴넷,0.2118,비서,https://hbs.hunet.co.kr/Education/Detail?gid=Y00386302,단독 개설 강좌
+Q12,경영지원,임원 비서 실무 및 의전 가이드,TF-IDF,10,HUNET_Y00316461,글로벌 비즈니스 리더의 기술_기업 이미지 UP 프로젝트,휴넷,0.2074,"실무, 의전",https://hbs.hunet.co.kr/Education/Detail?gid=Y00316461,단독 개설 강좌
+Q13,경영지원,애자일 프로젝트 관리 및 스크럼 스프린트,TF-IDF,1,MULTICAMPUS_FA01FS,실습으로 배우는 1Day 애자일 프로젝트 관리,멀티캠퍼스,0.6907,"자일, 프로젝트, 관리",https://m.multicampus.com/course/crsDetail?corsCd=FA01FS,단독 개설 강좌
+Q13,경영지원,애자일 프로젝트 관리 및 스크럼 스프린트,TF-IDF,2,PUB_ABA20243000983062_296,애자일 프로젝트 실무(입문),에듀퓨어,0.6576,"자일, 프로젝트",https://www.work24.go.kr,단독 개설 강좌
+Q13,경영지원,애자일 프로젝트 관리 및 스크럼 스프린트,TF-IDF,3,HUNET_Y00261142,[스쿨] 애자일 협업의 진짜 스킬,휴넷,0.4481,"자일, 관리",https://hbs.hunet.co.kr/Education/Detail?gid=Y00261142,단독 개설 강좌
+Q13,경영지원,애자일 프로젝트 관리 및 스크럼 스프린트,TF-IDF,4,HUNET_Y00124618,"애자일, 민첩한 조직이 되기 위한 지름길",휴넷,0.4444,자일,https://hbs.hunet.co.kr/Education/Detail?gid=Y00124618,단독 개설 강좌
+Q13,경영지원,애자일 프로젝트 관리 및 스크럼 스프린트,TF-IDF,5,HUNET_Y00263646,글로벌 기업의 성공에는 애자일 조직문화가 있다,휴넷,0.438,자일,https://hbs.hunet.co.kr/Education/Detail?gid=Y00263646,단독 개설 강좌
+Q13,경영지원,애자일 프로젝트 관리 및 스크럼 스프린트,TF-IDF,6,HUNET_Y00173923,"[카드뉴스] 애자일 리더십, 혁신하는 기업의 비밀",휴넷,0.3959,자일,https://hbs.hunet.co.kr/Education/Detail?gid=Y00173923,단독 개설 강좌
+Q13,경영지원,애자일 프로젝트 관리 및 스크럼 스프린트,TF-IDF,7,HUNET_Y00260037,"[레전드 스킬] 진짜 협업을 향한 한 달 미션, 일단 애자일 시작하기",휴넷,0.3907,자일,https://hbs.hunet.co.kr/Education/Detail?gid=Y00260037,단독 개설 강좌
+Q13,경영지원,애자일 프로젝트 관리 및 스크럼 스프린트,TF-IDF,8,HUNET_Y00115083,[애자일] 실리콘밸리의 ONE PICK 조직 혁명,휴넷,0.3308,자일,https://hbs.hunet.co.kr/Education/Detail?gid=Y00115083,단독 개설 강좌
+Q13,경영지원,애자일 프로젝트 관리 및 스크럼 스프린트,TF-IDF,9,HUNET_Y00381737,"[SSS급 인재] 실리콘밸리식 협업 스킬, 애자일 커뮤니케이션",휴넷,0.3108,"자일, 프로젝트, 관리",https://hbs.hunet.co.kr/Education/Detail?gid=Y00381737,단독 개설 강좌
+Q13,경영지원,애자일 프로젝트 관리 및 스크럼 스프린트,TF-IDF,10,HUNET_Y00386271,AI로 완성하는 프로젝트 관리 스킬,휴넷,0.2778,"프로젝트, 관리",https://hbs.hunet.co.kr/Education/Detail?gid=Y00386271,단독 개설 강좌
+Q14,경영지원,사업계획서 수립 및 재무제표 분석 기초,TF-IDF,1,GSEEK_3216,[창업공통]창업 트렌드 분석과 전략적 사업계획서 작성하기,GSEEK,0.3915,"사업, 계획서, 분석",https://www.gseek.kr/user/course/online/view?s_sbjct_sn=3216,단독 개설 강좌
+Q14,경영지원,사업계획서 수립 및 재무제표 분석 기초,TF-IDF,2,HUNET_Y00302687,한 달 만에 끝내는 재무제표분석,휴넷,0.3851,"재무제표, 분석",https://hbs.hunet.co.kr/Education/Detail?gid=Y00302687,단독 개설 강좌
+Q14,경영지원,사업계획서 수립 및 재무제표 분석 기초,TF-IDF,3,KPC_49289_158925,[정부지원사업]정부지원사업 사업계획서 작성전략(무료교육),한국생산성본부(KPC),0.3606,"사업, 계획서",https://www.kpc.or.kr/PTWED003_dtil_view.do?ecno=49289&cono=158925,다회차 개설 강좌
+Q14,경영지원,사업계획서 수립 및 재무제표 분석 기초,TF-IDF,4,KPC_49289_158926,[정부지원사업]정부지원사업 사업계획서 작성전략(무료교육),한국생산성본부(KPC),0.3606,"사업, 계획서",https://www.kpc.or.kr/PTWED003_dtil_view.do?ecno=49289&cono=158926,다회차 개설 강좌
+Q14,경영지원,사업계획서 수립 및 재무제표 분석 기초,TF-IDF,5,KFO_kfo_hid_81,아이디어를 문서로: 사업계획서·보고서·발표자료 실전,한국직업방송(KFO),0.3401,"사업, 계획서",https://hi-d.hightecher.co.kr/product/detail/81,단독 개설 강좌
+Q14,경영지원,사업계획서 수립 및 재무제표 분석 기초,TF-IDF,6,KPC_48583_156512,[1day] 사업계획수립실무,한국생산성본부(KPC),0.3312,"사업, 수립, 재무제표, 분석",https://www.kpc.or.kr/PTWED003_dtil_view.do?ecno=48583&cono=156512,다회차 개설 강좌
+Q14,경영지원,사업계획서 수립 및 재무제표 분석 기초,TF-IDF,7,KPC_48583_156511,[1day] 사업계획수립실무,한국생산성본부(KPC),0.3312,"사업, 수립, 재무제표, 분석",https://www.kpc.or.kr/PTWED003_dtil_view.do?ecno=48583&cono=156511,다회차 개설 강좌
+Q14,경영지원,사업계획서 수립 및 재무제표 분석 기초,TF-IDF,8,KPC_47082_149937,추정재무제표작성 및 현금흐름표활용기초,한국생산성본부(KPC),0.3274,"사업, 계획서, 수립, 재무제표, 분석",https://www.kpc.or.kr/PTWED003_dtil_view.do?ecno=47082&cono=149937,단독 개설 강좌
+Q14,경영지원,사업계획서 수립 및 재무제표 분석 기초,TF-IDF,9,KPC_48587_156535,[1day] 재무제표분석실무,한국생산성본부(KPC),0.2869,"재무제표, 분석",https://www.kpc.or.kr/PTWED003_dtil_view.do?ecno=48587&cono=156535,다회차 개설 강좌
+Q14,경영지원,사업계획서 수립 및 재무제표 분석 기초,TF-IDF,10,KPC_48587_156536,[1day] 재무제표분석실무,한국생산성본부(KPC),0.2869,"재무제표, 분석",https://www.kpc.or.kr/PTWED003_dtil_view.do?ecno=48587&cono=156536,다회차 개설 강좌
+Q15,경영지원,주52시간 근로시간 관리 및 유연근무제 운영,TF-IDF,1,HUNET_Y00099166,핵심만 쏙! 주52시간 근무제와 HR의 변화,휴넷,0.2813,근무,https://hbs.hunet.co.kr/Education/Detail?gid=Y00099166,단독 개설 강좌
+Q15,경영지원,주52시간 근로시간 관리 및 유연근무제 운영,TF-IDF,2,HUNET_Y00370505,2026 안전보건교육 특수형태근로종사자(특별교육_일반근로자),휴넷,0.2584,"근로, 시간, 근무",https://hbs.hunet.co.kr/Education/Detail?gid=Y00370505,단독 개설 강좌
+Q15,경영지원,주52시간 근로시간 관리 및 유연근무제 운영,TF-IDF,3,HUNET_Y00370506,2026 안전보건교육 특수형태근로종사자(특별교육_단기 및 간헐적 종사자),휴넷,0.2579,"근로, 시간, 근무",https://hbs.hunet.co.kr/Education/Detail?gid=Y00370506,단독 개설 강좌
+Q15,경영지원,주52시간 근로시간 관리 및 유연근무제 운영,TF-IDF,4,HUNET_Y00370507,2026 안전보건교육 특수형태근로종사자(최초 노무제공 시_일반근로자),휴넷,0.2567,"근로, 시간, 근무",https://hbs.hunet.co.kr/Education/Detail?gid=Y00370507,단독 개설 강좌
+Q15,경영지원,주52시간 근로시간 관리 및 유연근무제 운영,TF-IDF,5,KMA_111451_126001,[여의도] 근로감독 및 노동행정 대응 실무,한국능률협회(KMA),0.2531,근로,https://www.kma.or.kr/usrs/eduRegMgnt/eduRegInfoDetailForm.do?p_edutype_cd=001&p_crscd=111451&p_crsseq_id=126001&p_ctgry_id=661&p_hmpgcd=30&mkey=37148,단독 개설 강좌
+Q15,경영지원,주52시간 근로시간 관리 및 유연근무제 운영,TF-IDF,6,KMA_111446_125985,[여의도] HR 실무자를 위한 근로시간 및 연차휴가 관리 실전 노하우,한국능률협회(KMA),0.253,"근로, 시간, 관리, 운영",https://www.kma.or.kr/usrs/eduRegMgnt/eduRegInfoDetailForm.do?p_edutype_cd=001&p_crscd=111446&p_crsseq_id=125985&p_ctgry_id=661&p_hmpgcd=30&mkey=37148,단독 개설 강좌
+Q15,경영지원,주52시간 근로시간 관리 및 유연근무제 운영,TF-IDF,7,HUNET_Y00351199,새롭게 개정된 실전 노무법 & 노무 이슈,휴넷,0.2483,"근로, 시간, 관리, 운영",https://hbs.hunet.co.kr/Education/Detail?gid=Y00351199,다회차 개설 강좌
+Q15,경영지원,주52시간 근로시간 관리 및 유연근무제 운영,TF-IDF,8,GSEEK_5796,청소년 지도를 위한 노동인권 이해과정_교사용,GSEEK,0.2463,"근로, 시간",https://www.gseek.kr/user/course/online/view?s_sbjct_sn=5796,단독 개설 강좌
+Q15,경영지원,주52시간 근로시간 관리 및 유연근무제 운영,TF-IDF,9,HUNET_Y00370508,2026 안전보건교육 특수형태근로종사자(최초 노무제공 시_단기 및 간헐적 종사자),휴넷,0.2366,"근로, 시간, 근무",https://hbs.hunet.co.kr/Education/Detail?gid=Y00370508,단독 개설 강좌
+Q15,경영지원,주52시간 근로시간 관리 및 유연근무제 운영,TF-IDF,10,MULTICAMPUS_EB2BHK,[중소기업기술보호교육] 원격근무 보안 가이드라인(특수과정),멀티캠퍼스,0.2221,근무,https://m.multicampus.com/course/crsDetail?corsCd=EB2BHK,단독 개설 강좌

@@ -1,0 +1,51 @@
+﻿query_id,category,query,model,rank,course_uid,title,provider,similarity,total_sessions,source_url
+Q01,인사/채용,신입사원 온보딩 및 채용 프로세스 실무,klue/bert-base,1,MULTICAMPUS_FB00A4,[패스트트랙] 신입 온보딩 과정,멀티캠퍼스,0.6935,1,https://m.multicampus.com/course/crsDetail?corsCd=FB00A4
+Q01,인사/채용,신입사원 온보딩 및 채용 프로세스 실무,klue/bert-base,2,MULTICAMPUS_FB00A6,[패스트트랙] 신입 온보딩 과정-업무관리 편,멀티캠퍼스,0.6913,1,https://m.multicampus.com/course/crsDetail?corsCd=FB00A6
+Q01,인사/채용,신입사원 온보딩 및 채용 프로세스 실무,klue/bert-base,3,KPC_47195_150813,신입사원 역량강화,한국생산성본부(KPC),0.6783,1,https://www.kpc.or.kr/PTWED003_dtil_view.do?ecno=47195&cono=150813
+Q01,인사/채용,신입사원 온보딩 및 채용 프로세스 실무,klue/bert-base,4,MULTICAMPUS_FB00A5,[패스트트랙] 신입 온보딩 과정-관계관리 편,멀티캠퍼스,0.6726,1,https://m.multicampus.com/course/crsDetail?corsCd=FB00A5
+Q01,인사/채용,신입사원 온보딩 및 채용 프로세스 실무,klue/bert-base,5,MULTICAMPUS_FA018I,웹기획 이해 및 활용 실습,멀티캠퍼스,0.6524,1,https://m.multicampus.com/course/crsDetail?corsCd=FA018I
+Q01,인사/채용,신입사원 온보딩 및 채용 프로세스 실무,klue/bert-base,6,PUB_ABA20243000983062_296,애자일 프로젝트 실무(입문),에듀퓨어,0.6425,1,https://www.work24.go.kr
+Q01,인사/채용,신입사원 온보딩 및 채용 프로세스 실무,klue/bert-base,7,MULTICAMPUS_FA018X,실무자를 위한 Power Excel,멀티캠퍼스,0.6338,1,https://m.multicampus.com/course/crsDetail?corsCd=FA018X
+Q01,인사/채용,신입사원 온보딩 및 채용 프로세스 실무,klue/bert-base,8,KPC_46979_149655,[온앤오프] HR·GA 온보딩 패키지,한국생산성본부(KPC),0.6271,2,https://www.kpc.or.kr/PTWED003_dtil_view.do?ecno=46979&cono=149655
+Q01,인사/채용,신입사원 온보딩 및 채용 프로세스 실무,klue/bert-base,9,KMA_111204_124936,[강남] HR 담당자를 위한 인사∙노무 실무,한국능률협회(KMA),0.6157,1,https://www.kma.or.kr/usrs/eduRegMgnt/eduRegInfoDetailForm.do?p_edutype_cd=001&p_crscd=111204&p_crsseq_id=124936&p_ctgry_id=661&p_hmpgcd=30&mkey=37148
+Q01,인사/채용,신입사원 온보딩 및 채용 프로세스 실무,klue/bert-base,10,KMA_111437_125950,[여의도] HR 담당자를 위한 인사∙노무 실무,한국능률협회(KMA),0.6144,1,https://www.kma.or.kr/usrs/eduRegMgnt/eduRegInfoDetailForm.do?p_edutype_cd=001&p_crscd=111437&p_crsseq_id=125950&p_ctgry_id=661&p_hmpgcd=30&mkey=37148
+Q02,노무/근로기준,근로기준법 개정사항 및 취업규칙 작성 실무,klue/bert-base,1,GSEEK_3217,[창업공통]필수 근로기준법과 인사서식,GSEEK,0.7052,1,https://www.gseek.kr/user/course/online/view?s_sbjct_sn=3217
+Q02,노무/근로기준,근로기준법 개정사항 및 취업규칙 작성 실무,klue/bert-base,2,KMA_111451_126001,[여의도] 근로감독 및 노동행정 대응 실무,한국능률협회(KMA),0.6886,1,https://www.kma.or.kr/usrs/eduRegMgnt/eduRegInfoDetailForm.do?p_edutype_cd=001&p_crscd=111451&p_crsseq_id=126001&p_ctgry_id=661&p_hmpgcd=30&mkey=37148
+Q02,노무/근로기준,근로기준법 개정사항 및 취업규칙 작성 실무,klue/bert-base,3,HUNET_Y00370517,2026 안전보건교육 일반근로자(채용 시_유통업),휴넷,0.6873,1,https://hbs.hunet.co.kr/Education/Detail?gid=Y00370517
+Q02,노무/근로기준,근로기준법 개정사항 및 취업규칙 작성 실무,klue/bert-base,4,HUNET_Y00370507,2026 안전보건교육 특수형태근로종사자(최초 노무제공 시_일반근로자),휴넷,0.687,1,https://hbs.hunet.co.kr/Education/Detail?gid=Y00370507
+Q02,노무/근로기준,근로기준법 개정사항 및 취업규칙 작성 실무,klue/bert-base,5,HUNET_Y00370543,2026 안전보건교육 상반기(사무 및 판매근로자_보건업),휴넷,0.6829,1,https://hbs.hunet.co.kr/Education/Detail?gid=Y00370543
+Q02,노무/근로기준,근로기준법 개정사항 및 취업규칙 작성 실무,klue/bert-base,6,HUNET_Y00370505,2026 안전보건교육 특수형태근로종사자(특별교육_일반근로자),휴넷,0.6816,1,https://hbs.hunet.co.kr/Education/Detail?gid=Y00370505
+Q02,노무/근로기준,근로기준법 개정사항 및 취업규칙 작성 실무,klue/bert-base,7,HUNET_Y00370539,2026 안전보건교육 상반기(사무 및 판매근로자_유통업),휴넷,0.6814,1,https://hbs.hunet.co.kr/Education/Detail?gid=Y00370539
+Q02,노무/근로기준,근로기준법 개정사항 및 취업규칙 작성 실무,klue/bert-base,8,PUB_ABA20253001062023_1,실무사례로 알아보는 근로기준법,중앙법률원격평생교육원,0.6802,1,https://www.work24.go.kr
+Q02,노무/근로기준,근로기준법 개정사항 및 취업규칙 작성 실무,klue/bert-base,9,PUB_ABA20243001036557_15,실무사례로 알아보는 근로기준법,중앙법률원격평생교육원,0.6802,1,https://www.work24.go.kr
+Q02,노무/근로기준,근로기준법 개정사항 및 취업규칙 작성 실무,klue/bert-base,10,PUB_ACG20243001036448_16,실무사례로 알아보는 근로기준법,중앙법률원격평생교육원,0.6802,1,https://www.work24.go.kr
+Q04,인사/평가보상,직무분석 및 KPI 성과평가 보상체계 설계,klue/bert-base,1,KPC_48587_156535,[1day] 재무제표분석실무,한국생산성본부(KPC),0.6987,1,https://www.kpc.or.kr/PTWED003_dtil_view.do?ecno=48587&cono=156535
+Q04,인사/평가보상,직무분석 및 KPI 성과평가 보상체계 설계,klue/bert-base,2,KPC_47022_157545,[DX&AI] 평가보상 설계 실무(밀코비치 기반),한국생산성본부(KPC),0.6915,1,https://www.kpc.or.kr/PTWED003_dtil_view.do?ecno=47022&cono=157545
+Q04,인사/평가보상,직무분석 및 KPI 성과평가 보상체계 설계,klue/bert-base,3,KPC_47305_151165,[HRD] 직무분석을 활용한 교육프로그램 개발,한국생산성본부(KPC),0.6899,1,https://www.kpc.or.kr/PTWED003_dtil_view.do?ecno=47305&cono=151165
+Q04,인사/평가보상,직무분석 및 KPI 성과평가 보상체계 설계,klue/bert-base,4,KPC_46993_157549,[인력계획부터 육성까지] 인사기획실무,한국생산성본부(KPC),0.678,2,https://www.kpc.or.kr/PTWED003_dtil_view.do?ecno=46993&cono=157549
+Q04,인사/평가보상,직무분석 및 KPI 성과평가 보상체계 설계,klue/bert-base,5,KPC_46990_149679,[온앤오프] 평가 및 보상제도 운영실무,한국생산성본부(KPC),0.6763,1,https://www.kpc.or.kr/PTWED003_dtil_view.do?ecno=46990&cono=149679
+Q04,인사/평가보상,직무분석 및 KPI 성과평가 보상체계 설계,klue/bert-base,6,KPC_46980_149684,성과관리실무,한국생산성본부(KPC),0.6598,1,https://www.kpc.or.kr/PTWED003_dtil_view.do?ecno=46980&cono=149684
+Q04,인사/평가보상,직무분석 및 KPI 성과평가 보상체계 설계,klue/bert-base,7,KPC_47857_154660,구매담당자 리스크관리능력향상,한국생산성본부(KPC),0.6596,1,https://www.kpc.or.kr/PTWED003_dtil_view.do?ecno=47857&cono=154660
+Q04,인사/평가보상,직무분석 및 KPI 성과평가 보상체계 설계,klue/bert-base,8,KPC_48450_156250,두산_인사 전문가_성과중심 인사평가,한국생산성본부(KPC),0.6567,1,https://www.kpc.or.kr/PTWED003_dtil_view.do?ecno=48450&cono=156250
+Q04,인사/평가보상,직무분석 및 KPI 성과평가 보상체계 설계,klue/bert-base,9,KPC_46983_149700,[온앤오프] 직무급제 바로알기: 제도설계부터 실행까지,한국생산성본부(KPC),0.655,1,https://www.kpc.or.kr/PTWED003_dtil_view.do?ecno=46983&cono=149700
+Q04,인사/평가보상,직무분석 및 KPI 성과평가 보상체계 설계,klue/bert-base,10,KPC_46662_147982,신규사업개발과 사업계획수립실무 (지역),한국생산성본부(KPC),0.6523,1,https://www.kpc.or.kr/PTWED003_dtil_view.do?ecno=46662&cono=147982
+Q06,총무/구매,비품 구매 계약 및 공급업체 관리,klue/bert-base,1,KPC_47857_154660,구매담당자 리스크관리능력향상,한국생산성본부(KPC),0.603,1,https://www.kpc.or.kr/PTWED003_dtil_view.do?ecno=47857&cono=154660
+Q06,총무/구매,비품 구매 계약 및 공급업체 관리,klue/bert-base,2,KPC_47849_157424,구매관리기본,한국생산성본부(KPC),0.5928,1,https://www.kpc.or.kr/PTWED003_dtil_view.do?ecno=47849&cono=157424
+Q06,총무/구매,비품 구매 계약 및 공급업체 관리,klue/bert-base,3,KPC_47861_154595,협력업체관리실무,한국생산성본부(KPC),0.5916,2,https://www.kpc.or.kr/PTWED003_dtil_view.do?ecno=47861&cono=154595
+Q06,총무/구매,비품 구매 계약 및 공급업체 관리,klue/bert-base,4,KPC_47346_154664,간접구매관리실무,한국생산성본부(KPC),0.5855,1,https://www.kpc.or.kr/PTWED003_dtil_view.do?ecno=47346&cono=154664
+Q06,총무/구매,비품 구매 계약 및 공급업체 관리,klue/bert-base,5,KPC_47856_154585,구매계약과 공정거래하도급법의 이해,한국생산성본부(KPC),0.5803,2,https://www.kpc.or.kr/PTWED003_dtil_view.do?ecno=47856&cono=154585
+Q06,총무/구매,비품 구매 계약 및 공급업체 관리,klue/bert-base,6,KPC_46700_148680,공급망 ESG 평가 대응,한국생산성본부(KPC),0.5747,1,https://www.kpc.or.kr/PTWED003_dtil_view.do?ecno=46700&cono=148680
+Q06,총무/구매,비품 구매 계약 및 공급업체 관리,klue/bert-base,7,KMA_111486_126126,[여의도] 협력업체 관리실무,한국능률협회(KMA),0.5705,1,https://www.kma.or.kr/usrs/eduRegMgnt/eduRegInfoDetailForm.do?p_edutype_cd=001&p_crscd=111486&p_crsseq_id=126126&p_ctgry_id=651&p_hmpgcd=30&mkey=37155
+Q06,총무/구매,비품 구매 계약 및 공급업체 관리,klue/bert-base,8,KPC_48250_155852,[자격과정] 공급망 ESG 평가사,한국생산성본부(KPC),0.5679,1,https://www.kpc.or.kr/PTWED003_dtil_view.do?ecno=48250&cono=155852
+Q06,총무/구매,비품 구매 계약 및 공급업체 관리,klue/bert-base,9,KPC_46665_148523,예산관리전문가 양성,한국생산성본부(KPC),0.5678,1,https://www.kpc.or.kr/PTWED003_dtil_view.do?ecno=46665&cono=148523
+Q06,총무/구매,비품 구매 계약 및 공급업체 관리,klue/bert-base,10,MULTICAMPUS_FB00F4,[Live][공인](AZ-500) Microsoft Azure 보안 기술,멀티캠퍼스,0.5676,1,https://m.multicampus.com/course/crsDetail?corsCd=FB00F4
+Q09,실무스킬,엑셀 실무 데이터 가공 및 함수 활용,klue/bert-base,1,MULTICAMPUS_FA018I,웹기획 이해 및 활용 실습,멀티캠퍼스,0.6929,1,https://m.multicampus.com/course/crsDetail?corsCd=FA018I
+Q09,실무스킬,엑셀 실무 데이터 가공 및 함수 활용,klue/bert-base,2,KMA_111189_124879,[여의도] 엑셀 비즈니스 활용 실무,한국능률협회(KMA),0.6601,2,https://www.kma.or.kr/usrs/eduRegMgnt/eduRegInfoDetailForm.do?p_edutype_cd=001&p_crscd=111189&p_crsseq_id=124879&p_ctgry_id=556&p_hmpgcd=30&mkey=36324
+Q09,실무스킬,엑셀 실무 데이터 가공 및 함수 활용,klue/bert-base,3,PUB_ABA20243000983062_296,애자일 프로젝트 실무(입문),에듀퓨어,0.6127,1,https://www.work24.go.kr
+Q09,실무스킬,엑셀 실무 데이터 가공 및 함수 활용,klue/bert-base,4,KPC_48587_156535,[1day] 재무제표분석실무,한국생산성본부(KPC),0.6001,1,https://www.kpc.or.kr/PTWED003_dtil_view.do?ecno=48587&cono=156535
+Q09,실무스킬,엑셀 실무 데이터 가공 및 함수 활용,klue/bert-base,5,KMA_112236_128213,[여의도] AI로 2배 빨라지는 직장인 필수 엑셀 함수 실무,한국능률협회(KMA),0.5923,1,https://www.kma.or.kr/usrs/eduRegMgnt/eduRegInfoDetailForm.do?p_edutype_cd=001&p_crscd=112236&p_crsseq_id=128213&p_ctgry_id=685&p_hmpgcd=30&mkey=37226
+Q09,실무스킬,엑셀 실무 데이터 가공 및 함수 활용,klue/bert-base,6,KPC_48576_156482,생성형 AI 기반 총무 업무 효율화·자동화 실무,한국생산성본부(KPC),0.5829,1,https://www.kpc.or.kr/PTWED003_dtil_view.do?ecno=48576&cono=156482
+Q09,실무스킬,엑셀 실무 데이터 가공 및 함수 활용,klue/bert-base,7,KPC_47569_152934,"엑셀, 데이터베이스, 파이썬 기반의 빅데이터 분석 실무",한국생산성본부(KPC),0.5734,1,https://www.kpc.or.kr/PTWED003_dtil_view.do?ecno=47569&cono=152934
+Q09,실무스킬,엑셀 실무 데이터 가공 및 함수 활용,klue/bert-base,8,GSEEK_52747,일잘러의 엑셀 스킬! 함수&수식 마스터,GSEEK,0.5716,1,https://www.gseek.kr/user/course/online/view?s_sbjct_sn=52747
+Q09,실무스킬,엑셀 실무 데이터 가공 및 함수 활용,klue/bert-base,9,MULTICAMPUS_Q31000,데이터 분석 기획,멀티캠퍼스,0.5709,1,https://m.multicampus.com/course/crsDetail?corsCd=Q31000
+Q09,실무스킬,엑셀 실무 데이터 가공 및 함수 활용,klue/bert-base,10,GSEEK_51991,[HD]입문자를 위한 코틀린 프로그래밍 제대로 배우기 초급 2,GSEEK,0.5702,1,https://www.gseek.kr/user/course/online/view?s_sbjct_sn=51991
