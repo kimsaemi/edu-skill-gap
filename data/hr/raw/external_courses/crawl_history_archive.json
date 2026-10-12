@@ -1,0 +1,32 @@
+[
+  {
+    "id": 1,
+    "run_date": "2026-09-30T21:23:13.977217",
+    "source_type": "ALL_CATALOG_AND_PLAN",
+    "courses_collected": 1116,
+    "status": "SUCCESS",
+    "notes": "Total 1116 unique courses saved.",
+    "provider": "멀티캠퍼스",
+    "source_file": "multicampus_courses.db"
+  },
+  {
+    "id": 1,
+    "run_date": "2026-09-30T21:45:24.985500",
+    "source_type": "KFO_ALL_COURSES",
+    "courses_collected": 50,
+    "status": "SUCCESS",
+    "notes": "Collected 50 courses from 42 pages.",
+    "provider": "한국직업방송(KFO)",
+    "source_file": "kfo_courses.db"
+  },
+  {
+    "id": 2,
+    "run_date": "2026-10-10T12:18:14.295602",
+    "source_type": "full_crawl",
+    "courses_collected": 143,
+    "status": "SUCCESS",
+    "notes": "",
+    "provider": "한국직업방송(KFO)",
+    "source_file": "kfo_courses.db"
+  }
+]

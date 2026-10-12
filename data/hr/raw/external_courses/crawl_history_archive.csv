@@ -1,0 +1,4 @@
+﻿id,run_date,source_type,courses_collected,status,notes,provider,source_file
+1,2026-09-30T21:23:13.977217,ALL_CATALOG_AND_PLAN,1116,SUCCESS,Total 1116 unique courses saved.,멀티캠퍼스,multicampus_courses.db
+1,2026-09-30T21:45:24.985500,KFO_ALL_COURSES,50,SUCCESS,Collected 50 courses from 42 pages.,한국직업방송(KFO),kfo_courses.db
+2,2026-10-10T12:18:14.295602,full_crawl,143,SUCCESS,,한국직업방송(KFO),kfo_courses.db

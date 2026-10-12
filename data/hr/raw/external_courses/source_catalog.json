@@ -1,0 +1,96 @@
+[
+  {
+    "provider": "휴넷",
+    "provider_code": "HUNET",
+    "filename": "hunet_courses.db",
+    "file_size_bytes": 4780032,
+    "sha256": "2bc8ceff95fbe3bd26636ca8c9cccf45fd0ccd21437ac980624cb5cc4619f28f",
+    "courses_count": 1958,
+    "expected_count": 1958,
+    "count_matched": true,
+    "tables": [
+      "courses"
+    ],
+    "has_crawl_history": false,
+    "copied_at": "2026-10-12T10:53:55.527578+00:00"
+  },
+  {
+    "provider": "GSEEK",
+    "provider_code": "GSEEK",
+    "filename": "gseek_courses.db",
+    "file_size_bytes": 7036928,
+    "sha256": "f474df269aee0f2535cf29649df239cb4d0a7d66ec625cb3ea0bc6803344462d",
+    "courses_count": 1991,
+    "expected_count": 1991,
+    "count_matched": true,
+    "tables": [
+      "courses"
+    ],
+    "has_crawl_history": false,
+    "copied_at": "2026-10-12T10:53:55.534579+00:00"
+  },
+  {
+    "provider": "한국능률협회(KMA)",
+    "provider_code": "KMA",
+    "filename": "kma_courses.db",
+    "file_size_bytes": 7483392,
+    "sha256": "b343a3178158fdb79e74163f4f23d01c74585d01c1cef7ba90600a0d83140fef",
+    "courses_count": 1765,
+    "expected_count": 1765,
+    "count_matched": true,
+    "tables": [
+      "courses"
+    ],
+    "has_crawl_history": false,
+    "copied_at": "2026-10-12T10:53:55.542579+00:00"
+  },
+  {
+    "provider": "한국생산성본부(KPC)",
+    "provider_code": "KPC",
+    "filename": "kpc_courses.db",
+    "file_size_bytes": 46678016,
+    "sha256": "ce6006371ad58b49dd055bfc8bb60fa93c04fd4ebd628719bd17374a2942d3ae",
+    "courses_count": 1513,
+    "expected_count": 1513,
+    "count_matched": true,
+    "tables": [
+      "courses"
+    ],
+    "has_crawl_history": false,
+    "copied_at": "2026-10-12T10:53:55.582578+00:00"
+  },
+  {
+    "provider": "멀티캠퍼스",
+    "provider_code": "MULTICAMPUS",
+    "filename": "multicampus_courses.db",
+    "file_size_bytes": 1286144,
+    "sha256": "f0856f3dd69c6776d273c689f04e53c6f9eca50665ac46d2b1e7dbd5e1fed5a9",
+    "courses_count": 1116,
+    "expected_count": 1116,
+    "count_matched": true,
+    "tables": [
+      "courses",
+      "crawl_history",
+      "sqlite_sequence"
+    ],
+    "has_crawl_history": true,
+    "copied_at": "2026-10-12T10:53:55.589578+00:00"
+  },
+  {
+    "provider": "한국직업방송(KFO)",
+    "provider_code": "KFO",
+    "filename": "kfo_courses.db",
+    "file_size_bytes": 1040384,
+    "sha256": "e74cb08c6a3f3de8c1fd5803039457139fe3f11d1206d8cdc7883c53e3acdc7e",
+    "courses_count": 162,
+    "expected_count": 162,
+    "count_matched": true,
+    "tables": [
+      "courses",
+      "crawl_history",
+      "sqlite_sequence"
+    ],
+    "has_crawl_history": true,
+    "copied_at": "2026-10-12T10:53:55.593353+00:00"
+  }
+]

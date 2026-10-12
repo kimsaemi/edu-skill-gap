@@ -10,6 +10,20 @@
 # Data raw dumps
 data/hr/*
 !data/hr/output/
+!data/hr/output/**
+!data/hr/raw/
+!data/hr/raw/external_courses/
+!data/hr/raw/external_courses/**
+!data/hr/processed/
+!data/hr/processed/**
+!data/hr/mapped/
+!data/hr/mapped/**
+!data/hr/reports/
+!data/hr/reports/**
+
+# DB exceptions for managed datasets
+!data/hr/raw/external_courses/*.db
+!data/hr/processed/*.db
 
 __pycache__/
 *.py[cod]
@@ -43,8 +57,13 @@ ENV/
 
 # Data cache (대용량 수집 데이터 및 로컬 DB)
 data/raw/
+data/courses/
 *.sqlite
 *.db
+
+# DB exceptions for managed datasets (must be after *.db)
+!data/hr/raw/external_courses/*.db
+!data/hr/processed/*.db
 
 # IDE & OS
 .vscode/
