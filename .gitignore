@@ -54,3 +54,8 @@ Thumbs.db
 
 # Nested clone
 edu-skill-gap/
+
+# Local Daily Work Logs (로컬 전용 작업 일지 - Git 추적 제외)
+work_logs/
+DAILY_LOG.md
+
