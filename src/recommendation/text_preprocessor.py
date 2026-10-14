@@ -6,12 +6,24 @@ NCS 인사·총무 교육 텍스트 전처리기 모듈
 """
 import re
 from typing import List, Dict
-from kiwipiepy import Kiwi
+
+try:
+    from kiwipiepy import Kiwi
+    HAS_KIWI = True
+except ImportError:
+    Kiwi = None
+    HAS_KIWI = False
 
 class HRTextPreprocessor:
     def __init__(self):
-        self.kiwi = Kiwi()
-        self._register_user_words()
+        if HAS_KIWI and Kiwi is not None:
+            try:
+                self.kiwi = Kiwi()
+                self._register_user_words()
+            except Exception:
+                self.kiwi = None
+        else:
+            self.kiwi = None
         self.stopwords = {
             '교육', '과정', '강의', '학습', '수강', '방법', '이해', '기초', '입문', '기본',
             '안내', '소개', '개요', '위한', '통한', '대해', '관한', '에서', '으로', '부터',
