@@ -63,12 +63,29 @@ st.markdown("""
   --ux-ease: cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 
-/* 글로벌 폰트 및 가독성 개선 */
-html, body, [class*="css"], .stApp {
+/* 글로벌 폰트 및 기본 스타일 설정 */
+html, body, .stApp {
   font-family: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, sans-serif !important;
   color: var(--ux-ink);
   letter-spacing: -0.015em;
   background-color: var(--ux-page);
+}
+
+/* 컬럼 레이아웃 텍스트 오버플로우 방지 및 안전 래핑 */
+div[data-testid="column"] {
+  min-width: 0 !important;
+  overflow: visible !important;
+}
+div[data-testid="stHorizontalBlock"] {
+  gap: 1.25rem !important;
+}
+div[data-testid="stAlert"] {
+  overflow-wrap: break-word !important;
+  word-break: keep-all !important;
+}
+code {
+  word-break: break-all !important;
+  overflow-wrap: break-word !important;
 }
 
 /* 본문 영역 최적화 */
@@ -375,6 +392,38 @@ def load_main_datasets():
 
     p_hybrid_eval = DATA_RECOM / "hybrid_recommendation_evaluated_benchmark.csv"
     df_hybrid_eval = pd.read_csv(p_hybrid_eval) if p_hybrid_eval.exists() else pd.DataFrame()
+    if not df_hybrid_eval.empty:
+        # 시나리오명 생성 및 하위 호환 컬럼 표준화
+        if "scenario" not in df_hybrid_eval.columns:
+            if "scenario_domain" in df_hybrid_eval.columns and "query" in df_hybrid_eval.columns:
+                if "cluster_boost" in df_hybrid_eval.columns:
+                    boost_tag = df_hybrid_eval["cluster_boost"].apply(lambda b: f" (군집부스팅 +{int(b)}점)" if b > 0 else " (기본 추천)")
+                    df_hybrid_eval["scenario"] = "[" + df_hybrid_eval["scenario_domain"].astype(str) + "] " + df_hybrid_eval["query"].astype(str) + boost_tag
+                else:
+                    df_hybrid_eval["scenario"] = "[" + df_hybrid_eval["scenario_domain"].astype(str) + "] " + df_hybrid_eval["query"].astype(str)
+            else:
+                df_hybrid_eval["scenario"] = "시나리오 " + (df_hybrid_eval.index + 1).astype(str)
+
+        if "target_domain" not in df_hybrid_eval.columns:
+            df_hybrid_eval["target_domain"] = df_hybrid_eval["scenario_domain"] if "scenario_domain" in df_hybrid_eval.columns else "직무"
+
+        if "final_hybrid_score" not in df_hybrid_eval.columns and "final_score" in df_hybrid_eval.columns:
+            df_hybrid_eval["final_hybrid_score"] = df_hybrid_eval["final_score"]
+
+        if "bm25_sparse_score" not in df_hybrid_eval.columns and "bm25_score" in df_hybrid_eval.columns:
+            df_hybrid_eval["bm25_sparse_score"] = df_hybrid_eval["bm25_score"]
+
+        if "ko_sroberta_dense_score" not in df_hybrid_eval.columns and "semantic_score" in df_hybrid_eval.columns:
+            df_hybrid_eval["ko_sroberta_dense_score"] = df_hybrid_eval["semantic_score"]
+
+        if "price" not in df_hybrid_eval.columns:
+            if "price_display" in df_hybrid_eval.columns:
+                df_hybrid_eval["price"] = df_hybrid_eval["price_display"]
+            else:
+                df_hybrid_eval["price"] = "-"
+
+        if "duration_hours" not in df_hybrid_eval.columns:
+            df_hybrid_eval["duration_hours"] = "-"
 
     p_r295_summary = DATA_RECOM / "reproduced_295_cluster_summary_k8.csv"
     df_r295_summary = pd.read_csv(p_r295_summary) if p_r295_summary.exists() else pd.DataFrame()
@@ -681,22 +730,34 @@ with tab2:
     st.subheader("📈 다차원 EDA 분석 및 데이터 범위 비교")
     st.caption("기존 STEP 4의 295건 표본과 신규 8,645건 통합 데이터셋의 차이를 구분하고 심층 비교합니다.")
 
-    # 1. 데이터 범위 구분 카드
+    # 1. 데이터 범위 구분 카드 (Lucian UX/UI 카드 & 오버플로우 방지)
     col_scope1, col_scope2 = st.columns(2)
     with col_scope1:
-        st.info(
-            "📌 **기존 STEP 4 분석 범위 (295건 / 553건)**\n\n"
-            "- **데이터 출처**: 공공 API(고용24 140건) + 초기 7대 기관 표본(413건)\n"
-            "- **주요 특징**: 직무 적합 확정(INCLUDED 295건), 수기 정제 표본\n"
-            "- **파일 위치**: `data/hr/output/integration/hr_integrated_candidates.csv`"
-        )
+        st.markdown("""
+        <div style="background: #EFF6FF; border: 1px solid #BFDBFE; border-radius: 12px; padding: 1.25rem 1.35rem; height: 100%; box-shadow: var(--ux-card-shadow); box-sizing: border-box;">
+          <div style="font-size: 1.02rem; font-weight: 700; color: #1D4ED8; margin-bottom: 0.75rem; display: flex; align-items: center; gap: 0.4rem;">
+            <span>📌</span> <span>기존 STEP 4 분석 범위 (295건 / 553건)</span>
+          </div>
+          <ul style="margin: 0; padding-left: 1.2rem; font-size: 0.88rem; color: #1E293B; line-height: 1.65;">
+            <li style="margin-bottom: 0.35rem;"><b>데이터 출처</b>: 공공 API(고용24 140건) + 초기 7대 기관 표본(413건)</li>
+            <li style="margin-bottom: 0.35rem;"><b>주요 특징</b>: 직무 적합 확정(INCLUDED 295건), 수기 정제 표본</li>
+            <li><b>파일 위치</b>:<br><code style="background: #DBEAFE; color: #1E40AF; padding: 0.2rem 0.5rem; border-radius: 4px; font-size: 0.76rem; word-break: break-all; display: inline-block; margin-top: 0.25rem;">data/hr/output/integration/hr_integrated_candidates.csv</code></li>
+          </ul>
+        </div>
+        """, unsafe_allow_html=True)
     with col_scope2:
-        st.success(
-            "🚀 **신규 STEP 5 대규모 통합 범위 (8,645건)**\n\n"
-            "- **데이터 출처**: 신규 6대 기관 SQLite DB(8,505건) + 공공 API(140건)\n"
-            "- **주요 특징**: Parquet 최적화, 텍스트 정제, 15개 벤치마크, Base64 노이즈 제거\n"
-            "- **파일 위치**: `data/hr/processed/education_courses_search_cleaned.parquet`"
-        )
+        st.markdown("""
+        <div style="background: #F0FDF4; border: 1px solid #BBF7D0; border-radius: 12px; padding: 1.25rem 1.35rem; height: 100%; box-shadow: var(--ux-card-shadow); box-sizing: border-box;">
+          <div style="font-size: 1.02rem; font-weight: 700; color: #15803D; margin-bottom: 0.75rem; display: flex; align-items: center; gap: 0.4rem;">
+            <span>🚀</span> <span>신규 STEP 5 대규모 통합 범위 (8,645건)</span>
+          </div>
+          <ul style="margin: 0; padding-left: 1.2rem; font-size: 0.88rem; color: #1E293B; line-height: 1.65;">
+            <li style="margin-bottom: 0.35rem;"><b>데이터 출처</b>: 신규 6대 기관 SQLite DB(8,505건) + 공공 API(140건)</li>
+            <li style="margin-bottom: 0.35rem;"><b>주요 특징</b>: Parquet 최적화, 텍스트 정제, 15개 벤치마크, Base64 노이즈 제거</li>
+            <li><b>파일 위치</b>:<br><code style="background: #DCFCE7; color: #166534; padding: 0.2rem 0.5rem; border-radius: 4px; font-size: 0.76rem; word-break: break-all; display: inline-block; margin-top: 0.25rem;">data/hr/processed/education_courses_search_cleaned.parquet</code></li>
+          </ul>
+        </div>
+        """, unsafe_allow_html=True)
 
     st.markdown("---")
 
@@ -1568,31 +1629,57 @@ with tab8:
         )
 
         if not df_hybrid_eval.empty:
-            scenarios = df_hybrid_eval["scenario"].drop_duplicates().tolist()
+            sc_col = "scenario" if "scenario" in df_hybrid_eval.columns else ("query" if "query" in df_hybrid_eval.columns else df_hybrid_eval.columns[0])
+            scenarios = df_hybrid_eval[sc_col].dropna().drop_duplicates().tolist()
             sel_sc = st.selectbox("실무 시나리오 선택:", options=scenarios)
-            sc_subset = df_hybrid_eval[df_hybrid_eval["scenario"] == sel_sc]
+            sc_subset = df_hybrid_eval[df_hybrid_eval[sc_col] == sel_sc]
             
             if not sc_subset.empty:
-                q_text = sc_subset.iloc[0]["query"]
-                dom = sc_subset.iloc[0]["target_domain"]
+                q_text = sc_subset.iloc[0].get("query", sel_sc)
+                dom = sc_subset.iloc[0].get("target_domain", sc_subset.iloc[0].get("scenario_domain", "직무"))
                 st.info(f"**실무 질문**: \"{q_text}\" (타겟 직무: {dom})")
 
-                dense_col = "ko_sroberta_dense_score" if "ko_sroberta_dense_score" in sc_subset.columns else "lsa_dense_score"
+                # 사용 가능한 컬럼 탐색 및 매핑
+                dense_col = "ko_sroberta_dense_score" if "ko_sroberta_dense_score" in sc_subset.columns else ("semantic_score" if "semantic_score" in sc_subset.columns else None)
+                bm25_col = "bm25_sparse_score" if "bm25_sparse_score" in sc_subset.columns else ("bm25_score" if "bm25_score" in sc_subset.columns else None)
+                score_col = "final_hybrid_score" if "final_hybrid_score" in sc_subset.columns else ("final_score" if "final_score" in sc_subset.columns else None)
+
+                show_cols = ["rank", "title", "provider"]
+                col_config = {
+                    "rank": "추천 순위",
+                    "title": "추천 교육과정",
+                    "provider": "교육기관",
+                }
+
+                if score_col:
+                    show_cols.append(score_col)
+                    col_config[score_col] = st.column_config.NumberColumn("종합 점수", format="%.1f점")
+                if dense_col:
+                    show_cols.append(dense_col)
+                    col_config[dense_col] = st.column_config.NumberColumn("Ko-SRoBERTa 의미 점수 (50%)", format="%.1f점")
+                if bm25_col:
+                    show_cols.append(bm25_col)
+                    col_config[bm25_col] = st.column_config.NumberColumn("BM25 키워드 점수 (35%)", format="%.1f점")
+
+                if "topic_label" in sc_subset.columns:
+                    show_cols.append("topic_label")
+                    col_config["topic_label"] = "군집/직무 영역"
+
+                if "price" in sc_subset.columns:
+                    show_cols.append("price")
+                    col_config["price"] = "수강료"
+                elif "price_display" in sc_subset.columns:
+                    show_cols.append("price_display")
+                    col_config["price_display"] = "수강료"
+
+                if "duration_hours" in sc_subset.columns:
+                    show_cols.append("duration_hours")
+                    col_config["duration_hours"] = "교육시간"
+
+                final_cols = [c for c in show_cols if c in sc_subset.columns]
                 st.dataframe(
-                    sc_subset[[
-                        "rank", "title", "provider", "final_hybrid_score",
-                        dense_col, "bm25_sparse_score", "price", "duration_hours"
-                    ]],
-                    column_config={
-                        "rank": "추천 순위",
-                        "title": "추천 교육과정",
-                        "provider": "교육기관",
-                        "final_hybrid_score": st.column_config.NumberColumn("종합 점수", format="%.1f점"),
-                        dense_col: st.column_config.NumberColumn("Ko-SRoBERTa 의미 점수 (50%)", format="%.1f점"),
-                        "bm25_sparse_score": st.column_config.NumberColumn("BM25 키워드 점수 (35%)", format="%.1f점"),
-                        "price": st.column_config.NumberColumn("수강료", format="%d원"),
-                        "duration_hours": st.column_config.NumberColumn("교육시간", format="%.1f시간")
-                    },
+                    sc_subset[final_cols],
+                    column_config=col_config,
                     hide_index=True,
                     use_container_width=True
                 )
