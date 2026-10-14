@@ -50,9 +50,14 @@ class UnifiedHybridRecommender:
             self.df_courses['topic_label'] = "미분류"
             self.df_courses['canonical_platform'] = self.df_courses['provider']
 
-        # 3. Ko-SRoBERTa 768차원 임베딩
+        # 3. Ko-SRoBERTa 768차원 임베딩 (안전 로드 및 폴백)
         p_emb = OUTPUT_DIR / "embeddings_ko_sroberta_all.npy"
-        self.embeddings = np.load(p_emb)
+        if p_emb.exists():
+            self.embeddings = np.load(p_emb)
+            self.has_embeddings = True
+        else:
+            self.embeddings = np.zeros((len(self.df_courses), 768), dtype=np.float32)
+            self.has_embeddings = False
 
         # 4. 토큰화 캐시 (BM25)
         p_tok = PROCESSED_DIR / "tokenized_corpus_cache.parquet"
@@ -384,10 +389,13 @@ class UnifiedHybridRecommender:
 
         # STEP 2: 하이브리드 점수 계산
         # 1) Ko-SRoBERTa 768차원 시맨틱 유사도
-        q_vec = self.model.encode(search_text, normalize_embeddings=True, device=self.device)
-        cand_embs = self.embeddings[cand_indices]
-        sims = np.dot(cand_embs, q_vec)
-        semantic_scores = np.clip(sims, 0.0, 1.0) * 100.0
+        if self.has_embeddings and self.model is not None:
+            q_vec = self.model.encode(search_text, normalize_embeddings=True, device=self.device)
+            cand_embs = self.embeddings[cand_indices]
+            sims = np.dot(cand_embs, q_vec)
+            semantic_scores = np.clip(sims, 0.0, 1.0) * 100.0
+        else:
+            semantic_scores = np.full(len(cand_indices), 50.0, dtype=np.float32)
 
         # 2) BM25 Okapi 키워드 적합도
         q_tokens = [t for t in search_text.split() if t in self.bm25_vocab]

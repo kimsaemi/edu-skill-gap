@@ -154,9 +154,14 @@ class CompetencyRecommender:
             self.df_courses['topic_label'] = "미분류"
             self.df_courses['canonical_platform'] = self.df_courses['provider']
 
-        # 3. Ko-SRoBERTa 768차원 임베딩 행렬
+        # 3. Ko-SRoBERTa 768차원 임베딩 행렬 (안전 로드 및 폴백)
         p_emb = OUTPUT_DIR / "embeddings_ko_sroberta_all.npy"
-        self.embeddings = np.load(p_emb)
+        if p_emb.exists():
+            self.embeddings = np.load(p_emb)
+            self.has_embeddings = True
+        else:
+            self.embeddings = np.zeros((len(self.df_courses), 768), dtype=np.float32)
+            self.has_embeddings = False
 
         # 4. 토큰화 캐시 (BM25용)
         p_tok = PROCESSED_DIR / "tokenized_corpus_cache.parquet"
@@ -297,11 +302,14 @@ class CompetencyRecommender:
 
         # STEP 2: 스코어링
         # 1) 시맨틱 유사도 (Ko-SRoBERTa 768차원): 역량 정의 + 검색 쿼리 벡터화
-        comp_text = f"{competency_info['name']} {competency_info['definition']} {competency_info['knowledge']} {competency_info['skill']}"
-        q_vec = self.model.encode(comp_text, normalize_embeddings=True, device=self.device)
-        cand_embs = self.embeddings[cand_idx]
-        sims = np.dot(cand_embs, q_vec)
-        semantic_scores = np.clip(sims, 0.0, 1.0) * 100.0
+        if self.has_embeddings and self.model is not None:
+            comp_text = f"{competency_info['name']} {competency_info['definition']} {competency_info['knowledge']} {competency_info['skill']}"
+            q_vec = self.model.encode(comp_text, normalize_embeddings=True, device=self.device)
+            cand_embs = self.embeddings[cand_idx]
+            sims = np.dot(cand_embs, q_vec)
+            semantic_scores = np.clip(sims, 0.0, 1.0) * 100.0
+        else:
+            semantic_scores = np.full(len(cand_idx), 50.0, dtype=np.float32)
 
         # 2) 키워드 점수 (BM25 Okapi)
         q_tokens = [t for t in competency_info['search_query'].split() if t in self.bm25_vocab]

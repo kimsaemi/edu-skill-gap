@@ -66,9 +66,11 @@ data/courses/
 *.bin
 *.pkl
 
-# DB exceptions for managed datasets (must be after *.db)
+# DB and Embedding exceptions for managed datasets (must be after *.db, *.npy)
 !data/hr/raw/external_courses/*.db
 !data/hr/processed/*.db
+!data/hr/output/recommendation/embeddings_ko_sroberta_all.npy
+!data/hr/output/recommendation/embeddings_ko_sroberta_400.npy
 
 # IDE & OS
 .vscode/
