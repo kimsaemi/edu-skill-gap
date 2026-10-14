@@ -214,7 +214,7 @@ st.markdown(
     "TF-IDF 핵심 키워드, TF-IDF vs BM25 어휘 검색 벤치마크 및 데이터 품질 정제 결과를 통합 시각화합니다."
 )
 
-tab1, tab2, tab3, tab4, tab5, tab6, tab7, tab8 = st.tabs([
+tab1, tab2, tab3, tab4, tab5, tab6, tab7, tab8, tab9, tab10 = st.tabs([
     "📊 탭 1. 교육 데이터 현황",
     "📈 탭 2. EDA 분석 (STEP 4 & 5)",
     "🧠 탭 3. NCS·KSA 역량 분석",
@@ -222,7 +222,9 @@ tab1, tab2, tab3, tab4, tab5, tab6, tab7, tab8 = st.tabs([
     "🔍 탭 5. TF-IDF vs BM25 검색 벤치마크",
     "🛡️ 탭 6. 데이터 품질 및 이상치 관리",
     "📐 탭 7. Long/Wide-form 구조화 & 교차집계",
-    "🎯 탭 8. 군집 분석 & 하이브리드 추천"
+    "🎯 탭 8. 군집 분석 & 하이브리드 추천",
+    "🔬 탭 9. 리서치 요약 (NCS 수요 분석)",
+    "⚖️ 탭 10. 리서치 vs 교육 공급 갭"
 ])
 
 # ------------------------------------------------------------------------------
@@ -1342,3 +1344,23 @@ with tab8:
                     use_container_width=True
                 )
 
+
+
+# ------------------------------------------------------------------------------
+# 탭 9~10: 리서치(NCS 수요 분석) 기반 탭 (app/streamlit_research.py 재사용)
+# ------------------------------------------------------------------------------
+import importlib.util as _ilu
+
+_spec = _ilu.spec_from_file_location("streamlit_research", str(Path(__file__).resolve().parent / "streamlit_research.py"))
+_research = _ilu.module_from_spec(_spec)
+_spec.loader.exec_module(_research)
+
+with tab9:
+    _research.tab_research()
+
+with tab10:
+    try:
+        _df295 = _research.load_data()[0]
+        _research.tab_gap(_df295)
+    except FileNotFoundError as _e:
+        st.error(f"데이터 파일이 없습니다: {_e.filename}")

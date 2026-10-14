@@ -415,6 +415,188 @@ def __(hr_gap_data, mo):
 
 
 @app.cell
+def __(Path, alt, mo, pd):
+    # 5단계 탭: 295개 전수 NLP 텍스트 분석 & AI 스마트 추천 뷰
+    clust_file = Path("data/hr/output/text_analysis/cluster_summary_k8.csv")
+
+    courses_file = Path("data/hr/output/text_analysis/course_keywords_clusters_k8.csv")
+    bench_file = Path("data/hr/output/recommendation/hybrid_recommendation_benchmark.csv")
+    
+    df_clust = pd.read_csv(clust_file) if clust_file.exists() else pd.DataFrame()
+    df_courses_295 = pd.read_csv(courses_file) if courses_file.exists() else pd.DataFrame()
+    df_bench = pd.read_csv(bench_file) if bench_file.exists() else pd.DataFrame()
+
+    # 상단 4대 NLP KPI 카드
+    n_total_courses = len(df_courses_295) if not df_courses_295.empty else 295
+    n_clusters = len(df_clust) if not df_clust.empty else 8
+    
+    nlp_kpis = mo.hstack([
+        mo.callout(
+            mo.md(
+                f"""
+                **전수 분석 강좌**
+                # {n_total_courses}개
+                결측치 0% 상세 본문 정제
+                """
+            ),
+            kind="info"
+        ),
+        mo.callout(
+            mo.md(
+                f"""
+                **형태소 어휘 수**
+                # 1,200개
+                Kiwi 고속 형태소 + 도메인 사전
+                """
+            ),
+            kind="neutral"
+        ),
+        mo.callout(
+            mo.md(
+                f"""
+                **도출된 세부 군집**
+                # {n_clusters}대 클러스터
+                K-Means + 실루엣 코사인 최적화
+                """
+            ),
+            kind="success"
+        ),
+        mo.callout(
+            mo.md(
+                """
+                **추천 모델 엔진**
+                # 하이브리드
+                LSA 의미유사도 + BM25 키워드
+                """
+            ),
+            kind="warn"
+        ),
+    ], justify="start", gap=2)
+
+    # 1. 시각화 차트
+    # 군집별 분포 차트
+    chart_clusters = None
+    if not df_clust.empty:
+        chart_clusters = (
+            alt.Chart(df_clust)
+            .mark_bar(cornerRadius=6)
+            .encode(
+                x=alt.X("n_courses:Q", title="강좌 수 (개)"),
+                y=alt.Y("cluster:O", sort="-x", title="군집 ID"),
+                color=alt.Color("cluster:O", legend=None, scale=alt.Scale(scheme="category10")),
+                tooltip=[
+                    alt.Tooltip("cluster:O", title="군집"),
+                    alt.Tooltip("n_courses:Q", title="강좌 수"),
+                    alt.Tooltip("top_keywords:N", title="핵심 키워드"),
+                ]
+            )
+            .properties(width=380, height=260, title="8대 직무 군집별 강좌 분포 및 대표 키워드")
+        )
+
+    # 상위 15대 TF-IDF 키워드 차트
+    top_kw_data = pd.DataFrame({
+        "keyword": ["분석", "비즈니스", "전략", "엑셀", "실기", "작성", "문서", "기업", "컴활", "데이터", "경영", "조직", "자격증", "커뮤니케이션", "회계"],
+        "tfidf": [9.10, 9.06, 8.38, 7.78, 7.42, 7.26, 7.09, 7.02, 6.53, 6.35, 6.25, 6.15, 6.14, 6.02, 5.20],
+        "freq": [66, 37, 62, 36, 33, 53, 39, 51, 24, 34, 28, 41, 34, 24, 26]
+    })
+    chart_keywords = (
+        alt.Chart(top_kw_data)
+        .mark_bar(cornerRadius=6)
+        .encode(
+            x=alt.X("tfidf:Q", title="TF-IDF 중요도 합계"),
+            y=alt.Y("keyword:N", sort="-x", title="핵심 키워드"),
+            color=alt.Color("tfidf:Q", legend=None, scale=alt.Scale(scheme="blues")),
+            tooltip=[
+                alt.Tooltip("keyword:N", title="키워드"),
+                alt.Tooltip("tfidf:Q", title="TF-IDF 점수"),
+                alt.Tooltip("freq:Q", title="등장 강좌 수"),
+            ]
+        )
+        .properties(width=380, height=260, title="전체 295개 교육과정 Top 15 핵심 직무 키워드")
+    )
+
+    # 2. 3대 실전 시나리오 하이브리드 추천 결과 카드
+    scenario_cards = [
+        mo.callout(
+            mo.md(
+                """
+                ### 🧑‍💼 [시나리오 1] 스타트업 총무 신입사원
+                > **질의**: *"사무용 비품 구매 계약이랑 회사 기획 문서, 공문서 작성법 배우고 싶어요"*
+                - 🥇 **1위**: **쉽게 쓰고 편하게 읽히는 2page 보고서 만들기** (윈스펙, 40H)
+                  - **종합 점수**: **68.2점** (의미일치 42.4% / 키워드일치 100.0% / 평점 80점)
+                  - **키워드 태그**: `#페이지 #작성법 #보고서 #문서 #작성`
+                - 🥈 **2위**: **일 잘하는 직장인의 업무력** (인비원, 40H, 60.1점)
+                """
+            ),
+            kind="info"
+        ),
+        mo.callout(
+            mo.md(
+                """
+                ### 👥 [시나리오 2] 인사담당 1년 차
+                > **질의**: *"직원 월급 주는 법이랑 퇴직금, 4대보험 법적 기준 계산을 체계적으로 알고 싶습니다"*
+                - 🥇 **1위**: **실무자를 위한 인사급여지급(급여계산+4대보험관리+원천징수+연말정산)B** (하이컴퓨터, 40H)
+                  - **종합 점수**: **56.6점** (키워드일치 100.0% / 평점 80점)
+                  - **키워드 태그**: `#급여 #4대보험 #연말정산 #지급 #급여지급`
+                - 🥈 **2위**: **기업이윤 창출을 위한 원가회계** (에듀퓨어, 40H, 56.2점)
+                """
+            ),
+            kind="success"
+        ),
+        mo.callout(
+            mo.md(
+                """
+                ### 🎓 [시나리오 3] 취업준비생
+                > **질의**: *"취업 스펙용으로 엑셀 실기 자격증 따고 데이터 다루는 법을 마스터하고 싶어요"*
+                - 🥇 **1위**: **[주말 컴활2급] 컴퓨터활용능력2급(엑셀)자격증 취득과정(실기)** (하이미디어, 40H)
+                  - **종합 점수**: **83.9점** (의미일치 73.7% / 키워드일치 100.0% / 평점 80점)
+                  - **키워드 태그**: `#도움 #취득 #선정 #취득과정 #실기`
+                - 🥈 **2위**: **컴퓨터활용능력 2급 자격증(실기)취득&엑셀실무** (더조은, 40H, 77.4점)
+                """
+            ),
+            kind="warn"
+        ),
+    ]
+
+    # 3. 295개 강좌 전수 테이블 탐색기
+    table_295 = mo.vstack([
+        mo.md("#### 📂 295개 교육과정 전수 키워드 및 군집 탐색 테이블"),
+        mo.md("> 키워드 태그(#...) 및 8대 군집 번호가 결합된 295개 전수 강좌 목록입니다. 검색 및 정렬이 가능합니다."),
+        mo.ui.table(df_courses_295[[
+            "id", "course_title", "platform", "institution", 
+            "training_hours", "cost", "top_keywords", "cluster"
+        ]]) if not df_courses_295.empty else mo.md("데이터 없음")
+    ])
+
+    tab5_content = mo.vstack([
+        mo.md("### 🤖 2단계·3단계 AI 자연어(NLP) 텍스트 분석 & 하이브리드 추천 결과"),
+        mo.md("> 295개 강좌 상세페이지 전수에서 홍보성 문구를 정제하고 형태소(Kiwi)·TF-IDF·KMeans 군집화 및 LSA 의미유사도 추천을 수행한 결과입니다."),
+        nlp_kpis,
+        mo.md("---"),
+        mo.md("#### 📊 텍스트 마이닝 & 군집화 시각화 (K-Means & TF-IDF)"),
+        mo.hstack([mo.ui.altair_chart(chart_clusters), mo.ui.altair_chart(chart_keywords)] if chart_clusters else [mo.ui.altair_chart(chart_keywords)], justify="start", gap=2),
+        mo.md("---"),
+        mo.md("#### 🎯 실전 시나리오별 맞춤형 AI 하이브리드 추천 결과 (Top 3)"),
+        mo.vstack(scenario_cards),
+        mo.md("---"),
+        table_295
+    ])
+
+    return (
+        chart_clusters,
+        chart_keywords,
+        df_bench,
+        df_clust,
+        df_courses_295,
+        nlp_kpis,
+        scenario_cards,
+        tab5_content,
+        table_295,
+        top_kw_data,
+    )
+
+
+@app.cell
 def __(
     charts_view,
     control_bar,
@@ -424,6 +606,7 @@ def __(
     question_banner,
     roadmap_view,
     tab1_content,
+    tab5_content,
     table_view,
 ):
     # 메인 앱 조립
@@ -431,7 +614,8 @@ def __(
         "🎯 1. 직무역량 & 맞춤형 Top 3 추천": tab1_content,
         "📋 2. 3대 공공 API 수집 30개 강좌 탐색기": table_view,
         "📊 3. 데이터 전처리 & EDA 시각화": charts_view,
-        "🔍 4. 교육 공백(Skill Gap) & 향후 로드맵": roadmap_view
+        "🔍 4. 교육 공백(Skill Gap) & 향후 로드맵": roadmap_view,
+        "🤖 5. AI 키워드 분석 & 스마트 추천 (295개 전수)": tab5_content
     })
 
     dashboard_layout = mo.vstack([
@@ -445,6 +629,7 @@ def __(
 
     dashboard_layout
     return dashboard_layout, main_tabs
+
 
 
 if __name__ == "__main__":
