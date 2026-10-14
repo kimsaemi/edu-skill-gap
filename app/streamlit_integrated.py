@@ -27,9 +27,235 @@ from rank_bm25 import BM25Okapi
 st.set_page_config(
     page_title="NCS 교육 추천 통합 분석 대시보드",
     page_icon="🎓",
-    layout="wide",
     initial_sidebar_state="expanded"
 )
+
+# ------------------------------------------------------------------------------
+# Lucian UX/UI Prompt 테마 토큰 및 모던 디자인 시스템 주입
+# ------------------------------------------------------------------------------
+st.markdown("""
+<style>
+@import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css');
+
+:root {
+  --ux-page: #F8FAFC;
+  --ux-surface: #FFFFFF;
+  --ux-surface-2: #F1F5F9;
+  --ux-surface-3: #E2E8F0;
+  --ux-ink: #0F172A;
+  --ux-ink-2: #475569;
+  --ux-ink-3: #94A3B8;
+  --ux-line: rgba(226, 232, 240, 0.85);
+  --ux-line-2: rgba(203, 213, 225, 0.9);
+  --ux-accent: #6366F1;
+  --ux-accent-hover: #4F46E5;
+  --ux-accent-gradient: linear-gradient(135deg, #6366F1 0%, #3B82F6 100%);
+  --ux-mint: #10B981;
+  --ux-mint-soft: rgba(16, 185, 129, 0.12);
+  --ux-warn: #F59E0B;
+  --ux-warn-soft: rgba(245, 158, 11, 0.12);
+  --ux-danger: #EF4444;
+  --ux-card-shadow: 0 4px 16px -2px rgba(15, 23, 42, 0.05), 0 2px 6px -1px rgba(15, 23, 42, 0.03);
+  --ux-hover-shadow: 0 12px 24px -4px rgba(15, 23, 42, 0.1), 0 4px 8px -2px rgba(15, 23, 42, 0.04);
+  --ux-radius-sm: 8px;
+  --ux-radius-md: 12px;
+  --ux-radius-lg: 16px;
+  --ux-ease: cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+/* 글로벌 폰트 및 가독성 개선 */
+html, body, [class*="css"], .stApp {
+  font-family: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, sans-serif !important;
+  color: var(--ux-ink);
+  letter-spacing: -0.015em;
+  background-color: var(--ux-page);
+}
+
+/* 본문 영역 최적화 */
+.main .block-container {
+  padding-top: 1.8rem !important;
+  padding-bottom: 3.5rem !important;
+  max-width: 1400px !important;
+}
+
+/* 사이드바 스타일 */
+section[data-testid="stSidebar"] {
+  background-color: #FAFAFC !important;
+  border-right: 1px solid var(--ux-line) !important;
+}
+
+/* 메트릭 카드 Glassmorphism & Elevation */
+div[data-testid="stMetric"] {
+  background: #FFFFFF !important;
+  border: 1px solid var(--ux-line) !important;
+  border-radius: var(--ux-radius-md) !important;
+  padding: 1.1rem 1.25rem !important;
+  box-shadow: var(--ux-card-shadow) !important;
+  transition: transform 0.2s var(--ux-ease), box-shadow 0.2s var(--ux-ease) !important;
+}
+div[data-testid="stMetric"]:hover {
+  transform: translateY(-2px) !important;
+  box-shadow: var(--ux-hover-shadow) !important;
+}
+div[data-testid="stMetric"] label[data-testid="stMetricLabel"] {
+  font-size: 0.85rem !important;
+  font-weight: 600 !important;
+  color: var(--ux-ink-2) !important;
+  margin-bottom: 0.25rem !important;
+}
+div[data-testid="stMetric"] div[data-testid="stMetricValue"] {
+  font-size: 1.65rem !important;
+  font-weight: 700 !important;
+  color: #0F172A !important;
+  letter-spacing: -0.02em !important;
+}
+
+/* 탭 네비게이션 모던 필(Pill) 스타일 */
+div[data-baseweb="tab-list"] {
+  gap: 0.35rem !important;
+  background: #F1F5F9 !important;
+  padding: 0.35rem !important;
+  border-radius: var(--ux-radius-md) !important;
+  border: 1px solid rgba(226, 232, 240, 0.9) !important;
+  margin-bottom: 1.5rem !important;
+}
+button[data-baseweb="tab"] {
+  border-radius: var(--ux-radius-sm) !important;
+  padding: 0.55rem 1rem !important;
+  font-size: 0.88rem !important;
+  font-weight: 600 !important;
+  color: var(--ux-ink-2) !important;
+  border: none !important;
+  transition: all 0.2s var(--ux-ease) !important;
+  background: transparent !important;
+}
+button[data-baseweb="tab"]:hover {
+  color: var(--ux-accent) !important;
+  background: rgba(255, 255, 255, 0.6) !important;
+}
+button[data-baseweb="tab"][aria-selected="true"] {
+  background: #FFFFFF !important;
+  color: #4F46E5 !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08) !important;
+}
+div[data-baseweb="tab-highlight"], div[data-baseweb="tab-border"] {
+  display: none !important;
+}
+
+/* 프라이머리 버튼 그라디언트 & 글로우 */
+button[kind="primary"] {
+  background: var(--ux-accent-gradient) !important;
+  color: #FFFFFF !important;
+  border: none !important;
+  border-radius: var(--ux-radius-sm) !important;
+  font-weight: 600 !important;
+  box-shadow: 0 4px 12px rgba(99, 102, 241, 0.28) !important;
+  transition: all 0.2s var(--ux-ease) !important;
+}
+button[kind="primary"]:hover {
+  box-shadow: 0 6px 18px rgba(99, 102, 241, 0.42) !important;
+  transform: translateY(-1px) !important;
+}
+
+/* 익스팬더(Expander) 테두리 및 그림자 */
+div[data-testid="stExpander"] {
+  border: 1px solid var(--ux-line) !important;
+  border-radius: var(--ux-radius-md) !important;
+  background: #FFFFFF !important;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.03) !important;
+  margin-bottom: 0.85rem !important;
+}
+
+/* 추천 강좌 카드 컴포넌트 */
+.rec-card {
+  background: #FFFFFF;
+  border: 1px solid rgba(226, 232, 240, 0.95);
+  border-radius: var(--ux-radius-md);
+  padding: 1.35rem 1.5rem;
+  margin-bottom: 1.1rem;
+  box-shadow: var(--ux-card-shadow);
+  transition: all 0.25s var(--ux-ease);
+}
+.rec-card:hover {
+  border-color: rgba(99, 102, 241, 0.45);
+  box-shadow: var(--ux-hover-shadow);
+  transform: translateY(-2px);
+}
+.rec-badge-rank {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--ux-accent-gradient);
+  color: #FFFFFF;
+  font-size: 0.78rem;
+  font-weight: 700;
+  padding: 0.22rem 0.7rem;
+  border-radius: 20px;
+  box-shadow: 0 2px 6px rgba(99, 102, 241, 0.3);
+}
+.rec-badge-provider {
+  display: inline-flex;
+  align-items: center;
+  background: #F1F5F9;
+  color: #334155;
+  font-size: 0.76rem;
+  font-weight: 600;
+  padding: 0.2rem 0.6rem;
+  border-radius: 6px;
+  border: 1px solid #E2E8F0;
+}
+.rec-score-pill {
+  display: inline-flex;
+  align-items: center;
+  background: rgba(99, 102, 241, 0.08);
+  color: #4F46E5;
+  font-size: 0.9rem;
+  font-weight: 700;
+  padding: 0.28rem 0.75rem;
+  border-radius: 20px;
+  border: 1px solid rgba(99, 102, 241, 0.2);
+}
+.rec-meta-chip {
+  display: inline-flex;
+  align-items: center;
+  background: #F8FAFC;
+  color: #475569;
+  font-size: 0.8rem;
+  font-weight: 500;
+  padding: 0.2rem 0.6rem;
+  border-radius: 6px;
+  border: 1px solid #E2E8F0;
+  margin-right: 0.4rem;
+  margin-bottom: 0.3rem;
+}
+.rec-alt-box {
+  margin-top: 0.85rem;
+  padding: 0.85rem 1.1rem;
+  background: #F8FAFC;
+  border-left: 3.5px solid #6366F1;
+  border-radius: 0 8px 8px 0;
+  font-size: 0.83rem;
+}
+.rec-badge-suitable {
+  background: #ECFDF5;
+  color: #059669;
+  border: 1px solid #A7F3D0;
+  padding: 0.12rem 0.5rem;
+  border-radius: 4px;
+  font-weight: 600;
+  font-size: 0.73rem;
+}
+.rec-badge-unsuitable {
+  background: #FFFBEB;
+  color: #D97706;
+  border: 1px solid #FDE68A;
+  padding: 0.12rem 0.5rem;
+  border-radius: 4px;
+  font-weight: 600;
+  font-size: 0.73rem;
+}
+</style>
+""", unsafe_allow_html=True)
 
 WORKSPACE_ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(WORKSPACE_ROOT))
@@ -256,13 +482,25 @@ with st.sidebar:
     st.caption("• **임베딩 모델**: STEP 5-2 도입 예정 (현재 TF-IDF·BM25 적용)")
 
 # ------------------------------------------------------------------------------
-# 3. 메인 타이틀 및 6개 탭 구성
+# 3. 메인 타이틀 및 10개 탭 구성
 # ------------------------------------------------------------------------------
-st.title("🏛️ NCS 기반 인사·총무 맞춤형 교육과정 통합 대시보드")
-st.markdown(
-    "본 대시보드는 **8,645건의 7대 교육기관 코퍼스**에 대한 데이터 현황, EDA 분석, NCS·KSA 자동 매핑, "
-    "TF-IDF 핵심 키워드, TF-IDF vs BM25 어휘 검색 벤치마크 및 데이터 품질 정제 결과를 통합 시각화합니다."
-)
+st.markdown("""
+<div style="background: linear-gradient(135deg, #0F172A 0%, #1E1B4B 45%, #1E293B 100%); padding: 1.8rem 2.2rem; border-radius: 16px; margin-bottom: 1.6rem; color: white; box-shadow: 0 10px 25px -5px rgba(15,23,42,0.18); border: 1px solid rgba(255,255,255,0.08);">
+  <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem;">
+    <div>
+      <span style="background: rgba(99, 102, 241, 0.25); color: #C7D2FE; padding: 0.3rem 0.85rem; border-radius: 20px; font-size: 0.8rem; font-weight: 700; border: 1px solid rgba(199, 210, 254, 0.35); letter-spacing: 0.02em;">🏛️ NCS & KSA AI-POWERED HR INTELLIGENCE</span>
+      <h1 style="color: #FFFFFF; font-size: 1.95rem; font-weight: 800; margin: 0.65rem 0 0.45rem 0; letter-spacing: -0.025em; line-height: 1.25;">NCS 기반 인사·총무 맞춤형 교육과정 통합 대시보드</h1>
+      <p style="color: #94A3B8; margin: 0; font-size: 0.94rem; font-weight: 400; max-width: 950px; line-height: 1.55;">
+        8,645건 통합 교육 코퍼스 대상 Ko-SRoBERTa 딥러닝 시맨틱 검색, K-Means 10대 직무 군집화 및 크로스 플랫폼 스마트 하이브리드 추천 엔진
+      </p>
+    </div>
+    <div style="display: flex; gap: 0.75rem; align-items: center; flex-wrap: wrap;">
+      <span style="background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.18); padding: 0.55rem 1.05rem; border-radius: 10px; font-size: 0.85rem; font-weight: 600; color: #F8FAFC;">📚 코퍼스 8,645건</span>
+      <span style="background: rgba(16, 185, 129, 0.15); border: 1px solid rgba(16, 185, 129, 0.35); padding: 0.55rem 1.05rem; border-radius: 10px; font-size: 0.85rem; font-weight: 600; color: #34D399;">⚡ Ko-SRoBERTa 768D</span>
+    </div>
+  </div>
+</div>
+""", unsafe_allow_html=True)
 
 tab1, tab2, tab3, tab4, tab5, tab6, tab7, tab8, tab9, tab10 = st.tabs([
     "📊 탭 1. 교육 데이터 현황",
@@ -1576,32 +1814,69 @@ with tab8:
                 # 추천 과정별 상세 카드 및 크로스 플랫폼 대체 수강 옵션 렌더링
                 st.markdown("#### 📋 추천 교육과정 상세 카드 & 크로스 플랫폼 대체 옵션")
                 for _, row in df_recom.iterrows():
-                    with st.container():
-                        card_col1, card_col2 = st.columns([4, 1])
-                        with card_col1:
-                            st.markdown(
-                                f"**[{row['rank']}위] {row['title']}** "
-                                f"`{row['provider']}` | 수강료: **{row['price_display']}** | 교육시간: **{row['duration_display']}** | 난이도: **{row['difficulty']}**"
-                            )
-                            st.caption(f"💡 **추천 근거**: {row['recommendation_reason']} (텍스트 신뢰도: `{row['text_richness']}`)")
-                        with card_col2:
-                            st.markdown(f"**추천 점수**: `{row['final_score']}점`")
-                            st.caption(f"군집: C{row['cluster_id']} ({row['cluster_bonus']}점)")
+                    p_str = row['price_display']
+                    is_free = (p_str == "무료")
+                    p_badge = '<span class="rec-badge-suitable">무료 0원</span>' if is_free else f'<span style="background: #F1F5F9; color: #1E293B; font-weight: 600; padding: 0.15rem 0.5rem; border-radius: 4px; font-size: 0.8rem; border: 1px solid #E2E8F0;">{p_str}</span>'
+                    c_bonus_str = f"+{row['cluster_bonus']}점 가산" if row['cluster_bonus'] > 0 else "보너스 미적용"
+                    m_tag = row['mismatch_status']
 
-                        # 크로스 플랫폼 대체 수강 옵션 표시
-                        alts = row.get("alternative_offerings", [])
-                        if alts and len(alts) > 0:
-                            with st.expander(f"🔗 동일 교육의 다른 플랫폼 수강 옵션 ({len(alts)}개 플랫폼 제공 중)", expanded=False):
-                                st.caption("서로 다른 플랫폼에서 동일한 교육 콘텐츠를 제공하는 대체 수강처 목록입니다.")
-                                for alt in alts:
-                                    is_fit = alt.get("is_suitable_alternative", True)
-                                    badge = "✅ [사용자 조건 충족]" if is_fit else f"{alt.get('unsuitability_reason', '⚠️ 조건 미충족')}"
-                                    st.markdown(
-                                        f"- **[{alt['provider']}]** {alt['title']} — "
-                                        f"가격: **{alt['price_display']}** | 형태: **{alt['education_type']}** | "
-                                        f"상태: `{badge}` | [수강처 바로가기]({alt['url']})"
-                                    )
-                        st.markdown("---")
+                    card_html = f"""
+                    <div class="rec-card">
+                      <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 0.75rem;">
+                        <div style="display: flex; align-items: center; flex-wrap: wrap; gap: 0.45rem;">
+                          <span class="rec-badge-rank">{row['rank']}위</span>
+                          <span class="rec-badge-provider">{row['provider']}</span>
+                          {p_badge}
+                          <span class="rec-meta-chip">⏱️ {row['duration_display']}</span>
+                          <span class="rec-meta-chip">📊 {row['difficulty']}</span>
+                          <span class="rec-meta-chip">🏷️ C{row['cluster_id']} {row['topic_label']}</span>
+                          <span style="font-size: 0.78rem; font-weight: 600; padding: 0.15rem 0.5rem; border-radius: 4px;">{m_tag}</span>
+                        </div>
+                        <div style="text-align: right;">
+                          <span class="rec-score-pill">★ {row['final_score']}점</span>
+                        </div>
+                      </div>
+                      <h4 style="margin: 0.3rem 0 0.6rem 0; font-size: 1.15rem; font-weight: 700; color: #0F172A; line-height: 1.35;">
+                        {row['title']}
+                      </h4>
+                      <p style="margin: 0 0 0.5rem 0; font-size: 0.88rem; color: #475569; line-height: 1.5;">
+                        <strong>💡 추천 근거:</strong> {row['recommendation_reason']}
+                      </p>
+                      <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 0.8rem; padding-top: 0.65rem; border-top: 1px dashed #E2E8F0;">
+                        <span style="font-size: 0.78rem; color: #64748B;">
+                          Ko-SRoBERTa 의미점수: <b>{row['semantic_score']}점</b> | BM25 키워드점수: <b>{row['bm25_score']}점</b> | 군집 가산: <b>{c_bonus_str}</b>
+                        </span>
+                        <a href="{row['url']}" target="_blank" style="text-decoration: none; display: inline-flex; align-items: center; background: #6366F1; color: white; padding: 0.35rem 0.85rem; border-radius: 6px; font-size: 0.82rem; font-weight: 600; box-shadow: 0 2px 6px rgba(99,102,241,0.25);">
+                          강의 상세 및 수강신청 ↗
+                        </a>
+                      </div>
+                    </div>
+                    """
+                    st.markdown(card_html, unsafe_allow_html=True)
+
+                    # 크로스 플랫폼 대체 수강 옵션 표시
+                    alts = row.get("alternative_offerings", [])
+                    if alts and len(alts) > 0:
+                        with st.expander(f"🔗 동일 교육의 다른 플랫폼 수강 옵션 ({len(alts)}개 플랫폼 제공 중)", expanded=False):
+                            st.caption("서로 다른 플랫폼에서 동일한 교육 콘텐츠를 제공하는 대체 수강처 목록입니다.")
+                            for alt in alts:
+                                is_fit = alt.get("is_suitable_alternative", True)
+                                badge_html = '<span class="rec-badge-suitable">✅ [사용자 조건 충족]</span>' if is_fit else f'<span class="rec-badge-unsuitable">{alt.get("unsuitability_reason", "⚠️ 조건 미충족")}</span>'
+                                alt_html = f"""
+                                <div style="display: flex; justify-content: space-between; align-items: center; padding: 0.55rem 0.8rem; background: #FFFFFF; border: 1px solid #E2E8F0; border-radius: 6px; margin-bottom: 0.4rem;">
+                                  <div>
+                                    <span style="font-weight: 700; color: #334155; margin-right: 0.5rem;">[{alt['provider']}]</span>
+                                    <span style="color: #0F172A; font-weight: 500;">{alt['title']}</span> — 
+                                    <span style="color: #64748B; font-size: 0.82rem;">수강료: <b>{alt['price_display']}</b> | 형태: {alt['education_type']}</span>
+                                    <span style="margin-left: 0.5rem;">{badge_html}</span>
+                                  </div>
+                                  <a href="{alt['url']}" target="_blank" style="text-decoration: none; font-size: 0.8rem; font-weight: 600; color: #4F46E5;">
+                                    수강처 바로가기 ↗
+                                  </a>
+                                </div>
+                                """
+                                st.markdown(alt_html, unsafe_allow_html=True)
+                        st.markdown("<div style='margin-bottom: 0.8rem;'></div>", unsafe_allow_html=True)
 
                 # 개발자용 상세 분석 정보 (일반 사용자에게 과도한 노출 방지)
                 with st.expander("🛠️ [개발자용] 추천 엔진 내부 계산 상세 정보", expanded=False):
