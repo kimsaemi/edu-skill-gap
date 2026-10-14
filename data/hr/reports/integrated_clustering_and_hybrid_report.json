@@ -22,10 +22,15 @@
     "7": 3896
   },
   "reproduction_notes": {
-    "is_ko_sroberta_implemented_full_corpus": false,
-    "ko_sroberta_status_note": "Ko-SRoBERTa는 STEP 5-2 400건 파일럿 단계 실측 완료 (embeddings_ko_sroberta_400.npy 존재), 8,645건 전수 임베딩은 후속 과제임",
+    "is_ko_sroberta_implemented_full_corpus": true,
+    "ko_sroberta_status_note": "Ko-SRoBERTa 8,645건 전수 임베딩(768차원) 적용 완료 (embeddings_ko_sroberta_all.npy)",
+    "embedding_shape": [
+      8645,
+      768
+    ],
+    "hybrid_formula": "(0.50 * Ko-SRoBERTa) + (0.35 * BM25) + (0.15 * Rating)",
     "rating_imputation_applied": "결측 강좌 대상 Bayesian 기준 중립값(80.0점) 적용",
     "deduplication_applied": "(provider, title) 기준 다회차 중복 제거 적용"
   },
-  "execution_time_sec": 6.48
+  "execution_time_sec": 10.49
 }

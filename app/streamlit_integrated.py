@@ -43,6 +43,26 @@ DATA_RECOM = WORKSPACE_ROOT / "data" / "hr" / "output" / "recommendation"
 # ------------------------------------------------------------------------------
 # 1. 데이터셋 로딩 및 캐싱
 # ------------------------------------------------------------------------------
+@st.cache_resource(show_spinner="Ko-SRoBERTa 딥러닝 임베딩 엔진(8,645건) 초기화 중...")
+def load_deeplearning_embeddings():
+    """
+    8,645건 Ko-SRoBERTa 768차원 전수 임베딩 및 모델 로드 (@st.cache_resource)
+    - 딥러닝 임베딩 행렬(8645, 768)을 메모리에 상주시켜 지연 없이 즉각 로드 및 실시간 코사인 유사도 검색을 제공합니다.
+    """
+    emb_path = DATA_RECOM / "embeddings_ko_sroberta_all.npy"
+    if not emb_path.exists():
+        return None, None
+    
+    # 8,645 x 768 임베딩 벡터 로드
+    embeddings = np.load(emb_path)
+    
+    import torch
+    from sentence_transformers import SentenceTransformer
+    device = "cuda" if torch.cuda.is_available() else "cpu"
+    model = SentenceTransformer("jhgan/ko-sroberta-multitask", device=device)
+    
+    return model, embeddings
+
 @st.cache_data(show_spinner=False)
 def load_main_datasets():
     """정제된 8,645건 교육 코퍼스 및 분석 결과 파일들을 로드합니다."""
@@ -1139,10 +1159,10 @@ with tab7:
 # 탭 8: 군집 분석 & 하이브리드 추천 엔진
 # ------------------------------------------------------------------------------
 with tab8:
-    st.subheader("🎯 탭 8. K-Means 군집 분석 & 하이브리드 추천 엔진 (LSA + BM25)")
+    st.subheader("🎯 탭 8. K-Means 군집 분석 & 하이브리드 추천 엔진 (Ko-SRoBERTa 768차원 + BM25)")
     st.caption(
         "팀원(d2ochi06)의 NLP 군집화·추천 프로토타입을 안전하게 검증·재현하고, 통합 코퍼스(8,645건)로 연계 확장하여 "
-        "다차원 K-Means 군집화와 정규화 및 다회차 중복 제거가 적용된 하이브리드 추천을 제공합니다."
+        "다차원 K-Means 군집화와 정규화 및 다회차 중복 제거가 적용된 Ko-SRoBERTa 딥러닝 하이브리드 추천을 제공합니다."
     )
 
     df_k_comp = datasets["df_k_comp"]
@@ -1270,8 +1290,9 @@ with tab8:
         # 4. 하이브리드 추천 엔진 벤치마크 (5대 실무 시나리오)
         st.markdown("#### 4. AI 하이브리드 추천 엔진 벤치마크 (5대 실무 시나리오)")
         st.markdown(
-            "> **수식 검토 및 보정**: $\\text{최종 추천 점수} = (0.50 \\times \\text{LSA 의미}) + (0.35 \\times \\text{BM25 키워드}) + (0.15 \\times \\text{평점 신뢰성})$\n"
-            "> - **개선 사항**: BM25 및 LSA 원점수를 [0, 100] Min-Max 정규화 적용\n"
+            "> **수식 검토 및 보정**: $\\text{최종 추천 점수} = (0.50 \\times \\text{Ko-SRoBERTa 의미}) + (0.35 \\times \\text{BM25 키워드}) + (0.15 \\times \\text{평점 신뢰성})$\n"
+            "> - **딥러닝 임베딩 도입**: 기존 LSA(100차원)를 Ko-SRoBERTa(768차원, jhgan/ko-sroberta-multitask) 전수(8,645건) 임베딩으로 교체\n"
+            "> - **개선 사항**: BM25 및 Ko-SRoBERTa 원점수를 [0, 100] Min-Max 정규화 적용\n"
             "> - **평점 결측 보정**: 평점이 없는 공공/신규 강좌는 Bayesian 중립값(80점) 부여\n"
             "> - **다회차 중복 제거**: 동일 강좌 반복 개설건을 배제하고 고유 과정만 상위 추천"
         )
@@ -1286,17 +1307,18 @@ with tab8:
                 dom = sc_subset.iloc[0]["target_domain"]
                 st.info(f"**실무 질문**: \"{q_text}\" (타겟 직무: {dom})")
 
+                dense_col = "ko_sroberta_dense_score" if "ko_sroberta_dense_score" in sc_subset.columns else "lsa_dense_score"
                 st.dataframe(
                     sc_subset[[
                         "rank", "title", "provider", "final_hybrid_score",
-                        "lsa_dense_score", "bm25_sparse_score", "price", "duration_hours"
+                        dense_col, "bm25_sparse_score", "price", "duration_hours"
                     ]],
                     column_config={
                         "rank": "추천 순위",
                         "title": "추천 교육과정",
                         "provider": "교육기관",
                         "final_hybrid_score": st.column_config.NumberColumn("종합 점수", format="%.1f점"),
-                        "lsa_dense_score": st.column_config.NumberColumn("LSA 의미 점수 (50%)", format="%.1f점"),
+                        dense_col: st.column_config.NumberColumn("Ko-SRoBERTa 의미 점수 (50%)", format="%.1f점"),
                         "bm25_sparse_score": st.column_config.NumberColumn("BM25 키워드 점수 (35%)", format="%.1f점"),
                         "price": st.column_config.NumberColumn("수강료", format="%d원"),
                         "duration_hours": st.column_config.NumberColumn("교육시간", format="%.1f시간")
@@ -1304,6 +1326,325 @@ with tab8:
                     hide_index=True,
                     use_container_width=True
                 )
+
+        st.markdown("---")
+
+        # 5. 실시간 AI 하이브리드 맞춤 추천 검색기 (@st.cache_resource 딥러닝 엔진 기반)
+        st.markdown("#### 5. 실시간 AI 하이브리드 맞춤 추천 검색기 (Ko-SRoBERTa 768차원 + BM25)")
+        st.caption("캐싱(@st.cache_resource)된 8,645건 전체 Ko-SRoBERTa 밀집 벡터와 사용자 맞춤 세부 조건 필터링(Faceted Filtering)을 연계하여 정밀한 실시간 추천을 도출합니다.")
+
+        dl_model, dl_embeddings = load_deeplearning_embeddings()
+
+        if dl_model is not None and dl_embeddings is not None:
+            # BM25 인덱스 및 Faceted 필터링용 코퍼스 캐싱
+            @st.cache_resource(show_spinner=False)
+            def get_faceted_corpus_engine():
+                p_clean = DATA_PROCESSED / "education_courses_search_cleaned.parquet"
+                p_tok = DATA_PROCESSED / "tokenized_corpus_cache.parquet"
+                df_c = pd.read_parquet(p_clean)
+                if p_tok.exists():
+                    df_t = pd.read_parquet(p_tok)
+                    df_c = df_c.merge(df_t, on="course_uid", how="left")
+                    df_c["tokenized_text"] = df_c["tokenized_text"].fillna("")
+                    toks = [txt.split() for txt in df_c["tokenized_text"]]
+                else:
+                    toks = [txt.split() for txt in df_c["clean_search_text"]]
+                bm25_inst = BM25Okapi(toks, k1=1.5, b=0.75)
+                bm25_voc = {t for doc_toks in toks for t in doc_toks}
+
+                # 1) 플랫폼 분류 (6대 플랫폼 매핑)
+                def map_platform(row):
+                    p = str(row.get("provider", "")).upper()
+                    sp = str(row.get("source_provider", "")).upper()
+                    uid = str(row.get("course_uid", "")).upper()
+                    if "GSEEK" in p or "GSEEK" in sp or uid.startswith("GSEEK"):
+                        return "GSEEK"
+                    elif "HUNET" in p or "HUNET" in sp or "휴넷" in p or uid.startswith("HUNET"):
+                        return "휴넷"
+                    elif "KMA" in p or "KMA" in sp or "한국능률협회" in p or uid.startswith("KMA"):
+                        return "KMA"
+                    elif "KPC" in p or "KPC" in sp or "한국생산성본부" in p or uid.startswith("KPC"):
+                        return "KPC"
+                    elif "MULTICAMPUS" in sp or "멀티캠퍼스" in p or "패스트캠퍼스" in p:
+                        return "패스트캠퍼스"
+                    else:
+                        return "고용24"
+
+                df_c["platform_label"] = df_c.apply(map_platform, axis=1)
+
+                # 2) 비용 정량화
+                df_c["numeric_price"] = pd.to_numeric(df_c["price"], errors="coerce").fillna(0).astype(int)
+
+                # 3) 교육 형태 (온라인/오프라인)
+                def map_edu_type(row):
+                    et = str(row.get("education_type", "")).strip()
+                    if any(k in et for k in ["온라인", "이러닝", "원격", "비대면"]):
+                        return "온라인/이러닝"
+                    elif any(k in et for k in ["오프라인", "집합"]):
+                        return "오프라인/집합"
+                    else:
+                        return "온라인/이러닝"
+
+                df_c["edu_type_cat"] = df_c.apply(map_edu_type, axis=1)
+
+                # 4) 학습 시간 (단기/중기/장기)
+                hours = pd.to_numeric(df_c["duration_hours"], errors="coerce").fillna(0)
+                def map_duration(h):
+                    if h < 10:
+                        return "단기 (10시간 미만)"
+                    elif h < 40:
+                        return "중기 (10~40시간)"
+                    else:
+                        return "장기 (40시간 이상)"
+
+                df_c["duration_cat"] = hours.apply(map_duration)
+
+                # 5) 난이도 / 대상 (입문/실무/관리자심화)
+                def map_difficulty(row):
+                    d = str(row.get("difficulty", "")).strip()
+                    t = str(row.get("title", "")) + " " + str(row.get("target_audience", "")) + " " + str(row.get("course_intro", ""))
+                    if any(k in d for k in ["고급"]) or any(k in t for k in ["팀장", "관리자", "임원", "리더", "고급", "심화", "전략"]):
+                        return "관리자/심화"
+                    elif any(k in d for k in ["중급"]) or any(k in t for k in ["실무", "실전", "현업", "중급", "프로세스", "기획"]):
+                        return "실무"
+                    else:
+                        return "입문"
+
+                df_c["difficulty_cat"] = df_c.apply(map_difficulty, axis=1)
+
+                return bm25_inst, bm25_voc, df_c
+
+            bm25_inst, bm25_voc, df_corpus = get_faceted_corpus_engine()
+
+            # -------------------------------------------------------------
+            # [세부 요구사항 1 & 3] Faceted Filtering UI 컨트롤 & 초기화 버튼
+            # -------------------------------------------------------------
+            ALL_PLATFORMS = ["고용24", "KPC", "KMA", "휴넷", "패스트캠퍼스", "GSEEK"]
+            ALL_DURATIONS = ["단기 (10시간 미만)", "중기 (10~40시간)", "장기 (40시간 이상)"]
+            ALL_DIFFICULTIES = ["입문", "실무", "관리자/심화"]
+
+            # 세션 스테이트 초기값 설정
+            if "facet_platforms" not in st.session_state:
+                st.session_state.facet_platforms = ALL_PLATFORMS
+            if "facet_free_only" not in st.session_state:
+                st.session_state.facet_free_only = False
+            if "facet_max_budget" not in st.session_state:
+                st.session_state.facet_max_budget = 2000000
+            if "facet_edu_type" not in st.session_state:
+                st.session_state.facet_edu_type = "전체"
+            if "facet_durations" not in st.session_state:
+                st.session_state.facet_durations = ALL_DURATIONS
+            if "facet_difficulties" not in st.session_state:
+                st.session_state.facet_difficulties = ALL_DIFFICULTIES
+            if "facet_top_n" not in st.session_state:
+                st.session_state.facet_top_n = 5
+
+            with st.expander("🎛️ 사용자 맞춤형 세부 조건 필터 (Faceted Filtering)", expanded=True):
+                col_f1, col_f2, col_f3, col_f4 = st.columns(4)
+
+                with col_f1:
+                    sel_platforms = st.multiselect(
+                        "🏢 교육 플랫폼 (다중 선택):",
+                        options=ALL_PLATFORMS,
+                        default=st.session_state.facet_platforms,
+                        key="ui_platforms"
+                    )
+
+                with col_f2:
+                    free_only_toggle = st.checkbox(
+                        "💸 무료 강좌만 보기",
+                        value=st.session_state.facet_free_only,
+                        key="ui_free_only"
+                    )
+                    budget_disabled = free_only_toggle
+                    max_budget_slider = st.slider(
+                        "💰 최대 수강료 예산 상한선:",
+                        min_value=0,
+                        max_value=2000000,
+                        value=st.session_state.facet_max_budget if not budget_disabled else 0,
+                        step=50000,
+                        format="%d원",
+                        disabled=budget_disabled,
+                        key="ui_max_budget"
+                    )
+
+                with col_f3:
+                    sel_edu_type = st.selectbox(
+                        "🏫 교육 형태:",
+                        options=["전체", "온라인/이러닝", "오프라인/집합"],
+                        index=["전체", "온라인/이러닝", "오프라인/집합"].index(st.session_state.facet_edu_type),
+                        key="ui_edu_type"
+                    )
+                    sel_durations = st.multiselect(
+                        "⏱️ 학습 시간 (이수 시간):",
+                        options=ALL_DURATIONS,
+                        default=st.session_state.facet_durations,
+                        key="ui_durations"
+                    )
+
+                with col_f4:
+                    sel_difficulties = st.multiselect(
+                        "📊 난이도 / 학습 대상:",
+                        options=ALL_DIFFICULTIES,
+                        default=st.session_state.facet_difficulties,
+                        key="ui_difficulties"
+                    )
+                    sel_top_n = st.selectbox(
+                        "🎯 추천 결과 노출 개수 (Top-N):",
+                        options=[3, 5, 10],
+                        index=[3, 5, 10].index(st.session_state.facet_top_n),
+                        key="ui_top_n"
+                    )
+
+                # 필터 초기화 버튼 및 실시간 필터링 통과 건수 배지
+                col_btn1, col_btn2 = st.columns([1, 4])
+                with col_btn1:
+                    if st.button("🔄 필터 초기화", key="btn_reset_facet_filters", use_container_width=True):
+                        st.session_state.facet_platforms = ALL_PLATFORMS
+                        st.session_state.facet_free_only = False
+                        st.session_state.facet_max_budget = 2000000
+                        st.session_state.facet_edu_type = "전체"
+                        st.session_state.facet_durations = ALL_DURATIONS
+                        st.session_state.facet_difficulties = ALL_DIFFICULTIES
+                        st.session_state.facet_top_n = 5
+                        st.rerun()
+
+                # 실시간 마스크 연산 및 후보군 건수 표시
+                live_mask = np.ones(len(df_corpus), dtype=bool)
+                if sel_platforms:
+                    live_mask &= df_corpus["platform_label"].isin(sel_platforms)
+                else:
+                    live_mask &= False
+
+                if free_only_toggle:
+                    live_mask &= (df_corpus["numeric_price"] == 0)
+                else:
+                    live_mask &= (df_corpus["numeric_price"] <= max_budget_slider)
+
+                if sel_edu_type != "전체":
+                    live_mask &= (df_corpus["edu_type_cat"] == sel_edu_type)
+
+                if sel_durations:
+                    live_mask &= df_corpus["duration_cat"].isin(sel_durations)
+                else:
+                    live_mask &= False
+
+                if sel_difficulties:
+                    live_mask &= df_corpus["difficulty_cat"].isin(sel_difficulties)
+                else:
+                    live_mask &= False
+
+                n_passed = int(live_mask.sum())
+                passed_ratio = (n_passed / len(df_corpus)) * 100
+
+                with col_btn2:
+                    if n_passed > 0:
+                        st.info(f"🔎 **현재 세부 조건 충족 후보군**: **{n_passed:,}건** / 전체 8,645건 ({passed_ratio:.1f}%) 강좌가 추천 후보 풀(Pool)로 선별되었습니다.")
+                    else:
+                        st.error("⚠️ 선택하신 세부 조건을 충족하는 교육과정이 0건입니다. 필터 조건을 완화해 주세요.")
+
+            # 질의 입력 및 즉시 추천 버튼
+            col_in1, col_in2 = st.columns([4, 1])
+            with col_in1:
+                user_query = st.text_input(
+                    "💡 실무 교육 희망 질문 또는 키워드를 입력하세요:",
+                    value="근로기준법 개정",
+                    placeholder="예: 근로기준법 개정, 생성형 AI 업무활용, 신입사원 온보딩, 엑셀 실무 데이터 분석",
+                    key="tab8_hybrid_query_input"
+                )
+            with col_in2:
+                st.write("")
+                st.write("")
+                search_btn = st.button("🚀 즉시 추천", type="primary", use_container_width=True)
+
+            if user_query and n_passed > 0:
+                # -------------------------------------------------------------
+                # [세부 요구사항 2] 추천 파이프라인 연계 순서:
+                # 필터링 ➔ 하이브리드 점수 계산 ➔ Top-N 정렬 ➔ 다회차 중복 제거
+                # -------------------------------------------------------------
+                cand_indices = np.where(live_mask)[0]
+
+                # 1) 후보군 대상 Ko-SRoBERTa 코사인 유사도 연산
+                import torch
+                device = "cuda" if torch.cuda.is_available() else "cpu"
+                q_emb = dl_model.encode(user_query, normalize_embeddings=True, device=device)
+                cand_embeddings = dl_embeddings[cand_indices]
+                dense_sims = np.dot(cand_embeddings, q_emb)
+                dense_scores = np.clip(dense_sims, 0, 1) * 100.0
+
+                # 2) 후보군 대상 BM25 키워드 유사도 연산 (후보군 기준 Min-Max 스케일링)
+                q_tokens = [t for t in user_query.split() if t in bm25_voc]
+                if q_tokens:
+                    bm25_raw_all = bm25_inst.get_scores(q_tokens)
+                    bm25_cand = bm25_raw_all[cand_indices]
+                    max_b = bm25_cand.max()
+                    sparse_scores = (bm25_cand / max_b * 100.0) if max_b > 0 else np.zeros_like(bm25_cand)
+                else:
+                    sparse_scores = np.zeros(len(cand_indices))
+
+                # 3) 베이지안 평점 결측 보정 (80점 중립값 부여)
+                rating_scores = np.full(len(cand_indices), 80.0)
+
+                # 4) 하이브리드 점수 결합 (Ko-SRoBERTa 0.50 + BM25 0.35 + 평점 0.15)
+                final_scores = (0.50 * dense_scores) + (0.35 * sparse_scores) + (0.15 * rating_scores)
+
+                # 5) 후보군 Top-N 정렬
+                cand_df = df_corpus.iloc[cand_indices].copy()
+                cand_df["final_hybrid_score"] = np.round(final_scores, 1)
+                cand_df["ko_sroberta_dense_score"] = np.round(dense_scores, 1)
+                cand_df["bm25_sparse_score"] = np.round(sparse_scores, 1)
+                cand_df = cand_df.sort_values(by="final_hybrid_score", ascending=False)
+
+                # 6) 동일 강좌 다회차 중복 제거 (Dedup on provider + title)
+                res_dedup = cand_df.drop_duplicates(subset=["provider", "title"]).head(sel_top_n).reset_index(drop=True)
+                res_dedup["rank"] = np.arange(1, len(res_dedup) + 1)
+
+                st.success(
+                    f"✅ 질의: **\"{user_query}\"** 맞춤 추천 완료! "
+                    f"(필터 통과 후보 {n_passed:,}건 중 고유 과정 Top {len(res_dedup)}건 선별)"
+                )
+
+                # 메트릭 요약 표시
+                col_m1, col_m2, col_m3, col_m4 = st.columns(4)
+                with col_m1:
+                    st.metric("추천 상위 과정", f"{len(res_dedup)}개 과정")
+                with col_m2:
+                    top_score = res_dedup.iloc[0]["final_hybrid_score"] if not res_dedup.empty else 0
+                    st.metric("최고 하이브리드 점수", f"{top_score:.1f}점")
+                with col_m3:
+                    avg_price = res_dedup["numeric_price"].mean() if not res_dedup.empty else 0
+                    st.metric("추천 과정 평균 수강료", f"{int(avg_price):,}원")
+                with col_m4:
+                    free_ratio = (res_dedup["numeric_price"] == 0).mean() * 100 if not res_dedup.empty else 0
+                    st.metric("무료 과정 비율", f"{free_ratio:.0f}%")
+
+                st.dataframe(
+                    res_dedup[[
+                        "rank", "title", "provider", "platform_label", "edu_type_cat",
+                        "duration_cat", "difficulty_cat", "final_hybrid_score",
+                        "ko_sroberta_dense_score", "bm25_sparse_score", "numeric_price", "url"
+                    ]],
+                    column_config={
+                        "rank": "순위",
+                        "title": "과정명",
+                        "provider": "교육기관",
+                        "platform_label": "플랫폼",
+                        "edu_type_cat": "교육 형태",
+                        "duration_cat": "학습 시간",
+                        "difficulty_cat": "난이도/대상",
+                        "final_hybrid_score": st.column_config.NumberColumn("종합 점수", format="%.1f점"),
+                        "ko_sroberta_dense_score": st.column_config.NumberColumn("Ko-SRoBERTa (50%)", format="%.1f점"),
+                        "bm25_sparse_score": st.column_config.NumberColumn("BM25 (35%)", format="%.1f점"),
+                        "numeric_price": st.column_config.NumberColumn("수강료", format="%d원"),
+                        "url": st.column_config.LinkColumn("수강신청 링크")
+                    },
+                    hide_index=True,
+                    use_container_width=True
+                )
+            elif user_query and n_passed == 0:
+                st.warning("⚠️ 현재 필터 조건을 만족하는 강좌가 없어 추천을 생성할 수 없습니다. 상단 '🔄 필터 초기화'를 클릭하거나 조건을 조정해 보세요.")
+        else:
+            st.warning("⚠️ Ko-SRoBERTa 임베딩 파일(embeddings_ko_sroberta_all.npy)을 로드할 수 없습니다.")
 
     else:
         # 295건 프로토타입 재현 화면

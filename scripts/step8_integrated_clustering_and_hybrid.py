@@ -28,6 +28,8 @@ from sklearn.cluster import KMeans
 from sklearn.decomposition import TruncatedSVD
 from sklearn.metrics import silhouette_score
 from rank_bm25 import BM25Okapi
+import torch
+from sentence_transformers import SentenceTransformer
 
 def run_clustering_and_hybrid():
     start_time = time.time()
@@ -213,9 +215,21 @@ def run_clustering_and_hybrid():
 
     print(" - [완료] k=8 군집 요약 및 강좌별 클러스터 매핑 CSV 생성 완료")
 
-    # 5. 하이브리드 추천 엔진 검토 및 벤치마크 (LSA + BM25 + 평점 신뢰성 보정)
-    print("\n5. 하이브리드 추천 엔진 검토 및 시나리오 벤치마크...")
+    # 5. 하이브리드 추천 엔진 검토 및 벤치마크 (Ko-SRoBERTa + BM25 + 평점 신뢰성 보정)
+    print("\n5. 하이브리드 추천 엔진 검토 및 시나리오 벤치마크 (Ko-SRoBERTa 768차원 전수 적용)...")
     
+    # Ko-SRoBERTa 8,645건 사전 계산된 임베딩 로드
+    p_sroberta_emb = out_dir / "embeddings_ko_sroberta_all.npy"
+    if not p_sroberta_emb.exists():
+        raise FileNotFoundError(f"Ko-SRoBERTa 임베딩 파일이 존재하지 않습니다: {p_sroberta_emb}")
+    sroberta_embeddings = np.load(p_sroberta_emb)
+    print(f" - Ko-SRoBERTa 전수 임베딩 로드 완료: {sroberta_embeddings.shape}")
+
+    # Ko-SRoBERTa 질의 인코더 로드
+    device = "cuda" if torch.cuda.is_available() else "cpu"
+    print(f" - Ko-SRoBERTa 질의 인코더 디바이스: {device.upper()}")
+    model_roberta = SentenceTransformer("jhgan/ko-sroberta-multitask", device=device)
+
     # BM25 초기화
     bm25 = BM25Okapi(corpus_tokens, k1=1.5, b=0.75)
     bm25_vocab = {t for toks in corpus_tokens for t in toks}
@@ -247,26 +261,18 @@ def run_clustering_and_hybrid():
         else:
             bm25_norm = np.zeros(len(df_all))
 
-        # 2) LSA 의미 유사도 산출 및 [0, 100] 정규화
-        q_vec = tfidf_vec.transform([q_tokens])
-        q_lsa = svd.transform(q_vec)
-        q_lsa_norm = np.linalg.norm(q_lsa)
-        if q_lsa_norm > 0:
-            q_lsa = q_lsa / q_lsa_norm
-            lsa_sim = np.dot(lsa_matrix, q_lsa.T).ravel()
-            lsa_norm_score = np.clip(lsa_sim, 0, 1) * 100.0
-        else:
-            lsa_norm_score = np.zeros(len(df_all))
+        # 2) Ko-SRoBERTa 768차원 시맨틱 유사도 산출 및 [0, 100] 정규화
+        q_vec = model_roberta.encode(query, normalize_embeddings=True, device=device)
+        sroberta_sim = np.dot(sroberta_embeddings, q_vec)
+        sroberta_norm_score = np.clip(sroberta_sim, 0, 1) * 100.0
 
-        # 3) 평점 점수 (결측값 보정)
-        # 만약 평점 컬럼이 있다면 사용하고, 없으면 기본 중립값 적용
+        # 3) 평점 점수 (결측값 보정: Bayesian 중립 80점)
         rating_scores = np.full(len(df_all), DEFAULT_RATING_SCORE)
 
-        # 4) 하이브리드 점수 공식: 0.50 * LSA + 0.35 * BM25 + 0.15 * Rating
-        hybrid_scores = (0.50 * lsa_norm_score) + (0.35 * bm25_norm) + (0.15 * rating_scores)
+        # 4) 하이브리드 점수 공식: (Ko-SRoBERTa 0.50) + (BM25 0.35) + (평점 보정 0.15)
+        hybrid_scores = (0.50 * sroberta_norm_score) + (0.35 * bm25_norm) + (0.15 * rating_scores)
 
         # 5) 동일 강좌 다회차 중복 제거 (Dedup): (provider, title) 기준 최고점 1건만 노출
-        # 정렬 후 drop_duplicates
         temp_res = pd.DataFrame({
             "course_uid": df_all["course_uid"],
             "provider": df_all["provider"],
@@ -275,7 +281,7 @@ def run_clustering_and_hybrid():
             "duration_hours": df_all["duration_hours"],
             "cluster_k8": df_all["cluster_k8"],
             "hybrid_score": hybrid_scores,
-            "lsa_score": lsa_norm_score,
+            "sroberta_score": sroberta_norm_score,
             "bm25_score": bm25_norm,
             "rating_score": rating_scores
         }).sort_values(by="hybrid_score", ascending=False)
@@ -293,7 +299,8 @@ def run_clustering_and_hybrid():
                 "title": row["title"],
                 "cluster_k8": row["cluster_k8"],
                 "final_hybrid_score": round(row["hybrid_score"], 1),
-                "lsa_dense_score": round(row["lsa_score"], 1),
+                "ko_sroberta_dense_score": round(row["sroberta_score"], 1),
+                "lsa_dense_score": round(row["sroberta_score"], 1), # 하위 호환성 유지
                 "bm25_sparse_score": round(row["bm25_score"], 1),
                 "price": row["price"],
                 "duration_hours": row["duration_hours"]
@@ -301,7 +308,7 @@ def run_clustering_and_hybrid():
 
     df_hybrid_eval = pd.DataFrame(hybrid_results)
     df_hybrid_eval.to_csv(out_dir / "hybrid_recommendation_evaluated_benchmark.csv", index=False, encoding="utf-8-sig")
-    print(f" - [완료] 하이브리드 추천 5대 시나리오 Top 5 벤치마크 결과 저장 완료")
+    print(f" - [완료] Ko-SRoBERTa 기반 하이브리드 추천 5대 시나리오 Top 5 벤치마크 결과 저장 완료")
 
     # 결과 지표 JSON
     metrics_summary = {
@@ -313,8 +320,10 @@ def run_clustering_and_hybrid():
         "selected_k_silhouette": float(df_k_comp.loc[df_k_comp["k"] == 8, "silhouette_cosine"].iloc[0]),
         "cluster_distribution": df_c8_summary.set_index("cluster_id")["n_courses"].to_dict(),
         "reproduction_notes": {
-            "is_ko_sroberta_implemented_full_corpus": False,
-            "ko_sroberta_status_note": "Ko-SRoBERTa는 STEP 5-2 400건 파일럿 단계 실측 완료 (embeddings_ko_sroberta_400.npy 존재), 8,645건 전수 임베딩은 후속 과제임",
+            "is_ko_sroberta_implemented_full_corpus": True,
+            "ko_sroberta_status_note": "Ko-SRoBERTa 8,645건 전수 임베딩(768차원) 적용 완료 (embeddings_ko_sroberta_all.npy)",
+            "embedding_shape": list(sroberta_embeddings.shape),
+            "hybrid_formula": "(0.50 * Ko-SRoBERTa) + (0.35 * BM25) + (0.15 * Rating)",
             "rating_imputation_applied": "결측 강좌 대상 Bayesian 기준 중립값(80.0점) 적용",
             "deduplication_applied": "(provider, title) 기준 다회차 중복 제거 적용"
         },
