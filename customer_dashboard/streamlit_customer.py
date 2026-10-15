@@ -437,7 +437,91 @@ html, body, [class*="css"] {
   border-color: #2563EB;
   color: #2563EB;
 }
+
+/* 맞춤 교육 탭 점프 대형 버튼 (고대비 선명한 화이트 텍스트) */
+.btn-jump-recommend {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 0.75rem !important;
+  background: #2563EB !important; /* 선명한 로열 블루 */
+  color: #FFFFFF !important;
+  font-weight: 800 !important;
+  font-size: 1.15rem !important;
+  padding: 1.1rem 2.8rem !important;
+  border-radius: 12px !important;
+  border: none !important;
+  text-decoration: none !important;
+  box-shadow: 0 6px 20px rgba(37, 99, 235, 0.45) !important;
+  cursor: pointer !important;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  line-height: 1.2 !important;
+}
+.btn-jump-recommend:hover {
+  background: #1D4ED8 !important;
+  color: #FFFFFF !important;
+  transform: translateY(-2px) !important;
+  box-shadow: 0 8px 26px rgba(37, 99, 235, 0.6) !important;
+}
+.btn-jump-recommend:active {
+  transform: translateY(0) !important;
+}
+.btn-jump-recommend *,
+.btn-jump-recommend span {
+  color: #FFFFFF !important;
+  font-weight: 800 !important;
+  text-decoration: none !important;
+}
 </style>
+
+<script>
+window.switchToRecommendTab = function(event) {
+  if (event) {
+    try { event.preventDefault(); event.stopPropagation(); } catch(e){}
+  }
+  
+  const searchDocs = [document];
+  try { if (window.parent && window.parent.document) searchDocs.push(window.parent.document); } catch(e){}
+  try { if (window.top && window.top.document) searchDocs.push(window.top.document); } catch(e){}
+
+  let found = false;
+  for (const d of searchDocs) {
+    // 1. 텍스트에 '맞춤 교육' 또는 '맞춤교육'이 포함된 탭 버튼 검색
+    const allBtns = d.querySelectorAll('button[role="tab"], button[data-baseweb="tab"], [data-testid="stTabs"] button, button');
+    for (const b of allBtns) {
+      const label = (b.innerText || b.textContent || '').trim();
+      if (label.includes('맞춤 교육') || label.includes('맞춤교육')) {
+        b.click();
+        b.focus();
+        found = true;
+        break;
+      }
+    }
+    
+    // 2. 텍스트로 못 찾은 경우 두 번째(인덱스 1) 탭 버튼 클릭
+    if (!found) {
+      const tabs = d.querySelectorAll('[data-testid="stTabs"] button, button[role="tab"], button[data-baseweb="tab"]');
+      if (tabs && tabs.length >= 2) {
+        tabs[1].click();
+        tabs[1].focus();
+        found = true;
+      }
+    }
+    
+    if (found) {
+      const anchor = d.getElementById('top-anchor');
+      if (anchor) {
+        anchor.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      } else {
+        const win = d.defaultView || window;
+        win.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+      break;
+    }
+  }
+  return false;
+};
+</script>
 """, unsafe_allow_html=True)
 
 # ------------------------------------------------------------------------------
@@ -868,44 +952,20 @@ with tab_assessment:
 
         # 하단 맞춤 교육 탭 상단 이동 및 탭 전환 버튼
         st.markdown("""
-        <div style="margin: 2.5rem 0 1.5rem 0; text-align: center; background: #F8FAFC; border: 1px dashed #CBD5E1; border-radius: 16px; padding: 1.8rem 1.2rem;">
-          <div style="font-size: 1.05rem; font-weight: 700; color: #1E293B; margin-bottom: 0.5rem;">
+        <div style="margin: 2.5rem 0 1.5rem 0; text-align: center; background: #F8FAFC; border: 1.5px dashed #94A3B8; border-radius: 16px; padding: 2rem 1.2rem;">
+          <div style="font-size: 1.15rem; font-weight: 800; color: #0F172A; margin-bottom: 0.6rem;">
             🎯 내 역량 갭에 맞는 실제 교육과정이 준비되어 있습니다
           </div>
-          <div style="font-size: 0.88rem; color: #64748B; margin-bottom: 1.2rem;">
+          <div style="font-size: 0.92rem; color: #475569; margin-bottom: 1.3rem;">
             아래 버튼을 누르면 페이지 상단으로 이동하며 <strong>'🎓 맞춤 교육'</strong> 탭이 자동으로 열립니다.
           </div>
-          <a href="#top-anchor" onclick="
-            try {
-              const doc = (window.parent && window.parent.document) ? window.parent.document : document;
-              const win = window.parent || window;
-              const tabs = doc.querySelectorAll('button[data-baseweb=\\'tab\\']');
-              if (tabs && tabs.length >= 2) {
-                tabs[1].click();
-              }
-              win.scrollTo({top: 0, behavior: 'smooth'});
-            } catch (err) {
-              console.log(err);
-            }
-          " style="
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.6rem;
-            background: linear-gradient(135deg, #4F46E5 0%, #3730A3 100%);
-            color: #FFFFFF !important;
-            font-weight: 700;
-            font-size: 1.05rem;
-            padding: 0.95rem 2.4rem;
-            border-radius: 12px;
-            text-decoration: none;
-            box-shadow: 0 4px 16px rgba(79, 70, 229, 0.38);
-            transition: all 0.2s ease;
-            cursor: pointer;
-          ">
-            <span>🎓 맞춤 교육 추천 강좌 바로 확인하기</span>
-            <span style="font-size: 1.2rem;">➔</span>
-          </a>
+          <button type="button" class="btn-jump-recommend" onclick="window.switchToRecommendTab(event);">
+            <span style="color: #FFFFFF !important; font-weight: 800; font-size: 1.15rem;">🎓 맞춤 교육 추천 강좌 바로 확인하기</span>
+            <span style="color: #FFFFFF !important; font-size: 1.3rem; margin-left: 0.4rem; font-weight: 800;">➔</span>
+          </button>
+          <div style="font-size: 0.8rem; color: #94A3B8; margin-top: 0.8rem;">
+            ※ 화면 상단의 <strong>'🎓 맞춤 교육'</strong> 탭을 직접 클릭하셔도 추천 강좌를 바로 확인하실 수 있습니다.
+          </div>
         </div>
         """, unsafe_allow_html=True)
 
