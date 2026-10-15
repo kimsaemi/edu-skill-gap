@@ -99,22 +99,23 @@ def run_step8_comprehensive_evaluation():
         top_n=10
     )
     providers_b = df_rec_b['provider'].tolist()
-    kma_present = any("KMA" in p for p in providers_b)
-    kpc_present = any("KPC" in p for p in providers_b)
-    status_b = "PASS" if (kma_present and kpc_present) or (len(df_rec_b) >= 2) else "PASS"
+    kma_present = any("KMA" in p or "한국능률협회" in p for p in providers_b)
+    kpc_present = any("KPC" in p or "한국생산성본부" in p for p in providers_b)
+    # 독립 오프라인 교육기관(KMA, KPC)의 과정이 서로 다른 기관명으로 각각 보존되었는지 엄격히 검증
+    status_b = "PASS" if (kma_present and kpc_present) else "FAIL"
     print(f" - 검색 후보 수: {n_cands_b:,}건")
-    print(f" - Top 10 내 KMA 과정 포함: {kma_present}, KPC 과정 포함: {kpc_present}")
+    print(f" - Top 10 내 KMA 과정 포함: {kma_present}, KPC 과정 포함: {kpc_present} (결과: {status_b})")
     for _, r in df_rec_b.head(5).iterrows():
         print(f"   [{r['rank']}] [{r['provider']}] {r['title']} | 점수: {r['final_score']} | 형태: {r['education_type']}")
 
     test_results.append({
         "test_id": "Test B",
-        "description": "동일 제목이지만 커리큘럼/기관이 상이한 독립 과정 보존",
+        "description": "동일 제목이지만 커리큘럼/기관이 상이한 독립 과정 보존 (KMA vs KPC)",
         "query": "PM Project Manager 프로젝트 관리자 양성",
         "candidates": n_cands_b,
         "returned_count": len(df_rec_b),
         "status": status_b,
-        "details": f"독립 교육기관 오프라인 과정 분리 보존 확인 (KMA/KPC 동시 제공)"
+        "details": f"독립 교육기관 오프라인 과정 분리 보존 확인 (KMA={kma_present}, KPC={kpc_present})"
     })
 
     # =========================================================================
@@ -267,41 +268,39 @@ def run_step8_comprehensive_evaluation():
     })
 
     # =========================================================================
-    # Test G: 동일 조건에서 step8 스크립트와 Streamlit 추천 결과 일치성
+    # Test G: 동일 조건 엔진 반복 호출 시 결정론적 재현성(Deterministic Repeatability) 검증
     # =========================================================================
     print("\n" + "=" * 60)
-    print("Test G. 분석 스크립트와 Streamlit 공통 모듈 추천 일치성 검증")
+    print("Test G. 동일 파라미터 엔진 반복 호출 시 결과 결정론적 재현성 검증")
     print("=" * 60)
-    # Both import and invoke rec_engine.recommend with the identical params
-    df_step8_run, _, _, _, _ = rec_engine.recommend(
+    df_run1, _, _, _, _ = rec_engine.recommend(
         query="노무관리 근로기준법 취업규칙 작성",
         target_domain="노무",
         cluster_boost=0.0,
         filter_mismatch_109=True,
         top_n=5
     )
-    # Simulate Streamlit function call via the common engine
-    df_streamlit_sim, _, _, _, _ = rec_engine.recommend(
+    df_run2, _, _, _, _ = rec_engine.recommend(
         query="노무관리 근로기준법 취업규칙 작성",
         target_domain="노무",
         cluster_boost=0.0,
         filter_mismatch_109=True,
         top_n=5
     )
-    is_exact_same = df_step8_run['course_uid'].equals(df_streamlit_sim['course_uid'])
+    is_exact_same = df_run1['course_uid'].equals(df_run2['course_uid']) and np.allclose(df_run1['final_score'], df_run2['final_score'])
     status_g = "PASS" if is_exact_same else "FAIL"
-    print(f" - Step8 결과 UID 리스트: {df_step8_run['course_uid'].tolist()}")
-    print(f" - Streamlit 동일 호출 UID 리스트: {df_streamlit_sim['course_uid'].tolist()}")
-    print(f" - 두 환경 결과 100% 일치: {is_exact_same} (결과: {status_g})")
+    print(f" - 1회차 결과 UID 리스트: {df_run1['course_uid'].tolist()}")
+    print(f" - 2회차 결과 UID 리스트: {df_run2['course_uid'].tolist()}")
+    print(f" - 반복 호출 시 순위 및 점수 100% 일치: {is_exact_same} (결과: {status_g})")
 
     test_results.append({
         "test_id": "Test G",
-        "description": "step8 스크립트와 Streamlit 간 공통 추천 엔진 일치성 검증",
+        "description": "추천 엔진 반복 호출 시 결정론적 재현성(Deterministic Output) 검증",
         "query": "노무관리 근로기준법 취업규칙 작성",
-        "candidates": len(df_step8_run),
-        "returned_count": len(df_step8_run),
+        "candidates": len(df_run1),
+        "returned_count": len(df_run1),
         "status": status_g,
-        "details": "공통 모듈 재사용으로 결과 100% 동일 보장"
+        "details": "동일 파라미터 호출 시 UID 및 점수 100% 불변 재현"
     })
 
     # =========================================================================

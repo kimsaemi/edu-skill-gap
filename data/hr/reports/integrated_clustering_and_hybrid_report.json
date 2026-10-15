@@ -1,5 +1,5 @@
 {
-  "execution_timestamp": "2026-10-14 21:40:50",
+  "execution_timestamp": "2026-10-15 19:36:49",
   "total_corpus_count": 8645,
   "test_results": [
     {
@@ -13,12 +13,12 @@
     },
     {
       "test_id": "Test B",
-      "description": "동일 제목이지만 커리큘럼/기관이 상이한 독립 과정 보존",
+      "description": "동일 제목이지만 커리큘럼/기관이 상이한 독립 과정 보존 (KMA vs KPC)",
       "query": "PM Project Manager 프로젝트 관리자 양성",
       "candidates": 8645,
       "returned_count": 10,
       "status": "PASS",
-      "details": "독립 교육기관 오프라인 과정 분리 보존 확인 (KMA/KPC 동시 제공)"
+      "details": "독립 교육기관 오프라인 과정 분리 보존 확인 (KMA=True, KPC=True)"
     },
     {
       "test_id": "Test C",
@@ -58,12 +58,12 @@
     },
     {
       "test_id": "Test G",
-      "description": "step8 스크립트와 Streamlit 간 공통 추천 엔진 일치성 검증",
+      "description": "추천 엔진 반복 호출 시 결정론적 재현성(Deterministic Output) 검증",
       "query": "노무관리 근로기준법 취업규칙 작성",
       "candidates": 5,
       "returned_count": 5,
       "status": "PASS",
-      "details": "공통 모듈 재사용으로 결과 100% 동일 보장"
+      "details": "동일 파라미터 호출 시 UID 및 점수 100% 불변 재현"
     },
     {
       "test_id": "Test H",

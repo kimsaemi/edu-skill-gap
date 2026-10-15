@@ -308,6 +308,7 @@ def load_deeplearning_embeddings():
 
 @st.cache_resource(show_spinner="공통 통합 추천 엔진(UnifiedHybridRecommender) 초기화 중...")
 def get_unified_recommender():
+    from src.recommendation.ksa_master import KSA_COMPETENCIES_MASTER, DOMAIN_CLUSTER_MAP, get_competencies_for_job, get_competency_by_id
     from src.recommendation.unified_hybrid_recommender import UnifiedHybridRecommender
     return UnifiedHybridRecommender()
 
@@ -491,10 +492,18 @@ def load_main_datasets():
 def load_interactive_search_engine():
     """사전 토큰화 캐시를 활용해 즉각 반응하는 실시간 검색 엔진(TF-IDF, BM25)을 초기화합니다."""
     cache_path = DATA_PROCESSED / "tokenized_corpus_cache.parquet"
-    if not cache_path.exists():
-        return None, None, None, None
+    main_path = DATA_PROCESSED / "education_courses_search_cleaned.parquet"
+    if not cache_path.exists() or not main_path.exists():
+        return None, None, None, None, None
         
+    df_main_corpus = pd.read_parquet(main_path)
     df_cache = pd.read_parquet(cache_path)
+
+    # UID 순서 일치 무결성 검증 및 재정렬
+    if not (df_main_corpus["course_uid"].values == df_cache["course_uid"].values).all():
+        df_cache = df_main_corpus[["course_uid"]].merge(df_cache, on="course_uid", how="left")
+        df_cache["tokenized_text"] = df_cache["tokenized_text"].fillna("")
+
     corpus_tokens = [txt.split() for txt in df_cache["tokenized_text"]]
     
     vectorizer = TfidfVectorizer(token_pattern=r"(?u)\b\w+\b", min_df=2, max_df=0.8, sublinear_tf=True)
@@ -502,7 +511,7 @@ def load_interactive_search_engine():
     bm25 = BM25Okapi(corpus_tokens)
     preprocessor = HRTextPreprocessor()
     
-    return vectorizer, tfidf_matrix, bm25, preprocessor
+    return vectorizer, tfidf_matrix, bm25, preprocessor, df_main_corpus
 
 # ------------------------------------------------------------------------------
 # 2. 사이드바 및 공통 정보 렌더링
@@ -1111,7 +1120,7 @@ with tab5:
             if engine[0] is None:
                 st.error("사전 토큰화 캐시 파일이 존재하지 않습니다.")
             else:
-                vectorizer, tfidf_matrix, bm25, preprocessor = engine
+                vectorizer, tfidf_matrix, bm25, preprocessor, df_search_corpus = engine
                 q_tokens = preprocessor.tokenize(custom_query.strip())
                 
                 if not q_tokens:
@@ -1127,7 +1136,7 @@ with tab5:
                     for idx in ranked_t:
                         sc = float(sim_scores[idx])
                         if sc <= 0.0: break
-                        r = df_main.iloc[idx]
+                        r = df_search_corpus.iloc[idx]
                         ikey = (r["provider"], r["title"])
                         if ikey in seen_t: continue
                         seen_t[ikey] = {"순위": len(seen_t)+1, "교육과정명": r["title"], "교육기관": r["provider"], "TF-IDF점수": round(sc, 4), "상세URL": r["url"]}
@@ -1141,7 +1150,7 @@ with tab5:
                     for idx in ranked_b:
                         sc = float(bm25_scores[idx])
                         if sc <= 0.0: break
-                        r = df_main.iloc[idx]
+                        r = df_search_corpus.iloc[idx]
                         ikey = (r["provider"], r["title"])
                         if ikey in seen_b: continue
                         seen_b[ikey] = {"순위": len(seen_b)+1, "교육과정명": r["title"], "교육기관": r["provider"], "BM25점수": round(sc, 2), "상세URL": r["url"]}
@@ -1804,18 +1813,27 @@ with tab8:
                         key="tab8_ui_filter_109"
                     )
 
-                # 필터 초기화 버튼
-                if st.button("🔄 필터 및 실험값 초기화", key="tab8_btn_reset_filters"):
-                    st.session_state.facet_platforms = PLATFORM_DISPLAY
-                    st.session_state.facet_free_only = False
-                    st.session_state.facet_max_budget = 2000000
-                    st.session_state.facet_edu_type = "전체"
-                    st.session_state.facet_durations = ["단기 (<10시간)", "중기 (10~40시간)", "장기 (>40시간)"]
-                    st.session_state.facet_difficulties = ALL_DIFFICULTIES
-                    st.session_state.facet_top_n = 5
-                    st.session_state.facet_cluster_boost = 0.0
-                    st.session_state.facet_filter_109 = True
-                    st.rerun()
+                def on_click_reset_tab8():
+                    st.session_state["tab8_ui_platforms"] = PLATFORM_DISPLAY
+                    st.session_state["tab8_ui_domain"] = "인사"
+                    st.session_state["tab8_ui_free_only"] = False
+                    st.session_state["tab8_ui_max_budget"] = 2000000
+                    st.session_state["tab8_ui_edu_type"] = "전체"
+                    st.session_state["tab8_ui_durations"] = ["단기 (<10시간)", "중기 (10~40시간)", "장기 (>40시간)"]
+                    st.session_state["tab8_ui_difficulties"] = ALL_DIFFICULTIES
+                    st.session_state["tab8_ui_top_n"] = 5
+                    st.session_state["tab8_ui_cluster_boost"] = 0.0
+                    st.session_state["tab8_ui_filter_109"] = True
+                    st.session_state["tab8_unified_query_input"] = "급여 4대보험 원천징수 실무"
+                    if "tab8_recommendation_results" in st.session_state:
+                        del st.session_state["tab8_recommendation_results"]
+
+                # 필터 초기화 버튼 (on_click 콜백 기반 안전 상태 갱신)
+                st.button("🔄 필터 및 실험값 초기화", key="tab8_btn_reset_filters", on_click=on_click_reset_tab8)
+
+            # 임베딩 누락 시 명확한 폴백 안내 표시
+            if not rec_engine.has_embeddings:
+                st.warning("⚠️ Ko-SRoBERTa 딥러닝 임베딩 파일이 비활성화되어 있습니다. BM25 키워드 적합도 중심 안전 폴백 모드로 동작합니다.")
 
             # 질의 입력 및 추천 실행
             col_in1, col_in2 = st.columns([4, 1])
@@ -1840,20 +1858,45 @@ with tab8:
             m_budget = max_budget_slider if not free_only_toggle else 0
             e_type = "ALL" if sel_edu_type == "전체" else sel_edu_type
 
-            # 추천 실행
-            df_recom, n_candidates, n_ex_109, n_pr_109, msg = rec_engine.recommend(
-                query=user_query,
-                target_domain=target_dom_val,
-                platforms=sel_platforms if sel_platforms else None,
-                price_filter=p_filter,
-                max_budget=m_budget,
-                edu_type=e_type,
-                durations=sel_durations if sel_durations else None,
-                difficulties=sel_difficulties if sel_difficulties else None,
-                cluster_boost=float(cluster_boost_opt),
-                filter_mismatch_109=filter_109_chk,
-                top_n=sel_top_n
-            )
+            # 현재 입력 조건 스냅샷
+            current_tab8_params = {
+                "query": user_query,
+                "target_domain": target_dom_val,
+                "platforms": sel_platforms,
+                "price_filter": p_filter,
+                "max_budget": m_budget,
+                "edu_type": e_type,
+                "durations": sel_durations,
+                "difficulties": sel_difficulties,
+                "cluster_boost": float(cluster_boost_opt),
+                "filter_mismatch_109": filter_109_chk,
+                "top_n": sel_top_n
+            }
+
+            # 불필요한 모델 재추론 방지 및 버튼 클릭/최초 진입 시만 계산
+            need_run_tab8 = search_btn or ("tab8_recommendation_results" not in st.session_state)
+            if need_run_tab8:
+                with st.spinner("AI 하이브리드 추천 엔진 계산 중..."):
+                    df_recom, n_candidates, n_ex_109, n_pr_109, msg = rec_engine.recommend(
+                        query=user_query,
+                        target_domain=target_dom_val,
+                        platforms=sel_platforms if sel_platforms else None,
+                        price_filter=p_filter,
+                        max_budget=m_budget,
+                        edu_type=e_type,
+                        durations=sel_durations if sel_durations else None,
+                        difficulties=sel_difficulties if sel_difficulties else None,
+                        cluster_boost=float(cluster_boost_opt),
+                        filter_mismatch_109=filter_109_chk,
+                        top_n=sel_top_n
+                    )
+                    st.session_state["tab8_recommendation_results"] = (df_recom, n_candidates, n_ex_109, n_pr_109, msg, current_tab8_params)
+
+            df_recom, n_candidates, n_ex_109, n_pr_109, msg, last_saved_params = st.session_state["tab8_recommendation_results"]
+
+            # 과거 실행 조건과 현재 위젯 조건 변경 감지
+            if last_saved_params != current_tab8_params and not search_btn:
+                st.info("ℹ️ 상단 검색 조건 또는 필터가 변경되었습니다. '🚀 즉시 추천' 버튼을 누르면 새로운 조건으로 재추천됩니다.")
 
             if not df_recom.empty:
                 st.success(
@@ -2239,56 +2282,70 @@ with tab9:
 @st.cache_resource(show_spinner=False)
 def get_cached_competency_recommender():
     from src.recommendation.competency_recommender import CompetencyRecommender
-    return CompetencyRecommender()
+    return CompetencyRecommender(engine=get_unified_recommender())
 
 with tab10:
     st.header("🎖️ NCS·KSA 직무역량 맞춤형 교육 추천")
     st.markdown(
         "인사·총무·경영지원 실무 담당자를 위한 **직무역량 기반 맞춤형 추천 파이프라인**입니다. "
-        "사용자가 입력한 직무 및 KSA 역량에 대해 **4축 정밀 스코어링(Ko-SRoBERTa 50% + BM25 30% + 난이도 10% + 군집/보조매핑 10%)**을 거쳐 "
-        "오매핑 의심 109건을 원천 차단하고 실제 커리큘럼에 기반한 맞춤형 추천과 구체적 추천 근거를 제공합니다."
+        "탭 8과 100% 동일한 통합 엔진(`UnifiedHybridRecommender`)을 기반으로 "
+        "사용자가 입력한 직무 및 KSA 역량에 대해 **4축 정밀 스코어링(Ko-SRoBERTa 50% + BM25 30% + 난이도 10% + 군집부스팅 + KSA보조매핑 5%)**을 거쳐 "
+        "오매핑 의심 109건을 선별 차단(96건 차단 / 13건 보존)하고 실제 커리큘럼에 기반한 맞춤형 추천과 구체적 추천 근거를 제공합니다."
     )
     st.caption("⚠️ **안내**: 평점 데이터 전수 결측에 따라 가짜 만족도 점수를 배제하고, 실제 커리큘럼 내용과 역량 간의 텍스트 정합성을 중심으로 순위가 결정됩니다.")
+
+    rec_engine_tab10 = get_cached_competency_recommender()
+
+    # 임베딩 누락 시 명확한 폴백 안내 표시
+    if not rec_engine_tab10.has_embeddings:
+        st.warning("⚠️ Ko-SRoBERTa 딥러닝 임베딩 파일이 비활성화되어 있습니다. BM25 키워드 적합도 중심 안전 폴백 모드로 동작합니다.")
 
     st.markdown("---")
     st.subheader("1. 추천 조건 설정 (직무역량 및 세부 조건)")
 
     col_j1, col_j2, col_j3, col_j4 = st.columns(4)
     with col_j1:
-        job_family_input = st.selectbox("1️⃣ 담당 직무 선택", ["인사", "총무", "경영지원"], index=0)
+        job_family_input = st.selectbox(
+            "1️⃣ 담당 직무 선택",
+            ["인사", "총무", "경영지원"],
+            index=0,
+            key="tab10_ui_job_family"
+        )
     with col_j2:
-        comp_map = {
-            "인사": [
-                ("COMP_HR_01", "인력채용 (Skill)"),
-                ("COMP_HR_02", "인사평가 및 보상 (Knowledge)"),
-                ("COMP_LABOR_01", "근로관계 법률 준수 (Knowledge)")
-            ],
-            "총무": [
-                ("COMP_GA_01", "문서작성 및 기획 (Skill)"),
-                ("COMP_GA_02", "비품 및 자산관리 (Skill)")
-            ],
-            "경영지원": [
-                ("COMP_SEC_01", "비즈니스 매너 및 커뮤니케이션 (Attitude)"),
-                ("COMP_MGMT_01", "프로젝트 및 조직관리 (Skill)"),
-                ("COMP_MGMT_02", "경영전략 및 재무회계 기초 (Knowledge)")
-            ]
-        }
-        avail_comps = comp_map.get(job_family_input, [])
+        from src.recommendation.ksa_master import get_competencies_for_job
+        avail_comps = [(c["id"], f"{c['name']} ({c['ksa_type']})") for c in get_competencies_for_job(job_family_input)]
         selected_comp_tuple = st.selectbox(
             "2️⃣ 강화할 KSA 역량",
             options=avail_comps,
-            format_func=lambda x: f"[{x[0]}] {x[1]}"
+            format_func=lambda x: f"[{x[0]}] {x[1]}",
+            key="tab10_ui_comp"
         )
         selected_comp_id = selected_comp_tuple[0]
     with col_j3:
-        user_level_input = st.selectbox("3️⃣ 현재 업무 수준", ["입문", "실무", "관리자·심화"], index=1)
+        user_level_input = st.selectbox(
+            "3️⃣ 현재 업무 수준",
+            ["입문", "실무", "관리자·심화"],
+            index=1,
+            key="tab10_ui_user_level"
+        )
     with col_j4:
-        top_n_input = st.radio("4️⃣ 추천 개수 선택", [3, 5, 10], horizontal=True, index=0)
+        top_n_input = st.radio(
+            "4️⃣ 추천 개수 선택",
+            [3, 5, 10],
+            horizontal=True,
+            index=0,
+            key="tab10_ui_top_n"
+        )
 
-    with st.expander("⚙️ 세부 조건 필터 (예산·학습시간·교육형태·교육기관)", expanded=False):
-        col_s1, col_s2, col_s3 = st.columns(3)
+    with st.expander("⚙️ 세부 조건 필터 (예산·학습시간·교육형태·교육기관 & 실험 모드)", expanded=False):
+        col_s1, col_s2, col_s3, col_s4 = st.columns(4)
         with col_s1:
-            budget_sel = st.selectbox("최대 예산", ["제한 없음", "무료만", "30만 원 이하", "50만 원 이하", "100만 원 이하", "200만 원 이하"], index=0)
+            budget_sel = st.selectbox(
+                "최대 예산",
+                ["제한 없음", "무료만", "30만 원 이하", "50만 원 이하", "100만 원 이하", "200만 원 이하"],
+                index=0,
+                key="tab10_ui_budget"
+            )
             if budget_sel == "제한 없음":
                 budget_val = None
             elif budget_sel == "무료만":
@@ -2296,22 +2353,72 @@ with tab10:
             else:
                 budget_val = int(budget_sel.replace("만 원 이하", "").strip()) * 10000
         with col_s2:
-            duration_sel = st.selectbox("희망 교육시간", ["전체", "단기 (<10시간)", "중기 (10~40시간)", "장기 (>40시간)"], index=0)
+            duration_sel = st.selectbox(
+                "희망 교육시간",
+                ["전체", "단기 (<10시간)", "중기 (10~40시간)", "장기 (>40시간)"],
+                index=0,
+                key="tab10_ui_duration"
+            )
         with col_s3:
-            edu_type_sel = st.selectbox("교육 형태", ["전체", "온라인", "오프라인"], index=0)
+            edu_type_sel = st.selectbox(
+                "교육 형태",
+                ["전체", "온라인", "오프라인"],
+                index=0,
+                key="tab10_ui_edu_type"
+            )
+        with col_s4:
+            tab10_cluster_boost_opt = st.radio(
+                "🌟 군집 부스팅 점수 가산:",
+                options=[0.0, 5.0],
+                format_func=lambda x: "0.0점 (기본값)" if x == 0.0 else "5.0점 (실험값)",
+                horizontal=True,
+                key="tab10_ui_cluster_boost"
+            )
 
         canonical_platforms = ["GSEEK", "휴넷", "한국능률협회(KMA)", "한국생산성본부(KPC)", "멀티캠퍼스", "한국직업방송(KFO)", "고용24"]
-        platforms_sel = st.multiselect("선호 교육기관", canonical_platforms, default=canonical_platforms)
+        platforms_sel = st.multiselect(
+            "선호 교육기관",
+            canonical_platforms,
+            default=canonical_platforms,
+            key="tab10_ui_platforms"
+        )
+
+        def on_click_reset_tab10():
+            st.session_state["tab10_ui_job_family"] = "인사"
+            st.session_state["tab10_ui_user_level"] = "실무"
+            st.session_state["tab10_ui_top_n"] = 3
+            st.session_state["tab10_ui_budget"] = "제한 없음"
+            st.session_state["tab10_ui_duration"] = "전체"
+            st.session_state["tab10_ui_edu_type"] = "전체"
+            st.session_state["tab10_ui_platforms"] = canonical_platforms
+            st.session_state["tab10_ui_cluster_boost"] = 0.0
+            if "tab10_recommendation_results" in st.session_state:
+                del st.session_state["tab10_recommendation_results"]
+
+        # 필터 초기화 버튼 (on_click 콜백 기반 안전 상태 갱신)
+        st.button("🔄 직무역량 추천 필터 초기화", key="tab10_btn_reset_filters", on_click=on_click_reset_tab10)
 
     st.markdown("---")
 
     # 추천 실행 버튼
-    btn_recommend = st.button("🚀 직무역량 맞춤 교육과정 추천 실행", type="primary", use_container_width=True)
+    btn_recommend = st.button("🚀 직무역량 맞춤 교육과정 추천 실행", type="primary", use_container_width=True, key="tab10_btn_search")
 
-    if btn_recommend or "rec_competency_results" in st.session_state:
+    current_tab10_params = {
+        "job_family": job_family_input,
+        "competency_id": selected_comp_id,
+        "user_level": user_level_input,
+        "duration_type": duration_sel,
+        "max_budget": budget_val,
+        "edu_type": edu_type_sel,
+        "platforms": platforms_sel,
+        "cluster_boost": float(tab10_cluster_boost_opt),
+        "top_n": top_n_input
+    }
+
+    need_run_tab10 = btn_recommend or ("tab10_recommendation_results" not in st.session_state)
+    if need_run_tab10:
         with st.spinner("AI 직무역량 맞춤 추천 파이프라인 가동 중..."):
-            rec_engine = get_cached_competency_recommender()
-            results_df, n_cand, msg = rec_engine.recommend(
+            results_df, n_cand, msg = rec_engine_tab10.recommend(
                 job_family=job_family_input,
                 competency_id=selected_comp_id,
                 user_level=user_level_input,
@@ -2319,59 +2426,85 @@ with tab10:
                 max_budget=budget_val,
                 edu_type=edu_type_sel,
                 platforms=platforms_sel,
+                cluster_boost=float(tab10_cluster_boost_opt),
                 top_n=top_n_input
             )
-            st.session_state["rec_competency_results"] = (results_df, n_cand, msg)
+            st.session_state["tab10_recommendation_results"] = (results_df, n_cand, msg, current_tab10_params)
 
-        results_df, n_cand, msg = st.session_state["rec_competency_results"]
+    results_df, n_cand, msg, last_saved_tab10_params = st.session_state["tab10_recommendation_results"]
 
-        if results_df.empty:
-            st.warning(f"⚠️ {msg} (세부 필터 조건을 완화한 후 다시 실행해 보세요.)")
-        else:
-            st.subheader(f"2. 추천 결과: Top {len(results_df)} 맞춤 교육과정")
-            
-            # 요약 메트릭
-            m_col1, m_col2, m_col3, m_col4 = st.columns(4)
-            m_col1.metric("사전 필터링 후보군", f"{n_cand:,}건", "오매핑 109건 차단 완료")
-            m_col2.metric("최종 선정 강좌", f"{len(results_df)}건", f"Top {top_n_input} 추출")
-            m_col3.metric("1위 강좌 종합 점수", f"{results_df['final_score'].iloc[0]:.1f}점", "4축 종합 평가")
-            m_col4.metric("강화 역량", selected_comp_tuple[1].split('(')[0].strip(), f"NCS {results_df['ncs_unit_code'].iloc[0]}")
+    if last_saved_tab10_params != current_tab10_params and not btn_recommend:
+        st.info("ℹ️ 직무 역량 또는 필터 조건이 변경되었습니다. '🚀 직무역량 맞춤 교육과정 추천 실행' 버튼을 누르면 새 조건으로 갱신됩니다.")
 
-            # 추천 강좌 비교 차트
-            st.markdown("##### 📊 추천 교육과정 세부 점수 구성 비교")
-            fig_compare = px.bar(
-                results_df,
-                x='title',
-                y=['semantic_score', 'keyword_score', 'level_score', 'cluster_bonus'],
-                labels={'value': '점수(점)', 'title': '교육과정명', 'variable': '평가 축'},
-                title=f"Top {len(results_df)} 교육과정 평가 요소별 점수 분포",
-                barmode='group'
-            )
-            fig_compare.update_layout(xaxis_tickangle=-25, height=360, margin=dict(l=10, r=10, t=30, b=10))
-            st.plotly_chart(fig_compare, use_container_width=True)
+    if results_df.empty:
+        st.warning(f"⚠️ {msg} (세부 필터 조건을 완화한 후 다시 실행해 보세요.)")
+    else:
+        st.subheader(f"2. 추천 결과: Top {len(results_df)} 맞춤 교육과정")
+        
+        # 요약 메트릭
+        m_col1, m_col2, m_col3, m_col4 = st.columns(4)
+        m_col1.metric("사전 필터링 후보군", f"{n_cand:,}건", "오매핑 109건 선별 방어 완료")
+        m_col2.metric("최종 선정 강좌", f"{len(results_df)}건", f"Top {top_n_input} 추출")
+        m_col3.metric("1위 강좌 종합 점수", f"{results_df['final_score'].iloc[0]:.1f}점", "4축 종합 평가")
+        m_col4.metric("강화 역량", selected_comp_tuple[1].split('(')[0].strip(), f"NCS {results_df['ncs_unit_code'].iloc[0]}")
 
-            # 상세 추천 카드
-            st.markdown("##### 📝 상세 추천 교육과정 및 구체적 추천 근거")
-            for idx, r in results_df.iterrows():
-                with st.expander(f"🏅 {r['rank']}위: [{r['provider']}] {r['title']} (종합 {r['final_score']}점)", expanded=(r['rank'] == 1)):
-                    c1, c2 = st.columns([3, 1])
-                    with c1:
-                        # 뱃지 라인
-                        b_verified = "🟢 [전문가 검증]" if r['mapping_status'] == "EXPERT-VERIFIED" else "🔵 [보조 규칙 추정]"
-                        b_rich = "📖 [풍부한 커리큘럼]" if r['text_richness'] == "RICH" else ("📄 [요약 소개]" if r['text_richness'] == "MODERATE" else "⚠️ [제목 전용]")
-                        st.markdown(f"**상태 태그**: `{b_verified}` `{b_rich}` | **군집 도메인**: `{r['topic_label']}`")
-                        
-                        st.markdown(f"• **직무·역량 매칭**: **{r['job_family']}** > **{r['competency_name']}** (NCS 단위코드: `{r['ncs_unit_code']}`)")
-                        st.markdown(f"• **핵심 매칭 키워드**: `{r['matched_keywords']}`")
-                        st.markdown(f"• **수강료 및 시간**: **{r['price_display']}** | **{r['duration_display']}** ({r['education_type']}) | **난이도**: {r['difficulty']}")
-                        
-                        st.success(f"💡 **실제 커리큘럼 기반 추천 이유**:\n{r['recommendation_reason']}")
+        # 추천 강좌 비교 차트
+        st.markdown("##### 📊 추천 교육과정 세부 점수 구성 비교")
+        chart_score_cols = [c for c in ['semantic_score', 'keyword_score', 'level_score', 'cluster_bonus', 'ksa_aux_bonus'] if c in results_df.columns]
+        fig_compare = px.bar(
+            results_df,
+            x='title',
+            y=chart_score_cols,
+            labels={'value': '점수(점)', 'title': '교육과정명', 'variable': '평가 축'},
+            title=f"Top {len(results_df)} 교육과정 평가 요소별 점수 분포",
+            barmode='group'
+        )
+        fig_compare.update_layout(xaxis_tickangle=-25, height=360, margin=dict(l=10, r=10, t=30, b=10))
+        st.plotly_chart(fig_compare, use_container_width=True)
 
-                    with c2:
-                        st.metric("종합 점수", f"{r['final_score']}점")
-                        st.caption(f"• 의미 유사도(50%): {r['semantic_score']:.1f}점\n• 키워드 적합도(30%): {r['keyword_score']:.1f}점\n• 수준 적합도(10%): +{r['level_score']:.0f}점\n• 군집/보조매핑: +{r['cluster_bonus'] + r['ksa_aux_bonus']:.0f}점")
-                        if r['url'] and r['url'] != "#":
-                            st.link_button("🌐 수강신청 바로가기", r['url'], use_container_width=True)
-                        else:
-                            st.button("신청 링크 미제공", disabled=True, key=f"btn_disabled_{r['course_uid']}")
+        # 상세 추천 카드
+        st.markdown("##### 📝 상세 추천 교육과정 및 구체적 추천 근거")
+        for idx, r in results_df.iterrows():
+            with st.expander(f"🏅 {r['rank']}위: [{r['provider']}] {r['title']} (종합 {r['final_score']}점)", expanded=(r['rank'] == 1)):
+                c1, c2 = st.columns([3, 1])
+                with c1:
+                    # 뱃지 라인
+                    b_verified = "🟢 [전문가 검증]" if r['mapping_status'] == "EXPERT-VERIFIED" else "🔵 [보조 규칙 추정]"
+                    b_rich = "📖 [풍부한 커리큘럼]" if r['text_richness'] == "RICH" else ("📄 [요약 소개]" if r['text_richness'] == "MODERATE" else "⚠️ [제목 전용]")
+                    st.markdown(f"**상태 태그**: `{b_verified}` `{b_rich}` | **군집 도메인**: `{r['topic_label']}`")
+                    
+                    st.markdown(f"• **직무·역량 매칭**: **{r['job_family']}** > **{r['competency_name']}** (NCS 단위코드: `{r['ncs_unit_code']}`)")
+                    st.markdown(f"• **핵심 매칭 키워드**: `{r['matched_keywords']}`")
+                    st.markdown(f"• **수강료 및 시간**: **{r['price_display']}** | **{r['duration_display']}** ({r['education_type']}) | **난이도**: {r['difficulty']}")
+                    
+                    st.success(f"💡 **실제 커리큘럼 기반 추천 이유**:\n{r['recommendation_reason']}")
+
+                    # 크로스 플랫폼 대체 수강 옵션 렌더링
+                    alts = r.get("alternative_offerings", [])
+                    if alts and len(alts) > 0:
+                        st.markdown(f"**🔗 동일 강좌의 다른 플랫폼 수강 옵션 ({len(alts)}개 플랫폼):**")
+                        for alt in alts:
+                            is_fit = alt.get("is_suitable_alternative", True)
+                            fit_badge = '<span style="color:#059669; font-weight:700;">✅ [사용자 조건 충족]</span>' if is_fit else f'<span style="color:#DC2626; font-weight:600;">{alt.get("unsuitability_reason", "⚠️ 조건 미충족")}</span>'
+                            st.markdown(
+                                f"- **[{alt['provider']}]** {alt['title']} — 수강료: `{alt['price_display']}` | 형태: `{alt['education_type']}` {fit_badge} "
+                                f"[바로가기 ↗]({alt['url']})"
+                            )
+
+                with c2:
+                    st.metric("종합 점수", f"{r['final_score']}점")
+                    c_bonus_val = r.get('cluster_bonus', 0.0)
+                    k_aux_val = r.get('ksa_aux_bonus', 0.0)
+                    st.caption(
+                        f"• 의미 유사도(50%): {r['semantic_score']:.1f}점\n"
+                        f"• 키워드 적합도(30%): {r['keyword_score']:.1f}점\n"
+                        f"• 수준 적합도(10%): +{r['level_score']:.0f}점\n"
+                        f"• 군집 부스팅: +{c_bonus_val:.1f}점\n"
+                        f"• KSA 보조매핑: +{k_aux_val:.1f}점"
+                    )
+                    if r['url'] and r['url'] != "#":
+                        st.link_button("🌐 수강신청 바로가기", r['url'], use_container_width=True)
+                    else:
+                        st.button("신청 링크 미제공", disabled=True, key=f"btn_disabled_{r['course_uid']}")
+
 
