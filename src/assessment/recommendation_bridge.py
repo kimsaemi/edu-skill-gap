@@ -62,11 +62,24 @@ class CustomerRecommendationBundle:
     status_message: str
     actionable_guidance: Optional[str] = None
 
-# 모듈 수준 싱글톤 캐시
+# 모듈 수준 싱글톤 캐시 (Streamlit 환경에서는 @st.cache_resource로 스레드 안전 관리)
 _RECOMMENDER_INSTANCE: Optional[UnifiedHybridRecommender] = None
 
+try:
+    import streamlit as st
+    @st.cache_resource(show_spinner="추천 인공지능 모델 및 교육 데이터베이스 로드 중...")
+    def _get_st_cached_recommender() -> UnifiedHybridRecommender:
+        return UnifiedHybridRecommender()
+except Exception:
+    _get_st_cached_recommender = None
+
 def get_shared_recommender() -> UnifiedHybridRecommender:
-    """공통 추천 엔진 싱글톤 인스턴스를 반환합니다."""
+    """공통 추천 엔진 싱글톤 인스턴스를 반환합니다. (Streamlit 캐시 우선 활용)"""
+    if _get_st_cached_recommender is not None:
+        try:
+            return _get_st_cached_recommender()
+        except Exception:
+            pass
     global _RECOMMENDER_INSTANCE
     if _RECOMMENDER_INSTANCE is None:
         _RECOMMENDER_INSTANCE = UnifiedHybridRecommender()
