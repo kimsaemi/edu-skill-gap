@@ -77,6 +77,137 @@ def format_hours(val):
         return "시수 미기재"
     return f"{float(val):.1f}시간"
 
+
+# ------------------------------------------------------------------------------
+# 3. 학습 여정: 가치 제안 · 진단 · 추천 · 피드백 · 성과
+# ------------------------------------------------------------------------------
+def render_learning_journey(datasets):
+    """사용자의 자기진단을 실제 NCS 매핑·교육과정 데이터와 연결합니다."""
+    df_jobs = datasets["jobs"]
+    df_comp = datasets["competencies"]
+    df_job_comp = datasets["job_competencies"]
+    df_mapping = datasets["mapping"]
+    df_courses = datasets["candidates"]
+
+    st.markdown("## 🎯 내 직무에 맞는 학습 경로 설계")
+    st.markdown(
+        "**인사·총무 직무에 필요한 NCS 핵심 역량을 확인하고, 현재 부족한 역량에 맞는 "
+        "교육과정을 골라 다음 실무 단계까지 연결합니다.**"
+    )
+    st.caption("자기진단 결과는 이 브라우저 세션에서만 사용되며, 실제 역량 평가 결과가 아닙니다.")
+
+    steps = st.columns(4)
+    for column, title, description in zip(
+        steps,
+        ["1. 직무·수준 설정", "2. 부족 역량 진단", "3. 맞춤 과정 학습", "4. 피드백·다음 행동"],
+        ["목표 직무와 현재 수준 선택", "보완할 핵심 역량 선택", "근거를 확인하고 과정 시작", "완료 기록과 다음 과제 확인"],
+    ):
+        with column:
+            st.markdown(f"**{title}**")
+            st.caption(description)
+
+    job_options = df_jobs.set_index("job_name")["job_id"].to_dict()
+    setup_col, diagnosis_col = st.columns([1, 1.4])
+    with setup_col:
+        selected_job_name = st.selectbox("목표 직무", list(job_options), key="learning_target_job")
+        current_level = st.select_slider(
+            "현재 숙련도", ["입문", "기초", "실무 경험 있음"], value="입문", key="learning_current_level"
+        )
+
+    selected_job_id = job_options[selected_job_name]
+    required = (
+        df_job_comp[df_job_comp["job_id"] == selected_job_id]
+        .merge(df_comp[["competency_id", "competency_name", "definition"]], on="competency_id", how="left")
+    )
+    competency_options = required["competency_name"].tolist()
+    with diagnosis_col:
+        default_gaps = competency_options if current_level == "입문" else competency_options[:1]
+        selected_gaps = st.multiselect(
+            "보완이 필요한 역량을 선택하세요",
+            competency_options,
+            default=default_gaps,
+            help="선택한 항목만 추천 우선순위와 추천 사유에 반영됩니다.",
+            key=f"learning_gaps_{selected_job_id}",
+        )
+
+    if not selected_gaps:
+        st.info("보완할 역량을 하나 이상 선택하면 맞춤 교육과정과 다음 행동을 안내합니다.")
+        return
+
+    selected_competency_ids = required[required["competency_name"].isin(selected_gaps)]["competency_id"].tolist()
+    selected_detail = required[required["competency_id"].isin(selected_competency_ids)]
+    rationale = " · ".join(
+        f"{row.competency_name}: {row.mapping_rationale}"
+        for row in selected_detail.itertuples()
+    )
+
+    st.markdown("### 🧭 지금의 추천 근거")
+    st.success(
+        f"**{selected_job_name} / {current_level}** 기준으로, 사용자가 선택한 "
+        f"**{', '.join(selected_gaps)}** 역량을 우선 보완 대상으로 설정했습니다. "
+        f"NCS 직무-역량 매핑 근거: {rationale}"
+    )
+
+    matching = df_mapping[df_mapping["competency_id"].isin(selected_competency_ids)].copy()
+    matching["matched_competencies"] = matching.groupby("global_course_key")["competency_name"].transform(
+        lambda values: ", ".join(sorted(set(values)))
+    )
+    recommendations = (
+        matching.groupby(["global_course_key", "matched_competencies"], as_index=False)
+        .size()
+        .rename(columns={"size": "matched_count"})
+        .merge(df_courses, on="global_course_key", how="left")
+    )
+    recommendations = recommendations[recommendations["classification_status"] == "INCLUDED"]
+    recommendations = recommendations.sort_values(
+        ["matched_count", "training_hours"], ascending=[False, True], na_position="last"
+    ).head(3)
+
+    if recommendations.empty:
+        st.warning("선택한 역량과 직접 연결된 확정 교육과정이 아직 없습니다. 탐색 탭에서 검토 대기 과정까지 확인해 보세요.")
+        return
+
+    if "completed_course_keys" not in st.session_state:
+        st.session_state.completed_course_keys = set()
+    completed = st.session_state.completed_course_keys
+    completion = len(set(recommendations["global_course_key"]) & completed)
+    st.markdown("### 📚 추천 학습과정과 성과")
+    metric_col, progress_col = st.columns([1, 2])
+    with metric_col:
+        st.metric("완료한 추천 과정", f"{completion}/{len(recommendations)}개")
+    with progress_col:
+        st.progress(completion / len(recommendations), text="추천 과정 완료율")
+
+    for rank, course in enumerate(recommendations.itertuples(), start=1):
+        is_completed = course.global_course_key in completed
+        with st.container(border=True):
+            title_col, action_col = st.columns([4, 1])
+            with title_col:
+                st.markdown(f"**{rank}순위 · {course.course_name}**")
+                st.caption(
+                    f"{course.institution_name} · {course.course_level} · {format_hours(course.training_hours)} · {format_fee(course.course_fee)}"
+                )
+                st.write(f"추천 이유: 선택한 **{course.matched_competencies}** 역량과 직접 연결된 과정입니다.")
+                if pd.notna(course.course_url) and str(course.course_url).startswith("http"):
+                    st.link_button("과정 상세 보기 ↗", str(course.course_url), key=f"course_link_{course.global_course_key}")
+            with action_col:
+                if is_completed:
+                    st.success("완료")
+                elif st.button("완료 처리", key=f"complete_{course.global_course_key}"):
+                    st.session_state.completed_course_keys.add(course.global_course_key)
+                    st.rerun()
+
+    feedback = st.radio(
+        "학습 후 체감 난이도", ["아직 시작 전", "적절함", "어려움", "너무 쉬움"], horizontal=True, key="learning_feedback"
+    )
+    if feedback == "어려움":
+        next_action = "다음 행동: 교육과정 탐색 탭에서 입문/기초 과정으로 필터를 좁혀 먼저 학습하세요."
+    elif completion == len(recommendations):
+        next_action = "다음 행동: 선택한 역량을 다시 진단하거나, 인접 직무의 역량으로 학습 범위를 넓혀보세요."
+    else:
+        next_action = "다음 행동: 첫 번째 추천 과정을 시작하고 완료 후 체크해 다음 우선순위를 갱신하세요."
+    st.info(next_action)
+
 # ------------------------------------------------------------------------------
 # 3. 탭 1: 교육 데이터 현황 렌더러
 # ------------------------------------------------------------------------------
@@ -403,6 +534,13 @@ def main():
         st.error(f"❌ 데이터 로딩 중 오류가 발생했습니다: {e}")
         st.info("파일 경로를 확인해 주세요 (`data/hr/output/integration/` 등)")
         return
+
+    # 사용자가 바로 목표 직무·부족 역량·추천 과정·진척을 연결해 볼 수 있는 학습 여정
+    render_learning_journey(datasets)
+
+    st.markdown("---")
+    st.markdown("## 🔎 데이터 탐색과 근거 확인")
+    st.caption("아래 분석 탭에서 추천의 원천 데이터와 역량-교육과정 연결 구조를 직접 확인할 수 있습니다.")
 
     # 3개 탭 구성
     tab1, tab2, tab3 = st.tabs([
