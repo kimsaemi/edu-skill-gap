@@ -120,22 +120,39 @@ def render_learning_journey(datasets):
         .merge(df_comp[["competency_id", "competency_name", "definition"]], on="competency_id", how="left")
     )
     competency_options = required["competency_name"].tolist()
-    with diagnosis_col:
-        default_gaps = competency_options if current_level == "입문" else competency_options[:1]
-        selected_gaps = st.multiselect(
-            "보완이 필요한 역량을 선택하세요",
-            competency_options,
-            default=default_gaps,
-            help="선택한 항목만 추천 우선순위와 추천 사유에 반영됩니다.",
-            key=f"learning_gaps_{selected_job_id}",
-        )
+    task_source = required.merge(
+        df_comp[["competency_id", "skill"]], on="competency_id", how="left"
+    )
+    task_to_competency = {}
+    for task_row in task_source.itertuples():
+        for task in str(task_row.skill).split(","):
+            task = task.strip()
+            if task and task.lower() != "nan":
+                task_to_competency[f"{task} (연계 역량: {task_row.competency_name})"] = task_row.competency_id
 
-    if not selected_gaps:
-        st.info("보완할 역량을 하나 이상 선택하면 맞춤 교육과정과 다음 행동을 안내합니다.")
+    with diagnosis_col:
+        st.markdown("**실제 수행 중인 업무 (복수 선택)**")
+        st.caption("NCS 역량 마스터의 실무 기술(Skill) 항목에서 자동으로 구성한 선택지입니다.")
+        default_tasks = list(task_to_competency) if current_level == "입문" else list(task_to_competency)[:2]
+        selected_tasks = st.multiselect(
+            "수행 중인 세부 업무",
+            list(task_to_competency),
+            default=default_tasks,
+            help="선택한 업무의 연결 역량과 과정만 추천 우선순위에 반영합니다.",
+            key=f"learning_tasks_{selected_job_id}",
+        )
+        with st.expander("기타 업무가 있나요? (선택)"):
+            custom_task = st.text_input(
+                "목록에 없는 업무만 직접 입력", placeholder="예: 해외 지사 인사운영 지원", key=f"learning_custom_task_{selected_job_id}"
+            )
+
+    selected_competency_ids = list(dict.fromkeys(task_to_competency[task] for task in selected_tasks))
+    if not selected_competency_ids:
+        st.info("수행 중인 업무를 하나 이상 선택하면 연결 역량과 맞춤 교육과정을 안내합니다.")
         return
 
-    selected_competency_ids = required[required["competency_name"].isin(selected_gaps)]["competency_id"].tolist()
     selected_detail = required[required["competency_id"].isin(selected_competency_ids)]
+    selected_gaps = selected_detail["competency_name"].tolist()
     rationale = " · ".join(
         f"{row.competency_name}: {row.mapping_rationale}"
         for row in selected_detail.itertuples()
@@ -143,10 +160,12 @@ def render_learning_journey(datasets):
 
     st.markdown("### 🧭 지금의 추천 근거")
     st.success(
-        f"**{selected_job_name} / {current_level}** 기준으로, 사용자가 선택한 "
+        f"**{selected_job_name} / {current_level}** 기준으로, 선택한 업무가 연결된 "
         f"**{', '.join(selected_gaps)}** 역량을 우선 보완 대상으로 설정했습니다. "
         f"NCS 직무-역량 매핑 근거: {rationale}"
     )
+    if custom_task.strip():
+        st.caption(f"기타 업무 메모: {custom_task} — 현재 NCS 매핑이 없는 자유 입력이며, 추천 결과에는 선택 업무 기반 근거를 우선 적용합니다.")
 
     matching = df_mapping[df_mapping["competency_id"].isin(selected_competency_ids)].copy()
     matching["matched_competencies"] = matching.groupby("global_course_key")["competency_name"].transform(
