@@ -22,8 +22,8 @@ ROOT_DIR = Path(__file__).resolve().parent
 if str(ROOT_DIR) not in sys.path:
     sys.path.insert(0, str(ROOT_DIR))
 
-# 기본 실행 진입점을 최신 고객용 MVP 화면으로 지정
-CUSTOMER_APP_PATH = ROOT_DIR / "app" / "streamlit_customer.py"
+# 기본 실행 진입점을 최신 고객용 대시보드 전용 폴더의 화면으로 지정
+CUSTOMER_APP_PATH = ROOT_DIR / "customer_dashboard" / "streamlit_customer.py"
 
 if __name__ == "__main__":
     runpy.run_path(str(CUSTOMER_APP_PATH), run_name="__main__")

@@ -235,7 +235,7 @@ class TestCustomerMVP(unittest.TestCase):
         print("\n--- [TEST 7] Streamlit AppTest: app/streamlit_customer.py ---")
         from streamlit.testing.v1 import AppTest
 
-        at = AppTest.from_file(str(WORKSPACE_ROOT / "app" / "streamlit_customer.py"))
+        at = AppTest.from_file(str(WORKSPACE_ROOT / "customer_dashboard" / "streamlit_customer.py"))
         at.run(timeout=30)
         self.assertFalse(at.exception, f"AppTest 예외 발생: {at.exception}")
 
