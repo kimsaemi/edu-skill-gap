@@ -432,6 +432,65 @@ class UnifiedHybridRecommender:
             return "시간 미확인"
         return f"{float(d):.1f}시간"
 
+    @staticmethod
+    def clean_text_for_snippet(text: str) -> str:
+        """Markdown 표 기호, HTML 태그, 중복 공백 등을 제거하여 정제합니다."""
+        if not text or pd.isna(text):
+            return ""
+        s = str(text)
+        s = re.sub(r'<[^>]+>', ' ', s)
+        s = re.sub(r'\|[-:\s|]+\|', ' ', s)
+        s = re.sub(r'\|', ' ', s)
+        s = re.sub(r'^[#*>\-]+\s*', '', s, flags=re.MULTILINE)
+        s = re.sub(r'[ \t\r\f\v]+', ' ', s)
+        return s.strip()
+
+    @classmethod
+    def extract_clean_curriculum_snippet(cls, curri: str, intro: str, keywords: List[str]) -> str:
+        """단어 중간을 자르지 않고 온전한 문장/항목 단위로 커리큘럼 핵심 근거를 발췌합니다."""
+        cleaned_curri = cls.clean_text_for_snippet(curri)
+        cleaned_intro = cls.clean_text_for_snippet(intro)
+        target_corpus = cleaned_curri if len(cleaned_curri) >= 30 else f"{cleaned_curri} {cleaned_intro}".strip()
+        if not target_corpus:
+            return ""
+
+        units = re.split(r'[\r\n]+|[;•▶·/]\s*|[.!?]\s+|\s*\d{1,2}[.)]\s*', target_corpus)
+        units = [u.strip() for u in units if len(u.strip()) >= 5]
+        matched_units = []
+        seen = set()
+
+        for kw in keywords:
+            if not kw or len(kw) < 2:
+                continue
+            for unit in units:
+                if kw in unit and unit not in seen:
+                    if len(unit) > 80:
+                        kw_idx = unit.find(kw)
+                        start_pos = max(0, kw_idx - 30)
+                        end_pos = min(len(unit), kw_idx + len(kw) + 35)
+                        if start_pos > 0:
+                            fs = unit.find(' ', start_pos)
+                            if fs != -1 and fs < kw_idx:
+                                start_pos = fs + 1
+                        if end_pos < len(unit):
+                            ls = unit.rfind(' ', kw_idx, end_pos)
+                            if ls != -1 and ls > kw_idx + len(kw):
+                                end_pos = ls
+                        clipped = unit[start_pos:end_pos].strip()
+                        if start_pos > 0:
+                            clipped = "..." + clipped
+                        if end_pos < len(unit):
+                            clipped = clipped + "..."
+                        matched_units.append(clipped)
+                    else:
+                        matched_units.append(unit)
+                    seen.add(unit)
+                    break
+            if len(matched_units) >= 2:
+                break
+
+        return " / ".join(matched_units)
+
     def recommend(
         self,
         query: str = None,
@@ -610,6 +669,8 @@ class UnifiedHybridRecommender:
         top_df['rank'] = range(1, len(top_df) + 1)
 
         recommendation_reasons = []
+        clean_snippets_list = []
+        content_evidences_list = []
         matched_keywords_list = []
         text_richness_list = []
         mapping_status_list = []
@@ -638,36 +699,47 @@ class UnifiedHybridRecommender:
                 m_status = "AUTO-ESTIMATED"
             mapping_status_list.append(m_status)
 
+            clean_snippet = ""
+            content_evidence = ""
+
             if is_ksa_mode and competency_info:
                 matched_kws = [kw for kw in competency_info['core_keywords'] if kw in full_text]
                 matched_str = ", ".join(matched_kws[:4]) if matched_kws else "직무 역량 정합"
                 matched_keywords_list.append(matched_str)
 
-                if richness == "TITLE_ONLY":
-                    rec_reason = f"⚠️ [상세내용 미제공] 강좌명({row['title']})의 키워드가 [{competency_info['name']}] 역량 정의에 부합하여 추천되었습니다."
+                clean_snippet = self.extract_clean_curriculum_snippet(curri, intro, matched_kws or competency_info['core_keywords'])
+
+                if clean_snippet:
+                    rec_reason = f"커리큘럼 내 '{clean_snippet}' 등 실제 실무 내용을 확인하여 [{competency_info['name']}] 역량 향상에 부합합니다."
+                    content_evidence = f"커리큘럼 발췌: {clean_snippet}"
+                elif richness == "TITLE_ONLY":
+                    rec_reason = f"상세 교육내용이 부족해 강좌명과 제공된 정보 중심으로 추천했습니다. 강좌명 키워드가 [{competency_info['name']}] 역량 정의에 부합합니다."
+                    content_evidence = "상세 교육내용이 부족해 강좌명과 제공된 정보 중심으로 추천했습니다."
                 else:
-                    snippets = []
-                    for kw in matched_kws[:3]:
-                        if kw in curri:
-                            idx = curri.find(kw)
-                            snippet = curri[max(0, idx - 15):min(len(curri), idx + 25)].strip().replace('\n', ' ')
-                            snippets.append(f"'{snippet}...'")
-                    if snippets:
-                        snippet_text = " / ".join(snippets[:2])
-                        rec_reason = f"커리큘럼 내 {snippet_text} 등 실제 실무 내용을 포함하여 [{competency_info['name']}] 역량 향상에 부합합니다."
-                    else:
-                        rec_reason = f"과정 소개 내용 중 직무 키워드({matched_str})를 중심으로 [{competency_info['name']}] 실무 역량 강화를 제공합니다."
+                    rec_reason = f"과정 소개 내용 중 직무 키워드({matched_str})를 중심으로 [{competency_info['name']}] 실무 역량 강화를 제공합니다."
+                    content_evidence = f"과정 소개 키워드({matched_str}) 확인"
             else:
                 # 일반 모드 추천 근거
                 matched_keywords_list.append(row.get('topic_label', '직무 역량'))
-                if richness == "TITLE_ONLY":
-                    rec_reason = f"강좌명과 키워드가 '{query or effective_domain}' 관련 실무 내용과 높은 유사도를 나타냅니다."
+                search_kws = [k for k in [query, effective_domain, row.get('topic_label')] if k and isinstance(k, str)]
+                clean_snippet = self.extract_clean_curriculum_snippet(curri, intro, search_kws)
+                if clean_snippet:
+                    rec_reason = f"커리큘럼 내 '{clean_snippet}' 등 실무 내용을 확인하여 추천되었습니다."
+                    content_evidence = f"커리큘럼 발췌: {clean_snippet}"
+                elif richness == "TITLE_ONLY":
+                    rec_reason = "상세 교육내용이 부족해 강좌명과 제공된 정보 중심으로 추천했습니다."
+                    content_evidence = "상세 교육내용이 부족해 강좌명과 제공된 정보 중심으로 추천했습니다."
                 else:
-                    rec_reason = f"교육과정 소개 및 커리큘럼 분석 결과, '{query or effective_domain}' 실무 요구 역량과 가장 일치하는 최적 과정입니다."
+                    rec_reason = f"교육과정 소개 및 분석 결과, '{query or effective_domain}' 실무 요구 역량과 부합하는 과정입니다."
+                    content_evidence = f"교육 소개 분석({row.get('topic_label', '직무')}) 확인"
 
             recommendation_reasons.append(rec_reason)
+            clean_snippets_list.append(clean_snippet)
+            content_evidences_list.append(content_evidence)
 
         top_df['recommendation_reason'] = recommendation_reasons
+        top_df['clean_snippet'] = clean_snippets_list
+        top_df['content_evidence'] = content_evidences_list
         top_df['matched_keywords'] = matched_keywords_list
         top_df['text_richness'] = text_richness_list
         top_df['mapping_status'] = mapping_status_list

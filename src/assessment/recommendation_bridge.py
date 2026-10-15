@@ -43,6 +43,11 @@ class RecommendedCourseCard:
     linked_competencies: List[Dict[str, Any]] = field(default_factory=list)
     customer_recommendation_reason: str = ""
     curriculum_evidence: str = ""
+    goal_connection: str = ""              # 내 목표와의 연결
+    content_evidence: str = ""             # 교육에서 확인한 내용
+    evidence_limitation: str = ""          # 추천 근거의 한계
+    schedule_display: str = "일정·모집 여부는 교육기관에서 확인" # 확인된 일정
+    source_display: str = ""               # 정보 출처 및 확인 시점
     text_richness: str = "MODERATE"        # "RICH", "MODERATE", "TITLE_ONLY"
     text_richness_warning: Optional[str] = None
     study_plan_note: str = ""
@@ -177,48 +182,98 @@ def get_recommendations_for_assessment(
                 title = row['title']
                 provider = row.get('canonical_platform', '')
                 url = row.get('url', '#')
-                price_disp = row.get('price_display', '가격 미확인')
                 num_price = row.get('numeric_price')
                 price_status = row.get('price_status', 'UNCONFIRMED')
-                dur_disp = row.get('duration_display', '시간 미확인')
+                
+                # 수강료 정직 처리 (0=무료, 양수=수강료, 결측=가격 미확인)
+                if num_price == 0 or price_status == 'FREE':
+                    price_disp = "무료"
+                elif pd.notna(num_price) and float(num_price) > 0:
+                    price_disp = f"수강료 {int(num_price):,}원"
+                else:
+                    price_disp = "가격 미확인"
+
                 num_dur = row.get('numeric_duration')
-                edu_t = row.get('education_type', '온라인')
-                diff = row.get('difficulty', '실무')
+                if pd.notna(num_dur) and float(num_dur) > 0:
+                    dur_disp = f"{float(num_dur):g}시간"
+                else:
+                    dur_disp = "시간 미확인"
+
+                raw_edu = str(row.get('education_type', '')).strip()
+                if raw_edu and raw_edu.lower() not in ['nan', 'none', '']:
+                    edu_t = raw_edu
+                else:
+                    edu_t = "형태 미확인"
+
+                raw_diff = str(row.get('difficulty', '')).strip()
+                diff = raw_diff if raw_diff and raw_diff.lower() not in ['nan', 'none', ''] else "미확인"
+
                 t_richness = row.get('text_richness', 'MODERATE')
-                rec_reason = row.get('recommendation_reason', '')
                 alt_offerings = row.get('alternative_offerings', [])
                 final_sc = float(row.get('final_score', 0.0))
 
-                # 주당 학습 가능 시간 기반 현실적 페이스 안내 문구 생성
-                if pd.notna(num_dur) and num_dur > 0:
+                # 일정 확인 (결측 시 솔직 안내)
+                raw_start = str(row.get('start_date', '')).strip()
+                raw_end = str(row.get('end_date', '')).strip()
+                if raw_start and raw_start.lower() not in ['nan', 'none', '']:
+                    if raw_end and raw_end.lower() not in ['nan', 'none', ''] and raw_end != raw_start:
+                        schedule_disp = f"{raw_start} ~ {raw_end}"
+                    else:
+                        schedule_disp = f"{raw_start}"
+                else:
+                    schedule_disp = "일정·모집 여부는 교육기관에서 확인"
+
+                # 출처 및 확인 시점 (임의 생성 금지)
+                src_p = row.get('source_provider') or row.get('provider') or provider
+                col_at = row.get('collected_at')
+                if pd.notna(col_at) and str(col_at).strip() and str(col_at).strip().lower() != 'nan':
+                    c_date = str(col_at).split('T')[0]
+                    source_disp = f"{src_p} 공개 데이터 (확인 시점: {c_date})"
+                else:
+                    source_disp = f"{src_p} 공개 데이터"
+
+                # 추천 근거의 한계
+                if t_richness == "TITLE_ONLY":
+                    limitation_text = "상세 교육내용이 부족해 강좌명과 제공된 정보 중심으로 추천했습니다. 교육기관 상세페이지에서 세부 목차를 반드시 확인하세요."
+                    warning_text = "⚠️ 상세 소개·커리큘럼이 제공되지 않아 강좌명 키워드 중심으로 추천되었습니다. 상세 페이지에서 목차를 확인해 주세요."
+                else:
+                    limitation_text = "공개된 커리큘럼 텍스트 분석에 기반한 추천이며, 최신 수강 요건 및 개강 여부는 교육기관 공지를 확인해 주세요."
+                    warning_text = None
+
+                # 주당 학습 시간 안내
+                if pd.notna(num_dur) and float(num_dur) > 0:
                     dur_val = float(num_dur)
                     weeks_est = max(1, math.ceil(dur_val / max(1.0, weekly_h)))
                     study_note = (
-                        f"총 {dur_val:.1f}시간 강좌: 주당 {weekly_h:.1f}시간 학습 시 약 {weeks_est}주 소요 예상 "
+                        f"총 {dur_val:g}시간 강좌: 주당 {weekly_h:g}시간 학습 시 약 {weeks_est}주 소요 예상 "
                         f"(※ 개별 교육기관의 학사 일정 및 이수 기준에 따라 상이할 수 있습니다)"
                     )
                 else:
                     study_note = "총 교육시간 정보가 공식적으로 확인되지 않은 강좌입니다. 수강 신청 전 운영기관 안내를 확인해 주세요."
 
-                # 텍스트 충실도 한계 경고
-                warning_text = None
-                if t_richness == "TITLE_ONLY":
-                    warning_text = "⚠️ 상세 소개·커리큘럼이 제공되지 않아 강좌명 키워드 중심으로 추천되었습니다. 상세 페이지에서 목차를 확인해 주세요."
+                # 목표와의 연결 및 교육에서 확인한 내용
+                curr_str = f"{cs.current_level:.1f}" if cs.current_level is not None else "미확정"
+                target_str = f"{cs.target_level:.1f}"
+                gap_val = abs(cs.gap) if cs.gap is not None else 0.0
+                gap_str = f"{gap_val:.1f}"
 
-                # 고객용 추천 이유 구성
                 if is_deepening_mode:
-                    customer_reason = (
-                        f"🎯 [심화·전문성 강화] [{c_name}] 역량을 이미 높은 수준(목표 달성)으로 보유하고 계십니다. "
-                        f"역량 유지를 위한 최신 트렌드 및 심화 실무 강좌입니다."
-                    )
+                    goal_connection = f"[{c_name}] 보유 역량의 심화·전문성 강화 및 최신 실무 심화 학습"
                 else:
-                    curr_str = f"{cs.current_level:.1f}" if cs.current_level is not None else "미확정"
-                    target_str = f"{cs.target_level:.1f}"
-                    gap_str = f"{cs.gap:.1f}" if cs.gap is not None else "0.0"
-                    customer_reason = (
-                        f"🎯 [보완 역량: {c_name}] 현재 자기평가 {curr_str}점 → 목표 {target_str}점 (차이 {gap_str}점)\n"
-                        f"{rec_reason}"
-                    )
+                    goal_connection = f"[{c_name}] 현재 자기평가 {curr_str}점 → 목표 {target_str}점 (목표와의 차이 {gap_str}점) 보완"
+
+                raw_snip = row.get('clean_snippet')
+                if raw_snip and str(raw_snip).strip():
+                    content_evidence = f"커리큘럼 발췌: {str(raw_snip).strip()}"
+                    curriculum_evidence = str(raw_snip).strip()
+                elif row.get('content_evidence'):
+                    content_evidence = str(row['content_evidence'])
+                    curriculum_evidence = content_evidence
+                else:
+                    content_evidence = "상세 교육내용이 부족해 강좌명과 제공된 정보 중심으로 추천했습니다."
+                    curriculum_evidence = "상세 교육내용이 부족해 강좌명과 제공된 정보 중심으로 추천했습니다."
+
+                customer_reason = f"🎯 [목표 연결] {goal_connection}\n📖 [확인 내용] {content_evidence}"
 
                 card = RecommendedCourseCard(
                     course_uid=uid,
@@ -237,10 +292,15 @@ def get_recommendations_for_assessment(
                     linked_competencies=[{
                         "competency_id": c_id,
                         "competency_name": c_name,
-                        "gap": cs.gap
+                        "gap": gap_val
                     }],
                     customer_recommendation_reason=customer_reason,
-                    curriculum_evidence=rec_reason,
+                    curriculum_evidence=curriculum_evidence,
+                    goal_connection=goal_connection,
+                    content_evidence=content_evidence,
+                    evidence_limitation=limitation_text,
+                    schedule_display=schedule_disp,
+                    source_display=source_disp,
                     text_richness=t_richness,
                     text_richness_warning=warning_text,
                     study_plan_note=study_note,
@@ -259,7 +319,7 @@ def get_recommendations_for_assessment(
                         existing_card.linked_competencies.append({
                             "competency_id": c_id,
                             "competency_name": c_name,
-                            "gap": cs.gap
+                            "gap": gap_val
                         })
 
         courses_by_comp[c_id] = comp_cards

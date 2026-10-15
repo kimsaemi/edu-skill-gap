@@ -521,6 +521,42 @@ window.switchToRecommendTab = function(event) {
   }
   return false;
 };
+
+window.switchToMyLearningTab = function(event) {
+  if (event) {
+    try { event.preventDefault(); event.stopPropagation(); } catch(e){}
+  }
+  const searchDocs = [document];
+  try { if (window.parent && window.parent.document) searchDocs.push(window.parent.document); } catch(e){}
+  try { if (window.top && window.top.document) searchDocs.push(window.top.document); } catch(e){}
+
+  for (const d of searchDocs) {
+    const allBtns = d.querySelectorAll('button[role="tab"], button[data-baseweb="tab"], [data-testid="stTabs"] button, button');
+    for (const b of allBtns) {
+      const label = (b.innerText || b.textContent || '').trim();
+      if (label.includes('나의 학습') || label.includes('나의학습')) {
+        b.click();
+        b.focus();
+        const anchor = d.getElementById('top-anchor');
+        if (anchor) {
+          anchor.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        } else {
+          const win = d.defaultView || window;
+          win.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+        return false;
+      }
+    }
+    // 인덱스 기준 폴백 (세 번째 탭)
+    const tabs = d.querySelectorAll('[data-testid="stTabs"] button, button[role="tab"], button[data-baseweb="tab"]');
+    if (tabs && tabs.length >= 3) {
+      tabs[2].click();
+      tabs[2].focus();
+      return false;
+    }
+  }
+  return false;
+};
 </script>
 """, unsafe_allow_html=True)
 
@@ -546,9 +582,18 @@ def init_session_state():
         "eval_result": None,
         "rec_bundle": None,
         "is_sample_mode": False,
-        "saved_courses": {},  # course_uid -> dict
+        "saved_courses": {},      # course_uid -> dict (관심 교육 보관함)
+        "compared_courses": {},   # course_uid -> card (최대 3개 비교)
         "assessment_history": [],  # 재점검 기록 비교용
-        "stale_results": False
+        "stale_results": False,
+        "real_user_survey": {},
+        "real_user_targets": {},
+        "real_user_eval": None,
+        "real_user_bundle": None,
+        "active_main_tab": "📋 내 역량 점검",
+        "selected_competency_filter": "ALL",
+        "scroll_to_step1": False,
+        "scroll_to_result": False
     }
     for k, v in defaults.items():
         if k not in st.session_state:
@@ -565,94 +610,167 @@ def reset_all_assessment():
     st.session_state["is_sample_mode"] = False
     st.session_state["current_step"] = "STEP_PROFILE"
     st.session_state["stale_results"] = False
+    st.session_state["real_user_survey"] = {}
+    st.session_state["real_user_targets"] = {}
+    st.session_state["real_user_eval"] = None
+    st.session_state["real_user_bundle"] = None
+    st.session_state["selected_competency_filter"] = "ALL"
+    st.session_state["target_tab"] = "📋 내 역량 점검"
+
+def switch_main_tab(target_tab_name: str):
+    """프로그래밍 방식으로 메인 탭을 안전하게 전환합니다 (위젯 충돌 방지)."""
+    st.session_state["target_tab"] = target_tab_name
+    st.rerun()
+
+def render_sample_banner(location_key: str = ""):
+    """샘플 모드일 때 모든 주요 화면에 '예시 응답으로 생성한 샘플 결과입니다' 배너 및 종료 버튼을 일관되게 표시합니다."""
+    if st.session_state.get("is_sample_mode", False):
+        col_banner, col_exit = st.columns([3.6, 1.4])
+        with col_banner:
+            st.markdown("""
+            <div class="callout-warning" style="margin-bottom: 0.8rem; border-left-color: #F59E0B; background: #FFFBEB;">
+              📢 <strong>예시 응답으로 생성한 샘플 결과입니다</strong> (실제 진단 결과가 아닙니다).<br>
+              본인의 실제 역량을 점검하시려면 우측의 <strong>'샘플 종료 · 내 진단 시작'</strong> 버튼을 눌러주세요.
+            </div>
+            """, unsafe_allow_html=True)
+        with col_exit:
+            if st.button("⏹️ 샘플 종료 · 내 진단 시작", key=f"btn_exit_sample_{location_key}", type="primary", use_container_width=True):
+                st.session_state["survey_responses"] = copy.deepcopy(st.session_state.get("real_user_survey", {}))
+                st.session_state["target_levels"] = copy.deepcopy(st.session_state.get("real_user_targets", {}))
+                st.session_state["eval_result"] = st.session_state.get("real_user_eval")
+                st.session_state["rec_bundle"] = st.session_state.get("real_user_bundle")
+                st.session_state["is_sample_mode"] = False
+                st.session_state["current_step"] = "STEP_SURVEY" if st.session_state["survey_responses"] else "STEP_PROFILE"
+                st.toast("샘플 모드를 종료하고 내 진단 모드로 전환되었습니다.")
+                st.rerun()
 
 # ------------------------------------------------------------------------------
 # 3. 상단 헤더 및 메뉴 탭 네비게이션
 # ------------------------------------------------------------------------------
 st.markdown("""
 <div class="hero-banner">
-  <div class="hero-title">🎯 실무 역량 자기점검 & 맞춤 교육 추천</div>
+  <div class="hero-title">내 업무에 필요한 역량과 교육을 찾아보세요</div>
   <div class="hero-subtitle">
-    인사·총무·경영지원 재직자를 위한 실무 중심 역량 진단 서비스입니다.<br>
-    현재 수행 업무를 점검하고, 목표 수준과의 차이를 분석하여 최적의 실제 교육 과정을 추천합니다.
+    인사·총무·경영지원 업무를 점검하고, 보완하고 싶은 역량에 맞는 교육을 확인하세요.
+  </div>
+  
+  <div style="display: flex; justify-content: center; align-items: center; gap: 0.6rem; margin: 1.2rem 0 0.8rem 0; flex-wrap: wrap;">
+    <div style="background: rgba(255,255,255,0.18); padding: 0.45rem 0.95rem; border-radius: 8px; font-weight: 700; font-size: 0.88rem; color: #FFFFFF;">
+      1️⃣ 업무 선택
+    </div>
+    <span style="color: #93C5FD; font-size: 0.9rem;">➔</span>
+    <div style="background: rgba(255,255,255,0.18); padding: 0.45rem 0.95rem; border-radius: 8px; font-weight: 700; font-size: 0.88rem; color: #FFFFFF;">
+      2️⃣ 자기점검
+    </div>
+    <span style="color: #93C5FD; font-size: 0.9rem;">➔</span>
+    <div style="background: rgba(255,255,255,0.18); padding: 0.45rem 0.95rem; border-radius: 8px; font-weight: 700; font-size: 0.88rem; color: #FFFFFF;">
+      3️⃣ 결과·교육 확인
+    </div>
+  </div>
+
+  <div style="display: flex; justify-content: center; gap: 0.8rem; flex-wrap: wrap; margin-top: 0.6rem;">
+    <span style="background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.3); color: #FFFFFF; padding: 0.3rem 0.85rem; border-radius: 20px; font-size: 0.82rem; font-weight: 600;">
+      🔒 로그인 없이 이용
+    </span>
+    <span style="background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.3); color: #FFFFFF; padding: 0.3rem 0.85rem; border-radius: 20px; font-size: 0.82rem; font-weight: 600;">
+      📖 자기평가 기반 학습 가이드
+    </span>
   </div>
 </div>
 """, unsafe_allow_html=True)
 
+# 첫 화면 주요 액션 버튼 (내 역량 점검 시작 / 샘플 결과 먼저 보기)
+hero_c1, hero_c2 = st.columns([1.6, 1.4])
+with hero_c1:
+    if st.button("🚀 내 역량 점검 시작", type="primary", use_container_width=True, key="hero_start_btn"):
+        st.session_state["scroll_to_step1"] = True
+        switch_main_tab("📋 내 역량 점검")
+with hero_c2:
+    if not st.session_state.get("is_sample_mode"):
+        if st.button("👀 샘플 결과 보기 (샘플 먼저 보기)", use_container_width=True, key="hero_sample_btn"):
+            st.session_state["real_user_survey"] = copy.deepcopy(st.session_state.get("survey_responses", {}))
+            st.session_state["real_user_targets"] = copy.deepcopy(st.session_state.get("target_levels", {}))
+            st.session_state["real_user_eval"] = st.session_state.get("eval_result")
+            st.session_state["real_user_bundle"] = st.session_state.get("rec_bundle")
+            sample_res = get_sample_assessment_result(st.session_state.get("job_family", "인사"))
+            st.session_state["eval_result"] = sample_res
+            st.session_state["is_sample_mode"] = True
+            st.session_state["current_step"] = "STEP_RESULT"
+            st.session_state["scroll_to_result"] = True
+            f_params = RecommendationFilterParams(
+                price_filter=st.session_state["price_filter"],
+                max_budget=st.session_state["max_budget"] if st.session_state["price_filter"] == "MAX_BUDGET" else None,
+                edu_type=st.session_state["edu_type"],
+                weekly_hours=st.session_state["weekly_hours"]
+            )
+            st.session_state["rec_bundle"] = get_recommendations_for_assessment(sample_res, f_params)
+            switch_main_tab("📋 내 역량 점검")
+    else:
+        st.button("🔄 전체 초기화", on_click=reset_all_assessment, use_container_width=True, key="hero_reset_btn")
+
+# 긴 기술 설명·NCS 코드·계산 기준은 상세 안내로 이동
+with st.expander("ℹ️ 진단 기준 및 NCS 연계 상세 안내 (클릭하여 확인)", expanded=False):
+    st.markdown("""
+    • **진단 목적**: 인사·총무·경영지원 실무 재직자가 본인의 직무 행동 수준을 점검하고, 부족한 역량을 채울 수 있는 최적의 학습 경로를 추천받기 위한 자기점검 도구입니다.<br>
+    • **역량 분류 기준**: 국가직무능력표준(NCS) 및 기업 실무 KSA(Knowledge, Skill, Attitude) 프레임워크를 기반으로 구성되었습니다.<br>
+    • **점수 산출 방식**: 각 역량별 2문항 이상 유효하게 응답(1~5점)된 경우에만 평균 점수와 목표 갭을 산출하며, '해당 업무 아님' 또는 '판단 어려움'은 0점 처리되지 않고 산출에서 안전하게 제외됩니다.<br>
+    • **학습 가이드**: 본 진단은 공인 자격시험이나 인사평가 도구가 아니며, 개인의 주관적 자기평가를 바탕으로 한 학습 권장 가이드입니다.
+    """, unsafe_allow_html=True)
+
 def render_recommendation_view(bundle: CustomerRecommendationBundle, key_prefix: str = ""):
-    """HRD-Net 스타일의 맞춤 교육 추천 뷰를 렌더링합니다 (Tab 1 인라인 및 Tab 2 공용)."""
+    """정직한 사실 정보와 추천 사유를 기반으로 교육과정 카드 및 비교 뷰를 렌더링합니다."""
     saved_cnt = len(st.session_state.get("saved_courses", {}))
     eval_job = bundle.job_family
 
-    # 1. 우측 상단 플로팅 퀵 메뉴 & 우측 하단 플로팅 퀵 버튼
+    # 1. 상단 인라인 안내 & 관심 보관함 바로가기 (실제 작동하는 링크)
     st.markdown(f"""
-    <!-- 우측 상단 플로팅 퀵 메뉴 -->
-    <div class="hrd-side-quick">
-      <a href="javascript:void(0);" onclick="alert('💡 맞춤 교육 추천 가이드\\n- 직무 역량: 직무 수행에 요구되는 KSA(지식·기술·태도)\\n- 역량 갭: 목표 수준과 현재 자기평가의 차이\\n- 맞춤 추천: 부족한 역량을 메꿔주는 최적 훈련과정');" class="hrd-quick-pill" title="용어 도움말 보기">
-        « 용어 도움말
-      </a>
-      <a href="#top-anchor" class="hrd-quick-pill" title="저장된 관심 강좌 확인">
-        « 관심 보관함 <strong style="color: {'#2563EB' if saved_cnt > 0 else '#DC2626'};">{saved_cnt}</strong> / 3
-      </a>
+    <div style="display: flex; justify-content: space-between; align-items: center; background: #F1F5F9; border-radius: 8px; padding: 0.65rem 1rem; margin-bottom: 1.1rem; flex-wrap: wrap; gap: 0.6rem;">
+      <div style="font-size: 0.88rem; color: #334155;">
+        💡 <strong>이용 안내</strong>: 진단된 역량 차이에 맞춰 실제 커리큘럼이 검증된 교육과정입니다. 마음에 드는 강좌는 <strong>[☆ 관심 교육 저장]</strong>하거나 <strong>[📊 비교에 추가]</strong>해 보세요.
+      </div>
+      <div>
+        <button onclick="window.switchToMyLearningTab(event);" style="background: #FFFFFF; border: 1.5px solid #2563EB; color: #2563EB; font-weight: 700; font-size: 0.85rem; padding: 0.35rem 0.85rem; border-radius: 6px; cursor: pointer; transition: all 0.15s ease;">
+          📚 관심 보관함 바로가기 ({saved_cnt}개)
+        </button>
+      </div>
     </div>
 
-    <!-- 우측 하단 플로팅 퀵 액션 (도우미 & 맨위로) -->
+    <!-- 우측 하단 플로팅 퀵 액션: 페이지 맨위로 이동 전용 -->
     <div class="hrd-floating-actions">
-      <div class="hrd-circle-btn hrd-circle-help" onclick="alert('💬 맞춤 교육 추천 도우미\\n- 보완이 필요한 역량을 기반으로 엄선된 실제 교육과정입니다.\\n- 마음에 드는 강좌는 [☆ 관심 교육 저장]을 눌러 보관함에 담아두세요!');" title="이용 도우미">
-        <span style="font-size: 1.15rem; line-height: 1;">❓</span>
-        <span>도우미</span>
-      </div>
-      <a href="#top-anchor" class="hrd-circle-btn hrd-circle-top" title="페이지 상단으로 이동">
+      <a href="#top-anchor" class="hrd-circle-btn hrd-circle-top" title="페이지 맨 위로 이동">
         <span style="font-size: 1.15rem; line-height: 1;">↑</span>
         <span>맨위로</span>
       </a>
     </div>
     """, unsafe_allow_html=True)
 
-    # 2. HRD-Net 스타일 상단 검색 및 조건 설정 박스
+    # 2. 검색 및 필터 박스
     st.markdown('<div class="hrd-search-card">', unsafe_allow_html=True)
     
-    # 행 1: 검색어 범위 체크박스 칩
-    st.markdown("""
-    <div class="hrd-filter-row">
-      <div class="hrd-filter-label">검색어 범위</div>
-      <div class="hrd-scope-tags">
-        <span class="hrd-checkbox-chip active">☑ 전체</span>
-        <span class="hrd-checkbox-chip">☐ 훈련과정</span>
-        <span class="hrd-checkbox-chip">☐ 훈련기관명</span>
-        <span class="hrd-checkbox-chip">☐ NCS 직종·역량</span>
-        <span class="hrd-checkbox-chip">☐ 교과명</span>
-        <span class="hrd-checkbox-chip">☐ 자격증</span>
-        <span class="hrd-checkbox-chip">☐ 훈련 목표</span>
-      </div>
-    </div>
-    """, unsafe_allow_html=True)
-
-    # 행 2: 검색어 입력창
+    # 검색어 및 교육기관명 입력창
     s_col1, s_col2 = st.columns([1, 6])
     with s_col1:
         st.markdown("<div style='font-size: 0.92rem; font-weight: 700; color: #1E293B; padding-top: 0.5rem;'>검색어</div>", unsafe_allow_html=True)
     with s_col2:
         search_query = st.text_input(
             "검색어",
-            placeholder="검색어(검색범위 선택)를 입력하여 훈련과정을 찾아보세요.",
+            placeholder="강좌명 또는 연계 역량 키워드를 입력해 보세요.",
             label_visibility="collapsed",
             key=f"{key_prefix}hrd_search_input"
         )
 
-    # 행 3: 훈련기관명 입력창
     i_col1, i_col2 = st.columns([1, 6])
     with i_col1:
-        st.markdown("<div style='font-size: 0.92rem; font-weight: 700; color: #1E293B; padding-top: 0.5rem;'>훈련기관명</div>", unsafe_allow_html=True)
+        st.markdown("<div style='font-size: 0.92rem; font-weight: 700; color: #1E293B; padding-top: 0.5rem;'>교육기관명</div>", unsafe_allow_html=True)
     with i_col2:
         provider_query = st.text_input(
-            "훈련기관명",
-            placeholder="훈련기관명을 입력하여 훈련과정을 찾아보세요. (예: 휴넷, GSEEK, 패스트캠퍼스 등)",
+            "교육기관명",
+            placeholder="교육기관명을 입력하여 훈련과정을 찾아보세요. (예: 휴넷, GSEEK, KPC, 한국생산성본부 등)",
             label_visibility="collapsed",
             key=f"{key_prefix}hrd_provider_input"
         )
 
-    # 행 4: 추가 검색조건 열기 (Expander)
+    # 추가 검색조건 열기 (Expander)
     with st.expander("추가 검색조건 열기 ∨", expanded=False):
         f_col1, f_col2, f_col3 = st.columns(3)
         with f_col1:
@@ -672,22 +790,22 @@ def render_recommendation_view(bundle: CustomerRecommendationBundle, key_prefix:
         with f_col3:
             w_new = st.slider("주당 학습 가능 시간 (시간)", 1.0, 20.0, float(st.session_state["weekly_hours"]), 0.5, key=f"{key_prefix}filter_tab2_weekly")
 
-    # 행 5: 선택된 검색조건 태그 & 액션 버튼
+    # 선택된 검색조건 표시 & 검색/초기화 액션 버튼
     btn_col_left, btn_col_right = st.columns([4, 1.5])
     
-    cond_tags = [f"직무 > {eval_job}"]
+    cond_tags = [f"직무: {eval_job}"]
     if st.session_state["edu_type"] != "ALL":
-        cond_tags.append(f"형태 > {'온라인' if st.session_state['edu_type'] == 'ONLINE' else '오프라인'}")
+        cond_tags.append(f"형태: {'온라인' if st.session_state['edu_type'] == 'ONLINE' else '오프라인'}")
     if st.session_state["price_filter"] == "FREE_ONLY":
-        cond_tags.append("수강료 > 무료")
+        cond_tags.append("수강료: 무료")
     elif st.session_state["price_filter"] == "MAX_BUDGET":
-        cond_tags.append("수강료 > 예산한도")
+        cond_tags.append(f"수강료: {st.session_state['max_budget']:,}원 이하" if st.session_state.get('max_budget') else "수강료: 예산한도")
 
     with btn_col_left:
-        tags_html = " ".join([f"<span class='hrd-tag-applied'>{t} ✕</span>" for t in cond_tags])
+        tags_html = " ".join([f"<span class='hrd-tag-applied'>{t}</span>" for t in cond_tags])
         st.markdown(f"""
         <div style="display: flex; align-items: center; flex-wrap: wrap; gap: 0.4rem; padding-top: 0.4rem;">
-          <span class="hrd-condition-count-badge">검색조건 {len(cond_tags)}건</span>
+          <span class="hrd-condition-count-badge">적용 조건 {len(cond_tags)}개</span>
           {tags_html}
         </div>
         """, unsafe_allow_html=True)
@@ -695,7 +813,7 @@ def render_recommendation_view(bundle: CustomerRecommendationBundle, key_prefix:
     with btn_col_right:
         act_col1, act_col2 = st.columns([1, 1.4])
         with act_col1:
-            if st.button("🔄 초기화", key=f"{key_prefix}hrd_btn_reset", use_container_width=True):
+            if st.button("🔄 조건 초기화", key=f"{key_prefix}hrd_btn_reset", use_container_width=True):
                 st.session_state["price_filter"] = "ALL"
                 st.session_state["max_budget"] = None
                 st.session_state["edu_type"] = "ALL"
@@ -733,8 +851,33 @@ def render_recommendation_view(bundle: CustomerRecommendationBundle, key_prefix:
 
     st.markdown('</div>', unsafe_allow_html=True)
 
-    # 3. 결과 필터링 (검색어 및 기관명 실시간 매칭)
+    # 3. 결과 필터링 (선택 역량 필터 및 검색어/기관명 실시간 매칭)
     courses_to_render = bundle.all_courses_deduped
+    sel_c_id = st.session_state.get("selected_competency_filter", "ALL")
+    if sel_c_id != "ALL":
+        sel_c_name = sel_c_id
+        for c in bundle.all_courses_deduped:
+            for item in c.linked_competencies:
+                if item["competency_id"] == sel_c_id:
+                    sel_c_name = item["competency_name"]
+                    break
+            if sel_c_name != sel_c_id:
+                break
+        
+        comp_filtered = [
+            c for c in courses_to_render
+            if any(item["competency_id"] == sel_c_id for item in c.linked_competencies)
+        ]
+        if comp_filtered:
+            courses_to_render = comp_filtered
+            c_f1, c_f2 = st.columns([3.8, 1.2])
+            with c_f1:
+                st.info(f"🎯 **[{sel_c_name}]** 역량에 연계된 교육과정을 우선 표시하고 있습니다.")
+            with c_f2:
+                if st.button("🔄 전체 보완 역량 보기", key=f"{key_prefix}btn_clear_comp_filter", use_container_width=True):
+                    st.session_state["selected_competency_filter"] = "ALL"
+                    st.rerun()
+
     if search_query:
         sq = search_query.strip().lower()
         courses_to_render = [
@@ -745,18 +888,43 @@ def render_recommendation_view(bundle: CustomerRecommendationBundle, key_prefix:
         pq = provider_query.strip().lower()
         courses_to_render = [c for c in courses_to_render if pq in c.provider.lower()]
 
-    # 4. 결과 타이틀 및 3열 테이블 헤더 바
-    st.markdown(f"""
-    <div style="display: flex; align-items: baseline; gap: 0.6rem; margin-top: 1.4rem; margin-bottom: 0.6rem;">
-      <h3 style="margin: 0; font-size: 1.35rem; font-weight: 800; color: #0F172A;">국민내일배움카드 맞춤 훈련과정</h3>
-      <span style="font-size: 1rem; color: #475569;">총 <strong style="color: #2563EB; font-size: 1.15rem;">{len(courses_to_render)}</strong>건</span>
-      <span style="font-size: 0.85rem; color: #94A3B8;">(보완 대상 역량 {bundle.evaluated_competency_count}개 연계)</span>
-    </div>
+    # 4. 강좌 비교 드로어 (비교 강좌가 선택되어 있으면 표시)
+    compared_dict = st.session_state.get("compared_courses", {})
+    if compared_dict:
+        with st.expander(f"⚖️ 선택 강좌 나란히 비교 (현재 {len(compared_dict)}/3개 담김)", expanded=True):
+            cmp_cols = st.columns(len(compared_dict))
+            for c_idx, (cmp_uid, cmp_card) in enumerate(list(compared_dict.items())):
+                with cmp_cols[c_idx]:
+                    st.markdown(f"""
+                    <div class="customer-card" style="height: 100%; border: 1.5px solid #2563EB;">
+                      <div style="font-weight: 800; font-size: 1.02rem; margin-bottom: 0.4rem; height: 3.2rem; overflow: hidden; line-height: 1.35; color: #0F172A;">
+                        {cmp_card.title}
+                      </div>
+                      <div style="font-size: 0.85rem; color: #475569; line-height: 1.6; margin-bottom: 0.5rem;">
+                        • <strong>기관</strong>: {cmp_card.provider}<br>
+                        • <strong>비용</strong>: {cmp_card.price_display}<br>
+                        • <strong>시간</strong>: {cmp_card.duration_display}<br>
+                        • <strong>형태</strong>: {cmp_card.education_type}<br>
+                        • <strong>보완 역량</strong>: {cmp_card.primary_competency_name}<br>
+                        • <strong>일정</strong>: {cmp_card.schedule_display}
+                      </div>
+                      <div style="font-size: 0.8rem; color: #1E3A8A; background: #EFF6FF; padding: 0.45rem; border-radius: 4px; margin-bottom: 0.5rem;">
+                        {cmp_card.goal_connection}
+                      </div>
+                    </div>
+                    """, unsafe_allow_html=True)
+                    st.markdown(f"<a href='{cmp_card.url}' target='_blank' style='display:block; text-align:center; font-size:0.85rem; font-weight:700; color:#2563EB; margin:0.3rem 0;'>교육 상세·신청 안내 ↗</a>", unsafe_allow_html=True)
+                    if st.button("비교 제외", key=f"{key_prefix}btn_remove_cmp_{cmp_uid}", use_container_width=True):
+                        del st.session_state["compared_courses"][cmp_uid]
+                        st.toast("비교 목록에서 제외되었습니다.")
+                        st.rerun()
 
-    <div class="hrd-table-header">
-      <div style="flex: 4.6; padding-left: 0.5rem;">훈련기관명 / 과정명 / 인증 등급</div>
-      <div style="flex: 3.4; padding-left: 0.5rem;">훈련과정 정보</div>
-      <div style="flex: 2.0; text-align: right; padding-right: 0.5rem;">모집 현황 / 본인부담액</div>
+    # 5. 결과 타이틀 (정확한 목록명 사용)
+    st.markdown(f"""
+    <div style="display: flex; align-items: baseline; gap: 0.6rem; margin-top: 1.4rem; margin-bottom: 0.8rem; flex-wrap: wrap;">
+      <h3 style="margin: 0; font-size: 1.35rem; font-weight: 800; color: #0F172A;">내 보완 역량에 맞는 교육</h3>
+      <span style="font-size: 1rem; color: #475569;">총 <strong style="color: #2563EB; font-size: 1.15rem;">{len(courses_to_render)}</strong>건</span>
+      <span style="font-size: 0.85rem; color: #64748B;">(보완 대상 역량 {bundle.evaluated_competency_count}개 연계)</span>
     </div>
     """, unsafe_allow_html=True)
 
@@ -767,98 +935,72 @@ def render_recommendation_view(bundle: CustomerRecommendationBundle, key_prefix:
         </div>
         """, unsafe_allow_html=True)
 
-    # 5. 3열 강좌 카드 렌더링
+    # 6. 강좌 카드 렌더링 (우선 추천 3개 + 더보기 구조)
     if not courses_to_render:
-        st.info("검색 조건에 일치하는 훈련과정이 없습니다. 검색어 또는 필터 조건을 조정해 보세요.")
+        st.info("검색 조건에 일치하는 교육과정이 없습니다. 검색어 또는 필터 조건을 조정해 보세요.")
     else:
-        for card in courses_to_render:
+        show_all_key = f"{key_prefix}show_all_cards"
+        if show_all_key not in st.session_state:
+            st.session_state[show_all_key] = False
+
+        is_show_all = st.session_state[show_all_key]
+        cards_to_display = courses_to_render if is_show_all else courses_to_render[:3]
+
+        for card in cards_to_display:
             is_saved = card.course_uid in st.session_state["saved_courses"]
             save_btn_label = "⭐ 관심 저장됨" if is_saved else "☆ 관심 교육 저장"
-            
-            match_pct = min(99.4, max(86.0, 86.0 + card.raw_matching_score * 11.5))
-            is_free = (card.price_status == "FREE" or card.numeric_price == 0)
-            price_main = "0 원" if is_free else (f"{int(card.numeric_price):,} 원" if card.numeric_price else card.price_display)
-            price_note = "(전액 무료)" if is_free else "ⓘ"
+
+            is_compared = card.course_uid in st.session_state["compared_courses"]
+            cmp_btn_label = "📊 비교함 담김" if is_compared else "📊 비교에 추가"
+
+            comp_badges_html = " ".join([
+                f"<span class='badge-tag badge-primary'>🎯 {item['competency_name']} (목표와의 차이 {item.get('gap', 0.0):.1f}점)</span>"
+                for item in card.linked_competencies
+            ])
 
             with st.container():
                 st.markdown('<div class="hrd-card">', unsafe_allow_html=True)
-                col_left, col_mid, col_right = st.columns([4.6, 3.4, 2.0])
+                
+                # 기본 카드 정보: 교육명, 교육기관, 연결된 보완 역량, 비용·시간·형태, 추천 이유
+                st.markdown(f"""
+                <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 0.8rem; margin-bottom: 0.35rem; flex-wrap: wrap;">
+                  <div class="hrd-inst-name">
+                    <span>🏢 {card.provider}</span>
+                  </div>
+                  <div>
+                    {comp_badges_html}
+                  </div>
+                </div>
+                <div class="hrd-course-title">
+                  {card.title}
+                </div>
+                <div style="display: flex; flex-wrap: wrap; gap: 0.9rem; font-size: 0.88rem; color: #334155; margin: 0.5rem 0 0.7rem 0; background: #F8FAFC; padding: 0.6rem 0.9rem; border-radius: 8px; border: 1px solid #E2E8F0;">
+                  <span>💰 <strong>비용</strong>: <strong style="color: {'#059669' if '무료' in card.price_display else '#0F172A'};">{card.price_display}</strong></span>
+                  <span>⏱️ <strong>총 교육시간</strong>: {card.duration_display}</span>
+                  <span>💻 <strong>교육형태</strong>: {card.education_type}</span>
+                </div>
+                <div class="hrd-reason-box">
+                  <div style="margin-bottom: 0.3rem; color: #1E293B;">
+                    <strong>🎯 내 목표와의 연결</strong>: {card.goal_connection}
+                  </div>
+                  <div style="color: #475569;">
+                    <strong>📖 교육에서 확인한 내용</strong>: {card.content_evidence}
+                  </div>
+                </div>
+                """, unsafe_allow_html=True)
 
-                with col_left:
+                if card.text_richness_warning:
+                    st.caption(f"{card.text_richness_warning}")
+
+                # 기본 카드 액션 버튼 (3열: 교육 상세·신청 안내 / 관심 교육 저장 / 비교에 추가)
+                act_c1, act_c2, act_c3 = st.columns([1.6, 1.2, 1.2])
+                with act_c1:
                     st.markdown(f"""
-                    <div class="hrd-inst-name">
-                      <span>{card.provider}</span>
-                      <span style="color: #2563EB; font-size: 0.8rem; cursor: pointer;" title="공식 인증 훈련기관">ⓘ</span>
-                    </div>
-                    <div>
-                      <span class="hrd-badge-cert">우수훈련기관</span>
-                      <span class="badge-tag badge-teal">{card.education_type}</span>
-                      <span class="badge-tag badge-neutral">{card.difficulty or '실무'}</span>
-                    </div>
-                    <div class="hrd-course-title">
-                      {card.title}
-                    </div>
-                    <div class="hrd-support-text">
-                      내일배움카드(재직자), 구직자도 수강 가능!
-                    </div>
-                    """, unsafe_allow_html=True)
-
-                    comp_badges_html = " ".join([
-                        f"<span class='badge-tag badge-primary'>🎯 {item['competency_name']} (보완 +{item.get('gap', 0.0):.1f}점)</span>"
-                        for item in card.linked_competencies
-                    ])
-                    st.markdown(f"<div style='margin-bottom: 0.4rem;'>{comp_badges_html}</div>", unsafe_allow_html=True)
-
-                    st.markdown(f"""
-                    <div class="hrd-reason-box">
-                      <strong>💡 추천 사유</strong>: {card.customer_recommendation_reason}
-                    </div>
-                    """, unsafe_allow_html=True)
-
-                    if card.text_richness_warning:
-                        st.caption(f"{card.text_richness_warning}")
-
-                with col_mid:
-                    st.markdown(f"""
-                    <div style="padding-top: 0.2rem;">
-                      <div class="hrd-meta-row">
-                        <span class="hrd-meta-icon">💰</span>
-                        <span><strong>정가 훈련비</strong>: {card.price_display}</span>
-                      </div>
-                      <div class="hrd-meta-row">
-                        <span class="hrd-meta-icon">📅</span>
-                        <span><strong>훈련 일정</strong>: 2026 하반기 상시 개강 (4회차)</span>
-                      </div>
-                      <div class="hrd-meta-row">
-                        <span class="hrd-meta-icon">⏱️</span>
-                        <span><strong>훈련 시간</strong>: {card.duration_display} (주 {bundle.filter_params.weekly_hours}시간 권장)</span>
-                      </div>
-                      <div class="hrd-meta-row">
-                        <span class="hrd-meta-icon">💻</span>
-                        <span><strong>형태/플랫폼</strong>: {card.education_type} (원격 실습/LMS)</span>
-                      </div>
-                      <div class="hrd-meta-row" style="color: #2563EB;">
-                        <span class="hrd-meta-icon">📈</span>
-                        <span><strong>NCS 역량 매칭 적합도</strong>: {match_pct:.1f}% ⓘ</span>
-                      </div>
-                    </div>
-                    """, unsafe_allow_html=True)
-
-                    if card.alternative_offerings:
-                        with st.expander(f"🔄 동일 강좌 대체 수강처 ({len(card.alternative_offerings)}개)"):
-                            for alt in card.alternative_offerings:
-                                suit_badge = "✅ 조건 부합" if alt["is_suitable_alternative"] else alt["unsuitability_reason"]
-                                st.markdown(f"- **[{alt['provider']}]** {alt['title']} | {alt['price_display']} | {alt['education_type']} ({suit_badge}) [바로가기]({alt['url']})")
-
-                with col_right:
-                    st.markdown(f"""
-                    <div class="hrd-status-recruiting">모집중</div>
-                    <div class="hrd-price-large">{price_main} <span style="font-size: 0.78rem; color: #2563EB; font-weight: 600;">{price_note}</span></div>
-                    <a href="{card.url}" target="_blank" class="hrd-action-btn-link" title="과정 상세페이지로 이동">
-                      본인부담액보기 ↗
+                    <a href="{card.url}" target="_blank" class="hrd-action-btn-link" title="해당 교육기관 강좌 상세페이지로 이동">
+                      교육 상세·신청 안내 ↗
                     </a>
                     """, unsafe_allow_html=True)
-
+                with act_c2:
                     if st.button(save_btn_label, key=f"{key_prefix}save_btn_{card.course_uid}", use_container_width=True):
                         if is_saved:
                             del st.session_state["saved_courses"][card.course_uid]
@@ -869,56 +1011,123 @@ def render_recommendation_view(bundle: CustomerRecommendationBundle, key_prefix:
                                 "status": "학습 예정",
                                 "notes": ""
                             }
-                            st.toast("관심 교육 목록에 저장되었습니다! ('나의 학습' 탭 확인)")
+                            st.toast("관심 교육 목록에 저장되었습니다! ('나의 학습' 탭에서 확인)")
                         st.rerun()
+                with act_c3:
+                    if st.button(cmp_btn_label, key=f"{key_prefix}cmp_btn_{card.course_uid}", use_container_width=True):
+                        if is_compared:
+                            del st.session_state["compared_courses"][card.course_uid]
+                            st.toast("비교 목록에서 제외되었습니다.")
+                        else:
+                            if len(st.session_state["compared_courses"]) >= 3:
+                                st.toast("⚠️ 비교는 최대 3개 강좌까지 가능합니다. 기존 강좌를 제외 후 추가해 주세요.")
+                            else:
+                                st.session_state["compared_courses"][card.course_uid] = card
+                                st.toast(f"비교 목록에 추가되었습니다. (현재 {len(st.session_state['compared_courses'])}/3개)")
+                        st.rerun()
+
+                # 상세 펼치기 (실제 커리큘럼 근거, 추천 근거의 한계, 동일 강좌의 다른 수강처, 확인된 일정과 출처)
+                with st.expander("🔍 상세 정보 및 추천 근거 확인 (커리큘럼 발췌·일정·출처)", expanded=False):
+                    st.markdown(f"• **실제 커리큘럼 근거**: {card.curriculum_evidence}")
+                    st.markdown(f"• **추천 근거의 한계**: {card.evidence_limitation}")
+                    st.markdown(f"• **확인된 일정**: {card.schedule_display}")
+                    st.markdown(f"• **정보 출처**: {card.source_display}")
+                    
+                    if card.alternative_offerings:
+                        st.markdown(f"• **동일 강좌의 다른 수강처 ({len(card.alternative_offerings)}개)**:")
+                        for alt in card.alternative_offerings:
+                            suit_badge = "✅ 조건 부합" if alt["is_suitable_alternative"] else alt["unsuitability_reason"]
+                            st.markdown(f"  - **[{alt['provider']}]** {alt['title']} | {alt['price_display']} | {alt['education_type']} ({suit_badge}) [바로가기]({alt['url']})")
+                    else:
+                        st.markdown("• **동일 강좌의 다른 수강처**: 타 플랫폼 중복 개설 내역 없음")
 
                 st.markdown('</div>', unsafe_allow_html=True)
 
+        # 우선 추천 3개 초과 시 더보기 / 접기 버튼
+        if len(courses_to_render) > 3:
+            if not is_show_all:
+                if st.button(f"추천 교육과정 더보기 ({len(courses_to_render) - 3}건 더보기) ∨", key=f"{key_prefix}btn_expand_more", use_container_width=True):
+                    st.session_state[show_all_key] = True
+                    st.rerun()
+            else:
+                if st.button("추천 교육과정 접기 (우선 추천 3개만 보기) ∧", key=f"{key_prefix}btn_collapse_more", use_container_width=True):
+                    st.session_state[show_all_key] = False
+                    st.rerun()
+
+
 # 메인 탭 네비게이션
 st.markdown('<div id="top-anchor"></div>', unsafe_allow_html=True)
-tab_assessment, tab_recommend, tab_my_learning = st.tabs([
+MAIN_TAB_OPTIONS = [
     "📋 내 역량 점검",
     "🎓 맞춤 교육",
     "📚 나의 학습"
-])
+]
+# target_tab 요청이 있으면 active_main_tab에 반영 (st.tabs 인스턴스화 전 처리)
+if "target_tab" in st.session_state and st.session_state["target_tab"]:
+    st.session_state["active_main_tab"] = st.session_state.pop("target_tab")
+
+if st.session_state.get("active_main_tab") not in MAIN_TAB_OPTIONS:
+    st.session_state["active_main_tab"] = "📋 내 역량 점검"
+
+tab_assessment, tab_recommend, tab_my_learning = st.tabs(
+    MAIN_TAB_OPTIONS,
+    default=st.session_state["active_main_tab"],
+    key="active_main_tab",
+    on_change="rerun"
+)
 
 # ------------------------------------------------------------------------------
 # TAB 1: 내 역량 점검 (내 업무 설정 -> 행동 점검 -> 결과 확인)
 # ------------------------------------------------------------------------------
 with tab_assessment:
     # 상단 샘플 모드 알림 또는 바로보기 안내
-    top_col1, top_col2 = st.columns([3, 1])
-    with top_col1:
-        if st.session_state["is_sample_mode"]:
-            st.markdown("""
-            <div class="callout-warning">
-              <strong>📢 [샘플 결과 미리보기 모드]</strong> 현재 표시된 데이터는 가상의 진단 결과 샘플입니다. 
-              실제 본인의 역량을 측정하시려면 아래 <strong>'새로 진단 시작'</strong> 버튼을 눌러주세요.
-            </div>
-            """, unsafe_allow_html=True)
-    with top_col2:
-        btn_sample_col1, btn_sample_col2 = st.columns(2)
-        with btn_sample_col1:
-            if st.button("👀 샘플 결과 보기", use_container_width=True, help="설문 작성 없이 예시 결과를 먼저 확인합니다."):
-                sample_res = get_sample_assessment_result(st.session_state.get("job_family", "인사"))
-                st.session_state["eval_result"] = sample_res
-                st.session_state["is_sample_mode"] = True
-                st.session_state["current_step"] = "STEP_RESULT"
-                # 추천 번들 즉시 생성
-                f_params = RecommendationFilterParams(
-                    price_filter=st.session_state["price_filter"],
-                    max_budget=st.session_state["max_budget"] if st.session_state["price_filter"] == "MAX_BUDGET" else None,
-                    edu_type=st.session_state["edu_type"],
-                    weekly_hours=st.session_state["weekly_hours"]
-                )
-                st.session_state["rec_bundle"] = get_recommendations_for_assessment(sample_res, f_params)
-                st.rerun()
-        with btn_sample_col2:
-            st.button("🔄 전체 초기화", on_click=reset_all_assessment, use_container_width=True)
+    if st.session_state["is_sample_mode"]:
+        render_sample_banner("tab1_top")
+        col_res1, col_res2 = st.columns([3.8, 1.2])
+        with col_res2:
+            st.button("🔄 전체 초기화", on_click=reset_all_assessment, use_container_width=True, key="reset_in_sample")
+    else:
+        top_col1, top_col2 = st.columns([3, 1.4])
+        with top_col1:
+            st.caption("💡 설문 작성이 부담스러우시다면 '샘플 결과 보기'로 진단 결과 및 추천 화면을 먼저 체험해 보세요.")
+        with top_col2:
+            btn_sample_col1, btn_sample_col2 = st.columns(2)
+            with btn_sample_col1:
+                if st.button("👀 샘플 결과 보기", use_container_width=True, help="설문 작성 없이 예시 결과를 먼저 확인합니다."):
+                    st.session_state["real_user_survey"] = copy.deepcopy(st.session_state.get("survey_responses", {}))
+                    st.session_state["real_user_targets"] = copy.deepcopy(st.session_state.get("target_levels", {}))
+                    st.session_state["real_user_eval"] = st.session_state.get("eval_result")
+                    st.session_state["real_user_bundle"] = st.session_state.get("rec_bundle")
+                    sample_res = get_sample_assessment_result(st.session_state.get("job_family", "인사"))
+                    st.session_state["eval_result"] = sample_res
+                    st.session_state["is_sample_mode"] = True
+                    st.session_state["current_step"] = "STEP_RESULT"
+                    st.session_state["scroll_to_result"] = True
+                    f_params = RecommendationFilterParams(
+                        price_filter=st.session_state["price_filter"],
+                        max_budget=st.session_state["max_budget"] if st.session_state["price_filter"] == "MAX_BUDGET" else None,
+                        edu_type=st.session_state["edu_type"],
+                        weekly_hours=st.session_state["weekly_hours"]
+                    )
+                    st.session_state["rec_bundle"] = get_recommendations_for_assessment(sample_res, f_params)
+                    st.rerun()
+            with btn_sample_col2:
+                st.button("🔄 전체 초기화", on_click=reset_all_assessment, use_container_width=True, key="reset_in_normal")
 
     # 1단계: 내 업무 설정 (프로필)
+    st.markdown('<div id="section-step1-profile"></div>', unsafe_allow_html=True)
+    if st.session_state.pop("scroll_to_step1", False):
+        st.markdown("""
+        <script>
+        setTimeout(function() {
+          const el = document.getElementById("section-step1-profile");
+          if (el) { el.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+        }, 200);
+        </script>
+        """, unsafe_allow_html=True)
     st.subheader("1. 나의 업무 설정")
-    with st.expander("💼 담당 직무 및 업무 환경 설정", expanded=(st.session_state["eval_result"] is None)):
+    step1_expanded = (st.session_state["eval_result"] is None) or st.session_state.get("scroll_to_step1", False)
+    with st.expander("💼 담당 직무 및 업무 환경 설정", expanded=step1_expanded):
         prof_col1, prof_col2 = st.columns(2)
         with prof_col1:
             job_choice = st.selectbox(
@@ -975,7 +1184,7 @@ with tab_assessment:
         st.caption("선택하신 업무는 부족 역량 진단 시 보완 우선순위(1순위) 산정에 반영됩니다.")
         
         job_tasks = get_tasks_for_job(st.session_state["job_family"])
-        task_opts = {t["task_id"]: f"{t['task_name']} (연계 역량: {t['primary_comp_id']})" for t in job_tasks}
+        task_opts = {t["task_id"]: t["task_name"] for t in job_tasks}
         
         selected_t_ids = st.multiselect(
             "수행 중인 세부 업무",
@@ -1018,6 +1227,21 @@ with tab_assessment:
     """, unsafe_allow_html=True)
 
     job_questions = get_questions_for_job(st.session_state["job_family"])
+
+    # 응답 진행 상태 표시 (무응답을 기본 3점으로 자동 처리하지 않음)
+    answered_cnt = sum(1 for q in job_questions if st.session_state["survey_responses"].get(q["question_id"]) is not None)
+    total_q_cnt = len(job_questions)
+    progress_pct = (answered_cnt / total_q_cnt * 100.0) if total_q_cnt > 0 else 0.0
+
+    st.markdown(f"**응답 진행 상태**: {answered_cnt} / {total_q_cnt} 문항 완료 ({progress_pct:.0f}%)")
+    st.progress(min(1.0, progress_pct / 100.0))
+
+    if st.session_state.get("stale_results") and st.session_state.get("eval_result") is not None:
+        st.markdown("""
+        <div class="callout-warning" style="margin-bottom: 1rem;">
+          ⚠️ <strong>설문 응답 또는 업무 설정이 변경되었습니다.</strong> 아래 [📊 역량 자기점검 결과 계산하기] 버튼을 눌러 결과를 다시 계산해 주세요.
+        </div>
+        """, unsafe_allow_html=True)
     
     with st.form("assessment_form"):
         # 역량별로 문항 묶어서 표시
@@ -1035,7 +1259,11 @@ with tab_assessment:
             ncs_code = master_info.get("ncs_unit_code", "참조 초안")
 
             st.markdown(f"#### 🔹 [{comp_name}] ({ksa_type} 역량)")
-            st.caption(f"정의: {master_info.get('definition', '')} | NCS 참조: {ncs_code} (초안)")
+            with st.expander(f"기준 자세히 보기 ({comp_name} 역량 정의 및 NCS 분류)", expanded=False):
+                st.markdown(f"""
+                • **역량 정의**: {master_info.get('definition', '')}<br>
+                • **NCS 분류 기준**: {ncs_code} (초안)
+                """, unsafe_allow_html=True)
 
             # 목표 수준 설정 슬라이더
             default_target = st.session_state["target_levels"].get(comp_id, 4.0)
@@ -1053,7 +1281,7 @@ with tab_assessment:
                 st.markdown(f"**Q. {q['question_text']}**")
                 st.caption(f"💡 구체적 행동 예시: {q.get('behavior_example', '')}")
 
-                prev_val = st.session_state["survey_responses"].get(qid, 3)
+                prev_val = st.session_state["survey_responses"].get(qid, None)
                 ans_options = [
                     "1점: 아직 직접 수행해본 적이 없다",
                     "2점: 매뉴얼이나 선배의 구체적인 도움을 받아 수행한다",
@@ -1064,8 +1292,8 @@ with tab_assessment:
                     "판단하기 어려움 (평가 제외)"
                 ]
 
-                # 기본 선택 인덱스 매핑
-                def_idx = 2  # 기본 3점
+                # 기본 선택 인덱스 매핑 (이전 응답이 없으면 선택하지 않은 상태 index=None 유지)
+                def_idx = None
                 if prev_val == 1: def_idx = 0
                 elif prev_val == 2: def_idx = 1
                 elif prev_val == 3: def_idx = 2
@@ -1082,13 +1310,14 @@ with tab_assessment:
                     label_visibility="collapsed"
                 )
 
-                if "1점" in chosen: form_responses[qid] = 1
-                elif "2점" in chosen: form_responses[qid] = 2
-                elif "3점" in chosen: form_responses[qid] = 3
-                elif "4점" in chosen: form_responses[qid] = 4
-                elif "5점" in chosen: form_responses[qid] = 5
-                elif "해당 업무 아님" in chosen: form_responses[qid] = "NA"
-                else: form_responses[qid] = "UNCERTAIN"
+                if chosen is not None:
+                    if "1점" in chosen: form_responses[qid] = 1
+                    elif "2점" in chosen: form_responses[qid] = 2
+                    elif "3점" in chosen: form_responses[qid] = 3
+                    elif "4점" in chosen: form_responses[qid] = 4
+                    elif "5점" in chosen: form_responses[qid] = 5
+                    elif "해당 업무 아님" in chosen: form_responses[qid] = "NA"
+                    elif "판단하기 어려움" in chosen: form_responses[qid] = "UNCERTAIN"
 
             st.markdown("---")
 
@@ -1131,6 +1360,16 @@ with tab_assessment:
     # 3단계: 결과 확인 (현재 수준 vs 목표 수준 vs 갭 분석)
     eval_res: Optional[AssessmentEvaluationResult] = st.session_state.get("eval_result")
     if eval_res is not None:
+        st.markdown('<div id="result-summary-section"></div>', unsafe_allow_html=True)
+        if st.session_state.pop("scroll_to_result", False):
+            st.markdown("""
+            <script>
+            setTimeout(function() {
+              const el = document.getElementById("result-summary-section");
+              if (el) { el.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+            }, 300);
+            </script>
+            """, unsafe_allow_html=True)
         st.subheader("3. 역량 점검 결과 및 보완 우선순위")
 
         # 입력값 변경 시 오래된 결과 알림
@@ -1152,7 +1391,7 @@ with tab_assessment:
         # 결과 요약 지표 카드
         m_col1, m_col2, m_col3, m_col4 = st.columns(4)
         with m_col1:
-            st.metric("진단 직무", eval_res.job_family)
+            st.metric("진단 직무", f"{eval_res.job_family} ({eval_res.career_range})")
         with m_col2:
             st.metric("유효 평가 역량", f"{eval_res.overall_summary['valid_competencies_count']}개")
         with m_col3:
@@ -1160,8 +1399,58 @@ with tab_assessment:
         with m_col4:
             st.metric("정보 부족 역량", f"{eval_res.overall_summary['insufficient_count']}개")
 
-        # 시각화: 현재 수준(자기평가) vs 목표 수준(사용자설정) 가로 막대 차트
-        st.markdown("##### 📊 역량별 현재 자기평가 vs 설정 목표 수준 비교")
+        # 1. 최상단 배치: 우선 보완할 핵심 역량 (최대 3개)
+        st.markdown("##### 🚀 우선 보완할 핵심 역량 (최대 3개)")
+        if eval_res.prioritized_deficiencies:
+            for cs in eval_res.prioritized_deficiencies:
+                task_badge = '<span class="badge-tag badge-teal" style="margin-left:0.35rem;">💼 수행 업무 연계</span>' if cs.is_task_related else ''
+                reason_desc = (
+                    "사용자의 실제 수행 업무와 직접 연관되어 있으며, 목표 수준과의 차이가 가장 커 우선적인 보완이 시급합니다."
+                    if cs.is_task_related else
+                    "설정하신 목표 수준 대비 자기평가 차이가 커 집중적인 보완 학습이 권장됩니다."
+                )
+
+                card_c1, card_c2 = st.columns([3.8, 1.2])
+                with card_c1:
+                    card_html = (
+                        '<div class="customer-card" style="margin-bottom: 0.5rem;">'
+                        '<div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem; flex-wrap: wrap; gap: 0.4rem;">'
+                        f'<div><span class="badge-tag badge-primary">우선순위 {cs.priority_rank}위</span>{task_badge}'
+                        f'<span style="font-size: 1.15rem; font-weight: 800; margin-left: 0.35rem; color: #0F172A;">[{cs.competency_name}]</span></div>'
+                        f'<div><span style="font-size: 0.92rem; font-weight: 600; color: #4F46E5;">'
+                        f'현재 자기평가 {cs.current_level:.1f}점 ➔ 목표 {cs.target_level:.1f}점 (목표와의 차이: <strong>{cs.gap:.1f}점</strong>)</span></div>'
+                        '</div>'
+                        f'<div style="font-size: 0.88rem; color: #475569; line-height: 1.6;">'
+                        f'• <strong>역량 설명</strong>: {cs.description}<br>'
+                        f'• <strong>우선순위 선정 이유</strong>: {reason_desc}<br>'
+                        f'• <strong>응답 현황</strong>: 총 {cs.total_question_count}문항 중 유효 응답 {cs.valid_response_count}문항 (유효 평가 완료)'
+                        '</div>'
+                        '</div>'
+                    )
+                    st.markdown(card_html, unsafe_allow_html=True)
+                with card_c2:
+                    st.markdown("<div style='padding-top: 1.3rem;'></div>", unsafe_allow_html=True)
+                    if st.button("🎓 이 역량 교육 보기", key=f"btn_see_comp_rec_{cs.competency_id}", use_container_width=True):
+                        st.session_state["selected_competency_filter"] = cs.competency_id
+                        switch_main_tab("🎓 맞춤 교육")
+        elif eval_res.overall_summary['valid_competencies_count'] == 0:
+            st.markdown("""
+            <div class="callout-warning" style="border-left-color: #E11D48; background: #FFF1F2; color: #9F1239; margin: 1rem 0;">
+              ⚠️ <strong>모든 역량 문항에 유효 응답이 부족하여 진단 기반 추천을 확정할 수 없습니다.</strong><br>
+              모든 문항에서 '해당 업무 아님' 또는 '판단하기 어려움'이 선택되어 점수와 역량 차이를 산출할 수 없습니다.<br>
+              상단의 <strong>'2. 핵심 역량 자기점검'</strong> 문항에서 1~5점 척도로 본인의 행동 수준을 응답하신 후 [📊 역량 자기점검 결과 계산하기]를 다시 눌러주세요.
+            </div>
+            """, unsafe_allow_html=True)
+        else:
+            st.markdown("""
+            <div class="callout-info">
+              🎉 <strong>축하합니다!</strong> 설정하신 모든 목표 수준을 이미 달성하셨거나 역량 차이가 없습니다.<br>
+              부족한 역량을 임의로 생성하지 않으며, 현재의 전문성을 유지·심화할 수 있는 <strong>심화·전문가 과정</strong>을 맞춤 추천합니다.
+            </div>
+            """, unsafe_allow_html=True)
+
+        # 2. 역량별 비교 차트 (동일 1~5 척도 기준 가로 막대 차트, 정보 부족 항목은 0점으로 그리지 않고 제외)
+        st.markdown("##### 📊 역량별 현재 자기평가 vs 설정 목표 수준 비교 (1~5점 척도)")
         chart_comps = []
         curr_scores = []
         target_scores = []
@@ -1198,131 +1487,226 @@ with tab_assessment:
                 barmode="group",
                 height=260 + len(chart_comps) * 35,
                 margin=dict(l=20, r=20, t=25, b=25),
-                xaxis=dict(range=[0, 5.2], title="역량 점수 (5점 척도)", dtick=1.0),
+                xaxis=dict(range=[0, 5.2], title="역량 점수 (5점 척도 기준)", dtick=1.0),
                 yaxis=dict(autorange="reversed"),
                 legend=dict(orientation="h", yanchor="bottom", y=1.02, xanchor="right", x=1)
             )
             st.plotly_chart(fig, use_container_width=True)
 
-        # 정보 부족 역량 안내
+        # 정보 부족 역량 안내 (0점으로 왜곡하지 않고 별도 격리 안내)
         if eval_res.insufficient_competencies:
-            ins_names = [f"[{cs.competency_name}]" for cs in eval_res.insufficient_competencies]
+            ins_names = [f"[{cs.competency_name}] (유효 응답 {cs.valid_response_count}/{cs.total_question_count}문항)" for cs in eval_res.insufficient_competencies]
             st.markdown(f"""
             <div class="callout-warning">
               ⚠️ <strong>정보 부족 항목 ({len(eval_res.insufficient_competencies)}건)</strong>: {', '.join(ins_names)}<br>
               '해당 업무 아님' 또는 '판단 어려움'으로 인해 유효 응답이 2문항 미만입니다. 
-              점수를 확정하거나 부족 역량으로 판정하지 않았으며, 추가 응답 시 정확한 진단이 가능합니다.
+              점수를 0점으로 왜곡하여 비교하지 않고 차트 및 부족 판정에서 제외했습니다. 상단 설문에서 추가 응답 시 정확한 진단이 가능합니다.
             </div>
             """, unsafe_allow_html=True)
 
-        # 우선 보완할 핵심 역량 Top 3 카드
-        st.markdown("##### 🚀 우선 보완할 역량 (최대 3개)")
-        if eval_res.prioritized_deficiencies:
-            for cs in eval_res.prioritized_deficiencies:
-                task_badge = '<span class="badge-tag badge-teal" style="margin-left:0.35rem;">💼 수행 업무 연계</span>' if cs.is_task_related else ''
-                reason_desc = "사용자의 실제 수행 업무와 직접 연관되어 있으며, 목표 수준 대비 역량 차이가 가장 큽니다." if cs.is_task_related else "목표 수준 대비 역량 차이가 가장 크며, 우선적인 보완 학습이 권장됩니다."
-                
-                card_html = (
-                    '<div class="customer-card">'
-                    '<div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.6rem; flex-wrap: wrap; gap: 0.5rem;">'
-                    f'<div><span class="badge-tag badge-primary">우선순위 {cs.priority_rank}위</span>{task_badge}'
-                    f'<span style="font-size: 1.15rem; font-weight: 700; margin-left: 0.3rem; color: #0F172A;">[{cs.competency_name}]</span></div>'
-                    f'<div><span style="font-size: 0.95rem; font-weight: 600; color: #4F46E5;">'
-                    f'현재 {cs.current_level:.1f}점 ➔ 목표 {cs.target_level:.1f}점 (보완 필요: <strong>+{cs.gap:.1f}점</strong>)</span></div>'
-                    '</div>'
-                    f'<div style="font-size: 0.88rem; color: #475569; line-height: 1.6;">'
-                    f'• <strong>역량 설명</strong>: {cs.description}<br>'
-                    f'• <strong>보완 추천 이유</strong>: {reason_desc}'
-                    '</div>'
-                    '</div>'
-                )
-                st.markdown(card_html, unsafe_allow_html=True)
-        else:
+        # 3. 진단 결과 하단: 맞춤 교육 이동 안내 및 결과 다운로드 (교육 목록은 맞춤 교육 탭으로 완전 분리)
+        if eval_res.overall_summary['valid_competencies_count'] > 0:
             st.markdown("""
-            <div class="callout-info">
-              🎉 <strong>축하합니다!</strong> 설정하신 모든 목표 수준을 이미 달성하셨거나 역량 차이가 없습니다.<br>
-              부족한 역량을 억지로 생성하지 않으며, 현재의 전문성을 유지·심화할 수 있는 <strong>심화·전문가 과정</strong>을 맞춤 추천합니다.
-            </div>
-            """, unsafe_allow_html=True)
-
-        # 하단 맞춤 교육 섹션 (진단 결과 화면에서 스크롤만 내리면 즉시 확인 가능!)
-        st.markdown('<div id="recommendation-section" style="margin-top: 2rem;"></div>', unsafe_allow_html=True)
-        rec_bundle = st.session_state.get("rec_bundle")
-        if rec_bundle:
-            st.markdown("""
-            <div style="background: linear-gradient(135deg, #1E3A8A 0%, #1D4ED8 100%); color: #FFFFFF; padding: 1.4rem 1.8rem; border-radius: 12px; margin-bottom: 1.5rem; box-shadow: 0 4px 14px rgba(29, 78, 216, 0.25);">
-              <div style="font-size: 1.35rem; font-weight: 800; margin-bottom: 0.35rem; color: #FFFFFF;">🎓 내 역량 갭 기반 맞춤 훈련과정 추천</div>
-              <div style="font-size: 0.92rem; color: #DBEAFE; line-height: 1.5;">
-                진단 결과 도출된 보완 필요 역량을 채워줄 수 있는 최적의 국민내일배움카드 훈련과정입니다.<br>
-                다른 탭으로 이동할 필요 없이, 아래 목록에서 바로 강좌 상세 정보를 확인하고 관심 교육에 저장할 수 있습니다.
+            <div style="background: #EFF6FF; border: 1.5px solid #BFDBFE; border-radius: 12px; padding: 1.25rem 1.6rem; margin-top: 1.6rem; margin-bottom: 1rem;">
+              <div style="font-size: 1.18rem; font-weight: 800; color: #1E3A8A; margin-bottom: 0.35rem;">
+                선택한 보완 역량에 맞는 교육을 확인해보세요
+              </div>
+              <div style="font-size: 0.9rem; color: #475569; line-height: 1.6;">
+                진단 결과 도출된 우선 보완 역량을 채워줄 수 있는 검증된 교육과정이 준비되어 있습니다.<br>
+                아래 버튼을 누르면 <strong>'🎓 맞춤 교육'</strong> 탭으로 이동하여 추천 강좌, 커리큘럼 근거, 교육기관 일정을 확인하고 비교할 수 있습니다.
               </div>
             </div>
             """, unsafe_allow_html=True)
-            render_recommendation_view(rec_bundle, key_prefix="t1_inline_")
+
+            bot_c1, bot_c2 = st.columns([1.6, 1.4])
+            with bot_c1:
+                if st.button("🎓 내 역량에 맞는 교육 보기", type="primary", use_container_width=True, key="btn_go_to_matched_tab"):
+                    st.session_state["selected_competency_filter"] = "ALL"
+                    switch_main_tab("🎓 맞춤 교육")
+            with bot_c2:
+                # 결과 다운로드 기능 (실제 작동하는 텍스트 요약 파일 생성)
+                summary_lines = [
+                    "=== 실무 역량 자기점검 결과 요약 ===",
+                    f"진단 직무: {eval_res.job_family} ({eval_res.career_range})",
+                    f"학습 목표: {eval_res.learning_goal}",
+                    f"유효 평가 역량: {eval_res.overall_summary['valid_competencies_count']}개 | 정보 부족 역량: {eval_res.overall_summary['insufficient_count']}개",
+                    "",
+                    "■ 우선 보완 필요 역량:"
+                ]
+                if eval_res.prioritized_deficiencies:
+                    for cs in eval_res.prioritized_deficiencies:
+                        summary_lines.append(f"- [{cs.competency_name}] 현재 자기평가 {cs.current_level:.1f}점 -> 목표 {cs.target_level:.1f}점 (차이 {cs.gap:.1f}점)")
+                else:
+                    summary_lines.append("- 설정된 모든 목표 수준 달성 (심화 학습 대상)")
+                summary_lines.append("\n■ 역량별 세부 점수 현황:")
+                for cid, cs in eval_res.competency_scores.items():
+                    if not cs.is_insufficient:
+                        summary_lines.append(f"- {cs.competency_name}: 현재 {cs.current_level:.1f}점 / 목표 {cs.target_level:.1f}점 (차이 {cs.gap:.1f}점)")
+                    else:
+                        summary_lines.append(f"- {cs.competency_name}: 정보 부족 (유효 응답 2문항 미만)")
+                
+                res_txt = "\n".join(summary_lines)
+                st.download_button(
+                    "📥 진단 결과 텍스트 요약 다운로드",
+                    data=res_txt,
+                    file_name=f"역량자기점검결과_{eval_res.job_family}.txt",
+                    mime="text/plain",
+                    use_container_width=True,
+                    key="btn_download_eval_summary"
+                )
 
 # ------------------------------------------------------------------------------
 # TAB 2: 맞춤 교육 추천 (부족 역량 기반 강좌 카드, 대체 수강처, 상세 비교)
 # ------------------------------------------------------------------------------
 with tab_recommend:
+    render_sample_banner("tab2")
     bundle: Optional[CustomerRecommendationBundle] = st.session_state.get("rec_bundle")
     
     if bundle is None:
-        st.info("먼저 **'📋 내 역량 점검'** 탭에서 진단을 진행하시거나 '샘플 결과 보기'를 선택해 주세요.")
+        st.markdown("""
+        <div style="text-align: center; padding: 2.5rem 1.5rem; background: #F8FAFC; border-radius: 12px; border: 1px dashed #CBD5E1; margin: 1.5rem 0;">
+          <div style="font-size: 2.2rem; margin-bottom: 0.8rem;">📋</div>
+          <div style="font-size: 1.25rem; font-weight: 800; color: #0F172A; margin-bottom: 0.5rem;">
+            역량 점검을 완료하면 맞춤 교육을 확인할 수 있어요
+          </div>
+          <div style="font-size: 0.92rem; color: #64748B; max-width: 500px; margin: 0 auto 1.5rem auto; line-height: 1.6;">
+            현재 수행 중인 업무와 핵심 역량 자기평가를 입력하시면, 목표 수준과의 차이를 분석하여 보완이 필요한 최적의 실제 교육과정을 추천해 드립니다.
+          </div>
+        </div>
+        """, unsafe_allow_html=True)
+        if st.button("🚀 내 역량 점검 시작", type="primary", use_container_width=True, key="btn_start_from_rec_empty"):
+            st.session_state["scroll_to_step1"] = True
+            switch_main_tab("📋 내 역량 점검")
     else:
+        # 응답/목표가 변경된 경우 이전 추천 불일치 안내 & 재계산
+        if st.session_state.get("stale_results"):
+            st.markdown("""
+            <div class="callout-warning" style="border-left-color: #E11D48; background: #FFF1F2; color: #9F1239; margin-bottom: 1.2rem;">
+              ⚠️ <strong>[추천 갱신 필요]</strong><br>
+              설문 응답 또는 업무 조건이 변경되었습니다. 현재 표시된 추천은 이전 진단 기준입니다. 
+              최신 진단 결과를 반영한 교육을 확인하시려면 아래 버튼을 눌러주세요.
+            </div>
+            """, unsafe_allow_html=True)
+            if st.button("📊 최신 결과로 재계산하기", type="primary", key="btn_recalc_in_rec", use_container_width=True):
+                st.session_state["stale_results"] = False
+                eval_res = calculate_competency_scores(
+                    job_family=st.session_state["job_family"],
+                    responses=st.session_state["survey_responses"],
+                    target_levels=st.session_state["target_levels"],
+                    user_task_ids=st.session_state["selected_tasks"],
+                    career_range=st.session_state["career_range"],
+                    difficult_task_desc=st.session_state["difficult_task"],
+                    learning_goal=st.session_state["learning_goal"],
+                    is_sample=st.session_state.get("is_sample_mode", False)
+                )
+                st.session_state["eval_result"] = eval_res
+                f_params = RecommendationFilterParams(
+                    price_filter=st.session_state["price_filter"],
+                    max_budget=st.session_state["max_budget"] if st.session_state["price_filter"] == "MAX_BUDGET" else None,
+                    edu_type=st.session_state["edu_type"],
+                    weekly_hours=st.session_state["weekly_hours"]
+                )
+                st.session_state["rec_bundle"] = get_recommendations_for_assessment(eval_res, f_params)
+                st.toast("최신 조건으로 교육 추천이 갱신되었습니다.")
+                st.rerun()
+
+        # 상단 헤더 컨트롤: 진단 결과 다시 보기 & 맞춤 교육 타이틀
+        top_hdr1, top_hdr2 = st.columns([3.5, 1.5])
+        with top_hdr1:
+            st.markdown("### 🎓 내 보완 역량에 맞는 교육")
+            st.caption("진단 결과 도출된 역량 차이와 설정하신 학습 조건을 반영한 실제 교육과정입니다.")
+        with top_hdr2:
+            st.markdown("<div style='padding-top: 0.35rem;'></div>", unsafe_allow_html=True)
+            if st.button("📋 진단 결과 다시 보기", key="btn_back_to_eval_from_rec", use_container_width=True):
+                st.session_state["scroll_to_result"] = True
+                switch_main_tab("📋 내 역량 점검")
+
+        # 상단 요약 박스: 이번 추천에 반영한 역량과 적용한 학습 조건
+        eval_obj = st.session_state.get("eval_result")
+        comp_summary_items = []
+        if eval_obj:
+            if eval_obj.prioritized_deficiencies:
+                comp_summary_items = [f"<strong>{cs.competency_name}</strong>(차이 {cs.gap:.1f}점)" for cs in eval_obj.prioritized_deficiencies]
+            elif eval_obj.zero_gap_competencies:
+                comp_summary_items = [f"<strong>{cs.competency_name}</strong>(전문성 심화)" for cs in eval_obj.zero_gap_competencies[:3]]
+        
+        comp_summary_text = ", ".join(comp_summary_items) if comp_summary_items else "진단 결과 연계"
+        p_text = "무료 과정만" if st.session_state["price_filter"] == "FREE_ONLY" else (f"{st.session_state['max_budget']:,}원 이하" if st.session_state.get('max_budget') else "전체(유료+무료)")
+        e_text = "온라인 우선" if st.session_state["edu_type"] == "ONLINE" else ("오프라인 우선" if st.session_state["edu_type"] == "OFFLINE" else "전체")
+
+        st.markdown(f"""
+        <div style="background: #F8FAFC; border: 1px solid #E2E8F0; border-radius: 8px; padding: 0.75rem 1rem; margin-bottom: 1.2rem; font-size: 0.88rem; line-height: 1.6; color: #334155;">
+          • <strong>이번 추천에 반영한 역량</strong>: {comp_summary_text}<br>
+          • <strong>적용한 학습 조건</strong>: 직무 {bundle.job_family} | 교육형태: {e_text} | 수강료: {p_text} | 주당 학습: {st.session_state['weekly_hours']}시간
+        </div>
+        """, unsafe_allow_html=True)
+
         render_recommendation_view(bundle, key_prefix="t2_main_")
 
 # ------------------------------------------------------------------------------
-# TAB 3: 나의 학습 (저장된 관심 강좌 관리, 최대 3개 비교, 재점검 히스토리)
+# TAB 3: 나의 학습 (선택 강좌 나란히 비교, 저장된 관심 강좌 관리, 재점검 히스토리)
 # ------------------------------------------------------------------------------
 with tab_my_learning:
+    render_sample_banner("tab3")
     st.subheader("📚 나의 학습 관리함")
     
     st.markdown("""
     <div class="callout-info">
-      💡 <strong>세션 안내</strong>: 본 서비스는 로그인 없이 브라우저 세션 단위로 보관함이 유지됩니다.<br>
+      💡 <strong>세션 안내</strong>: 본 서비스는 로그인 없이 브라우저 세션 단위로 보관함 및 비교함이 유지됩니다.<br>
       새로고침 시 임시 데이터가 초기화될 수 있으므로, 관심 있는 교육의 상세 링크를 북마크해 두시길 권장합니다.
     </div>
     """, unsafe_allow_html=True)
 
+    compared_dict = st.session_state.get("compared_courses", {})
     saved_dict = st.session_state.get("saved_courses", {})
 
-    if not saved_dict:
-        st.info("아직 관심 교육으로 저장된 강좌가 없습니다. '맞춤 교육' 탭에서 원하는 강좌의 [관심 교육 저장] 버튼을 눌러보세요.")
+    # 1. 강좌 상세 비교 (최대 3개 나란히 비교 - compared_courses 기반)
+    st.markdown(f"##### ⚖️ 선택 강좌 나란히 비교 (현재 {len(compared_dict)}/3개 담김)")
+    if not compared_dict:
+        st.info("💡 추천 강좌 카드에서 **[📊 비교에 추가]** 버튼을 클릭하시면 최대 3개 강좌를 여기서 나란히 비교할 수 있습니다.")
     else:
-        st.markdown(f"**현재 저장된 관심 교육 ({len(saved_dict)}개)**")
-
-        # 최대 3개 강좌 나란히 비교
-        with st.expander("⚖️ 관심 강좌 상세 비교 (최대 3개)", expanded=True):
-            compare_uids = list(saved_dict.keys())[:3]
-            cols = st.columns(len(compare_uids))
-            for idx, c_uid in enumerate(compare_uids):
-                item = saved_dict[c_uid]
-                c_card: RecommendedCourseCard = item["card"]
-                with cols[idx]:
+        with st.container():
+            cmp_cols = st.columns(len(compared_dict))
+            for idx, (c_uid, c_card) in enumerate(list(compared_dict.items())):
+                with cmp_cols[idx]:
                     st.markdown(f"""
-                    <div class="customer-card">
-                      <div style="font-weight: 700; font-size: 1.05rem; margin-bottom: 0.5rem; height: 3.2rem; overflow: hidden;">
+                    <div class="customer-card" style="height: 100%; border: 1.5px solid #2563EB;">
+                      <div style="font-weight: 800; font-size: 1.02rem; margin-bottom: 0.4rem; height: 3.2rem; overflow: hidden; line-height: 1.35; color: #0F172A;">
                         {c_card.title}
                       </div>
-                      <div style="font-size: 0.85rem; color: #475569; line-height: 1.6;">
+                      <div style="font-size: 0.85rem; color: #475569; line-height: 1.6; margin-bottom: 0.5rem;">
                         • <strong>기관</strong>: {c_card.provider}<br>
                         • <strong>비용</strong>: {c_card.price_display}<br>
                         • <strong>시간</strong>: {c_card.duration_display}<br>
                         • <strong>형태</strong>: {c_card.education_type}<br>
-                        • <strong>보완 역량</strong>: {c_card.primary_competency_name}
+                        • <strong>보완 역량</strong>: {c_card.primary_competency_name}<br>
+                        • <strong>일정</strong>: {c_card.schedule_display}
+                      </div>
+                      <div style="font-size: 0.8rem; color: #1E3A8A; background: #EFF6FF; padding: 0.45rem; border-radius: 4px; margin-bottom: 0.5rem;">
+                        {c_card.goal_connection}
                       </div>
                     </div>
                     """, unsafe_allow_html=True)
-                    st.markdown(f"[🔗 상세 페이지 바로가기]({c_card.url})")
+                    st.markdown(f"<a href='{c_card.url}' target='_blank' style='display:block; text-align:center; font-size:0.85rem; font-weight:700; color:#2563EB; margin:0.3rem 0;'>교육 상세·신청 안내 ↗</a>", unsafe_allow_html=True)
+                    if st.button("비교에서 제외", key=f"btn_my_remove_cmp_{c_uid}", use_container_width=True):
+                        del st.session_state["compared_courses"][c_uid]
+                        st.toast("비교 목록에서 제외되었습니다.")
+                        st.rerun()
 
-        # 강좌별 학습 상태 관리 및 메모
-        st.markdown("##### 📝 학습 진도 상태 & 개인 메모")
+    st.markdown("---")
+
+    # 2. 관심 교육 보관함 (saved_courses 기반)
+    st.markdown(f"##### ⭐ 관심 교육 보관함 (현재 {len(saved_dict)}개 저장됨)")
+    if not saved_dict:
+        st.info("💡 추천 강좌 카드에서 **[☆ 관심 교육 저장]** 버튼을 누르시면 여기에 강좌가 보관되어 학습 메모와 진도를 관리할 수 있습니다.")
+    else:
         for c_uid, item in list(saved_dict.items()):
             c_card: RecommendedCourseCard = item["card"]
             with st.container():
                 st_col1, st_col2, st_col3 = st.columns([3, 1.5, 1])
                 with st_col1:
                     st.markdown(f"**{c_card.title}** ({c_card.provider})")
+                    st.markdown(f"<a href='{c_card.url}' target='_blank' style='font-size:0.85rem; color:#2563EB; font-weight:600;'>교육 상세·신청 안내 ↗</a>", unsafe_allow_html=True)
                     memo_input = st.text_input(
                         "개인 학습 메모",
                         value=item.get("notes", ""),
@@ -1341,7 +1725,7 @@ with tab_my_learning:
                     item["status"] = status_choice
                 with st_col3:
                     st.markdown("<br>", unsafe_allow_html=True)
-                    if st.button("🗑️ 보관함 삭제", key=f"del_saved_{c_uid}"):
+                    if st.button("🗑️ 보관함 삭제", key=f"del_saved_{c_uid}", use_container_width=True):
                         del st.session_state["saved_courses"][c_uid]
                         st.rerun()
                 st.markdown("---")
