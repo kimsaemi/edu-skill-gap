@@ -233,6 +233,7 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 # 메인 탭 네비게이션
+st.markdown('<div id="top-anchor"></div>', unsafe_allow_html=True)
 tab_assessment, tab_recommend, tab_my_learning = st.tabs([
     "📋 내 역량 점검",
     "🎓 맞춤 교육",
@@ -576,27 +577,24 @@ with tab_assessment:
         st.markdown("##### 🚀 우선 보완할 역량 (최대 3개)")
         if eval_res.prioritized_deficiencies:
             for cs in eval_res.prioritized_deficiencies:
-                task_badge = '<span class="badge-tag badge-teal">💼 수행 업무 연계</span>' if cs.is_task_related else ''
-                st.markdown(f"""
-                <div class="customer-card">
-                  <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
-                    <div>
-                      <span class="badge-tag badge-primary">우선순위 {cs.priority_rank}위</span>
-                      {task_badge}
-                      <span style="font-size: 1.15rem; font-weight: 700;">[{cs.competency_name}]</span>
-                    </div>
-                    <div>
-                      <span style="font-size: 0.95rem; font-weight: 600; color: #4F46E5;">
-                        현재 {cs.current_level:.1f}점 ➔ 목표 {cs.target_level:.1f}점 (보완 필요: <strong>+{cs.gap:.1f}점</strong>)
-                      </span>
-                    </div>
-                  </div>
-                  <div style="font-size: 0.88rem; color: #475569; line-height: 1.5;">
-                    • <strong>역량 설명</strong>: {cs.description}<br>
-                    • <strong>보완 추천 이유</strong>: 사용자의 실제 수행 업무와 직접 연관되어 있으며, 목표 수준 대비 역량 차이가 가장 큽니다.
-                  </div>
-                </div>
-                """, unsafe_allow_html=True)
+                task_badge = '<span class="badge-tag badge-teal" style="margin-left:0.35rem;">💼 수행 업무 연계</span>' if cs.is_task_related else ''
+                reason_desc = "사용자의 실제 수행 업무와 직접 연관되어 있으며, 목표 수준 대비 역량 차이가 가장 큽니다." if cs.is_task_related else "목표 수준 대비 역량 차이가 가장 크며, 우선적인 보완 학습이 권장됩니다."
+                
+                card_html = (
+                    '<div class="customer-card">'
+                    '<div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.6rem; flex-wrap: wrap; gap: 0.5rem;">'
+                    f'<div><span class="badge-tag badge-primary">우선순위 {cs.priority_rank}위</span>{task_badge}'
+                    f'<span style="font-size: 1.15rem; font-weight: 700; margin-left: 0.3rem; color: #0F172A;">[{cs.competency_name}]</span></div>'
+                    f'<div><span style="font-size: 0.95rem; font-weight: 600; color: #4F46E5;">'
+                    f'현재 {cs.current_level:.1f}점 ➔ 목표 {cs.target_level:.1f}점 (보완 필요: <strong>+{cs.gap:.1f}점</strong>)</span></div>'
+                    '</div>'
+                    f'<div style="font-size: 0.88rem; color: #475569; line-height: 1.6;">'
+                    f'• <strong>역량 설명</strong>: {cs.description}<br>'
+                    f'• <strong>보완 추천 이유</strong>: {reason_desc}'
+                    '</div>'
+                    '</div>'
+                )
+                st.markdown(card_html, unsafe_allow_html=True)
         else:
             st.markdown("""
             <div class="callout-info">
@@ -605,7 +603,48 @@ with tab_assessment:
             </div>
             """, unsafe_allow_html=True)
 
-        st.info("💡 위 진단 결과에 맞는 실제 추천 교육을 확인하시려면 상단 **'🎓 맞춤 교육'** 탭을 클릭해 주세요.")
+        # 하단 맞춤 교육 탭 상단 이동 및 탭 전환 버튼
+        st.markdown("""
+        <div style="margin: 2.5rem 0 1.5rem 0; text-align: center; background: #F8FAFC; border: 1px dashed #CBD5E1; border-radius: 16px; padding: 1.8rem 1.2rem;">
+          <div style="font-size: 1.05rem; font-weight: 700; color: #1E293B; margin-bottom: 0.5rem;">
+            🎯 내 역량 갭에 맞는 실제 교육과정이 준비되어 있습니다
+          </div>
+          <div style="font-size: 0.88rem; color: #64748B; margin-bottom: 1.2rem;">
+            아래 버튼을 누르면 페이지 상단으로 이동하며 <strong>'🎓 맞춤 교육'</strong> 탭이 자동으로 열립니다.
+          </div>
+          <a href="#top-anchor" onclick="
+            try {
+              const doc = (window.parent && window.parent.document) ? window.parent.document : document;
+              const win = window.parent || window;
+              const tabs = doc.querySelectorAll('button[data-baseweb=\\'tab\\']');
+              if (tabs && tabs.length >= 2) {
+                tabs[1].click();
+              }
+              win.scrollTo({top: 0, behavior: 'smooth'});
+            } catch (err) {
+              console.log(err);
+            }
+          " style="
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.6rem;
+            background: linear-gradient(135deg, #4F46E5 0%, #3730A3 100%);
+            color: #FFFFFF !important;
+            font-weight: 700;
+            font-size: 1.05rem;
+            padding: 0.95rem 2.4rem;
+            border-radius: 12px;
+            text-decoration: none;
+            box-shadow: 0 4px 16px rgba(79, 70, 229, 0.38);
+            transition: all 0.2s ease;
+            cursor: pointer;
+          ">
+            <span>🎓 맞춤 교육 추천 강좌 바로 확인하기</span>
+            <span style="font-size: 1.2rem;">➔</span>
+          </a>
+        </div>
+        """, unsafe_allow_html=True)
 
 # ------------------------------------------------------------------------------
 # TAB 2: 맞춤 교육 추천 (부족 역량 기반 강좌 카드, 대체 수강처, 상세 비교)
