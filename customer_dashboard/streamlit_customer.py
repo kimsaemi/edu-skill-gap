@@ -711,29 +711,6 @@ with tab_recommend:
             </div>
             """, unsafe_allow_html=True)
 
-        # 진단 연계 및 추천 요청 추적 (Traceability)
-        with st.expander("🔍 진단 연계 및 추천 파라미터 추적 (Traceability)", expanded=False):
-            t_eval = st.session_state.get("eval_result")
-            if t_eval:
-                st.markdown(f"**진단 직무**: `{t_eval.job_family}` | **경력 구간**: `{t_eval.career_range}`")
-                st.markdown(f"**수행 업무(선택)**: {', '.join(t_eval.selected_tasks) if t_eval.selected_tasks else '선택 안 함'}")
-                if t_eval.difficult_task_desc:
-                    st.markdown(f"**어려운 업무(입력)**: _{t_eval.difficult_task_desc}_")
-                if t_eval.learning_goal:
-                    st.markdown(f"**학습 목표(입력)**: _{t_eval.learning_goal}_")
-                
-                st.markdown("**보완 대상 역량 및 갭 분석 결과**:")
-                for cs in t_eval.prioritized_deficiencies:
-                    st.markdown(f"- 🎯 **[{cs.competency_id}] {cs.competency_name}**: 현재 {cs.current_level:.1f}점 ➔ 목표 {cs.target_level:.1f}점 (보완 필요: **+{cs.gap:.1f}점**) | 업무 매핑: `{cs.is_task_related}`")
-                
-                st.markdown("**공통 추천 엔진(UnifiedHybridRecommender) 전달 파라미터**:")
-                st.markdown(
-                    f"- 모드: `KSA 역량 모드 (mode='ksa')`\n"
-                    f"- 수강료 필터: `{bundle.filter_params.price_filter}` (최대 예산: `{bundle.filter_params.max_budget}`)\n"
-                    f"- 교육 형태 필터: `{bundle.filter_params.edu_type}`\n"
-                    f"- 주당 학습 시간: `{bundle.filter_params.weekly_hours}시간/주`\n"
-                    f"- 추천 강좌 총 수: `{bundle.total_recommended_count}개 강좌 (중복 제거 완료)`"
-                )
 
         # 추천 강좌 카드 렌더링
         if bundle.all_courses_deduped:
