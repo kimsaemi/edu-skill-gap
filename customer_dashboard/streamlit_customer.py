@@ -579,6 +579,301 @@ st.markdown("""
 </div>
 """, unsafe_allow_html=True)
 
+def render_recommendation_view(bundle: CustomerRecommendationBundle, key_prefix: str = ""):
+    """HRD-Net 스타일의 맞춤 교육 추천 뷰를 렌더링합니다 (Tab 1 인라인 및 Tab 2 공용)."""
+    saved_cnt = len(st.session_state.get("saved_courses", {}))
+    eval_job = bundle.job_family
+
+    # 1. 우측 상단 플로팅 퀵 메뉴 & 우측 하단 플로팅 퀵 버튼
+    st.markdown(f"""
+    <!-- 우측 상단 플로팅 퀵 메뉴 -->
+    <div class="hrd-side-quick">
+      <a href="javascript:void(0);" onclick="alert('💡 맞춤 교육 추천 가이드\\n- 직무 역량: 직무 수행에 요구되는 KSA(지식·기술·태도)\\n- 역량 갭: 목표 수준과 현재 자기평가의 차이\\n- 맞춤 추천: 부족한 역량을 메꿔주는 최적 훈련과정');" class="hrd-quick-pill" title="용어 도움말 보기">
+        « 용어 도움말
+      </a>
+      <a href="#top-anchor" class="hrd-quick-pill" title="저장된 관심 강좌 확인">
+        « 관심 보관함 <strong style="color: {'#2563EB' if saved_cnt > 0 else '#DC2626'};">{saved_cnt}</strong> / 3
+      </a>
+    </div>
+
+    <!-- 우측 하단 플로팅 퀵 액션 (도우미 & 맨위로) -->
+    <div class="hrd-floating-actions">
+      <div class="hrd-circle-btn hrd-circle-help" onclick="alert('💬 맞춤 교육 추천 도우미\\n- 보완이 필요한 역량을 기반으로 엄선된 실제 교육과정입니다.\\n- 마음에 드는 강좌는 [☆ 관심 교육 저장]을 눌러 보관함에 담아두세요!');" title="이용 도우미">
+        <span style="font-size: 1.15rem; line-height: 1;">❓</span>
+        <span>도우미</span>
+      </div>
+      <a href="#top-anchor" class="hrd-circle-btn hrd-circle-top" title="페이지 상단으로 이동">
+        <span style="font-size: 1.15rem; line-height: 1;">↑</span>
+        <span>맨위로</span>
+      </a>
+    </div>
+    """, unsafe_allow_html=True)
+
+    # 2. HRD-Net 스타일 상단 검색 및 조건 설정 박스
+    st.markdown('<div class="hrd-search-card">', unsafe_allow_html=True)
+    
+    # 행 1: 검색어 범위 체크박스 칩
+    st.markdown("""
+    <div class="hrd-filter-row">
+      <div class="hrd-filter-label">검색어 범위</div>
+      <div class="hrd-scope-tags">
+        <span class="hrd-checkbox-chip active">☑ 전체</span>
+        <span class="hrd-checkbox-chip">☐ 훈련과정</span>
+        <span class="hrd-checkbox-chip">☐ 훈련기관명</span>
+        <span class="hrd-checkbox-chip">☐ NCS 직종·역량</span>
+        <span class="hrd-checkbox-chip">☐ 교과명</span>
+        <span class="hrd-checkbox-chip">☐ 자격증</span>
+        <span class="hrd-checkbox-chip">☐ 훈련 목표</span>
+      </div>
+    </div>
+    """, unsafe_allow_html=True)
+
+    # 행 2: 검색어 입력창
+    s_col1, s_col2 = st.columns([1, 6])
+    with s_col1:
+        st.markdown("<div style='font-size: 0.92rem; font-weight: 700; color: #1E293B; padding-top: 0.5rem;'>검색어</div>", unsafe_allow_html=True)
+    with s_col2:
+        search_query = st.text_input(
+            "검색어",
+            placeholder="검색어(검색범위 선택)를 입력하여 훈련과정을 찾아보세요.",
+            label_visibility="collapsed",
+            key=f"{key_prefix}hrd_search_input"
+        )
+
+    # 행 3: 훈련기관명 입력창
+    i_col1, i_col2 = st.columns([1, 6])
+    with i_col1:
+        st.markdown("<div style='font-size: 0.92rem; font-weight: 700; color: #1E293B; padding-top: 0.5rem;'>훈련기관명</div>", unsafe_allow_html=True)
+    with i_col2:
+        provider_query = st.text_input(
+            "훈련기관명",
+            placeholder="훈련기관명을 입력하여 훈련과정을 찾아보세요. (예: 휴넷, GSEEK, 패스트캠퍼스 등)",
+            label_visibility="collapsed",
+            key=f"{key_prefix}hrd_provider_input"
+        )
+
+    # 행 4: 추가 검색조건 열기 (Expander)
+    with st.expander("추가 검색조건 열기 ∨", expanded=False):
+        f_col1, f_col2, f_col3 = st.columns(3)
+        with f_col1:
+            p_filter_new = st.selectbox(
+                "수강료 조건",
+                options=["전체 (유료+무료)", "무료 과정만", "예산 한도 설정"],
+                index=0 if st.session_state["price_filter"] == "ALL" else (1 if st.session_state["price_filter"] == "FREE_ONLY" else 2),
+                key=f"{key_prefix}filter_tab2_price"
+            )
+        with f_col2:
+            edu_new = st.selectbox(
+                "교육 형태",
+                options=["전체", "온라인 우선", "오프라인/집체 우선"],
+                index=0 if st.session_state["edu_type"] == "ALL" else (1 if st.session_state["edu_type"] == "ONLINE" else 2),
+                key=f"{key_prefix}filter_tab2_edu"
+            )
+        with f_col3:
+            w_new = st.slider("주당 학습 가능 시간 (시간)", 1.0, 20.0, float(st.session_state["weekly_hours"]), 0.5, key=f"{key_prefix}filter_tab2_weekly")
+
+    # 행 5: 선택된 검색조건 태그 & 액션 버튼
+    btn_col_left, btn_col_right = st.columns([4, 1.5])
+    
+    cond_tags = [f"직무 > {eval_job}"]
+    if st.session_state["edu_type"] != "ALL":
+        cond_tags.append(f"형태 > {'온라인' if st.session_state['edu_type'] == 'ONLINE' else '오프라인'}")
+    if st.session_state["price_filter"] == "FREE_ONLY":
+        cond_tags.append("수강료 > 무료")
+    elif st.session_state["price_filter"] == "MAX_BUDGET":
+        cond_tags.append("수강료 > 예산한도")
+
+    with btn_col_left:
+        tags_html = " ".join([f"<span class='hrd-tag-applied'>{t} ✕</span>" for t in cond_tags])
+        st.markdown(f"""
+        <div style="display: flex; align-items: center; flex-wrap: wrap; gap: 0.4rem; padding-top: 0.4rem;">
+          <span class="hrd-condition-count-badge">검색조건 {len(cond_tags)}건</span>
+          {tags_html}
+        </div>
+        """, unsafe_allow_html=True)
+
+    with btn_col_right:
+        act_col1, act_col2 = st.columns([1, 1.4])
+        with act_col1:
+            if st.button("🔄 초기화", key=f"{key_prefix}hrd_btn_reset", use_container_width=True):
+                st.session_state["price_filter"] = "ALL"
+                st.session_state["max_budget"] = None
+                st.session_state["edu_type"] = "ALL"
+                st.session_state["weekly_hours"] = 4.0
+                f_params = RecommendationFilterParams(
+                    price_filter="ALL",
+                    max_budget=None,
+                    edu_type="ALL",
+                    weekly_hours=4.0
+                )
+                st.session_state["rec_bundle"] = get_recommendations_for_assessment(st.session_state["eval_result"], f_params)
+                st.rerun()
+
+        with act_col2:
+            if st.button("🔍 검색", type="primary", key=f"{key_prefix}hrd_btn_search", use_container_width=True):
+                if p_filter_new == "무료 과정만":
+                    st.session_state["price_filter"] = "FREE_ONLY"
+                    st.session_state["max_budget"] = 0
+                elif p_filter_new == "예산 한도 설정":
+                    st.session_state["price_filter"] = "MAX_BUDGET"
+                else:
+                    st.session_state["price_filter"] = "ALL"
+                    st.session_state["max_budget"] = None
+                st.session_state["edu_type"] = "ALL" if edu_new == "전체" else ("ONLINE" if edu_new == "온라인 우선" else "OFFLINE")
+                st.session_state["weekly_hours"] = w_new
+
+                f_params = RecommendationFilterParams(
+                    price_filter=st.session_state["price_filter"],
+                    max_budget=st.session_state["max_budget"],
+                    edu_type=st.session_state["edu_type"],
+                    weekly_hours=st.session_state["weekly_hours"]
+                )
+                st.session_state["rec_bundle"] = get_recommendations_for_assessment(st.session_state["eval_result"], f_params)
+                st.rerun()
+
+    st.markdown('</div>', unsafe_allow_html=True)
+
+    # 3. 결과 필터링 (검색어 및 기관명 실시간 매칭)
+    courses_to_render = bundle.all_courses_deduped
+    if search_query:
+        sq = search_query.strip().lower()
+        courses_to_render = [
+            c for c in courses_to_render
+            if sq in c.title.lower() or sq in c.primary_competency_name.lower() or sq in c.customer_recommendation_reason.lower()
+        ]
+    if provider_query:
+        pq = provider_query.strip().lower()
+        courses_to_render = [c for c in courses_to_render if pq in c.provider.lower()]
+
+    # 4. 결과 타이틀 및 3열 테이블 헤더 바
+    st.markdown(f"""
+    <div style="display: flex; align-items: baseline; gap: 0.6rem; margin-top: 1.4rem; margin-bottom: 0.6rem;">
+      <h3 style="margin: 0; font-size: 1.35rem; font-weight: 800; color: #0F172A;">국민내일배움카드 맞춤 훈련과정</h3>
+      <span style="font-size: 1rem; color: #475569;">총 <strong style="color: #2563EB; font-size: 1.15rem;">{len(courses_to_render)}</strong>건</span>
+      <span style="font-size: 0.85rem; color: #94A3B8;">(보완 대상 역량 {bundle.evaluated_competency_count}개 연계)</span>
+    </div>
+
+    <div class="hrd-table-header">
+      <div style="flex: 4.6; padding-left: 0.5rem;">훈련기관명 / 과정명 / 인증 등급</div>
+      <div style="flex: 3.4; padding-left: 0.5rem;">훈련과정 정보</div>
+      <div style="flex: 2.0; text-align: right; padding-right: 0.5rem;">모집 현황 / 본인부담액</div>
+    </div>
+    """, unsafe_allow_html=True)
+
+    if bundle.actionable_guidance:
+        st.markdown(f"""
+        <div class="callout-warning">
+          {bundle.actionable_guidance.replace(chr(10), '<br>')}
+        </div>
+        """, unsafe_allow_html=True)
+
+    # 5. 3열 강좌 카드 렌더링
+    if not courses_to_render:
+        st.info("검색 조건에 일치하는 훈련과정이 없습니다. 검색어 또는 필터 조건을 조정해 보세요.")
+    else:
+        for card in courses_to_render:
+            is_saved = card.course_uid in st.session_state["saved_courses"]
+            save_btn_label = "⭐ 관심 저장됨" if is_saved else "☆ 관심 교육 저장"
+            
+            match_pct = min(99.4, max(86.0, 86.0 + card.raw_matching_score * 11.5))
+            is_free = (card.price_status == "FREE" or card.numeric_price == 0)
+            price_main = "0 원" if is_free else (f"{int(card.numeric_price):,} 원" if card.numeric_price else card.price_display)
+            price_note = "(전액 무료)" if is_free else "ⓘ"
+
+            with st.container():
+                st.markdown('<div class="hrd-card">', unsafe_allow_html=True)
+                col_left, col_mid, col_right = st.columns([4.6, 3.4, 2.0])
+
+                with col_left:
+                    st.markdown(f"""
+                    <div class="hrd-inst-name">
+                      <span>{card.provider}</span>
+                      <span style="color: #2563EB; font-size: 0.8rem; cursor: pointer;" title="공식 인증 훈련기관">ⓘ</span>
+                    </div>
+                    <div>
+                      <span class="hrd-badge-cert">우수훈련기관</span>
+                      <span class="badge-tag badge-teal">{card.education_type}</span>
+                      <span class="badge-tag badge-neutral">{card.difficulty or '실무'}</span>
+                    </div>
+                    <div class="hrd-course-title">
+                      {card.title}
+                    </div>
+                    <div class="hrd-support-text">
+                      내일배움카드(재직자), 구직자도 수강 가능!
+                    </div>
+                    """, unsafe_allow_html=True)
+
+                    comp_badges_html = " ".join([
+                        f"<span class='badge-tag badge-primary'>🎯 {item['competency_name']} (보완 +{item.get('gap', 0.0):.1f}점)</span>"
+                        for item in card.linked_competencies
+                    ])
+                    st.markdown(f"<div style='margin-bottom: 0.4rem;'>{comp_badges_html}</div>", unsafe_allow_html=True)
+
+                    st.markdown(f"""
+                    <div class="hrd-reason-box">
+                      <strong>💡 추천 사유</strong>: {card.customer_recommendation_reason}
+                    </div>
+                    """, unsafe_allow_html=True)
+
+                    if card.text_richness_warning:
+                        st.caption(f"{card.text_richness_warning}")
+
+                with col_mid:
+                    st.markdown(f"""
+                    <div style="padding-top: 0.2rem;">
+                      <div class="hrd-meta-row">
+                        <span class="hrd-meta-icon">💰</span>
+                        <span><strong>정가 훈련비</strong>: {card.price_display}</span>
+                      </div>
+                      <div class="hrd-meta-row">
+                        <span class="hrd-meta-icon">📅</span>
+                        <span><strong>훈련 일정</strong>: 2026 하반기 상시 개강 (4회차)</span>
+                      </div>
+                      <div class="hrd-meta-row">
+                        <span class="hrd-meta-icon">⏱️</span>
+                        <span><strong>훈련 시간</strong>: {card.duration_display} (주 {bundle.filter_params.weekly_hours}시간 권장)</span>
+                      </div>
+                      <div class="hrd-meta-row">
+                        <span class="hrd-meta-icon">💻</span>
+                        <span><strong>형태/플랫폼</strong>: {card.education_type} (원격 실습/LMS)</span>
+                      </div>
+                      <div class="hrd-meta-row" style="color: #2563EB;">
+                        <span class="hrd-meta-icon">📈</span>
+                        <span><strong>NCS 역량 매칭 적합도</strong>: {match_pct:.1f}% ⓘ</span>
+                      </div>
+                    </div>
+                    """, unsafe_allow_html=True)
+
+                    if card.alternative_offerings:
+                        with st.expander(f"🔄 동일 강좌 대체 수강처 ({len(card.alternative_offerings)}개)"):
+                            for alt in card.alternative_offerings:
+                                suit_badge = "✅ 조건 부합" if alt["is_suitable_alternative"] else alt["unsuitability_reason"]
+                                st.markdown(f"- **[{alt['provider']}]** {alt['title']} | {alt['price_display']} | {alt['education_type']} ({suit_badge}) [바로가기]({alt['url']})")
+
+                with col_right:
+                    st.markdown(f"""
+                    <div class="hrd-status-recruiting">모집중</div>
+                    <div class="hrd-price-large">{price_main} <span style="font-size: 0.78rem; color: #2563EB; font-weight: 600;">{price_note}</span></div>
+                    <a href="{card.url}" target="_blank" class="hrd-action-btn-link" title="과정 상세페이지로 이동">
+                      본인부담액보기 ↗
+                    </a>
+                    """, unsafe_allow_html=True)
+
+                    if st.button(save_btn_label, key=f"{key_prefix}save_btn_{card.course_uid}", use_container_width=True):
+                        if is_saved:
+                            del st.session_state["saved_courses"][card.course_uid]
+                            st.toast("관심 교육 목록에서 제거되었습니다.")
+                        else:
+                            st.session_state["saved_courses"][card.course_uid] = {
+                                "card": card,
+                                "status": "학습 예정",
+                                "notes": ""
+                            }
+                            st.toast("관심 교육 목록에 저장되었습니다! ('나의 학습' 탭 확인)")
+                        st.rerun()
+
+                st.markdown('</div>', unsafe_allow_html=True)
+
 # 메인 탭 네비게이션
 st.markdown('<div id="top-anchor"></div>', unsafe_allow_html=True)
 tab_assessment, tab_recommend, tab_my_learning = st.tabs([
@@ -950,24 +1245,20 @@ with tab_assessment:
             </div>
             """, unsafe_allow_html=True)
 
-        # 하단 맞춤 교육 탭 상단 이동 및 탭 전환 버튼
-        st.markdown("""
-        <div style="margin: 2.5rem 0 1.5rem 0; text-align: center; background: #F8FAFC; border: 1.5px dashed #94A3B8; border-radius: 16px; padding: 2rem 1.2rem;">
-          <div style="font-size: 1.15rem; font-weight: 800; color: #0F172A; margin-bottom: 0.6rem;">
-            🎯 내 역량 갭에 맞는 실제 교육과정이 준비되어 있습니다
-          </div>
-          <div style="font-size: 0.92rem; color: #475569; margin-bottom: 1.3rem;">
-            아래 버튼을 누르면 페이지 상단으로 이동하며 <strong>'🎓 맞춤 교육'</strong> 탭이 자동으로 열립니다.
-          </div>
-          <button type="button" class="btn-jump-recommend" onclick="window.switchToRecommendTab(event);">
-            <span style="color: #FFFFFF !important; font-weight: 800; font-size: 1.15rem;">🎓 맞춤 교육 추천 강좌 바로 확인하기</span>
-            <span style="color: #FFFFFF !important; font-size: 1.3rem; margin-left: 0.4rem; font-weight: 800;">➔</span>
-          </button>
-          <div style="font-size: 0.8rem; color: #94A3B8; margin-top: 0.8rem;">
-            ※ 화면 상단의 <strong>'🎓 맞춤 교육'</strong> 탭을 직접 클릭하셔도 추천 강좌를 바로 확인하실 수 있습니다.
-          </div>
-        </div>
-        """, unsafe_allow_html=True)
+        # 하단 맞춤 교육 섹션 (진단 결과 화면에서 스크롤만 내리면 즉시 확인 가능!)
+        st.markdown('<div id="recommendation-section" style="margin-top: 2rem;"></div>', unsafe_allow_html=True)
+        rec_bundle = st.session_state.get("rec_bundle")
+        if rec_bundle:
+            st.markdown("""
+            <div style="background: linear-gradient(135deg, #1E3A8A 0%, #1D4ED8 100%); color: #FFFFFF; padding: 1.4rem 1.8rem; border-radius: 12px; margin-bottom: 1.5rem; box-shadow: 0 4px 14px rgba(29, 78, 216, 0.25);">
+              <div style="font-size: 1.35rem; font-weight: 800; margin-bottom: 0.35rem; color: #FFFFFF;">🎓 내 역량 갭 기반 맞춤 훈련과정 추천</div>
+              <div style="font-size: 0.92rem; color: #DBEAFE; line-height: 1.5;">
+                진단 결과 도출된 보완 필요 역량을 채워줄 수 있는 최적의 국민내일배움카드 훈련과정입니다.<br>
+                다른 탭으로 이동할 필요 없이, 아래 목록에서 바로 강좌 상세 정보를 확인하고 관심 교육에 저장할 수 있습니다.
+              </div>
+            </div>
+            """, unsafe_allow_html=True)
+            render_recommendation_view(rec_bundle, key_prefix="t1_inline_")
 
 # ------------------------------------------------------------------------------
 # TAB 2: 맞춤 교육 추천 (부족 역량 기반 강좌 카드, 대체 수강처, 상세 비교)
@@ -978,317 +1269,7 @@ with tab_recommend:
     if bundle is None:
         st.info("먼저 **'📋 내 역량 점검'** 탭에서 진단을 진행하시거나 '샘플 결과 보기'를 선택해 주세요.")
     else:
-        # 1. 우측 상단 플로팅 퀵 메뉴 & 우측 하단 플로팅 퀵 버튼
-        saved_cnt = len(st.session_state.get("saved_courses", {}))
-        eval_job = bundle.job_family
-        
-        st.markdown(f"""
-        <!-- 우측 상단 플로팅 퀵 메뉴 -->
-        <div class="hrd-side-quick">
-          <a href="javascript:void(0);" onclick="alert('💡 맞춤 교육 추천 가이드\\n- 직무 역량: 직무 수행에 요구되는 KSA(지식·기술·태도)\\n- 역량 갭: 목표 수준과 현재 자기평가의 차이\\n- 맞춤 추천: 부족한 역량을 메꿔주는 최적 훈련과정');" class="hrd-quick-pill" title="용어 도움말 보기">
-            « 용어 도움말
-          </a>
-          <a href="#top-anchor" onclick="
-            try {{
-              const doc = (window.parent && window.parent.document) ? window.parent.document : document;
-              const tabs = doc.querySelectorAll('button[data-baseweb=\\'tab\\']');
-              if (tabs && tabs.length >= 3) tabs[2].click();
-            }} catch(e) {{}}
-          " class="hrd-quick-pill" title="나의 학습 탭에서 비교하기">
-            « 비교하기 <strong style="color: {'#2563EB' if saved_cnt > 0 else '#DC2626'};">{saved_cnt}</strong> / 3
-          </a>
-        </div>
-
-        <!-- 우측 하단 플로팅 퀵 액션 (도우미 & 맨위로) -->
-        <div class="hrd-floating-actions">
-          <div class="hrd-circle-btn hrd-circle-help" onclick="alert('💬 맞춤 교육 추천 도우미\\n- 보완이 필요한 역량을 기반으로 엄선된 실제 교육과정입니다.\\n- 마음에 드는 강좌는 [☆ 관심 교육 저장]을 눌러 보관함에 담아두세요!');" title="이용 도우미">
-            <span style="font-size: 1.15rem; line-height: 1;">❓</span>
-            <span>도우미</span>
-          </div>
-          <a href="#top-anchor" onclick="
-            try {{
-              const win = window.parent || window;
-              win.scrollTo({{top: 0, behavior: 'smooth'}});
-            }} catch(e) {{}}
-          " class="hrd-circle-btn hrd-circle-top" title="페이지 상단으로 이동">
-            <span style="font-size: 1.15rem; line-height: 1;">↑</span>
-            <span>맨위로</span>
-          </a>
-        </div>
-        """, unsafe_allow_html=True)
-
-        # 2. HRD-Net 스타일 상단 검색 및 조건 설정 박스
-        st.markdown('<div class="hrd-search-card">', unsafe_allow_html=True)
-        
-        # 행 1: 검색어 범위 체크박스 칩
-        st.markdown("""
-        <div class="hrd-filter-row">
-          <div class="hrd-filter-label">검색어 범위</div>
-          <div class="hrd-scope-tags">
-            <span class="hrd-checkbox-chip active">☑ 전체</span>
-            <span class="hrd-checkbox-chip">☐ 훈련과정</span>
-            <span class="hrd-checkbox-chip">☐ 훈련기관명</span>
-            <span class="hrd-checkbox-chip">☐ NCS 직종·역량</span>
-            <span class="hrd-checkbox-chip">☐ 교과명</span>
-            <span class="hrd-checkbox-chip">☐ 자격증</span>
-            <span class="hrd-checkbox-chip">☐ 훈련 목표</span>
-          </div>
-        </div>
-        """, unsafe_allow_html=True)
-
-        # 행 2: 검색어 입력창
-        s_col1, s_col2 = st.columns([1, 6])
-        with s_col1:
-            st.markdown("<div style='font-size: 0.92rem; font-weight: 700; color: #1E293B; padding-top: 0.5rem;'>검색어</div>", unsafe_allow_html=True)
-        with s_col2:
-            search_query = st.text_input(
-                "검색어",
-                placeholder="검색어(검색범위 선택)를 입력하여 훈련과정을 찾아보세요.",
-                label_visibility="collapsed",
-                key="hrd_search_input"
-            )
-
-        # 행 3: 훈련기관명 입력창
-        i_col1, i_col2 = st.columns([1, 6])
-        with i_col1:
-            st.markdown("<div style='font-size: 0.92rem; font-weight: 700; color: #1E293B; padding-top: 0.5rem;'>훈련기관명</div>", unsafe_allow_html=True)
-        with i_col2:
-            provider_query = st.text_input(
-                "훈련기관명",
-                placeholder="훈련기관명을 입력하여 훈련과정을 찾아보세요. (예: 휴넷, GSEEK, 패스트캠퍼스 등)",
-                label_visibility="collapsed",
-                key="hrd_provider_input"
-            )
-
-        # 행 4: 추가 검색조건 열기 (Expander)
-        with st.expander("추가 검색조건 열기 ∨", expanded=False):
-            f_col1, f_col2, f_col3 = st.columns(3)
-            with f_col1:
-                p_filter_new = st.selectbox(
-                    "수강료 조건",
-                    options=["전체 (유료+무료)", "무료 과정만", "예산 한도 설정"],
-                    index=0 if st.session_state["price_filter"] == "ALL" else (1 if st.session_state["price_filter"] == "FREE_ONLY" else 2),
-                    key="filter_tab2_price"
-                )
-            with f_col2:
-                edu_new = st.selectbox(
-                    "교육 형태",
-                    options=["전체", "온라인 우선", "오프라인/집체 우선"],
-                    index=0 if st.session_state["edu_type"] == "ALL" else (1 if st.session_state["edu_type"] == "ONLINE" else 2),
-                    key="filter_tab2_edu"
-                )
-            with f_col3:
-                w_new = st.slider("주당 학습 가능 시간 (시간)", 1.0, 20.0, float(st.session_state["weekly_hours"]), 0.5, key="filter_tab2_weekly")
-
-        # 행 5: 선택된 검색조건 태그 & 액션 버튼
-        btn_col_left, btn_col_right = st.columns([4, 1.5])
-        
-        # 적용된 조건 계산
-        cond_tags = [f"직무 > {eval_job}"]
-        if st.session_state["edu_type"] != "ALL":
-            cond_tags.append(f"형태 > {'온라인' if st.session_state['edu_type'] == 'ONLINE' else '오프라인'}")
-        if st.session_state["price_filter"] == "FREE_ONLY":
-            cond_tags.append("수강료 > 무료")
-        elif st.session_state["price_filter"] == "MAX_BUDGET":
-            cond_tags.append("수강료 > 예산한도")
-
-        with btn_col_left:
-            tags_html = " ".join([f"<span class='hrd-tag-applied'>{t} ✕</span>" for t in cond_tags])
-            st.markdown(f"""
-            <div style="display: flex; align-items: center; flex-wrap: wrap; gap: 0.4rem; padding-top: 0.4rem;">
-              <span class="hrd-condition-count-badge">검색조건 {len(cond_tags)}건</span>
-              {tags_html}
-            </div>
-            """, unsafe_allow_html=True)
-
-        with btn_col_right:
-            act_col1, act_col2 = st.columns([1, 1.4])
-            with act_col1:
-                if st.button("🔄 초기화", key="hrd_btn_reset", use_container_width=True):
-                    st.session_state["price_filter"] = "ALL"
-                    st.session_state["max_budget"] = None
-                    st.session_state["edu_type"] = "ALL"
-                    st.session_state["weekly_hours"] = 4.0
-                    f_params = RecommendationFilterParams(
-                        price_filter="ALL",
-                        max_budget=None,
-                        edu_type="ALL",
-                        weekly_hours=4.0
-                    )
-                    st.session_state["rec_bundle"] = get_recommendations_for_assessment(st.session_state["eval_result"], f_params)
-                    st.rerun()
-
-            with act_col2:
-                if st.button("🔍 검색", type="primary", key="hrd_btn_search", use_container_width=True):
-                    if p_filter_new == "무료 과정만":
-                        st.session_state["price_filter"] = "FREE_ONLY"
-                        st.session_state["max_budget"] = 0
-                    elif p_filter_new == "예산 한도 설정":
-                        st.session_state["price_filter"] = "MAX_BUDGET"
-                    else:
-                        st.session_state["price_filter"] = "ALL"
-                        st.session_state["max_budget"] = None
-                    st.session_state["edu_type"] = "ALL" if edu_new == "전체" else ("ONLINE" if edu_new == "온라인 우선" else "OFFLINE")
-                    st.session_state["weekly_hours"] = w_new
-
-                    f_params = RecommendationFilterParams(
-                        price_filter=st.session_state["price_filter"],
-                        max_budget=st.session_state["max_budget"],
-                        edu_type=st.session_state["edu_type"],
-                        weekly_hours=st.session_state["weekly_hours"]
-                    )
-                    st.session_state["rec_bundle"] = get_recommendations_for_assessment(st.session_state["eval_result"], f_params)
-                    st.rerun()
-
-        st.markdown('</div>', unsafe_allow_html=True)
-
-        # 3. 결과 필터링 (검색어 및 기관명 실시간 매칭)
-        courses_to_render = bundle.all_courses_deduped
-        if search_query:
-            sq = search_query.strip().lower()
-            courses_to_render = [
-                c for c in courses_to_render
-                if sq in c.title.lower() or sq in c.primary_competency_name.lower() or sq in c.customer_recommendation_reason.lower()
-            ]
-        if provider_query:
-            pq = provider_query.strip().lower()
-            courses_to_render = [c for c in courses_to_render if pq in c.provider.lower()]
-
-        # 4. 결과 타이틀 및 3열 테이블 헤더 바
-        st.markdown(f"""
-        <div style="display: flex; align-items: baseline; gap: 0.6rem; margin-top: 1.4rem; margin-bottom: 0.6rem;">
-          <h3 style="margin: 0; font-size: 1.35rem; font-weight: 800; color: #0F172A;">국민내일배움카드 맞춤 훈련과정</h3>
-          <span style="font-size: 1rem; color: #475569;">총 <strong style="color: #2563EB; font-size: 1.15rem;">{len(courses_to_render)}</strong>건</span>
-          <span style="font-size: 0.85rem; color: #94A3B8;">(보완 대상 역량 {bundle.evaluated_competency_count}개 연계)</span>
-        </div>
-
-        <div class="hrd-table-header">
-          <div style="flex: 4.6; padding-left: 0.5rem;">훈련기관명 / 과정명 / 인증 등급</div>
-          <div style="flex: 3.4; padding-left: 0.5rem;">훈련과정 정보</div>
-          <div style="flex: 2.0; text-align: right; padding-right: 0.5rem;">모집 현황 / 본인부담액</div>
-        </div>
-        """, unsafe_allow_html=True)
-
-        if bundle.actionable_guidance:
-            st.markdown(f"""
-            <div class="callout-warning">
-              {bundle.actionable_guidance.replace(chr(10), '<br>')}
-            </div>
-            """, unsafe_allow_html=True)
-
-        # 5. 3열 강좌 카드 렌더링
-        if not courses_to_render:
-            st.info("검색 조건에 일치하는 훈련과정이 없습니다. 검색어 또는 필터 조건을 조정해 보세요.")
-        else:
-            for card in courses_to_render:
-                is_saved = card.course_uid in st.session_state["saved_courses"]
-                save_btn_label = "⭐ 관심 저장됨" if is_saved else "☆ 관심 교육 저장"
-                
-                # 매칭 적합도
-                match_pct = min(99.4, max(86.0, 86.0 + card.raw_matching_score * 11.5))
-                is_free = (card.price_status == "FREE" or card.numeric_price == 0)
-                price_main = "0 원" if is_free else (f"{int(card.numeric_price):,} 원" if card.numeric_price else card.price_display)
-                price_note = "(전액 무료)" if is_free else "ⓘ"
-
-                with st.container():
-                    st.markdown('<div class="hrd-card">', unsafe_allow_html=True)
-                    col_left, col_mid, col_right = st.columns([4.6, 3.4, 2.0])
-
-                    # [1열]: 훈련기관명 / 과정명 / 인증 등급
-                    with col_left:
-                        st.markdown(f"""
-                        <div class="hrd-inst-name">
-                          <span>{card.provider}</span>
-                          <span style="color: #2563EB; font-size: 0.8rem; cursor: pointer;" title="공식 인증 훈련기관">ⓘ</span>
-                        </div>
-                        <div>
-                          <span class="hrd-badge-cert">우수훈련기관</span>
-                          <span class="badge-tag badge-teal">{card.education_type}</span>
-                          <span class="badge-tag badge-neutral">{card.difficulty or '실무'}</span>
-                        </div>
-                        <div class="hrd-course-title">
-                          {card.title}
-                        </div>
-                        <div class="hrd-support-text">
-                          내일배움카드(재직자), 구직자도 수강 가능!
-                        </div>
-                        """, unsafe_allow_html=True)
-
-                        # 연계 보완 역량 뱃지들
-                        comp_badges_html = " ".join([
-                            f"<span class='badge-tag badge-primary'>🎯 {item['competency_name']} (보완 +{item.get('gap', 0.0):.1f}점)</span>"
-                            for item in card.linked_competencies
-                        ])
-                        st.markdown(f"<div style='margin-bottom: 0.4rem;'>{comp_badges_html}</div>", unsafe_allow_html=True)
-
-                        # 추천 사유 박스
-                        st.markdown(f"""
-                        <div class="hrd-reason-box">
-                          <strong>💡 추천 사유</strong>: {card.customer_recommendation_reason}
-                        </div>
-                        """, unsafe_allow_html=True)
-
-                        if card.text_richness_warning:
-                            st.caption(f"{card.text_richness_warning}")
-
-                    # [2열]: 훈련과정 정보
-                    with col_mid:
-                        st.markdown(f"""
-                        <div style="padding-top: 0.2rem;">
-                          <div class="hrd-meta-row">
-                            <span class="hrd-meta-icon">💰</span>
-                            <span><strong>정가 훈련비</strong>: {card.price_display}</span>
-                          </div>
-                          <div class="hrd-meta-row">
-                            <span class="hrd-meta-icon">📅</span>
-                            <span><strong>훈련 일정</strong>: 2026 하반기 상시 개강 (4회차)</span>
-                          </div>
-                          <div class="hrd-meta-row">
-                            <span class="hrd-meta-icon">⏱️</span>
-                            <span><strong>훈련 시간</strong>: {card.duration_display} (주 {bundle.filter_params.weekly_hours}시간 권장)</span>
-                          </div>
-                          <div class="hrd-meta-row">
-                            <span class="hrd-meta-icon">💻</span>
-                            <span><strong>형태/플랫폼</strong>: {card.education_type} (원격 실습/LMS)</span>
-                          </div>
-                          <div class="hrd-meta-row" style="color: #2563EB;">
-                            <span class="hrd-meta-icon">📈</span>
-                            <span><strong>NCS 역량 매칭 적합도</strong>: {match_pct:.1f}% ⓘ</span>
-                          </div>
-                        </div>
-                        """, unsafe_allow_html=True)
-
-                        # 대체 수강처 목록 (크로스 플랫폼)
-                        if card.alternative_offerings:
-                            with st.expander(f"🔄 동일 강좌 대체 수강처 ({len(card.alternative_offerings)}개)"):
-                                for alt in card.alternative_offerings:
-                                    suit_badge = "✅ 조건 부합" if alt["is_suitable_alternative"] else alt["unsuitability_reason"]
-                                    st.markdown(f"- **[{alt['provider']}]** {alt['title']} | {alt['price_display']} | {alt['education_type']} ({suit_badge}) [바로가기]({alt['url']})")
-
-                    # [3열]: 모집 현황 / 본인부담액 / 액션
-                    with col_right:
-                        st.markdown(f"""
-                        <div class="hrd-status-recruiting">모집중</div>
-                        <div class="hrd-price-large">{price_main} <span style="font-size: 0.78rem; color: #2563EB; font-weight: 600;">{price_note}</span></div>
-                        <a href="{card.url}" target="_blank" class="hrd-action-btn-link" title="과정 상세페이지로 이동">
-                          본인부담액보기 ↗
-                        </a>
-                        """, unsafe_allow_html=True)
-
-                        if st.button(save_btn_label, key=f"save_btn_{card.course_uid}", use_container_width=True):
-                            if is_saved:
-                                del st.session_state["saved_courses"][card.course_uid]
-                                st.toast("관심 교육 목록에서 제거되었습니다.")
-                            else:
-                                st.session_state["saved_courses"][card.course_uid] = {
-                                    "card": card,
-                                    "status": "학습 예정",
-                                    "notes": ""
-                                }
-                                st.toast("관심 교육 목록에 저장되었습니다! ('나의 학습' 탭 확인)")
-                            st.rerun()
-
-                    st.markdown('</div>', unsafe_allow_html=True)
+        render_recommendation_view(bundle, key_prefix="t2_main_")
 
 # ------------------------------------------------------------------------------
 # TAB 3: 나의 학습 (저장된 관심 강좌 관리, 최대 3개 비교, 재점검 히스토리)
