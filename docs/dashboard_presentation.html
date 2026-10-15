@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>교육·역량 대시보드 발표자료</title>
+  <style>
+    :root { --ink:#102a43; --muted:#52616b; --blue:#1d4ed8; --teal:#0f766e; --line:#d9e2ec; --bg:#f7fafc; }
+    * { box-sizing:border-box; } body { margin:0; background:#dfe7ef; color:var(--ink); font-family:"Malgun Gothic","Apple SD Gothic Neo",sans-serif; }
+    .slide { width:min(1280px,100vw); min-height:720px; margin:24px auto; padding:72px 88px; background:#fff; position:relative; display:none; }
+    .slide.active { display:block; } .eyebrow { color:var(--blue); font-weight:700; letter-spacing:.06em; font-size:16px; }
+    h1 { font-size:48px; line-height:1.2; margin:18px 0; } h2 { font-size:34px; margin:0 0 32px; } h3 { font-size:21px; margin:0 0 10px; }
+    p, li { font-size:20px; line-height:1.55; } .lead { font-size:25px; max-width:800px; color:var(--muted); }
+    .metric-row, .two-col { display:grid; gap:28px; } .metric-row { grid-template-columns:repeat(3,1fr); margin-top:70px; }
+    .two-col { grid-template-columns:1fr 1fr; } .metric { border-top:4px solid var(--blue); padding:18px 0; } .metric strong { font-size:45px; display:block; } .metric span { color:var(--muted); font-size:18px; }
+    .flow { display:flex; gap:12px; align-items:center; margin-top:80px; } .step { flex:1; padding:18px; border-top:3px solid var(--teal); background:var(--bg); font-size:18px; font-weight:700; } .arrow { color:var(--teal); font-size:28px; }
+    .item { padding:18px 0; border-bottom:1px solid var(--line); } .item p { margin:0; color:var(--muted); font-size:18px; }
+    table { width:100%; border-collapse:collapse; font-size:16px; } th,td { text-align:left; padding:12px; border-bottom:1px solid var(--line); vertical-align:top; } th { color:var(--blue); }
+    .note { position:absolute; bottom:42px; right:88px; color:#829ab1; font-size:14px; } .source { position:absolute; bottom:42px; left:88px; color:#829ab1; font-size:13px; max-width:850px; }
+    @media print { body{background:#fff}.slide{display:block; margin:0; page-break-after:always; width:100%; min-height:100vh;} } @media(max-width:800px){.slide{padding:40px 28px;min-height:100vh}.metric-row,.two-col{grid-template-columns:1fr}.flow{display:block}.arrow{display:block;text-align:center}h1{font-size:34px}h2{font-size:27px}p,li{font-size:17px}}
+  </style>
+</head>
+<body>
+  <section class="slide active">
+    <div class="eyebrow">EDU-SKILL-GAP DASHBOARD</div>
+    <h1>NCS 기반 교육·역량<br>추천 대시보드 개선</h1>
+    <p class="lead">사용자가 실제 수행 업무를 고르고, 현재 수준과 목표 수준의 차이를 확인한 뒤 근거 있는 교육과정을 선택하도록 개선했습니다.</p>
+    <div class="metric-row"><div class="metric"><strong>553</strong><span>교육과정 후보</span></div><div class="metric"><strong>295</strong><span>직무 적합 확정 과정</span></div><div class="metric"><strong>7</strong><span>NCS 핵심 역량</span></div></div>
+    <div class="source">근거: `hr_integrated_candidates.csv`, `hr_mapping_verified.csv`, `competencies.csv`</div><div class="note">1 / 8</div>
+  </section>
+  <section class="slide">
+    <div class="eyebrow">PROBLEM</div><h2>기존 화면의 보완 과제</h2>
+    <div class="two-col"><div><div class="item"><h3>개인화 근거</h3><p>선택한 직무와 과정의 연결 이유, 현재 수준과 목표 수준의 차이를 함께 보여줄 필요가 있었습니다.</p></div><div class="item"><h3>콘텐츠 신뢰성</h3><p>과정 출처, 수집 시점, 원문 링크, 수료 기준의 확인 경로가 필요했습니다.</p></div></div><div><div class="item"><h3>예외 처리</h3><p>입력 누락, 검색 결과 없음, 데이터 로딩 실패에서 사용자가 다음 행동을 알 수 있어야 합니다.</p></div><div class="item"><h3>기본 서비스 정보</h3><p>개인정보 처리 범위, 데이터 사용 범위, 문의 경로, 모바일 이용 안내를 제공해야 합니다.</p></div></div></div>
+    <div class="note">2 / 8</div>
+  </section>
+  <section class="slide">
+    <div class="eyebrow">LEARNING JOURNEY</div><h2>사용자 흐름</h2>
+    <div class="flow"><div class="step">목표 직무 선택</div><div class="arrow">→</div><div class="step">실제 수행 업무 선택</div><div class="arrow">→</div><div class="step">현재 수준 입력</div><div class="arrow">→</div><div class="step">근거 있는 Top 3 추천</div></div>
+    <p style="margin-top:58px">업무 선택지는 자유 입력이 아니라 NCS 역량 마스터의 <code>skill</code> 필드에서 자동으로 생성합니다. 목록에 없는 업무만 보조 입력으로 남깁니다.</p>
+    <div class="source">근거: `jobs.csv`, `competencies.csv`, `job_competencies.csv`</div><div class="note">3 / 8</div>
+  </section>
+  <section class="slide">
+    <div class="eyebrow">PERSONALIZATION</div><h2>추천 근거와 역량 공백</h2>
+    <div class="two-col"><div><h3>입력</h3><ul><li>목표 직무</li><li>실제 수행 업무</li><li>역량별 현재 수준 1~5</li><li>숙련도에 따른 목표 수준</li></ul></div><div><h3>계산과 제시</h3><ul><li>목표 수준에서 현재 수준을 뺀 보완 필요 단계</li><li>선택 업무와 연결된 NCS 역량</li><li>여러 역량을 함께 충족하는 과정 우선</li><li>보완 필요 단계와 시수를 반영한 Top 3</li></ul></div></div>
+    <p>대시보드는 사용자의 자기진단을 실제 평가 결과로 표현하지 않습니다. 추천 이유와 데이터 매핑 근거를 함께 표시합니다.</p>
+    <div class="note">4 / 8</div>
+  </section>
+  <section class="slide">
+    <div class="eyebrow">TRUST</div><h2>과정 카드의 신뢰 정보</h2>
+    <table><thead><tr><th>표시 항목</th><th>사용 목적</th><th>데이터 필드</th></tr></thead><tbody><tr><td>기관, 난이도, 시수, 수강료</td><td>과정 선택 전 기본 비교</td><td>`institution_name`, `course_level`, `training_hours`, `course_fee`</td></tr><tr><td>플랫폼과 수집 유형</td><td>데이터 출처 확인</td><td>`source_platform`, `source_type`</td></tr><tr><td>수집일</td><td>정보 최신성 판단</td><td>`collected_at`</td></tr><tr><td>원문 링크</td><td>일정, 비용, 모집, 수료 조건 재확인</td><td>`course_url`</td></tr></tbody></table>
+    <p style="margin-top:35px">수료 여부는 교육기관의 기준이 우선입니다. 대시보드의 완료 처리는 학습자의 세션 기록입니다.</p><div class="note">5 / 8</div>
+  </section>
+  <section class="slide">
+    <div class="eyebrow">RESILIENCE</div><h2>예외 처리와 서비스 안내</h2>
+    <div class="two-col"><div><h3>예외 처리</h3><div class="item"><p>데이터 로딩 중 진행 안내</p></div><div class="item"><p>로딩 실패 시 새로고침, 데이터 경로, Issue 등록 안내</p></div><div class="item"><p>업무 미선택 시 필요한 입력 안내</p></div><div class="item"><p>확정 과정이 없으면 검토 대기 과정 탐색 안내</p></div></div><div><h3>기본 서비스 정보</h3><div class="item"><p>자기진단·완료 기록은 브라우저 세션에만 보관</p></div><div class="item"><p>교육과정 원문에서 최신 일정·비용·수료 조건 확인</p></div><div class="item"><p>GitHub Issue를 통한 문의·개선 제안</p></div><div class="item"><p>모바일 표·차트의 가로 스크롤 안내</p></div></div></div><div class="note">6 / 8</div>
+  </section>
+  <section class="slide">
+    <div class="eyebrow">DATA GOVERNANCE</div><h2>데이터 구성과 운영 원칙</h2>
+    <table><thead><tr><th>구분</th><th>현재 규모</th><th>운영 원칙</th></tr></thead><tbody><tr><td>교육과정 후보</td><td>553건</td><td>원문 URL·수집일·검증 상태 유지</td></tr><tr><td>확정 과정-역량 매핑</td><td>295행</td><td>검토되지 않은 자유 입력을 추천 근거로 사용하지 않음</td></tr><tr><td>수집 방식</td><td>공개 API 140건, 플랫폼 데이터 413건</td><td>새 수집 후 일정·비용·원문 확인</td></tr><tr><td>역량 체계</td><td>직무 6개, 핵심 역량 7개</td><td>새 업무는 직무·역량·매핑 파일을 함께 갱신</td></tr></tbody></table>
+    <div class="source">상세 경로와 한계는 `docs/dashboard_data_sources_and_design.md`에 기록</div><div class="note">7 / 8</div>
+  </section>
+  <section class="slide">
+    <div class="eyebrow">NEXT STEPS</div><h2>다음 운영 단계</h2>
+    <div class="item"><h3>데이터 갱신</h3><p>수집 파이프라인 실행 후 원문 링크, 수집일, 비용·일정 정보를 검수합니다.</p></div><div class="item"><h3>업무-역량 검토</h3><p>자유 입력 업무는 검토 후에만 NCS 역량과 연결합니다.</p></div><div class="item"><h3>사용성 점검</h3><p>모바일 화면과 결과 없음 화면을 정기적으로 확인하고, GitHub Issue의 의견을 반영합니다.</p></div>
+    <p style="margin-top:55px;font-weight:700">목표는 더 많은 추천이 아니라, 사용자가 추천 이유를 이해하고 다음 행동을 선택할 수 있는 화면입니다.</p><div class="note">8 / 8</div>
+  </section>
+  <script>const slides=[...document.querySelectorAll('.slide')];let i=0;addEventListener('keydown',e=>{if(['ArrowRight','PageDown',' '].includes(e.key))i=Math.min(i+1,slides.length-1);if(['ArrowLeft','PageUp'].includes(e.key))i=Math.max(i-1,0);slides.forEach((s,n)=>s.classList.toggle('active',n===i));});</script>
+</body></html>

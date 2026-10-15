@@ -78,6 +78,12 @@ def format_hours(val):
     return f"{float(val):.1f}시간"
 
 
+def format_collected_at(value):
+    """수집 시각을 신뢰 정보에 사용할 수 있는 날짜 문자열로 변환합니다."""
+    parsed = pd.to_datetime(value, errors="coerce")
+    return parsed.strftime("%Y-%m-%d") if pd.notna(parsed) else "수집일 미기재"
+
+
 # ------------------------------------------------------------------------------
 # 3. 학습 여정: 가치 제안 · 진단 · 추천 · 피드백 · 성과
 # ------------------------------------------------------------------------------
@@ -158,28 +164,46 @@ def render_learning_journey(datasets):
         for row in selected_detail.itertuples()
     )
 
+    st.markdown("### 🧭 현재 수준과 목표 수준")
+    target_score = 3 if current_level == "입문" else 4 if current_level == "기초" else 5
+    assessment_cols = st.columns(min(3, len(selected_detail)))
+    assessment_rows = []
+    for index, row in enumerate(selected_detail.itertuples()):
+        with assessment_cols[index % len(assessment_cols)]:
+            current_score = st.select_slider(
+                row.competency_name,
+                options=[1, 2, 3, 4, 5],
+                value=min(target_score - 1, 3),
+                format_func=lambda score: f"{score}/5",
+                key=f"assessment_{selected_job_id}_{row.competency_id}",
+            )
+            gap = max(target_score - current_score, 0)
+            st.caption(f"목표 {target_score}/5 · 보완 필요 {gap}단계")
+            assessment_rows.append({"competency_id": row.competency_id, "gap": gap})
+    assessment_df = pd.DataFrame(assessment_rows)
+
     st.markdown("### 🧭 지금의 추천 근거")
     st.success(
         f"**{selected_job_name} / {current_level}** 기준으로, 선택한 업무가 연결된 "
-        f"**{', '.join(selected_gaps)}** 역량을 우선 보완 대상으로 설정했습니다. "
+        f"**{', '.join(selected_gaps)}** 역량과 사용자가 입력한 현재 수준 대비 목표 수준을 우선 반영했습니다. "
         f"NCS 직무-역량 매핑 근거: {rationale}"
     )
     if custom_task.strip():
         st.caption(f"기타 업무 메모: {custom_task} — 현재 NCS 매핑이 없는 자유 입력이며, 추천 결과에는 선택 업무 기반 근거를 우선 적용합니다.")
 
     matching = df_mapping[df_mapping["competency_id"].isin(selected_competency_ids)].copy()
+    matching = matching.merge(assessment_df, on="competency_id", how="left")
     matching["matched_competencies"] = matching.groupby("global_course_key")["competency_name"].transform(
         lambda values: ", ".join(sorted(set(values)))
     )
     recommendations = (
         matching.groupby(["global_course_key", "matched_competencies"], as_index=False)
-        .size()
-        .rename(columns={"size": "matched_count"})
+        .agg(matched_count=("competency_id", "size"), learning_gap=("gap", "max"))
         .merge(df_courses, on="global_course_key", how="left")
     )
     recommendations = recommendations[recommendations["classification_status"] == "INCLUDED"]
     recommendations = recommendations.sort_values(
-        ["matched_count", "training_hours"], ascending=[False, True], na_position="last"
+        ["learning_gap", "matched_count", "training_hours"], ascending=[False, False, True], na_position="last"
     ).head(3)
 
     if recommendations.empty:
@@ -207,6 +231,10 @@ def render_learning_journey(datasets):
                     f"{course.institution_name} · {course.course_level} · {format_hours(course.training_hours)} · {format_fee(course.course_fee)}"
                 )
                 st.write(f"추천 이유: 선택한 **{course.matched_competencies}** 역량과 직접 연결된 과정입니다.")
+                st.caption(
+                    f"출처: {course.source_platform} ({course.source_type}) · 데이터 수집일: {format_collected_at(course.collected_at)} · "
+                    "완료 기준: 학습자가 수강기관의 수료 기준을 충족한 뒤 이 화면에서 완료 처리"
+                )
                 if pd.notna(course.course_url) and str(course.course_url).startswith("http"):
                     st.link_button("과정 상세 보기 ↗", str(course.course_url), key=f"course_link_{course.global_course_key}")
             with action_col:
@@ -226,6 +254,22 @@ def render_learning_journey(datasets):
     else:
         next_action = "다음 행동: 첫 번째 추천 과정을 시작하고 완료 후 체크해 다음 우선순위를 갱신하세요."
     st.info(next_action)
+
+
+def render_service_support():
+    """서비스 이용 안내, 데이터 범위, 문의 경로를 제공한다."""
+    st.markdown("---")
+    with st.expander("서비스 이용·데이터·문의 안내"):
+        left, right = st.columns(2)
+        with left:
+            st.markdown("**데이터 사용과 개인정보**")
+            st.write("이 대시보드는 공개 교육과정 메타데이터와 NCS 역량 정보를 분석합니다. 자기진단·완료 기록은 현재 브라우저 세션에만 남으며 서버에 저장하지 않습니다.")
+            st.write("추천은 과정-역량 연결 정보에 기반한 참고 자료입니다. 실제 수강 가능 여부, 비용, 일정, 수료 조건은 과정 상세 페이지에서 확인해야 합니다.")
+        with right:
+            st.markdown("**결과가 보이지 않거나 개선 의견이 있나요?**")
+            st.write("필터를 완화하거나 다른 업무를 선택해 보세요. 오류와 개선 의견은 GitHub 저장소의 Issue로 남길 수 있습니다.")
+            st.link_button("GitHub Issue로 의견 보내기", "https://github.com/kimsaemi/edu-skill-gap/issues")
+        st.caption("모바일에서는 표와 차트가 가로로 길어질 수 있습니다. 과정 탐색 표는 좌우로 스크롤해 확인하세요.")
 
 # ------------------------------------------------------------------------------
 # 3. 탭 1: 교육 데이터 현황 렌더러
@@ -542,20 +586,32 @@ def main():
         initial_sidebar_state="collapsed"
     )
 
+    st.markdown("""
+    <style>
+    @media (max-width: 768px) {
+        [data-testid="stHorizontalBlock"] { flex-wrap: wrap; }
+        [data-testid="stHorizontalBlock"] > div { min-width: 100% !important; }
+        h1 { font-size: 1.65rem !important; }
+    }
+    </style>
+    """, unsafe_allow_html=True)
+
     # 상단 헤더
     st.title("🎓 NCS 기반 인사·총무 직무역량 분석 및 교육과정 대시보드")
     st.markdown("**STEP 4 MVP** | 공공 API 및 7개 민간/공공 플랫폼 교육 데이터 통합 검증 및 시각화")
 
     # 데이터 로드
     try:
-        datasets = load_all_datasets()
+        with st.spinner("교육과정과 NCS 역량 데이터를 불러오는 중입니다..."):
+            datasets = load_all_datasets()
     except Exception as e:
-        st.error(f"❌ 데이터 로딩 중 오류가 발생했습니다: {e}")
-        st.info("파일 경로를 확인해 주세요 (`data/hr/output/integration/` 등)")
+        st.error("데이터를 불러오지 못했습니다. 잠시 후 새로고침해 주세요.")
+        st.info("문제가 계속되면 GitHub Issue로 오류 화면과 접속 시각을 알려주세요. 데이터 파일 경로(`data/hr/output/integration/` 등)도 함께 점검해 주세요.")
         return
 
     # 사용자가 바로 목표 직무·부족 역량·추천 과정·진척을 연결해 볼 수 있는 학습 여정
     render_learning_journey(datasets)
+    render_service_support()
 
     st.markdown("---")
     st.markdown("## 🔎 데이터 탐색과 근거 확인")
