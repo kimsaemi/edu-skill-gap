@@ -53,6 +53,7 @@ class RecommendedCourseCard:
     study_plan_note: str = ""
     alternative_offerings: List[Dict[str, Any]] = field(default_factory=list)
     raw_matching_score: float = 0.0
+    mapping_basis: str = ""                # "기존 역량 연결 정보 기반" 또는 "교육내용 검색으로 찾은 추가 후보"
 
 @dataclass
 class CustomerRecommendationBundle:
@@ -130,6 +131,9 @@ def get_recommendations_for_assessment(
     courses_by_comp: Dict[str, List[RecommendedCourseCard]] = {}
     deduped_cards_map: Dict[str, RecommendedCourseCard] = {}
     prioritized_ids = [cs.competency_id for cs in target_comp_scores]
+
+    # (course_uid, competency_id) 매핑 유효성 검증용 튜플 세트
+    ksa_pair_set = set(zip(engine.df_comp_long['course_uid'], engine.df_comp_long['competency_id'])) if not engine.df_comp_long.empty else set()
 
     weekly_h = filter_params.weekly_hours or 4.0
 
@@ -257,10 +261,14 @@ def get_recommendations_for_assessment(
                 gap_val = abs(cs.gap) if cs.gap is not None else 0.0
                 gap_str = f"{gap_val:.1f}"
 
+                # 해당 추천의 (course_uid, competency_id) 매핑 여부 판별 (다른 역량에 매핑되어 있어도 현재 역량에 없으면 미매핑 후보로 분류)
+                is_premapped_for_comp = (uid, c_id) in ksa_pair_set
+                basis_for_comp = "기존 역량 연결 정보 기반" if is_premapped_for_comp else "교육내용 검색으로 찾은 추가 후보"
+
                 if is_deepening_mode:
-                    goal_connection = f"[{c_name}] 보유 역량의 심화·전문성 강화 및 최신 실무 심화 학습"
+                    goal_connection = f"[{c_name}] 보유 역량의 심화·전문성 강화 및 최신 실무 심화 학습 ({basis_for_comp})"
                 else:
-                    goal_connection = f"[{c_name}] 현재 자기평가 {curr_str}점 → 목표 {target_str}점 (목표와의 차이 {gap_str}점) 보완"
+                    goal_connection = f"[{c_name}] 현재 자기평가 {curr_str}점 → 목표 {target_str}점 (목표와의 차이 {gap_str}점) 보완 ({basis_for_comp})"
 
                 raw_snip = row.get('clean_snippet')
                 if raw_snip and str(raw_snip).strip():
@@ -292,7 +300,9 @@ def get_recommendations_for_assessment(
                     linked_competencies=[{
                         "competency_id": c_id,
                         "competency_name": c_name,
-                        "gap": gap_val
+                        "gap": gap_val,
+                        "is_premapped": is_premapped_for_comp,
+                        "mapping_basis": basis_for_comp
                     }],
                     customer_recommendation_reason=customer_reason,
                     curriculum_evidence=curriculum_evidence,
@@ -305,21 +315,25 @@ def get_recommendations_for_assessment(
                     text_richness_warning=warning_text,
                     study_plan_note=study_note,
                     alternative_offerings=alt_offerings if isinstance(alt_offerings, list) else [],
-                    raw_matching_score=final_sc
+                    raw_matching_score=final_sc,
+                    mapping_basis=basis_for_comp
                 )
                 comp_cards.append(card)
 
-                # 전체 통합 목록 중복 제거 및 연계 역량 보존
+                # 전체 통합 목록 중복 제거 및 연계 역량 보존 (역량별 매핑 구분 개별 보존)
                 if uid not in deduped_cards_map:
                     deduped_cards_map[uid] = card
                 else:
-                    # 이미 다른 역량으로 추천된 강좌: 연계 역량 추가 등록
                     existing_card = deduped_cards_map[uid]
                     if not any(item["competency_id"] == c_id for item in existing_card.linked_competencies):
+                        is_premapped_new = (uid, c_id) in ksa_pair_set
+                        basis_new = "기존 역량 연결 정보 기반" if is_premapped_new else "교육내용 검색으로 찾은 추가 후보"
                         existing_card.linked_competencies.append({
                             "competency_id": c_id,
                             "competency_name": c_name,
-                            "gap": gap_val
+                            "gap": gap_val,
+                            "is_premapped": is_premapped_new,
+                            "mapping_basis": basis_new
                         })
 
         courses_by_comp[c_id] = comp_cards

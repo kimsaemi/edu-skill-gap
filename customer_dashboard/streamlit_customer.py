@@ -954,7 +954,9 @@ def render_recommendation_view(bundle: CustomerRecommendationBundle, key_prefix:
             cmp_btn_label = "📊 비교함 담김" if is_compared else "📊 비교에 추가"
 
             comp_badges_html = " ".join([
-                f"<span class='badge-tag badge-primary'>🎯 {item['competency_name']} (목표와의 차이 {item.get('gap', 0.0):.1f}점)</span>"
+                f"<span class='badge-tag badge-primary' title='{item.get('mapping_basis', '추천 연계')} (사람의 검토 완료를 의미하지 않음)'>"
+                f"🎯 {item['competency_name']} (차이 {item.get('gap', 0.0):.1f}점 · {item.get('mapping_basis', '추천 연계')})"
+                f"</span>"
                 for item in card.linked_competencies
             ])
 
@@ -1028,6 +1030,8 @@ def render_recommendation_view(bundle: CustomerRecommendationBundle, key_prefix:
 
                 # 상세 펼치기 (실제 커리큘럼 근거, 추천 근거의 한계, 동일 강좌의 다른 수강처, 확인된 일정과 출처)
                 with st.expander("🔍 상세 정보 및 추천 근거 확인 (커리큘럼 발췌·일정·출처)", expanded=False):
+                    basis_summary = " · ".join([f"{item['competency_name']}: {item.get('mapping_basis', '추천 연계')}" for item in card.linked_competencies])
+                    st.markdown(f"• **역량 연계 근거**: {basis_summary} *(※ 사람의 검토 완료를 의미하지 않음)*")
                     st.markdown(f"• **실제 커리큘럼 근거**: {card.curriculum_evidence}")
                     st.markdown(f"• **추천 근거의 한계**: {card.evidence_limitation}")
                     st.markdown(f"• **확인된 일정**: {card.schedule_display}")
