@@ -12,6 +12,7 @@ import sys
 from pathlib import Path
 import pandas as pd
 import numpy as np
+import hashlib
 import streamlit as st
 import plotly.express as px
 import plotly.graph_objects as go
@@ -137,10 +138,12 @@ def render_learning_journey(datasets):
         c_name = task_row.competency_name
         skill_raw = str(task_row.skill) if pd.notna(task_row.skill) else ""
         raw_items = [s.strip() for s in skill_raw.replace("/", ",").replace("\n", ",").split(",") if s.strip()]
-        for idx, item in enumerate(raw_items, start=1):
+        for item in raw_items:
             if item.lower() in ["nan", "none", "-"]:
                 continue
-            task_id = f"TASK_{c_id}_{idx:02d}"
+            # 문장 순서 변경이나 삽입에도 불변인 결정론적 과업 고유 ID 생성 (SHA-256 슬러그 6자리)
+            task_slug = hashlib.sha256(f"{c_id}:{item}".encode("utf-8")).hexdigest()[:6].upper()
+            task_id = f"TASK_{c_id}_{task_slug}"
             label = f"{item} (연계 역량: {c_name})"
             task_catalog[label] = {
                 "task_id": task_id,

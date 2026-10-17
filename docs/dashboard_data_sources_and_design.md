@@ -27,19 +27,22 @@
 2. **전처리 선별 (Preprocessing Inclusion)**: 직무 무관 강좌(간호, 부동산, 소방 등)를 `EXCLUDED`로 배제하고, 연관성 키워드와 분류 코드가 확인된 과정을 `INCLUDED`로 1차 선별.
    - ⚠️ `INCLUDED`는 **공인 자격 인증이나 사람의 전수 품질 보증이 아니며, 규칙 기반 전처리 선별 상태**임. ("적합 확정" 표현 지양)
 3. **자동 하이브리드 매핑 (Automated Mapping)**: 8,645건 코퍼스 대상 Ko-SRoBERTa(768차원) 임베딩 유사도 및 BM25 Okapi 텍스트 매칭을 결합한 8,291건 KSA 역량 매핑.
-4. **사람 검토 및 감사 (Human Audit)**: 오매핑 의심 109건에 대한 전문가 정밀 감사(96건 차단 / 13건 적합 보존) 및 22건 재평가 보고서 수립.
+4. **오매핑 선별 및 규칙 기반 차단 (Mismatch Filtering)**: 오매핑 의심 109건에 대해 비직무 군집(C0/C6/C7) 및 IT 개발 키워드 조건을 적용한 규칙 기반 차단(96건 차단 / 차단 규칙 비해당 13건 유지) 적용.
 
 ### 3.2 데이터셋 상세 명세표
 
 | 데이터셋 | 파일 경로 | 코퍼스 구분 | 건수 / 규모 | 설명 |
 |---|---|---|---|---|
-| **고객용 정제 코퍼스** | `data/hr/processed/education_courses_search_cleaned.parquet` | Customer MVP (전체) | **8,645건** | 9대 플랫폼 정제 교육과정, 텍스트 품질 점검 완료 |
-| **KSA 역량 매핑** | `data/hr/mapped/education_ksa_mapping.csv` | Customer MVP (전체) | **8,291행** (4,966개 고유 강좌) | 8대 KSA 역량과 교육과정 간 정밀 매핑 |
-| **표본 교육과정 후보** | `data/hr/output/integration/hr_integrated_candidates.csv` | STEP 4 표본 (Pilot) | **553건** | 공공 API 140건 + 플랫폼 SQLite 413건 |
+| **고객용 정제 코퍼스** | `data/hr/processed/education_courses_search_cleaned.parquet` | Customer MVP (전체) | **8,645건** | 9대 플랫폼 정제 교육과정, 텍스트 품질 점검 완료 (임베딩 1:1 매핑 확인) |
+| **KSA 역량 매핑** | `data/hr/mapped/education_ksa_mapping.csv` | Customer MVP (매핑) | **8,291행** (4,966개 고유 강좌) | 8대 KSA 역량과 교육과정 간 매핑 (미매핑 3,679건은 시맨틱 유사도 기반 탐색) |
+| **표본 교육과정 후보** | `data/hr/output/integration/hr_integrated_candidates.csv` | STEP 4 표본 (Pilot) | **553건** | 공공 API 140건 + 플랫폼 SQLite 413건 (코퍼스와 95.3% 중복 확인) |
 | **표본 전처리 선별 매핑** | `data/hr/output/integration/hr_mapping_verified.csv` | STEP 4 표본 (Pilot) | **295행** (295개 고유 강좌) | 1차 전처리 규칙 기반 선별 과정과 7대 역량 매핑 |
 | **NCS 직무 마스터** | `data/hr/processed/jobs.csv` | 공통 마스터 | **6개 직무** | 인사, 노무, 총무, 비서, 경영기획, 기타 |
 | **NCS 역량 마스터** | `data/hr/processed/competencies.csv` | STEP 4 마스터 | **7개 역량** | 채용, 평가보상, 근로관계법, 문서기획, 자산, 매너, 프로젝트 |
 | **KSA 역량 마스터** | `src/recommendation/ksa_master.py` | Customer MVP 마스터 | **8개 역량** | 위 7개 역량 + **`COMP_MGMT_02` (경영전략 및 재무회계 기초)** |
+
+> 📌 **미매핑 강좌(3,679건) 추천 취급 원칙**:
+> 전체 8,645건 중 KSA 매핑에 포함되지 않은 3,679건은 추천 질의와의 시맨틱/키워드 유사도가 높을 경우 후보로 추천될 수 있으나, 이는 의미 검색 기반 추천일 뿐 'KSA 검증 완료' 상태가 아니므로 구분을 명확히 관리한다.
 
 ---
 
