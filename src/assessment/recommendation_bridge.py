@@ -223,12 +223,12 @@ def get_recommendations_for_assessment(
                 else:
                     schedule_disp = "일정·모집 여부는 교육기관에서 확인"
 
-                # 출처 및 확인 시점 (임의 생성 금지)
+                # 출처 및 데이터 수집 시점 (임의 최신 확인일 생성 금지)
                 src_p = row.get('source_provider') or row.get('provider') or provider
                 col_at = row.get('collected_at')
                 if pd.notna(col_at) and str(col_at).strip() and str(col_at).strip().lower() != 'nan':
                     c_date = str(col_at).split('T')[0]
-                    source_disp = f"{src_p} 공개 데이터 (확인 시점: {c_date})"
+                    source_disp = f"{src_p} 공개 데이터 (데이터 수집 시점: {c_date})"
                 else:
                     source_disp = f"{src_p} 공개 데이터"
 

@@ -77,6 +77,216 @@ def format_hours(val):
         return "시수 미기재"
     return f"{float(val):.1f}시간"
 
+
+def format_collected_at(value):
+    """수집 시각을 신뢰 정보에 사용할 수 있는 날짜 문자열로 변환합니다."""
+    parsed = pd.to_datetime(value, errors="coerce")
+    return parsed.strftime("%Y-%m-%d") if pd.notna(parsed) else "수집일 미기재"
+
+
+# ------------------------------------------------------------------------------
+# 3. 학습 여정: 가치 제안 · 진단 · 추천 · 피드백 · 성과
+# ------------------------------------------------------------------------------
+def render_learning_journey(datasets):
+    """사용자의 자기진단을 실제 NCS 매핑·교육과정 데이터와 연결합니다."""
+    df_jobs = datasets["jobs"]
+    df_comp = datasets["competencies"]
+    df_job_comp = datasets["job_competencies"]
+    df_mapping = datasets["mapping"]
+    df_courses = datasets["candidates"]
+
+    st.markdown("## 🎯 내 직무에 맞는 학습 경로 설계")
+    st.markdown(
+        "**인사·총무 직무에 필요한 NCS 핵심 역량을 확인하고, 현재 부족한 역량에 맞는 "
+        "교육과정을 골라 다음 실무 단계까지 연결합니다.**"
+    )
+    st.caption("자기진단 결과는 이 브라우저 세션에서만 사용되며, 실제 역량 평가 결과가 아닙니다.")
+
+    steps = st.columns(4)
+    for column, title, description in zip(
+        steps,
+        ["1. 직무·수준 설정", "2. 부족 역량 진단", "3. 맞춤 과정 학습", "4. 피드백·다음 행동"],
+        ["목표 직무와 현재 수준 선택", "보완할 핵심 역량 선택", "근거를 확인하고 과정 시작", "완료 기록과 다음 과제 확인"],
+    ):
+        with column:
+            st.markdown(f"**{title}**")
+            st.caption(description)
+
+    job_options = df_jobs.set_index("job_name")["job_id"].to_dict()
+    setup_col, diagnosis_col = st.columns([1, 1.4])
+    with setup_col:
+        selected_job_name = st.selectbox("목표 직무", list(job_options), key="learning_target_job")
+        current_level = st.select_slider(
+            "현재 숙련도", ["입문", "기초", "실무 경험 있음"], value="입문", key="learning_current_level"
+        )
+
+    selected_job_id = job_options[selected_job_name]
+    required = (
+        df_job_comp[df_job_comp["job_id"] == selected_job_id]
+        .merge(df_comp[["competency_id", "competency_name", "definition"]], on="competency_id", how="left")
+    )
+    competency_options = required["competency_name"].tolist()
+    task_source = required.merge(
+        df_comp[["competency_id", "skill"]], on="competency_id", how="left"
+    )
+    # NCS 역량 마스터의 실무 기술(skill)에서 정제된 업무 선택지 도출 (안정적인 task_id 부여)
+    task_catalog = {}
+    task_labels = []
+    for task_row in task_source.itertuples():
+        c_id = task_row.competency_id
+        c_name = task_row.competency_name
+        skill_raw = str(task_row.skill) if pd.notna(task_row.skill) else ""
+        raw_items = [s.strip() for s in skill_raw.replace("/", ",").replace("\n", ",").split(",") if s.strip()]
+        for idx, item in enumerate(raw_items, start=1):
+            if item.lower() in ["nan", "none", "-"]:
+                continue
+            task_id = f"TASK_{c_id}_{idx:02d}"
+            label = f"{item} (연계 역량: {c_name})"
+            task_catalog[label] = {
+                "task_id": task_id,
+                "task_name": item,
+                "competency_id": c_id,
+                "competency_name": c_name
+            }
+            task_labels.append(label)
+
+    with diagnosis_col:
+        st.markdown("**실제 수행 중인 업무 (복수 선택)**")
+        st.caption("NCS 역량 마스터의 실무 기술(Skill) 항목에서 도출한 안정적 업무 선택지입니다.")
+        default_tasks = task_labels if current_level == "입문" else task_labels[:2]
+        selected_tasks = st.multiselect(
+            "수행 중인 세부 업무",
+            task_labels,
+            default=default_tasks,
+            help="선택한 업무의 연계 역량과 과정만 추천 우선순위에 반영합니다.",
+            key=f"learning_tasks_{selected_job_id}",
+        )
+        with st.expander("기타 업무가 있나요? (선택)"):
+            custom_task = st.text_input(
+                "목록에 없는 업무만 직접 입력", placeholder="예: 해외 지사 인사운영 지원", key=f"learning_custom_task_{selected_job_id}"
+            )
+
+    selected_competency_ids = list(dict.fromkeys(
+        task_catalog[task]["competency_id"] for task in selected_tasks if task in task_catalog
+    ))
+    if not selected_competency_ids:
+        st.info("수행 중인 업무를 하나 이상 선택하면 연결 역량과 맞춤 교육과정을 안내합니다.")
+        return
+
+    selected_detail = required[required["competency_id"].isin(selected_competency_ids)]
+    selected_gaps = selected_detail["competency_name"].tolist()
+    rationale = " · ".join(
+        f"{row.competency_name}: {row.mapping_rationale}"
+        for row in selected_detail.itertuples()
+    )
+
+    st.markdown("### 🧭 현재 수준과 목표 수준")
+    target_score = 3 if current_level == "입문" else 4 if current_level == "기초" else 5
+    assessment_cols = st.columns(min(3, len(selected_detail)))
+    assessment_rows = []
+    for index, row in enumerate(selected_detail.itertuples()):
+        with assessment_cols[index % len(assessment_cols)]:
+            current_score = st.select_slider(
+                row.competency_name,
+                options=[1, 2, 3, 4, 5],
+                value=min(target_score - 1, 3),
+                format_func=lambda score: f"{score}/5",
+                key=f"assessment_{selected_job_id}_{row.competency_id}",
+            )
+            gap = max(target_score - current_score, 0)
+            st.caption(f"목표 {target_score}/5 · 보완 필요 {gap}단계")
+            assessment_rows.append({"competency_id": row.competency_id, "gap": gap})
+    assessment_df = pd.DataFrame(assessment_rows)
+
+    st.markdown("### 🧭 지금의 추천 근거")
+    st.success(
+        f"**{selected_job_name} / {current_level}** 기준으로, 선택한 업무가 연결된 "
+        f"**{', '.join(selected_gaps)}** 역량과 사용자가 입력한 현재 수준 대비 목표 수준을 우선 반영했습니다. "
+        f"NCS 직무-역량 매핑 근거: {rationale}"
+    )
+    if custom_task.strip():
+        st.caption(f"기타 업무 메모: {custom_task} — 현재 NCS 매핑이 없는 자유 입력이며, 추천 결과에는 선택 업무 기반 근거를 우선 적용합니다.")
+
+    matching = df_mapping[df_mapping["competency_id"].isin(selected_competency_ids)].copy()
+    matching = matching.merge(assessment_df, on="competency_id", how="left")
+    matching["matched_competencies"] = matching.groupby("global_course_key")["competency_name"].transform(
+        lambda values: ", ".join(sorted(set(values)))
+    )
+    recommendations = (
+        matching.groupby(["global_course_key", "matched_competencies"], as_index=False)
+        .agg(matched_count=("competency_id", "size"), learning_gap=("gap", "max"))
+        .merge(df_courses, on="global_course_key", how="left")
+    )
+    recommendations = recommendations[recommendations["classification_status"] == "INCLUDED"]
+    recommendations = recommendations.sort_values(
+        ["learning_gap", "matched_count", "training_hours"], ascending=[False, False, True], na_position="last"
+    ).head(3)
+
+    if recommendations.empty:
+        st.warning("선택한 역량과 직접 연결된 전처리 선별 교육과정이 아직 없습니다. 탐색 탭에서 검토 대기 과정까지 확인해 보세요.")
+        return
+
+    if "completed_course_keys" not in st.session_state:
+        st.session_state.completed_course_keys = set()
+    completed = st.session_state.completed_course_keys
+    completion = len(set(recommendations["global_course_key"]) & completed)
+    st.markdown("### 📚 추천 학습과정과 성과")
+    metric_col, progress_col = st.columns([1, 2])
+    with metric_col:
+        st.metric("완료한 추천 과정", f"{completion}/{len(recommendations)}개")
+    with progress_col:
+        st.progress(completion / len(recommendations), text="자가 학습 완료율 (자기 기록용)")
+
+    for rank, course in enumerate(recommendations.itertuples(), start=1):
+        is_completed = course.global_course_key in completed
+        with st.container(border=True):
+            title_col, action_col = st.columns([4, 1])
+            with title_col:
+                st.markdown(f"**{rank}순위 · {course.course_name}**")
+                st.caption(
+                    f"{course.institution_name} · {course.course_level} · {format_hours(course.training_hours)} · {format_fee(course.course_fee)}"
+                )
+                st.write(f"추천 이유: 선택한 **{course.matched_competencies}** 역량과 직접 연결된 과정입니다.")
+                st.caption(
+                    f"출처: {course.source_platform} ({course.source_type}) · 데이터 수집 시점: {format_collected_at(course.collected_at)} · "
+                    "완료 기준: 학습자가 수강기관의 수료 기준을 충족한 뒤 이 화면에서 체크하는 자가 학습 기록 (자가 체크로 역량 점수가 자동 상승하지 않음)"
+                )
+                if pd.notna(course.course_url) and str(course.course_url).startswith("http"):
+                    st.link_button("과정 상세 보기 ↗", str(course.course_url), key=f"course_link_{course.global_course_key}")
+            with action_col:
+                if is_completed:
+                    st.success("완료")
+                elif st.button("완료 처리", key=f"complete_{course.global_course_key}"):
+                    st.session_state.completed_course_keys.add(course.global_course_key)
+                    st.rerun()
+
+    feedback = st.radio(
+        "학습 후 체감 난이도", ["아직 시작 전", "적절함", "어려움", "너무 쉬움"], horizontal=True, key="learning_feedback"
+    )
+    if feedback == "어려움":
+        next_action = "다음 행동: 교육과정 탐색 탭에서 입문/기초 과정으로 필터를 좁혀 먼저 학습하세요."
+    elif completion == len(recommendations):
+        next_action = "다음 행동: 선택한 역량을 다시 진단하거나, 인접 직무의 역량으로 학습 범위를 넓혀보세요."
+    else:
+        next_action = "다음 행동: 첫 번째 추천 과정을 시작하고 완료 후 체크해 다음 우선순위를 갱신하세요."
+    st.info(next_action)
+
+
+def render_service_support():
+    """서비스 이용 안내, 데이터 범위, 문의 경로를 제공한다."""
+    st.markdown("---")
+    with st.expander("서비스 이용·데이터·문의 안내"):
+        left, right = st.columns(2)
+        with left:
+            st.markdown("**데이터 사용과 개인정보**")
+            st.write("이 대시보드는 공개 교육과정 메타데이터와 NCS 역량 정보를 분석합니다. 자기진단·완료 기록은 현재 브라우저 세션에만 남으며 서버에 저장하지 않습니다.")
+            st.write("추천은 과정-역량 연결 정보에 기반한 참고 자료입니다. 실제 수강 가능 여부, 비용, 일정, 수료 조건은 과정 상세 페이지에서 확인해야 합니다.")
+        with right:
+            st.markdown("**결과가 보이지 않거나 개선 의견이 있나요?**")
+            st.write("필터를 완화하거나 다른 업무를 선택해 보세요. 오류와 개선 의견은 GitHub 저장소의 Issue로 남길 수 있습니다.")
+            st.link_button("GitHub Issue로 의견 보내기", "https://github.com/kimsaemi/edu-skill-gap/issues")
+        st.caption("모바일에서는 표와 차트가 가로로 길어질 수 있습니다. 과정 탐색 표는 좌우로 스크롤해 확인하세요.")
+
 # ------------------------------------------------------------------------------
 # 3. 탭 1: 교육 데이터 현황 렌더러
 # ------------------------------------------------------------------------------
@@ -392,17 +602,36 @@ def main():
         initial_sidebar_state="collapsed"
     )
 
+    st.markdown("""
+    <style>
+    @media (max-width: 768px) {
+        [data-testid="stHorizontalBlock"] { flex-wrap: wrap; }
+        [data-testid="stHorizontalBlock"] > div { min-width: 100% !important; }
+        h1 { font-size: 1.65rem !important; }
+    }
+    </style>
+    """, unsafe_allow_html=True)
+
     # 상단 헤더
     st.title("🎓 NCS 기반 인사·총무 직무역량 분석 및 교육과정 대시보드")
     st.markdown("**STEP 4 MVP** | 공공 API 및 7개 민간/공공 플랫폼 교육 데이터 통합 검증 및 시각화")
 
     # 데이터 로드
     try:
-        datasets = load_all_datasets()
+        with st.spinner("교육과정과 NCS 역량 데이터를 불러오는 중입니다..."):
+            datasets = load_all_datasets()
     except Exception as e:
-        st.error(f"❌ 데이터 로딩 중 오류가 발생했습니다: {e}")
-        st.info("파일 경로를 확인해 주세요 (`data/hr/output/integration/` 등)")
+        st.error("데이터를 불러오지 못했습니다. 잠시 후 새로고침해 주세요.")
+        st.info("문제가 계속되면 GitHub Issue로 오류 화면과 접속 시각을 알려주세요. 데이터 파일 경로(`data/hr/output/integration/` 등)도 함께 점검해 주세요.")
         return
+
+    # 사용자가 바로 목표 직무·부족 역량·추천 과정·진척을 연결해 볼 수 있는 학습 여정
+    render_learning_journey(datasets)
+    render_service_support()
+
+    st.markdown("---")
+    st.markdown("## 🔎 데이터 탐색과 근거 확인")
+    st.caption("아래 분석 탭에서 추천의 원천 데이터와 역량-교육과정 연결 구조를 직접 확인할 수 있습니다.")
 
     # 3개 탭 구성
     tab1, tab2, tab3 = st.tabs([
