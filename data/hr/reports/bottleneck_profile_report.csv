@@ -1,0 +1,8 @@
+﻿구분,세부 항목,지연 시간(ms),비율(%),최적화 방안
+1. 패키지 Import,"torch, sentence_transformers, duckdb 등",5269.5 ms,58.6%,서버 기동 시 1회만 발생 (@st.cache_resource)
+2. 파일 읽기,Parquet 3종 + 임베딩 npy,114.4 ms,1.3%,메모리 캐싱 (@st.cache_data / cache_resource)
+3. 데이터 조인,Pandas Merge vs DuckDB Direct,Pandas 6.8ms / DuckDB 493.3ms,-,DuckDB vs Pandas 성능 비교 검증
+4. 모델 초기화 (Cold),Ko-SRoBERTa 모델 가중치 로드,3611.4 ms,40.1%,@st.cache_resource 싱글톤 재사용
+5. 질의 인코딩,Ko-SRoBERTa 단일 텍스트 인코딩,Cold 166.9ms / Warm 5.5ms,-,동일 질의 인코딩 LRU 캐시 적용
+6. 점수 계산,NumPy 시맨틱 내적 + BM25 연산,내적 7.9ms + BM25 13.5ms,-,NumPy C-extension 벡터 연산 유지 (초고속)
+7. 중복제거/추천완료,전체 추천 파이프라인 (recommend),Cold 720.0ms / Warm 591.6ms,-,조건별 추천 결과 키 캐싱 (TTL/LRU)

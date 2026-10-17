@@ -12,6 +12,7 @@
 import os
 import re
 import json
+import time
 from pathlib import Path
 from typing import Dict, List, Optional, Tuple, Any, Set
 import numpy as np
@@ -146,6 +147,37 @@ class UnifiedHybridRecommender:
         for idx, n_title in enumerate(self.df_courses['norm_title']):
             if len(n_title) >= 4:
                 self.norm_title_to_indices.setdefault(n_title, []).append(idx)
+
+        # KSA (course_uid, competency_id) 검증용 튜플 세트 사전 생성 (8,291건 1회만 계산)
+        self.ksa_pair_set = set(zip(self.df_comp_long['course_uid'], self.df_comp_long['competency_id'])) if not self.df_comp_long.empty else set()
+
+        # 정적 표시 포맷 사전 생성 (8,645건 전수 대상 최초 1회만 계산하여 쿼리 시점 반복 연산 제거)
+        self.df_courses['price_display'] = self.df_courses['numeric_price'].apply(self.format_price)
+        self.df_courses['duration_display'] = self.df_courses['numeric_duration'].apply(self.format_duration)
+
+        def get_mismatch_status(uid):
+            if uid in self.excluded_109_uids:
+                return "🚨 [오매핑 차단]"
+            elif uid in self.preserved_109_uids:
+                return "🛡️ [오매핑 보존 (유효 강좌)]"
+            else:
+                return "✅ [정상 검증 강좌]"
+
+        self.df_courses['mismatch_status'] = self.df_courses['course_uid'].apply(get_mismatch_status)
+
+        # 데이터 버전 및 모델 버전 식별자 (캐시 키 무효화용)
+        p_clean = PROCESSED_DIR / "education_courses_search_cleaned.parquet"
+        self.model_version = "jhgan/ko-sroberta-multitask"
+        self.data_version = f"corpus_{len(self.df_courses)}_{p_clean.stat().st_mtime if p_clean.exists() else 'v1'}"
+
+        # 질의 인코딩 캐시 (최대 256개)
+        self._query_vector_cache: Dict[str, np.ndarray] = {}
+
+        # 추천 결과 캐시 (최대 128개, TTL 1시간)
+        self._rec_cache: Dict[Tuple, Tuple[pd.DataFrame, int, int, int, str]] = {}
+        self._rec_cache_timestamps: Dict[Tuple, float] = {}
+        self._rec_cache_ttl: float = 3600.0
+        self._rec_cache_max: int = 128
 
     def _init_models(self):
         # BM25 초기화
@@ -519,6 +551,36 @@ class UnifiedHybridRecommender:
         [5] 실제 동일 강좌 크로스 플랫폼 중복 제거 (Cross-platform Dedup) 및 대체 옵션 저장
         [6] 최종 Top N 선정 및 텍스트 근거 기반 추천 사유 도출
         """
+        # [캐시 검사] 데이터 버전, 모델 버전, 검색 조건 전수 포함된 키 생성
+        cache_key = (
+            self.data_version,
+            self.model_version,
+            (query or "").strip(),
+            target_domain,
+            competency_id,
+            user_level,
+            tuple(platforms) if platforms else None,
+            price_filter,
+            max_budget,
+            edu_type,
+            tuple(durations) if durations else None,
+            tuple(difficulties) if difficulties else None,
+            float(cluster_boost),
+            bool(filter_mismatch_109),
+            int(top_n),
+            mode
+        )
+
+        now = time.time()
+        if cache_key in self._rec_cache:
+            ts = self._rec_cache_timestamps.get(cache_key, 0)
+            if (now - ts) < self._rec_cache_ttl:
+                c_df, n_c, e_c, p_c, msg = self._rec_cache[cache_key]
+                return c_df.copy(), n_c, e_c, p_c, msg
+            else:
+                self._rec_cache.pop(cache_key, None)
+                self._rec_cache_timestamps.pop(cache_key, None)
+
         # 모드 판별: competency_id가 주어지면 자동으로 KSA 모드 전환
         is_ksa_mode = (mode == "ksa") or (competency_id is not None)
         competency_info = get_competency_by_id(competency_id) if is_ksa_mode and competency_id else None
@@ -556,9 +618,17 @@ class UnifiedHybridRecommender:
                 semantic_query_text = f"{effective_domain} 핵심 실무 역량 강화 교육"
             keyword_query_text = semantic_query_text
 
-        # 1) Ko-SRoBERTa 시맨틱 유사도
+        # 1) Ko-SRoBERTa 시맨틱 유사도 (질의 벡터 LRU 캐시 적용)
         if self.has_embeddings and self.model is not None and semantic_query_text.strip():
-            q_vec = self.model.encode(semantic_query_text, normalize_embeddings=True, device=self.device)
+            sq_clean = semantic_query_text.strip()
+            if sq_clean in self._query_vector_cache:
+                q_vec = self._query_vector_cache[sq_clean]
+            else:
+                q_vec = self.model.encode(sq_clean, normalize_embeddings=True, device=self.device)
+                if len(self._query_vector_cache) >= 256:
+                    self._query_vector_cache.pop(next(iter(self._query_vector_cache)))
+                self._query_vector_cache[sq_clean] = q_vec
+
             cand_embs = self.embeddings[cand_indices]
             sims = np.dot(cand_embs, q_vec)
             semantic_scores = np.clip(sims, 0.0, 1.0) * 100.0
@@ -637,20 +707,8 @@ class UnifiedHybridRecommender:
         df_cand['cluster_bonus'] = np.round(cluster_bonus, 1)
         df_cand['ksa_aux_bonus'] = np.round(ksa_aux_bonus, 1)
 
-        # 표시용 포맷 필드
-        df_cand['price_display'] = df_cand['numeric_price'].apply(self.format_price)
-        df_cand['duration_display'] = df_cand['numeric_duration'].apply(self.format_duration)
-
-        # 오매핑 및 검증 상태 태그
-        def get_mismatch_status(uid):
-            if uid in self.excluded_109_uids:
-                return "🚨 [오매핑 차단]"
-            elif uid in self.preserved_109_uids:
-                return "🛡️ [오매핑 보존 (유효 강좌)]"
-            else:
-                return "✅ [정상 검증 강좌]"
-
-        df_cand['mismatch_status'] = df_cand['course_uid'].apply(get_mismatch_status)
+        # 표시용 포맷 필드(price_display, duration_display, mismatch_status)는
+        # _load_data()에서 사전 생성되어 df_cand에 이미 포함되어 있으므로 쿼리 시점 반복 연산을 생략합니다.
 
         # STEP 3: 점수 기준 정렬
         df_sorted = df_cand.sort_values(by=['final_score', 'semantic_score'], ascending=False)
@@ -748,7 +806,15 @@ class UnifiedHybridRecommender:
             top_df['job_family'] = competency_info['job_family']
             top_df['competency_id'] = competency_id
             top_df['competency_name'] = competency_info['name']
-            top_df['ncs_unit_code'] = competency_info['ncs_unit_code']
-
         msg = "추천이 성공적으로 완료되었습니다."
+
+        # 추천 결과 LRU 캐시 저장 (메모리 상한 128개 유지)
+        if len(self._rec_cache) >= self._rec_cache_max:
+            oldest_k = next(iter(self._rec_cache))
+            self._rec_cache.pop(oldest_k, None)
+            self._rec_cache_timestamps.pop(oldest_k, None)
+
+        self._rec_cache[cache_key] = (top_df.copy(), n_candidates, excluded_109_cnt, preserved_109_cnt, msg)
+        self._rec_cache_timestamps[cache_key] = now
+
         return top_df, n_candidates, excluded_109_cnt, preserved_109_cnt, msg

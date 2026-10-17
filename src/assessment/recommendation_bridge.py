@@ -132,8 +132,10 @@ def get_recommendations_for_assessment(
     deduped_cards_map: Dict[str, RecommendedCourseCard] = {}
     prioritized_ids = [cs.competency_id for cs in target_comp_scores]
 
-    # (course_uid, competency_id) 매핑 유효성 검증용 튜플 세트
-    ksa_pair_set = set(zip(engine.df_comp_long['course_uid'], engine.df_comp_long['competency_id'])) if not engine.df_comp_long.empty else set()
+    # (course_uid, competency_id) 매핑 유효성 검증용 튜플 세트 (엔진 사전 계산 세트 재사용)
+    ksa_pair_set = getattr(engine, 'ksa_pair_set', None)
+    if ksa_pair_set is None:
+        ksa_pair_set = set(zip(engine.df_comp_long['course_uid'], engine.df_comp_long['competency_id'])) if not engine.df_comp_long.empty else set()
 
     weekly_h = filter_params.weekly_hours or 4.0
 

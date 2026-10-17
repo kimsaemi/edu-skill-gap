@@ -1460,42 +1460,93 @@ with tab_assessment:
         target_scores = []
         gaps = []
 
-        for c_id, cs in eval_res.competency_scores.items():
-            if not cs.is_insufficient:
-                chart_comps.append(cs.competency_name)
-                curr_scores.append(cs.current_level)
-                target_scores.append(cs.target_level)
-                gaps.append(cs.gap)
+        valid_comps = [cs for cs in eval_res.competency_scores.values() if not cs.is_insufficient]
+        if valid_comps:
+            chart_comps = [cs.competency_name for cs in valid_comps]
+            curr_scores = [cs.current_level for cs in valid_comps]
+            target_scores = [cs.target_level for cs in valid_comps]
+            customdata_curr = [
+                [f"{cs.valid_response_count}/{cs.total_question_count}문항", cs.gap or 0.0, cs.competency_id]
+                for cs in valid_comps
+            ]
+            customdata_target = [
+                [f"{cs.valid_response_count}/{cs.total_question_count}문항", cs.gap or 0.0, cs.competency_id]
+                for cs in valid_comps
+            ]
 
-        if chart_comps:
             fig = go.Figure()
             fig.add_trace(go.Bar(
                 y=chart_comps,
                 x=curr_scores,
-                name="현재 자기평가 (1~5점)",
+                name="현재 자기평가",
                 orientation="h",
-                marker=dict(color="#4F46E5"),
+                marker=dict(
+                    color="#4F46E5",
+                    line=dict(color="#3730A3", width=1)
+                ),
                 text=[f"{v:.1f}점" for v in curr_scores],
-                textposition="auto"
+                textposition="auto",
+                customdata=customdata_curr,
+                hovertemplate="<b>%{y}</b><br>현재 자기평가: <b>%{x:.1f}점</b><br>유효 응답: <b>%{customdata[0]}</b><br>목표와의 차이: <b>%{customdata[1]:.1f}점</b><extra></extra>"
             ))
             fig.add_trace(go.Bar(
                 y=chart_comps,
                 x=target_scores,
-                name="사용자 설정 목표 (1~5점)",
+                name="설정 목표 수준",
                 orientation="h",
-                marker=dict(color="#93C5FD"),
+                marker=dict(
+                    color="#93C5FD",
+                    line=dict(color="#60A5FA", width=1)
+                ),
                 text=[f"{v:.1f}점" for v in target_scores],
-                textposition="auto"
+                textposition="auto",
+                customdata=customdata_target,
+                hovertemplate="<b>%{y}</b><br>설정 목표 수준: <b>%{x:.1f}점</b><br>목표와의 차이: <b>%{customdata[1]:.1f}점</b><extra></extra>"
             ))
             fig.update_layout(
                 barmode="group",
-                height=260 + len(chart_comps) * 35,
-                margin=dict(l=20, r=20, t=25, b=25),
-                xaxis=dict(range=[0, 5.2], title="역량 점수 (5점 척도 기준)", dtick=1.0),
-                yaxis=dict(autorange="reversed"),
-                legend=dict(orientation="h", yanchor="bottom", y=1.02, xanchor="right", x=1)
+                height=max(260, 180 + len(valid_comps) * 45),
+                margin=dict(l=15, r=15, t=30, b=15),
+                xaxis=dict(
+                    range=[0, 5.3],
+                    title=dict(text="역량 점수 (5점 척도)", font=dict(size=12, color="#475569")),
+                    dtick=1.0,
+                    gridcolor="#E2E8F0"
+                ),
+                yaxis=dict(
+                    autorange="reversed",
+                    tickfont=dict(size=12, color="#0F172A", family="Pretendard, sans-serif")
+                ),
+                legend=dict(
+                    orientation="h",
+                    yanchor="bottom",
+                    y=1.03,
+                    xanchor="right",
+                    x=1,
+                    font=dict(size=11)
+                ),
+                paper_bgcolor="rgba(0,0,0,0)",
+                plot_bgcolor="rgba(0,0,0,0)",
+                hoverlabel=dict(
+                    bgcolor="#1E293B",
+                    font_size=12,
+                    font_color="#FFFFFF",
+                    font_family="Pretendard, sans-serif"
+                )
             )
             st.plotly_chart(fig, use_container_width=True)
+
+            # 역량 선택과 맞춤 교육 필터 연계 인터랙션 바
+            st.markdown("<div style='font-size: 0.88rem; font-weight: 700; color: #334155; margin-top: 0.2rem; margin-bottom: 0.4rem;'>🎯 차트 역량 클릭 연계 (선택 시 해당 교육 바로 이동):</div>", unsafe_allow_html=True)
+            filter_cols = st.columns(min(len(valid_comps), 4))
+            for i, cs in enumerate(valid_comps):
+                col_target = filter_cols[i % len(filter_cols)]
+                with col_target:
+                    gap_badge = f" (차이 {cs.gap:.1f}점)" if cs.gap and cs.gap > 0 else " (충족)"
+                    btn_text = f"🎓 {cs.competency_name}{gap_badge}"
+                    if st.button(btn_text, key=f"chart_comp_btn_{cs.competency_id}", use_container_width=True):
+                        st.session_state["selected_competency_filter"] = cs.competency_id
+                        switch_main_tab("🎓 맞춤 교육")
 
         # 정보 부족 역량 안내 (0점으로 왜곡하지 않고 별도 격리 안내)
         if eval_res.insufficient_competencies:
