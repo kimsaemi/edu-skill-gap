@@ -41,33 +41,33 @@
 
 | 번호 | 직무 | 목표 역량 | 추천 강좌명 (기관) | 수강료 | 링크 | 핵심 발췌 |
 |:---:|:---:|:---:|:---|:---:|:---:|:---|
-| 1 | 인사 | **인력채용** | HR, AI가 트렌드다 : 채용부터 퇴사까지 (GSEEK) | 무료 | [링크](https://www.gseek.kr/user/course/online/view?s_sbjct_sn=57049) | AI 기반 채용공고 생성, 면접 가이드 및 온보딩 |
-| 2 | 인사 | **인력채용** | 신규입사자의 온보딩 과정, 워.플.킹 (GSEEK) | 무료 | [링크](https://www.gseek.kr/user/course/online/view?s_sbjct_sn=57944) | 신규 입사자 업무 의미감, 사내 협업 온보딩 |
-| 3 | 인사 | **인력채용** | 우수인재 선발을 위한 면접관 역량개발 (KPC) | 360,000원 | [링크](https://www.kpc.or.kr/PTWED003_dtil_view.do?ecno=47011&cono=157556) | 면접관 자질, 역량면접(BEI) 질문 설계 |
-| 4 | 인사 | **인력채용** | 직업상담사 실무 생생 지침서 (GSEEK) | 무료 | [링크](https://www.gseek.kr/user/course/online/view?s_sbjct_sn=3222) | 채용박람회 준비, 구인/구직 상담 |
-| 5 | 인사 | **인력채용** | [여의도] 수시 경력입사자 온보딩 (KMA) | 490,000원 | [링크](https://www.kma.or.kr/usrs/eduRegMgnt/eduRegInfoDetailForm.do?p_edutype_cd=001&p_crscd=111663&p_crsseq_id=126808&p_ctgry_id=698&p_hmpgcd=30&mkey=37240) | 경력직 조기 전력화 및 조직 온보딩 실무 |
-| 6 | 인사 | **인사평가/보상** | 인사평가시스템 구축실무 (KPC) | 700,000원 | [링크](https://www.kpc.or.kr/PTWED003_dtil_view.do?ecno=46976&cono=157561) | KPI 지표 설계, 인사평가 최신 트렌드 |
-| 7 | 인사 | **인사평가/보상** | [온앤오프] 평가 및 보상제도 운영실무 (KPC) | 700,000원 | [링크](https://www.kpc.or.kr/PTWED003_dtil_view.do?ecno=46990&cono=149679) | 성과주의 보상 체계, 전략적 인사평가 |
-| 8 | 인사 | **인사평가/보상** | [온앤오프] 인사관리기본 (KPC) | 700,000원 | [링크](https://www.kpc.or.kr/PTWED003_dtil_view.do?ecno=46981&cono=149644) | MBO 목표관리, 성과평가 및 역량평가 |
-| 9 | 인사 | **인사평가/보상** | [강남] 성과 향상을 위한 인사평가 면담 Skill (KMA) | 490,000원 | [링크](https://www.kma.or.kr/usrs/eduRegMgnt/eduRegInfoDetailForm.do?p_edutype_cd=001&p_crscd=111205&p_crsseq_id=124937&p_ctgry_id=698&p_hmpgcd=30&mkey=37240) | 업적·역량 다면평가, 피평가자 면담 기법 |
-| 10 | 인사 | **인사평가/보상** | 두산_인사 전문가_성과중심 인사평가 (KPC) | 무료 | [링크](https://www.kpc.or.kr/PTWED003_dtil_view.do?ecno=48450&cono=156250) | 성과 기반 보상 체계 설계 및 피드백 |
-| 11 | 총무 | **문서작성/기획** | 보고서의 비결 (with. ChatGPT) (GSEEK) | 무료 | [링크](https://www.gseek.kr/user/course/online/view?s_sbjct_sn=51954) | AI 활용 비즈니스 보고서 작성법 |
-| 12 | 총무 | **문서작성/기획** | 비즈니스 인포그래픽(미리캔버스,PPT) (KPC) | 420,000원 | [링크](https://www.kpc.or.kr/PTWED003_dtil_view.do?ecno=47488&cono=151313) | PPT 보고서 시각화 실무 |
-| 13 | 총무 | **문서작성/기획** | 회사에서 바로 통하는 보고서 (GSEEK) | 무료 | [링크](https://www.gseek.kr/user/course/online/view?s_sbjct_sn=57934) | 실무 공문서 및 비즈니스 보고서 서식 |
-| 14 | 총무 | **문서작성/기획** | Professional Writing (KPC) | 750,000원 | [링크](https://www.kpc.or.kr/PTWED003_dtil_view.do?ecno=47530&cono=151502) | 비즈니스 이메일 및 전문 문서 작성 |
-| 15 | 총무 | **문서작성/기획** | 전략기획서 작성실무 (KPC) | 740,000원 | [링크](https://www.kpc.or.kr/PTWED003_dtil_view.do?ecno=46676&cono=148500) | 전략 기획서 프레임워크 및 제안서 |
-| 16 | 총무 | **비품/자산관리** | 실무 꿀 tip! 총무 업무 지침서 (휴넷) | 확인필요 | [링크](https://hbs.hunet.co.kr/Education/Detail?gid=Y00316399) | 사옥 시설 및 비품, 고정자산 관리 |
-| 17 | 총무 | **비품/자산관리** | 총무 자산관리 핵심 (KPC) | 670,000원 | [링크](https://www.kpc.or.kr/PTWED003_dtil_view.do?ecno=47284&cono=151690) | 시설관리 법규, 고정자산 감가상각 및 재물조사 |
-| 18 | 총무 | **비품/자산관리** | 시설관리 및 자산관리 (휴넷) | 확인필요 | [링크](https://hbs.hunet.co.kr/Education/Detail?gid=Y00333589) | 사업장 시설 유지보수 및 자산 관리 |
-| 19 | 총무 | **비품/자산관리** | 부동산자산관리지도사 (KMA) | 확인필요 | [링크](https://www.kma.or.kr/usrs/eduRegMgnt/eduRegInfoDetailForm.do?p_edutype_cd=002&p_crscd=110000&p_crsseq_id=126663&p_ctgry_id=668&p_hmpgcd=30&mkey=37179) | 기업 부동산 및 시설 자산 관리 개관 |
-| 20 | 총무 | **비품/자산관리** | 부동산 자산 관리 실무 (KPC) | 확인필요 | [링크](https://www.kpc.or.kr/PTWED003_dtil_view.do?ecno=47251&cono=151717) | 건물자산관리(AM/PM/FM) 실무 노하우 |
-| 21 | 경영지원 | **비즈니스매너** | 글로벌 비즈니스 리더의 기술 (휴넷) | 확인필요 | [링크](https://hbs.hunet.co.kr/Education/Detail?gid=Y00316461) | 비즈니스 매너, 사내외 소통 및 의전 |
-| 22 | 경영지원 | **비즈니스매너** | 어쩐지 끌리는 사람의 비즈니스 매너 (GSEEK) | 무료 | [링크](https://www.gseek.kr/user/course/online/view?s_sbjct_sn=51955) | 직장 예절, 대화법 및 에티켓 |
-| 23 | 경영지원 | **비즈니스매너** | 회사에서는 어떻게 말해야 하나요? (GSEEK) | 무료 | [링크](https://www.gseek.kr/user/course/online/view?s_sbjct_sn=51734) | 비즈니스 이메일 에티켓, 직장 대화법 |
-| 24 | 경영지원 | **비즈니스매너** | 성공을 부르는 비즈니스 스피치 (휴넷) | 확인필요 | [링크](https://hbs.hunet.co.kr/Education/Detail?gid=Y00096693) | 설득력 있는 스피치 및 커뮤니케이션 |
-| 25 | 경영지원 | **비즈니스매너** | 글로벌 비즈니스 매너 (KPC) | 확인필요 | [링크](https://www.kpc.or.kr/PTWED003_dtil_view.do?ecno=47464&cono=151642) | 글로벌 파트너 응대 및 에티켓 |
-| 26 | 경영지원 | **프로젝트관리** | 일잘러의 IT 프로젝트 성과관리 (휴넷) | 확인필요 | [링크](https://hbs.hunet.co.kr/Education/Detail?gid=Y00347025) | 프로젝트 목표관리, WBS 일정 수립 |
-| 27 | 경영지원 | **프로젝트관리** | 프로젝트 일정관리 전문가 (KPC) | 확인필요 | [링크](https://www.kpc.or.kr/PTWED003_dtil_view.do?ecno=47879&cono=152776) | WBS 작성, 일정 통제 및 리스크 관리 |
-| 28 | 경영지원 | **프로젝트관리** | 중간관리자의 문제해결력 (GSEEK) | 무료 | [링크](https://www.gseek.kr/user/course/online/view?s_sbjct_sn=51738) | 문제 정의, 팀워크 빌딩 및 합리적 의사결정 |
-| 29 | 경영지원 | **프로젝트관리** | 프로젝트 관리자 리더십 향상 (KPC) | 확인필요 | [링크](https://www.kpc.or.kr/PTWED003_dtil_view.do?ecno=47876&cono=152772) | 프로젝트 라이프사이클 관리, 팀원 코칭 |
-| 30 | 경영지원 | **프로젝트관리** | 슬기로운 필수 협업 도구 활용법 (GSEEK) | 무료 | [링크](https://www.gseek.kr/user/course/online/view?s_sbjct_sn=4467) | 노션/슬랙 등 스마트 협업 툴 활용법 |
+| 1 | 인사 | **인력채용** | HR, AI가 트렌드다 : 채용부터 퇴사까지 (GSEEK) | 무료 | [링크](https://www.gseek.kr/user/course/online/view?s_sbjct_sn=57049) | 2. 매력적인 채용 공고 생성: 지원자 홀리는 채용 공고, AI가 써준다 |
+| 2 | 인사 | **인력채용** | 신규입사자의 온보딩 과정, 워(Work).플(People).킹(Networking) (GSEEK) | 무료 | [링크](https://www.gseek.kr/user/course/online/view?s_sbjct_sn=57944) | 1. 업무의 의미감 |
+| 3 | 인사 | **인력채용** | 우수인재 선발을 위한 면접관 역량개발 (한국생산성본부(KPC)) | 수강료 360,000원 | [링크](https://www.kpc.or.kr/PTWED003_dtil_view.do?ecno=47011&cono=157556) | 국내외채용트렌드및 면접 이슈 국내외 채용 트렌드채용 사례와 면접관 사례 |
+| 4 | 인사 | **인력채용** | 직업상담사 실무 생생 지침서 (GSEEK) | 무료 | [링크](https://www.gseek.kr/user/course/online/view?s_sbjct_sn=3222) | 19. 채용박람회 준비 A부터 Z까지! |
+| 5 | 인사 | **인력채용** | [여의도] 수시 경력입사자 온보딩 (한국능률협회(KMA)) | 수강료 490,000원 | [링크](https://www.kma.or.kr/usrs/eduRegMgnt/eduRegInfoDetailForm.do?p_edutype_cd=001&p_crscd=111663&p_crsseq_id=126808&p_ctgry_id=698&p_hmpgcd=30&mkey=37240) | 1일차 Intention 내가 이 조직을 선택한 이유는 무엇입니까? 1) IRUM 온보딩 과정 소개 - Ice breaking 및 과정소개 - 경력입사자 네트워킹 형성 : 패들렛 2) 조직에서 나의 역할 |
+| 6 | 인사 | **인사평가 및 보상** | 인사평가시스템 구축실무 (한국생산성본부(KPC)) | 수강료 700,000원 | [링크](https://www.kpc.or.kr/PTWED003_dtil_view.do?ecno=46976&cono=157561) | Module 1 인사평가 패러다임 변화 1.인사평가 목적2.기업의 인사평가 애로사항 분석3.인사평가 패러다임 변화4.인사평가 최신 트렌드 이해 |
+| 7 | 인사 | **인사평가 및 보상** | [온앤오프] 평가 및 보상제도 운영실무 (한국생산성본부(KPC)) | 수강료 700,000원 | [링크](https://www.kpc.or.kr/PTWED003_dtil_view.do?ecno=46990&cono=149679) | / 주제 / 내용 / / --- / --- / / 인사평가의패러다임 변화 / §최근HR이슈 및 트렌드§성과주의 인사제도§전략적 인사평가§조직평가와개인평가 / / 인사평가시스템구축설계 컨설팅 / §인사평가 시스템의 구성체계§평가시스템의 유형과 평가방법§평가항목 도출 및  |
+| 8 | 인사 | **인사평가 및 보상** | [온앤오프] 인사관리기본 (한국생산성본부(KPC)) | 수강료 700,000원 | [링크](https://www.kpc.or.kr/PTWED003_dtil_view.do?ecno=46981&cono=149644) | Module 4 평가관리 1.인사평가 목적2.성과관리vs.근무평정3.성과책임(accountability)이해4.MBO(Management by objectives)5.성과평가 설계6.역량평가 설계7.인사평 |
+| 9 | 인사 | **인사평가 및 보상** | [강남] 성과 향상을 위한 인사평가(성과평가, 다면평가) 면담 Skill (한국능률협회(KMA)) | 수강료 490,000원 | [링크](https://www.kma.or.kr/usrs/eduRegMgnt/eduRegInfoDetailForm.do?p_edutype_cd=001&p_crscd=111205&p_crsseq_id=124937&p_ctgry_id=698&p_hmpgcd=30&mkey=37240) | 1일차 인사평가의 이해 2시간 1) 인사평가의 이해 - 인사평가의 구조 - 업적평가, 성과평가, 역량평가, 다면평가 - 우리 조직의 인사평가 제도 소개하기 2) 인사평가 제도 및 인사평가 면담에 대한 논의 |
+| 10 | 인사 | **인사평가 및 보상** | 두산_인사 전문가_성과중심 인사평가 (한국생산성본부(KPC)) | 무료 | [링크](https://www.kpc.or.kr/PTWED003_dtil_view.do?ecno=48450&cono=156250) | Phase 2. 보상 체계 설계 |
+| 11 | 총무 | **문서작성 및 기획** | 상사의 시선을 사로잡는 보고서의 비결 (with. ChatGPT) (GSEEK) | 무료 | [링크](https://www.gseek.kr/user/course/online/view?s_sbjct_sn=51954) | 1. 보고서 작성 효율을 높여주는 무기, ChatGPT |
+| 12 | 총무 | **문서작성 및 기획** | 하루에 끝내는 비즈니스 인포그래픽(미리캔버스,PPT) (한국생산성본부(KPC)) | 수강료 420,000원 | [링크](https://www.kpc.or.kr/PTWED003_dtil_view.do?ecno=47488&cono=151313) | [↑영상 보러 가기] (https://youtu.be/zHpTNwImrZI) 정보(Information)와 그래픽(Graphic)이 합쳐진 인포그래픽은 핵심 정보를 전달하는 효과적인 수단입니다. 인포그래픽은 정보를 더욱 가치 있어 보이게 만들고, 핵심 내용을 쉽게 이해 |
+| 13 | 총무 | **문서작성 및 기획** | DO IT 직장인 기본.zip : 회사에서 바로 통하는 보고서 (GSEEK) | 무료 | [링크](https://www.gseek.kr/user/course/online/view?s_sbjct_sn=57934) | 4. 실무에서 바로 쓰는 보고서 작성법 |
+| 14 | 총무 | **문서작성 및 기획** | Global Business & Professional Writing(Feat.AI)(영어) (한국생산성본부(KPC)) | 수강료 750,000원 | [링크](https://www.kpc.or.kr/PTWED003_dtil_view.do?ecno=47530&cono=151502) | AI가 번역과 문서 작성을 도와주는 시대이지만, 글로벌 비즈니스 현장에서 신뢰를 주는 문서는 여전히 ‘사람이 판단하고 표현하는 능력’에 달려 있습니다. 본 교육은 영어 문서 작성의 핵심 원칙과 문서 유형별 표현을 학습하여, 간결하면서도 Professional한 영문 비 |
+| 15 | 총무 | **문서작성 및 기획** | [온앤오프] 기획담당자를 위한 전략기획서 작성실무 (한국생산성본부(KPC)) | 수강료 740,000원 | [링크](https://www.kpc.or.kr/PTWED003_dtil_view.do?ecno=46676&cono=148500) | Module 1. 전략 기획서란? |
+| 16 | 총무 | **비품 및 자산관리** | 실무 꿀 tip! 총무 업무 지침서 (휴넷) | 가격 미확인 | [링크](https://hbs.hunet.co.kr/Education/Detail?gid=Y00316399) | - 제8절 고정자산관리 |
+| 17 | 총무 | **비품 및 자산관리** | 총무 자산관리 핵심 (한국생산성본부(KPC)) | 수강료 670,000원 | [링크](https://www.kpc.or.kr/PTWED003_dtil_view.do?ecno=47284&cono=151690) | 3일차 ㅇ부동산 자산 관리 실무-시설물 관리 기초 법규 이해-부동산 거래 프로세스별 유의 사항-상가건물임대차보호법 핵심 실무ㅇ무형 자산 관리 실무-영업비밀 보호절차 실무-지식사회형 자산관리 트렌드 |
+| 18 | 총무 | **비품 및 자산관리** | 핵심만 콕! 시설관리 및 자산관리 (휴넷) | 가격 미확인 | [링크](https://hbs.hunet.co.kr/Education/Detail?gid=Y00333589) | ### 1교시 : 핵심만 콕! 시설관리 및 자산관리 |
+| 19 | 총무 | **비품 및 자산관리** | [온라인][자격] 부동산자산관리지도사 (한국능률협회(KMA)) | 수강료 300,000원 | [링크](https://www.kma.or.kr/usrs/eduRegMgnt/eduRegInfoDetailForm.do?p_edutype_cd=002&p_crscd=110000&p_crsseq_id=126663&p_ctgry_id=668&p_hmpgcd=30&mkey=37179) | 1강 부동산자산관리 개관 31분 |
+| 20 | 총무 | **비품 및 자산관리** | 부동산 자산 관리 실무 (한국생산성본부(KPC)) | 수강료 670,000원 | [링크](https://www.kpc.or.kr/PTWED003_dtil_view.do?ecno=47251&cono=151717) | 모듈5 부동산 시설관리현업노하우 ㅇ 건물생애주기이해ㅇ 건물자산관리(AM PM FM)역할과 책임ㅇ 부동산 자산관리 실무 및 유지 관리 실무- FM리스크 관리와 관리자 행동 요령-건물관리 수익(NOI)및 비용 |
+| 21 | 경영지원 | **비즈니스 매너 및 커뮤니케이션** | 글로벌 비즈니스 리더의 기술_기업 이미지 UP 프로젝트 (휴넷) | 가격 미확인 | [링크](https://hbs.hunet.co.kr/Education/Detail?gid=Y00316461) | - 제19절 커뮤니케이션_커뮤니케이션에 대한 이해 |
+| 22 | 경영지원 | **비즈니스 매너 및 커뮤니케이션** | [레전드 스킬] 어쩐지 끌리는 사람의 비즈니스 매너 (GSEEK) | 무료 | [링크](https://www.gseek.kr/user/course/online/view?s_sbjct_sn=51955) | 1. 성공하는 사회생활을 위해 꼭 체크해야 할 것 |
+| 23 | 경영지원 | **비즈니스 매너 및 커뮤니케이션** | [신입사원 커뮤니케이션 가이드] 회사에서는 어떻게 말해야 하나요? (GSEEK) | 무료 | [링크](https://www.gseek.kr/user/course/online/view?s_sbjct_sn=51734) | 6. 이메일 커뮤니케이션(1) |
+| 24 | 경영지원 | **비즈니스 매너 및 커뮤니케이션** | 성공을 부르는 비즈니스 스피치 (휴넷) | 가격 미확인 | [링크](https://hbs.hunet.co.kr/Education/Detail?gid=Y00096693) | 성공을 부르는 비즈니스 스피치 핵심 실무 과정 (비즈니스 스피치 및 소통 스킬) |
+| 25 | 경영지원 | **비즈니스 매너 및 커뮤니케이션** | 글로벌 비즈니스 매너 (한국생산성본부(KPC)) | 수강료 360,000원 | [링크](https://www.kpc.or.kr/PTWED003_dtil_view.do?ecno=47464&cono=151642) | 글로벌 비즈니스 매너 핵심 실무 과정 (비즈니스 스피치 및 소통 스킬) |
+| 26 | 경영지원 | **프로젝트 및 조직관리** | 리더십 4.0 시대, 일잘러의 IT 프로젝트 성과관리 (휴넷) | 가격 미확인 | [링크](https://hbs.hunet.co.kr/Education/Detail?gid=Y00347025) | ### 1교시 : 리더십 4.0 시대, 일잘러의 IT 프로젝트 성과관리 |
+| 27 | 경영지원 | **프로젝트 및 조직관리** | 프로젝트 일정관리 전문가 (한국생산성본부(KPC)) | 수강료 650,000원 | [링크](https://www.kpc.or.kr/PTWED003_dtil_view.do?ecno=47879&cono=152776) | 1일차 [Phase 01] Prologue- 프로젝트 관리의 이해- 프로젝트 관리 영역 및 관리 기준- 프로젝트 관리의 5 Progress Group |
+| 28 | 경영지원 | **프로젝트 및 조직관리** | 탁월한 성과를 만드는 중간관리자의 문제해결력 (GSEEK) | 무료 | [링크](https://www.gseek.kr/user/course/online/view?s_sbjct_sn=51738) | 1. 문제해결의 기초 |
+| 29 | 경영지원 | **프로젝트 및 조직관리** | 프로젝트 관리자 리더십 향상 (한국생산성본부(KPC)) | 수강료 650,000원 | [링크](https://www.kpc.or.kr/PTWED003_dtil_view.do?ecno=47876&cono=152772) | 1일차 [Phase 01] 프로젝트 관리 개요- 프로젝트 및 프로젝트 관리 이해- 프로젝트 제약조건- 프로젝트 성공 실패 요인- 프로젝트 관리자의 역량[Phase 02] 프로젝트 라이프싸이클 이해- 프로젝트 |
+| 30 | 경영지원 | **프로젝트 및 조직관리** | 슬기로운 필수 협업 도구 활용법 (GSEEK) | 무료 | [링크](https://www.gseek.kr/user/course/online/view?s_sbjct_sn=4467) | 5. 효율적인 프로젝트 관리 도구 |
