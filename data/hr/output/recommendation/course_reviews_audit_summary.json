@@ -1,0 +1,1113 @@
+{
+  "sqlite_results": [
+    {
+      "db_path": "d:\\26_강의자료\\프로젝트2_교육\\data\\SQLite\\fastcampus_courses.db",
+      "tables": [
+        {
+          "name": "courses",
+          "type": "table",
+          "row_count": 901,
+          "columns": [
+            "id",
+            "title",
+            "slug",
+            "url",
+            "description",
+            "category_id",
+            "category_name",
+            "subcategory_id",
+            "subcategory_name",
+            "format_name",
+            "state",
+            "instruction_type",
+            "list_price",
+            "sale_price",
+            "discount_rate",
+            "thumbnail_url",
+            "created_at",
+            "updated_at",
+            "collected_at"
+          ]
+        }
+      ],
+      "review_columns": []
+    },
+    {
+      "db_path": "d:\\26_강의자료\\프로젝트2_교육\\data\\SQLite\\gseek_courses.db",
+      "tables": [
+        {
+          "name": "courses",
+          "type": "table",
+          "row_count": 1991,
+          "columns": [
+            "course_sn",
+            "title",
+            "url",
+            "category_depth1",
+            "category_depth2",
+            "category_depth3",
+            "category_sn",
+            "course_type",
+            "description",
+            "view_count",
+            "recommend_count",
+            "keywords",
+            "thumbnail_url",
+            "reg_date",
+            "collected_at"
+          ]
+        }
+      ],
+      "review_columns": []
+    },
+    {
+      "db_path": "d:\\26_강의자료\\프로젝트2_교육\\data\\SQLite\\hunet_courses.db",
+      "tables": [
+        {
+          "name": "courses",
+          "type": "table",
+          "row_count": 1958,
+          "columns": [
+            "goods_id",
+            "process_code",
+            "title",
+            "level",
+            "badges",
+            "category_depth1",
+            "category_depth2",
+            "category_depth3",
+            "thumbnail_url",
+            "url",
+            "collected_at"
+          ]
+        }
+      ],
+      "review_columns": []
+    },
+    {
+      "db_path": "d:\\26_강의자료\\프로젝트2_교육\\data\\SQLite\\kfo_courses.db",
+      "tables": [
+        {
+          "name": "courses",
+          "type": "table",
+          "row_count": 50,
+          "columns": [
+            "course_id",
+            "title",
+            "category",
+            "subcategory",
+            "pkg_name",
+            "price_original",
+            "price_sale",
+            "price_coupon",
+            "period",
+            "composition",
+            "instructors",
+            "curriculum_summary",
+            "url",
+            "created_at",
+            "updated_at"
+          ]
+        },
+        {
+          "name": "crawl_history",
+          "type": "table",
+          "row_count": 1,
+          "columns": [
+            "id",
+            "run_date",
+            "source_type",
+            "courses_collected",
+            "status",
+            "notes"
+          ]
+        }
+      ],
+      "review_columns": []
+    },
+    {
+      "db_path": "d:\\26_강의자료\\프로젝트2_교육\\data\\SQLite\\kma_courses.db",
+      "tables": [
+        {
+          "name": "courses",
+          "type": "table",
+          "row_count": 1765,
+          "columns": [
+            "crscd",
+            "crsseq_id",
+            "title",
+            "category_id",
+            "category_name",
+            "days",
+            "hours",
+            "fee_regular",
+            "fee_member",
+            "edu_start_date",
+            "edu_end_date",
+            "reg_start_date",
+            "reg_end_date",
+            "location",
+            "tags",
+            "favorite_count",
+            "thumbnail_url",
+            "url",
+            "year",
+            "collected_at"
+          ]
+        }
+      ],
+      "review_columns": [
+        {
+          "table": "courses",
+          "column": "edu_start_date",
+          "type": "TEXT",
+          "total_rows": 1765,
+          "non_null_count": 1765,
+          "null_or_empty_count": 0,
+          "null_pct": 0.0,
+          "samples": [
+            "2026.01.01",
+            "2026.01.02",
+            "2026.04.07",
+            "2026.09.09",
+            "2026.10.01"
+          ]
+        },
+        {
+          "table": "courses",
+          "column": "reg_start_date",
+          "type": "TEXT",
+          "total_rows": 1765,
+          "non_null_count": 1765,
+          "null_or_empty_count": 0,
+          "null_pct": 0.0,
+          "samples": [
+            "2026.04.13",
+            "2025.11.27",
+            "2026.04.15",
+            "2026.04.21",
+            "2026.01.13"
+          ]
+        }
+      ]
+    },
+    {
+      "db_path": "d:\\26_강의자료\\프로젝트2_교육\\data\\SQLite\\kpc_courses.db",
+      "tables": [
+        {
+          "name": "courses",
+          "type": "table",
+          "row_count": 1513,
+          "columns": [
+            "ecno",
+            "cono",
+            "title",
+            "category_id",
+            "category_name",
+            "days",
+            "hours",
+            "fee_general",
+            "fee_member",
+            "schedule_period",
+            "tags",
+            "review_count",
+            "thumbnail_url",
+            "url",
+            "year",
+            "collected_at"
+          ]
+        }
+      ],
+      "review_columns": [
+        {
+          "table": "courses",
+          "column": "review_count",
+          "type": "INTEGER",
+          "total_rows": 1513,
+          "non_null_count": 1513,
+          "null_or_empty_count": 0,
+          "null_pct": 0.0,
+          "samples": [
+            "53",
+            "1",
+            "0",
+            "2",
+            "135"
+          ]
+        }
+      ]
+    },
+    {
+      "db_path": "d:\\26_강의자료\\프로젝트2_교육\\data\\SQLite\\multicampus_courses.db",
+      "tables": [
+        {
+          "name": "courses",
+          "type": "table",
+          "row_count": 1116,
+          "columns": [
+            "course_code",
+            "title",
+            "category",
+            "subcategory",
+            "edu_type",
+            "difficulty",
+            "fee",
+            "fee_vat",
+            "tax_type",
+            "days",
+            "hours",
+            "is_refund",
+            "schedules",
+            "url",
+            "created_at",
+            "updated_at"
+          ]
+        },
+        {
+          "name": "crawl_history",
+          "type": "table",
+          "row_count": 1,
+          "columns": [
+            "id",
+            "run_date",
+            "source_type",
+            "courses_collected",
+            "status",
+            "notes"
+          ]
+        }
+      ],
+      "review_columns": []
+    },
+    {
+      "db_path": "d:\\26_강의자료\\프로젝트2_교육\\data\\courses\\gseek_courses.db",
+      "tables": [
+        {
+          "name": "courses",
+          "type": "table",
+          "row_count": 1991,
+          "columns": [
+            "course_sn",
+            "title",
+            "url",
+            "category_depth1",
+            "category_depth2",
+            "category_depth3",
+            "category_sn",
+            "course_type",
+            "description",
+            "view_count",
+            "recommend_count",
+            "keywords",
+            "thumbnail_url",
+            "reg_date",
+            "collected_at",
+            "course_intro",
+            "target_audience",
+            "learning_goals",
+            "curriculum",
+            "detail_crawled_at"
+          ]
+        }
+      ],
+      "review_columns": []
+    },
+    {
+      "db_path": "d:\\26_강의자료\\프로젝트2_교육\\data\\courses\\hunet_courses.db",
+      "tables": [
+        {
+          "name": "courses",
+          "type": "table",
+          "row_count": 1958,
+          "columns": [
+            "goods_id",
+            "process_code",
+            "title",
+            "level",
+            "badges",
+            "category_depth1",
+            "category_depth2",
+            "category_depth3",
+            "thumbnail_url",
+            "url",
+            "collected_at",
+            "course_intro",
+            "target_audience",
+            "learning_goals",
+            "curriculum",
+            "detail_crawled_at"
+          ]
+        }
+      ],
+      "review_columns": []
+    },
+    {
+      "db_path": "d:\\26_강의자료\\프로젝트2_교육\\data\\courses\\kfo_courses.db",
+      "tables": [
+        {
+          "name": "courses",
+          "type": "table",
+          "row_count": 162,
+          "columns": [
+            "course_id",
+            "title",
+            "category",
+            "subcategory",
+            "pkg_name",
+            "price_original",
+            "price_sale",
+            "price_coupon",
+            "period",
+            "composition",
+            "instructors",
+            "curriculum_summary",
+            "url",
+            "created_at",
+            "updated_at",
+            "course_intro",
+            "target_audience",
+            "learning_goals",
+            "curriculum",
+            "detail_crawled_at"
+          ]
+        },
+        {
+          "name": "crawl_history",
+          "type": "table",
+          "row_count": 2,
+          "columns": [
+            "id",
+            "run_date",
+            "source_type",
+            "courses_collected",
+            "status",
+            "notes"
+          ]
+        }
+      ],
+      "review_columns": []
+    },
+    {
+      "db_path": "d:\\26_강의자료\\프로젝트2_교육\\data\\courses\\kma_courses.db",
+      "tables": [
+        {
+          "name": "courses",
+          "type": "table",
+          "row_count": 1765,
+          "columns": [
+            "crscd",
+            "crsseq_id",
+            "title",
+            "category_id",
+            "category_name",
+            "days",
+            "hours",
+            "fee_regular",
+            "fee_member",
+            "edu_start_date",
+            "edu_end_date",
+            "reg_start_date",
+            "reg_end_date",
+            "location",
+            "tags",
+            "favorite_count",
+            "thumbnail_url",
+            "url",
+            "year",
+            "collected_at",
+            "course_intro",
+            "target_audience",
+            "learning_goals",
+            "curriculum",
+            "detail_crawled_at"
+          ]
+        }
+      ],
+      "review_columns": [
+        {
+          "table": "courses",
+          "column": "edu_start_date",
+          "type": "TEXT",
+          "total_rows": 1765,
+          "non_null_count": 1765,
+          "null_or_empty_count": 0,
+          "null_pct": 0.0,
+          "samples": [
+            "2026.01.01",
+            "2026.01.02",
+            "2026.04.07",
+            "2026.09.09",
+            "2026.10.01"
+          ]
+        },
+        {
+          "table": "courses",
+          "column": "reg_start_date",
+          "type": "TEXT",
+          "total_rows": 1765,
+          "non_null_count": 1765,
+          "null_or_empty_count": 0,
+          "null_pct": 0.0,
+          "samples": [
+            "2026.04.13",
+            "2025.11.27",
+            "2026.04.15",
+            "2026.04.21",
+            "2026.01.13"
+          ]
+        }
+      ]
+    },
+    {
+      "db_path": "d:\\26_강의자료\\프로젝트2_교육\\data\\courses\\kpc_courses.db",
+      "tables": [
+        {
+          "name": "courses",
+          "type": "table",
+          "row_count": 1513,
+          "columns": [
+            "ecno",
+            "cono",
+            "title",
+            "category_id",
+            "category_name",
+            "days",
+            "hours",
+            "fee_general",
+            "fee_member",
+            "schedule_period",
+            "tags",
+            "review_count",
+            "thumbnail_url",
+            "url",
+            "year",
+            "collected_at",
+            "course_intro",
+            "target_audience",
+            "learning_goals",
+            "curriculum",
+            "detail_crawled_at"
+          ]
+        }
+      ],
+      "review_columns": [
+        {
+          "table": "courses",
+          "column": "review_count",
+          "type": "INTEGER",
+          "total_rows": 1513,
+          "non_null_count": 1513,
+          "null_or_empty_count": 0,
+          "null_pct": 0.0,
+          "samples": [
+            "53",
+            "1",
+            "0",
+            "2",
+            "135"
+          ]
+        }
+      ]
+    },
+    {
+      "db_path": "d:\\26_강의자료\\프로젝트2_교육\\data\\courses\\multicampus_courses.db",
+      "tables": [
+        {
+          "name": "courses",
+          "type": "table",
+          "row_count": 1116,
+          "columns": [
+            "course_code",
+            "title",
+            "category",
+            "subcategory",
+            "edu_type",
+            "difficulty",
+            "fee",
+            "fee_vat",
+            "tax_type",
+            "days",
+            "hours",
+            "is_refund",
+            "schedules",
+            "url",
+            "created_at",
+            "updated_at",
+            "course_intro",
+            "target_audience",
+            "learning_goals",
+            "curriculum",
+            "detail_crawled_at"
+          ]
+        },
+        {
+          "name": "crawl_history",
+          "type": "table",
+          "row_count": 1,
+          "columns": [
+            "id",
+            "run_date",
+            "source_type",
+            "courses_collected",
+            "status",
+            "notes"
+          ]
+        }
+      ],
+      "review_columns": []
+    },
+    {
+      "db_path": "d:\\26_강의자료\\프로젝트2_교육\\data\\hr\\processed\\education_courses_integrated.db",
+      "tables": [
+        {
+          "name": "courses",
+          "type": "table",
+          "row_count": 8645,
+          "columns": [
+            "course_uid",
+            "provider",
+            "source_course_id",
+            "title",
+            "category_depth1",
+            "category_depth2",
+            "category_depth3",
+            "course_intro",
+            "target_audience",
+            "learning_goals",
+            "curriculum",
+            "education_type",
+            "difficulty",
+            "duration_hours",
+            "duration_days",
+            "price",
+            "price_type",
+            "start_date",
+            "end_date",
+            "url",
+            "collected_at",
+            "detail_crawled_at",
+            "source_provider",
+            "source_file",
+            "ncs_code",
+            "ksa_knowledge",
+            "ksa_skill",
+            "ksa_attitude",
+            "mapping_confidence",
+            "mapping_status"
+          ]
+        },
+        {
+          "name": "ncs_mappings",
+          "type": "table",
+          "row_count": 8291,
+          "columns": [
+            "course_uid",
+            "course_title",
+            "provider",
+            "target_job_family",
+            "competency_id",
+            "competency_name",
+            "ksa_type",
+            "mapping_confidence",
+            "matched_evidence",
+            "mapping_status"
+          ]
+        },
+        {
+          "name": "ksa_mappings",
+          "type": "table",
+          "row_count": 8291,
+          "columns": [
+            "course_uid",
+            "competency_id",
+            "ksa_type",
+            "ksa_description",
+            "matched_keywords"
+          ]
+        }
+      ],
+      "review_columns": [
+        {
+          "table": "courses",
+          "column": "start_date",
+          "type": "TEXT",
+          "total_rows": 8645,
+          "non_null_count": 4171,
+          "null_or_empty_count": 4474,
+          "null_pct": 51.75,
+          "samples": [
+            "2026-10-19",
+            "2026-10-26",
+            "2026-10-25",
+            "2026-11-17",
+            "2026-10-20"
+          ]
+        }
+      ]
+    },
+    {
+      "db_path": "d:\\26_강의자료\\프로젝트2_교육\\data\\hr\\raw\\external_courses\\gseek_courses.db",
+      "tables": [
+        {
+          "name": "courses",
+          "type": "table",
+          "row_count": 1991,
+          "columns": [
+            "course_sn",
+            "title",
+            "url",
+            "category_depth1",
+            "category_depth2",
+            "category_depth3",
+            "category_sn",
+            "course_type",
+            "description",
+            "view_count",
+            "recommend_count",
+            "keywords",
+            "thumbnail_url",
+            "reg_date",
+            "collected_at",
+            "course_intro",
+            "target_audience",
+            "learning_goals",
+            "curriculum",
+            "detail_crawled_at"
+          ]
+        }
+      ],
+      "review_columns": []
+    },
+    {
+      "db_path": "d:\\26_강의자료\\프로젝트2_교육\\data\\hr\\raw\\external_courses\\hunet_courses.db",
+      "tables": [
+        {
+          "name": "courses",
+          "type": "table",
+          "row_count": 1958,
+          "columns": [
+            "goods_id",
+            "process_code",
+            "title",
+            "level",
+            "badges",
+            "category_depth1",
+            "category_depth2",
+            "category_depth3",
+            "thumbnail_url",
+            "url",
+            "collected_at",
+            "course_intro",
+            "target_audience",
+            "learning_goals",
+            "curriculum",
+            "detail_crawled_at"
+          ]
+        }
+      ],
+      "review_columns": []
+    },
+    {
+      "db_path": "d:\\26_강의자료\\프로젝트2_교육\\data\\hr\\raw\\external_courses\\kfo_courses.db",
+      "tables": [
+        {
+          "name": "courses",
+          "type": "table",
+          "row_count": 162,
+          "columns": [
+            "course_id",
+            "title",
+            "category",
+            "subcategory",
+            "pkg_name",
+            "price_original",
+            "price_sale",
+            "price_coupon",
+            "period",
+            "composition",
+            "instructors",
+            "curriculum_summary",
+            "url",
+            "created_at",
+            "updated_at",
+            "course_intro",
+            "target_audience",
+            "learning_goals",
+            "curriculum",
+            "detail_crawled_at"
+          ]
+        },
+        {
+          "name": "crawl_history",
+          "type": "table",
+          "row_count": 2,
+          "columns": [
+            "id",
+            "run_date",
+            "source_type",
+            "courses_collected",
+            "status",
+            "notes"
+          ]
+        }
+      ],
+      "review_columns": []
+    },
+    {
+      "db_path": "d:\\26_강의자료\\프로젝트2_교육\\data\\hr\\raw\\external_courses\\kma_courses.db",
+      "tables": [
+        {
+          "name": "courses",
+          "type": "table",
+          "row_count": 1765,
+          "columns": [
+            "crscd",
+            "crsseq_id",
+            "title",
+            "category_id",
+            "category_name",
+            "days",
+            "hours",
+            "fee_regular",
+            "fee_member",
+            "edu_start_date",
+            "edu_end_date",
+            "reg_start_date",
+            "reg_end_date",
+            "location",
+            "tags",
+            "favorite_count",
+            "thumbnail_url",
+            "url",
+            "year",
+            "collected_at",
+            "course_intro",
+            "target_audience",
+            "learning_goals",
+            "curriculum",
+            "detail_crawled_at"
+          ]
+        }
+      ],
+      "review_columns": [
+        {
+          "table": "courses",
+          "column": "edu_start_date",
+          "type": "TEXT",
+          "total_rows": 1765,
+          "non_null_count": 1765,
+          "null_or_empty_count": 0,
+          "null_pct": 0.0,
+          "samples": [
+            "2026.01.01",
+            "2026.01.02",
+            "2026.04.07",
+            "2026.09.09",
+            "2026.10.01"
+          ]
+        },
+        {
+          "table": "courses",
+          "column": "reg_start_date",
+          "type": "TEXT",
+          "total_rows": 1765,
+          "non_null_count": 1765,
+          "null_or_empty_count": 0,
+          "null_pct": 0.0,
+          "samples": [
+            "2026.04.13",
+            "2025.11.27",
+            "2026.04.15",
+            "2026.04.21",
+            "2026.01.13"
+          ]
+        }
+      ]
+    },
+    {
+      "db_path": "d:\\26_강의자료\\프로젝트2_교육\\data\\hr\\raw\\external_courses\\kpc_courses.db",
+      "tables": [
+        {
+          "name": "courses",
+          "type": "table",
+          "row_count": 1513,
+          "columns": [
+            "ecno",
+            "cono",
+            "title",
+            "category_id",
+            "category_name",
+            "days",
+            "hours",
+            "fee_general",
+            "fee_member",
+            "schedule_period",
+            "tags",
+            "review_count",
+            "thumbnail_url",
+            "url",
+            "year",
+            "collected_at",
+            "course_intro",
+            "target_audience",
+            "learning_goals",
+            "curriculum",
+            "detail_crawled_at"
+          ]
+        }
+      ],
+      "review_columns": [
+        {
+          "table": "courses",
+          "column": "review_count",
+          "type": "INTEGER",
+          "total_rows": 1513,
+          "non_null_count": 1513,
+          "null_or_empty_count": 0,
+          "null_pct": 0.0,
+          "samples": [
+            "53",
+            "1",
+            "0",
+            "2",
+            "135"
+          ]
+        }
+      ]
+    },
+    {
+      "db_path": "d:\\26_강의자료\\프로젝트2_교육\\data\\hr\\raw\\external_courses\\multicampus_courses.db",
+      "tables": [
+        {
+          "name": "courses",
+          "type": "table",
+          "row_count": 1116,
+          "columns": [
+            "course_code",
+            "title",
+            "category",
+            "subcategory",
+            "edu_type",
+            "difficulty",
+            "fee",
+            "fee_vat",
+            "tax_type",
+            "days",
+            "hours",
+            "is_refund",
+            "schedules",
+            "url",
+            "created_at",
+            "updated_at",
+            "course_intro",
+            "target_audience",
+            "learning_goals",
+            "curriculum",
+            "detail_crawled_at"
+          ]
+        },
+        {
+          "name": "crawl_history",
+          "type": "table",
+          "row_count": 1,
+          "columns": [
+            "id",
+            "run_date",
+            "source_type",
+            "courses_collected",
+            "status",
+            "notes"
+          ]
+        }
+      ],
+      "review_columns": []
+    }
+  ],
+  "parquet_results": [
+    {
+      "file_path": "d:\\26_강의자료\\프로젝트2_교육\\data\\hr\\processed\\education_courses_integrated.parquet",
+      "row_count": 8645,
+      "review_columns": [
+        {
+          "column": "start_date",
+          "dtype": "str",
+          "total_rows": 8645,
+          "non_null_count": 4171,
+          "null_or_empty_count": 4474,
+          "null_pct": 51.75,
+          "samples": [
+            "2026-10-19",
+            "2026-10-26",
+            "2026-10-25",
+            "2026-11-17",
+            "2026-11-17"
+          ]
+        }
+      ],
+      "all_columns": [
+        "course_uid",
+        "provider",
+        "source_course_id",
+        "title",
+        "category_depth1",
+        "category_depth2",
+        "category_depth3",
+        "course_intro",
+        "target_audience",
+        "learning_goals",
+        "curriculum",
+        "education_type",
+        "difficulty",
+        "duration_hours",
+        "duration_days",
+        "price",
+        "price_type",
+        "start_date",
+        "end_date",
+        "url",
+        "collected_at",
+        "detail_crawled_at",
+        "source_provider",
+        "source_file",
+        "ncs_code",
+        "ksa_knowledge",
+        "ksa_skill",
+        "ksa_attitude",
+        "mapping_confidence",
+        "mapping_status"
+      ]
+    },
+    {
+      "file_path": "d:\\26_강의자료\\프로젝트2_교육\\data\\hr\\processed\\education_courses_search_cleaned.parquet",
+      "row_count": 8645,
+      "review_columns": [
+        {
+          "column": "start_date",
+          "dtype": "str",
+          "total_rows": 8645,
+          "non_null_count": 4171,
+          "null_or_empty_count": 4474,
+          "null_pct": 51.75,
+          "samples": [
+            "2026-10-19",
+            "2026-10-26",
+            "2026-10-25",
+            "2026-11-17",
+            "2026-11-17"
+          ]
+        }
+      ],
+      "all_columns": [
+        "course_uid",
+        "provider",
+        "source_course_id",
+        "title",
+        "category_depth1",
+        "category_depth2",
+        "category_depth3",
+        "course_intro",
+        "target_audience",
+        "learning_goals",
+        "curriculum",
+        "education_type",
+        "difficulty",
+        "duration_hours",
+        "duration_days",
+        "price",
+        "price_type",
+        "start_date",
+        "end_date",
+        "url",
+        "collected_at",
+        "detail_crawled_at",
+        "source_provider",
+        "source_file",
+        "ncs_code",
+        "ksa_knowledge",
+        "ksa_skill",
+        "ksa_attitude",
+        "mapping_confidence",
+        "mapping_status",
+        "clean_search_text",
+        "clean_intro",
+        "clean_goals",
+        "clean_curriculum",
+        "raw_text_len",
+        "clean_text_len",
+        "chars_reduced",
+        "text_quality_status",
+        "is_base64_cleaned",
+        "cleaning_actions",
+        "ncs_code_type",
+        "ksa_candidates"
+      ]
+    },
+    {
+      "file_path": "d:\\26_강의자료\\프로젝트2_교육\\data\\hr\\output\\recommendation\\matrix_course_competency_wide.parquet",
+      "row_count": 8645,
+      "review_columns": [],
+      "all_columns": [
+        "course_uid",
+        "provider",
+        "title",
+        "price",
+        "duration_hours",
+        "COMP_GA_01",
+        "COMP_GA_02",
+        "COMP_HR_01",
+        "COMP_HR_02",
+        "COMP_LABOR_01",
+        "COMP_MGMT_01",
+        "COMP_MGMT_02",
+        "COMP_SEC_01",
+        "COMP_GA_01_VERIFIED",
+        "COMP_GA_02_VERIFIED",
+        "COMP_HR_01_VERIFIED",
+        "COMP_HR_02_VERIFIED",
+        "COMP_LABOR_01_VERIFIED",
+        "COMP_MGMT_01_VERIFIED",
+        "COMP_MGMT_02_VERIFIED",
+        "COMP_SEC_01_VERIFIED",
+        "total_comp_count",
+        "verified_comp_count",
+        "is_mapped"
+      ]
+    },
+    {
+      "file_path": "d:\\26_강의자료\\프로젝트2_교육\\data\\hr\\output\\recommendation\\course_clusters_8645.parquet",
+      "row_count": 8645,
+      "review_columns": [],
+      "all_columns": [
+        "course_uid",
+        "canonical_platform",
+        "source_provider",
+        "provider",
+        "title",
+        "category_depth1",
+        "category_depth2",
+        "difficulty",
+        "duration_hours",
+        "price",
+        "education_type",
+        "cluster_id",
+        "topic_label"
+      ]
+    }
+  ],
+  "review_specific_files": [
+    "data\\hr\\output\\enrichment\\manual_review_needed.csv",
+    "data\\hr\\output\\integration\\hr_integrated_review.csv",
+    "data\\hr\\output\\integration\\hr_mapping_review.csv",
+    "data\\hr\\output\\integration\\sqlite_classification_review.csv",
+    "data\\hr\\output\\reports\\review_reassessment.csv",
+    "data\\hr\\processed\\hr_courses_review.csv",
+    "data\\processed\\inflearn_course_reviews.csv",
+    "data\\processed\\inflearn_course_reviews.json",
+    "data\\skills_taxonomy\\course_competency_30_review_sheet.csv",
+    "data\\skills_taxonomy\\course_competency_30_review_sheet.md",
+    "data\\skills_taxonomy\\human_evaluation_sheet_30_reviewer_A.csv",
+    "data\\skills_taxonomy\\human_evaluation_sheet_30_reviewer_A.md",
+    "data\\skills_taxonomy\\human_evaluation_sheet_30_reviewer_B.csv",
+    "data\\skills_taxonomy\\human_evaluation_sheet_30_reviewer_B.md"
+  ]
+}
