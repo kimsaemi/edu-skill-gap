@@ -1,0 +1,205 @@
+================================================================================
+[팀원 공유용] 교육과정 추천 결과 30선 초간단 사람 평가 가이드 및 목록
+================================================================================
+
+안녕하세요, 팀원 여러분!
+우리 프로젝트(edu-skill-gap)의 AI 교육과정 추천 시스템이 6대 직무 시나리오별로 
+추천한 상위 30개 강좌가 실제 직무에 적합한지 검토하는 간이 평가표입니다.
+
+어려운 기술 용어나 긴 서술식 작성 없이, O / △ / X 기호만 체크해주시면 됩니다.
+(예상 소요시간: 약 5~10분)
+
+
+--------------------------------------------------------------------------------
+1. 깃허브(GitHub) 평가표 파일 위치 & 바로가기 링크
+--------------------------------------------------------------------------------
+
+팀원분들의 편의를 위해 마크다운(웹에서 바로 편집)과 CSV(엑셀/스프레드시트 편집)
+두 가지 형태로 준비되어 있습니다.
+
+[Reviewer A (검토자 A 전용)]
+- 웹/마크다운: https://github.com/kimsaemi/edu-skill-gap/blob/feature/integrate-external-education-data/data/skills_taxonomy/easy_evaluation_reviewer_A.md
+- 엑셀/CSV:    https://github.com/kimsaemi/edu-skill-gap/blob/feature/integrate-external-education-data/data/skills_taxonomy/easy_evaluation_reviewer_A.csv
+
+[Reviewer B (검토자 B 전용)]
+- 웹/마크다운: https://github.com/kimsaemi/edu-skill-gap/blob/feature/integrate-external-education-data/data/skills_taxonomy/easy_evaluation_reviewer_B.md
+- 엑셀/CSV:    https://github.com/kimsaemi/edu-skill-gap/blob/feature/integrate-external-education-data/data/skills_taxonomy/easy_evaluation_reviewer_B.csv
+
+[통합 간이 평가표 (전체 30선)]
+- 웹/마크다운: https://github.com/kimsaemi/edu-skill-gap/blob/feature/integrate-external-education-data/data/skills_taxonomy/easy_human_evaluation_sheet_30.md
+- 엑셀/CSV:    https://github.com/kimsaemi/edu-skill-gap/blob/feature/integrate-external-education-data/data/skills_taxonomy/easy_human_evaluation_sheet_30.csv
+
+* 로컬 파일 경로:
+  d:\26_강의자료\프로젝트2_교육\data\skills_taxonomy\easy_evaluation_reviewer_A.md
+
+
+--------------------------------------------------------------------------------
+2. 딱 3가지만 기억해주세요! (초간단 판정 기준)
+--------------------------------------------------------------------------------
+
+[판정] 칸에 아래 3개 기호 중 하나만 입력해주세요:
+
+  O  : [적합/추천]  이 직무/업무를 배우려는 사람에게 추천할 만하다!
+  △ : [보통/애매]  관련은 있지만 기초 교양 수준이거나 일부 차시만 다룬다.
+  X  : [부적합/비추] 전혀 엉뚱하거나 직무와 맞지 않는 강좌다.
+
+[한줄 메모] 작성 요령:
+- O 나 △ 는 메모를 적지 않고 공란으로 넘어가셔도 됩니다!
+- X(부적합)인 경우만 'IT 코딩 위주', '목차 부실'처럼 짧게 1단어만 남겨주세요.
+
+
+--------------------------------------------------------------------------------
+3. 평가 대상 30개 강좌 요약 목록
+--------------------------------------------------------------------------------
+
+[인사 직무 1: 인력채용]
+01. [GSEEK] HR, AI가 트렌드다 : 채용부터 퇴사까지 (무료)
+    - 링크: https://www.gseek.kr/user/course/online/view?s_sbjct_sn=57049
+    - 핵심내용: AI 기반 채용공고 생성, 면접 가이드 및 맞춤 온보딩 기획
+
+02. [GSEEK] 신규입사자의 온보딩 과정, 워.플.킹 (무료)
+    - 링크: https://www.gseek.kr/user/course/online/view?s_sbjct_sn=57944
+    - 핵심내용: 신규 입사자 업무 의미감, 조직 이해 및 사내 협업 온보딩
+
+03. [KPC] 우수인재 선발을 위한 면접관 역량개발 (360,000원)
+    - 링크: https://www.kpc.or.kr/PTWED003_dtil_view.do?ecno=47011&cono=157556
+    - 핵심내용: 면접관 자질, 역량면접(BEI) 질문 설계 및 평가 오류 방지
+
+04. [GSEEK] 직업상담사 실무 생생 지침서 (무료)
+    - 링크: https://www.gseek.kr/user/course/online/view?s_sbjct_sn=3222
+    - 핵심내용: 채용박람회 준비, 구인/구직 상담 프로세스
+
+05. [KMA] [여의도] 수시 경력입사자 온보딩 (490,000원)
+    - 링크: https://www.kma.or.kr/usrs/eduRegMgnt/eduRegInfoDetailForm.do?p_edutype_cd=001&p_crscd=111663&p_crsseq_id=126808&p_ctgry_id=698&p_hmpgcd=30&mkey=37240
+    - 핵심내용: 경력직 조기 전력화, 조직 내 역할 설정 및 온보딩 실무
+
+[인사 직무 2: 인사평가 및 보상]
+06. [KPC] 인사평가시스템 구축실무 (700,000원)
+    - 링크: https://www.kpc.or.kr/PTWED003_dtil_view.do?ecno=46976&cono=157561
+    - 핵심내용: KPI 성과지표 설계, 인사평가 패러다임 변화 및 트렌드
+
+07. [KPC] [온앤오프] 평가 및 보상제도 운영실무 (700,000원)
+    - 링크: https://www.kpc.or.kr/PTWED003_dtil_view.do?ecno=46990&cono=149679
+    - 핵심내용: 성과주의 보상 체계, 전략적 인사평가 및 다면평가
+
+08. [KPC] [온앤오프] 인사관리기본 (700,000원)
+    - 링크: https://www.kpc.or.kr/PTWED003_dtil_view.do?ecno=46981&cono=149644
+    - 핵심내용: MBO 목표관리, 성과평가 및 역량평가 제도 설계
+
+09. [KMA] [강남] 성과 향상을 위한 인사평가 면담 Skill (490,000원)
+    - 링크: https://www.kma.or.kr/usrs/eduRegMgnt/eduRegInfoDetailForm.do?p_edutype_cd=001&p_crscd=111205&p_crsseq_id=124937&p_ctgry_id=698&p_hmpgcd=30&mkey=37240
+    - 핵심내용: 업적·역량 다면평가, 피평가자 면담 코칭 기법
+
+10. [KPC] 두산_인사 전문가_성과중심 인사평가 (무료)
+    - 링크: https://www.kpc.or.kr/PTWED003_dtil_view.do?ecno=48450&cono=156250
+    - 핵심내용: 성과 기반 보상 체계 및 평가 피드백 프레임워크
+
+[총무 직무 1: 문서작성 및 기획]
+11. [GSEEK] 상사의 시선을 사로잡는 보고서의 비결 (with. ChatGPT) (무료)
+    - 링크: https://www.gseek.kr/user/course/online/view?s_sbjct_sn=51954
+    - 핵심내용: 보고서 및 기획서 작성 효율화, 생성형 AI 활용 문서작성
+
+12. [KPC] 하루에 끝내는 비즈니스 인포그래픽 (420,000원)
+    - 링크: https://www.kpc.or.kr/PTWED003_dtil_view.do?ecno=47488&cono=151313
+    - 핵심내용: PPT 보고서 시각화, 비즈니스 인포그래픽 작성법
+
+13. [GSEEK] DO IT 직장인 기본.zip : 회사에서 바로 통하는 보고서 (무료)
+    - 링크: https://www.gseek.kr/user/course/online/view?s_sbjct_sn=57934
+    - 핵심내용: 실무 공문서 및 비즈니스 보고서 양식 작성법
+
+14. [KPC] Global Business & Professional Writing (750,000원)
+    - 링크: https://www.kpc.or.kr/PTWED003_dtil_view.do?ecno=47530&cono=151502
+    - 핵심내용: 비즈니스 이메일 및 전문 문서 작성 기법
+
+15. [KPC] [온앤오프] 기획담당자를 위한 전략기획서 작성실무 (740,000원)
+    - 링크: https://www.kpc.or.kr/PTWED003_dtil_view.do?ecno=46676&cono=148500
+    - 핵심내용: 전략 기획서 프레임워크, 논리적 제안서 작성 실무
+
+[총무 직무 2: 비품 및 자산관리]
+16. [휴넷] 실무 꿀 tip! 총무 업무 지침서 (가격 미확인)
+    - 링크: https://hbs.hunet.co.kr/Education/Detail?gid=Y00316399
+    - 핵심내용: 사옥 시설 및 비품 조달, 고정자산 관리 절차
+
+17. [KPC] 총무 자산관리 핵심 (670,000원)
+    - 링크: https://www.kpc.or.kr/PTWED003_dtil_view.do?ecno=47284&cono=151690
+    - 핵심내용: 부동산/사옥 시설관리 법규, 고정자산 감가상각 및 재물조사
+
+18. [휴넷] 핵심만 콕! 시설관리 및 자산관리 (가격 미확인)
+    - 링크: https://hbs.hunet.co.kr/Education/Detail?gid=Y00333589
+    - 핵심내용: 사업장 시설 유지보수 및 기업 자산 관리
+
+19. [KMA] [온라인][자격] 부동산자산관리지도사 (가격 미확인)
+    - 링크: https://www.kma.or.kr/usrs/eduRegMgnt/eduRegInfoDetailForm.do?p_edutype_cd=002&p_crscd=110000&p_crsseq_id=126663&p_ctgry_id=668&p_hmpgcd=30&mkey=37179
+    - 핵심내용: 기업 부동산 및 시설 자산 관리 개관
+
+20. [KPC] 부동산 자산 관리 실무 (가격 미확인)
+    - 링크: https://www.kpc.or.kr/PTWED003_dtil_view.do?ecno=47251&cono=151717
+    - 핵심내용: 건물 생애주기 관리, AM/PM/FM 시설관리 실무 노하우
+
+[경영지원 직무 1: 비즈니스 매너 및 커뮤니케이션]
+21. [휴넷] 글로벌 비즈니스 리더의 기술_기업 이미지 UP (가격 미확인)
+    - 링크: https://hbs.hunet.co.kr/Education/Detail?gid=Y00316461
+    - 핵심내용: 사내외 고객 소통, 글로벌 의전 및 비즈니스 매너
+
+22. [GSEEK] [레전드 스킬] 어쩐지 끌리는 사람의 비즈니스 매너 (무료)
+    - 링크: https://www.gseek.kr/user/course/online/view?s_sbjct_sn=51955
+    - 핵심내용: 직장 예절, 대화법, 비언어적 커뮤니케이션
+
+23. [GSEEK] [신입사원] 회사에서는 어떻게 말해야 하나요? (무료)
+    - 링크: https://www.gseek.kr/user/course/online/view?s_sbjct_sn=51734
+    - 핵심내용: 비즈니스 이메일 에티켓, 상황별 직장 대화법
+
+24. [휴넷] 성공을 부르는 비즈니스 스피치 (가격 미확인)
+    - 링크: https://hbs.hunet.co.kr/Education/Detail?gid=Y00096693
+    - 핵심내용: 설득력 있는 스피치 및 커뮤니케이션 스킬
+
+25. [KPC] 글로벌 비즈니스 매너 (가격 미확인)
+    - 링크: https://www.kpc.or.kr/PTWED003_dtil_view.do?ecno=47464&cono=151642
+    - 핵심내용: 글로벌 파트너 응대 및 비즈니스 에티켓
+
+[경영지원 직무 2: 프로젝트 및 조직관리]
+26. [휴넷] 일잘러의 IT 프로젝트 성과관리 (가격 미확인)
+    - 링크: https://hbs.hunet.co.kr/Education/Detail?gid=Y00347025
+    - 핵심내용: 프로젝트 목표관리, WBS 일정 수립 및 성과 추적
+
+27. [KPC] 프로젝트 일정관리 전문가 (가격 미확인)
+    - 링크: https://www.kpc.or.kr/PTWED003_dtil_view.do?ecno=47879&cono=152776
+    - 핵심내용: WBS 작성, 칸반/애자일 일정 통제 및 리스크 관리
+
+28. [GSEEK] 중간관리자의 문제해결력 (무료)
+    - 링크: https://www.gseek.kr/user/course/online/view?s_sbjct_sn=51738
+    - 핵심내용: 문제 정의, 팀워크 빌딩 및 합리적 의사결정
+
+29. [KPC] 프로젝트 관리자 리더십 향상 (가격 미확인)
+    - 링크: https://www.kpc.or.kr/PTWED003_dtil_view.do?ecno=47876&cono=152772
+    - 핵심내용: 프로젝트 라이프사이클 관리, 팀원 코칭 및 협업 촉진
+
+30. [GSEEK] 슬기로운 필수 협업 도구 활용법 (무료)
+    - 링크: https://www.gseek.kr/user/course/online/view?s_sbjct_sn=4467
+    - 핵심내용: 노션/슬랙 등 스마트 협업 툴 활용, 효율적 프로젝트 관리
+
+
+--------------------------------------------------------------------------------
+4. 메신저(카카오톡/슬랙/잔디) 복사 전송용 메시지
+--------------------------------------------------------------------------------
+
+[📢 교육 추천 결과 30선 초간단 평가 요청 (5~10분)]
+
+안녕하세요 팀원 여러분!
+우리 추천 시스템이 추천한 30개 강좌가 각 직무에 맞는지 
+간단한 O/△/X 평가 부탁드립니다!
+
+■ 링크 바로가기 (본인 담당 파일 1개만 선택):
+- Reviewer A: https://github.com/kimsaemi/edu-skill-gap/blob/feature/integrate-external-education-data/data/skills_taxonomy/easy_evaluation_reviewer_A.md
+- Reviewer B: https://github.com/kimsaemi/edu-skill-gap/blob/feature/integrate-external-education-data/data/skills_taxonomy/easy_evaluation_reviewer_B.md
+
+■ 작성 방법:
+각 번호마다 [판정] 열에 딱 하나만 적어주세요!
+- O  : 이 직무 배울 사람에게 추천할 만함!
+- △ : 관련은 있으나 기초 교양 수준이거나 일부만 다룸
+- X  : 전혀 엉뚱하거나 직무에 안 맞음 (비추천)
+
+■ 메모 작성:
+- O나 △는 메모 없이 빈칸으로 넘어가셔도 됩니다!
+- X인 경우만 'IT 코딩 위주', '내용 부실'처럼 짧게 한마디만 남겨주세요.
+================================================================================
