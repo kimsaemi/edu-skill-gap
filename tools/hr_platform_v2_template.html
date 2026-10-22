@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>인사 업무 성장·교육 안내</title>
+<link rel="preconnect" href="https://cdn.jsdelivr.net">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+<style>
+  :root {
+    --primary: #4f46e5; --primary-dark: #4338ca; --primary-soft: #eef2ff;
+    --accent: #059669; --accent-soft: #ecfdf5; --warn-soft: #fffbeb; --warn: #b45309;
+    --bg: #f8fafc; --surface: #ffffff; --border: #e2e8f0;
+    --text: #0f172a; --text-sub: #334155; --text-muted: #64748b;
+    --radius: 14px; --shadow: 0 4px 14px rgba(15, 23, 42, 0.06);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --primary: #818cf8; --primary-dark: #a5b4fc; --primary-soft: #1e1b4b;
+      --accent: #34d399; --accent-soft: #052e22; --warn-soft: #2a1f05; --warn: #fbbf24;
+      --bg: #0b1020; --surface: #131a2e; --border: #263250;
+      --text: #f1f5f9; --text-sub: #cbd5e1; --text-muted: #94a3b8;
+      --shadow: none;
+    }
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: var(--bg); color: var(--text); line-height: 1.65; font-size: 16px; }
+  button { font-family: inherit; font-size: inherit; color: inherit; cursor: pointer; }
+  a { color: var(--primary); }
+  .wrap { max-width: 920px; margin: 0 auto; padding: 20px 16px 72px; }
+
+  .top { display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; padding: 6px 2px 18px; }
+  .top h1 { font-size: 20px; font-weight: 800; }
+  .top p { font-size: 14px; color: var(--text-muted); }
+
+  .steps { display: flex; gap: 8px; margin-bottom: 14px; }
+  .step { flex: 1; display: flex; align-items: center; gap: 8px; padding: 10px 12px; border: 1px solid var(--border); border-radius: 12px; background: var(--surface); font-weight: 700; font-size: 14.5px; text-align: left; }
+  .step .n { width: 24px; height: 24px; flex: none; border-radius: 50%; background: var(--border); color: var(--text-sub); display: grid; place-items: center; font-size: 13px; }
+  .step.on { border-color: var(--primary); background: var(--primary-soft); }
+  .step.on .n, .step.done .n { background: var(--primary); color: #fff; }
+  .step:disabled { opacity: 0.45; cursor: not-allowed; }
+  .stepbar.hidden { display: none; }
+
+  .summary { display: flex; align-items: center; justify-content: space-between; gap: 10px; flex-wrap: wrap; background: var(--primary-soft); border: 1px solid var(--border); border-radius: 12px; padding: 10px 14px; margin-bottom: 14px; font-size: 15px; }
+  .summary b { font-weight: 800; }
+
+  .panel { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 24px 22px; box-shadow: var(--shadow); }
+  h2 { font-size: 22px; font-weight: 800; line-height: 1.4; }
+  h3 { font-size: 16px; font-weight: 800; margin: 22px 0 10px; }
+  h4 { font-size: 15px; font-weight: 800; margin-bottom: 6px; }
+  .hint { color: var(--text-muted); font-size: 15px; margin-top: 4px; }
+  .sub { color: var(--text-muted); font-size: 14px; }
+
+  .choices { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 10px; }
+  .choices.wide { grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); }
+  .choice { text-align: left; padding: 12px 14px; background: var(--surface); border: 1.5px solid var(--border); border-radius: 12px; line-height: 1.4; }
+  .choice b { display: block; font-size: 16px; }
+  .choice small { color: var(--text-muted); font-size: 14px; }
+  .choice:hover { border-color: var(--primary); }
+  .choice.sel { border-color: var(--primary); background: var(--primary-soft); box-shadow: inset 0 0 0 1px var(--primary); }
+
+  .chips { display: flex; flex-wrap: wrap; gap: 6px; }
+  .chip { padding: 5px 12px; border-radius: 999px; border: 1px solid var(--border); background: var(--surface); font-size: 14px; }
+  .chip.sel { background: var(--primary); border-color: var(--primary); color: #fff; font-weight: 700; }
+
+  .actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 26px; align-items: center; }
+  .btn { padding: 11px 18px; border-radius: 10px; border: 1px solid var(--border); background: var(--surface); font-weight: 700; text-decoration: none; display: inline-block; }
+  .btn.primary { background: var(--primary); border-color: var(--primary); color: #fff; }
+  .btn.primary:disabled { opacity: 0.4; cursor: not-allowed; }
+  .btn.link { border: none; background: none; color: var(--primary); padding: 11px 6px; }
+
+  .card { border: 1px solid var(--border); border-radius: 12px; padding: 16px 18px; background: var(--surface); }
+  .card.hl { background: var(--primary-soft); }
+  .two { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 12px; margin-top: 12px; }
+  .tag { display: inline-block; font-size: 13px; font-weight: 700; padding: 2px 9px; border-radius: 999px; background: var(--primary-soft); color: var(--primary-dark); margin-bottom: 6px; }
+  .tag.direct { background: var(--accent-soft); color: var(--accent); }
+  .tag.common { background: var(--warn-soft); color: var(--warn); }
+
+  .levels { list-style: none; display: grid; gap: 6px; margin-top: 8px; }
+  .levels li { display: flex; gap: 10px; padding: 8px 12px; border-radius: 10px; border: 1px solid var(--border); font-size: 15px; }
+  .levels li b { flex: none; width: 92px; white-space: nowrap; color: var(--text-muted); }
+  .levels li.cur { border-color: var(--primary); background: var(--primary-soft); }
+  .levels li.cur b { color: var(--primary-dark); }
+
+  details { margin-top: 14px; border: 1px solid var(--border); border-radius: 12px; padding: 12px 16px; }
+  summary { cursor: pointer; font-weight: 700; }
+  details[open] summary { margin-bottom: 10px; }
+  details p { margin-top: 8px; font-size: 15px; }
+
+  .course { border: 1px solid var(--border); border-radius: 12px; padding: 14px 16px; background: var(--surface); display: flex; flex-direction: column; gap: 6px; }
+  .course .title { font-weight: 800; font-size: 16px; line-height: 1.4; }
+  .course .meta { font-size: 14px; color: var(--text-muted); }
+  .course .why { font-size: 14.5px; color: var(--text-sub); }
+  .course .row { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; margin-top: 4px; }
+  .course .go { margin-left: auto; font-weight: 700; font-size: 14.5px; }
+  .list { display: grid; gap: 10px; margin-top: 12px; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 10px; margin-top: 12px; }
+  .notice { margin-top: 12px; padding: 12px 14px; border-radius: 12px; background: var(--warn-soft); color: var(--text-sub); font-size: 14.5px; }
+  input[type=search] { width: 100%; padding: 11px 14px; border: 1.5px solid var(--border); border-radius: 10px; font-size: 16px; background: var(--surface); color: var(--text); font-family: inherit; }
+  select { padding: 10px 12px; border: 1.5px solid var(--border); border-radius: 10px; font-size: 15px; background: var(--surface); color: var(--text); font-family: inherit; }
+  .filters { display: grid; gap: 10px; margin-top: 14px; }
+  .foot { margin-top: 28px; font-size: 13px; color: var(--text-muted); text-align: center; }
+  button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible, summary:focus-visible { outline: 3px solid var(--primary); outline-offset: 2px; }
+
+  @media (max-width: 560px) {
+    .panel { padding: 18px 14px; }
+    .step span.t { display: none; }
+    .step { justify-content: center; }
+    h2 { font-size: 19px; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <div>
+      <h1>인사 업무 성장·교육 안내</h1>
+      <p>3단계로 내 위치에 맞는 일과 교육을 찾아보세요.</p>
+    </div>
+    <button class="btn" type="button" data-act="all">전체 교육 찾기</button>
+  </header>
+  <nav class="steps stepbar" id="stepbar" aria-label="진행 단계"></nav>
+  <div id="summary"></div>
+  <main class="panel" id="view" aria-live="polite"></main>
+  <p class="foot" id="foot"></p>
+</div>
+
+<script>
+const DATA = __DATA__;
+const G = DATA.grades, D = DATA.domains, C = DATA.courses, CATS = DATA.cats;
+const state = { step: '1', g: null, d: null, cat: 'ALL', dom: 'ALL', q: '', limit: 12, more: false };
+
+const esc = s => String(s ?? '').replace(/[&<>"']/g, ch => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[ch]));
+const safeUrl = u => (/^https:\/\//.test(u) ? esc(u) : '');
+const domOf = id => D.find(x => x.id === id);
+const searchUrl = kw => 'https://www.hrd.go.kr/hrdp/co/pcobn/PCOBN0100M.do?srchTraArea1=&srchKwd=' + encodeURIComponent(kw);
+const LEVEL_OF_GRADE = [0, 1, 2, 3, 3];
+const LEVEL_NAMES = ['보조', '단독', '개선', '전략'];
+const ready = () => state.g !== null && !!state.d;
+
+function hashOf() {
+  const p = new URLSearchParams();
+  p.set('s', state.step);
+  if (state.g !== null) p.set('g', state.g);
+  if (state.d) p.set('d', state.d);
+  return p.toString();
+}
+function readHash() {
+  const p = new URLSearchParams(location.hash.slice(1));
+  const g = Number(p.get('g'));
+  state.g = p.get('g') !== null && G[g] ? g : null;
+  state.d = domOf(p.get('d')) ? p.get('d') : null;
+  const s = p.get('s');
+  state.step = ['1', '2', '3', 'all'].includes(s) ? s : '1';
+  if ((state.step === '2' || state.step === '3') && !ready()) state.step = '1';
+}
+function go(patch) {
+  Object.assign(state, patch);
+  const h = hashOf();
+  if (location.hash.slice(1) === h) render();
+  else location.hash = h;
+}
+
+function recommend(g, d) {
+  const dom = domOf(d);
+  const direct = C.filter(c => c.doms.includes(d));
+  const fit = c => c.grades.includes(g);
+  const top = [];
+  direct.filter(fit).slice(0, 2).forEach(c => top.push({ c, kind: 'direct', why: dom.short + ' 업무와 직접 관련된 과정' }));
+  if (!top.length && direct.length) top.push({ c: direct[0], kind: 'direct', why: dom.short + ' 업무와 직접 관련된 과정', off: true });
+  const commons = [];
+  DATA.related[d].forEach(cat => {
+    C.filter(c => c.cat === cat && fit(c))
+      .sort((a, b) => a.grades.length - b.grades.length)
+      .forEach((c, i) => commons.push({ c, kind: 'common', rank: i, why: CATS[cat] + ' · ' + DATA.catWhy[cat] }));
+  });
+  const firstOfEach = commons.filter(x => x.rank === 0);
+  firstOfEach.forEach(x => { if (top.length < 3) top.push(x); });
+  const used = new Set(top.map(x => x.c.id));
+  const rest = [
+    ...direct.filter(c => !used.has(c.id)).map(c => ({ c, kind: 'direct', why: dom.short + ' 업무와 직접 관련된 과정', off: !fit(c) })),
+    ...commons.filter(x => !used.has(x.c.id)),
+  ];
+  return { top, rest, hasDirect: direct.length > 0 };
+}
+
+function courseCard(item, opts = {}) {
+  const c = item.c;
+  const tag = item.kind === 'direct' ? '<span class="tag direct">직접 관련</span>' : item.kind === 'common' ? '<span class="tag common">공통 역량</span>' : '';
+  const domChips = (c.doms || []).filter(id => id !== state.d).map(id => `<button type="button" class="chip" data-act="goto-dom" data-d="${esc(id)}">${esc(domOf(id).short)} 보기</button>`).join('');
+  const off = item.off ? '<div class="sub">※ 선택한 직급보다 다른 직급 대상일 수 있어요.</div>' : '';
+  return `<article class="course">
+    <div>${tag}</div>
+    <div class="title">${esc(c.t)}</div>
+    <div class="meta">${esc(c.inst)} · ${esc(c.plat)}</div>
+    ${item.why && !opts.noWhy ? `<div class="why">왜 추천? ${esc(item.why)}</div>` : ''}
+    ${off}
+    <div class="row">${domChips}<a class="go" href="${safeUrl(c.url)}" target="_blank" rel="noopener noreferrer">상세 보기 ↗</a></div>
+  </article>`;
+}
+
+function viewPick() {
+  const gHtml = G.map((g, i) => `<button type="button" class="choice ${state.g === i ? 'sel' : ''}" data-act="pick-g" data-v="${i}" aria-pressed="${state.g === i}"><b>${esc(g.name)}</b><small>${esc(g.years)}</small></button>`).join('');
+  const dHtml = D.map(d => `<button type="button" class="choice ${state.d === d.id ? 'sel' : ''}" data-act="pick-d" data-v="${esc(d.id)}" aria-pressed="${state.d === d.id}"><b>${esc(d.short)}</b><small>${esc(d.brief)}</small></button>`).join('');
+  return `<h2>1단계 · 내 위치를 골라 주세요</h2>
+    <p class="hint">두 가지만 고르면 바로 안내해 드려요. 나중에 언제든 바꿀 수 있어요.</p>
+    <h3>① 연차에 가까운 직급</h3><div class="choices">${gHtml}</div>
+    <h3>② 알고 싶은 인사 분야</h3><div class="choices wide">${dHtml}</div>
+    <div class="actions"><button type="button" class="btn primary" data-act="next" ${ready() ? '' : 'disabled'}>다음 · 내가 하는 일 보기 →</button>
+    ${ready() ? '' : '<span class="sub">직급과 분야를 모두 골라 주세요.</span>'}</div>`;
+}
+
+function viewTasks() {
+  const dom = domOf(state.d), gr = G[state.g], t = dom.task, role = t.roles[state.g];
+  const lvl = LEVEL_OF_GRADE[state.g];
+  const levels = t.levels.map((txt, i) => `<li class="${i === lvl ? 'cur' : ''}"><b>${i + 1}단계 ${LEVEL_NAMES[i]}</b><span>${esc(txt)}</span></li>`).join('');
+  const gChips = G.map((g, i) => `<button type="button" class="chip ${i === state.g ? 'sel' : ''}" data-act="set-g" data-v="${i}">${esc(g.name)}</button>`).join('');
+  const dChips = D.map(d => `<button type="button" class="chip ${d.id === state.d ? 'sel' : ''}" data-act="set-d" data-v="${esc(d.id)}">${esc(d.short)}</button>`).join('');
+  return `<h2>2단계 · ${esc(gr.name)}은 ${esc(dom.short)}에서 이런 일을 해요</h2>
+    <div class="card hl" style="margin-top:14px"><span class="tag">대표 업무</span><h4>${esc(t.name)}</h4><p>${esc(t.easy)}</p></div>
+    <div class="two">
+      <div class="card"><h4>${esc(gr.name)}이 맡는 일</h4>${role.badge ? `<span class="tag">${esc(role.badge)}</span>` : ''}<p>${esc(role.role)}</p></div>
+      <div class="card"><h4>다음 직급으로 가려면</h4><p>${esc(gr.gate)}</p><p class="sub" style="margin-top:6px">완성하면 남는 결과물 · ${esc(gr.capstone)}</p></div>
+    </div>
+    <h3>일을 얼마나 해낼 수 있는지 4단계로 보면</h3>
+    <ol class="levels">${levels}</ol>
+    <p class="sub" style="margin-top:6px">강조된 줄이 ${esc(gr.name)}과 가장 비슷한 단계예요.</p>
+    <details><summary>더 알아보기 · 지식·기술·태도, 자격증, 선배 조언</summary>
+      <p><b>알아두면 좋은 지식</b><br>${esc(t.k)}</p>
+      <p><b>익히면 좋은 기술</b><br>${esc(t.s)}</p>
+      <p><b>일할 때의 태도</b><br>${esc(t.a)}</p>
+      <p><b>도움이 되는 자격증</b><br>${esc(gr.cert)}</p>
+      <p><b>선배 조언</b><br>${esc(gr.advice)}</p>
+    </details>
+    <h3>직급이나 분야를 바꿔서 보기</h3>
+    <div class="chips" style="margin-bottom:8px">${gChips}</div><div class="chips">${dChips}</div>
+    <div class="actions"><button type="button" class="btn" data-act="step" data-v="1">← 처음으로</button>
+    <button type="button" class="btn primary" data-act="next">다음 · 이 일에 맞는 교육 보기 →</button></div>`;
+}
+
+function viewCourses() {
+  const dom = domOf(state.d), gr = G[state.g];
+  const r = recommend(state.g, state.d);
+  const top = r.top.map(x => courseCard(x)).join('');
+  const rest = r.rest.slice(0, state.more ? r.rest.length : 6).map(x => courseCard(x)).join('');
+  const notice = r.hasDirect ? '' : `<div class="notice">이 분야와 직접 관련된 과정은 아직 목록에 없어요. 아래 공통 역량 과정을 먼저 보고, <a href="${safeUrl(searchUrl(dom.search))}" target="_blank" rel="noopener noreferrer">고용24에서 “${esc(dom.search)}” 검색 ↗</a>도 해 보세요.</div>`;
+  return `<h2>3단계 · ${esc(gr.name)} · ${esc(dom.short)}에 맞는 교육</h2>
+    <p class="hint">“직접 관련”은 이 분야 업무를 다루는 과정, “공통 역량”은 이 일에 두루 도움이 되는 과정이에요.</p>
+    ${notice}
+    <div class="list">${top}</div>
+    ${r.rest.length ? `<h3>같이 보면 좋은 교육 (${r.rest.length}개)</h3><div class="grid">${rest}</div>
+      ${!state.more && r.rest.length > 6 ? '<div class="actions"><button type="button" class="btn" data-act="more">더 보기</button></div>' : ''}` : ''}
+    <div class="actions"><button type="button" class="btn" data-act="step" data-v="2">← 할 일 다시 보기</button>
+    <button type="button" class="btn" data-act="step" data-v="1">다른 분야 고르기</button>
+    <button type="button" class="btn link" data-act="all">전체 교육 찾기 →</button></div>`;
+}
+
+function filteredCourses() {
+  const q = state.q.trim().toLowerCase();
+  return C.filter(c => {
+    if (state.cat === 'ALL' ? c.cat === 'OTHER' : c.cat !== state.cat) return false;
+    if (state.dom !== 'ALL' && !(c.doms.includes(state.dom) || DATA.related[state.dom].includes(c.cat))) return false;
+    return !q || c.t.toLowerCase().includes(q) || c.inst.toLowerCase().includes(q);
+  });
+}
+function allResults() {
+  const list = filteredCourses();
+  const shown = list.slice(0, state.limit).map(c => courseCard({ c, kind: c.cat === 'HR' ? 'direct' : c.cat === 'OTHER' ? '' : 'common' }, { noWhy: true })).join('');
+  return `<p class="sub">${list.length}개 과정${state.cat === 'ALL' ? ' (인사와 무관한 과정은 “기타”에서 볼 수 있어요)' : ''}</p>
+    <div class="grid">${shown || '<p class="hint">조건에 맞는 과정이 없어요. 검색어나 분류를 바꿔 보세요.</p>'}</div>
+    ${list.length > state.limit ? '<div class="actions"><button type="button" class="btn" data-act="limit">더 보기</button></div>' : ''}`;
+}
+function viewAll() {
+  const catKeys = ['ALL', ...Object.keys(CATS)];
+  const chips = catKeys.map(k => `<button type="button" class="chip ${state.cat === k ? 'sel' : ''}" data-act="cat" data-v="${k}">${k === 'ALL' ? '전체' : esc(CATS[k])}</button>`).join('');
+  const opts = ['<option value="ALL">모든 분야</option>', ...D.map(d => `<option value="${esc(d.id)}" ${state.dom === d.id ? 'selected' : ''}>${esc(d.short)}에 맞는 과정</option>`)].join('');
+  return `<h2>전체 교육 찾기</h2>
+    <p class="hint">고용24와 인프런의 실제 과정 ${C.length}개를 분류했어요. 과정마다 연결된 분야 버튼으로 바로 이동할 수 있어요.</p>
+    <div class="filters">
+      <input type="search" id="q" placeholder="과정명이나 기관명으로 검색" value="${esc(state.q)}" aria-label="과정 검색">
+      <div class="chips">${chips}</div>
+      <div><select id="dom" aria-label="분야 필터">${opts}</select></div>
+    </div>
+    <div id="results">${allResults()}</div>
+    <div class="actions"><button type="button" class="btn" data-act="step" data-v="1">← 내 위치부터 안내받기</button></div>`;
+}
+
+function renderStepper() {
+  const bar = document.getElementById('stepbar');
+  bar.classList.toggle('hidden', state.step === 'all');
+  const defs = [['1', '내 위치'], ['2', '하는 일'], ['3', '추천 교육']];
+  bar.innerHTML = defs.map(([n, label]) => {
+    const on = state.step === n, done = Number(n) < Number(state.step);
+    const dis = n !== '1' && !ready();
+    return `<button type="button" class="step ${on ? 'on' : ''} ${done ? 'done' : ''}" data-act="step" data-v="${n}" ${dis ? 'disabled' : ''} ${on ? 'aria-current="step"' : ''}><span class="n">${n}</span><span class="t">${label}</span></button>`;
+  }).join('');
+}
+function renderSummary() {
+  const el = document.getElementById('summary');
+  if (!ready() || state.step === '1' || state.step === 'all') { el.innerHTML = ''; return; }
+  el.innerHTML = `<div class="summary"><span>지금 선택 · <b>${esc(G[state.g].name)}</b> · <b>${esc(domOf(state.d).short)}</b></span><button type="button" class="btn link" data-act="step" data-v="1">바꾸기</button></div>`;
+}
+
+let lastStep = null;
+function render() {
+  renderStepper();
+  renderSummary();
+  const views = { '1': viewPick, '2': viewTasks, '3': viewCourses, all: viewAll };
+  document.getElementById('view').innerHTML = views[state.step]();
+  if (lastStep !== state.step) window.scrollTo(0, 0);
+  lastStep = state.step;
+}
+
+document.addEventListener('click', ev => {
+  const el = ev.target.closest('[data-act]');
+  if (!el) return;
+  const v = el.dataset.v;
+  switch (el.dataset.act) {
+    case 'pick-g': go({ g: Number(v) }); break;
+    case 'pick-d': go({ d: v }); break;
+    case 'set-g': go({ g: Number(v) }); break;
+    case 'set-d': go({ d: v }); break;
+    case 'next': go({ step: String(Number(state.step) + 1) }); break;
+    case 'step': go({ step: v, more: false }); break;
+    case 'all': go({ step: 'all', cat: 'ALL', dom: state.d || 'ALL', q: '', limit: 12 }); break;
+    case 'goto-dom': go({ d: el.dataset.d, step: state.g !== null ? '2' : '1' }); break;
+    case 'cat': state.cat = v; state.limit = 12; render(); break;
+    case 'more': state.more = true; render(); break;
+    case 'limit': state.limit += 12; document.getElementById('results').innerHTML = allResults(); break;
+  }
+});
+document.addEventListener('input', ev => {
+  if (ev.target.id === 'q') { state.q = ev.target.value; state.limit = 12; document.getElementById('results').innerHTML = allResults(); }
+});
+document.addEventListener('change', ev => {
+  if (ev.target.id === 'dom') { state.dom = ev.target.value; state.limit = 12; document.getElementById('results').innerHTML = allResults(); }
+});
+window.addEventListener('hashchange', () => { readHash(); render(); });
+
+document.getElementById('foot').textContent = `고용24·인프런 공개 과정 ${DATA.rawCourseCount}개 중 중복 회차를 묶어 ${C.length}개를 보여 줍니다. 과정 분류와 대상 직급은 제목을 기준으로 한 참고용 안내예요. 정확한 일정과 비용은 상세 페이지에서 확인하세요.`;
+if (typeof window !== 'undefined') { readHash(); render(); }
+</script>
+</body>
+</html>
