@@ -1,0 +1,173 @@
+{
+  "audit_metadata": {
+    "execution_date": "2026-10-22",
+    "author": "Antigravity Data Verification Agent",
+    "status": "COMPLETED",
+    "provenance_verdict": "SYNTHETIC_UNVERIFIED",
+    "description": "7개 교육 플랫폼 수강 리뷰 DB 전수 검증 및 통합 품질 보고서"
+  },
+  "corpus_connection_summary": {
+    "total_courses_in_review_dbs": 9406,
+    "matched_to_corpus_count": 8505,
+    "unmatched_fastcampus_count": 901,
+    "corpus_total_count": 8645,
+    "corpus_with_review_count": 8505,
+    "corpus_without_review_count": 140,
+    "id_collision_count": 0
+  },
+  "reviews_integrated_summary": {
+    "total_reviews": 482078,
+    "unique_review_uids": 482078,
+    "rating_mean_overall": 4.01,
+    "overall_rating_dist": {
+      "5": 192987,
+      "4": 169016,
+      "3": 72052,
+      "2": 28805,
+      "1": 19218
+    },
+    "overall_persona_dist": {
+      "학생": 161170,
+      "전공자": 160709,
+      "직장인": 160199
+    },
+    "date_min": "2025-01-01 08:00:02",
+    "date_max": "2025-12-31 23:29:03",
+    "is_synthetic_flag_ratio": 1.0
+  },
+  "platform_details": {
+    "fastcampus": {
+      "course_count": 901,
+      "review_count": 44383,
+      "unique_content_ratio": 0.5248,
+      "max_repeat_count": 83,
+      "rating_mean": 4.0,
+      "rating_dist": {
+        "5": 17635,
+        "4": 15473,
+        "3": 6864,
+        "2": 2664,
+        "1": 1747
+      },
+      "persona_dist": {
+        "학생": 14930,
+        "전공자": 14852,
+        "직장인": 14601
+      }
+    },
+    "gseek": {
+      "course_count": 1991,
+      "review_count": 98512,
+      "unique_content_ratio": 0.8036,
+      "max_repeat_count": 28,
+      "rating_mean": 4.01,
+      "rating_dist": {
+        "5": 39331,
+        "4": 34559,
+        "3": 14714,
+        "2": 5966,
+        "1": 3942
+      },
+      "persona_dist": {
+        "전공자": 33180,
+        "학생": 32903,
+        "직장인": 32429
+      }
+    },
+    "hunet": {
+      "course_count": 1958,
+      "review_count": 98588,
+      "unique_content_ratio": 0.2799,
+      "max_repeat_count": 298,
+      "rating_mean": 4.01,
+      "rating_dist": {
+        "5": 39328,
+        "4": 34669,
+        "3": 14704,
+        "2": 5946,
+        "1": 3941
+      },
+      "persona_dist": {
+        "학생": 32993,
+        "전공자": 32878,
+        "직장인": 32717
+      }
+    },
+    "kfo": {
+      "course_count": 162,
+      "review_count": 16850,
+      "unique_content_ratio": 0.6381,
+      "max_repeat_count": 21,
+      "rating_mean": 4.01,
+      "rating_dist": {
+        "5": 6768,
+        "4": 5852,
+        "3": 2554,
+        "2": 979,
+        "1": 697
+      },
+      "persona_dist": {
+        "직장인": 5646,
+        "학생": 5613,
+        "전공자": 5591
+      }
+    },
+    "kma": {
+      "course_count": 1765,
+      "review_count": 90331,
+      "unique_content_ratio": 0.3895,
+      "max_repeat_count": 167,
+      "rating_mean": 4.01,
+      "rating_dist": {
+        "5": 36320,
+        "4": 31471,
+        "3": 13389,
+        "2": 5499,
+        "1": 3652
+      },
+      "persona_dist": {
+        "직장인": 30426,
+        "학생": 30074,
+        "전공자": 29831
+      }
+    },
+    "kpc": {
+      "course_count": 1513,
+      "review_count": 77043,
+      "unique_content_ratio": 0.3304,
+      "max_repeat_count": 698,
+      "rating_mean": 4.02,
+      "rating_dist": {
+        "5": 30844,
+        "4": 27340,
+        "3": 11363,
+        "2": 4494,
+        "1": 3002
+      },
+      "persona_dist": {
+        "학생": 25863,
+        "직장인": 25662,
+        "전공자": 25518
+      }
+    },
+    "multicampus": {
+      "course_count": 1116,
+      "review_count": 56371,
+      "unique_content_ratio": 0.5562,
+      "max_repeat_count": 68,
+      "rating_mean": 4.02,
+      "rating_dist": {
+        "5": 22761,
+        "4": 19652,
+        "3": 8464,
+        "2": 3257,
+        "1": 2237
+      },
+      "persona_dist": {
+        "전공자": 18859,
+        "학생": 18794,
+        "직장인": 18718
+      }
+    }
+  }
+}

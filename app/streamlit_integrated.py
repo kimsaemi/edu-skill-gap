@@ -533,14 +533,27 @@ with st.sidebar:
     st.metric("상세 풍부 강좌 (≥200자)", f"{rich_cnt:,}건", f"{(rich_cnt/len(df_main)*100):.1f}%")
     
     st.markdown("---")
-    st.markdown("### 🧭 안내 및 프로젝트 링크")
-    st.caption("• **GitHub**: [kimsaemi/edu-skill-gap](https://github.com/kimsaemi/edu-skill-gap)")
-    st.caption("• **데이터 포맷**: Parquet (ZSTD Level 9 압축)")
-    st.caption("• **매핑 상태**: '자동 매핑 후보'는 100% 규칙 기반 자동 매핑 결과입니다.")
-    st.caption("• **임베딩 모델**: STEP 5-2 도입 예정 (현재 TF-IDF·BM25 적용)")
+    st.markdown("### 🖥️ 서비스 뷰 모드")
+    view_mode = st.radio(
+        "화면 모드 전환:",
+        [
+            "🎓 [사용자용] 직무·Task 맞춤 교육 추천 (MVP)",
+            "🔬 [관리자·분석용] 데이터 분석 및 모델 연구 랩"
+        ],
+        index=0,
+        help="일반 학습자를 위한 직무·과업 맞춤 추천 화면과 연구자용 11개 분석 탭을 전환합니다."
+    )
 
 # ------------------------------------------------------------------------------
-# 3. 메인 타이틀 및 10개 탭 구성
+# 3. 메인 화면 뷰 모드 분기 (st.stop 활용으로 기존 분석 탭 100% 안전 보존)
+# ------------------------------------------------------------------------------
+if view_mode.startswith("🎓"):
+    from app.user_recommendation_mvp import render_user_recommendation_mvp
+    render_user_recommendation_mvp()
+    st.stop()
+
+# ------------------------------------------------------------------------------
+# [관리자·분석용 모드]: 메인 타이틀 및 11개 분석 탭 렌더링
 # ------------------------------------------------------------------------------
 st.markdown("""
 <div style="background: linear-gradient(135deg, #0F172A 0%, #1E1B4B 45%, #1E293B 100%); padding: 1.8rem 2.2rem; border-radius: 16px; margin-bottom: 1.6rem; color: white; box-shadow: 0 10px 25px -5px rgba(15,23,42,0.18); border: 1px solid rgba(255,255,255,0.08);">
@@ -560,7 +573,7 @@ st.markdown("""
 </div>
 """, unsafe_allow_html=True)
 
-tab1, tab2, tab3, tab4, tab5, tab6, tab7, tab8, tab9, tab10 = st.tabs([
+tab1, tab2, tab3, tab4, tab5, tab6, tab7, tab8, tab9, tab10, tab11 = st.tabs([
     "📊 탭 1. 교육 데이터 현황",
     "📈 탭 2. EDA 분석 (STEP 4 & 5)",
     "🧠 탭 3. NCS·KSA 역량 분석",
@@ -570,7 +583,8 @@ tab1, tab2, tab3, tab4, tab5, tab6, tab7, tab8, tab9, tab10 = st.tabs([
     "📐 탭 7. Long/Wide-form 구조화 & 교차집계",
     "🎯 탭 8. 군집 분석 & 하이브리드 추천",
     "🌐 탭 9. 교육과정 토픽·군집 분석 (STEP 5-3)",
-    "🎖️ 탭 10. 직무·역량 맞춤 교육 추천 (STEP 5-4)"
+    "🎖️ 탭 10. 직무·역량 맞춤 교육 추천 (STEP 5-4)",
+    "🧪 탭 11. 합성 리뷰 감성분석 & 추천 시뮬레이션 (STEP 7-2)"
 ])
 
 # ------------------------------------------------------------------------------
@@ -2506,5 +2520,13 @@ with tab10:
                         st.link_button("🌐 수강신청 바로가기", r['url'], use_container_width=True)
                     else:
                         st.button("신청 링크 미제공", disabled=True, key=f"btn_disabled_{r['course_uid']}")
+
+# ------------------------------------------------------------------------------
+# 탭 11: 합성 수강 후기 기반 감성 분석 및 추천 시뮬레이션 (STEP 7-2)
+# ------------------------------------------------------------------------------
+with tab11:
+    from app.tab12_synthetic_review_simulation import render_step7_synthetic_dashboard
+    render_step7_synthetic_dashboard()
+
 
 
