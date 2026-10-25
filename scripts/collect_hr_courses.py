@@ -13,12 +13,30 @@
   - 원본 응답 그대로 'data/hr/raw'에 JSON/XML 파일로 보관
   - 코드값 및 과정 ID의 문자열(str) 보존
   - 페이지네이션, 호출 제한(Sleep), 예외 처리, 인증 실패 대응
+
+사용법 (API 키가 들어 있는 .env가 있는 PC에서 실행):
+  python scripts/collect_hr_courses.py                 # NCS + 고용24 전체
+  python scripts/collect_hr_courses.py --only work24   # 고용24 두 API만
+  python scripts/collect_hr_courses.py --only kmbc --months 3 --max-pages 10
+  python scripts/collect_hr_courses.py --from-raw data/hr/raw/round2/kmbc_round2_raw.json ...
+                                                       # 네트워크 없이 저장된 원본으로 만족도 표만 다시 만들기
+
+출력:
+  data/hr/raw/work24/<수집일>/        고용24 원본 XML(페이지별), 회차 목록 JSON, 호출 기록
+  data/hr/processed/work24_course_satisfaction.csv
+      과정(trprId)당 한 행. satisfaction_official은 stdgScor > 0인 값만 담고,
+      satisfaction_status는 '점수 있음' / '설문 없음(0)' / '제공 안 됨'(사업주훈련) 중 하나.
+      응답자 수는 API가 제공하지 않으므로 화면에는 참고 정보로만 표시하고 추천 점수에는 넣지 않는다.
+
+시험: python scripts/test_collect_work24.py (네트워크 불필요)
 """
 
 import os
 import sys
 import time
 import json
+import argparse
+from datetime import date, datetime, timedelta, timezone
 import requests
 import xml.etree.ElementTree as ET
 from pathlib import Path
@@ -161,174 +179,272 @@ def collect_ncs_hr_courses(max_pages=10, delay_sec=0.5):
 
 
 # ==============================================================================
-# [수집기 2] 고용24 국민내일배움카드 훈련과정 API (공식 엔드포인트)
+# [수집기 2·3] 고용24 국민내일배움카드 / 사업주훈련 훈련과정 API
 # ==============================================================================
-def collect_kmbc_hr_courses():
-    print("\n" + "=" * 70)
-    print("▶ [2/3] 국민내일배움카드 훈련과정 API 수집 시작 (고용24 공식 엔드포인트)")
-    print("=" * 70)
+# 두 API는 응답 구조가 같으므로 하나의 함수로 수집한다.
+#
+# 이전 버전과 달라진 점 (2026-10-25)
+#   - 1페이지 20건만 받던 것을 모든 페이지 반복 수집으로 변경
+#   - 검색 기간을 2025년 고정값에서 '오늘 ~ N개월 뒤'로 변경 (수강 가능한 회차만)
+#   - 검색어 파라미터를 srchTraProcess -> srchTraProcessNm(훈련과정명)으로 수정
+#     (srchTraProcess로는 검색어가 적용되지 않아 전체 18,051건이 조회되었음)
+#   - 오류 응답(HTML 리다이렉트 등)을 정상 응답으로 저장하지 않도록 검사
+#   - 원본은 data/hr/raw/work24/<수집일>/ 아래에 새로 저장
+#     (기존 kmbc_courses_raw.json 등은 다른 스크립트가 읽으므로 덮어쓰지 않음)
 
-    auth_key = os.getenv("HRD_KMBC_API_KEY")
-    print(f"* 인증키 상태: {mask_key(auth_key)}")
+WORK24_APIS = {
+    "kmbc": {
+        "name": "국민내일배움카드",
+        "endpoint": "https://www.work24.go.kr/cm/openApi/call/hr/callOpenApiSvcInfo310L01.do",
+        "key_env": "HRD_KMBC_API_KEY",
+    },
+    "employer": {
+        "name": "사업주훈련",
+        "endpoint": "https://www.work24.go.kr/cm/openApi/call/hr/callOpenApiSvcInfo311L01.do",
+        "key_env": "HRD_EMPLOYER_TRAINING_API_KEY",
+    },
+}
 
-    if not auth_key:
-        print("[-] [인증 실패] HRD_KMBC_API_KEY가 .env에 설정되어 있지 않습니다.")
-        return {"success_count": 0, "fail_count": 1}
+# 1·2차 수집에서 쓰던 검색어를 합친 목록 (훈련과정명 검색)
+# 검색 결과가 넓게 잡히므로(예: '인사관리' 2025년 3,926건) 수집 후 기존 분류 단계에서 관련 과정만 거른다.
+WORK24_KEYWORDS = [
+    "인사", "총무", "인사관리", "채용", "근로기준법", "노무", "인사평가",
+    "급여", "총무관리", "자산관리", "비서", "사무행정",
+]
 
-    # 고용24 공식 최신 엔드포인트
-    endpoint = "https://www.work24.go.kr/cm/openApi/call/hr/callOpenApiSvcInfo310L01.do"
+HTTP_HEADERS = {
+    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
+}
+WORK24_RAW_DIR = RAW_DIR / "work24"
+
+
+def parse_work24_xml(xml_text):
+    """고용24 목록 응답 XML -> (전체 건수, 과정 목록). 정상 응답이 아니면 ValueError."""
+    root = ET.fromstring(xml_text)
+    if root.tag != "HRDNet":
+        raise ValueError(f"예상하지 못한 응답 형식입니다 (루트 태그: {root.tag})")
+    total = int(root.findtext("scn_cnt") or 0)
+    items = [{child.tag: child.text for child in it} for it in root.findall(".//scn_list")]
+    return total, items
+
+
+def fetch_work24_page(endpoint, auth_key, keyword, start_date, end_date, page, page_size, retries=3):
+    """한 페이지 호출. 일시적 오류는 잠시 쉬었다가 다시 시도한다."""
     params = {
         "authKey": auth_key,
         "returnType": "XML",
         "outType": "1",
-        "pageNum": "1",
-        "pageSize": "20",
-        "srchTraStDt": "20250101",
-        "srchTraEndDt": "20251231",
-        "srchTraProcess": "인사"  # 인사 관련 검색어
+        "pageNum": str(page),
+        "pageSize": str(page_size),
+        "srchTraStDt": start_date.strftime("%Y%m%d"),
+        "srchTraEndDt": end_date.strftime("%Y%m%d"),
+        "srchTraProcessNm": keyword,
     }
-    headers = {
-        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
-    }
-
-    try:
-        res = requests.get(endpoint, params=params, headers=headers, timeout=15)
-        print(f"* HTTP 응답 코드: {res.status_code}")
-        
-        if res.status_code != 200:
-            print(f"[-] HTTP 오류 발생: {res.status_code}")
-            return {"success_count": 0, "fail_count": 1, "reason": f"HTTP {res.status_code}"}
-
-        # 원본 XML 저장 (data/hr/raw/)
-        raw_xml_file = RAW_DIR / "kmbc_courses_raw.xml"
-        with open(raw_xml_file, "w", encoding="utf-8") as f:
-            f.write(res.text)
-
-        # XML 파싱 및 항목 추출
-        root = ET.fromstring(res.text)
-        scn_cnt = root.findtext("scn_cnt") or "0"
-        items = root.findall(".//scn_list") or root.findall(".//item")
-        
-        print(f"[+] 연동 성공! 총 검색 건수: {scn_cnt}건 중 1페이지 {len(items)}건 수신 완료")
-        print(f"    * 원본 XML 저장 완료: {raw_xml_file.name}")
-
-        parsed_items = []
-        for it in items:
-            parsed_items.append({elem.tag: elem.text for elem in it})
-
-        # JSON 형식으로도 보관
-        raw_json_file = RAW_DIR / "kmbc_courses_raw.json"
-        with open(raw_json_file, "w", encoding="utf-8") as f:
-            json.dump(parsed_items, f, ensure_ascii=False, indent=2)
-
-        return {"success_count": len(items), "fail_count": 0, "total_cnt": scn_cnt, "raw_file": str(raw_xml_file)}
-
-    except Exception as e:
-        print(f"[-] 요청 실패: {e}")
-        return {"success_count": 0, "fail_count": 1, "reason": str(e)}
+    last_error = None
+    for attempt in range(1, retries + 1):
+        try:
+            res = requests.get(endpoint, params=params, headers=HTTP_HEADERS, timeout=20, allow_redirects=False)
+            if res.status_code != 200:
+                raise ValueError(f"HTTP {res.status_code}")
+            total, items = parse_work24_xml(res.text)
+            return res.text, total, items
+        except (requests.exceptions.RequestException, ET.ParseError, ValueError) as e:
+            last_error = e
+            time.sleep(2 ** attempt)
+    raise RuntimeError(f"'{keyword}' {page}페이지 호출 실패: {last_error}")
 
 
-# ==============================================================================
-# [수집기 3] 고용24 사업주훈련 훈련과정 API (공식 엔드포인트)
-# ==============================================================================
-def collect_employer_hr_courses():
+def collect_work24_courses(api_id, keywords=WORK24_KEYWORDS, months_ahead=6,
+                           page_size=100, max_pages=30, delay_sec=0.3, today=None):
+    """
+    고용24 훈련과정을 검색어별로 모든 페이지 수집한다.
+    반환: 과정·회차(trprId, trprDegr) 기준 중복 제거된 목록과 호출 기록
+    """
+    api = WORK24_APIS[api_id]
     print("\n" + "=" * 70)
-    print("▶ [3/3] 사업주훈련 훈련과정 API 수집 시작 (고용24 공식 엔드포인트)")
+    print(f"▶ 고용24 {api['name']} 훈련과정 수집")
     print("=" * 70)
 
-    auth_key = os.getenv("HRD_EMPLOYER_TRAINING_API_KEY")
+    auth_key = os.getenv(api["key_env"])
     print(f"* 인증키 상태: {mask_key(auth_key)}")
-
     if not auth_key:
-        print("[-] [인증 실패] HRD_EMPLOYER_TRAINING_API_KEY가 .env에 설정되어 있지 않습니다.")
-        return {"success_count": 0, "fail_count": 1}
+        print(f"[-] [인증 실패] {api['key_env']}가 .env에 설정되어 있지 않습니다.")
+        return {"api": api_id, "items": [], "logs": [], "error": "인증키 없음"}
 
-    # 고용24 공식 최신 엔드포인트
-    endpoint = "https://www.work24.go.kr/cm/openApi/call/hr/callOpenApiSvcInfo311L01.do"
-    params = {
-        "authKey": auth_key,
-        "returnType": "XML",
-        "outType": "1",
-        "pageNum": "1",
-        "pageSize": "20",
-        "srchTraStDt": "20250101",
-        "srchTraEndDt": "20251231",
-        "srchTraProcess": "총무"  # 총무 관련 검색어
-    }
-    headers = {
-        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
-    }
+    today = today or date.today()
+    end_date = today + timedelta(days=round(months_ahead * 30.4))
+    run_dir = WORK24_RAW_DIR / today.strftime("%Y%m%d")
+    run_dir.mkdir(parents=True, exist_ok=True)
+    print(f"* 훈련 시작일 검색 기간: {today} ~ {end_date}")
 
-    try:
-        res = requests.get(endpoint, params=params, headers=headers, timeout=15)
-        print(f"* HTTP 응답 코드: {res.status_code}")
+    collected = {}
+    logs = []
+    for kw in keywords:
+        page = 1
+        total = None
+        while page <= max_pages:
+            try:
+                xml_text, total, items = fetch_work24_page(
+                    api["endpoint"], auth_key, kw, today, end_date, page, page_size)
+            except RuntimeError as e:
+                print(f"  [-] {e}")
+                logs.append({"api": api_id, "keyword": kw, "page": page, "error": str(e)})
+                break
 
-        if res.status_code != 200:
-            print(f"[-] HTTP 오류 발생: {res.status_code}")
-            return {"success_count": 0, "fail_count": 1, "reason": f"HTTP {res.status_code}"}
+            # 원본 응답 보관 (인증키는 응답에 포함되지 않음)
+            (run_dir / f"{api_id}_{kw}_p{page:03d}.xml").write_text(xml_text, encoding="utf-8")
+            for it in items:
+                it["_source_api"] = api["name"]
+                it["_search_keyword"] = kw
+                it["_collected_at"] = datetime.now(timezone.utc).isoformat()
+                collected.setdefault((it.get("trprId"), it.get("trprDegr")), it)
+            logs.append({"api": api_id, "keyword": kw, "page": page,
+                         "server_total": total, "received": len(items), "error": None})
+            print(f"  [+] '{kw}' {page}페이지: {len(items)}건 (검색 결과 전체 {total}건)")
 
-        # 원본 XML 저장 (data/hr/raw/)
-        raw_xml_file = RAW_DIR / "employer_courses_raw.xml"
-        with open(raw_xml_file, "w", encoding="utf-8") as f:
-            f.write(res.text)
+            if not items or page * page_size >= total:
+                break
+            page += 1
+            time.sleep(delay_sec)
+        else:
+            print(f"  [!] '{kw}': 최대 {max_pages}페이지에서 멈춤 (전체 {total}건). --max-pages를 늘려 주세요.")
+        time.sleep(delay_sec)
 
-        root = ET.fromstring(res.text)
-        scn_cnt = root.findtext("scn_cnt") or "0"
-        items = root.findall(".//scn_list") or root.findall(".//item")
+    items = list(collected.values())
+    (run_dir / f"{api_id}_items.json").write_text(
+        json.dumps(items, ensure_ascii=False, indent=2), encoding="utf-8")
+    (run_dir / f"{api_id}_logs.json").write_text(
+        json.dumps(logs, ensure_ascii=False, indent=2), encoding="utf-8")
+    print(f"* 중복 제거 후 {len(items)}개 회차 -> {run_dir.relative_to(BASE_DIR)}")
+    return {"api": api_id, "items": items, "logs": logs, "raw_dir": str(run_dir)}
 
-        print(f"[+] 연동 성공! 총 검색 건수: {scn_cnt}건 중 1페이지 {len(items)}건 수신 완료")
-        print(f"    * 원본 XML 저장 완료: {raw_xml_file.name}")
 
-        parsed_items = []
-        for it in items:
-            parsed_items.append({elem.tag: elem.text for elem in it})
+def build_satisfaction_table(items):
+    """
+    회차 단위 목록 -> 과정(trprId) 단위 만족도 표.
 
-        raw_json_file = RAW_DIR / "employer_courses_raw.json"
-        with open(raw_json_file, "w", encoding="utf-8") as f:
-            json.dump(parsed_items, f, ensure_ascii=False, indent=2)
+    stdgScor 해석 원칙
+      - 0보다 큰 값만 실제 만족도로 사용 (0은 '설문 없음'으로 보고 결측 처리)
+      - 사업주훈련 API는 stdgScor 항목 자체가 없음 -> '제공 안 됨'
+      - 응답자 수는 API가 주지 않으므로 표본 크기를 알 수 없음
+      - 같은 과정은 회차가 달라도 값이 같았음(기존 원본 42개 과정 확인). 다르면 최댓값이 아니라
+        가장 최근 회차 값을 쓰고 score_varies_by_session으로 표시
+    """
+    import pandas as pd
 
-        return {"success_count": len(items), "fail_count": 0, "total_cnt": scn_cnt, "raw_file": str(raw_xml_file)}
+    if not items:
+        return pd.DataFrame()
+    df = pd.DataFrame(items)
+    if "stdgScor" not in df.columns:
+        df["stdgScor"] = None
+    df["has_field"] = df["stdgScor"].notna()
+    df["score"] = pd.to_numeric(df["stdgScor"], errors="coerce")
+    df["start"] = pd.to_datetime(df.get("traStartDate"), errors="coerce")
+    df["end"] = pd.to_datetime(df.get("traEndDate"), errors="coerce")
 
-    except Exception as e:
-        print(f"[-] 요청 실패: {e}")
-        return {"success_count": 0, "fail_count": 1, "reason": str(e)}
+    rows = []
+    for trpr_id, g in df.sort_values("start").groupby("trprId", sort=False):
+        positive = g.loc[g["score"] > 0, "score"]
+        if positive.empty:
+            status = "설문 없음(0)" if g["has_field"].any() else "제공 안 됨"
+            value = None
+        else:
+            status = "점수 있음"
+            value = float(positive.iloc[-1])
+        rows.append({
+            "trprId": trpr_id,
+            "course_name": g["title"].iloc[-1],
+            "institution": g.get("subTitle", pd.Series([None])).iloc[-1],
+            "source_api": g["_source_api"].iloc[-1],
+            "ncs_code": g.get("ncsCd", pd.Series([None])).iloc[-1],
+            "n_sessions": len(g),
+            "next_start_date": g["start"].min().date().isoformat() if g["start"].notna().any() else None,
+            "last_end_date": g["end"].max().date().isoformat() if g["end"].notna().any() else None,
+            "satisfaction_official": value,
+            "satisfaction_status": status,
+            "score_varies_by_session": positive.nunique() > 1,
+            "satisfaction_source": "고용24 공식 만족도(stdgScor), 응답자 수 미공개",
+            "collected_at": g["_collected_at"].iloc[-1] if "_collected_at" in g else None,
+            "course_url": g.get("titleLink", pd.Series([None])).iloc[-1],
+        })
+    return pd.DataFrame(rows)
+
+
+def save_satisfaction_table(items, out_path=None):
+    out_path = Path(out_path or BASE_DIR / "data" / "hr" / "processed" / "work24_course_satisfaction.csv")
+    table = build_satisfaction_table(items)
+    out_path.parent.mkdir(parents=True, exist_ok=True)
+    table.to_csv(out_path, index=False, encoding="utf-8-sig")
+    if not table.empty:
+        print(f"\n* 과정별 만족도 표 저장: {out_path.relative_to(BASE_DIR)} ({len(table)}개 과정)")
+        print(table["satisfaction_status"].value_counts().to_string())
+    return table
+
+
+def load_items_from_raw(paths):
+    """이미 저장된 원본(JSON 목록 또는 XML)에서 회차 목록을 다시 읽는다. 네트워크 불필요."""
+    items = []
+    for p in map(Path, paths):
+        if p.suffix == ".json":
+            data = json.loads(p.read_text(encoding="utf-8"))
+            for it in data:
+                it.setdefault("_source_api", "사업주훈련" if "employer" in p.name else "국민내일배움카드")
+                it.setdefault("_collected_at", None)
+            items.extend(data)
+        else:
+            try:
+                _, data = parse_work24_xml(p.read_text(encoding="utf-8", errors="ignore"))
+            except (ET.ParseError, ValueError):
+                print(f"  [건너뜀] 정상 응답이 아닌 파일: {p}")
+                continue
+            for it in data:
+                it["_source_api"] = "사업주훈련" if "employer" in p.name else "국민내일배움카드"
+                it["_collected_at"] = None
+            items.extend(data)
+    dedup = {}
+    for it in items:
+        dedup.setdefault((it.get("trprId"), it.get("trprDegr")), it)
+    return list(dedup.values())
 
 
 # ==============================================================================
 # 메인 실행 진입점
 # ==============================================================================
 def main():
+    parser = argparse.ArgumentParser(description="인사·총무 교육과정 수집 (NCS + 고용24)")
+    parser.add_argument("--only", choices=["ncs", "kmbc", "employer", "work24"], help="일부 API만 수집")
+    parser.add_argument("--months", type=float, default=6, help="고용24: 오늘부터 몇 개월 뒤까지 시작하는 회차를 받을지 (기본 6)")
+    parser.add_argument("--max-pages", type=int, default=30, help="검색어별 최대 페이지 수 (기본 30)")
+    parser.add_argument("--page-size", type=int, default=100, help="페이지당 건수 (기본 100)")
+    parser.add_argument("--ncs-max-pages", type=int, default=50, help="NCS 교육과정 최대 페이지 수 (기본 50)")
+    parser.add_argument("--from-raw", nargs="+", metavar="FILE",
+                        help="네트워크 없이 저장된 원본(JSON/XML)으로 만족도 표만 다시 만들기")
+    args = parser.parse_args()
+
     print("=" * 70)
     print(" [수도권 직무교육] 인사·총무 직무 교육과정 데이터 수집 파이프라인")
     print(f" 저장 위치: {RAW_DIR}")
     print("=" * 70)
 
-    # 1. 한국산업인력공단 NCS 교육과정 수집
-    ncs_result = collect_ncs_hr_courses(max_pages=5, delay_sec=0.3)
+    if args.from_raw:
+        save_satisfaction_table(load_items_from_raw(args.from_raw))
+        return
 
-    # 2. 국민내일배움카드 수집
-    kmbc_result = collect_kmbc_hr_courses()
+    if args.only in (None, "ncs"):
+        ncs_result = collect_ncs_hr_courses(max_pages=args.ncs_max_pages, delay_sec=0.3)
+        print(f"\n[NCS] 수집 {ncs_result['success_count']}건, 인사·총무 후보 {ncs_result.get('hr_candidate_count', 0)}건")
 
-    # 3. 사업주훈련 수집
-    emp_result = collect_employer_hr_courses()
+    work24_items = []
+    for api_id in ("kmbc", "employer"):
+        if args.only in (None, "work24", api_id):
+            result = collect_work24_courses(api_id, months_ahead=args.months,
+                                            page_size=args.page_size, max_pages=args.max_pages)
+            work24_items.extend(result["items"])
+            errors = [l for l in result["logs"] if l.get("error")]
+            print(f"[{WORK24_APIS[api_id]['name']}] 회차 {len(result['items'])}건, 실패 호출 {len(errors)}건")
 
-    # 최종 결과 요약 출력
-    print("\n" + "=" * 70)
-    print(" [최종 데이터 수집 집계 보고서]")
-    print("=" * 70)
-    print(f"1. 한국산업인력공단 NCS 교육과정:")
-    print(f"   - 수집 성공: {ncs_result['success_count']}건 (실제 데이터)")
-    print(f"   - 수집 실패: {ncs_result['fail_count']}건")
-    print(f"   - 인사·총무 관련 후보: {ncs_result.get('hr_candidate_count', 0)}건")
-    print(f"   - 저장 파일: {ncs_result.get('raw_file', '-')}")
-
-    print(f"\n2. 국민내일배움카드 훈련과정:")
-    print(f"   - 수집 성공: {kmbc_result['success_count']}건")
-    print(f"   - 수집 실패: {kmbc_result['fail_count']}건 ({kmbc_result.get('reason', '')})")
-
-    print(f"\n3. 사업주훈련 훈련과정:")
-    print(f"   - 수집 성공: {emp_result['success_count']}건")
-    print(f"   - 수집 실패: {emp_result['fail_count']}건 ({emp_result.get('reason', '')})")
+    if work24_items:
+        save_satisfaction_table(work24_items)
 
     print("-" * 70)
     print(f"* 전체 저장 경로: {RAW_DIR.resolve()}")
