@@ -212,11 +212,9 @@ def run_reproduction_295():
         else:
             semantic_scaled = np.zeros(len(courses))
 
-        # 가상/실제 수강생 평점 (결측시 85점 부여)
-        rating_score = 85.0
-
-        # 하이브리드 공식: 0.50 * Dense + 0.35 * BM25 + 0.15 * Rating
-        final_scores = 0.50 * semantic_scaled + 0.35 * bm25_scaled + 0.15 * rating_score
+        # 하이브리드 공식: (0.50 * Dense + 0.35 * BM25) / 0.85
+        # 실제 수강생 평점이 없어 예전에 쓰던 고정 85점 평점 항은 제외한다 (순위 영향 없음).
+        final_scores = (0.50 * semantic_scaled + 0.35 * bm25_scaled) / 0.85
 
         top_indices = np.argsort(-final_scores)[:3]
         for rank, idx in enumerate(top_indices, 1):
@@ -247,7 +245,7 @@ def run_reproduction_295():
     df_reproduced_benchmark.to_csv(p_out_bench, index=False, encoding="utf-8-sig")
 
     metrics = {
-        "status": "REPRODUCED_SUCCESS",
+        "status": "PARTIAL_REPRODUCTION",  # 추천 1위는 일치, 군집 크기는 팀원 결과와 다름
         "input_courses_count": len(courses),
         "vocab_size": len(vocab),
         "k_clusters": 8,

@@ -14,16 +14,16 @@
   1. **1:1 강제 매핑 왜곡**: 295개 교육과정이 무조건 1개의 KSA에만 매핑되어 있어, "채용과 노무를 아우르는 종합 과정"이나 "총무기획과 자산관리 복합 과정"의 다중 역량이 사장됨.
   2. **키워드 미검출 강제 할당 (33건)**: 제목/내용에 역량 키워드가 전혀 검출되지 않은 33개 과정이 `else` 조건문에 의해 일괄 `COMP_GA_01`(문서작성 및 기획)으로 강제 할당되었던 오류 확인.
 - **개선 조치**:
-  - **1:N 복합 역량 지원**: 2개 이상의 KSA를 포괄하는 **47개 복합 과정**을 발굴하여 주요 역량(`VERIFIED_CORE`)과 연계 역량(`VERIFIED_MULTI`)으로 분리.
-  - **총 342개 매핑 관계 확립**: [hr_recommendation_mappings.csv](file:///d:/26_강의자료/프로젝트2_교육/data/hr/output/recommendation/hr_recommendation_mappings.csv)를 생성하여 295건의 단일 강제 매핑 구조 탈피.
+  - **1:N 복합 역량 지원**: 2개 이상의 KSA를 포괄하는 **62개 복합 과정**을 발굴하여 주요 역량(`VERIFIED_CORE`)과 연계 역량(`VERIFIED_MULTI`)으로 분리.
+  - **총 358개 매핑 관계 확립**: [hr_recommendation_mappings.csv](./hr_recommendation_mappings.csv)를 생성하여 295건의 단일 강제 매핑 구조 탈피.
   - **키워드 부재 33건 재분류**: 임의 확정 대신 `REVIEW_NEEDED`로 상태를 정정하고 추천 가중치 조정.
 
 ### B. 교육 난이도 검증 및 보고서 불일치 규명
 - **보고서 수치(85건)와 실제 데이터의 불일치 원인 규명**:
   - 보고서에 기재되었던 **"입문·초급 85건 (인사 51, 총무 30, 공통 4)"**은 교육시간 8시간 이하 단기 과정을 초급으로 가정한 **초기 시뮬레이션 가설치**였음.
-  - 그러나 실제 CSV에 저장되었던 수치는 제목 내 특정 키워드(`초보`, `첫걸음`, `기초` 등)만 필터링한 결과 **단 12건(또는 초기 5건)**에 불과했으며, 나머지 270건(91.5%)은 **플랫폼의 공식 난이도가 없어 `중급/실무`로 fallback** 되었음.
+  - 그러나 실제 CSV에 저장되었던 수치는 제목 내 특정 키워드(`초보`, `첫걸음`, `기초` 등)만 필터링한 결과 **단 12건(또는 초기 5건)**에 불과했으며, 나머지 265건(89.8%)은 **플랫폼의 공식 난이도가 없어 `중급/실무`로 fallback** 되었음.
 - **개선 조치**:
-  - 난이도 검증 상태를 `EXPLICIT_KEYWORD`(명시적 키워드 보유, 25건)와 `INFERRED_DEFAULT`(미확인 실무 추정, 270건)로 명확히 분리하여, STEP 5에서 임의 단정으로 인한 추천 왜곡을 방지.
+  - 난이도 검증 상태를 `EXPLICIT_KEYWORD`(명시적 키워드 보유, 30건)와 `INFERRED_DEFAULT`(미확인 실무 추정, 265건)로 명확히 분리하여, STEP 5에서 임의 단정으로 인한 추천 왜곡을 방지.
 
 ### C. 비용 및 교육시간 검증
 - **수강료 0원 (64건) 무결성 확인**:
@@ -35,8 +35,8 @@
   - 온라인 마이크로러닝 과정(휴넷 등)의 시수 미기재 상태(183건)를 명시하고, 대신 개설/수강 유효기간(`duration_days`, 202건 유효)을 보조 지표로 제공.
 
 ### D. 데이터 출처 및 추천 가능성 (3단계 티어화)
-- **`TIER_1_READY` (172건)**: 핵심 역량 매핑 완비 + 수강료 확인 + 상세소개 완비 (STEP 5 우선 추천 대상)
-- **`TIER_2_CONDITIONAL` (122건)**: 복합 역량 과정 또는 시수/비용 결측이 있어 메타데이터 안내가 수반되어야 하는 대상
+- **`TIER_1_READY` (205건)**: 핵심 역량 매핑 완비 + 수강료 확인 + 상세소개 완비 (STEP 5 우선 추천 대상)
+- **`TIER_2_CONDITIONAL` (89건)**: 복합 역량 과정 또는 시수/비용 결측이 있어 메타데이터 안내가 수반되어야 하는 대상
 - **`EXCLUDED_OUTLIER` (1건)**: 890만원 해외연수단 (추천 배제)
 
 ### E. 과장 수사 및 해석 교정
@@ -47,7 +47,7 @@
 
 ## 2. STEP 5에서 활용할 정제 데이터셋 명세
 
-### 1) [hr_recommendation_candidates.csv](file:///d:/26_강의자료/프로젝트2_교육/data/hr/output/recommendation/hr_recommendation_candidates.csv) (295건)
+### 1) [hr_recommendation_candidates.csv](./hr_recommendation_candidates.csv) (295건)
 - **핵심 컬럼**:
   - `course_id`: 고유 식별자 (`PUB_...`, `SQL_...`)
   - `course_name`: 교육과정명
@@ -67,5 +67,5 @@
   - `recommendation_readiness`: 추천 적합성 등급 (`TIER_1_READY`, `TIER_2_CONDITIONAL`, `EXCLUDED_OUTLIER`)
   - `unverified_items`: 미확인/주의 항목 리스트
 
-### 2) [hr_recommendation_mappings.csv](file:///d:/26_강의자료/프로젝트2_교육/data/hr/output/recommendation/hr_recommendation_mappings.csv) (342행)
+### 2) [hr_recommendation_mappings.csv](./hr_recommendation_mappings.csv) (358행)
 - 교육과정과 7대 KSA 역량 간의 다대다(N:M) 연결 브릿지 테이블.

@@ -487,7 +487,7 @@ def render_dashboard():
                     "cost_type": "지원 유형",
                     "suitability_score": "적합도(점)"
                 }),
-                use_container_width=True,
+                width="stretch",
                 height=380
             )
 
@@ -519,7 +519,7 @@ def render_dashboard():
                         font=dict(color='#F8FAFC'),
                         margin=dict(l=10, r=10, t=40, b=10)
                     )
-                    st.plotly_chart(fig_pie, use_container_width=True)
+                    st.plotly_chart(fig_pie, width="stretch")
 
                 # 차트 2: 직무별 교육 공급 분포
                 with eda_row1_c2:
@@ -542,7 +542,7 @@ def render_dashboard():
                         font=dict(color='#F8FAFC'),
                         margin=dict(l=10, r=10, t=40, b=10)
                     )
-                    st.plotly_chart(fig_bar_job, use_container_width=True)
+                    st.plotly_chart(fig_bar_job, width="stretch")
 
                 st.markdown("---")
                 eda_row2_c1, eda_row2_c2 = st.columns(2)
@@ -567,7 +567,7 @@ def render_dashboard():
                         font=dict(color='#F8FAFC'),
                         margin=dict(l=10, r=10, t=40, b=10)
                     )
-                    st.plotly_chart(fig_hours, use_container_width=True)
+                    st.plotly_chart(fig_hours, width="stretch")
 
                 # 차트 4: 표준화된 핵심 실무 키워드 출현 빈도
                 with eda_row2_c2:
@@ -597,7 +597,7 @@ def render_dashboard():
                         font=dict(color='#F8FAFC'),
                         margin=dict(l=10, r=10, t=40, b=10)
                     )
-                    st.plotly_chart(fig_tags, use_container_width=True)
+                    st.plotly_chart(fig_tags, width="stretch")
 
         # -------------------------------------------------------------
         # 탭 4: 교육 공백(Skill Gap) & 향후 발전 로드맵
@@ -677,6 +677,7 @@ def render_dashboard():
         </div>
         """, unsafe_allow_html=True)
 
+        st.warning("⚠️ 예시 데이터 안내: 이 화면의 NCS 직무·능력단위·KSA는 공식 NCS가 아니라 같은 틀(레벨 1~5, 공통 문구)로 만든 예시 데이터이고, 인력 부족 통계(data/sample)도 시연용 생성 데이터입니다. 실제 분석·의사결정에 사용하지 마세요.")
         industry_stats = master_json.get("industry_stats", {})
         industry_options = []
         ind_code_map = {}

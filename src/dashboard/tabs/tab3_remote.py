@@ -23,7 +23,7 @@ def render_tab3(df_stats):
             labels={"total_hours": "온라인 훈련 시수 (시간)", "completion_rate": "수료율 (%)", "target_group": "학습자 대상"}
         )
         fig_trend.add_vline(x=40, line_dash="dash", line_color="#EF4444", annotation_text="온라인 이탈 임계선 (40H)")
-        st.plotly_chart(fig_trend, use_container_width=True)
+        st.plotly_chart(fig_trend, width="stretch")
         
     with col2:
         fig_donut = go.Figure(data=[go.Pie(
@@ -33,7 +33,7 @@ def render_tab3(df_stats):
             marker_colors=['#3B82F6', '#10B981']
         )])
         fig_donut.update_layout(title_text="하이브리드 황금 비율 (온라인 60% : 오프라인 40%)")
-        st.plotly_chart(fig_donut, use_container_width=True)
+        st.plotly_chart(fig_donut, width="stretch")
 
     st.markdown("---")
 
@@ -56,7 +56,7 @@ def render_tab3(df_stats):
     st.dataframe(
         df_schedule,
         hide_index=True,
-        use_container_width=True
+        width="stretch"
     )
 
     # 3. 시간표 핵심 포인트 카드

@@ -92,13 +92,13 @@ def workspace(root):
             values = st.multiselect('포함할 값 (비우면 전체)',options)
             if values: selected = selected[selected[filter_col].isin(values)]
         st.write(f'필터 결과: {len(selected):,}행')
-        st.dataframe(selected.head(1000),use_container_width=True,hide_index=True)
+        st.dataframe(selected.head(1000),width="stretch",hide_index=True)
         st.caption('화면은 최대 1,000행을 표시합니다. 다운로드와 분석은 필터 결과 전체를 사용합니다.')
         csv_button(selected,'필터 결과 CSV 내려받기','team_filtered_data.csv')
     with quality:
         st.write('원자료 전체의 항목별 결측 현황입니다. 빈 문자열과 공백도 결측으로 계산합니다.')
         q = quality_table(frame)
-        st.dataframe(q,use_container_width=True,hide_index=True)
+        st.dataframe(q,width="stretch",hide_index=True)
         csv_button(q,'품질 보고서 내려받기','team_data_quality.csv')
     report = {'자료':source,'출처와 기간':context,'원본행수':len(frame),'필터후행수':len(selected),
               '검색항목':field,'검색어':query,'범주필터':filter_col,'선택값':values,
@@ -123,9 +123,9 @@ def workspace(root):
             if result.empty: st.info('계산 가능한 숫자가 없습니다. 측정 항목을 바꾸세요.')
             else:
                 y = result.columns[-1]
-                st.plotly_chart(px.bar(result.sort_values(y,ascending=False).head(30),x=group,y=y,color_discrete_sequence=['#087F8C'],title=f'{group}별 {y}'),use_container_width=True)
+                st.plotly_chart(px.bar(result.sort_values(y,ascending=False).head(30),x=group,y=y,color_discrete_sequence=['#087F8C'],title=f'{group}별 {y}'),width="stretch")
                 st.caption('그래프는 값이 큰 30개 그룹까지, 아래 표와 다운로드는 전체 그룹을 제공합니다.')
-                st.dataframe(result,use_container_width=True,hide_index=True)
+                st.dataframe(result,width="stretch",hide_index=True)
                 csv_button(result,'분석 결과 내려받기','team_analysis.csv')
     with notes:
         st.write('분석 조건과 해석을 한 파일로 묶어 팀원에게 공유하세요.')

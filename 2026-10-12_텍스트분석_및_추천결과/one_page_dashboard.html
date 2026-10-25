@@ -434,7 +434,7 @@
     <div class="kpi-card">
       <div class="kpi-label">전수 분석 강좌 풀</div>
       <div class="kpi-value">295<span style="font-size: 20px; color: var(--text-muted);">개</span></div>
-      <div class="kpi-desc">결측치 0% 목차·개요 완전 정제</div>
+      <div class="kpi-desc">목차·개요 텍스트 정제 (만족도·교육시간은 미확보)</div>
     </div>
     <div class="kpi-card">
       <div class="kpi-label">Kiwi 형태소 어휘 수</div>
@@ -449,7 +449,7 @@
     <div class="kpi-card">
       <div class="kpi-label">추천 모델 수식</div>
       <div class="kpi-value" style="font-size: 26px;">하이브리드</div>
-      <div class="kpi-desc">0.5 의미 + 0.35 키워드 + 0.15 평점</div>
+      <div class="kpi-desc">(0.5 의미 + 0.35 키워드) ÷ 0.85 · 만족도 미반영</div>
     </div>
   </div>
 
@@ -580,7 +580,7 @@
         <div class="rec-meta">윈스펙원격평생교육원 | 40시간 | 83,160원 (국민내일배움카드)</div>
         <div class="rec-score">
           <span style="font-size: 13px; color: var(--text-muted);">종합 적합도 점수</span>
-          <span class="score-badge">68.2점</span>
+          <span class="score-badge">66.1점</span>
         </div>
         <div class="tags-container">
           <span class="tag-pill">#페이지</span>
@@ -603,7 +603,7 @@
         <div class="rec-meta">하이컴퓨터그래픽전산회계학원 | 40시간 | 255,300원 (국비지원)</div>
         <div class="rec-score">
           <span style="font-size: 13px; color: var(--text-muted);">종합 적합도 점수</span>
-          <span class="score-badge">56.6점</span>
+          <span class="score-badge">52.5점</span>
         </div>
         <div class="tags-container">
           <span class="tag-pill">#급여</span>
@@ -626,7 +626,7 @@
         <div class="rec-meta">하이미디어컴퓨터디자인학원 | 40시간 | 216,000원 (국비지원)</div>
         <div class="rec-score">
           <span style="font-size: 13px; color: var(--text-muted);">종합 적합도 점수</span>
-          <span class="score-badge">83.9점</span>
+          <span class="score-badge">84.6점</span>
         </div>
         <div class="tags-container">
           <span class="tag-pill">#도움</span>
@@ -641,15 +641,15 @@
 
   <!-- Interactive Search Simulator -->
   <div class="interactive-box">
-    <div style="font-size: 18px; font-weight: 700; margin-bottom: 6px;">💡 실시간 AI 추천 시뮬레이터 (자연어 검색)</div>
-    <div style="font-size: 13.5px; color: var(--text-muted);">아래 검색창에 고민이나 배우고 싶은 스킬을 입력해 보세요. 키워드와 문맥을 분석하여 즉시 추천합니다.</div>
+    <div style="font-size: 18px; font-weight: 700; margin-bottom: 6px;">💡 추천 결과 미리보기 (시연용)</div>
+    <div style="font-size: 13.5px; color: var(--text-muted);">시연용 화면입니다. 입력한 단어(비품·문서 / 급여·보험 / 엑셀·컴활)에 따라 미리 계산한 3개 시나리오의 1위 결과를 보여줍니다. 실제 검색은 Streamlit 대시보드에서 할 수 있습니다.</div>
     <div class="search-input-wrap">
       <input type="text" id="queryInput" value="급여 계산 4대보험 연말정산" placeholder="예: 비품 구매, 연차 수당, 엑셀 함수, 보고서 기안문">
-      <button class="btn-search" onclick="runSearch()">AI 추천 실행</button>
+      <button class="btn-search" onclick="runSearch()">결과 보기</button>
     </div>
     <div class="search-preview" id="searchResult">
       <strong>🎯 추천 1위:</strong> 실무자를 위한 인사급여지급(급여계산+4대보험관리+원천징수+연말정산)B &nbsp;|&nbsp; 
-      <span style="color: #38bdf8; font-weight: 700;">적합도 56.6점</span> &nbsp;|&nbsp; 
+      <span style="color: #38bdf8; font-weight: 700;">적합도 52.5점</span> &nbsp;|&nbsp; 
       태그: #급여 #4대보험 #연말정산
     </div>
   </div>
@@ -683,7 +683,7 @@
           <td><code style="color: #38bdf8;">C028</code></td>
           <td>쉽게 쓰고 편하게 읽히는 2page 보고서 만들기</td>
           <td>윈스펙원격평생교육원</td>
-          <td>40H</td>
+          <td>미확보</td>
           <td>83,160원</td>
           <td>#페이지 #작성법 #보고서 #문서 #작성</td>
           <td><span class="badge" style="margin:0; padding:2px 8px; font-size:11px;">군집 4</span></td>
@@ -692,7 +692,7 @@
           <td><code style="color: #38bdf8;">C062</code></td>
           <td>실무자를 위한 인사급여지급(급여계산+4대보험관리+원천징수)B</td>
           <td>하이컴퓨터전산회계학원</td>
-          <td>40H</td>
+          <td>미확보</td>
           <td>255,300원</td>
           <td>#급여 #4대보험 #연말정산 #지급 #급여지급</td>
           <td><span class="badge" style="margin:0; padding:2px 8px; font-size:11px;">군집 1</span></td>
@@ -701,7 +701,7 @@
           <td><code style="color: #38bdf8;">C104</code></td>
           <td>[주말 컴활2급] 컴퓨터활용능력2급(엑셀)자격증 취득과정(실기)</td>
           <td>하이미디어컴퓨터학원</td>
-          <td>40H</td>
+          <td>미확보</td>
           <td>216,000원</td>
           <td>#도움 #취득 #선정 #취득과정 #실기</td>
           <td><span class="badge" style="margin:0; padding:2px 8px; font-size:11px;">군집 7</span></td>
@@ -729,11 +729,11 @@
     const q = document.getElementById('queryInput').value.trim();
     const res = document.getElementById('searchResult');
     if (q.includes('비품') || q.includes('문서') || q.includes('보고서')) {
-      res.innerHTML = "<strong>🎯 추천 1위:</strong> 쉽게 쓰고 편하게 읽히는 2page 보고서 만들기 (윈스펙, 40H) &nbsp;|&nbsp; <span style='color: #38bdf8; font-weight: 700;'>적합도 68.2점</span> &nbsp;|&nbsp; 태그: #페이지 #작성법 #보고서 #문서";
+      res.innerHTML = "<strong>🎯 추천 1위:</strong> 쉽게 쓰고 편하게 읽히는 2page 보고서 만들기 (윈스펙) &nbsp;|&nbsp; <span style='color: #38bdf8; font-weight: 700;'>적합도 66.1점</span> &nbsp;|&nbsp; 태그: #페이지 #작성법 #보고서 #문서";
     } else if (q.includes('월급') || q.includes('급여') || q.includes('보험') || q.includes('퇴직')) {
-      res.innerHTML = "<strong>🎯 추천 1위:</strong> 실무자를 위한 인사급여지급(급여계산+4대보험관리+원천징수+연말정산)B &nbsp;|&nbsp; <span style='color: #38bdf8; font-weight: 700;'>적합도 56.6점</span> &nbsp;|&nbsp; 태그: #급여 #4대보험 #연말정산 #급여지급";
+      res.innerHTML = "<strong>🎯 추천 1위:</strong> 실무자를 위한 인사급여지급(급여계산+4대보험관리+원천징수+연말정산)B &nbsp;|&nbsp; <span style='color: #38bdf8; font-weight: 700;'>적합도 52.5점</span> &nbsp;|&nbsp; 태그: #급여 #4대보험 #연말정산 #급여지급";
     } else if (q.includes('엑셀') || q.includes('컴활') || q.includes('자격증')) {
-      res.innerHTML = "<strong>🎯 추천 1위:</strong> [주말 컴활2급] 컴퓨터활용능력2급(엑셀)자격증 취득과정(실기) &nbsp;|&nbsp; <span style='color: #38bdf8; font-weight: 700;'>적합도 83.9점</span> &nbsp;|&nbsp; 태그: #도움 #취득 #실기 #컴활";
+      res.innerHTML = "<strong>🎯 추천 1위:</strong> [주말 컴활2급] 컴퓨터활용능력2급(엑셀)자격증 취득과정(실기) &nbsp;|&nbsp; <span style='color: #38bdf8; font-weight: 700;'>적합도 84.6점</span> &nbsp;|&nbsp; 태그: #도움 #취득 #실기 #컴활";
     } else {
       res.innerHTML = `<strong>🎯 추천 1위:</strong> 일 잘하는 직장인의 업무력 &nbsp;|&nbsp; <span style='color: #38bdf8; font-weight: 700;'>적합도 62.4점</span> &nbsp;|&nbsp; 입력 키워드 '${q}' 기반 LSA 하이브리드 매칭 완료`;
     }

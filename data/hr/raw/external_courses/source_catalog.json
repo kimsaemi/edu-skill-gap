@@ -12,7 +12,7 @@
       "courses"
     ],
     "has_crawl_history": false,
-    "copied_at": "2026-10-12T10:53:55.527578+00:00"
+    "copied_at": "2026-10-25T09:58:36.412483+00:00"
   },
   {
     "provider": "GSEEK",
@@ -27,7 +27,7 @@
       "courses"
     ],
     "has_crawl_history": false,
-    "copied_at": "2026-10-12T10:53:55.534579+00:00"
+    "copied_at": "2026-10-25T09:58:36.418330+00:00"
   },
   {
     "provider": "한국능률협회(KMA)",
@@ -42,7 +42,7 @@
       "courses"
     ],
     "has_crawl_history": false,
-    "copied_at": "2026-10-12T10:53:55.542579+00:00"
+    "copied_at": "2026-10-25T09:58:36.424661+00:00"
   },
   {
     "provider": "한국생산성본부(KPC)",
@@ -57,7 +57,7 @@
       "courses"
     ],
     "has_crawl_history": false,
-    "copied_at": "2026-10-12T10:53:55.582578+00:00"
+    "copied_at": "2026-10-25T09:58:36.460475+00:00"
   },
   {
     "provider": "멀티캠퍼스",
@@ -74,7 +74,7 @@
       "sqlite_sequence"
     ],
     "has_crawl_history": true,
-    "copied_at": "2026-10-12T10:53:55.589578+00:00"
+    "copied_at": "2026-10-25T09:58:36.467696+00:00"
   },
   {
     "provider": "한국직업방송(KFO)",
@@ -91,6 +91,6 @@
       "sqlite_sequence"
     ],
     "has_crawl_history": true,
-    "copied_at": "2026-10-12T10:53:55.593353+00:00"
+    "copied_at": "2026-10-25T09:58:36.470595+00:00"
   }
 ]

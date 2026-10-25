@@ -24,7 +24,7 @@
 - **형태소 분석기**: 한국어 최신 고성능 형태소 분석기 **Kiwi(`kiwipiepy`)** 적용
 - **도메인 전문어 보존**: `근로기준법`, `근로계약서`, `자산관리`, `비품관리`, `취업규칙`, `연말정산`, `4대보험`, `채용관리`, `직무분석`, `노사관계`, `인사평가`, `피플애널리틱스`, `온보딩` 등 36개 인사·총무 핵심 복합명사를 사용자 사전에 사전 등록하여 단어 쪼개짐 방지.
 - **불용어(Stopwords)**: '교육', '과정', '강의', '방법', '위한', '대해' 등 변별력 없는 일반 서술어 45종 필터링.
-- **키워드 추출**: 50개 전 과정에 대해 빈도 기반 상위 8개 핵심 키워드 자동 추출 완료 ([course_top_keywords.csv](file:///d:/26_강의자료/프로젝트2_교육/data/hr/output/enrichment/course_top_keywords.csv)).
+- **키워드 추출**: 50개 전 과정에 대해 빈도 기반 상위 8개 핵심 키워드 자동 추출 완료 ([course_top_keywords.csv](course_top_keywords.csv)).
 
 ---
 
@@ -73,7 +73,7 @@
 
 ---
 
-## 6. 팀원용 관련성 평가표 안내 ([search_relevance_evaluation_sheet.csv](file:///d:/26_강의자료/프로젝트2_교육/data/hr/output/enrichment/search_relevance_evaluation_sheet.csv))
+## 6. 팀원용 관련성 평가표 안내 ([search_relevance_evaluation_sheet.csv](search_relevance_evaluation_sheet.csv))
 
 팀원 4명이 직접 검색 결과의 적합성을 채점하고 `Precision@5` 및 `nDCG`를 산출할 수 있도록 평가표를 생성했습니다.
 
@@ -93,7 +93,7 @@
 이번 TF-IDF와 BM25 실험을 통해 키워드 일치 검색은 완벽하게 작동하지만, *"보상관리", "평가관리"*처럼 동의어/유의어가 많은 인사 직무의 특성상 글자가 달라도 뜻이 통하는 **한국어 문맥 임베딩(`jhgan/ko-sroberta-multitask`)**을 앙상블해야 최종 추천 시스템의 완성도가 비약적으로 상승한다는 사실이 데이터로 입증되었습니다.
 
 ### 2) 팀원 4명 협업 역할 분담:
-- **팀원 1 (평가 담당)**: [`search_relevance_evaluation_sheet.csv`](file:///d:/26_강의자료/프로젝트2_교육/data/hr/output/enrichment/search_relevance_evaluation_sheet.csv) 파일의 10개 질문 결과에 `2`, `1`, `0` 라벨 채점
+- **팀원 1 (평가 담당)**: [`search_relevance_evaluation_sheet.csv`](search_relevance_evaluation_sheet.csv) 파일의 10개 질문 결과에 `2`, `1`, `0` 라벨 채점
 - **팀원 2 (검색 지표 계산)**: 팀원 1의 채점 결과를 바탕으로 `Precision@5`, `MRR(Mean Reciprocal Rank)` 스크립트 실행
 - **팀원 3 (한국어 임베딩 모델링)**: `sentence-transformers`를 이용하여 `search_text` 50건의 768차원 임베딩 벡터 생성 및 코사인 유사도 함수 구현
 - **팀원 4 (하이브리드 결합 & UI)**: `최종 스코어 = 0.5 * BM25 + 0.5 * 임베딩` 결합 로직을 Streamlit 대시보드 검색창에 연동

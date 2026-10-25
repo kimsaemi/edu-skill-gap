@@ -26,8 +26,28 @@ import numpy as np
 # UTF-8 stdout configuration
 sys.stdout.reconfigure(encoding="utf-8")
 
-WORKSPACE_ROOT = Path("d:/26_강의자료/프로젝트2_교육")
+# ------------------------------------------------------------------------------
+# 키워드 매칭 도우미
+# 영문 약어(oa, pm, kpi, mbo 등)를 단순 부분 문자열로 찾으면
+# coaching·goal·board(oa), development(pm), pmbok·combobox(mbo) 같은 단어에도 걸린다.
+# 영문/숫자로만 된 키워드는 앞뒤가 영문·숫자가 아닐 때만 일치로 본다.
+# 한글 키워드는 복합명사(예: 채용공고) 대응을 위해 기존처럼 부분 문자열로 찾는다.
+# ------------------------------------------------------------------------------
+_ASCII_KW = re.compile(r"^[a-z0-9]+$")
+
+
+def keyword_in_text(keyword, text):
+    kw = keyword.lower()
+    if _ASCII_KW.match(kw):
+        return re.search(rf"(?<![a-z0-9]){re.escape(kw)}(?![a-z0-9])", text) is not None
+    return kw in text
+
+
+WORKSPACE_ROOT = Path(__file__).resolve().parents[1]
 SOURCE_COURSES_DIR = WORKSPACE_ROOT / "data" / "courses"
+# 원본 DB 폴더(data/courses)가 없으면 저장소에 보존된 사본(SHA-256 검증본)을 사용
+if not SOURCE_COURSES_DIR.exists():
+    SOURCE_COURSES_DIR = WORKSPACE_ROOT / "data" / "hr" / "raw" / "external_courses"
 
 # Target directories
 RAW_EXTERNAL_DIR = WORKSPACE_ROOT / "data" / "hr" / "raw" / "external_courses"
@@ -170,8 +190,15 @@ def clean_html_text(text):
     if not text or pd.isna(text):
         return ""
     t = str(text)
+    # 크롤링 중 받은 '접속 차단 안내(웹 보안 정책 위반)' 페이지는 강좌 내용이 아니므로 버린다.
+    # 휴넷 curriculum 1,331건이 이 페이지였고 대부분 글자가 깨진(latin-1로 잘못 읽힌) 상태다.
+    if "violation of web security policy" in t.lower():
+        return ""
     # Remove HTML tags
     t = re.sub(r"<[^>]+>", " ", t)
+    # 본문에 섞인 이미지 base64 데이터 제거 (키워드 오탐 원인: '.../oa/...', '+pm/' 등)
+    t = re.sub(r"data:[a-z]+/[a-z0-9.+-]+;base64,[A-Za-z0-9+/=]+", " ", t)
+    t = re.sub(r"[A-Za-z0-9+/=]{60,}", " ", t)
     # Decode basic entities
     t = t.replace("&nbsp;", " ").replace("&amp;", "&").replace("&lt;", "<").replace("&gt;", ">").replace("&quot;", "\"")
     # Replace non-breaking spaces and line control
@@ -293,7 +320,8 @@ def run_integration_pipeline():
             raise FileNotFoundError(f"원본 파일을 찾을 수 없습니다: {src_path}")
             
         # Copy file if not exists or check
-        shutil.copy2(src_path, dst_path)
+        if src_path.resolve() != dst_path.resolve():
+            shutil.copy2(src_path, dst_path)
         
         # Verify SHA-256
         sha256 = compute_sha256(dst_path)
@@ -616,12 +644,12 @@ def run_integration_pipeline():
         
         matched_comps = []
         for cid, rule in COMPETENCY_RULES.items():
-            matched_kws = [kw for kw in rule["keywords"] if kw in text_full]
+            matched_kws = [kw for kw in rule["keywords"] if keyword_in_text(kw, text_full)]
             if matched_kws:
                 # Calculate confidence score
                 score = 0
                 # Title or category match gives high confidence
-                in_title = any(kw in title_cat for kw in rule["keywords"])
+                in_title = any(keyword_in_text(kw, title_cat) for kw in rule["keywords"])
                 if in_title:
                     score += 5
                 score += len(matched_kws)

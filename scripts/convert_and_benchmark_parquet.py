@@ -25,7 +25,7 @@ import pyarrow.parquet as pq
 
 sys.stdout.reconfigure(encoding="utf-8")
 
-WORKSPACE_ROOT = Path("d:/26_강의자료/프로젝트2_교육")
+WORKSPACE_ROOT = Path(__file__).resolve().parents[1]
 PROCESSED_DIR = WORKSPACE_ROOT / "data" / "hr" / "processed"
 REPORTS_DIR = WORKSPACE_ROOT / "data" / "hr" / "reports"
 REPORTS_DIR.mkdir(parents=True, exist_ok=True)

@@ -22,7 +22,7 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 from rank_bm25 import BM25Okapi
 
-sys.path.insert(0, str(Path("d:/26_강의자료/프로젝트2_교육")))
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
 from src.processors.data_loader import load_integrated_courses
 from src.recommendation.text_preprocessor import HRTextPreprocessor
@@ -30,7 +30,7 @@ from src.recommendation.text_preprocessor import HRTextPreprocessor
 # Ensure UTF-8 stdout
 sys.stdout.reconfigure(encoding="utf-8")
 
-WORKSPACE_ROOT = Path("d:/26_강의자료/프로젝트2_교육")
+WORKSPACE_ROOT = Path(__file__).resolve().parents[1]
 RECOMMEND_OUT_DIR = WORKSPACE_ROOT / "data" / "hr" / "output" / "recommendation"
 REPORTS_DIR = WORKSPACE_ROOT / "data" / "hr" / "reports"
 DOCS_DIR = WORKSPACE_ROOT / "docs"
