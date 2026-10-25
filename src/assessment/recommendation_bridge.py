@@ -91,6 +91,106 @@ def get_shared_recommender() -> UnifiedHybridRecommender:
         _RECOMMENDER_INSTANCE = UnifiedHybridRecommender()
     return _RECOMMENDER_INSTANCE
 
+def _common_card_fields(row: pd.Series, weekly_h: float) -> Dict[str, Any]:
+    """추천 결과 1행에서 역량·업무와 무관한 공통 카드 정보(가격·시간·일정·출처·근거)를 만듭니다."""
+    provider = row.get('canonical_platform', '')
+    num_price = row.get('numeric_price')
+    price_status = row.get('price_status', 'UNCONFIRMED')
+
+    # 수강료 정직 처리 (0=무료, 양수=수강료, 결측=가격 미확인)
+    if num_price == 0 or price_status == 'FREE':
+        price_disp = "무료"
+    elif pd.notna(num_price) and float(num_price) > 0:
+        price_disp = f"수강료 {int(num_price):,}원"
+    else:
+        price_disp = "가격 미확인"
+
+    num_dur = row.get('numeric_duration')
+    dur_disp = f"{float(num_dur):g}시간" if pd.notna(num_dur) and float(num_dur) > 0 else "시간 미확인"
+
+    raw_edu = str(row.get('education_type', '')).strip()
+    edu_t = raw_edu if raw_edu and raw_edu.lower() not in ['nan', 'none', ''] else "형태 미확인"
+
+    raw_diff = str(row.get('difficulty', '')).strip()
+    diff = raw_diff if raw_diff and raw_diff.lower() not in ['nan', 'none', ''] else "미확인"
+
+    t_richness = row.get('text_richness', 'MODERATE')
+    alt_offerings = row.get('alternative_offerings', [])
+
+    # 일정 확인 (결측 시 솔직 안내)
+    raw_start = str(row.get('start_date', '')).strip()
+    raw_end = str(row.get('end_date', '')).strip()
+    if raw_start and raw_start.lower() not in ['nan', 'none', '']:
+        if raw_end and raw_end.lower() not in ['nan', 'none', ''] and raw_end != raw_start:
+            schedule_disp = f"{raw_start} ~ {raw_end}"
+        else:
+            schedule_disp = f"{raw_start}"
+    else:
+        schedule_disp = "일정·모집 여부는 교육기관에서 확인"
+
+    # 출처 및 데이터 수집 시점 (임의 최신 확인일 생성 금지)
+    src_p = row.get('source_provider') or row.get('provider') or provider
+    col_at = row.get('collected_at')
+    if pd.notna(col_at) and str(col_at).strip() and str(col_at).strip().lower() != 'nan':
+        source_disp = f"{src_p} 공개 데이터 (데이터 수집 시점: {str(col_at).split('T')[0]})"
+    else:
+        source_disp = f"{src_p} 공개 데이터"
+
+    # 추천 근거의 한계
+    if t_richness == "TITLE_ONLY":
+        limitation_text = "상세 교육내용이 부족해 강좌명과 제공된 정보 중심으로 추천했습니다. 교육기관 상세페이지에서 세부 목차를 반드시 확인하세요."
+        warning_text = "⚠️ 상세 소개·커리큘럼이 제공되지 않아 강좌명 키워드 중심으로 추천되었습니다. 상세 페이지에서 목차를 확인해 주세요."
+    else:
+        limitation_text = "공개된 커리큘럼 텍스트 분석에 기반한 추천이며, 최신 수강 요건 및 개강 여부는 교육기관 공지를 확인해 주세요."
+        warning_text = None
+
+    # 주당 학습 시간 안내
+    if pd.notna(num_dur) and float(num_dur) > 0:
+        dur_val = float(num_dur)
+        weeks_est = max(1, math.ceil(dur_val / max(1.0, weekly_h)))
+        study_note = (
+            f"총 {dur_val:g}시간 강좌: 주당 {weekly_h:g}시간 학습 시 약 {weeks_est}주 소요 예상 "
+            f"(※ 개별 교육기관의 학사 일정 및 이수 기준에 따라 상이할 수 있습니다)"
+        )
+    else:
+        study_note = "총 교육시간 정보가 공식적으로 확인되지 않은 강좌입니다. 수강 신청 전 운영기관 안내를 확인해 주세요."
+
+    raw_snip = row.get('clean_snippet')
+    if raw_snip and str(raw_snip).strip():
+        content_evidence = f"커리큘럼 발췌: {str(raw_snip).strip()}"
+        curriculum_evidence = str(raw_snip).strip()
+    elif row.get('content_evidence'):
+        content_evidence = str(row['content_evidence'])
+        curriculum_evidence = content_evidence
+    else:
+        content_evidence = "상세 교육내용이 부족해 강좌명과 제공된 정보 중심으로 추천했습니다."
+        curriculum_evidence = content_evidence
+
+    return dict(
+        course_uid=row['course_uid'],
+        title=row['title'],
+        provider=provider,
+        url=row.get('url', '#'),
+        price_display=price_disp,
+        numeric_price=float(num_price) if pd.notna(num_price) else None,
+        price_status=price_status,
+        duration_display=dur_disp,
+        numeric_duration=float(num_dur) if pd.notna(num_dur) else None,
+        education_type=edu_t,
+        difficulty=diff,
+        curriculum_evidence=curriculum_evidence,
+        content_evidence=content_evidence,
+        evidence_limitation=limitation_text,
+        schedule_display=schedule_disp,
+        source_display=source_disp,
+        text_richness=t_richness,
+        text_richness_warning=warning_text,
+        study_plan_note=study_note,
+        alternative_offerings=alt_offerings if isinstance(alt_offerings, list) else [],
+        raw_matching_score=float(row.get('final_score', 0.0)),
+    )
+
+
 def get_recommendations_for_assessment(
     eval_result: AssessmentEvaluationResult,
     filter_params: Optional[RecommendationFilterParams] = None,
@@ -186,76 +286,8 @@ def get_recommendations_for_assessment(
             for _, row in top_df.iterrows():
                 uid = row['course_uid']
                 title = row['title']
-                provider = row.get('canonical_platform', '')
-                url = row.get('url', '#')
-                num_price = row.get('numeric_price')
-                price_status = row.get('price_status', 'UNCONFIRMED')
-                
-                # 수강료 정직 처리 (0=무료, 양수=수강료, 결측=가격 미확인)
-                if num_price == 0 or price_status == 'FREE':
-                    price_disp = "무료"
-                elif pd.notna(num_price) and float(num_price) > 0:
-                    price_disp = f"수강료 {int(num_price):,}원"
-                else:
-                    price_disp = "가격 미확인"
-
-                num_dur = row.get('numeric_duration')
-                if pd.notna(num_dur) and float(num_dur) > 0:
-                    dur_disp = f"{float(num_dur):g}시간"
-                else:
-                    dur_disp = "시간 미확인"
-
-                raw_edu = str(row.get('education_type', '')).strip()
-                if raw_edu and raw_edu.lower() not in ['nan', 'none', '']:
-                    edu_t = raw_edu
-                else:
-                    edu_t = "형태 미확인"
-
-                raw_diff = str(row.get('difficulty', '')).strip()
-                diff = raw_diff if raw_diff and raw_diff.lower() not in ['nan', 'none', ''] else "미확인"
-
-                t_richness = row.get('text_richness', 'MODERATE')
-                alt_offerings = row.get('alternative_offerings', [])
-                final_sc = float(row.get('final_score', 0.0))
-
-                # 일정 확인 (결측 시 솔직 안내)
-                raw_start = str(row.get('start_date', '')).strip()
-                raw_end = str(row.get('end_date', '')).strip()
-                if raw_start and raw_start.lower() not in ['nan', 'none', '']:
-                    if raw_end and raw_end.lower() not in ['nan', 'none', ''] and raw_end != raw_start:
-                        schedule_disp = f"{raw_start} ~ {raw_end}"
-                    else:
-                        schedule_disp = f"{raw_start}"
-                else:
-                    schedule_disp = "일정·모집 여부는 교육기관에서 확인"
-
-                # 출처 및 데이터 수집 시점 (임의 최신 확인일 생성 금지)
-                src_p = row.get('source_provider') or row.get('provider') or provider
-                col_at = row.get('collected_at')
-                if pd.notna(col_at) and str(col_at).strip() and str(col_at).strip().lower() != 'nan':
-                    c_date = str(col_at).split('T')[0]
-                    source_disp = f"{src_p} 공개 데이터 (데이터 수집 시점: {c_date})"
-                else:
-                    source_disp = f"{src_p} 공개 데이터"
-
-                # 추천 근거의 한계
-                if t_richness == "TITLE_ONLY":
-                    limitation_text = "상세 교육내용이 부족해 강좌명과 제공된 정보 중심으로 추천했습니다. 교육기관 상세페이지에서 세부 목차를 반드시 확인하세요."
-                    warning_text = "⚠️ 상세 소개·커리큘럼이 제공되지 않아 강좌명 키워드 중심으로 추천되었습니다. 상세 페이지에서 목차를 확인해 주세요."
-                else:
-                    limitation_text = "공개된 커리큘럼 텍스트 분석에 기반한 추천이며, 최신 수강 요건 및 개강 여부는 교육기관 공지를 확인해 주세요."
-                    warning_text = None
-
-                # 주당 학습 시간 안내
-                if pd.notna(num_dur) and float(num_dur) > 0:
-                    dur_val = float(num_dur)
-                    weeks_est = max(1, math.ceil(dur_val / max(1.0, weekly_h)))
-                    study_note = (
-                        f"총 {dur_val:g}시간 강좌: 주당 {weekly_h:g}시간 학습 시 약 {weeks_est}주 소요 예상 "
-                        f"(※ 개별 교육기관의 학사 일정 및 이수 기준에 따라 상이할 수 있습니다)"
-                    )
-                else:
-                    study_note = "총 교육시간 정보가 공식적으로 확인되지 않은 강좌입니다. 수강 신청 전 운영기관 안내를 확인해 주세요."
+                common = _common_card_fields(row, weekly_h)
+                final_sc = common["raw_matching_score"]
 
                 # 목표와의 연결 및 교육에서 확인한 내용
                 curr_str = f"{cs.current_level:.1f}" if cs.current_level is not None else "미확정"
@@ -272,31 +304,10 @@ def get_recommendations_for_assessment(
                 else:
                     goal_connection = f"[{c_name}] 현재 자기평가 {curr_str}점 → 목표 {target_str}점 (목표와의 차이 {gap_str}점) 보완 ({basis_for_comp})"
 
-                raw_snip = row.get('clean_snippet')
-                if raw_snip and str(raw_snip).strip():
-                    content_evidence = f"커리큘럼 발췌: {str(raw_snip).strip()}"
-                    curriculum_evidence = str(raw_snip).strip()
-                elif row.get('content_evidence'):
-                    content_evidence = str(row['content_evidence'])
-                    curriculum_evidence = content_evidence
-                else:
-                    content_evidence = "상세 교육내용이 부족해 강좌명과 제공된 정보 중심으로 추천했습니다."
-                    curriculum_evidence = "상세 교육내용이 부족해 강좌명과 제공된 정보 중심으로 추천했습니다."
-
+                content_evidence = common["content_evidence"]
                 customer_reason = f"🎯 [목표 연결] {goal_connection}\n📖 [확인 내용] {content_evidence}"
 
                 card = RecommendedCourseCard(
-                    course_uid=uid,
-                    title=title,
-                    provider=provider,
-                    url=url,
-                    price_display=price_disp,
-                    numeric_price=float(num_price) if pd.notna(num_price) else None,
-                    price_status=price_status,
-                    duration_display=dur_disp,
-                    numeric_duration=float(num_dur) if pd.notna(num_dur) else None,
-                    education_type=edu_t,
-                    difficulty=diff,
                     primary_competency_id=c_id,
                     primary_competency_name=c_name,
                     linked_competencies=[{
@@ -307,18 +318,9 @@ def get_recommendations_for_assessment(
                         "mapping_basis": basis_for_comp
                     }],
                     customer_recommendation_reason=customer_reason,
-                    curriculum_evidence=curriculum_evidence,
                     goal_connection=goal_connection,
-                    content_evidence=content_evidence,
-                    evidence_limitation=limitation_text,
-                    schedule_display=schedule_disp,
-                    source_display=source_disp,
-                    text_richness=t_richness,
-                    text_richness_warning=warning_text,
-                    study_plan_note=study_note,
-                    alternative_offerings=alt_offerings if isinstance(alt_offerings, list) else [],
-                    raw_matching_score=final_sc,
-                    mapping_basis=basis_for_comp
+                    mapping_basis=basis_for_comp,
+                    **common
                 )
                 comp_cards.append(card)
 
@@ -367,3 +369,119 @@ def get_recommendations_for_assessment(
         status_message=status_msg,
         actionable_guidance=actionable_guidance
     )
+
+
+# ==============================================================================
+# 선택 업무(Task)별 맞춤 교육 추천 (인사 90개 업무 카탈로그)
+# ==============================================================================
+# 업무 추천 노출 기준은 hr_task_catalog.passes_task_gate 참고
+# (의미 유사도 하한, 업무명 핵심어 일치, 분야가 다른 강좌 차단)
+
+
+@dataclass
+class TaskRecommendation:
+    task_id: str
+    task_name: str
+    domain_name: str
+    stage: str
+    easy_description: str
+    knowledge: str
+    skill: str
+    attitude: str
+    primary_comp_name: str
+    needs_review: bool
+    career_view: Dict[str, Any]
+    courses: List[RecommendedCourseCard]
+    excluded_low_similarity: int = 0
+
+
+def get_recommendations_for_tasks(
+    task_ids: List[str],
+    career_range: str,
+    filter_params: Optional[RecommendationFilterParams] = None,
+    recommender: Optional[UnifiedHybridRecommender] = None,
+    top_n: int = 3,
+    max_tasks: int = 5,
+) -> List[TaskRecommendation]:
+    """선택한 인사 세부 업무마다 하이브리드 엔진(의미 유사도 + BM25 + 난이도)으로 교육을 추천합니다."""
+    from src.recommendation import hr_task_catalog
+
+    filter_params = filter_params or RecommendationFilterParams()
+    engine = recommender or get_shared_recommender()
+    weekly_h = filter_params.weekly_hours or 4.0
+    results: List[TaskRecommendation] = []
+
+    for t_id in task_ids[:max_tasks]:
+        task = hr_task_catalog.get_hr_task(t_id)
+        if not task:
+            continue
+        view = hr_task_catalog.task_view_for_career(task, career_range)
+        level = filter_params.target_difficulty or view["engine_level"]
+
+        top_df, *_ = engine.recommend(
+            query=hr_task_catalog.task_semantic_query(task),
+            keyword_query=hr_task_catalog.task_keyword_query(task),
+            keyword_stopwords=hr_task_catalog.GENERIC_TASK_TOKENS,
+            anchor_query=hr_task_catalog.task_anchor_query(task),
+            target_domain="인사",
+            user_level=level,
+            price_filter=filter_params.price_filter,
+            max_budget=filter_params.max_budget,
+            edu_type=filter_params.edu_type,
+            durations=filter_params.durations,
+            cluster_boost=0.0,
+            filter_mismatch_109=True,
+            top_n=top_n * 5,
+            mode="general",
+        )
+
+        cards: List[RecommendedCourseCard] = []
+        excluded = 0
+        for _, row in top_df.iterrows():
+            if not hr_task_catalog.passes_task_gate(
+                float(row.get('semantic_score', 0.0)),
+                float(row.get('anchor_score', 0.0)),
+                row.get('field'),
+            ):
+                excluded += 1
+                continue
+            if len(cards) >= top_n:
+                break
+            common = _common_card_fields(row, weekly_h)
+            role = view.get("role") or {}
+            goal = f"[{task['task_name']}] 업무 · {view['level_name']} 단계"
+            if role.get("badge"):
+                goal += f" (내 연차 역할: {role['badge']})"
+            cards.append(RecommendedCourseCard(
+                primary_competency_id=task["primary_comp_id"],
+                primary_competency_name=task["primary_comp_name"],
+                linked_competencies=[{
+                    "competency_id": task["primary_comp_id"],
+                    "competency_name": task["primary_comp_name"],
+                    "gap": 0.0,
+                    "is_premapped": False,
+                    "is_task": True,
+                    "mapping_basis": "업무 설명과 교육내용의 의미 유사도 기반",
+                }],
+                customer_recommendation_reason=f"🎯 [업무 연결] {goal}\n📖 [확인 내용] {common['content_evidence']}",
+                goal_connection=goal,
+                mapping_basis="업무 설명과 교육내용의 의미 유사도 기반",
+                **common,
+            ))
+
+        results.append(TaskRecommendation(
+            task_id=task["task_id"],
+            task_name=task["task_name"],
+            domain_name=task["domain_name"],
+            stage=task["stage"],
+            easy_description=task["easy_description"],
+            knowledge=task["knowledge"],
+            skill=task["skill"],
+            attitude=task["attitude"],
+            primary_comp_name=task["primary_comp_name"],
+            needs_review=task.get("needs_review", False),
+            career_view=view,
+            courses=cards,
+            excluded_low_similarity=excluded,
+        ))
+    return results

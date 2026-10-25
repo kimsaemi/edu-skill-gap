@@ -1864,7 +1864,8 @@ with tab8:
                 search_btn = st.button("🚀 즉시 추천", type="primary", use_container_width=True, key="tab8_btn_search")
 
             st.caption(
-                "💡 **점수 수식**: $\\text{최종 점수} = (0.50 \\times \\text{Ko-SRoBERTa 768차원}) + (0.35 \\times \\text{BM25 키워드}) + (0.15 \\times \\text{중립 평점 80점}) + \\text{군집 부스팅} + \\text{레벨 보너스}$"
+                "💡 **점수 수식**: $\\text{최종 점수} = (0.50 \\times \\text{Ko-SRoBERTa 768차원}) + (0.35 \\times \\text{BM25 키워드}) + \\text{군집 부스팅} + \\text{레벨 보너스}$ "
+                "(수강 리뷰·평점은 합성 데이터라 추천 점수에서 제외)"
             )
 
             # 필터 파라미터 정제

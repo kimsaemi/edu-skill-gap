@@ -13,7 +13,8 @@ from src.assessment.questions_data import (
     ASSESSMENT_QUESTIONS,
     JOB_TASK_MAPPING,
     get_questions_for_job,
-    get_tasks_for_job
+    get_tasks_for_job,
+    get_task_comp_map
 )
 
 @dataclass
@@ -72,16 +73,13 @@ def calculate_competency_scores(
        - 3차: 사용자 학습 관심 역량(interest_comp_ids) 포함 여부 (True > False)
     """
     questions = get_questions_for_job(job_family)
-    task_list = get_tasks_for_job(job_family)
+    task_comp_map = get_task_comp_map(job_family)
     user_task_ids = user_task_ids or []
     interest_comp_ids = interest_comp_ids or []
     target_levels = target_levels or {}
 
     # 수행 업무와 매핑된 역량 집합 파악
-    task_related_comp_ids = set()
-    for task in task_list:
-        if task["task_id"] in user_task_ids:
-            task_related_comp_ids.add(task["primary_comp_id"])
+    task_related_comp_ids = {task_comp_map[t_id] for t_id in user_task_ids if t_id in task_comp_map}
 
     # 역량별 문항 매핑 및 응답 집계
     comp_questions: Dict[str, List[Dict[str, Any]]] = {}

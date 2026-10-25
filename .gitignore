@@ -24,6 +24,9 @@ data/hr/*
 # 고용24 만족도 원본(60MB+, scripts/collect_official_satisfaction.py로 재생성)
 data/hr/raw/satisfaction/
 
+# 로컬 수정 전 백업 사본
+data/hr/processed/backup/
+
 # DB exceptions for managed datasets
 !data/hr/raw/external_courses/*.db
 !data/hr/processed/*.db

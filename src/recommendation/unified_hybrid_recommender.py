@@ -1,6 +1,6 @@
 """
 통합 하이브리드 추천 엔진 공통 모듈 (Unified Hybrid Recommender)
-- 8,645건 통합 교육 코퍼스 대상 Ko-SRoBERTa 딥러닝(768차원) + BM25 Okapi + 난이도/평점 통합
+- 8,645건 통합 교육 코퍼스 대상 Ko-SRoBERTa 딥러닝(768차원) + BM25 Okapi + 난이도 통합 (수강 리뷰·평점 미사용)
 - 직무(인사·총무·경영지원) 및 8대 KSA 역량 기반 맞춤형 스코어링 모드(KSA Mode) 완전 통합
 - 세부 조건 Faceted Filtering (비용 결측 왜곡 차단, 시간 경계값)
 - 오매핑 109건 조건부 선별 차단 (96건 차단 / 13건 보존 엄격 재현 및 추적)
@@ -94,6 +94,21 @@ class UnifiedHybridRecommender:
         else:
             self.df_courses['tokenized_text'] = ''
 
+        # 4-0. 강좌 분야 라벨 (scripts/build_course_field_labels.py, 업무별 추천의 분야 판정용)
+        p_field = OUTPUT_DIR / "course_field_labels.csv"
+        if p_field.exists():
+            df_field = pd.read_csv(p_field, encoding="utf-8-sig", usecols=["course_uid", "field", "field_margin"])
+            self.df_courses = self.df_courses.merge(df_field, on="course_uid", how="left")
+        else:
+            self.df_courses["field"] = None
+            self.df_courses["field_margin"] = None
+
+        # 4-1. 직무교육과 무관한 강좌 제외 목록 (scripts/build_off_topic_exclusions.py)
+        p_offtopic = PROCESSED_DIR / "off_topic_exclusions.csv"
+        self.off_topic_uids: Set[str] = set()
+        if p_offtopic.exists():
+            self.off_topic_uids = set(pd.read_csv(p_offtopic, encoding="utf-8-sig")["course_uid"].astype(str))
+
         # 5. 오매핑 의심 109건 목록 및 선별 차단 정책 사전 계산
         p_mismatch = OUTPUT_DIR / "mapping_mismatch_samples.json"
         self.mismatch_109_uids: Set[str] = set()
@@ -179,6 +194,44 @@ class UnifiedHybridRecommender:
         self._rec_cache_ttl: float = 3600.0
         self._rec_cache_max: int = 128
 
+    def _doc_token_sets(self) -> List[Set[str]]:
+        """강좌별 검색 토큰 집합 (핵심어 일치 판정용, 최초 1회 생성)."""
+        if not hasattr(self, "_doc_token_sets_cache"):
+            self._doc_token_sets_cache = [set(str(t).split()) for t in self.df_courses['tokenized_text']]
+        return self._doc_token_sets_cache
+
+    def _doc_freq(self) -> Dict[str, int]:
+        """토큰별 등장 강좌 수 (최초 1회 생성)."""
+        if not hasattr(self, "_doc_freq_cache"):
+            from collections import Counter
+            self._doc_freq_cache = Counter(t for s in self._doc_token_sets() for t in s)
+        return self._doc_freq_cache
+
+    def _keyword_tokens(self, text: str, use_kiwi: bool = True) -> List[str]:
+        """BM25 질의 토큰: 코퍼스와 같은 Kiwi 명사 토큰화를 적용하고, 공백 분리 토큰도 함께 사용합니다."""
+        if not text or not text.strip():
+            return []
+        if not use_kiwi:
+            return [t for t in text.split() if t in self.bm25_vocab]
+        if not hasattr(self, "_query_tokenizer"):
+            try:
+                from src.recommendation.text_preprocessor import HRTextPreprocessor
+                self._query_tokenizer = HRTextPreprocessor()
+            except Exception:
+                self._query_tokenizer = None
+        tokens = text.split()
+        if self._query_tokenizer is not None:
+            try:
+                tokens = tokens + self._query_tokenizer.tokenize(text)
+            except Exception:
+                pass
+        seen, result = set(), []
+        for t in tokens:
+            if t in self.bm25_vocab and t not in seen:
+                seen.add(t)
+                result.append(t)
+        return result
+
     def _init_models(self):
         # BM25 초기화
         corpus_tokens = [txt.split() for txt in self.df_courses['tokenized_text']]
@@ -203,7 +256,8 @@ class UnifiedHybridRecommender:
         t = re.sub(r'\[.*?\]', '', t)
         t = re.sub(r'\(.*?\)', '', t)
         t = re.sub(r'[^\w\s]', ' ', t)
-        t = re.sub(r'\s+', ' ', t).strip().lower()
+        # 띄어쓰기만 다른 동일 강좌(예: '운영실무' / '운영 실무')를 같은 강좌로 보도록 공백 제거
+        t = re.sub(r'\s+', '', t).strip().lower()
         return t
 
     def filter_candidates(
@@ -223,6 +277,10 @@ class UnifiedHybridRecommender:
         """
         df = self.df_courses
         mask = np.ones(len(df), dtype=bool)
+
+        # 0. 직무교육과 무관한 강좌 제외
+        if self.off_topic_uids:
+            mask &= ~df['course_uid'].astype(str).isin(self.off_topic_uids).values
 
         # 1. 플랫폼 필터
         if platforms:
@@ -538,13 +596,16 @@ class UnifiedHybridRecommender:
         cluster_boost: float = 0.0,  # 기본값 0.0점, 실험값 5.0점
         filter_mismatch_109: bool = True,
         top_n: int = 5,
-        mode: str = "general"  # "general" 또는 "ksa" (competency_id 전달 시 자동 ksa)
+        mode: str = "general",  # "general" 또는 "ksa" (competency_id 전달 시 자동 ksa)
+        keyword_query: str = None,  # BM25 전용 키워드 질의 (미지정 시 모드별 기본 질의 사용)
+        keyword_stopwords: Optional[Set[str]] = None,  # BM25 질의에서 뺄 범용 단어 (예: 작성·분석·설계)
+        anchor_query: str = None  # 핵심어 질의: 핵심어가 하나도 없는 강좌는 키워드 점수를 낮춤
     ) -> Tuple[pd.DataFrame, int, int, int, str]:
         """
         통합 6단계 하이브리드 추천 실행 (일반 모드 및 KSA 역량 모드 지원):
         [1] 사전 조건 및 109건 조건부 선별 필터링
         [2] 모드별 하이브리드 점수 계산:
-            - General 모드: Ko-SRoBERTa(50%) + BM25(35%) + 중립평점(15%) + 레벨보너스 + 군집부스팅
+            - General 모드: Ko-SRoBERTa(50%) + BM25(35%) + 레벨보너스 + 군집부스팅 (리뷰·평점 미사용)
             - KSA 모드: Ko-SRoBERTa(50%) + BM25(30%) + 레벨적합(10%) + 군집부스팅(0 or 5%) + KSA보조매핑(5%)
         [3] 전체 후보 점수순 정렬
         [4] 같은 플랫폼 다회차 중복 제거 (Intra-platform Dedup)
@@ -568,7 +629,10 @@ class UnifiedHybridRecommender:
             float(cluster_boost),
             bool(filter_mismatch_109),
             int(top_n),
-            mode
+            mode,
+            (keyword_query or "").strip(),
+            tuple(sorted(keyword_stopwords)) if keyword_stopwords else None,
+            (anchor_query or "").strip()
         )
 
         now = time.time()
@@ -617,6 +681,8 @@ class UnifiedHybridRecommender:
             if not semantic_query_text and effective_domain:
                 semantic_query_text = f"{effective_domain} 핵심 실무 역량 강화 교육"
             keyword_query_text = semantic_query_text
+        if keyword_query and keyword_query.strip():
+            keyword_query_text = keyword_query.strip()
 
         # 1) Ko-SRoBERTa 시맨틱 유사도 (질의 벡터 LRU 캐시 적용)
         if self.has_embeddings and self.model is not None and semantic_query_text.strip():
@@ -636,7 +702,11 @@ class UnifiedHybridRecommender:
             semantic_scores = np.full(len(cand_indices), 50.0, dtype=np.float32)
 
         # 2) BM25 Okapi 키워드 적합도
-        q_tokens = [t for t in keyword_query_text.split() if t in self.bm25_vocab]
+        # KSA 기본 검색어는 이미 정제된 키워드이므로 공백 분리만, 자유 입력·Task 질의는 Kiwi 토큰화 적용
+        use_kiwi = not (is_ksa_mode and competency_info and not (keyword_query and keyword_query.strip()))
+        q_tokens = self._keyword_tokens(keyword_query_text, use_kiwi=use_kiwi)
+        if keyword_stopwords:
+            q_tokens = [t for t in q_tokens if t not in keyword_stopwords]
         if q_tokens:
             bm25_raw_all = self.bm25.get_scores(q_tokens)
             bm25_cand = bm25_raw_all[cand_indices]
@@ -644,6 +714,23 @@ class UnifiedHybridRecommender:
             bm25_scores = (bm25_cand / max_b * 100.0) if max_b > 0 else np.zeros_like(bm25_cand)
         else:
             bm25_scores = np.zeros(len(cand_indices), dtype=np.float32)
+
+        # 핵심어 앵커: 범용 단어만 많이 겹친 강좌가 키워드 점수를 독차지하지 않도록 보정
+        # 핵심어 점수 = 일치한 핵심어 수 (강좌 8% 이상에 나오는 넓은 단어는 0.5개로 계산)
+        # 키워드 점수 배율: 핵심어 점수 0 → ×0.4, 1 이상 → ×0.7, 2 이상 → ×1.0
+        anchor_scores = None
+        if anchor_query and anchor_query.strip() and q_tokens:
+            anchors = set(self._keyword_tokens(anchor_query)) - set(keyword_stopwords or ())
+            if anchors:
+                doc_sets = self._doc_token_sets()
+                doc_freq = self._doc_freq()
+                n_docs = len(doc_sets)
+                weights = {a: (0.5 if doc_freq.get(a, 0) / n_docs >= 0.08 else 1.0) for a in anchors}
+                anchor_scores = np.array(
+                    [sum(w for a, w in weights.items() if a in doc_sets[i]) for i in cand_indices], dtype=np.float32
+                )
+                factor = np.where(anchor_scores >= 2, 1.0, np.where(anchor_scores >= 1, 0.7, 0.4))
+                bm25_scores = bm25_scores * factor
 
         df_cand = self.df_courses.iloc[cand_indices].copy()
 
@@ -694,9 +781,9 @@ class UnifiedHybridRecommender:
             # KSA 공식: Semantic 50% + BM25 30% + Level 10점 + ClusterBonus + KsaAuxBonus 5점
             final_scores = (0.50 * semantic_scores) + (0.30 * bm25_scores) + level_bonus + cluster_bonus + ksa_aux_bonus
         else:
-            # 일반 모드 공식: Semantic 50% + BM25 35% + Neutral Rating 15% + LevelBonus + ClusterBonus
-            rating_score = 80.0  # 평점 전수 결측 보정 중립값
-            final_scores = (0.50 * semantic_scores) + (0.35 * bm25_scores) + (0.15 * rating_score) + level_bonus + cluster_bonus
+            # 일반 모드 공식: Semantic 50% + BM25 35% + LevelBonus + ClusterBonus
+            # 수강 리뷰·평점은 사용하지 않습니다 (검증된 실제 리뷰 부족, 확보된 리뷰 DB는 합성 데이터).
+            final_scores = (0.50 * semantic_scores) + (0.35 * bm25_scores) + level_bonus + cluster_bonus
 
         df_cand['final_score'] = np.round(final_scores, 1)
         df_cand['semantic_score'] = np.round(semantic_scores, 1)
@@ -706,6 +793,8 @@ class UnifiedHybridRecommender:
         df_cand['level_score'] = df_cand['level_bonus']
         df_cand['cluster_bonus'] = np.round(cluster_bonus, 1)
         df_cand['ksa_aux_bonus'] = np.round(ksa_aux_bonus, 1)
+        if anchor_scores is not None:
+            df_cand['anchor_score'] = anchor_scores
 
         # 표시용 포맷 필드(price_display, duration_display, mismatch_status)는
         # _load_data()에서 사전 생성되어 df_cand에 이미 포함되어 있으므로 쿼리 시점 반복 연산을 생략합니다.

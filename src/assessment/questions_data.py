@@ -7,16 +7,39 @@
 
 from typing import Dict, List, Any
 
+from src.recommendation import hr_task_catalog
+
+# 인사 기존 6개 업무 (90개 카탈로그가 없을 때의 대체 선택지, 이전 세션 ID 호환용)
+LEGACY_HR_TASKS: List[Dict[str, Any]] = [
+    {"task_id": "TASK_HR_RECRUIT", "task_name": "인력 채용 및 면접 진행", "primary_comp_id": "COMP_HR_01"},
+    {"task_id": "TASK_HR_ONBOARD", "task_name": "신규 입사자 온보딩 및 수습 평가", "primary_comp_id": "COMP_HR_01"},
+    {"task_id": "TASK_HR_EVAL", "task_name": "KPI 수립 및 인사평가 운영", "primary_comp_id": "COMP_HR_02"},
+    {"task_id": "TASK_HR_COMP", "task_name": "급여 정산 및 성과 보상 체계 관리", "primary_comp_id": "COMP_HR_02"},
+    {"task_id": "TASK_HR_LABOR_CONTRACT", "task_name": "근로계약서 및 취업규칙 관리", "primary_comp_id": "COMP_LABOR_01"},
+    {"task_id": "TASK_HR_LABOR_LAW", "task_name": "근로시간·4대보험 및 노동법 준수", "primary_comp_id": "COMP_LABOR_01"}
+]
+
+
+def _hr_task_options() -> List[Dict[str, Any]]:
+    """인사 업무 선택지: 9개 분야 × 90개 세부 업무 카탈로그 (없으면 기존 6개)."""
+    if not hr_task_catalog.is_available():
+        return LEGACY_HR_TASKS
+    return [
+        {
+            "task_id": t["task_id"],
+            "task_name": t["task_name"],
+            "primary_comp_id": t["primary_comp_id"],
+            "domain_id": t["domain_id"],
+            "domain_name": t["domain_name"],
+            "stage": t["stage"],
+        }
+        for t in hr_task_catalog.get_hr_tasks()
+    ]
+
+
 # 직무별 표준 수행 업무 선택지 ↔ KSA 역량 ID 매핑 정의
 JOB_TASK_MAPPING: Dict[str, List[Dict[str, Any]]] = {
-    "인사": [
-        {"task_id": "TASK_HR_RECRUIT", "task_name": "인력 채용 및 면접 진행", "primary_comp_id": "COMP_HR_01"},
-        {"task_id": "TASK_HR_ONBOARD", "task_name": "신규 입사자 온보딩 및 수습 평가", "primary_comp_id": "COMP_HR_01"},
-        {"task_id": "TASK_HR_EVAL", "task_name": "KPI 수립 및 인사평가 운영", "primary_comp_id": "COMP_HR_02"},
-        {"task_id": "TASK_HR_COMP", "task_name": "급여 정산 및 성과 보상 체계 관리", "primary_comp_id": "COMP_HR_02"},
-        {"task_id": "TASK_HR_LABOR_CONTRACT", "task_name": "근로계약서 및 취업규칙 관리", "primary_comp_id": "COMP_LABOR_01"},
-        {"task_id": "TASK_HR_LABOR_LAW", "task_name": "근로시간·4대보험 및 노동법 준수", "primary_comp_id": "COMP_LABOR_01"}
-    ],
+    "인사": _hr_task_options(),
     "총무": [
         {"task_id": "TASK_GA_DOC", "task_name": "사내 공문서 및 업무 규정 관리", "primary_comp_id": "COMP_GA_01"},
         {"task_id": "TASK_GA_REPORT", "task_name": "경영진 기획보고서 및 품의서 작성", "primary_comp_id": "COMP_GA_01"},
@@ -354,3 +377,11 @@ def get_questions_for_job(job_family: str) -> List[Dict[str, Any]]:
 def get_tasks_for_job(job_family: str) -> List[Dict[str, Any]]:
     """직무별 실제 수행 업무 선택지 목록을 반환합니다."""
     return JOB_TASK_MAPPING.get(job_family, [])
+
+def get_task_comp_map(job_family: str) -> Dict[str, str]:
+    """업무 ID → 연결 역량 ID (현재 선택지 + 인사 기존 6개 업무 ID 호환)."""
+    mapping = {t["task_id"]: t["primary_comp_id"] for t in get_tasks_for_job(job_family)}
+    if job_family == "인사":
+        for t in LEGACY_HR_TASKS:
+            mapping.setdefault(t["task_id"], t["primary_comp_id"])
+    return mapping

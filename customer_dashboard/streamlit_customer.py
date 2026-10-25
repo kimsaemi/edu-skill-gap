@@ -46,8 +46,10 @@ from src.assessment.recommendation_bridge import (
     RecommendationFilterParams,
     RecommendedCourseCard,
     CustomerRecommendationBundle,
-    get_shared_recommender
+    get_shared_recommender,
+    get_recommendations_for_tasks
 )
+from src.recommendation import hr_task_catalog
 from src.recommendation.ksa_master import KSA_COMPETENCIES_MASTER
 
 # ------------------------------------------------------------------------------
@@ -568,7 +570,8 @@ def init_session_state():
     defaults = {
         "job_family": "인사",
         "career_range": "3~5년차",
-        "selected_tasks": ["TASK_HR_RECRUIT", "TASK_HR_ONBOARD"],
+        "selected_tasks": ["TASK_HR_D03_T01", "TASK_HR_D04_T01"],
+        "selected_task_domains": [],
         "custom_task": "",
         "difficult_task": "신규 채용 공고 작성 및 직무 면접 질문 구성에 어려움이 있습니다.",
         "learning_goal": "채용 및 온보딩 실무 프로세스를 혼자서 완수하고 역량 강화",
@@ -714,8 +717,165 @@ with st.expander("ℹ️ 진단 기준 및 NCS 연계 상세 안내 (클릭하�
     • **진단 목적**: 인사·총무·경영지원 실무 재직자가 본인의 직무 행동 수준을 점검하고, 부족한 역량을 채울 수 있는 최적의 학습 경로를 추천받기 위한 자기점검 도구입니다.<br>
     • **역량 분류 기준**: 국가직무능력표준(NCS) 및 기업 실무 KSA(Knowledge, Skill, Attitude) 프레임워크를 기반으로 구성되었습니다.<br>
     • **점수 산출 방식**: 각 역량별 2문항 이상 유효하게 응답(1~5점)된 경우에만 평균 점수와 목표 갭을 산출하며, '해당 업무 아님' 또는 '판단 어려움'은 0점 처리되지 않고 산출에서 안전하게 제외됩니다.<br>
+    • **교육 추천 기준**: 강좌 소개·커리큘럼 내용이 부족 역량의 정의와 얼마나 가까운지, 핵심 키워드가 얼마나 일치하는지, 난이도가 내 수준에 맞는지를 기준으로 순서를 정합니다. 수강 후기·평점은 추천 순위에 사용하지 않습니다.<br>
     • **학습 가이드**: 본 진단은 공인 자격시험이나 인사평가 도구가 아니며, 개인의 주관적 자기평가를 바탕으로 한 학습 권장 가이드입니다.
     """, unsafe_allow_html=True)
+
+def render_course_card(card: RecommendedCourseCard, key_prefix: str = ""):
+    """추천 교육 카드 1개를 렌더링합니다 (역량별·업무별 추천 공통)."""
+    is_saved = card.course_uid in st.session_state["saved_courses"]
+    save_btn_label = "⭐ 관심 저장됨" if is_saved else "☆ 관심 교육 저장"
+
+    is_compared = card.course_uid in st.session_state["compared_courses"]
+    cmp_btn_label = "📊 비교함 담김" if is_compared else "📊 비교에 추가"
+
+    comp_badges_html = " ".join([
+        f"<span class='badge-tag badge-primary' title='{item.get('mapping_basis', '추천 연계')} (사람의 검토 완료를 의미하지 않음)'>"
+        + (f"📌 업무 연결 · {item['competency_name']} 역량"
+           if item.get("is_task") else
+           f"🎯 {item['competency_name']} (차이 {item.get('gap', 0.0):.1f}점 · {item.get('mapping_basis', '추천 연계')})")
+        + f"</span>"
+        for item in card.linked_competencies
+    ])
+
+    with st.container():
+        st.markdown('<div class="hrd-card">', unsafe_allow_html=True)
+
+        # 기본 카드 정보: 교육명, 교육기관, 연결된 보완 역량, 비용·시간·형태, 추천 이유
+        st.markdown(f"""
+        <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 0.8rem; margin-bottom: 0.35rem; flex-wrap: wrap;">
+          <div class="hrd-inst-name">
+            <span>🏢 {card.provider}</span>
+          </div>
+          <div>
+            {comp_badges_html}
+          </div>
+        </div>
+        <div class="hrd-course-title">
+          {card.title}
+        </div>
+        <div style="display: flex; flex-wrap: wrap; gap: 0.9rem; font-size: 0.88rem; color: #334155; margin: 0.5rem 0 0.7rem 0; background: #F8FAFC; padding: 0.6rem 0.9rem; border-radius: 8px; border: 1px solid #E2E8F0;">
+          <span>💰 <strong>비용</strong>: <strong style="color: {'#059669' if '무료' in card.price_display else '#0F172A'};">{card.price_display}</strong></span>
+          <span>⏱️ <strong>총 교육시간</strong>: {card.duration_display}</span>
+          <span>💻 <strong>교육형태</strong>: {card.education_type}</span>
+        </div>
+        <div class="hrd-reason-box">
+          <div style="margin-bottom: 0.3rem; color: #1E293B;">
+            <strong>🎯 내 목표와의 연결</strong>: {card.goal_connection}
+          </div>
+          <div style="color: #475569;">
+            <strong>📖 교육에서 확인한 내용</strong>: {card.content_evidence}
+          </div>
+        </div>
+        """, unsafe_allow_html=True)
+
+        if card.text_richness_warning:
+            st.caption(f"{card.text_richness_warning}")
+
+        # 기본 카드 액션 버튼 (3열: 교육 상세·신청 안내 / 관심 교육 저장 / 비교에 추가)
+        act_c1, act_c2, act_c3 = st.columns([1.6, 1.2, 1.2])
+        with act_c1:
+            st.markdown(f"""
+            <a href="{card.url}" target="_blank" class="hrd-action-btn-link" title="해당 교육기관 강좌 상세페이지로 이동">
+              교육 상세·신청 안내 ↗
+            </a>
+            """, unsafe_allow_html=True)
+        with act_c2:
+            if st.button(save_btn_label, key=f"{key_prefix}save_btn_{card.course_uid}", use_container_width=True):
+                if is_saved:
+                    del st.session_state["saved_courses"][card.course_uid]
+                    st.toast("관심 교육 목록에서 제거되었습니다.")
+                else:
+                    st.session_state["saved_courses"][card.course_uid] = {
+                        "card": card,
+                        "status": "학습 예정",
+                        "notes": ""
+                    }
+                    st.toast("관심 교육 목록에 저장되었습니다! ('나의 학습' 탭에서 확인)")
+                st.rerun()
+        with act_c3:
+            if st.button(cmp_btn_label, key=f"{key_prefix}cmp_btn_{card.course_uid}", use_container_width=True):
+                if is_compared:
+                    del st.session_state["compared_courses"][card.course_uid]
+                    st.toast("비교 목록에서 제외되었습니다.")
+                else:
+                    if len(st.session_state["compared_courses"]) >= 3:
+                        st.toast("⚠️ 비교는 최대 3개 강좌까지 가능합니다. 기존 강좌를 제외 후 추가해 주세요.")
+                    else:
+                        st.session_state["compared_courses"][card.course_uid] = card
+                        st.toast(f"비교 목록에 추가되었습니다. (현재 {len(st.session_state['compared_courses'])}/3개)")
+                st.rerun()
+
+        # 상세 펼치기 (실제 커리큘럼 근거, 추천 근거의 한계, 동일 강좌의 다른 수강처, 확인된 일정과 출처)
+        with st.expander("🔍 상세 정보 및 추천 근거 확인 (커리큘럼 발췌·일정·출처)", expanded=False):
+            basis_summary = " · ".join([f"{item['competency_name']}: {item.get('mapping_basis', '추천 연계')}" for item in card.linked_competencies])
+            st.markdown(f"• **역량 연계 근거**: {basis_summary} *(※ 사람의 검토 완료를 의미하지 않음)*")
+            st.markdown(f"• **실제 커리큘럼 근거**: {card.curriculum_evidence}")
+            st.markdown(f"• **추천 근거의 한계**: {card.evidence_limitation}")
+            st.markdown(f"• **확인된 일정**: {card.schedule_display}")
+            st.markdown(f"• **정보 출처**: {card.source_display}")
+
+            if card.alternative_offerings:
+                st.markdown(f"• **동일 강좌의 다른 수강처 ({len(card.alternative_offerings)}개)**:")
+                for alt in card.alternative_offerings:
+                    suit_badge = "✅ 조건 부합" if alt["is_suitable_alternative"] else alt["unsuitability_reason"]
+                    st.markdown(f"  - **[{alt['provider']}]** {alt['title']} | {alt['price_display']} | {alt['education_type']} ({suit_badge}) [바로가기]({alt['url']})")
+            else:
+                st.markdown("• **동일 강좌의 다른 수강처**: 타 플랫폼 중복 개설 내역 없음")
+
+        st.markdown('</div>', unsafe_allow_html=True)
+
+
+def render_task_recommendations(key_prefix: str = ""):
+    """선택한 인사 세부 업무별 추천 교육 (업무 설명 ↔ 교육내용 의미 유사도 기반)."""
+    if st.session_state.get("job_family") != "인사":
+        return
+    task_ids = [t for t in st.session_state.get("selected_tasks", []) if hr_task_catalog.get_hr_task(t)]
+    if not task_ids:
+        return
+
+    st.markdown("---")
+    st.markdown("### 📌 선택한 업무별 추천 교육")
+    st.caption("'실제 수행 중인 업무'에서 고른 업무마다, 업무 설명과 교육 소개·커리큘럼 내용이 가까운 교육을 골랐습니다. (최대 5개 업무, 업무별 3개)")
+    if len(task_ids) > 5:
+        st.info(f"업무를 {len(task_ids)}개 선택하셨어요. 처음 5개 업무만 표시합니다.")
+
+    f_params = RecommendationFilterParams(
+        price_filter=st.session_state["price_filter"],
+        max_budget=st.session_state["max_budget"] if st.session_state["price_filter"] == "MAX_BUDGET" else None,
+        edu_type=st.session_state["edu_type"],
+        weekly_hours=st.session_state["weekly_hours"],
+    )
+    with st.spinner("업무별 교육을 찾는 중..."):
+        task_recs = get_recommendations_for_tasks(task_ids, st.session_state["career_range"], f_params)
+
+    for tr in task_recs:
+        view = tr.career_view
+        role = view.get("role") or {}
+        with st.expander(f"[{tr.domain_name} · {tr.stage}] {tr.task_name}  —  추천 {len(tr.courses)}개", expanded=True):
+            st.markdown(f"{tr.easy_description}")
+            st.markdown(
+                f"• **지식(K)**: {tr.knowledge}<br>"
+                f"• **기술(S)**: {tr.skill}<br>"
+                f"• **태도(A)**: {tr.attitude}",
+                unsafe_allow_html=True,
+            )
+            level_line = f"• **내 연차 기준 숙련도 ({view['level_name']})**: {view['level_text']}"
+            if role.get("role"):
+                level_line += f"<br>• **내 연차 역할 ({role.get('badge', '')})**: {role['role']}"
+            if view.get("next_level_text"):
+                level_line += f"<br>• **다음 단계 ({view['next_level_name']})**: {view['next_level_text']}"
+            st.markdown(level_line, unsafe_allow_html=True)
+            if tr.needs_review:
+                st.caption(f"ℹ️ 이 업무의 자기점검 역량 연결([{tr.primary_comp_name}])은 자동 판정 결과이며 담당자 검토가 필요합니다.")
+
+            if not tr.courses:
+                st.info("이 업무와 내용이 충분히 가까운 교육을 찾지 못했어요. 학습 조건(예산·교육 형태)을 넓혀 보세요.")
+            for card in tr.courses:
+                render_course_card(card, key_prefix=f"{key_prefix}{tr.task_id}_")
+            if tr.excluded_low_similarity:
+                st.caption(f"업무 내용과 관련성이 낮거나 분야가 다른(개발·마케팅 등) 후보 {tr.excluded_low_similarity}건은 제외했습니다.")
+
 
 def render_recommendation_view(bundle: CustomerRecommendationBundle, key_prefix: str = ""):
     """정직한 사실 정보와 추천 사유를 기반으로 교육과정 카드 및 비교 뷰를 렌더링합니다."""
@@ -947,105 +1107,7 @@ def render_recommendation_view(bundle: CustomerRecommendationBundle, key_prefix:
         cards_to_display = courses_to_render if is_show_all else courses_to_render[:3]
 
         for card in cards_to_display:
-            is_saved = card.course_uid in st.session_state["saved_courses"]
-            save_btn_label = "⭐ 관심 저장됨" if is_saved else "☆ 관심 교육 저장"
-
-            is_compared = card.course_uid in st.session_state["compared_courses"]
-            cmp_btn_label = "📊 비교함 담김" if is_compared else "📊 비교에 추가"
-
-            comp_badges_html = " ".join([
-                f"<span class='badge-tag badge-primary' title='{item.get('mapping_basis', '추천 연계')} (사람의 검토 완료를 의미하지 않음)'>"
-                f"🎯 {item['competency_name']} (차이 {item.get('gap', 0.0):.1f}점 · {item.get('mapping_basis', '추천 연계')})"
-                f"</span>"
-                for item in card.linked_competencies
-            ])
-
-            with st.container():
-                st.markdown('<div class="hrd-card">', unsafe_allow_html=True)
-                
-                # 기본 카드 정보: 교육명, 교육기관, 연결된 보완 역량, 비용·시간·형태, 추천 이유
-                st.markdown(f"""
-                <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 0.8rem; margin-bottom: 0.35rem; flex-wrap: wrap;">
-                  <div class="hrd-inst-name">
-                    <span>🏢 {card.provider}</span>
-                  </div>
-                  <div>
-                    {comp_badges_html}
-                  </div>
-                </div>
-                <div class="hrd-course-title">
-                  {card.title}
-                </div>
-                <div style="display: flex; flex-wrap: wrap; gap: 0.9rem; font-size: 0.88rem; color: #334155; margin: 0.5rem 0 0.7rem 0; background: #F8FAFC; padding: 0.6rem 0.9rem; border-radius: 8px; border: 1px solid #E2E8F0;">
-                  <span>💰 <strong>비용</strong>: <strong style="color: {'#059669' if '무료' in card.price_display else '#0F172A'};">{card.price_display}</strong></span>
-                  <span>⏱️ <strong>총 교육시간</strong>: {card.duration_display}</span>
-                  <span>💻 <strong>교육형태</strong>: {card.education_type}</span>
-                </div>
-                <div class="hrd-reason-box">
-                  <div style="margin-bottom: 0.3rem; color: #1E293B;">
-                    <strong>🎯 내 목표와의 연결</strong>: {card.goal_connection}
-                  </div>
-                  <div style="color: #475569;">
-                    <strong>📖 교육에서 확인한 내용</strong>: {card.content_evidence}
-                  </div>
-                </div>
-                """, unsafe_allow_html=True)
-
-                if card.text_richness_warning:
-                    st.caption(f"{card.text_richness_warning}")
-
-                # 기본 카드 액션 버튼 (3열: 교육 상세·신청 안내 / 관심 교육 저장 / 비교에 추가)
-                act_c1, act_c2, act_c3 = st.columns([1.6, 1.2, 1.2])
-                with act_c1:
-                    st.markdown(f"""
-                    <a href="{card.url}" target="_blank" class="hrd-action-btn-link" title="해당 교육기관 강좌 상세페이지로 이동">
-                      교육 상세·신청 안내 ↗
-                    </a>
-                    """, unsafe_allow_html=True)
-                with act_c2:
-                    if st.button(save_btn_label, key=f"{key_prefix}save_btn_{card.course_uid}", use_container_width=True):
-                        if is_saved:
-                            del st.session_state["saved_courses"][card.course_uid]
-                            st.toast("관심 교육 목록에서 제거되었습니다.")
-                        else:
-                            st.session_state["saved_courses"][card.course_uid] = {
-                                "card": card,
-                                "status": "학습 예정",
-                                "notes": ""
-                            }
-                            st.toast("관심 교육 목록에 저장되었습니다! ('나의 학습' 탭에서 확인)")
-                        st.rerun()
-                with act_c3:
-                    if st.button(cmp_btn_label, key=f"{key_prefix}cmp_btn_{card.course_uid}", use_container_width=True):
-                        if is_compared:
-                            del st.session_state["compared_courses"][card.course_uid]
-                            st.toast("비교 목록에서 제외되었습니다.")
-                        else:
-                            if len(st.session_state["compared_courses"]) >= 3:
-                                st.toast("⚠️ 비교는 최대 3개 강좌까지 가능합니다. 기존 강좌를 제외 후 추가해 주세요.")
-                            else:
-                                st.session_state["compared_courses"][card.course_uid] = card
-                                st.toast(f"비교 목록에 추가되었습니다. (현재 {len(st.session_state['compared_courses'])}/3개)")
-                        st.rerun()
-
-                # 상세 펼치기 (실제 커리큘럼 근거, 추천 근거의 한계, 동일 강좌의 다른 수강처, 확인된 일정과 출처)
-                with st.expander("🔍 상세 정보 및 추천 근거 확인 (커리큘럼 발췌·일정·출처)", expanded=False):
-                    basis_summary = " · ".join([f"{item['competency_name']}: {item.get('mapping_basis', '추천 연계')}" for item in card.linked_competencies])
-                    st.markdown(f"• **역량 연계 근거**: {basis_summary} *(※ 사람의 검토 완료를 의미하지 않음)*")
-                    st.markdown(f"• **실제 커리큘럼 근거**: {card.curriculum_evidence}")
-                    st.markdown(f"• **추천 근거의 한계**: {card.evidence_limitation}")
-                    st.markdown(f"• **확인된 일정**: {card.schedule_display}")
-                    st.markdown(f"• **정보 출처**: {card.source_display}")
-                    
-                    if card.alternative_offerings:
-                        st.markdown(f"• **동일 강좌의 다른 수강처 ({len(card.alternative_offerings)}개)**:")
-                        for alt in card.alternative_offerings:
-                            suit_badge = "✅ 조건 부합" if alt["is_suitable_alternative"] else alt["unsuitability_reason"]
-                            st.markdown(f"  - **[{alt['provider']}]** {alt['title']} | {alt['price_display']} | {alt['education_type']} ({suit_badge}) [바로가기]({alt['url']})")
-                    else:
-                        st.markdown("• **동일 강좌의 다른 수강처**: 타 플랫폼 중복 개설 내역 없음")
-
-                st.markdown('</div>', unsafe_allow_html=True)
+            render_course_card(card, key_prefix)
 
         # 우선 추천 3개 초과 시 더보기 / 접기 버튼
         if len(courses_to_render) > 3:
@@ -1188,8 +1250,30 @@ with tab_assessment:
         st.caption("선택하신 업무는 부족 역량 진단 시 보완 우선순위(1순위) 산정에 반영됩니다.")
         
         job_tasks = get_tasks_for_job(st.session_state["job_family"])
-        task_opts = {t["task_id"]: t["task_name"] for t in job_tasks}
-        
+        has_domains = any("domain_id" in t for t in job_tasks)
+
+        if has_domains:
+            # 인사: 9개 분야를 먼저 고르고, 분야별 세부 업무(90개)를 선택
+            domain_names = {}
+            for t in job_tasks:
+                domain_names.setdefault(t["domain_id"], t["domain_name"])
+            task_domain_of = {t["task_id"]: t["domain_id"] for t in job_tasks}
+            default_domains = st.session_state.get("selected_task_domains") or sorted(
+                {task_domain_of[t] for t in st.session_state["selected_tasks"] if t in task_domain_of}
+            )
+            sel_domains = st.multiselect(
+                "① 담당 인사 분야",
+                options=list(domain_names.keys()),
+                default=[d for d in default_domains if d in domain_names],
+                format_func=lambda d: domain_names.get(d, d),
+            )
+            st.session_state["selected_task_domains"] = sel_domains
+            visible_tasks = [t for t in job_tasks if t["domain_id"] in sel_domains]
+            task_opts = {t["task_id"]: f"[{t['domain_name']} · {t['stage']}] {t['task_name']}" for t in visible_tasks}
+            st.caption("업무 목록은 팀이 실무 기준으로 정리한 초안이며 NCS 공식 능력단위가 아닙니다. 업무를 고르면 '맞춤 교육'에서 업무별 추천 교육을 함께 볼 수 있어요.")
+        else:
+            task_opts = {t["task_id"]: t["task_name"] for t in job_tasks}
+
         selected_t_ids = st.multiselect(
             "수행 중인 세부 업무",
             options=list(task_opts.keys()),
@@ -1698,6 +1782,8 @@ with tab_recommend:
 
         render_recommendation_view(bundle, key_prefix="t2_main_")
 
+        render_task_recommendations(key_prefix="t2_task_")
+
 # ------------------------------------------------------------------------------
 # TAB 3: 나의 학습 (선택 강좌 나란히 비교, 저장된 관심 강좌 관리, 재점검 히스토리)
 # ------------------------------------------------------------------------------
@@ -1810,6 +1896,7 @@ st.markdown("""
 <div style="text-align: center; font-size: 0.8rem; color: #94A3B8; padding: 1.5rem 0 2rem 0; line-height: 1.6;">
   🔒 <strong>개인정보 보호 및 세션 안내</strong>: 본 서비스는 비로그인 독립 세션으로 운영됩니다. 입력하신 응답과 결과는 서버에 영구 저장되지 않으며, 다른 사용자와 일체 공유되지 않습니다.<br>
   📖 <strong>교육 데이터 출처 및 저작권</strong>: 본 대시보드에서 제공하는 교육과정 메타데이터는 공공데이터포털(HRD-Net, K-MOOC, 서울/경기 평생학습) 및 공개 강좌 정보를 바탕으로 구성되었습니다. 각 교육의 저작권 및 수강신청 권한은 해당 교육기관에 있습니다.<br>
+  📝 <strong>수강 후기·평점</strong>: 검증된 실제 수강 후기가 충분하지 않아, 추천 순위와 화면에 후기·평점 정보를 사용하지 않습니다.<br>
   ⚙️ kimsaemi/edu-skill-gap | 실무 역량 진단 & 맞춤 교육 추천 서비스
 </div>
 """, unsafe_allow_html=True)
