@@ -19,6 +19,8 @@ import numpy as np
 import pandas as pd
 
 ROOT = Path(__file__).resolve().parent.parent
+import sys  # noqa: E402  (src 패키지를 불러오기 위해)
+sys.path.insert(0, str(ROOT))
 PROCESSED = ROOT / "data" / "hr" / "processed"
 RECO = ROOT / "data" / "hr" / "output" / "recommendation"
 OUT = ROOT / "presentation" / "src" / "data.json"
@@ -141,8 +143,132 @@ def build_eda(df, off_topic, tasks_raw, top3, rec, summary, n):
         "bias_provider": bias_max["label"], "bias_top3": bias_max["top3"], "bias_catalog": bias_max["catalog"],
         "top5_share": round(float(cat_share.head(5).sum()) * 100, 1),
     }
+    robust = build_robustness(df, off_topic, tasks_raw, sims, keep, emb, model, top3, cat_share, rec_share)
     return {"missing": missing, "cleaning": cleaning, "domain_supply": domain_supply, "domain_tau": DOMAIN_TAU,
-            "provider_bias": provider_bias, "cost": cost, "schedule": schedule, "monitor": monitor}
+            "provider_bias": provider_bias, "cost": cost, "schedule": schedule, "monitor": monitor, "robust": robust}
+
+
+# 영역별 키워드 (의미 기준과 비교하는 두 번째 방법. '소통'처럼 넓은 단어는 뺌)
+DOMAIN_KEYWORDS = {
+    "인사전략·인력기획": "인사전략|인력계획|인력운영|HR전략|인건비",
+    "조직설계·직무분석": "조직설계|직무분석|직무설계|조직구조|직무기술서|직무관리",
+    "인재채용": "채용|면접|인재선발|구인",
+    "온보딩·직원경험": "온보딩|입문교육|신입사원|직원경험",
+    "성과평가·목표관리": "인사평가|성과평가|성과관리|KPI|OKR|목표관리|평가제도|역량평가",
+    "보상·급여·복리후생": "급여|임금|보상|연봉|퇴직금|복리후생|연말정산|4대보험|원천징수",
+    "인재육성·사내교육": "HRD|교육기획|교육훈련|사내강사|인재육성|교육체계|교수설계",
+    "조직문화·사내소통": "조직문화|조직개발|조직활성화|사내소통|구성원 몰입",
+    "노사관계·노무": "노무|노사|근로기준|노동법|취업규칙|해고|징계|근로계약|노동조합",
+}
+MAIN_PROVIDERS = ["GSEEK", "휴넷", "한국능률협회(KMA)", "한국생산성본부(KPC)", "멀티캠퍼스"]
+
+
+def build_robustness(df, off_topic, tasks_raw, sims, keep, emb, model, top3, cat_share, rec_share):
+    """2~5번 추가 검증: 기관 편중 원인, 영역 공급 민감도, 결측 편향, 비용×수준."""
+    import importlib.util
+    from src.recommendation.unified_hybrid_recommender import UnifiedHybridRecommender as U
+
+    dk = df[keep].reset_index(drop=True)
+    norm = dk["title"].map(U.normalize_course_title)
+    doms = [t["domain_name"] for t in tasks_raw]
+
+    # (3) 영역별 공급 민감도: 의미 기준 3가지 기준값 + 제목 중복 제거 + 키워드 기준
+    text = dk["title"].fillna("") + " " + dk["clean_search_text"].fillna("")
+    rows = []
+    for d in dict.fromkeys(doms):
+        best = sims[[i for i, x in enumerate(doms) if x == d]].max(0)
+        rows.append({
+            "label": d,
+            "s055": int((best >= 0.55).sum()), "s060": int((best >= 0.60).sum()), "s065": int((best >= 0.65).sum()),
+            "s060_titles": int(norm[best >= 0.60].nunique()),
+            "keyword": int(text.str.contains(DOMAIN_KEYWORDS[d], regex=True).sum()),
+        })
+    sens = pd.DataFrame(rows).set_index("label")
+    ranks = sens.rank(method="min").astype(int)  # 1 = 가장 적음
+    sensitivity = [{"label": d, **{k: int(v) for k, v in sens.loc[d].items()}, "ranks": {k: int(v) for k, v in ranks.loc[d].items()}}
+                   for d in sens.index]
+
+    # (2) 기관 편중 분해: 카탈로그 → 의미 상위 50 후보 → 제목 중복 제거 후보 → 추천 Top 3
+    spec = importlib.util.spec_from_file_location("btc", ROOT / "scripts" / "build_hr_task_catalog.py")
+    btc = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(btc)
+    qv = model.encode([btc.task_semantic_text(t) for t in tasks_raw], normalize_embeddings=True)
+    sem_all = qv @ emb.T
+    norm_all = df["title"].map(U.normalize_course_title).values
+    prov_all = df["provider"].values
+    pool, pool_dedup = [], []
+    for i in range(len(tasks_raw)):
+        order = np.argsort(-sem_all[i])
+        pool += list(prov_all[order[:50]])
+        seen = set()
+        for j in order:
+            if norm_all[j] in seen:
+                continue
+            seen.add(norm_all[j])
+            pool_dedup.append(prov_all[j])
+            if len(seen) == 50:
+                break
+    p1 = pd.Series(pool).value_counts(normalize=True)
+    p2 = pd.Series(pool_dedup).value_counts(normalize=True)
+    g = df.groupby("provider")
+    bias_steps = [{
+        "label": p,
+        "catalog": round(float(cat_share.get(p, 0)) * 100, 1), "pool": round(float(p1.get(p, 0)) * 100, 1),
+        "pool_dedup": round(float(p2.get(p, 0)) * 100, 1), "top3": round(float(rec_share.get(p, 0)) * 100, 1),
+        "rows_per_title": round(float(g.size()[p] / g["title"].nunique()[p]), 2),
+    } for p in ["한국생산성본부(KPC)", "한국능률협회(KMA)", "GSEEK", "휴넷", "멀티캠퍼스"]]
+
+    # (4) 결측 편향: 기관별 결측률, 난이도 표기 과정의 기관 구성, H1 초급 비율 시나리오
+    def miss(s):
+        return s.isna() | s.astype(str).str.strip().isin(["", "nan", "None", "<NA>", "난이도"])
+    w24 = df["source_course_id"].astype(str).str.fullmatch(r"A[A-Z]{2}\d{14}")
+    grp = np.where(w24, "고용24", np.where(df["provider"].isin(MAIN_PROVIDERS), df["provider"], "기타"))
+    gm = df.assign(grp=grp).groupby("grp")
+    missing_by_provider = [{
+        "label": k, "n": int(len(v)),
+        **{c: round(float(miss(v[c]).mean()) * 100, 1) for c in ["difficulty", "duration_hours", "price", "start_date"]},
+    } for k, v in gm if k != "기타"]
+    d = df["difficulty"].fillna("").astype(str)
+    lvl = np.select([d.str.contains("초급|입문"), d.str.startswith("중급"), d.str.startswith("고급")], ["초급", "중급", "고급"], "")
+    lab = df.assign(grp=grp, lvl=lvl)
+    lab = lab[lab["lvl"] != ""]
+
+    def beg(x):
+        return round(float((x["lvl"] == "초급").mean()) * 100, 1)
+    hrga = lab["field"].isin(["HR", "GA"]) & ~lab["course_uid"].isin(off_topic)
+    h1_scenarios = [
+        {"label": "전체", "pct": beg(lab), "n": int(len(lab))},
+        {"label": "인사·총무 분야만", "pct": beg(lab[hrga]), "n": int(hrga.sum())},
+        {"label": "휴넷 제외", "pct": beg(lab[lab["grp"] != "휴넷"]), "n": int((lab["grp"] != "휴넷").sum())},
+        {"label": "GSEEK 제외", "pct": beg(lab[lab["grp"] != "GSEEK"]), "n": int((lab["grp"] != "GSEEK").sum())},
+        {"label": "GSEEK·휴넷 제외", "pct": beg(lab[~lab["grp"].isin(["GSEEK", "휴넷"])]), "n": int((~lab["grp"].isin(["GSEEK", "휴넷"])).sum())},
+    ]
+    label_share = (lab["grp"].value_counts(normalize=True) * 100).round(1)
+    label_source = [{"label": k, "pct": float(v)} for k, v in label_share.items() if v >= 1]
+
+    # (5) 비용 × 수준 (인사·총무 분야, 직무 무관 제외)
+    h = df.assign(lvl=lvl)
+    h = h[h["field"].isin(["HR", "GA"]) & ~h["course_uid"].isin(off_topic)]
+    p = pd.to_numeric(h["price"], errors="coerce")
+    hrs = pd.to_numeric(h["duration_hours"], errors="coerce")
+    cost_by_level = []
+    for name in ["초급", "중급", "고급"]:
+        m = (h["lvl"] == name).values
+        pp, hh = p[m], hrs[m]
+        known = pp.notna()
+        cost_by_level.append({
+            "label": name, "n": int(m.sum()), "paid_median": int(pp[pp > 0].median()) if (pp > 0).any() else None,
+            "under30_pct": round(float(((pp <= 300000) & known).sum() / max(1, known.sum())) * 100, 1),
+            "hours_median": float(hh.median()) if hh.notna().any() else None,
+            "gov_pct": round(float(h.loc[m, "price_type"].astype(str).str.contains("국비").mean()) * 100, 1),
+        })
+    mid = h["lvl"].isin(["중급", "고급"])
+    mid_gov = int(h.loc[mid, "price_type"].astype(str).str.contains("국비").sum())
+    return {
+        "sensitivity": sensitivity, "bias_steps": bias_steps, "missing_by_provider": missing_by_provider,
+        "h1_scenarios": h1_scenarios, "label_source": label_source, "cost_by_level": cost_by_level,
+        "mid_total": int(mid.sum()), "mid_gov": mid_gov, "mid_gov_pct": pct(mid_gov, int(mid.sum())),
+    }
 
 
 def main():

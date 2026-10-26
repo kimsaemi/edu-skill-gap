@@ -253,6 +253,11 @@ footer b { color: var(--hud-ink); font-family: var(--pxb); font-weight: normal; 
 @media (max-width: 560px) { .facts { grid-template-columns: minmax(0, 1fr); } }
 .pill { display: inline-block; font-family: var(--px); font-size: 11px; padding: 2px 8px; line-height: 1.5; white-space: nowrap; }
 .pill.ok { background: var(--teal); color: #fff; }
+.pill.part { background: var(--yel); color: #1B1D22; }
+h3.h4 { font-size: 17px; margin-top: 28px; }
+table.heat td.hv { text-align: center; font-variant-numeric: tabular-nums; }
+table.rank td { font-variant-numeric: tabular-nums; white-space: nowrap; }
+table.rank td.low { background: var(--warn-bg); color: var(--warn-ink); font-weight: 700; }
 .pill.pend { background: var(--paper-2); color: var(--dim); border: 1px dashed var(--dim); }
 .pill.dash { background: var(--ink); color: var(--paper); white-space: normal; text-align: center; }
 .pill.rep { background: var(--paper-2); color: var(--ink); border: 1px solid var(--line); white-space: normal; text-align: center; }
@@ -345,8 +350,8 @@ ol.three li::marker { font-family: var(--pxb); color: var(--teal); }
       <div class="kpi"><div class="v num">0<small>건</small></div><div class="l">추천에 쓴 합성 후기·평점 (전부 제거)</div></div>
     </div>
     <div class="findings">
-      <div class="finding"><div class="k">H1</div><p><span class="t">교육 공급은 입문·초급에 몰려 있습니다.</span>난이도가 표기된 과정 <span class="num" id="f1-labeled"></span>개 중 <mark><span id="f1-beg"></span>%가 입문·초급</mark>입니다. NCS 수요 분석에서는 실무·중급(L3~6)이 80%입니다.</p></div>
-      <div class="finding"><div class="k">H2</div><p><span class="t">노무·보상·조직문화 영역은 교육이 적고, 중급 이상은 더 적습니다.</span>노사관계·노무 영역에 맞는 과정은 <mark><span id="f2-labor-n"></span>개</mark>, 그중 중급 이상은 <span id="f2-labor-mid"></span>개입니다. 인재육성 영역(<span id="f2-hrd-n"></span>개)의 약 1/15 수준입니다.</p></div>
+      <div class="finding"><div class="k">H1</div><p><span class="t">교육 공급은 입문·초급에 몰려 있습니다.</span>난이도가 표기된 과정의 <mark><span id="f1-range"></span>%가 입문·초급</mark>입니다(어느 기관을 포함하느냐에 따라 범위가 달라짐). NCS 수요에서 입문 비중은 10%뿐입니다.</p></div>
+      <div class="finding"><div class="k">H2</div><p><span class="t">노무·보상·조직문화 영역은 업무에 맞는 교육이 적습니다 (부분 채택).</span>노사관계·노무 영역에 맞는 과정은 <mark><span id="f2-labor-n"></span>개</mark>, 그중 중급 이상은 <span id="f2-labor-mid"></span>개입니다. 인재육성 영역(<span id="f2-hrd-n"></span>개)의 약 1/15 수준입니다.</p></div>
       <div class="finding"><div class="k">H3</div><p><span class="t">평점은 추천 근거가 될 수 없습니다.</span>공식 만족도는 카탈로그의 <span id="f3-satpct"></span>%에만 있고, 있는 점수도 중앙값 <span id="f3-satmed"></span>점으로 몰려 있습니다. 그래서 업무 적합도(의미+키워드+난이도)로 추천합니다.</p></div>
     </div>
   </div>
@@ -432,8 +437,8 @@ ol.three li::marker { font-family: var(--pxb); color: var(--teal); }
       <table class="hyp">
         <thead><tr><th>가설</th><th>근거 (도메인 지식·논리)</th><th>검증 방법</th><th>결과</th></tr></thead>
         <tbody>
-          <tr><td><b>H1.</b> 교육 공급은 입문·초급에 몰려 있어 실무·중급 수요와 어긋날 것이다</td><td>기관은 수강생이 많은 입문 과정을 많이 만들고, NCS 수요는 L3~6에 몰려 있다</td><td>과정 난이도 분포 vs NCS 레벨 분포 비교</td><td><span class="pill ok">채택</span> 입문·초급 <span id="h1-beg"></span>%</td></tr>
-          <tr><td><b>H2.</b> 법·제도 지식이 필요한 영역(노무·보상)과 조직문화는 교육이 적을 것이다</td><td>법 개정이 잦고 전문 강사가 필요해 과정을 만들기 어렵다</td><td>9개 영역 과업과 의미 유사도 <span id="h2-tau"></span> 이상인 과정 수</td><td><span class="pill ok">채택</span> 노무 <span id="h2-labor"></span>개 · 보상 <span id="h2-comp"></span>개</td></tr>
+          <tr><td><b>H1.</b> 교육 공급은 입문·초급에 몰려 있어 실무·중급 수요와 어긋날 것이다</td><td>기관은 수강생이 많은 입문 과정을 많이 만들고, NCS 수요는 L3~6에 몰려 있다</td><td>과정 난이도 분포 vs NCS 레벨 분포 비교</td><td><span class="pill ok">채택</span> 입문·초급 <span id="h1-range"></span>%<br><small class="note">기관 구성에 따라 달라짐</small></td></tr>
+          <tr><td><b>H2.</b> 법·제도 지식이 필요한 영역(노무·보상)과 조직문화는 교육이 적을 것이다</td><td>법 개정이 잦고 전문 강사가 필요해 과정을 만들기 어렵다</td><td>9개 영역 과업과 의미 유사도 <span id="h2-tau"></span> 이상인 과정 수</td><td><span class="pill part">부분 채택</span> 의미 기준 노무 <span id="h2-labor"></span>개 · 보상 <span id="h2-comp"></span>개<br><small class="note">키워드 기준에선 순위가 달라짐</small></td></tr>
           <tr><td><b>H3.</b> 평점·후기는 추천 근거로 쓸 수 없을 것이다</td><td>평점은 일부 기관에만 있고, 만족도 설문은 높은 점수에 몰리는 경향이 있다</td><td>공식 만족도의 보유율과 분포 확인</td><td><span class="pill ok">채택</span> 보유 <span id="h3-pct"></span>% · 중앙값 <span id="h3-med"></span>점</td></tr>
         </tbody>
       </table>
@@ -598,7 +603,7 @@ ol.three li::marker { font-family: var(--pxb); color: var(--teal); }
     </figure>
   </div>
   <div class="wrap">
-    <h3>H2. 노무·보상·조직문화 영역이 비어 있습니다</h3>
+    <h3>H2. 노무·보상·조직문화 영역은 업무에 맞는 교육이 적습니다 (부분 채택)</h3>
     <p>인사 실무 9개 영역의 과업 설명과 뜻이 가까운 과정을 셌습니다. 노사관계·노무, 보상·급여, 조직문화 영역은 인재육성 영역의 1/10 수준이고, <strong>중급 이상 과정은 수십 개</strong>에 불과합니다. 인재육성 영역이 많은 데에는 카탈로그 자체가 "교육" 과정이라 단어가 겹치는 영향도 있습니다.</p>
   </div>
   <div class="wrap wide">
@@ -646,6 +651,39 @@ ol.three li::marker { font-family: var(--pxb); color: var(--teal); }
     </div>
   </div>
   <div class="wrap">
+    <h3>결과가 단단한가 · 추가 검증</h3>
+    <p>가설을 채택하기 전에, 결측이나 방법 선택 때문에 결과가 달라지지 않는지 네 가지를 확인했습니다.</p>
+    <h3 class="h4">① 결측 편향: 난이도 표기는 두 기관에서만 나옵니다</h3>
+    <p>난이도를 표기한 과정의 <strong><span id="rb-ls"></span></strong>입니다. 한국능률협회·한국생산성본부는 난이도가 거의 비어 있고, GSEEK·휴넷은 시간이 비어 있습니다. 그래서 H1의 초급 비율은 어느 기관을 넣느냐에 따라 <strong><span id="rb-h1min"></span>~<span id="rb-h1max"></span>%</strong>로 움직입니다. 가장 보수적으로 잡아도 NCS 입문 비중(10%)의 약 5배라 <strong>방향은 그대로</strong>입니다.</p>
+  </div>
+  <div class="wrap wide">
+    <div class="two">
+      <figure class="fig" style="margin-top:0">
+        <div class="hud">
+          <div class="hud-head"><span class="hud-title">H1 초급 비율, 기관 구성별</span><span class="hud-sub">1칸 = 1%p · NCS 입문 10%</span></div>
+          <div class="chart" id="ch-h1s"></div>
+        </div>
+      </figure>
+      <figure class="fig" style="margin-top:0">
+        <div class="tbl" style="margin:0">
+          <table class="heat"><thead><tr><th>기관</th><th>난이도</th><th>시간</th><th>가격</th><th>개강일</th></tr></thead><tbody id="tb-miss"></tbody></table>
+        </div>
+        <figcaption>칸 숫자는 결측률(%). 짙을수록 많이 비어 있음.</figcaption>
+      </figure>
+    </div>
+  </div>
+  <div class="wrap">
+    <h3 class="h4">② H2 민감도: 의미 기준은 안정적, 키워드 기준과는 엇갈립니다</h3>
+    <p>기준값(0.55·0.60·0.65)을 바꾸거나 같은 제목을 하나로 묶어도 의미 기준의 하위 3개는 노무·보상·조직문화로 같습니다. 키워드로 세면 보상(급여 계산·회계 과정)과 조직문화가 많게 나옵니다. <strong>급여 계산처럼 주제 단어가 들어간 과정은 있지만, 보상 설계나 노무 실무처럼 업무 설명에 맞는 과정은 적다</strong>고 해석했고, H2는 부분 채택으로 표시했습니다.</p>
+    <div class="tbl"><table class="rank"><thead><tr><th>영역</th><th>의미 0.55</th><th>의미 0.60</th><th>의미 0.65</th><th>0.60 + 중복 제거</th><th>키워드</th></tr></thead><tbody id="tb-sens"></tbody></table></div>
+    <p class="note">칸 숫자는 과정 수, 괄호는 9개 영역 중 적은 순위(1 = 가장 적음). 하위 3위는 강조 표시.</p>
+    <h3 class="h4">③ 기관 편중: 의미 검색 단계에서 생기고, 추천 단계에서 줄어듭니다</h3>
+    <p>과업마다 뜻이 가까운 후보 50개를 뽑으면 한국생산성본부가 절반을 넘습니다. 같은 과정을 회차별로 따로 등록한 영향을 걷어내도 45%대이고, 길이가 비슷한 과정끼리 비교해도 유사도가 높습니다. 과정 설명이 실무형 문장으로 쓰여 과업 설명과 문체가 비슷한 것으로 보입니다. <strong>정말 더 맞는 과정인지는 사람 평가로만 판정할 수 있어</strong>, 지금은 경고 지표로 두고 기관당 추천 상한을 다음 개선안으로 둡니다.</p>
+    <div class="tbl"><table><thead><tr><th>기관</th><th>카탈로그</th><th>뜻이 가까운 후보</th><th>제목 중복 제거 후</th><th>추천 Top 3</th><th>제목당 등록 수</th></tr></thead><tbody id="tb-bias"></tbody></table></div>
+    <h3 class="h4">④ 비용 × 수준: 중급 이상은 비싸고, 국비 과정이 대안입니다</h3>
+    <p>인사·총무 분야에서 30만 원 이하로 들을 수 있는 과정은 초급의 대부분이지만 중급은 소수입니다. 중급 이상 <span id="rb-mid"></span>개 중 <strong><span id="rb-midgov"></span>개(<span id="rb-midgovp"></span>%)가 국비 지원 과정</strong>이라, 예산이 적은 실무자에게는 고용24 과정이 사실상 중급으로 가는 길입니다.</p>
+    <div class="tbl"><table><thead><tr><th>수준</th><th>과정 수</th><th>유료 가격 중앙값</th><th>30만 원 이하 비율</th><th>시간 중앙값</th><th>국비 지원 비율</th></tr></thead><tbody id="tb-cost"></tbody></table></div>
+    <p class="note">가격이 확인된 과정 기준입니다. 휴넷은 가격, GSEEK·휴넷은 시간이 비어 있어 이 표에 덜 반영됩니다.</p>
     <h3>추천 결과</h3>
     <p>과업 90개의 1위 추천은 의미 유사도 중앙값 <strong><span id="rv-med"></span>점</strong>, 최저 <span id="rv-min"></span>점입니다. Top 3 자리 <span id="rv-slots"></span>개를 서로 다른 <span id="rv-distinct"></span>개 과정이 채웠습니다. 제목만 있는 과정은 전체의 <span id="rv-to-all"></span>%지만 Top 3에서는 <mark><span id="rv-to-top"></span>%</mark>입니다.</p>
   </div>
@@ -695,13 +733,13 @@ ol.three li::marker { font-family: var(--pxb); color: var(--teal); }
     <div class="insights">
       <div class="ins">
         <div class="ins-h">1 · 실무·중급 공백</div>
-        <div class="ins-r"><span>발견</span><p>난이도 표기 과정의 <b id="i1-beg"></b>%가 입문·초급인데, NCS 수요의 80%는 실무·중급입니다.</p></div>
+        <div class="ins-r"><span>발견</span><p>난이도 표기 과정의 <b id="i1-range"></b>%가 입문·초급인데, NCS 수요의 80%는 실무·중급입니다. 중급 과정의 유료 가격 중앙값은 <b id="i1-midprice"></b>원입니다.</p></div>
         <div class="ins-r"><span>의미</span><p>2~5년차 실무자가 다음 단계로 갈 교육을 찾기 가장 어렵습니다. 입문 과정을 반복 수강하게 됩니다.</p></div>
-        <div class="ins-r"><span>전략</span><p>추천에서 "실무·관리자" 수준을 고르면 중급 이상 과정에 가점을 주고, 공백 구간은 평생교육원 마이크로디그리(30~45시간) 과정 기획의 근거로 씁니다.</p></div>
+        <div class="ins-r"><span>전략</span><p>추천에서 "실무·관리자" 수준을 고르면 중급 이상 과정에 가점을 주고, 중급 이상의 <b id="i1-gov"></b>%를 차지하는 국비 과정을 우선 보여 줍니다. 공백 구간은 평생교육원 마이크로디그리(30~45시간) 과정 기획의 근거로 씁니다.</p></div>
       </div>
       <div class="ins">
         <div class="ins-h">2 · 노무·보상·조직문화 공백</div>
-        <div class="ins-r"><span>발견</span><p>노무 영역 과정은 <b id="i2-labor"></b>개, 중급 이상은 <b id="i2-labor-mid"></b>개입니다. 조직문화 영역 중급 이상은 <b id="i2-cult-mid"></b>개입니다.</p></div>
+        <div class="ins-r"><span>발견</span><p>업무 설명과 뜻이 맞는 노무 영역 과정은 <b id="i2-labor"></b>개, 중급 이상은 <b id="i2-labor-mid"></b>개입니다. 조직문화 영역 중급 이상은 <b id="i2-cult-mid"></b>개입니다. 보상은 급여 계산 과정은 많지만 보상 설계 과정이 적습니다.</p></div>
         <div class="ins-r"><span>의미</span><p>법 개정 대응처럼 틀리면 비용이 큰 업무일수록 맞는 교육이 없습니다.</p></div>
         <div class="ins-r"><span>전략</span><p>노무·보상 영역부터 공급처를 넓힙니다(고용24 노무 과정, 노무사회·경영자단체 교육). 공백 영역 목록을 교육기관 제휴·콘텐츠 기획 제안서로 만듭니다.</p></div>
       </div>
@@ -716,6 +754,12 @@ ol.three li::marker { font-family: var(--pxb); color: var(--teal); }
         <div class="ins-r"><span>발견</span><p>고용24 과정 130개가 승인 연도가 바뀌며 모두 운영 종료됐고, 다른 기관 과정 <b id="i4-past"></b>개도 안내 일정이 지났습니다.</p></div>
         <div class="ins-r"><span>의미</span><p>추천이 맞아도 신청할 수 없으면 사용자는 떠납니다.</p></div>
         <div class="ins-r"><span>전략</span><p>고용24 과정을 월 1회 자동 갱신하고, 일정이 지난 과정에는 "운영 종료" 표시를 붙입니다(적용 완료). 데이터 신선도를 대시보드 지표로 관리합니다.</p></div>
+      <div class="ins">
+        <div class="ins-h">5 · 추천이 한 기관에 쏠린다</div>
+        <div class="ins-r"><span>발견</span><p>한국생산성본부는 카탈로그의 <b id="i5-cat"></b>%인데 추천 Top 3의 <b id="i5-top"></b>%를 차지합니다. 회차 중복 등록과 실무형 문체가 겹친 결과입니다.</p></div>
+        <div class="ins-r"><span>의미</span><p>사용자는 비슷한 기관의 과정만 보게 되고, 다른 기관의 더 맞는 과정을 놓칠 수 있습니다.</p></div>
+        <div class="ins-r"><span>전략</span><p>후보 단계에서 같은 제목의 회차를 하나로 묶고, Top 3 안에서 같은 기관은 최대 2개로 제한합니다. 효과는 사람 평가 Precision@3로 확인합니다.</p></div>
+      </div>
       </div>
     </div>
   </div>
@@ -726,7 +770,7 @@ ol.three li::marker { font-family: var(--pxb); color: var(--teal); }
     <div class="eyebrow"><b>06</b> 결론 &amp; 향후 계획</div>
     <h2>세 줄 결론</h2>
     <ol class="three">
-      <li>인사·총무 교육은 많지만 <strong>입문·초급에 몰려 있고, 노무·보상·조직문화의 실무 과정은 비어 있습니다.</strong></li>
+      <li>인사·총무 교육은 많지만 <strong>입문·초급 비중이 NCS 수요보다 5배 이상 높고, 노무·조직문화의 실무 과정은 비어 있습니다.</strong> 중급으로 가는 저비용 경로는 국비 과정입니다.</li>
       <li>NCS 과업 90개를 공통 기준으로 삼으면 기관을 가리지 않고 <strong>업무별 추천을 <span id="c-cov"></span>% 조합에서</strong> 낼 수 있습니다.</li>
       <li>평점은 근거가 될 수 없어, <strong>업무 적합도와 근거 문장으로 추천</strong>하고 데이터 신선도를 지표로 관리합니다.</li>
     </ol>
@@ -744,7 +788,7 @@ ol.three li::marker { font-family: var(--pxb); color: var(--teal); }
     </div>
     <h3>읽을 때 알아 둘 것</h3>
     <ol class="caveats">
-      <li><p><strong>난이도 비교는 방향만 봅니다.</strong> NCS 레벨과 교육기관 난이도 표기는 다른 기준입니다. 난이도 표기가 없는 <span id="cv-unl"></span>개(<span id="cv-unl-pct"></span>%)는 대부분 <span id="cv-unl-prov"></span> 과정이라 이 비교에서 빠졌습니다.</p></li>
+      <li><p><strong>난이도 비교는 방향만 봅니다.</strong> NCS 레벨과 교육기관 난이도 표기는 다른 기준입니다. 난이도 표기가 없는 <span id="cv-unl"></span>개(<span id="cv-unl-pct"></span>%)는 대부분 <span id="cv-unl-prov"></span> 과정이고, 표기된 과정은 GSEEK·휴넷이 대부분이라 초급 비율은 기관 구성에 따라 크게 달라집니다.</p></li>
       <li><p><strong>분야 분류·영역 공급량·NCS 연결은 자동 결과입니다.</strong> 문장 임베딩과 규칙으로 계산했고 사람이 전부 검증하지는 않았습니다.</p></li>
       <li><p><strong>과업 <span id="cv-review"></span>개는 맞는 NCS 역량이 아직 없습니다.</strong> 인사 연결 역량이 3개뿐이라 임시로 가장 가까운 역량에 붙어 있고, 탐색기에서는 역량 표시를 숨겼습니다. 추천은 과업 설명으로 계산해 영향을 받지 않습니다.</p></li>
       <li><p><strong>일부 과정이 여러 과업에 반복 추천됩니다.</strong> 과정 <span id="cv-reuse"></span>개가 5개 이상 과업에 나오며 Top 3 자리의 <span id="cv-reuse-pct"></span>%를 차지합니다.</p></li>
@@ -794,6 +838,7 @@ const D = /*__DATA__*/;
   const $$ = (s, r) => Array.from((r || document).querySelectorAll(s));
   const fmt = n => Number(n).toLocaleString('ko-KR');
   const css = name => getComputedStyle(document.documentElement).getPropertyValue(name).trim();
+  function esc(s) { return String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c])); }
   const T = (sel, v) => { const n = document.querySelector(sel); if (n) n.textContent = v; };
   const NS = 'http://www.w3.org/2000/svg';
   const el = (tag, attrs, text) => {
@@ -810,9 +855,7 @@ const D = /*__DATA__*/;
   });
   T('#gen-date', D.generated);
   const beg = D.difficulty.supply[0];
-  T('#f1-labeled', fmt(D.difficulty.labeled));
-  T('#f1-beg', beg.pct);
-  T('#f2-labor', D.core_skills.find(c => c.label.startsWith('노무')).pct);
+      T('#f2-labor', D.core_skills.find(c => c.label.startsWith('노무')).pct);
   const R = D.recommend, S = D.satisfaction;
   T('#sat-scored-pct', S.catalog_scored_pct);
   T('#st-off', fmt(R.off_topic));
@@ -851,8 +894,7 @@ const D = /*__DATA__*/;
   T('#f2-labor-n', fmt(dom('노사관계').n)); T('#f2-labor-mid', fmt(dom('노사관계').mid_plus)); T('#f2-hrd-n', fmt(dom('인재육성').n));
   T('#f3-satpct', S.catalog_scored_pct); T('#f3-satmed', S.median);
   T('#c3-top5', M.top5_share);
-  T('#h1-beg', D.difficulty.supply[0].pct); T('#r-h1', D.difficulty.supply[0].pct); T('#i1-beg', D.difficulty.supply[0].pct);
-  T('#h2-tau', E.domain_tau.toFixed(2)); T('#r-tau', E.domain_tau.toFixed(2)); T('#dom-tau', E.domain_tau.toFixed(2));
+  T('#r-h1', D.difficulty.supply[0].pct);   T('#h2-tau', E.domain_tau.toFixed(2)); T('#r-tau', E.domain_tau.toFixed(2)); T('#dom-tau', E.domain_tau.toFixed(2));
   T('#h2-labor', fmt(dom('노사관계').n)); T('#h2-comp', fmt(dom('보상').n));
   T('#h3-pct', S.catalog_scored_pct); T('#h3-med', S.median); T('#r-h3', S.catalog_scored_pct);
   T('#i3-pct', S.catalog_scored_pct); T('#i3-med', S.median);
@@ -861,6 +903,30 @@ const D = /*__DATA__*/;
   if (M.bias_top3 - M.bias_catalog > 10) { const b = $('#m-bias'); if (b) { b.classList.add('bad'); b.insertAdjacentHTML('afterend', ' <span class="pill warn">기준 초과</span>'); } } T('#m-bias-p', `${M.bias_provider} ${M.bias_catalog}% → ${M.bias_top3}%`);
   T('#i2-labor', fmt(dom('노사관계').n)); T('#i2-labor-mid', fmt(dom('노사관계').mid_plus)); T('#i2-cult-mid', fmt(dom('조직문화').mid_plus));
   T('#i4-past', fmt(E.schedule.past)); T('#c-review', R.needs_review);
+
+
+  /* ---------- 추가 검증 (결측 편향·민감도·편중·비용) ---------- */
+  const RB = E.robust;
+  const h1v = RB.h1_scenarios.map(s => s.pct);
+  const h1Range = `${Math.min(...h1v)}~${Math.max(...h1v)}`;
+  ['#f1-range', '#h1-range', '#r-h1', '#i1-range'].forEach(id => T(id, h1Range));
+  T('#rb-h1min', Math.min(...h1v)); T('#rb-h1max', Math.max(...h1v));
+  T('#rb-ls', RB.label_source.slice(0, 2).map(s => `${s.pct}%가 ${s.label}`).join(', ') + ' 과정');
+  T('#rb-mid', fmt(RB.mid_total)); T('#rb-midgov', fmt(RB.mid_gov)); T('#rb-midgovp', RB.mid_gov_pct); T('#i1-gov', RB.mid_gov_pct);
+  const midRow = RB.cost_by_level.find(c => c.label === '중급');
+  T('#i1-midprice', midRow && midRow.paid_median ? fmt(midRow.paid_median) : '-');
+  const kpcRow = RB.bias_steps.find(b => b.label.startsWith('한국생산성'));
+  T('#i5-cat', kpcRow.catalog); T('#i5-top', kpcRow.top3);
+  const tb = (id, html) => { const n = document.getElementById(id); if (n) n.innerHTML = html; };
+  const short = s => s.replace(/\(.*\)/, '');
+  tb('tb-miss', RB.missing_by_provider.map(r => `<tr><td>${esc(short(r.label))}</td>` +
+    ['difficulty', 'duration_hours', 'price', 'start_date'].map(k =>
+      `<td class="hv" style="background: color-mix(in srgb, var(--rust) ${Math.round(r[k] * .55)}%, transparent)">${r[k]}</td>`).join('') + '</tr>').join(''));
+  const keys = ['s055', 's060', 's065', 's060_titles', 'keyword'];
+  tb('tb-sens', RB.sensitivity.map(r => `<tr><td>${esc(r.label)}</td>` +
+    keys.map(k => `<td class="${r.ranks[k] <= 3 ? 'low' : ''}">${fmt(r[k])} (${r.ranks[k]})</td>`).join('') + '</tr>').join(''));
+  tb('tb-bias', RB.bias_steps.map(r => `<tr><td>${esc(short(r.label))}</td><td class="num">${r.catalog}%</td><td class="num">${r.pool}%</td><td class="num">${r.pool_dedup}%</td><td class="num"><b>${r.top3}%</b></td><td class="num">${r.rows_per_title}</td></tr>`).join(''));
+  tb('tb-cost', RB.cost_by_level.map(r => `<tr><td>${r.label}</td><td class="num">${fmt(r.n)}</td><td class="num">${r.paid_median ? fmt(r.paid_median) + '원' : '-'}</td><td class="num">${r.under30_pct}%</td><td class="num">${r.hours_median != null ? r.hours_median + '시간' : '-'}</td><td class="num">${r.gov_pct}%</td></tr>`).join(''));
 
   /* ---------- 표지 도트 그림 ---------- */
   function drawDotfield() {
@@ -1049,6 +1115,7 @@ const D = /*__DATA__*/;
     const lowDom = E.domain_supply.slice().sort((a, b) => a.n - b.n).slice(0, 3).map(d => d.label);
     blockBars($('#ch-domain'), E.domain_supply, { unit: 50, labelW: 150, valW: 130, fmt: d => `${fmt(d.n)} (중급↑ ${fmt(d.mid_plus)})`, color: (i, d) => lowDom.includes(d.label) ? css('--rust') : css('--teal-lt') });
     pairBars($('#ch-bias'), E.provider_bias.map(p => ({ label: p.label, a: p.catalog, b: p.top3 })));
+    blockBars($('#ch-h1s'), E.robust.h1_scenarios.map(s => ({ label: s.label, n: s.pct, pct: s.pct })), { unit: 1, max: 100, labelW: 120, fmt: d => d.pct + '%', color: (i, d) => d.label === '전체' ? css('--yel') : css('--teal-lt') });
     columns($('#ch-sat-hist'), S.hist, 20, css('--teal-lt'));
     blockBars($('#ch-sat-cov'), [
       { label: '수집한 과정', n: S.courses },
@@ -1061,7 +1128,6 @@ const D = /*__DATA__*/;
   /* ---------- 과업별 추천 탐색기 ---------- */
   const LEVELS = ['입문', '실무', '관리자·심화'];
   const state = { domain: R.domains[R.domains.length - 1], task: null, level: '실무' };
-  const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
 
   function renderDomains() {
     const box = $('#ex-domains');
