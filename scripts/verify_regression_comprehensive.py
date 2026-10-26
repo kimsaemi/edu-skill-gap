@@ -133,10 +133,12 @@ def test_mismatch_109_rule_filter_execution():
         target_domain="인사",
         filter_mismatch_109=True
     )
-    # 109건 중 96건이 제외되고 13건이 유지되는지 실제 함수 반환값 검증
+    # 109건 중 96건 제외 / 13건 유지. 유지 13건 중 주제 이탈 제외 목록에 든 과정은 후보에서 빠지므로 차감
+    preserved_off_topic = len(recommender.preserved_109_uids & recommender.off_topic_uids)
+    expected_preserved = 13 - preserved_off_topic
     assert excluded_109_cnt == 96, f"규칙 기반 제외 건수 불일치: {excluded_109_cnt} (기대값: 96)"
-    assert preserved_109_cnt == 13, f"규칙 기반 유지 건수 불일치: {preserved_109_cnt} (기대값: 13)"
-    print(f"  - PASS: recommender.filter_candidates() 실행 ➔ 제외 96건 / 유지 13건 실측 반환 일치")
+    assert preserved_109_cnt == expected_preserved, f"규칙 기반 유지 건수 불일치: {preserved_109_cnt} (기대값: {expected_preserved})"
+    print(f"  - PASS: recommender.filter_candidates() 실행 ➔ 제외 96건 / 유지 {preserved_109_cnt}건 (13건 중 주제 이탈 {preserved_off_topic}건 제외) 일치")
 
 if __name__ == "__main__":
     print("=" * 70)

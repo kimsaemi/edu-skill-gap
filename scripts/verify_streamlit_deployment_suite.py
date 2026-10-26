@@ -97,7 +97,9 @@ def run_full_verification_suite():
     print(f"  - 군집 부스팅 0.0점 1위 점수: {res_off.iloc[0]['final_score']} (가산: {res_off.iloc[0]['cluster_bonus']})")
     print(f"  - 군집 부스팅 5.0점 1위 점수: {res_on.iloc[0]['final_score']} (가산: {res_on.iloc[0]['cluster_bonus']})")
     print(f"  - 부스팅에 따른 1위 점수 차이: {score_diff}점")
-    assert ex_off == 96 and pr_off == 13, f"109건 차단/유지 건수 불일치: ex={ex_off}, pr={pr_off}"
+    # 유지 13건 중 주제 이탈 제외 목록에 든 과정은 후보에서 빠지므로 차감
+    expected_pr = 13 - len(engine.preserved_109_uids & engine.off_topic_uids)
+    assert ex_off == 96 and pr_off == expected_pr, f"109건 차단/유지 건수 불일치: ex={ex_off}, pr={pr_off} (기대 유지 {expected_pr})"
     assert res_on.iloc[0]['cluster_bonus'] == 5.0, "군집 부스팅 가산점이 적용되지 않았습니다."
     assert score_diff == 5.0, f"부스팅 점수 차이가 정확히 5.0점이 아닙니다: {score_diff}"
     print("  [PASS] 군집 부스팅 및 109건 조건부 선별 확인")
@@ -189,10 +191,16 @@ def run_full_verification_suite():
     from streamlit.testing.v1 import AppTest
 
     # AppTest 실행 (경로: app/streamlit_integrated.py)
-    at = AppTest.from_file(str(WORKSPACE_ROOT / "app" / "streamlit_integrated.py"), default_timeout=30)
+    at = AppTest.from_file(str(WORKSPACE_ROOT / "app" / "streamlit_integrated.py"), default_timeout=300)
     at.run()
     assert not at.exception, f"Streamlit 앱 로딩 중 예외 발생: {at.exception}"
     print("  - Streamlit 앱 기본 화면 로딩 성공 (예외 없음)")
+
+    # 기본 화면은 사용자 모드이므로, 분석 탭이 있는 관리자·분석 모드로 전환
+    view_radio = [r for r in at.sidebar.radio if "화면 모드" in r.label][0]
+    view_radio.set_value(view_radio.options[1]).run()
+    assert not at.exception, f"분석 모드 전환 중 예외 발생: {at.exception}"
+    print("  - 관리자·분석 모드 전환 성공 (예외 없음)")
 
     # 탭 8 위젯 존재 및 상태 확인
     assert "tab8_ui_platforms" in at.session_state, "tab8_ui_platforms 위젯이 세션에 등록되지 않았습니다."

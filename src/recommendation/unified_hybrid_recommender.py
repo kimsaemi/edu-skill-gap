@@ -616,6 +616,7 @@ class UnifiedHybridRecommender:
         cache_key = (
             self.data_version,
             self.model_version,
+            bool(self.has_embeddings and self.model is not None),  # 임베딩 폴백 여부에 따라 결과가 달라짐
             (query or "").strip(),
             target_domain,
             competency_id,

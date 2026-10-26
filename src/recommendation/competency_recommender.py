@@ -113,4 +113,9 @@ class CompetencyRecommender:
             mode="ksa"
         )
 
+        # 탭 10 화면이 쓰는 NCS 능력단위코드를 역량 마스터에서 채움 (엔진 결과에는 없음)
+        if not results_df.empty and "ncs_unit_code" not in results_df.columns:
+            comp = get_competency_by_id(competency_id) or {}
+            results_df = results_df.assign(ncs_unit_code=comp.get("ncs_unit_code") or "-")
+
         return results_df, n_cand, msg
