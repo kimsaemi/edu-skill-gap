@@ -106,11 +106,11 @@
       "scenario_id": "SCENARIO_10_ZERO_RESULTS_FALLBACK",
       "name": "조건 만족 0건 케이스: 극단적 조건 (무료 + 500시간 이상 장기)",
       "status": "PASSED (Clean 0 rows handled)",
-      "returned_count": 3,
-      "top1_title": "전략적 조직운영을 위한 인사관리 실무",
-      "top1_provider": "에듀퓨어",
-      "top1_score": 38.6,
-      "top1_reason_sample": "상세 교육내용이 부족해 강좌명과 제공된 정보 중심으로 추천했습니다. 강좌명 키워드가 [인력채용] 역량 정의에...",
+      "returned_count": 2,
+      "top1_title": "[핵집]전기(산업)기사 실기",
+      "top1_provider": "GSEEK",
+      "top1_score": 28.0,
+      "top1_reason_sample": "과정 소개 내용 중 직무 키워드(직무 역량 정합)를 중심으로 [인력채용] 실무 역량 강화를 제공합니다....",
       "alternative_offerings_found": 0
     }
   ]
