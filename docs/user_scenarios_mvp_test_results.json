@@ -19,11 +19,11 @@
       "name": "인사 실무: 월별 급여 계산 및 4대보험 (실무, 30만원 이하)",
       "status": "PASSED",
       "returned_count": 3,
-      "top1_title": "인생 봄날 만드는 똑똑한 근로계약서",
-      "top1_provider": "GSEEK",
-      "top1_score": 72.8,
-      "top1_reason_sample": "커리큘럼 내 '근로기준법의 이해 / 근로계약서 첫걸음, ‘갑-을 관계’ 이해' 등 실제 실무 내용을 확인하여...",
-      "alternative_offerings_found": 1
+      "top1_title": "인사 노무 관리의 기본, 사례로 습득하라!",
+      "top1_provider": "고려아카데미(원격)",
+      "top1_score": 71.6,
+      "top1_reason_sample": "커리큘럼 내 '1 근로기준법의 기본 원리와 적용대상 2 근로계약과 근로시간 3 임금과...' 등 실제 실무 ...",
+      "alternative_offerings_found": 0
     },
     {
       "scenario_id": "SCENARIO_03_HR_MGR",
@@ -32,7 +32,7 @@
       "returned_count": 3,
       "top1_title": "인사평가시스템 구축실무",
       "top1_provider": "한국생산성본부(KPC)",
-      "top1_score": 74.8,
+      "top1_score": 70.6,
       "top1_reason_sample": "커리큘럼 내 '모듈 주제 내용 Module 1 인사평가 패러다임 변화 / 성과평가와 역량평가 구분' 등 실제...",
       "alternative_offerings_found": 0
     },
@@ -52,10 +52,10 @@
       "name": "총무 실무: 비품 및 고정자산 관리 (실무)",
       "status": "PASSED",
       "returned_count": 3,
-      "top1_title": "실무 꿀 tip! 총무 업무 지침서",
-      "top1_provider": "휴넷",
-      "top1_score": 63.9,
-      "top1_reason_sample": "커리큘럼 내 '...및 우편물 관리 - 제7절 부동산관리 - 제8절 고정자산관리 - 제9절 차량 운영 및 관...",
+      "top1_title": "EB2FI9 실무 꿀 tip! 총무 업무 지침서",
+      "top1_provider": "멀티캠퍼스 원격평생교육원",
+      "top1_score": 62.5,
+      "top1_reason_sample": "커리큘럼 내 '...6 인쇄물 및 우편물 관리 7 부동산관리 8 고정자산관리 9 차량 운영 및 관리 10 용...",
       "alternative_offerings_found": 1
     },
     {
@@ -87,7 +87,7 @@
       "returned_count": 3,
       "top1_title": "입사에서 퇴사까지, 직장인을 위한 노동법 이야기",
       "top1_provider": "GSEEK",
-      "top1_score": 72.3,
+      "top1_score": 72.0,
       "top1_reason_sample": "커리큘럼 내 '근로계약과 근로조건의 결정 / 노동법을 이해하기 위한 기초' 등 실제 실무 내용을 확인하여 [...",
       "alternative_offerings_found": 1
     },
