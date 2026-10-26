@@ -20,53 +20,53 @@
   "TASK_HR_D08_T02 타운홀 미팅(All-hands Meeting) 및 온·오프라인 전사 소통 채널 기획",
   "TASK_HR_D08_T09 세대 간 소통 단절 및 조직 사일로(Silo) 원인 분석, 협업 문화 개선 캠페인"
  ],
- "top3_slots": 810,
- "top3_distinct_courses": 300,
+ "top3_slots": 803,
+ "top3_distinct_courses": 263,
  "top3_most_reused": [
   {
    "title": "[DX&AI] 평가보상 설계 실무(밀코비치 기반)",
-   "count": 14
+   "count": 16
   },
   {
    "title": "[온앤오프] 현장에서 알아야 하는 노무관리 솔루션",
-   "count": 13
+   "count": 14
   },
   {
    "title": "HR, AI가 트렌드다 : 채용부터 퇴사까지",
-   "count": 11
+   "count": 13
   },
   {
-   "title": "[HRethink] 일하고 싶은 회사의 비밀, Employee eXperience",
-   "count": 11
+   "title": "[여의도] 급여담당자를 위한 급여관리 실무",
+   "count": 12
   },
   {
    "title": "입사에서 퇴사까지, 직장인을 위한 노동법 이야기",
+   "count": 11
+  },
+  {
+   "title": "우수인재 선발을 위한 면접관 역량개발",
+   "count": 11
+  },
+  {
+   "title": "채용을 디자인하라, 기업에 FIT한 인재 확보 전략",
    "count": 10
   },
   {
-   "title": "[DX&AI] 채용 분석 실무",
-   "count": 9
+   "title": "[온앤오프] 근로기준법실무",
+   "count": 10
   },
   {
-   "title": "[온앤오프] 평가 및 보상제도 운영실무",
-   "count": 9
+   "title": "HR, AI가 트렌드다 : 채용부터 퇴사까지",
+   "count": 10
   },
   {
-   "title": "엔지니어 채용의 모든 것, 테크 리크루팅 A TO Z",
-   "count": 9
-  },
-  {
-   "title": "급여담당자 운용기초",
-   "count": 9
-  },
-  {
-   "title": "노동법 쟁점 88선 해설",
-   "count": 9
+   "title": "신규입사자의 온보딩 과정, 워(Work).플(People).킹(Networking)",
+   "count": 10
   }
  ],
- "task_level_with_lt3_results": 0,
- "top1_semantic_score_median": 68.4000015258789,
- "top1_semantic_score_min": 51.099998474121094,
+ "task_level_with_lt3_results": 3,
+ "top1_semantic_score_median": 68.80000305175781,
+ "top1_semantic_score_min": 51.20000076293945,
  "low_confidence_tasks": [],
- "note": "합성 리뷰·평점은 사용하지 않았습니다. 점수 = 의미 유사도 50% + BM25 35% + 난이도 적합 보너스"
+ "note": "합성 리뷰·평점은 사용하지 않았습니다. 점수 = 의미 유사도 50% + BM25 35%(범용 단어 제외, 업무명 핵심어 보정) + 난이도 적합 보너스. 노출 기준 = 의미 유사도 50 이상, 핵심어 1점 이상 또는 유사도 72 이상, 분야가 다른 강좌(개발·마케팅·의료·특허·생산·어학)는 핵심어 2점 이상"
 }

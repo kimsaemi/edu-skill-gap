@@ -116,15 +116,17 @@ def test_embedding_manifest_alignment():
     df_meta = pd.read_parquet(meta_path)
     emb = np.load(emb_path)
 
-    assert len(df_clean) == 8645, f"코퍼스 행 수 불일치: {len(df_clean)}"
-    assert len(df_meta) == 8645, f"메타데이터 행 수 불일치: {len(df_meta)}"
-    assert emb.shape == (8645, 768), f"임베딩 형상 불일치: {emb.shape}"
+    # 과정 수는 고용24 최신화 등으로 바뀔 수 있으므로, 고정값 대신 세 파일의 행 수·순서가 서로 맞는지 확인
+    n = len(df_clean)
+    assert n >= 8000, f"코퍼스 행 수가 비정상적으로 적습니다: {n}"
+    assert len(df_meta) == n, f"메타데이터 행 수 불일치: {len(df_meta)} (코퍼스 {n})"
+    assert emb.shape == (n, 768), f"임베딩 형상 불일치: {emb.shape} (코퍼스 {n})"
 
-    # 전수 8,645행 순서 100% 일치 확인
+    # 전수 순서 일치 확인
     clean_uids = list(df_clean["course_uid"])
     meta_uids = list(df_meta["course_uid"])
     assert clean_uids == meta_uids, "df_clean과 df_meta의 course_uid 순서가 일치하지 않습니다!"
-    print(f"  - PASS: 8,645건 코퍼스와 임베딩 메타데이터 간 course_uid 순서 100% 엄격 일치 확인")
+    print(f"  - PASS: {n:,}건 코퍼스와 임베딩 메타데이터 간 course_uid 순서 100% 엄격 일치 확인")
 
 def test_mismatch_109_rule_filter_execution():
     print("\n[7] 오매핑 109건에 대한 규칙 기반 선별 차단 실제 함수 실행 검증...")

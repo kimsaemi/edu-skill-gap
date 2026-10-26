@@ -188,23 +188,32 @@ def summarize(tasks: list, rec: pd.DataFrame) -> dict:
 def main() -> int:
     if len(sys.argv) < 2:
         print(__doc__)
+        print("교육 카탈로그만 바뀐 경우: python scripts/build_hr_task_catalog.py --reuse-catalog")
         return 1
-    data = load_v21_data(Path(sys.argv[1]))
-    tasks = build_catalog(data)
-    print(f"1. Task {len(tasks)}개 추출")
+    # --reuse-catalog: 이미 만든 과업 목록(역량 연결 포함)은 그대로 두고 추천만 다시 계산
+    reuse = sys.argv[1] == "--reuse-catalog"
+    if reuse:
+        tasks = json.loads(CATALOG_PATH.read_text(encoding="utf-8"))["tasks"]
+        print(f"1. 기존 Task 목록 {len(tasks)}개 사용 ({CATALOG_PATH.name})")
+    else:
+        data = load_v21_data(Path(sys.argv[1]))
+        tasks = build_catalog(data)
+        print(f"1. Task {len(tasks)}개 추출")
 
     engine = UnifiedHybridRecommender()
     if not (engine.has_embeddings and engine.model is not None):
         print("[FAIL] 임베딩 모델을 불러오지 못했습니다.")
         return 1
 
-    map_competencies(tasks, engine.model)
+    if not reuse:
+        map_competencies(tasks, engine.model)
     print("2. 역량 연결: " + str(dict(Counter(t["primary_comp_id"] for t in tasks))))
 
     print("3. Task × 숙련도별 추천 계산 중...")
     rec = recommend_for_tasks(tasks, engine)
 
-    CATALOG_PATH.write_text(json.dumps({"version": "v2.1-import-1", "tasks": tasks}, ensure_ascii=False, indent=1), encoding="utf-8")
+    if not reuse:
+        CATALOG_PATH.write_text(json.dumps({"version": "v2.1-import-1", "tasks": tasks}, ensure_ascii=False, indent=1), encoding="utf-8")
     rec.to_csv(REC_PATH, index=False, encoding="utf-8-sig")
     summary = summarize(tasks, rec)
     SUMMARY_PATH.write_text(json.dumps(summary, ensure_ascii=False, indent=1), encoding="utf-8")

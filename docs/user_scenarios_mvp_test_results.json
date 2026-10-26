@@ -19,10 +19,10 @@
       "name": "인사 실무: 월별 급여 계산 및 4대보험 (실무, 30만원 이하)",
       "status": "PASSED",
       "returned_count": 3,
-      "top1_title": "소규모사업주가 알아야 할 노동법 상식",
+      "top1_title": "인생 봄날 만드는 똑똑한 근로계약서",
       "top1_provider": "GSEEK",
-      "top1_score": 72.7,
-      "top1_reason_sample": "커리큘럼 내 '근로계약의 의미와 작성의 필요성' 등 실제 실무 내용을 확인하여 [근로관계 법률 준수] 역량 ...",
+      "top1_score": 72.8,
+      "top1_reason_sample": "커리큘럼 내 '근로기준법의 이해 / 근로계약서 첫걸음, ‘갑-을 관계’ 이해' 등 실제 실무 내용을 확인하여...",
       "alternative_offerings_found": 1
     },
     {
@@ -43,7 +43,7 @@
       "returned_count": 3,
       "top1_title": "DO IT 직장인 기본.zip : 회사에서 바로 통하는 보고서",
       "top1_provider": "GSEEK",
-      "top1_score": 71.1,
+      "top1_score": 71.2,
       "top1_reason_sample": "커리큘럼 내 '실무에서 바로 쓰는 보고서 작성법' 등 실제 실무 내용을 확인하여 [문서작성 및 기획] 역량 ...",
       "alternative_offerings_found": 0
     },
@@ -56,7 +56,7 @@
       "top1_provider": "휴넷",
       "top1_score": 63.9,
       "top1_reason_sample": "커리큘럼 내 '...및 우편물 관리 - 제7절 부동산관리 - 제8절 고정자산관리 - 제9절 차량 운영 및 관...",
-      "alternative_offerings_found": 0
+      "alternative_offerings_found": 1
     },
     {
       "scenario_id": "SCENARIO_06_MGMT_MID",
@@ -87,7 +87,7 @@
       "returned_count": 3,
       "top1_title": "입사에서 퇴사까지, 직장인을 위한 노동법 이야기",
       "top1_provider": "GSEEK",
-      "top1_score": 71.8,
+      "top1_score": 72.3,
       "top1_reason_sample": "커리큘럼 내 '근로계약과 근로조건의 결정 / 노동법을 이해하기 위한 기초' 등 실제 실무 내용을 확인하여 [...",
       "alternative_offerings_found": 1
     },

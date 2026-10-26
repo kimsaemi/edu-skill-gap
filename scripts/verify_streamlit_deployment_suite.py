@@ -76,7 +76,9 @@ def run_full_verification_suite():
     print(f"  - 10대 군집 분포: {engine.df_courses['cluster_id'].nunique()}개 군집")
     print(f"  - 임베딩 차원: {engine.embeddings.shape}")
     print(f"  - 109건 오매핑 의심 세트: {len(engine.mismatch_109_uids)}건 (차단: {len(engine.excluded_109_uids)}건 / 보존: {len(engine.preserved_109_uids)}건)")
-    assert len(engine.df_courses) == 8645, "코퍼스 건수가 8,645건이 아닙니다."
+    n_catalog = len(pd.read_parquet(WORKSPACE_ROOT / "data" / "hr" / "processed" / "education_courses_search_cleaned.parquet", columns=["course_uid"]))
+    assert len(engine.df_courses) == n_catalog, f"엔진 코퍼스({len(engine.df_courses):,}건)가 카탈로그({n_catalog:,}건)와 다릅니다."
+    assert engine.has_embeddings, "임베딩 행 수가 카탈로그와 달라 의미 검색이 꺼졌습니다."
     assert engine.df_courses['cluster_id'].nunique() == 10, "10대 군집이 로드되지 않았습니다."
     assert len(engine.excluded_109_uids) == 96, f"차단 건수 불일치: {len(engine.excluded_109_uids)}"
     assert len(engine.preserved_109_uids) == 13, f"보존 건수 불일치: {len(engine.preserved_109_uids)}"
