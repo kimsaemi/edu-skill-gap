@@ -1,6 +1,6 @@
 <title>인사·총무 교육 지도</title>
 <meta name="claude:viewport-fit-sides" content="cover">
-<meta name="description" content="8,645개 직무교육 과정을 NCS 인사·총무 실무 과업 90개에 연결한 교육 추천 프로젝트 발표 자료">
+<meta name="description" content="직무교육 과정 약 8,800개를 NCS 인사·총무 실무 과업 90개에 연결한 교육 추천 프로젝트 발표 자료">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@400;500;700&display=swap">
@@ -125,7 +125,7 @@ mark { background: linear-gradient(transparent 55%, var(--mark) 55%); color: var
 .byline { font-family: var(--px); font-size: 12px; color: var(--dim); display: flex; flex-wrap: wrap; gap: 6px 16px; margin-top: 22px; }
 .byline span::before { content: "▪ "; color: var(--teal); }
 
-/* 표지 그림: 과정 8,645개를 도트 하나씩으로 찍은 캔버스 */
+/* 표지 그림: 카탈로그 과정을 도트 하나씩으로 찍은 캔버스 */
 .dotfield { margin-top: 34px; background: var(--hud); border: 2px solid var(--ink); padding: 14px; }
 .dotfield canvas { display: block; width: 100%; height: auto; image-rendering: pixelated; }
 .dotfield-legend { display: flex; flex-wrap: wrap; gap: 6px 14px; margin-top: 10px; font-family: var(--px); font-size: 11px; color: var(--hud-dim); }
@@ -266,13 +266,13 @@ footer b { color: var(--hud-ink); font-family: var(--pxb); font-weight: normal; 
 <header class="hero" id="hero">
   <div class="wrap wide">
     <div class="eyebrow"><b>NCS</b> 인사·총무 직무교육 추천 프로젝트</div>
-    <h1>인사·총무 담당자에게 맞는 교육은 <em>8,645개 중 어디에</em> 있을까?</h1>
+    <h1>인사·총무 담당자에게 맞는 교육은 <em><span data-k="courses"></span>개 중 어디에</em> 있을까?</h1>
     <p class="lead">기관마다 분류도, 난이도 표기도, 설명 방식도 다릅니다. 우리는 교육기관 <span class="num" data-k="providers"></span>곳의 과정을 한곳에 모으고, 인사 실무 과업 90개를 기준으로 다시 읽어 맞는 교육을 찾아 주는 추천기를 만들었습니다.</p>
-    <div class="dotfield" role="img" aria-label="교육과정 8,645개를 분야별 색 점으로 표시한 그림">
+    <div class="dotfield" role="img" aria-label="카탈로그의 교육과정을 분야별 색 점으로 표시한 그림">
       <canvas id="dotfield" width="880" height="160"></canvas>
       <div class="dotfield-legend" id="dotfield-legend"></div>
     </div>
-    <div class="byline"><span>데이터 기준일 <b id="gen-date"></b></span><span>교육기관 DB 6곳 + 고용24·NCS 공공 API</span><span>kimsaemi/edu-skill-gap</span></div>
+    <div class="byline"><span>데이터 기준일 <b id="gen-date"></b></span><span>교육기관 DB 6곳 + 고용24·NCS 공공 API (고용24는 2026년 운영 과정)</span><span>kimsaemi/edu-skill-gap</span></div>
   </div>
 </header>
 
@@ -289,7 +289,7 @@ footer b { color: var(--hud-ink); font-family: var(--pxb); font-weight: normal; 
     <div class="findings">
       <div class="finding"><div class="k">발견1</div><p><span class="t">교육 공급은 입문·초급에 몰려 있습니다.</span>난이도가 표기된 과정 <span class="num" id="f1-labeled"></span>개 중 <mark><span id="f1-beg"></span>%가 입문·초급</mark>입니다. 반면 NCS 수요 분석에서는 실무·중급(L3~6)이 80%를 차지합니다.</p></div>
       <div class="finding"><div class="k">발견2</div><p><span class="t">노무·준법 교육이 가장 부족합니다.</span>인사 실무 핵심 역량 6가지 가운데 노무·준법 키워드를 다루는 과정은 <mark><span id="f2-labor"></span>%</mark>에 그칩니다.</p></div>
-      <div class="finding"><div class="k">발견3</div><p><span class="t">과업 90개 모두에 추천 3개씩을 찾았지만, 사람 확인이 남았습니다.</span>1위 과정의 의미 유사도는 중앙값 <span id="f3-med"></span>점입니다. 과업 <span id="f3-review"></span>개는 맞는 NCS 역량이 아직 목록에 없어 연결을 확인하고 있고, 공식 만족도는 카탈로그 과정 중 <span id="f3-sat"></span>개에만 붙어 추천 순위에 쓰지 않았습니다.</p></div>
+      <div class="finding"><div class="k">발견3</div><p><span class="t">과업 90개 × 수준 3개, <span id="f3-combos"></span>개 조합 중 <span id="f3-full"></span>개에서 추천 3개를 찾았지만, 사람 확인이 남았습니다.</span>1위 과정의 의미 유사도는 중앙값 <span id="f3-med"></span>점입니다. 과업 <span id="f3-review"></span>개는 맞는 NCS 역량이 아직 목록에 없어 연결을 확인하고 있고, 공식 만족도는 카탈로그 과정 중 <span id="f3-sat"></span>개에만 붙어 추천 순위에 쓰지 않았습니다.</p></div>
     </div>
   </div>
 </section>
@@ -315,7 +315,7 @@ footer b { color: var(--hud-ink); font-family: var(--pxb); font-weight: normal; 
 <section id="data">
   <div class="wrap">
     <div class="eyebrow"><b>02</b> 데이터</div>
-    <h2>교육기관 34곳의 과정 8,645개를 한 표로 모았습니다</h2>
+    <h2>교육기관 <span data-k="providers"></span>곳의 과정 <span data-k="courses"></span>개를 한 표로 모았습니다</h2>
     <p>교육기관 데이터베이스 6곳과 고용24·NCS 공공 API에서 과정을 모았습니다. 기관마다 다른 항목 이름을 하나의 스키마로 맞추고, 홍보 문구와 깨진 텍스트를 걷어낸 뒤 Parquet 파일로 저장했습니다. 과정의 <mark><span data-k="rich_pct"></span>%는 200자 이상의 상세 설명</mark>이 있어 내용 기반 분석이 가능합니다.</p>
   </div>
   <div class="wrap wide">
@@ -341,11 +341,11 @@ footer b { color: var(--hud-ink); font-family: var(--pxb); font-weight: normal; 
     </div>
     <figure class="fig" style="margin-top:0">
       <div class="hud">
-        <div class="hud-head"><span class="hud-title">설명 텍스트 품질</span><span class="hud-sub">8,645개 전체, 1칸 = 1%</span></div>
+        <div class="hud-head"><span class="hud-title">설명 텍스트 품질</span><span class="hud-sub">전체 <span data-k="courses"></span>개, 1칸 = 1%</span></div>
         <div class="chart" id="ch-quality"></div>
         <div class="legend" id="lg-quality"></div>
       </div>
-      <figcaption>설명 없이 제목만 있는 과정(22%)은 제목만으로 분야와 내용을 판단합니다. 이런 과정은 추천 근거가 약하므로 추천 카드에 따로 표시합니다.</figcaption>
+      <figcaption>설명 없이 제목만 있는 과정(<span data-k="title_only_pct"></span>%)은 제목만으로 분야와 내용을 판단합니다. 이런 과정은 추천 근거가 약하므로 추천 카드에 따로 표시합니다.</figcaption>
     </figure>
 
     <figure class="fig">
@@ -399,7 +399,7 @@ footer b { color: var(--hud-ink); font-family: var(--pxb); font-weight: normal; 
   <div class="wrap wide">
     <figure class="fig">
       <div class="hud">
-        <div class="hud-head"><span class="hud-title">핵심 역량 키워드를 다루는 과정 비율</span><span class="hud-sub">전체 8,645개 기준, 1칸 = 1%</span></div>
+        <div class="hud-head"><span class="hud-title">핵심 역량 키워드를 다루는 과정 비율</span><span class="hud-sub">전체 <span data-k="courses"></span>개 기준, 1칸 = 1%</span></div>
         <div class="chart" id="ch-core"></div>
       </div>
       <figcaption>키워드 포함 여부로 센 값이라, 실제로 그 역량을 깊이 가르치는지는 따로 확인해야 합니다.</figcaption>
@@ -475,10 +475,10 @@ footer b { color: var(--hud-ink); font-family: var(--pxb); font-weight: normal; 
       </figure>
       <figure class="fig">
         <div class="hud">
-          <div class="hud-head"><span class="hud-title">우리 카탈로그와 연결되는 과정</span><span class="hud-sub">1칸 = 10개</span></div>
+          <div class="hud-head"><span class="hud-title">공식 만족도가 있는 과정의 범위</span><span class="hud-sub">과정 수</span></div>
           <div class="chart" id="ch-sat-cov"></div>
         </div>
-        <figcaption>카탈로그 8,645개 중 고용24 과정 ID로 연결되는 과정은 <span id="sat-matched"></span>개이고, 그중 점수가 있는 과정은 <span id="sat-scored"></span>개입니다.</figcaption>
+        <figcaption>카탈로그의 고용24 과정 <span id="sat-matched"></span>개 중 공식 만족도가 있는 과정은 <span id="sat-scored"></span>개입니다. 카탈로그 전체로 보면 <span id="sat-scored-pct"></span>%에 그칩니다.</figcaption>
       </figure>
     </div>
   </div>
@@ -510,9 +510,10 @@ footer b { color: var(--hud-ink); font-family: var(--pxb); font-weight: normal; 
         <thead><tr><th>단계</th><th>내용</th><th>산출물</th></tr></thead>
         <tbody>
           <tr><td>수집</td><td>교육기관 DB 6곳 + 고용24(국민내일배움카드·사업주훈련) + NCS 교육과정 API</td><td><code>data/hr/raw/</code></td></tr>
+          <tr><td>최신화</td><td>고용24 과정 ID는 승인 연도마다 새로 나와, 운영이 끝난 2024년 승인 과정을 2026년 운영 중·개강 예정 과정(공식 NCS 분류 '총무·인사')으로 교체</td><td><code>refresh_work24_courses_2026.py</code></td></tr>
           <tr><td>정제</td><td>스키마 통일, 홍보 문구·Base64 노이즈 제거, 휴넷 차단 페이지 커리큘럼 정정, 텍스트 품질 등급</td><td><code>education_courses_search_cleaned.parquet</code></td></tr>
           <tr><td>표현</td><td>Kiwi 형태소 토큰(BM25용), Ko-SRoBERTa 768차원 문장 임베딩</td><td><code>embeddings_ko_sroberta_all.npy</code></td></tr>
-          <tr><td>분류</td><td>분야 대표 문장과의 유사도로 10개 분야 라벨, 직무 무관 과정 171개 제외 목록</td><td><code>course_field_labels.csv</code></td></tr>
+          <tr><td>분류</td><td>분야 대표 문장과의 유사도로 10개 분야 라벨, 직무 무관 과정 <span data-k="off_topic"></span>개 제외 목록</td><td><code>course_field_labels.csv</code></td></tr>
           <tr><td>과업</td><td>인사 9개 영역 × 10개 실무 과업, 직급별 역할, NCS 능력단위 연결</td><td><code>hr_task_catalog_90.json</code></td></tr>
           <tr><td>추천</td><td>필터 → 의미 유사도·BM25·난이도 점수 → 기관 간 중복 제거 → Top 3</td><td><code>task_course_recommendations_90.csv</code></td></tr>
           <tr><td>만족도</td><td>고용24 310L01 전 페이지 수집, <code>trprId</code> 단위 정리, 0점은 결측 처리</td><td><code>official_satisfaction.csv</code></td></tr>
@@ -563,6 +564,9 @@ const D = /*__DATA__*/;
   $('#f3-med').textContent = R.top1_sem_median;
   $('#f3-review').textContent = R.needs_review;
   $('#f3-sat').textContent = S.catalog_scored;
+  $('#f3-combos').textContent = R.n_tasks * 3;
+  $('#f3-full').textContent = R.n_tasks * 3 - R.lt3;
+  $('#sat-scored-pct').textContent = S.catalog_scored_pct;
   $('#st-off').textContent = fmt(R.off_topic);
   $('#st-cand').textContent = fmt(R.candidates.max);
   $('#rv-med').textContent = R.top1_sem_median;
@@ -632,7 +636,9 @@ const D = /*__DATA__*/;
     const barW = W - labelW - valW - 10;
     const max = opt.max || Math.max(...items.map(d => d.n));
     const blocks = Math.ceil(max / opt.unit);
-    const bw = Math.max(2, barW / blocks);
+    const bw = barW / blocks;
+    // 칸이 좁으면 칸 사이 간격을 줄여 막대가 사라지지 않게 한다
+    const bgap = bw >= 6 ? 2 : bw >= 3 ? 1 : 0;
     const H = items.length * (rowH + gap) - gap;
     const svg = el('svg', { viewBox: `0 0 ${W} ${H}`, role: 'img', 'aria-label': opt.aria || '' });
     items.forEach((d, i) => {
@@ -642,8 +648,8 @@ const D = /*__DATA__*/;
       const full = Math.floor(d.n / opt.unit), part = d.n / opt.unit - full;
       const color = opt.color ? opt.color(i, d) : css('--yel');
       for (let b = 0; b <= full; b++) {
-        const w = b < full ? bw - 2 : (bw - 2) * part;
-        if (w <= .3) continue;
+        const w = b < full ? bw - bgap : (bw - bgap) * part;
+        if (w <= .1) continue;
         svg.appendChild(el('rect', { x: labelW + b * bw, y: y + 3, width: Math.max(1, w), height: rowH - 6, fill: color }));
       }
       const used = Math.min(barW, (d.n / opt.unit) * bw);
@@ -726,7 +732,7 @@ const D = /*__DATA__*/;
 
     const qColors = ['--teal-lt', '--yel', '--rust', '--hud-dim'];
     const total = D.kpi.courses;
-    strips($('#ch-quality'), [{ label: '8,645개 과정', parts: D.text_quality.map((d, i) => ({ pct: d.n / total * 100, color: qColors[i] })) }]);
+    strips($('#ch-quality'), [{ label: fmt(D.kpi.courses) + '개 과정', parts: D.text_quality.map((d, i) => ({ pct: d.n / total * 100, color: qColors[i] })) }]);
     $('#lg-quality').innerHTML = D.text_quality.map((d, i) => `<span><i style="background:var(${qColors[i]})"></i>${d.label} ${fmt(d.n)}</span>`).join('');
 
     blockBars($('#ch-fields'), D.fields, { unit: 50, color: (i, d) => d.key === 'HR' ? css('--yel') : d.key === 'GA' ? css('--teal-lt') : css('--hud-dim') });
@@ -744,14 +750,14 @@ const D = /*__DATA__*/;
     const core = D.core_skills.slice().sort((a, b) => b.pct - a.pct).map(c => ({ label: c.label, n: c.pct, pct: c.pct }));
     blockBars($('#ch-core'), core, { unit: 1, max: 20, fmt: pctFmt, color: (i, d) => d.label.startsWith('노무') ? css('--rust') : css('--teal-lt') });
 
-    blockBars($('#ch-reuse'), R.most_reused.map(r => ({ label: r.title.length > 22 ? r.title.slice(0, 21) + '…' : r.title, n: r.count })), { unit: 1, max: 15, labelW: 260, fmt: d => d.n + '개 과업', color: () => css('--yel') });
+    blockBars($('#ch-reuse'), R.most_reused.map(r => ({ label: r.title.length > 22 ? r.title.slice(0, 21) + '…' : r.title, n: r.count })), { unit: 1, max: Math.max(15, ...R.most_reused.map(r => r.count)), labelW: 260, fmt: d => d.n + '개 과업', color: () => css('--yel') });
 
     columns($('#ch-sat-hist'), S.hist, 20, css('--teal-lt'));
     blockBars($('#ch-sat-cov'), [
       { label: '수집한 과정', n: S.courses },
       { label: '점수 있는 과정', n: S.scored },
-      { label: '카탈로그 연결', n: S.catalog_matched },
-      { label: '연결 + 점수 있음', n: S.catalog_scored },
+      { label: '카탈로그 고용24', n: S.catalog_matched },
+      { label: '그중 점수 있음', n: S.catalog_scored },
     ], { unit: 10, labelW: 120, color: (i) => i < 2 ? css('--teal-lt') : css('--yel') });
   }
 

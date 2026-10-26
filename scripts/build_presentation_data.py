@@ -151,6 +151,7 @@ def main():
         "title_only_all_pct": pct(len(title_only), n),
         "domains": domains, "tasks": tasks,
         "n_tasks": len(tasks), "needs_review": int(summary["needs_review_count"]),
+        "lt3": int(summary.get("task_level_with_lt3_results", 0)),
         "top1_sem_median": round(float(summary["top1_semantic_score_median"]), 1),
         "top1_sem_min": round(float(summary["top1_semantic_score_min"]), 1),
         "top3_slots": int(summary["top3_slots"]), "top3_distinct": int(summary["top3_distinct_courses"]),
@@ -165,12 +166,21 @@ def main():
     scores = sat["satisfaction_official"].dropna()
     bins = list(range(0, 101, 10))
     hist, _ = np.histogram(scores, bins=bins)
+    # 카탈로그의 고용24 과정 중 공식 만족도가 있는 과정 (목록 API stdgScor, 0은 설문 없음)
+    work24_ids = df.loc[df["source_course_id"].astype(str).str.fullmatch(r"A[A-Z]{2}\d{14}"), "source_course_id"].astype(str)
+    score_by_id = sat.dropna(subset=["satisfaction_official"]).set_index("trprId")["satisfaction_official"].to_dict()
+    detail_path = PROCESSED / "work24_course_details.csv"
+    if detail_path.exists():
+        det = pd.read_csv(detail_path, dtype={"trprId": str})
+        if "satisfaction_official" in det.columns:
+            score_by_id.update(det.dropna(subset=["satisfaction_official"]).set_index("trprId")["satisfaction_official"].to_dict())
     satisfaction = {
         "courses": int(len(sat)), "scored": int(scores.size), "unscored": int(len(sat) - scores.size),
         "mean": round(float(scores.mean()), 1), "median": round(float(scores.median()), 1),
         "hist": [{"label": f"{b}~{b + 10}", "n": int(h)} for b, h in zip(bins[:-1], hist)],
-        "catalog_matched": int(sat_sum.get("catalog_matched", 0)),
-        "catalog_scored": int(sat_sum.get("catalog_matched_with_score", 0)),
+        "catalog_matched": int(work24_ids.nunique()),
+        "catalog_scored": int(sum(1 for t in work24_ids.unique() if t in score_by_id)),
+        "catalog_scored_pct": pct(sum(1 for t in work24_ids.unique() if t in score_by_id), n),
         "period": sat_sum.get("period"),
     }
 
@@ -190,6 +200,8 @@ def main():
         "generated": date.today().isoformat(),
         "kpi": {
             "courses": n, "providers": int(prov.size), "rich_pct": pct(tq.get("RICH", 0), n),
+            "title_only_pct": pct(tq.get("TITLE_ONLY", 0), n), "off_topic": len(off_topic),
+            "work24_courses": int(work24_ids.size),
             "tasks": len(tasks), "domains": len(domains), "sat_scored": int(scores.size),
             "sat_courses": int(len(sat)), "hr_field_pct": pct(fc.get("HR", 0) + fc.get("GA", 0), n),
         },
