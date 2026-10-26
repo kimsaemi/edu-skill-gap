@@ -52,6 +52,99 @@ def pct(n, d):
     return round(n / d * 100, 1) if d else 0.0
 
 
+MISSING_COLS = [
+    ("title", "과정명"), ("provider", "교육기관"), ("price", "가격"), ("education_type", "교육 형태"),
+    ("learning_goals", "학습 목표"), ("course_intro", "과정 소개"), ("curriculum", "커리큘럼"),
+    ("difficulty", "난이도"), ("ncs_code", "NCS·역량 코드"), ("duration_hours", "총 교육시간"), ("start_date", "개강일"),
+]
+CLEAN_ACTIONS = [
+    ("BLOCKED_PAGE_REMOVED", "차단 안내문 제거"),
+    ("BOILERPLATE_REMOVED", "홍보 상용문구 제거"),
+    ("IDENTICAL_GOALS_DEDUPED", "목표 중복 정리"),
+    ("IDENTICAL_INTRO_DEDUPED", "소개 중복 정리"),
+    ("BASE64_STRIPPED", "이미지 코드 제거"),
+]
+DOMAIN_TAU = 0.60  # 과업 설명과 과정 임베딩의 코사인 유사도가 이 값 이상이면 '이 영역에 맞는 과정'으로 셈
+
+
+def is_missing(s):
+    return s.isna() | s.astype(str).str.strip().isin(["", "nan", "None", "<NA>"])
+
+
+def build_eda(df, off_topic, tasks_raw, top3, rec, summary, n):
+    """발표 03~05장의 근거가 되는 탐색적 분석 값."""
+    # 1) 주요 칼럼 결측률
+    missing = [{"col": c, "label": lab, "pct": pct(is_missing(df[c]).sum(), n)} for c, lab in MISSING_COLS]
+
+    # 2) 정제 규칙 적용 건수
+    acts = df["cleaning_actions"].astype(str).str.split(r"[;,]\s*").explode().value_counts()
+    cleaning = [{"key": k, "label": lab, "n": int(acts.get(k, 0))} for k, lab in CLEAN_ACTIONS]
+
+    # 3) 인사 실무 9개 영역별 공급: 영역 과업 중 하나와 의미 유사도가 DOMAIN_TAU 이상인 과정 수
+    from sentence_transformers import SentenceTransformer
+    emb = np.load(RECO / "embeddings_ko_sroberta_all.npy")
+    keep = ~df["course_uid"].isin(off_topic).values
+    model = SentenceTransformer("jhgan/ko-sroberta-multitask", device="cpu")
+    tvec = model.encode([f"{t['task_name']}. {t.get('easy_description', '')}" for t in tasks_raw], normalize_embeddings=True)
+    sims = tvec @ emb[keep].T
+    doms = [t["domain_name"] for t in tasks_raw]
+    dom_ids = {t["domain_name"]: t["domain_id"] for t in tasks_raw}
+    top1 = rec[rec["rank"] == 1].groupby("domain_id")["semantic_score"].median()
+    mid_plus_mask = df.loc[keep, "difficulty"].fillna("").astype(str).str.contains("중급|고급").values
+    domain_supply = []
+    for d in dict.fromkeys(doms):
+        idx = [i for i, x in enumerate(doms) if x == d]
+        hit = sims[idx].max(0) >= DOMAIN_TAU
+        domain_supply.append({
+            "label": d, "n": int(hit.sum()), "mid_plus": int((hit & mid_plus_mask).sum()),
+            "top1_sem": round(float(top1.get(dom_ids[d], np.nan)), 1),
+        })
+
+    # 4) 추천의 기관 편중: 카탈로그 비중 vs 추천 Top 3 비중
+    cat_share = df["provider"].value_counts(normalize=True)
+    rec_share = top3["provider"].value_counts(normalize=True)
+    provider_bias = [
+        {"label": p, "catalog": round(float(cat_share.get(p, 0)) * 100, 1), "top3": round(float(rec_share.get(p, 0)) * 100, 1)}
+        for p in rec_share.head(6).index
+    ]
+
+    # 5) 인사·총무 분야 과정의 비용·시간
+    hrga = df[df["field"].isin(["HR", "GA"]) & ~df["course_uid"].isin(off_topic)]  # df에는 분야 라벨이 이미 붙어 있음
+    price = pd.to_numeric(hrga["price"], errors="coerce")
+    hours = pd.to_numeric(hrga["duration_hours"], errors="coerce")
+    cost = {
+        "n": int(len(hrga)), "free": int((price == 0).sum()), "unknown": int(price.isna().sum()),
+        "paid_median": int(price[price > 0].median()), "hours_median": float(hours.median()),
+        "hours_unknown": int(hours.isna().sum()),
+    }
+
+    # 6) 일정 정보의 최신성 (카탈로그 전체)
+    today = date.today().isoformat()
+    st = df["start_date"].fillna("").astype(str).str[:10]
+    en = df["end_date"].fillna("").astype(str).str[:10]
+    en = en.where(en != "", st)
+    has = st.str.match(r"\d{4}-\d{2}-\d{2}")
+    schedule = {
+        "no_date": int((~has).sum()), "future": int((has & (st > today)).sum()),
+        "ongoing": int((has & (st <= today) & (en >= today)).sum()), "past": int((has & (en < today)).sum()),
+    }
+
+    # 7) 장기 모니터링 지표 (대시보드용)
+    combos = len(tasks_raw) * 3
+    lt3 = int(summary.get("task_level_with_lt3_results", 0))
+    w24 = df["source_course_id"].astype(str).str.fullmatch(r"A[A-Z]{2}\d{14}")
+    w24_open = (en[w24] >= today).sum()
+    bias_max = max(provider_bias, key=lambda x: x["top3"] - x["catalog"])
+    monitor = {
+        "coverage_pct": pct(combos - lt3, combos),
+        "w24_open_pct": pct(w24_open, int(w24.sum())),
+        "bias_provider": bias_max["label"], "bias_top3": bias_max["top3"], "bias_catalog": bias_max["catalog"],
+        "top5_share": round(float(cat_share.head(5).sum()) * 100, 1),
+    }
+    return {"missing": missing, "cleaning": cleaning, "domain_supply": domain_supply, "domain_tau": DOMAIN_TAU,
+            "provider_bias": provider_bias, "cost": cost, "schedule": schedule, "monitor": monitor}
+
+
 def main():
     df = pd.read_parquet(PROCESSED / "education_courses_search_cleaned.parquet")
     fields = pd.read_csv(RECO / "course_field_labels.csv")
@@ -196,7 +289,10 @@ def main():
         ],
     }
 
+    eda = build_eda(df, off_topic, tasks_raw, top3, rec, summary, n)
+
     data = {
+        "eda": eda,
         "generated": date.today().isoformat(),
         "kpi": {
             "courses": n, "providers": int(prov.size), "rich_pct": pct(tq.get("RICH", 0), n),
