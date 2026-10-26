@@ -573,7 +573,7 @@ st.markdown("""
 </div>
 """, unsafe_allow_html=True)
 
-tab1, tab2, tab3, tab4, tab5, tab6, tab7, tab8, tab9, tab10, tab11 = st.tabs([
+tab1, tab2, tab3, tab4, tab5, tab6, tab7, tab8, tab9, tab10, tab11, tab12, tab13 = st.tabs([
     "📊 탭 1. 교육 데이터 현황",
     "📈 탭 2. EDA 분석 (STEP 4 & 5)",
     "🧠 탭 3. NCS·KSA 역량 분석",
@@ -584,7 +584,9 @@ tab1, tab2, tab3, tab4, tab5, tab6, tab7, tab8, tab9, tab10, tab11 = st.tabs([
     "🎯 탭 8. 군집 분석 & 하이브리드 추천",
     "🌐 탭 9. 교육과정 토픽·군집 분석 (STEP 5-3)",
     "🎖️ 탭 10. 직무·역량 맞춤 교육 추천 (STEP 5-4)",
-    "🧪 탭 11. 합성 리뷰 감성분석 & 추천 시뮬레이션 (STEP 7-2)"
+    "🧪 탭 11. 합성 리뷰 감성분석 & 추천 시뮬레이션 (STEP 7-2)",
+    "🔬 탭 12. 리서치 요약 (NCS 수요 분석)",
+    "⚖️ 탭 13. 리서치 vs 교육 공급 갭"
 ])
 
 # ------------------------------------------------------------------------------
@@ -2528,6 +2530,25 @@ with tab10:
 with tab11:
     from app.tab12_synthetic_review_simulation import render_step7_synthetic_dashboard
     render_step7_synthetic_dashboard()
+
+# ------------------------------------------------------------------------------
+# 탭 12~13: 리서치(NCS 수요 분석) 기반 탭 (app/streamlit_research.py 재사용, main 브랜치에서 병합)
+# ------------------------------------------------------------------------------
+import importlib.util as _ilu
+
+_spec = _ilu.spec_from_file_location("streamlit_research", str(Path(__file__).resolve().parent / "streamlit_research.py"))
+_research = _ilu.module_from_spec(_spec)
+_spec.loader.exec_module(_research)
+
+with tab12:
+    _research.tab_research()
+
+with tab13:
+    try:
+        _df295 = _research.load_data()[0]
+        _research.tab_gap(_df295)
+    except FileNotFoundError as _e:
+        st.error(f"데이터 파일이 없습니다: {_e.filename}")
 
 
 

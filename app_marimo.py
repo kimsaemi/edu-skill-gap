@@ -682,6 +682,66 @@ def _(audit_metrics, mo, pd, px):
 
 
 @app.cell
+def _(Path, mo, pd, px):
+    # 탭 5: 295개 교육과정 NLP 텍스트 분석 (main 브랜치 팀원 작업 병합)
+    # 원본의 시나리오 추천 카드는 고정 평점(80점)이 점수에 섞여 있어 제외함
+    _clust_file = Path("data/hr/output/text_analysis/cluster_summary_k8.csv")
+    _courses_file = Path("data/hr/output/text_analysis/course_keywords_clusters_k8.csv")
+    _df_clust = pd.read_csv(_clust_file) if _clust_file.exists() else pd.DataFrame()
+    _df_courses = pd.read_csv(_courses_file) if _courses_file.exists() else pd.DataFrame()
+
+    _n_courses = len(_df_courses) if not _df_courses.empty else 0
+    _n_clusters = len(_df_clust) if not _df_clust.empty else 0
+
+    _kpis = mo.hstack([
+        mo.callout(mo.md(f"**전수 분석 강좌**\n# {_n_courses}개\n상세 본문 정제"), kind="info"),
+        mo.callout(mo.md(f"**도출된 세부 군집**\n# {_n_clusters}개\nK-Means + 실루엣 계수"), kind="success"),
+        mo.callout(mo.md("**추천 방식**\n# 하이브리드\nLSA 의미유사도 + BM25 키워드"), kind="neutral"),
+    ], justify="start", gap=2)
+
+    _charts = []
+    if not _df_clust.empty:
+        _fig_clust = px.bar(
+            _df_clust.sort_values("n_courses"),
+            x="n_courses", y=_df_clust.sort_values("n_courses")["cluster"].astype(str),
+            orientation="h", hover_data=["top_keywords"],
+            labels={"n_courses": "강좌 수 (개)", "y": "군집 ID"},
+            title="군집별 강좌 수와 대표 키워드",
+        )
+        _fig_clust.update_layout(height=320, margin=dict(l=10, r=10, t=40, b=10))
+        _charts.append(_fig_clust)
+
+    _top_kw = pd.DataFrame({
+        "keyword": ["분석", "비즈니스", "전략", "엑셀", "실기", "작성", "문서", "기업", "컴활", "데이터"],
+        "tfidf": [9.10, 9.06, 8.38, 7.78, 7.42, 7.26, 7.09, 7.02, 6.53, 6.35],
+    })
+    _fig_kw = px.bar(
+        _top_kw.sort_values("tfidf"), x="tfidf", y="keyword", orientation="h",
+        labels={"tfidf": "TF-IDF 중요도 합계", "keyword": "핵심 키워드"},
+        title="295개 교육과정 상위 10대 핵심 키워드",
+    )
+    _fig_kw.update_layout(height=320, margin=dict(l=10, r=10, t=40, b=10))
+    _charts.append(_fig_kw)
+
+    _table_cols = ["id", "course_title", "platform", "institution", "training_hours", "cost", "top_keywords", "cluster"]
+    _table = (
+        mo.ui.table(_df_courses[[c for c in _table_cols if c in _df_courses.columns]])
+        if not _df_courses.empty else mo.md("데이터 없음")
+    )
+
+    tab5_view = mo.vstack([
+        mo.md("### 🤖 295개 교육과정 텍스트 분석 (형태소·TF-IDF·K-Means)"),
+        _kpis,
+        mo.md("---"),
+        mo.hstack([mo.ui.plotly(f) for f in _charts], widths="equal"),
+        mo.md("---"),
+        mo.md("#### 📂 295개 교육과정 키워드·군집 탐색 표"),
+        _table,
+    ])
+    return (tab5_view,)
+
+
+@app.cell
 def _(
     controls_view,
     header_view,
@@ -690,15 +750,17 @@ def _(
     tab2_view,
     tab3_view,
     tab4_view,
+    tab5_view,
 ):
     # -------------------------------------------------------------------------
-    # 5. 전체 대시보드 조립 (4대 탭 렌더링)
+    # 5. 전체 대시보드 조립 (5대 탭 렌더링)
     # -------------------------------------------------------------------------
     tabs_view = mo.ui.tabs({
         "🎯 1. 직무·직급 진단": tab1_view,
         "🚀 2. 70:20:10 성장 솔루션": tab2_view,
         "📊 3. 노동시장 수급 갭 분석": tab3_view,
-        "🛡️ 4. 데이터 공신력·품질 거버넌스": tab4_view
+        "🛡️ 4. 데이터 공신력·품질 거버넌스": tab4_view,
+        "🤖 5. 295개 교육과정 텍스트 분석": tab5_view,
     })
 
     main_dashboard = mo.vstack([

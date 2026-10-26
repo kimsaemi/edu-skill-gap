@@ -6,6 +6,7 @@ NCS 기반 인사·총무 교육 데이터 대시보드 (STEP 4 MVP)
     TAB 1. 교육 데이터 현황 (KPI 카드, 플랫폼/직무/출처 분포)
     TAB 2. 교육과정 탐색 (다차원 실시간 필터링, 정렬, 상세 링크)
     TAB 3. 직무역량 KSA 분석 (NCS 7대 핵심 역량 매핑 및 KSA 분포)
+    TAB 4. 텍스트 분석·군집화 (TF-IDF 키워드, K-Means 군집, BM25 검색, 검색 방식 비교)
 """
 
 import sys
@@ -595,7 +596,243 @@ def render_tab3_competency(datasets):
     """)
 
 # ------------------------------------------------------------------------------
-# 6. 메인 앱 진입점
+# 6. 탭 4: 교육과정 텍스트 분석 (키워드·군집화·검색) 렌더러
+#    - 분석은 로컬에서 scripts/export_text_analysis_dashboard.py로 수행하고 결과 CSV만 읽습니다.
+# ------------------------------------------------------------------------------
+TEXT_DIR = WORKSPACE_ROOT / "data" / "hr" / "output" / "dashboard" / "text_analysis"
+SEMANTIC_DIR = WORKSPACE_ROOT / "data" / "hr" / "output" / "semantic"
+
+
+@st.cache_data(show_spinner=False)
+def load_text_analysis():
+    """텍스트 분석 결과 CSV 로드 (3단계 검색 평가 결과는 있으면 함께 로드)"""
+    data = {
+        name: pd.read_csv(TEXT_DIR / f"{name}.csv")
+        for name in ["cleaning_summary", "keyword_top50", "k_selection", "cluster_summary", "lda_topics", "course_text_features"]
+    }
+    data["course_text_features"]["tokens"] = data["course_text_features"]["tokens"].fillna("")
+    for name in ["retrieval_eval_summary", "semantic_search_examples"]:
+        path = SEMANTIC_DIR / f"{name}.csv"
+        data[name] = pd.read_csv(path) if path.exists() else None
+    return data
+
+
+@st.cache_data(show_spinner=False)
+def build_bm25_index(token_strings):
+    """과정별 토큰 문자열로 BM25(k1=1.5, b=0.75) 계산에 필요한 통계를 만듭니다."""
+    docs = [s.split() for s in token_strings]
+    doc_tf = [pd.Series(d, dtype=str).value_counts().to_dict() for d in docs]
+    doc_len = np.array([len(d) for d in docs], dtype=float)
+    doc_freq = pd.Series([t for d in docs for t in set(d)], dtype=str).value_counts().to_dict()
+    vocab = sorted(doc_freq, key=len, reverse=True)
+    return doc_tf, doc_len, doc_freq, vocab
+
+
+def bm25_search(query, doc_tf, doc_len, doc_freq, vocab, k1=1.5, b=0.75):
+    """질의에 포함된 어휘 단어를 찾아 BM25 점수를 계산합니다 (형태소 분석기 없이 동작)."""
+    q = query.lower()
+    q_compact = q.replace(" ", "")
+    matched = [t for t in vocab if t in q or t in q_compact]
+    # 더 긴 단어의 일부인 단어는 제외 (예: '연말정산'이 있으면 '연말', '정산' 제외)
+    matched = [t for t in matched if not any(t != o and t in o for o in matched)]
+    n_docs = len(doc_tf)
+    scores = np.zeros(n_docs)
+    avg_len = doc_len.mean()
+    for term in matched:
+        df = doc_freq[term]
+        idf = np.log(1 + (n_docs - df + 0.5) / (df + 0.5))
+        tf = np.array([d.get(term, 0) for d in doc_tf], dtype=float)
+        scores += idf * tf * (k1 + 1) / (tf + k1 * (1 - b + b * doc_len / avg_len))
+    return scores, matched
+
+
+def render_tab4_text_analysis():
+    st.markdown("### 🔤 교육과정 텍스트 분석 (키워드 · 군집화 · 검색)")
+    st.caption(
+        "295개 교육과정의 제목·소개글·커리큘럼을 한국어 형태소 분석(kiwipiepy)으로 쪼개고, "
+        "TF-IDF로 핵심 키워드를 뽑고, K-Means로 비슷한 강의끼리 자동으로 묶었습니다."
+    )
+
+    try:
+        data = load_text_analysis()
+    except FileNotFoundError:
+        st.warning("텍스트 분석 결과 파일이 없습니다. `scripts/export_text_analysis_dashboard.py`를 먼저 실행해 주세요.")
+        return
+
+    features = data["course_text_features"]
+    cluster_summary = data["cluster_summary"]
+    cleaning = data["cleaning_summary"].set_index("item")["value"]
+    k_sel = data["k_selection"]
+    n_clusters = int(cluster_summary["cluster"].nunique())
+    silhouette = float(k_sel.loc[k_sel["k"] == n_clusters, "silhouette"].iloc[0])
+
+    # 1. KPI 카드
+    c1, c2, c3, c4 = st.columns(4)
+    with c1:
+        st.metric("분석 교육과정", f"{int(cleaning['전체 과정'])}개", help="data/processed/hr_courses_detailed_295.csv")
+    with c2:
+        st.metric(
+            "자동생성 커리큘럼 제외",
+            f"{int(cleaning['템플릿 커리큘럼 (분석 제외)'])}개",
+            help="같은 틀로 찍어낸 커리큘럼 문장은 실제 강의 내용이 아니어서 분석에서 뺐습니다.",
+        )
+    with c3:
+        st.metric("분석 어휘", f"{int(cleaning['분석 어휘 수']):,}개", help="2개 이상 과정에 등장하고, 전체 50% 이하에 등장하는 단어")
+    with c4:
+        st.metric("자동 군집", f"{n_clusters}개", f"실루엣 {silhouette:.3f}", delta_color="off",
+                  help="실루엣 점수(-1~1)는 군집이 얼마나 잘 나뉘었는지 나타냅니다. 0에 가까울수록 경계가 흐릿합니다.")
+
+    with st.expander("🧹 데이터를 어떻게 정제했나요?"):
+        st.markdown(f"""
+- **자동생성 커리큘럼 제거**: 295개 중 {int(cleaning['템플릿 커리큘럼 (분석 제외)'])}개는 "○○ 핵심 프로세스 실습 // 실무 서식 작성…"처럼 같은 틀로 만든 문장이라 제외했습니다.
+- **학원 홍보 문구 제거**: 서로 다른 강의 3개 이상에 똑같이 나오는 문장(학원 소개, 취업지원 안내 등)을 지웠습니다.
+  소개글 평균 길이 {int(cleaning['평균 소개글 길이 (정제 전)'])}자 → {int(cleaning['평균 소개글 길이 (정제 후)'])}자
+- **회차 표기 통합**: "(○○학원 2회차)" 꼬리표를 떼어 같은 강의로 봤습니다 (고유 강의명 {int(cleaning['고유 강의명 (회차 통합)'])}개).
+- **단어 쪼개기**: "인사노무관리" → 인사 / 노무 / 인사노무 / 노무관리. "연말정산", "4대보험" 같은 인사 용어는 사전에 등록해 그대로 유지했습니다.
+""")
+
+    st.markdown("---")
+
+    # 2. 핵심 키워드 & 군집 크기
+    col_kw, col_cl = st.columns(2)
+    with col_kw:
+        st.markdown("#### 🏷️ 전체 핵심 키워드 Top 20 (TF-IDF)")
+        kw = data["keyword_top50"].head(20).iloc[::-1]
+        fig_kw = px.bar(
+            kw, x="tfidf_sum", y="keyword", orientation="h",
+            labels={"tfidf_sum": "TF-IDF 합계 (중요도)", "keyword": "", "doc_freq": "등장 과정 수"},
+            hover_data=["doc_freq"], template="plotly_white", color_discrete_sequence=["#3498db"],
+        )
+        fig_kw.update_layout(height=520, margin=dict(l=10, r=10, t=10, b=10))
+        st.plotly_chart(fig_kw, width="stretch")
+        st.caption("어디에나 나오는 단어(강의, 실무, 과정 …)는 점수를 낮추고, 특정 강의에만 나오는 단어는 점수를 높인 결과입니다.")
+
+    with col_cl:
+        st.markdown(f"#### 🧩 자동 분류된 {n_clusters}개 군집")
+        cl = cluster_summary.sort_values("n_courses")
+        fig_cl = px.bar(
+            cl, x="n_courses", y="cluster_label", orientation="h", text="n_courses",
+            labels={"n_courses": "강좌 수", "cluster_label": "", "top_keywords": "대표 키워드"},
+            hover_data=["top_keywords"], template="plotly_white",
+            color="cluster_label", color_discrete_sequence=px.colors.qualitative.Set2,
+        )
+        fig_cl.update_layout(height=520, showlegend=False, margin=dict(l=10, r=10, t=10, b=10))
+        st.plotly_chart(fig_cl, width="stretch")
+        st.caption("군집 이름은 각 군집에서 가장 특징적인 키워드 3개로 자동으로 붙였습니다.")
+
+    st.markdown("---")
+
+    # 3. 군집 지도 & 군집별 강좌
+    st.markdown("#### 🗺️ 교육과정 군집 지도")
+    st.caption("가까이 있는 점일수록 쓰인 단어가 비슷한 강의입니다. 점에 마우스를 올리면 강의명이 보입니다.")
+    fig_map = px.scatter(
+        features, x="x", y="y", color="cluster_label",
+        hover_name="course_title", hover_data={"platform": True, "top_keywords": True, "x": False, "y": False},
+        labels={"cluster_label": "군집", "platform": "플랫폼", "top_keywords": "핵심 키워드"},
+        template="plotly_white", color_discrete_sequence=px.colors.qualitative.Set2,
+    )
+    fig_map.update_traces(marker=dict(size=9, opacity=0.8))
+    fig_map.update_layout(height=520, xaxis_title="", yaxis_title="", xaxis_showticklabels=False, yaxis_showticklabels=False)
+    st.plotly_chart(fig_map, width="stretch")
+
+    sel_label = st.selectbox(
+        "군집을 선택하면 소속 강좌를 보여줍니다",
+        cluster_summary["cluster_label"].tolist(),
+        format_func=lambda lb: f"{lb} ({int(cluster_summary.set_index('cluster_label').at[lb, 'n_courses'])}개)",
+    )
+    sel_row = cluster_summary.set_index("cluster_label").loc[sel_label]
+    st.markdown(f"**대표 키워드:** {sel_row['top_keywords']}")
+    st.dataframe(
+        features.loc[features["cluster_label"] == sel_label, ["course_title", "platform", "institution", "top_keywords", "url"]],
+        column_config={
+            "course_title": "강좌명", "platform": "플랫폼", "institution": "기관", "top_keywords": "핵심 키워드",
+            "url": st.column_config.LinkColumn("상세 링크", display_text="바로가기"),
+        },
+        hide_index=True, width="stretch",
+    )
+
+    with st.expander("📚 LDA 토픽 모델링 결과 (강의마다 여러 주제가 섞여 있다고 보는 방식)"):
+        st.dataframe(
+            data["lda_topics"],
+            column_config={"topic": "토픽", "n_main_courses": "주 토픽 강좌 수", "top_words": "대표 단어"},
+            hide_index=True, width="stretch",
+        )
+    with st.expander("📈 군집 수(k)에 따른 실루엣 점수"):
+        fig_k = px.line(k_sel, x="k", y="silhouette", markers=True, template="plotly_white",
+                        labels={"k": "군집 수 k", "silhouette": "실루엣 점수"})
+        st.plotly_chart(fig_k, width="stretch")
+        st.caption("모든 k에서 0.03~0.06 수준으로 낮아, 군집은 '대략적인 주제 묶음'으로 해석해야 합니다.")
+
+    st.markdown("---")
+
+    # 4. 키워드 검색 (BM25)
+    st.markdown("#### 🔍 키워드 검색 (BM25)")
+    st.caption("배우고 싶은 내용을 입력하면 단어가 일치하는 강의를 찾습니다. 검색 엔진(Elasticsearch 등)의 표준 점수 방식입니다.")
+    doc_tf, doc_len, doc_freq, vocab = build_bm25_index(tuple(features["tokens"]))
+    sc1, sc2 = st.columns([4, 1])
+    with sc1:
+        query = st.text_input("검색어", value="급여 계산 4대보험 연말정산", key="tab4_bm25_query")
+    with sc2:
+        top_n = st.number_input("결과 개수", min_value=3, max_value=30, value=10, key="tab4_bm25_topn")
+    scores, matched = bm25_search(query, doc_tf, doc_len, doc_freq, vocab)
+    if not matched:
+        st.info("검색어에서 분석 어휘에 있는 단어를 찾지 못했습니다. 다른 단어로 검색해 보세요.")
+    else:
+        order = np.argsort(-scores)[: int(top_n)]
+        order = order[scores[order] > 0]
+        st.markdown(f"**인식된 검색 단어:** {', '.join(matched)} · 일치 강좌 {int((scores > 0).sum())}개")
+        st.dataframe(
+            features.iloc[order][["course_title", "platform", "institution", "cluster_label", "url"]].assign(
+                bm25=scores[order].round(2)
+            ),
+            column_config={
+                "course_title": "강좌명", "platform": "플랫폼", "institution": "기관", "cluster_label": "군집",
+                "bm25": st.column_config.NumberColumn("BM25 점수", format="%.2f"),
+                "url": st.column_config.LinkColumn("상세 링크", display_text="바로가기"),
+            },
+            hide_index=True, width="stretch",
+        )
+    st.caption("⚠️ 단어가 같아야 찾습니다. '월급'으로는 '급여' 강의를 못 찾는데, 이 문제는 언어모델 기반 의미 검색(3단계)에서 다룹니다.")
+
+    # 5. 검색 방식 비교 (3단계 평가 결과가 있을 때)
+    eval_summary = data["retrieval_eval_summary"]
+    if eval_summary is not None:
+        st.markdown("---")
+        st.markdown("#### ⚖️ 검색 방식 비교 (3단계 의미 유사도 평가)")
+        st.caption(
+            "강의 제목과 다른 단어로 바꿔 쓴 질문 12개(예: '표 계산 프로그램' → 엑셀 강의)로 각 검색 방식을 채점했습니다. "
+            "Hit@5 = 상위 5개 안에 정답이 있는 비율, MRR@10 = 첫 정답 순위의 역수 평균(1등이면 1.0)."
+        )
+        eval_long = eval_summary.melt(id_vars="method", var_name="지표", value_name="점수")
+        fig_eval = px.bar(
+            eval_long, x="지표", y="점수", color="method", barmode="group", text_auto=".2f",
+            labels={"method": "검색 방식"}, template="plotly_white", range_y=[0, 1],
+        )
+        st.plotly_chart(fig_eval, width="stretch")
+        if not eval_summary["method"].str.contains("언어모델").any():
+            st.info("🧠 한국어 언어모델(ko-sroberta) 임베딩 결과는 준비 중입니다. 현재는 키워드 방식(BM25, LSA)만 비교되어 있습니다.")
+
+        examples = data["semantic_search_examples"]
+        if examples is not None:
+            ex_query = st.selectbox("예시 질문별 검색 결과 비교", examples["query"].unique().tolist(), key="tab4_example_query")
+            ex = examples[examples["query"] == ex_query]
+            ex_cols = st.columns(ex["method"].nunique())
+            for col, (method, grp) in zip(ex_cols, ex.groupby("method", sort=False)):
+                with col:
+                    st.markdown(f"**{method}**")
+                    for _, r in grp.iterrows():
+                        st.markdown(f"{r['rank']}. {r['course_title']}")
+
+    # 6. 해석 주의사항
+    st.warning("""
+    ⚠️ **텍스트 분석 해석 시 주의사항**
+    1. **군집 경계가 흐릿합니다**: 강의 소개글이 짧고, 220개 과정은 실제 커리큘럼이 없어 군집은 '대략적인 주제 묶음'으로 봐야 합니다.
+    2. **계획했던 4대 군집(채용·노무·평가보상·총무)은 그대로 나타나지 않았습니다**: 수집 강좌 대부분이 총무·사무행정(286개)이고 인사(HR) 강좌는 9개뿐이기 때문입니다.
+    3. **직무와 무관한 강좌가 섞여 있습니다**: 마케팅, 개발, 사주 서비스 등은 추천 대상에서 제외 기준을 정할 때 군집 결과를 참고할 수 있습니다.
+    """)
+
+# ------------------------------------------------------------------------------
+# 7. 메인 앱 진입점
 # ------------------------------------------------------------------------------
 def main():
     st.set_page_config(
@@ -637,10 +874,11 @@ def main():
     st.caption("아래 분석 탭에서 추천의 원천 데이터와 역량-교육과정 연결 구조를 직접 확인할 수 있습니다.")
 
     # 3개 탭 구성
-    tab1, tab2, tab3 = st.tabs([
-        "📊 TAB 1. 교육 데이터 현황", 
-        "🔍 TAB 2. 교육과정 탐색", 
-        "🧠 TAB 3. 직무역량 KSA 분석"
+    tab1, tab2, tab3, tab4 = st.tabs([
+        "📊 TAB 1. 교육 데이터 현황",
+        "🔍 TAB 2. 교육과정 탐색",
+        "🧠 TAB 3. 직무역량 KSA 분석",
+        "🔤 TAB 4. 텍스트 분석·군집화"
     ])
 
     with tab1:
@@ -651,6 +889,9 @@ def main():
 
     with tab3:
         render_tab3_competency(datasets)
+
+    with tab4:
+        render_tab4_text_analysis()
 
     # 푸터
     st.markdown("---")
