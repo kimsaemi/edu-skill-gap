@@ -1,0 +1,868 @@
+<title>인사·총무 교육 지도</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="8,645개 직무교육 과정을 NCS 인사·총무 실무 과업 90개에 연결한 교육 추천 프로젝트 발표 자료">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@400;500;700&display=swap">
+<style>
+/*__FONTS__*/
+
+/* 레이아웃: 종이 위의 좁은 읽기 단(720px)과, 그보다 넓게 펼쳐지는 어두운 계기판(HUD) 그림판(920px) */
+:root {
+  --paper: #F2EEE4;
+  --paper-2: #E8E2D2;
+  --card: #FFFCF5;
+  --ink: #1B1D22;
+  --body: #3A3D45;
+  --dim: #686C75;
+  --line: #D6CEBB;
+  --mark: #FBE38A;
+  --hud: #17191F;
+  --hud-2: #21242C;
+  --hud-ink: #F1EBD8;
+  --hud-dim: #9AA0A9;
+  --hud-line: #393E49;
+  --yel: #F6C431;
+  --teal: #1F8F78;
+  --teal-lt: #4CD9B8;
+  --rust: #D3542E;
+  --blue: #5B8DCB;
+  --warn-bg: #FBE3D9;
+  --warn-ink: #8F3520;
+  --px: "Galmuri11", "IBM Plex Sans KR", "Malgun Gothic", sans-serif;
+  --pxb: "Galmuri11 Bold", "Galmuri11", "IBM Plex Sans KR", "Malgun Gothic", sans-serif;
+  --sans: "IBM Plex Sans KR", "Apple SD Gothic Neo", "Malgun Gothic", "Noto Sans KR", sans-serif;
+  --maxw: 720px;
+  --figw: 920px;
+  --nav-h: 50px;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #121418; --paper-2: #1A1D23; --card: #1C1F26; --ink: #EFE9D8; --body: #CFCABC;
+    --dim: #959AA4; --line: #343842; --mark: #6B5A1C; --hud: #0B0C10; --hud-2: #16181E;
+    --hud-line: #2C3039; --teal: #3FB89C; --rust: #EC7650; --blue: #79A6DD;
+    --warn-bg: #3A2219; --warn-ink: #F3B39C; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --paper: #121418; --paper-2: #1A1D23; --card: #1C1F26; --ink: #EFE9D8; --body: #CFCABC;
+  --dim: #959AA4; --line: #343842; --mark: #6B5A1C; --hud: #0B0C10; --hud-2: #16181E;
+  --hud-line: #2C3039; --teal: #3FB89C; --rust: #EC7650; --blue: #79A6DD;
+  --warn-bg: #3A2219; --warn-ink: #F3B39C; color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; scroll-padding-top: calc(var(--nav-h) + 16px); }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+body {
+  background: var(--paper);
+  color: var(--body);
+  font-family: var(--sans);
+  font-size: 17px;
+  line-height: 1.75;
+  word-break: keep-all;
+  overflow-wrap: break-word;
+}
+body::before {
+  content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px);
+  z-index: 10; background: var(--hud);
+}
+a { color: inherit; }
+:focus-visible { outline: 2px solid var(--yel); outline-offset: 2px; }
+
+/* 상단 내비게이션 */
+.nav {
+  position: sticky; top: env(safe-area-inset-top, 0px); z-index: 9;
+  background: var(--hud); color: var(--hud-ink);
+  border-bottom: 2px solid var(--hud-line);
+}
+.nav-in {
+  max-width: var(--figw); margin: 0 auto; height: var(--nav-h);
+  display: flex; align-items: center; gap: 18px;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+.brand { font-family: var(--pxb); font-size: 13px; letter-spacing: .02em; white-space: nowrap; color: var(--yel); text-decoration: none; }
+.nav-links { display: flex; gap: 4px; overflow-x: auto; scrollbar-width: none; min-width: 0; }
+.nav-links::-webkit-scrollbar { display: none; }
+.nav-links a {
+  font-family: var(--px); font-size: 12px; text-decoration: none; color: var(--hud-dim);
+  padding: 4px 8px; white-space: nowrap; border: 1px solid transparent;
+}
+.nav-links a:hover, .nav-links a.on { color: var(--hud-ink); border-color: var(--hud-line); background: var(--hud-2); }
+
+/* 공통 단 */
+.wrap {
+  max-width: var(--maxw); margin: 0 auto;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+.wide { max-width: var(--figw); }
+section { padding-block: 72px 24px; }
+.eyebrow {
+  font-family: var(--pxb); font-size: 13px; color: var(--teal); letter-spacing: .06em;
+  display: flex; align-items: center; gap: 10px; margin: 0 0 14px;
+}
+.eyebrow b { background: var(--ink); color: var(--paper); padding: 2px 7px; font-weight: normal; }
+h1, h2, h3 { color: var(--ink); text-wrap: balance; margin: 0; }
+h2 { font-family: var(--pxb); font-size: clamp(24px, 4.2vw, 32px); line-height: 1.35; font-weight: normal; margin-bottom: 22px; }
+h3 { font-family: var(--sans); font-size: 20px; line-height: 1.45; font-weight: 700; margin: 40px 0 12px; }
+p { margin: 0 0 18px; max-width: 65ch; }
+strong { color: var(--ink); font-weight: 700; }
+mark { background: linear-gradient(transparent 55%, var(--mark) 55%); color: var(--ink); padding: 0 1px; }
+.lead { font-size: 19px; color: var(--ink); }
+.note { font-size: 14px; color: var(--dim); line-height: 1.6; }
+.num { font-variant-numeric: tabular-nums; }
+
+/* 표지 */
+.hero { padding-block: 64px 28px; }
+.hero h1 {
+  font-family: var(--pxb); font-weight: normal;
+  font-size: clamp(30px, 6.4vw, 52px); line-height: 1.3; letter-spacing: -.01em; margin: 18px 0 26px;
+}
+.hero h1 em { font-style: normal; color: var(--paper); background: var(--ink); padding: 0 8px; box-decoration-break: clone; -webkit-box-decoration-break: clone; }
+.hero .lead { max-width: 58ch; }
+.byline { font-family: var(--px); font-size: 12px; color: var(--dim); display: flex; flex-wrap: wrap; gap: 6px 16px; margin-top: 22px; }
+.byline span::before { content: "▪ "; color: var(--teal); }
+
+/* 표지 그림: 과정 8,645개를 도트 하나씩으로 찍은 캔버스 */
+.dotfield { margin-top: 34px; background: var(--hud); border: 2px solid var(--ink); padding: 14px; }
+.dotfield canvas { display: block; width: 100%; height: auto; image-rendering: pixelated; }
+.dotfield-legend { display: flex; flex-wrap: wrap; gap: 6px 14px; margin-top: 10px; font-family: var(--px); font-size: 11px; color: var(--hud-dim); }
+.dotfield-legend i { display: inline-block; width: 9px; height: 9px; margin-right: 5px; vertical-align: -1px; }
+
+/* 요약 수치 */
+.kpis { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0; border: 2px solid var(--ink); background: var(--card); margin: 8px 0 34px; }
+.kpi { padding: 18px 16px 16px; border-right: 2px solid var(--ink); min-width: 0; }
+.kpi:last-child { border-right: 0; }
+.kpi .v { font-family: var(--pxb); font-size: clamp(22px, 3.6vw, 30px); color: var(--ink); line-height: 1.15; font-variant-numeric: tabular-nums; }
+.kpi .v small { font-size: .55em; margin-left: 2px; }
+.kpi .l { font-size: 13px; color: var(--dim); line-height: 1.45; margin-top: 8px; }
+@media (max-width: 640px) {
+  .kpis { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .kpi:nth-child(2) { border-right: 0; }
+  .kpi:nth-child(-n+2) { border-bottom: 2px solid var(--ink); }
+}
+.findings { display: grid; gap: 14px; }
+.finding { display: grid; grid-template-columns: 44px minmax(0, 1fr); gap: 14px; align-items: start; padding: 16px 18px; background: var(--card); border: 1px solid var(--line); }
+.finding .k { font-family: var(--pxb); font-size: 13px; background: var(--yel); color: #1B1D22; text-align: center; padding: 6px 0; }
+.finding p { margin: 0; }
+.finding .t { font-weight: 700; color: var(--ink); display: block; margin-bottom: 4px; }
+
+/* HUD 그림판 */
+.fig { margin: 26px 0 34px; }
+.hud {
+  background: var(--hud); color: var(--hud-ink); border: 2px solid var(--ink);
+  padding: 18px 18px 14px; position: relative;
+}
+.hud-head { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 6px 16px; align-items: baseline; margin-bottom: 14px; }
+.hud-title { font-family: var(--pxb); font-size: 14px; color: var(--hud-ink); }
+.hud-sub { font-family: var(--px); font-size: 11px; color: var(--hud-dim); }
+.fig figcaption { font-size: 13px; color: var(--dim); margin-top: 10px; line-height: 1.55; }
+.chart { width: 100%; min-height: 40px; }
+.chart svg { display: block; width: 100%; height: auto; overflow: visible; }
+.chart text { font-family: var(--px); font-size: 11px; fill: var(--hud-ink); }
+.chart text.dim { fill: var(--hud-dim); }
+.chart text.v { font-family: var(--pxb); }
+.chart .grid { stroke: var(--hud-line); stroke-width: 1; }
+.legend { display: flex; flex-wrap: wrap; gap: 6px 16px; margin-top: 12px; font-family: var(--px); font-size: 11px; color: var(--hud-dim); }
+.legend i { display: inline-block; width: 10px; height: 10px; margin-right: 6px; vertical-align: -1px; }
+.two { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
+@media (max-width: 760px) { .two { grid-template-columns: minmax(0, 1fr); } }
+
+/* 버튼·입력 */
+.chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.chip {
+  font-family: var(--px); font-size: 12px; color: var(--hud-dim); background: var(--hud-2);
+  border: 1px solid var(--hud-line); padding: 6px 10px; cursor: pointer; line-height: 1.2;
+}
+.chip:hover { color: var(--hud-ink); border-color: var(--hud-dim); }
+.chip[aria-pressed="true"] { background: var(--yel); color: #1B1D22; border-color: var(--yel); }
+.field-row { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin: 12px 0; }
+.field-row label { font-family: var(--px); font-size: 11px; color: var(--hud-dim); }
+select, input[type="search"] {
+  font: 15px var(--sans); color: var(--hud-ink); background: var(--hud-2);
+  border: 1px solid var(--hud-line); padding: 8px 10px; min-width: 0; max-width: 100%;
+}
+select { flex: 1 1 260px; }
+input[type="search"] { flex: 1 1 220px; }
+select:focus, input[type="search"]:focus { border-color: var(--yel); outline: none; }
+
+/* 추천 탐색기 */
+.task-card { border-top: 1px dashed var(--hud-line); padding-top: 14px; margin-top: 4px; }
+.task-name { font-family: var(--sans); font-weight: 700; font-size: 18px; color: var(--hud-ink); line-height: 1.45; }
+.task-desc { font-size: 14px; color: var(--hud-dim); margin: 6px 0 10px; line-height: 1.6; max-width: none; }
+.tags { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 12px; }
+.tag { font-family: var(--px); font-size: 11px; padding: 3px 7px; border: 1px solid var(--hud-line); color: var(--hud-dim); }
+.tag.warn { border-color: var(--rust); color: #FFB59C; }
+.recs { display: grid; gap: 10px; counter-reset: rk; }
+.rec { display: grid; grid-template-columns: 34px minmax(0, 1fr) auto; gap: 12px; align-items: start; background: var(--hud-2); padding: 12px 14px; border: 1px solid var(--hud-line); }
+.rec .rk { font-family: var(--pxb); font-size: 18px; color: var(--yel); line-height: 1.2; }
+.rec .ti { color: var(--hud-ink); font-weight: 500; line-height: 1.5; }
+.rec .pv { font-family: var(--px); font-size: 11px; color: var(--hud-dim); margin-top: 2px; }
+.rec .sc { font-family: var(--pxb); font-size: 20px; color: var(--hud-ink); text-align: right; line-height: 1.1; font-variant-numeric: tabular-nums; }
+.rec .sc small { display: block; font-family: var(--px); font-size: 10px; color: var(--hud-dim); }
+.scorebar { grid-column: 2 / 4; display: flex; height: 10px; background: var(--hud); border: 1px solid var(--hud-line); }
+.scorebar span { display: block; height: 100%; }
+@media (max-width: 520px) { .rec { grid-template-columns: 28px minmax(0, 1fr); } .rec .sc { grid-column: 2; text-align: left; } .scorebar { grid-column: 1 / 3; } }
+
+/* 파이프라인 단계 */
+.steps { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0; border: 2px solid var(--ink); background: var(--card); margin: 18px 0 30px; }
+.step { padding: 14px 14px 12px; border-right: 2px dashed var(--line); min-width: 0; }
+.step:last-child { border-right: 0; }
+.step .n { font-family: var(--pxb); font-size: 22px; color: var(--ink); font-variant-numeric: tabular-nums; }
+.step .n.minus { color: var(--rust); }
+.step .d { font-size: 13px; color: var(--dim); line-height: 1.5; margin-top: 4px; }
+@media (max-width: 640px) { .steps { grid-template-columns: repeat(2, minmax(0, 1fr)); } .step:nth-child(2) { border-right: 0; } .step:nth-child(-n+2) { border-bottom: 2px dashed var(--line); } }
+
+.formula { font-family: var(--px); font-size: 14px; background: var(--card); border: 1px solid var(--line); padding: 14px 16px; color: var(--ink); line-height: 1.9; overflow-x: auto; }
+.formula .c1 { background: var(--teal); color: #fff; padding: 1px 6px; }
+.formula .c2 { background: var(--yel); color: #1B1D22; padding: 1px 6px; }
+.formula .c3 { background: var(--blue); color: #fff; padding: 1px 6px; }
+
+/* 검색 결과 */
+.results { list-style: none; margin: 10px 0 0; padding: 0; display: grid; gap: 6px; }
+.results li { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 10px; padding: 8px 10px; background: var(--hud-2); border: 1px solid var(--hud-line); font-size: 14px; color: var(--hud-ink); line-height: 1.5; }
+.results .meta { font-family: var(--px); font-size: 11px; color: var(--hud-dim); text-align: right; white-space: nowrap; }
+.results .ex { color: #FFB59C; }
+.result-sum { font-family: var(--px); font-size: 12px; color: var(--hud-dim); margin-top: 10px; }
+.result-sum b { color: var(--yel); font-family: var(--pxb); font-weight: normal; }
+
+/* 유의사항 */
+.caveats { list-style: none; padding: 0; margin: 0; display: grid; gap: 12px; counter-reset: cv; }
+.caveats li { counter-increment: cv; display: grid; grid-template-columns: 36px minmax(0, 1fr); gap: 12px; padding: 14px 16px; background: var(--card); border: 1px solid var(--line); }
+.caveats li::before { content: counter(cv, decimal-leading-zero); font-family: var(--pxb); color: var(--rust); font-size: 15px; }
+.caveats p { margin: 0; }
+
+/* 방법론 표 */
+.tbl { overflow-x: auto; margin: 14px 0 26px; border: 1px solid var(--line); }
+table { border-collapse: collapse; width: 100%; font-size: 14px; background: var(--card); }
+th, td { text-align: left; padding: 9px 12px; border-bottom: 1px solid var(--line); vertical-align: top; }
+th { font-family: var(--px); font-size: 12px; font-weight: normal; color: var(--dim); background: var(--paper-2); white-space: nowrap; }
+td code { font-size: 12.5px; color: var(--ink); }
+
+footer { margin-top: 56px; background: var(--hud); color: var(--hud-dim); }
+footer .wrap { padding-block: 34px 44px; font-size: 13px; line-height: 1.7; }
+footer b { color: var(--hud-ink); font-family: var(--pxb); font-weight: normal; }
+</style>
+
+<nav class="nav" aria-label="장 이동">
+  <div class="nav-in">
+    <a class="brand" href="#hero">인사·총무 교육 지도</a>
+    <div class="nav-links" id="nav-links">
+      <a href="#summary">요약</a>
+      <a href="#background">01 배경</a>
+      <a href="#data">02 데이터</a>
+      <a href="#supply">03 공급</a>
+      <a href="#recommend">04 추천</a>
+      <a href="#satisfaction">05 만족도</a>
+      <a href="#caveat">06 유의사항</a>
+      <a href="#method">부록</a>
+    </div>
+  </div>
+</nav>
+
+<main>
+<header class="hero" id="hero">
+  <div class="wrap wide">
+    <div class="eyebrow"><b>NCS</b> 인사·총무 직무교육 추천 프로젝트</div>
+    <h1>인사·총무 담당자에게 맞는 교육은 <em>8,645개 중 어디에</em> 있을까?</h1>
+    <p class="lead">기관마다 분류도, 난이도 표기도, 설명 방식도 다릅니다. 우리는 교육기관 <span class="num" data-k="providers"></span>곳의 과정을 한곳에 모으고, 인사 실무 과업 90개를 기준으로 다시 읽어 맞는 교육을 찾아 주는 추천기를 만들었습니다.</p>
+    <div class="dotfield" role="img" aria-label="교육과정 8,645개를 분야별 색 점으로 표시한 그림">
+      <canvas id="dotfield" width="880" height="160"></canvas>
+      <div class="dotfield-legend" id="dotfield-legend"></div>
+    </div>
+    <div class="byline"><span>데이터 기준일 <b id="gen-date"></b></span><span>교육기관 DB 6곳 + 고용24·NCS 공공 API</span><span>kimsaemi/edu-skill-gap</span></div>
+  </div>
+</header>
+
+<section id="summary">
+  <div class="wrap">
+    <div class="eyebrow"><b>요약</b> 한눈에 보기</div>
+    <h2>숫자 네 개와 발견 세 가지</h2>
+    <div class="kpis">
+      <div class="kpi"><div class="v num" data-k="courses"></div><div class="l">수집·정제한 직무교육 과정</div></div>
+      <div class="kpi"><div class="v num"><span data-k="providers"></span><small>곳</small></div><div class="l">교육기관 (GSEEK, 휴넷, KMA, KPC 등)</div></div>
+      <div class="kpi"><div class="v num"><span data-k="tasks"></span><small>개</small></div><div class="l">추천 기준이 되는 인사 실무 과업 (<span data-k="domains"></span>개 영역)</div></div>
+      <div class="kpi"><div class="v num"><span data-k="sat_scored"></span><small>개</small></div><div class="l">고용24 공식 만족도를 확보한 과정</div></div>
+    </div>
+    <div class="findings">
+      <div class="finding"><div class="k">발견1</div><p><span class="t">교육 공급은 입문·초급에 몰려 있습니다.</span>난이도가 표기된 과정 <span class="num" id="f1-labeled"></span>개 중 <mark><span id="f1-beg"></span>%가 입문·초급</mark>입니다. 반면 NCS 수요 분석에서는 실무·중급(L3~6)이 80%를 차지합니다.</p></div>
+      <div class="finding"><div class="k">발견2</div><p><span class="t">노무·준법 교육이 가장 부족합니다.</span>인사 실무 핵심 역량 6가지 가운데 노무·준법 키워드를 다루는 과정은 <mark><span id="f2-labor"></span>%</mark>에 그칩니다.</p></div>
+      <div class="finding"><div class="k">발견3</div><p><span class="t">과업 90개 모두에 추천 3개씩을 찾았지만, 사람 확인이 남았습니다.</span>1위 과정의 의미 유사도는 중앙값 <span id="f3-med"></span>점입니다. 과업 <span id="f3-review"></span>개는 역량 연결이 애매해 검토가 필요하고, 공식 만족도는 카탈로그 과정 중 <span id="f3-sat"></span>개에만 붙어 추천 순위에 쓰지 않았습니다.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="background">
+  <div class="wrap">
+    <div class="eyebrow"><b>01</b> 배경</div>
+    <h2>교육은 많은데, 내 업무에 맞는 교육을 고르기는 어렵습니다</h2>
+    <p>인사 담당자가 "수습 평가 기준표를 만들어야 한다"는 과제를 받았다고 해 보겠습니다. 교육기관 사이트마다 분류 체계가 다르고, 과정 이름만으로는 이 업무를 다루는지 알기 어렵습니다. 수강 후기와 평점은 기관마다 기준이 다르거나 아예 없습니다.</p>
+    <p>그래서 이 프로젝트는 질문을 바꿨습니다. "어떤 교육이 인기 있는가"가 아니라 <strong>"이 업무를 하려면 어떤 교육이 맞는가"</strong>입니다. 기준은 국가직무능력표준(NCS)의 인사·총무 능력단위와, 이를 실제 업무 단위로 쪼갠 실무 과업 90개입니다.</p>
+  </div>
+  <div class="wrap wide">
+    <figure class="fig">
+      <div class="hud">
+        <div class="hud-head"><span class="hud-title">NCS 능력단위 레벨별 비중</span><span class="hud-sub">출처: NCS 전체 능력단위 EDA 보고서</span></div>
+        <div class="chart" id="ch-demand"></div>
+      </div>
+      <figcaption>NCS 능력단위의 80%가 독립적으로 실무를 수행하는 L3~4와, 복합 문제를 기획하는 L5~6에 있습니다. 재직자 교육이 겨냥해야 할 구간도 여기입니다.</figcaption>
+    </figure>
+  </div>
+</section>
+
+<section id="data">
+  <div class="wrap">
+    <div class="eyebrow"><b>02</b> 데이터</div>
+    <h2>교육기관 34곳의 과정 8,645개를 한 표로 모았습니다</h2>
+    <p>교육기관 데이터베이스 6곳과 고용24·NCS 공공 API에서 과정을 모았습니다. 기관마다 다른 항목 이름을 하나의 스키마로 맞추고, 홍보 문구와 깨진 텍스트를 걷어낸 뒤 Parquet 파일로 저장했습니다. 과정의 <mark><span data-k="rich_pct"></span>%는 200자 이상의 상세 설명</mark>이 있어 내용 기반 분석이 가능합니다.</p>
+  </div>
+  <div class="wrap wide">
+    <figure class="fig">
+      <div class="hud">
+        <div class="hud-head"><span class="hud-title">기관별 과정 수</span><span class="hud-sub">블록 1칸 = 50개 과정</span></div>
+        <div class="chart" id="ch-providers"></div>
+      </div>
+    </figure>
+    <div class="two">
+      <figure class="fig" style="margin-top:0">
+        <div class="hud">
+          <div class="hud-head"><span class="hud-title">교육 형태</span><span class="hud-sub">1칸 = 100개</span></div>
+          <div class="chart" id="ch-edutype"></div>
+        </div>
+      </figure>
+      <figure class="fig" style="margin-top:0">
+        <div class="hud">
+          <div class="hud-head"><span class="hud-title">비용 유형</span><span class="hud-sub">1칸 = 100개</span></div>
+          <div class="chart" id="ch-price"></div>
+        </div>
+      </figure>
+    </div>
+    <figure class="fig" style="margin-top:0">
+      <div class="hud">
+        <div class="hud-head"><span class="hud-title">설명 텍스트 품질</span><span class="hud-sub">8,645개 전체, 1칸 = 1%</span></div>
+        <div class="chart" id="ch-quality"></div>
+        <div class="legend" id="lg-quality"></div>
+      </div>
+      <figcaption>설명 없이 제목만 있는 과정(22%)은 제목만으로 분야와 내용을 판단합니다. 이런 과정은 추천 근거가 약하므로 추천 카드에 따로 표시합니다.</figcaption>
+    </figure>
+
+    <figure class="fig">
+      <div class="hud">
+        <div class="hud-head"><span class="hud-title">직접 찾아보기</span><span class="hud-sub">과정 제목에서 검색</span></div>
+        <div class="field-row">
+          <label for="q-search">검색어</label>
+          <input type="search" id="q-search" value="노무" autocomplete="off" placeholder="예: 급여, 채용, 평가">
+        </div>
+        <div class="chips" id="q-presets" aria-label="추천 검색어"></div>
+        <div class="result-sum" id="q-sum" aria-live="polite"></div>
+        <ul class="results" id="q-results"></ul>
+      </div>
+      <figcaption>"추천 제외"는 직무교육과 관계없는 과정(취미·건강 등)으로 분류해 추천 후보에서 뺀 과정입니다.</figcaption>
+    </figure>
+  </div>
+</section>
+
+<section id="supply">
+  <div class="wrap">
+    <div class="eyebrow"><b>03</b> 공급 분석</div>
+    <h2>교육은 넓게 퍼져 있지만, 실무 중급과 노무는 비어 있습니다</h2>
+    <p>과정마다 제목과 설명을 문장 임베딩(Ko-SRoBERTa)으로 바꾼 뒤, 분야별 대표 문장과 가장 가까운 분야를 붙였습니다. 인사·조직 일반과 총무·사무행정 분야가 전체의 <span data-k="hr_field_pct"></span>%이고, 나머지는 데이터·AI, IT, 외국어 같은 범용 직무 역량 과정입니다.</p>
+  </div>
+  <div class="wrap wide">
+    <figure class="fig">
+      <div class="hud">
+        <div class="hud-head"><span class="hud-title">분야별 과정 수</span><span class="hud-sub">1칸 = 50개, 자동 분류</span></div>
+        <div class="chart" id="ch-fields"></div>
+      </div>
+    </figure>
+  </div>
+  <div class="wrap">
+    <h3>수요는 실무·중급, 공급은 입문·초급</h3>
+    <p>NCS 레벨 분포와 교육기관이 표기한 난이도를 나란히 놓으면 차이가 뚜렷합니다. 두 기준은 같은 잣대가 아니어서 일대일로 맞출 수는 없지만, 방향은 분명합니다.</p>
+  </div>
+  <div class="wrap wide">
+    <figure class="fig">
+      <div class="hud">
+        <div class="hud-head"><span class="hud-title">수요(NCS 레벨) vs 공급(과정 난이도)</span><span class="hud-sub">1칸 = 1%</span></div>
+        <div class="chart" id="ch-gap"></div>
+        <div class="legend" id="lg-gap"></div>
+      </div>
+      <figcaption>공급 쪽은 난이도가 표기된 <span id="gap-labeled"></span>개 과정 기준입니다. <span id="gap-unlabeled"></span>개는 난이도 표기가 없어 뺐습니다.</figcaption>
+    </figure>
+  </div>
+  <div class="wrap">
+    <h3>핵심 역량별로 보면 노무·준법이 가장 적습니다</h3>
+    <p>NCS 수요 분석에서 공통 핵심 역량으로 꼽힌 6가지 키워드를 과정 제목과 설명에서 찾았습니다. 생성형 AI·데이터 과정은 빠르게 늘었지만, 인사 담당자가 매일 부딪히는 근로기준법·4대보험 같은 노무 교육은 30개 중 1개꼴입니다.</p>
+  </div>
+  <div class="wrap wide">
+    <figure class="fig">
+      <div class="hud">
+        <div class="hud-head"><span class="hud-title">핵심 역량 키워드를 다루는 과정 비율</span><span class="hud-sub">전체 8,645개 기준, 1칸 = 1%</span></div>
+        <div class="chart" id="ch-core"></div>
+      </div>
+      <figcaption>키워드 포함 여부로 센 값이라, 실제로 그 역량을 깊이 가르치는지는 따로 확인해야 합니다.</figcaption>
+    </figure>
+  </div>
+</section>
+
+<section id="recommend">
+  <div class="wrap">
+    <div class="eyebrow"><b>04</b> 추천</div>
+    <h2>업무를 고르면, 그 업무에 맞는 교육 3개를 찾아 줍니다</h2>
+    <p>추천은 네 단계로 진행됩니다. 직무교육과 무관한 과정과 오매핑이 확인된 과정을 먼저 빼고, 남은 후보를 업무 설명과 비교해 점수를 매깁니다.</p>
+    <div class="steps">
+      <div class="step"><div class="n num" data-k="courses"></div><div class="d">전체 과정</div></div>
+      <div class="step"><div class="n minus num">−<span id="st-off"></span></div><div class="d">직무 무관 과정 제외</div></div>
+      <div class="step"><div class="n minus num">−96</div><div class="d">오매핑 의심 109개 중 규칙으로 걸러낸 과정</div></div>
+      <div class="step"><div class="n num" id="st-cand"></div><div class="d">과업마다 점수를 매기는 후보</div></div>
+    </div>
+    <p>점수는 세 가지를 더합니다. 업무 설명과 과정 설명이 <strong>뜻으로 얼마나 가까운지</strong>, <strong>핵심 단어가 얼마나 겹치는지</strong>, 그리고 <strong>난이도가 맞는지</strong>입니다.</p>
+    <div class="formula">최종 점수 = <span class="c1">의미 유사도 × 0.5</span> + <span class="c2">키워드 일치(BM25) × 0.35</span> + <span class="c3">난이도 보너스 0~10점</span></div>
+    <p class="note" style="margin-top:10px">의미 유사도와 키워드 일치는 각각 0~100점입니다. 수강 후기와 평점은 점수에 넣지 않았습니다.</p>
+  </div>
+  <div class="wrap wide">
+    <figure class="fig">
+      <div class="hud" id="explorer">
+        <div class="hud-head"><span class="hud-title">과업별 추천 탐색기</span><span class="hud-sub">90개 과업 × 3개 수준, 실제 추천 결과</span></div>
+        <div class="chips" id="ex-domains" aria-label="업무 영역"></div>
+        <div class="field-row">
+          <label for="ex-task">과업</label>
+          <select id="ex-task"></select>
+        </div>
+        <div class="chips" id="ex-levels" aria-label="수준"></div>
+        <div class="task-card">
+          <div class="task-name" id="ex-name"></div>
+          <p class="task-desc" id="ex-desc"></p>
+          <div class="tags" id="ex-tags"></div>
+          <div class="recs" id="ex-recs"></div>
+          <div class="legend"><span><i style="background:var(--teal)"></i>의미 유사도 기여</span><span><i style="background:var(--yel)"></i>키워드 일치 기여</span><span><i style="background:var(--blue)"></i>난이도 보너스</span></div>
+        </div>
+      </div>
+    </figure>
+  </div>
+  <div class="wrap">
+    <h3>추천 결과를 점검해 보니</h3>
+    <p>90개 과업의 1위 추천은 의미 유사도 중앙값 <strong><span id="rv-med"></span>점</strong>, 최저 <span id="rv-min"></span>점입니다. 과업별 추천 3개 × 3개 수준, 모두 <span id="rv-slots"></span>자리를 서로 다른 <span id="rv-distinct"></span>개 과정이 채웠습니다. 일부 과정이 여러 과업에 반복해서 나옵니다.</p>
+  </div>
+  <div class="wrap wide">
+    <figure class="fig">
+      <div class="hud">
+        <div class="hud-head"><span class="hud-title">여러 과업에 반복 추천된 과정</span><span class="hud-sub">1칸 = 과업 1개</span></div>
+        <div class="chart" id="ch-reuse"></div>
+      </div>
+      <figcaption>"평가보상 설계 실무"처럼 범위가 넓은 과정은 여러 과업과 뜻이 가깝게 나옵니다. 다음 단계에서는 같은 과정이 반복되면 점수를 조금 낮추는 방법을 검토합니다.</figcaption>
+    </figure>
+  </div>
+</section>
+
+<section id="satisfaction">
+  <div class="wrap">
+    <div class="eyebrow"><b>05</b> 공식 만족도</div>
+    <h2>공식 만족도는 확보했지만, 추천 순위에는 넣지 않았습니다</h2>
+    <p>초기 버전에는 합성으로 만든 후기와 평점이 섞여 있었습니다. 실제 사용자에게 보여 줄 수 없는 값이라 모두 제거하고, 대신 고용24 국민내일배움카드 API의 공식 만족도(<code>stdgScor</code>)를 모았습니다. 인사·총무 키워드 12개로 <span id="sat-period"></span> 개강 과정을 전부 훑었습니다.</p>
+  </div>
+  <div class="wrap wide">
+    <div class="two">
+      <figure class="fig">
+        <div class="hud">
+          <div class="hud-head"><span class="hud-title">공식 만족도 분포</span><span class="hud-sub">점수 있는 <span id="sat-n"></span>개 과정, 1칸 = 20개</span></div>
+          <div class="chart" id="ch-sat-hist"></div>
+        </div>
+        <figcaption>평균 <span id="sat-mean"></span>점, 중앙값 <span id="sat-med"></span>점입니다. 대부분 90점 이상이라 과정 간 차이를 가르기 어렵습니다.</figcaption>
+      </figure>
+      <figure class="fig">
+        <div class="hud">
+          <div class="hud-head"><span class="hud-title">우리 카탈로그와 연결되는 과정</span><span class="hud-sub">1칸 = 10개</span></div>
+          <div class="chart" id="ch-sat-cov"></div>
+        </div>
+        <figcaption>카탈로그 8,645개 중 고용24 과정 ID로 연결되는 과정은 <span id="sat-matched"></span>개이고, 그중 점수가 있는 과정은 <span id="sat-scored"></span>개입니다.</figcaption>
+      </figure>
+    </div>
+  </div>
+  <div class="wrap">
+    <p>점수가 0이면 0점이 아니라 설문이 없었다는 뜻으로 보고 비워 두었습니다. 응답자 수는 공개되지 않고, 점수가 1/7, 1/14 단위로 끊기는 것으로 보아 응답자가 적은 과정도 많습니다. 그래서 만족도는 <strong>과정 상세 정보로만 보여 주고, 추천 순위에는 쓰지 않는 것</strong>으로 정했습니다.</p>
+  </div>
+</section>
+
+<section id="caveat">
+  <div class="wrap">
+    <div class="eyebrow"><b>06</b> 유의사항</div>
+    <h2>이 결과를 읽을 때 알아 둘 것</h2>
+    <ol class="caveats">
+      <li><p><strong>난이도 비교는 방향만 봅니다.</strong> NCS 레벨(1~8)과 교육기관 난이도 표기(초급·중급·고급)는 다른 기준입니다. 과정의 39%는 난이도 표기가 없습니다.</p></li>
+      <li><p><strong>분야 분류와 NCS 연결은 자동 결과입니다.</strong> 문장 임베딩과 규칙으로 붙였고, 사람이 전부 검증하지는 않았습니다. 대시보드에는 "자동 매핑 후보"로 표시합니다.</p></li>
+      <li><p><strong>과업 <span id="cv-review"></span>개는 검토가 필요합니다.</strong> 과업과 역량의 연결 점수 차이가 작아 어느 역량에 속하는지 애매합니다. 또 범위가 넓은 과정이 여러 과업에 반복 추천됩니다(최대 14개 과업).</p></li>
+      <li><p><strong>공식 만족도는 일부 과정에만 있습니다.</strong> 국민내일배움카드 과정만 제공되고 사업주훈련 과정은 항목이 없습니다. 응답자 수가 공개되지 않아 정밀한 평점으로 읽으면 안 됩니다.</p></li>
+    </ol>
+  </div>
+</section>
+
+<section id="method">
+  <div class="wrap">
+    <div class="eyebrow"><b>부록</b> 방법론</div>
+    <h2>데이터와 모델</h2>
+    <div class="tbl">
+      <table>
+        <thead><tr><th>단계</th><th>내용</th><th>산출물</th></tr></thead>
+        <tbody>
+          <tr><td>수집</td><td>교육기관 DB 6곳 + 고용24(국민내일배움카드·사업주훈련) + NCS 교육과정 API</td><td><code>data/hr/raw/</code></td></tr>
+          <tr><td>정제</td><td>스키마 통일, 홍보 문구·Base64 노이즈 제거, 휴넷 차단 페이지 커리큘럼 정정, 텍스트 품질 등급</td><td><code>education_courses_search_cleaned.parquet</code></td></tr>
+          <tr><td>표현</td><td>Kiwi 형태소 토큰(BM25용), Ko-SRoBERTa 768차원 문장 임베딩</td><td><code>embeddings_ko_sroberta_all.npy</code></td></tr>
+          <tr><td>분류</td><td>분야 대표 문장과의 유사도로 10개 분야 라벨, 직무 무관 과정 171개 제외 목록</td><td><code>course_field_labels.csv</code></td></tr>
+          <tr><td>과업</td><td>인사 9개 영역 × 10개 실무 과업, 직급별 역할, NCS 능력단위 연결</td><td><code>hr_task_catalog_90.json</code></td></tr>
+          <tr><td>추천</td><td>필터 → 의미 유사도·BM25·난이도 점수 → 기관 간 중복 제거 → Top 3</td><td><code>task_course_recommendations_90.csv</code></td></tr>
+          <tr><td>만족도</td><td>고용24 310L01 전 페이지 수집, <code>trprId</code> 단위 정리, 0점은 결측 처리</td><td><code>official_satisfaction.csv</code></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="note">이 페이지의 모든 수치는 <code>scripts/build_presentation_data.py</code>가 위 산출물에서 다시 계산한 값입니다. 페이지는 <code>scripts/build_presentation.py</code>로 만듭니다.</p>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <p><b>인사·총무 교육 지도</b><br>NCS 기반 인사·총무 맞춤형 교육과정 추천 프로젝트 발표 자료. 저장소: kimsaemi/edu-skill-gap</p>
+    <p>데이터: 교육기관별 공개 과정 정보, 고용24 Open API, 공공데이터포털 NCS API. 과정 정보의 저작권은 각 교육기관에 있습니다. 픽셀 글꼴: 갈무리(Galmuri, SIL Open Font License 1.1).</p>
+  </div>
+</footer>
+
+<script>
+const D = /*__DATA__*/;
+</script>
+<script>
+'use strict';
+(function () {
+  const $ = (s, r) => (r || document).querySelector(s);
+  const $$ = (s, r) => Array.from((r || document).querySelectorAll(s));
+  const fmt = n => Number(n).toLocaleString('ko-KR');
+  const css = name => getComputedStyle(document.documentElement).getPropertyValue(name).trim();
+  const NS = 'http://www.w3.org/2000/svg';
+  const el = (tag, attrs, text) => {
+    const e = document.createElementNS(NS, tag);
+    for (const k in attrs) e.setAttribute(k, attrs[k]);
+    if (text != null) e.textContent = text;
+    return e;
+  };
+
+  /* ---------- 숫자 채우기 ---------- */
+  $$('[data-k]').forEach(n => {
+    const v = D.kpi[n.dataset.k];
+    n.textContent = typeof v === 'number' && Number.isInteger(v) ? fmt(v) : v;
+  });
+  $('#gen-date').textContent = D.generated;
+  const beg = D.difficulty.supply[0];
+  $('#f1-labeled').textContent = fmt(D.difficulty.labeled);
+  $('#f1-beg').textContent = beg.pct;
+  $('#f2-labor').textContent = D.core_skills.find(c => c.label.startsWith('노무')).pct;
+  const R = D.recommend, S = D.satisfaction;
+  $('#f3-med').textContent = R.top1_sem_median;
+  $('#f3-review').textContent = R.needs_review;
+  $('#f3-sat').textContent = S.catalog_scored;
+  $('#st-off').textContent = fmt(R.off_topic);
+  $('#st-cand').textContent = fmt(R.candidates.max);
+  $('#rv-med').textContent = R.top1_sem_median;
+  $('#rv-min').textContent = R.top1_sem_min;
+  $('#rv-slots').textContent = fmt(R.top3_slots);
+  $('#rv-distinct').textContent = fmt(R.top3_distinct);
+  $('#cv-review').textContent = R.needs_review;
+  $('#gap-labeled').textContent = fmt(D.difficulty.labeled);
+  $('#gap-unlabeled').textContent = fmt(D.difficulty.unlabeled);
+  const per = S.period || [];
+  const ymd = s => s ? `${s.slice(0, 4)}년 ${+s.slice(4, 6)}월` : '';
+  $('#sat-period').textContent = per.length ? `${ymd(per[0])}~${ymd(per[1])}` : '';
+  $('#sat-n').textContent = fmt(S.scored);
+  $('#sat-mean').textContent = S.mean;
+  $('#sat-med').textContent = S.median;
+  $('#sat-matched').textContent = S.catalog_matched;
+  $('#sat-scored').textContent = S.catalog_scored;
+
+  /* ---------- 표지 도트 그림 ---------- */
+  function drawDotfield() {
+    const cv = $('#dotfield');
+    const rows = D.search.rows;
+    const box = cv.parentElement.clientWidth - 28;
+    const cell = box < 520 ? 3 : 4;
+    const cols = Math.floor(box / cell);
+    const h = Math.ceil(rows.length / cols) * cell;
+    const dpr = window.devicePixelRatio || 1;
+    cv.width = cols * cell * dpr; cv.height = h * dpr;
+    cv.style.width = cols * cell + 'px'; cv.style.height = h + 'px';
+    const ctx = cv.getContext('2d');
+    ctx.scale(dpr, dpr);
+    ctx.fillStyle = css('--hud'); ctx.fillRect(0, 0, cols * cell, h);
+    // 인사 → 총무 → 그 밖의 분야 → 추천 제외 순으로 모아 찍으면 각 묶음의 크기가 색 덩어리로 보인다
+    const rank = r => r[3] ? 3 : r[2] === 0 ? 0 : r[2] === 6 ? 1 : 2;
+    const order = rows.map((r, i) => i).sort((a, b) => (rank(rows[a]) - rank(rows[b])) || (a - b));
+    order.forEach((idx, k) => {
+      const r = rows[idx];
+      const f = r[2];
+      ctx.fillStyle = r[3] ? css('--rust') : (f === 0 ? css('--yel') : f === 6 ? css('--teal-lt') : css('--hud-line'));
+      ctx.fillRect((k % cols) * cell, Math.floor(k / cols) * cell, cell - 1, cell - 1);
+    });
+    const lg = $('#dotfield-legend');
+    lg.innerHTML = '';
+    [['--yel', '인사·조직·직무 일반'], ['--teal-lt', '총무·사무행정'], ['--hud-line', '그 밖의 직무 역량'], ['--rust', '직무 무관(추천 제외)']].forEach(([c, t]) => {
+      const s = document.createElement('span');
+      s.innerHTML = `<i style="background:var(${c})"></i>${t}`;
+      lg.appendChild(s);
+    });
+  }
+
+  /* ---------- 블록 막대 ---------- */
+  // items: [{label, n}], opt: {unit, color(i,item), fmt(item), labelW}
+  function blockBars(host, items, opt) {
+    host.innerHTML = '';
+    const W = Math.max(280, host.clientWidth);
+    const narrow = W < 480;
+    const labelW = opt.labelW ? Math.min(opt.labelW, W * .42) : Math.min(170, W * .38);
+    const valW = narrow ? 52 : 70;
+    const rowH = 24, gap = 8;
+    const barW = W - labelW - valW - 10;
+    const max = opt.max || Math.max(...items.map(d => d.n));
+    const blocks = Math.ceil(max / opt.unit);
+    const bw = Math.max(2, barW / blocks);
+    const H = items.length * (rowH + gap) - gap;
+    const svg = el('svg', { viewBox: `0 0 ${W} ${H}`, role: 'img', 'aria-label': opt.aria || '' });
+    items.forEach((d, i) => {
+      const y = i * (rowH + gap);
+      const lab = el('text', { x: 0, y: y + rowH / 2 + 4 }, d.label);
+      svg.appendChild(lab);
+      const full = Math.floor(d.n / opt.unit), part = d.n / opt.unit - full;
+      const color = opt.color ? opt.color(i, d) : css('--yel');
+      for (let b = 0; b <= full; b++) {
+        const w = b < full ? bw - 2 : (bw - 2) * part;
+        if (w <= .3) continue;
+        svg.appendChild(el('rect', { x: labelW + b * bw, y: y + 3, width: Math.max(1, w), height: rowH - 6, fill: color }));
+      }
+      const used = Math.min(barW, (d.n / opt.unit) * bw);
+      svg.appendChild(el('text', { x: labelW + used + 6, y: y + rowH / 2 + 4, class: 'v' }, opt.fmt ? opt.fmt(d) : fmt(d.n)));
+    });
+    host.appendChild(svg);
+  }
+
+  /* ---------- 100칸 띠 (1칸 = 1%) ---------- */
+  function strips(host, rows) {
+    host.innerHTML = '';
+    const W = Math.max(280, host.clientWidth);
+    const narrow = W < 560;
+    const labelW = narrow ? 0 : 150;
+    const cols = 50, gap = 2;
+    const cw = (W - labelW) / cols;
+    const ch = Math.max(8, Math.min(16, cw - gap));
+    const rowH = ch * 2 + gap + (narrow ? 22 : 0);
+    const blockGap = 22;
+    const H = rows.length * (rowH + blockGap) - blockGap + 4;
+    const svg = el('svg', { viewBox: `0 0 ${W} ${H}`, role: 'img' });
+    rows.forEach((r, i) => {
+      const y0 = i * (rowH + blockGap) + (narrow ? 20 : 0);
+      svg.appendChild(el('text', { x: 0, y: narrow ? y0 - 8 : y0 + ch + 4, class: 'v' }, r.label));
+      // 비율을 정수 칸으로 나눌 때 합이 100이 되도록 큰 나머지 순으로 보정
+      const raw = r.parts.map(p => p.pct);
+      const fl = raw.map(Math.floor);
+      let rest = 100 - fl.reduce((a, b) => a + b, 0);
+      raw.map((v, k) => [v - fl[k], k]).sort((a, b) => b[0] - a[0]).forEach(([, k]) => { if (rest > 0) { fl[k]++; rest--; } });
+      let c = 0;
+      r.parts.forEach((p, k) => {
+        for (let j = 0; j < fl[k]; j++, c++) {
+          const col = Math.floor(c / 2), row = c % 2;
+          svg.appendChild(el('rect', { x: labelW + col * cw, y: y0 + row * (ch + gap), width: cw - gap, height: ch, fill: css(p.color) }));
+        }
+      });
+    });
+    host.appendChild(svg);
+  }
+
+  /* ---------- 세로 블록 기둥 (히스토그램) ---------- */
+  function columns(host, items, unit, color) {
+    host.innerHTML = '';
+    const W = Math.max(260, host.clientWidth);
+    const max = Math.max(...items.map(d => d.n));
+    const levels = Math.ceil(max / unit);
+    const bh = 6, gap = 2, top = 18, bottom = 30;
+    const H = top + levels * (bh + gap) + bottom;
+    const colW = W / items.length;
+    const svg = el('svg', { viewBox: `0 0 ${W} ${H}`, role: 'img' });
+    items.forEach((d, i) => {
+      const x = i * colW + 3, w = colW - 6;
+      const full = Math.floor(d.n / unit), part = d.n / unit - full;
+      for (let b = 0; b <= full; b++) {
+        const hh = b < full ? bh : bh * part;
+        if (hh <= .2 && !(b === 0 && d.n > 0)) continue;
+        const h2 = Math.max(hh, d.n > 0 && b === 0 && full === 0 ? 2 : hh);
+        svg.appendChild(el('rect', { x, y: top + levels * (bh + gap) - (b + 1) * (bh + gap) + (bh - h2), width: w, height: h2, fill: color }));
+      }
+      const yTop = top + levels * (bh + gap) - (d.n / unit) * (bh + gap);
+      if (d.n > 0) svg.appendChild(el('text', { x: x + w / 2, y: yTop - 5, 'text-anchor': 'middle', class: 'v' }, fmt(d.n)));
+      svg.appendChild(el('text', { x: x + w / 2, y: H - 10, 'text-anchor': 'middle', class: 'dim' }, d.label.split('~')[0]));
+    });
+    host.appendChild(svg);
+  }
+
+  /* ---------- 차트 그리기 ---------- */
+  const pctFmt = d => d.pct + '%';
+  function drawAll() {
+    drawDotfield();
+    strips($('#ch-demand'), [{ label: 'NCS 능력단위', parts: D.difficulty.demand.map((d, i) => ({ pct: d.pct, color: ['--yel', '--teal', '--teal-lt', '--blue'][i] })) }]);
+    const lgD = document.createElement('div');
+    lgD.className = 'legend';
+    lgD.innerHTML = D.difficulty.demand.map((d, i) => `<span><i style="background:var(${['--yel', '--teal', '--teal-lt', '--blue'][i]})"></i>${d.label} ${d.pct}%</span>`).join('');
+    $('#ch-demand').appendChild(lgD);
+
+    blockBars($('#ch-providers'), D.providers, { unit: 50, color: (i, d) => d.label.startsWith('기타') ? css('--hud-dim') : css('--yel'), aria: '기관별 과정 수' });
+    blockBars($('#ch-edutype'), D.edu_type, { unit: 100, labelW: 110, color: (i, d) => d.label === '미기재' ? css('--hud-dim') : css('--teal-lt') });
+    blockBars($('#ch-price'), D.price, { unit: 100, labelW: 110, color: () => css('--teal-lt') });
+
+    const qColors = ['--teal-lt', '--yel', '--rust', '--hud-dim'];
+    const total = D.kpi.courses;
+    strips($('#ch-quality'), [{ label: '8,645개 과정', parts: D.text_quality.map((d, i) => ({ pct: d.n / total * 100, color: qColors[i] })) }]);
+    $('#lg-quality').innerHTML = D.text_quality.map((d, i) => `<span><i style="background:var(${qColors[i]})"></i>${d.label} ${fmt(d.n)}</span>`).join('');
+
+    blockBars($('#ch-fields'), D.fields, { unit: 50, color: (i, d) => d.key === 'HR' ? css('--yel') : d.key === 'GA' ? css('--teal-lt') : css('--hud-dim') });
+
+    const gapRows = [
+      { label: '수요 · NCS 레벨', parts: D.difficulty.demand.map((d, i) => ({ pct: d.pct, color: ['--yel', '--teal', '--teal-lt', '--blue'][i] })) },
+      { label: '공급 · 과정 난이도', parts: D.difficulty.supply.map((d, i) => ({ pct: d.pct, color: ['--yel', '--teal', '--blue'][i] })) },
+    ];
+    strips($('#ch-gap'), gapRows);
+    $('#lg-gap').innerHTML = [
+      ['--yel', '입문 (NCS L1~2 / 입문·초급)'], ['--teal', '실무 (L3~4 / 중급)'], ['--teal-lt', '중급 기획 (L5~6)'], ['--blue', '고급 (L7~8 / 고급)'],
+    ].map(([c, t]) => `<span><i style="background:var(${c})"></i>${t}</span>`).join('') +
+      '<span>공급: ' + D.difficulty.supply.map(d => `${d.label} ${d.pct}%`).join(' · ') + '</span>';
+
+    const core = D.core_skills.slice().sort((a, b) => b.pct - a.pct).map(c => ({ label: c.label, n: c.pct, pct: c.pct }));
+    blockBars($('#ch-core'), core, { unit: 1, max: 20, fmt: pctFmt, color: (i, d) => d.label.startsWith('노무') ? css('--rust') : css('--teal-lt') });
+
+    blockBars($('#ch-reuse'), R.most_reused.map(r => ({ label: r.title.length > 22 ? r.title.slice(0, 21) + '…' : r.title, n: r.count })), { unit: 1, max: 15, labelW: 260, fmt: d => d.n + '개 과업', color: () => css('--yel') });
+
+    columns($('#ch-sat-hist'), S.hist, 20, css('--teal-lt'));
+    blockBars($('#ch-sat-cov'), [
+      { label: '수집한 과정', n: S.courses },
+      { label: '점수 있는 과정', n: S.scored },
+      { label: '카탈로그 연결', n: S.catalog_matched },
+      { label: '연결 + 점수 있음', n: S.catalog_scored },
+    ], { unit: 10, labelW: 120, color: (i) => i < 2 ? css('--teal-lt') : css('--yel') });
+  }
+
+  /* ---------- 과업별 추천 탐색기 ---------- */
+  const LEVELS = ['입문', '실무', '관리자·심화'];
+  const state = { domain: R.domains[R.domains.length - 1], task: null, level: '실무' };
+  const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+
+  function renderDomains() {
+    const box = $('#ex-domains');
+    box.innerHTML = '';
+    R.domains.forEach(dm => {
+      const b = document.createElement('button');
+      b.type = 'button'; b.className = 'chip'; b.textContent = dm;
+      b.setAttribute('aria-pressed', String(dm === state.domain));
+      b.addEventListener('click', () => { state.domain = dm; state.task = null; renderDomains(); renderTasks(); });
+      box.appendChild(b);
+    });
+  }
+  function renderTasks() {
+    const sel = $('#ex-task');
+    const list = R.tasks.filter(t => t.domain === state.domain);
+    if (!state.task || !list.some(t => t.id === state.task)) state.task = list[0].id;
+    sel.innerHTML = list.map(t => `<option value="${t.id}"${t.id === state.task ? ' selected' : ''}>${esc(t.name)}${t.review ? ' (검토 필요)' : ''}</option>`).join('');
+    renderTask();
+  }
+  function renderLevels() {
+    const box = $('#ex-levels');
+    box.innerHTML = '';
+    LEVELS.forEach(lv => {
+      const b = document.createElement('button');
+      b.type = 'button'; b.className = 'chip'; b.textContent = lv;
+      b.setAttribute('aria-pressed', String(lv === state.level));
+      b.addEventListener('click', () => { state.level = lv; renderLevels(); renderTask(); });
+      box.appendChild(b);
+    });
+  }
+  function renderTask() {
+    const t = R.tasks.find(x => x.id === state.task);
+    $('#ex-name').textContent = t.name;
+    $('#ex-desc').textContent = t.desc;
+    const tags = [];
+    if (t.stage) tags.push(`<span class="tag">${esc(t.stage)}</span>`);
+    if (t.comp) tags.push(`<span class="tag">연결 역량: ${esc(t.comp)}</span>`);
+    if (t.ncs) tags.push(`<span class="tag">NCS ${esc(t.ncs)}</span>`);
+    if (t.review) tags.push('<span class="tag warn">역량 연결 검토 필요</span>');
+    $('#ex-tags').innerHTML = tags.join('');
+    const recs = (t.recs && t.recs[state.level]) || [];
+    const MAX = 95;
+    $('#ex-recs').innerHTML = recs.length ? recs.map((r, i) => {
+      const a = r.sem * .5, b = r.bm25 * .35, c = r.lvl;
+      return `<div class="rec">
+        <div class="rk">${i + 1}</div>
+        <div><div class="ti">${esc(r.title)}</div><div class="pv">${esc(r.provider)} · 의미 ${r.sem} · 키워드 ${r.bm25}${c ? ' · 난이도 +' + c : ''}</div></div>
+        <div class="sc">${r.final}<small>점</small></div>
+        <div class="scorebar" aria-hidden="true"><span style="width:${a / MAX * 100}%;background:var(--teal)"></span><span style="width:${b / MAX * 100}%;background:var(--yel)"></span><span style="width:${c / MAX * 100}%;background:var(--blue)"></span></div>
+      </div>`;
+    }).join('') : '<p class="task-desc">이 수준에는 추천 결과가 없습니다.</p>';
+  }
+  $('#ex-task').addEventListener('change', e => { state.task = e.target.value; renderTask(); });
+
+  /* ---------- 과정 검색 ---------- */
+  const rows = D.search.rows;
+  const lower = rows.map(r => r[0].toLowerCase());
+  const PRESETS = ['노무', '급여', '채용', '평가', '연말정산', '총무', '생성형'];
+  function renderPresets() {
+    const box = $('#q-presets');
+    box.innerHTML = '';
+    PRESETS.forEach(p => {
+      const b = document.createElement('button');
+      b.type = 'button'; b.className = 'chip'; b.textContent = p;
+      b.setAttribute('aria-pressed', String($('#q-search').value.trim() === p));
+      b.addEventListener('click', () => { $('#q-search').value = p; search(); });
+      box.appendChild(b);
+    });
+  }
+  function search() {
+    const q = $('#q-search').value.trim().toLowerCase();
+    renderPresets();
+    const out = $('#q-results'), sum = $('#q-sum');
+    if (!q) { sum.textContent = '검색어를 입력하면 과정 제목에서 찾습니다.'; out.innerHTML = ''; return; }
+    const terms = q.split(/\s+/);
+    const hits = [];
+    lower.forEach((t, i) => { if (terms.every(w => t.includes(w))) hits.push(i); });
+    const byField = {};
+    hits.forEach(i => { const f = rows[i][2]; byField[f] = (byField[f] || 0) + 1; });
+    const top = Object.entries(byField).sort((a, b) => b[1] - a[1]).slice(0, 3)
+      .map(([f, n]) => `${f >= 0 ? D.search.fields[f] : '미분류'} ${fmt(n)}`).join(' · ');
+    const ex = hits.filter(i => rows[i][3]).length;
+    sum.innerHTML = `<b>${fmt(hits.length)}개</b> 과정${hits.length ? ' · ' + esc(top) : ''}${ex ? ` · 추천 제외 ${fmt(ex)}` : ''}`;
+    // 같은 제목이 여러 차수로 반복되는 경우 한 번만 보여 준다
+    const seen = new Set(), shown = [];
+    for (const i of hits) { const k = rows[i][0]; if (seen.has(k)) continue; seen.add(k); shown.push(i); if (shown.length === 8) break; }
+    out.innerHTML = shown.map(i => {
+      const r = rows[i];
+      return `<li><span>${esc(r[0])}</span><span class="meta">${esc(D.search.providers[r[1]])}${r[3] ? ' · <span class="ex">추천 제외</span>' : ''}</span></li>`;
+    }).join('');
+  }
+  let tmr;
+  $('#q-search').addEventListener('input', () => { clearTimeout(tmr); tmr = setTimeout(search, 120); });
+
+  /* ---------- 현재 장 표시 ---------- */
+  const links = $$('#nav-links a');
+  const secs = links.map(a => document.getElementById(a.getAttribute('href').slice(1)));
+  function markNav() {
+    const y = window.scrollY + 120;
+    let cur = -1;
+    secs.forEach((s, i) => { if (s && s.offsetTop <= y) cur = i; });
+    links.forEach((a, i) => a.classList.toggle('on', i === cur));
+  }
+  window.addEventListener('scroll', markNav, { passive: true });
+
+  /* ---------- 시작 ---------- */
+  renderDomains(); renderLevels(); renderTasks(); search(); drawAll(); markNav();
+  let rz;
+  const ro = new ResizeObserver(() => { clearTimeout(rz); rz = setTimeout(drawAll, 80); });
+  ro.observe(document.querySelector('main'));
+  // 테마가 바뀌면 캔버스·SVG 색을 다시 칠한다
+  window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', drawAll);
+  new MutationObserver(drawAll).observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(drawAll);
+})();
+</script>
