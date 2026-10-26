@@ -8,6 +8,8 @@
 """
 
 import math
+import re
+from datetime import date
 from typing import Dict, List, Any, Optional
 from dataclasses import dataclass, field
 import pandas as pd
@@ -47,6 +49,7 @@ class RecommendedCourseCard:
     content_evidence: str = ""             # 교육에서 확인한 내용
     evidence_limitation: str = ""          # 추천 근거의 한계
     schedule_display: str = "일정·모집 여부는 교육기관에서 확인" # 확인된 일정
+    schedule_badge: Optional[str] = None   # 일정이 지난 과정 표시 ("운영 종료" / "안내된 일정 종료")
     source_display: str = ""               # 정보 출처 및 확인 시점
     text_richness: str = "MODERATE"        # "RICH", "MODERATE", "TITLE_ONLY"
     text_richness_warning: Optional[str] = None
@@ -120,11 +123,23 @@ def _common_card_fields(row: pd.Series, weekly_h: float) -> Dict[str, Any]:
     # 일정 확인 (결측 시 솔직 안내)
     raw_start = str(row.get('start_date', '')).strip()
     raw_end = str(row.get('end_date', '')).strip()
+    schedule_badge = None
     if raw_start and raw_start.lower() not in ['nan', 'none', '']:
-        if raw_end and raw_end.lower() not in ['nan', 'none', ''] and raw_end != raw_start:
+        has_end = raw_end and raw_end.lower() not in ['nan', 'none', '']
+        if has_end and raw_end != raw_start:
             schedule_disp = f"{raw_start} ~ {raw_end}"
         else:
             schedule_disp = f"{raw_start}"
+        # 일정이 지난 과정 표시. 고용24 과정은 전체 회차를 API로 확인하므로 '운영 종료',
+        # 다른 기관은 같은 과정을 다시 여는 경우가 많아 '안내된 일정 종료'로 구분한다.
+        last_day = (raw_end if has_end else raw_start)[:10]
+        if re.fullmatch(r"\d{4}-\d{2}-\d{2}", last_day) and last_day < date.today().isoformat():
+            if str(row.get('source_provider', '')).startswith('고용24'):
+                schedule_badge = "운영 종료"
+                schedule_disp = f"운영 종료 (마지막으로 확인한 회차: {schedule_disp})"
+            else:
+                schedule_badge = "안내된 일정 종료"
+                schedule_disp = f"{schedule_disp} (지난 일정 · 다음 일정은 교육기관에서 확인)"
     else:
         schedule_disp = "일정·모집 여부는 교육기관에서 확인"
 
@@ -182,6 +197,7 @@ def _common_card_fields(row: pd.Series, weekly_h: float) -> Dict[str, Any]:
         content_evidence=content_evidence,
         evidence_limitation=limitation_text,
         schedule_display=schedule_disp,
+        schedule_badge=schedule_badge,
         source_display=source_disp,
         text_richness=t_richness,
         text_richness_warning=warning_text,

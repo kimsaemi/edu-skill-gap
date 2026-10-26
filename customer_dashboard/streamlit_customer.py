@@ -737,6 +737,12 @@ def render_course_card(card: RecommendedCourseCard, key_prefix: str = ""):
         + f"</span>"
         for item in card.linked_competencies
     ])
+    # 일정이 지난 과정은 눈에 띄게 표시 (추천 순위에는 영향 없음)
+    if getattr(card, "schedule_badge", None):
+        comp_badges_html = (
+            f"<span class='badge-tag badge-rose' title='{card.schedule_display}'>⏹ {card.schedule_badge}</span> "
+            + comp_badges_html
+        )
 
     with st.container():
         st.markdown('<div class="hrd-card">', unsafe_allow_html=True)
