@@ -99,7 +99,14 @@ def main():
     }
     labeled = sum(supply_counts.values())
     supply = [{"label": k, "n": v, "pct": pct(v, labeled)} for k, v in supply_counts.items()]
-    difficulty = {"supply": supply, "labeled": labeled, "unlabeled": n - labeled, "demand": NCS_DEMAND}
+    unlabeled_mask = ~(d.str.contains("초급|입문") | d.str.startswith("중급") | d.str.startswith("고급"))
+    unlabeled_prov = df.loc[unlabeled_mask, "provider"].value_counts()
+    difficulty = {
+        "supply": supply, "labeled": labeled, "unlabeled": n - labeled,
+        "unlabeled_pct": pct(n - labeled, n),
+        "unlabeled_top": [{"label": k, "n": int(v)} for k, v in unlabeled_prov.head(2).items()],
+        "demand": NCS_DEMAND,
+    }
 
     # 6) 핵심 역량 키워드 포함 비율
     text = (df["title"].fillna("") + " " + df["clean_search_text"].fillna("")).str.lower()
@@ -134,7 +141,14 @@ def main():
             "review": bool(t.get("needs_review")), "recs": recs,
         })
     n_cand = rec["n_candidates"]
+    reuse = top3.groupby("course_uid")["task_id"].nunique()
+    heavy = reuse[reuse >= 5].index
+    title_only = set(df.loc[df["text_quality_status"] == "TITLE_ONLY", "course_uid"])
     recommend = {
+        "reused5_courses": int(len(heavy)),
+        "reused5_slot_pct": pct(top3["course_uid"].isin(heavy).sum(), len(top3)),
+        "title_only_top3_pct": pct(top3["course_uid"].isin(title_only).sum(), len(top3)),
+        "title_only_all_pct": pct(len(title_only), n),
         "domains": domains, "tasks": tasks,
         "n_tasks": len(tasks), "needs_review": int(summary["needs_review_count"]),
         "top1_sem_median": round(float(summary["top1_semantic_score_median"]), 1),

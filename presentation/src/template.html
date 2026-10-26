@@ -289,7 +289,7 @@ footer b { color: var(--hud-ink); font-family: var(--pxb); font-weight: normal; 
     <div class="findings">
       <div class="finding"><div class="k">발견1</div><p><span class="t">교육 공급은 입문·초급에 몰려 있습니다.</span>난이도가 표기된 과정 <span class="num" id="f1-labeled"></span>개 중 <mark><span id="f1-beg"></span>%가 입문·초급</mark>입니다. 반면 NCS 수요 분석에서는 실무·중급(L3~6)이 80%를 차지합니다.</p></div>
       <div class="finding"><div class="k">발견2</div><p><span class="t">노무·준법 교육이 가장 부족합니다.</span>인사 실무 핵심 역량 6가지 가운데 노무·준법 키워드를 다루는 과정은 <mark><span id="f2-labor"></span>%</mark>에 그칩니다.</p></div>
-      <div class="finding"><div class="k">발견3</div><p><span class="t">과업 90개 모두에 추천 3개씩을 찾았지만, 사람 확인이 남았습니다.</span>1위 과정의 의미 유사도는 중앙값 <span id="f3-med"></span>점입니다. 과업 <span id="f3-review"></span>개는 역량 연결이 애매해 검토가 필요하고, 공식 만족도는 카탈로그 과정 중 <span id="f3-sat"></span>개에만 붙어 추천 순위에 쓰지 않았습니다.</p></div>
+      <div class="finding"><div class="k">발견3</div><p><span class="t">과업 90개 모두에 추천 3개씩을 찾았지만, 사람 확인이 남았습니다.</span>1위 과정의 의미 유사도는 중앙값 <span id="f3-med"></span>점입니다. 과업 <span id="f3-review"></span>개는 맞는 NCS 역량이 아직 목록에 없어 연결을 확인하고 있고, 공식 만족도는 카탈로그 과정 중 <span id="f3-sat"></span>개에만 붙어 추천 순위에 쓰지 않았습니다.</p></div>
     </div>
   </div>
 </section>
@@ -444,7 +444,8 @@ footer b { color: var(--hud-ink); font-family: var(--pxb); font-weight: normal; 
   </div>
   <div class="wrap">
     <h3>추천 결과를 점검해 보니</h3>
-    <p>90개 과업의 1위 추천은 의미 유사도 중앙값 <strong><span id="rv-med"></span>점</strong>, 최저 <span id="rv-min"></span>점입니다. 과업별 추천 3개 × 3개 수준, 모두 <span id="rv-slots"></span>자리를 서로 다른 <span id="rv-distinct"></span>개 과정이 채웠습니다. 일부 과정이 여러 과업에 반복해서 나옵니다.</p>
+    <p>90개 과업의 1위 추천은 의미 유사도 중앙값 <strong><span id="rv-med"></span>점</strong>, 최저 <span id="rv-min"></span>점입니다. 과업별 추천 3개 × 3개 수준, 모두 <span id="rv-slots"></span>자리를 서로 다른 <span id="rv-distinct"></span>개 과정이 채웠습니다.</p>
+    <p>설명 없이 제목만 있는 과정은 전체의 <span id="rv-to-all"></span>%지만, 추천 Top 3에서는 <mark><span id="rv-to-top"></span>%</mark>에 그칩니다. 추천이 내용을 확인할 수 있는 과정을 주로 고른다는 뜻입니다. 반면 범위가 넓은 과정 일부는 여러 과업에 반복해서 나옵니다.</p>
   </div>
   <div class="wrap wide">
     <figure class="fig">
@@ -491,9 +492,10 @@ footer b { color: var(--hud-ink); font-family: var(--pxb); font-weight: normal; 
     <div class="eyebrow"><b>06</b> 유의사항</div>
     <h2>이 결과를 읽을 때 알아 둘 것</h2>
     <ol class="caveats">
-      <li><p><strong>난이도 비교는 방향만 봅니다.</strong> NCS 레벨(1~8)과 교육기관 난이도 표기(초급·중급·고급)는 다른 기준입니다. 과정의 39%는 난이도 표기가 없습니다.</p></li>
+      <li><p><strong>난이도 비교는 방향만 봅니다.</strong> NCS 레벨(1~8)과 교육기관 난이도 표기(초급·중급·고급)는 다른 기준입니다. 난이도 표기가 없는 <span id="cv-unl"></span>개(<span id="cv-unl-pct"></span>%)는 대부분 <span id="cv-unl-prov"></span> 과정이어서, 두 기관 과정은 이 비교에서 빠졌습니다.</p></li>
       <li><p><strong>분야 분류와 NCS 연결은 자동 결과입니다.</strong> 문장 임베딩과 규칙으로 붙였고, 사람이 전부 검증하지는 않았습니다. 대시보드에는 "자동 매핑 후보"로 표시합니다.</p></li>
-      <li><p><strong>과업 <span id="cv-review"></span>개는 검토가 필요합니다.</strong> 과업과 역량의 연결 점수 차이가 작아 어느 역량에 속하는지 애매합니다. 또 범위가 넓은 과정이 여러 과업에 반복 추천됩니다(최대 14개 과업).</p></li>
+      <li><p><strong>과업 <span id="cv-review"></span>개는 맞는 NCS 역량이 아직 없습니다.</strong> 인사 쪽 연결 역량이 인력채용, 인사평가 및 보상, 근로관계 법률 준수 3개뿐이라 교육훈련·조직설계·조직문화 과업은 가장 가까운 역량에 임시로 붙어 있습니다. 탐색기에서는 이 과업들의 역량 표시를 숨겼습니다. 추천 결과는 과업 설명으로 계산해 영향을 받지 않습니다. NCS 능력단위를 추가해 연결할 예정입니다.</p></li>
+      <li><p><strong>일부 과정이 여러 과업에 반복 추천됩니다.</strong> 범위가 넓은 과정 <span id="cv-reuse"></span>개가 5개 이상 과업에 나오며, 추천 자리의 <span id="cv-reuse-pct"></span>%를 차지합니다. 반복될수록 점수를 조금 낮추는 방법을 검토하고 있습니다.</p></li>
       <li><p><strong>공식 만족도는 일부 과정에만 있습니다.</strong> 국민내일배움카드 과정만 제공되고 사업주훈련 과정은 항목이 없습니다. 응답자 수가 공개되지 않아 정밀한 평점으로 읽으면 안 됩니다.</p></li>
     </ol>
   </div>
@@ -568,6 +570,13 @@ const D = /*__DATA__*/;
   $('#rv-slots').textContent = fmt(R.top3_slots);
   $('#rv-distinct').textContent = fmt(R.top3_distinct);
   $('#cv-review').textContent = R.needs_review;
+  $('#cv-reuse').textContent = R.reused5_courses;
+  $('#cv-reuse-pct').textContent = R.reused5_slot_pct;
+  $('#rv-to-all').textContent = R.title_only_all_pct;
+  $('#rv-to-top').textContent = R.title_only_top3_pct;
+  $('#cv-unl').textContent = fmt(D.difficulty.unlabeled);
+  $('#cv-unl-pct').textContent = Math.round(D.difficulty.unlabeled_pct);
+  $('#cv-unl-prov').textContent = D.difficulty.unlabeled_top.map(p => `${p.label.replace(/\(.*\)/, '')}(${fmt(p.n)}개)`).join('와 ');
   $('#gap-labeled').textContent = fmt(D.difficulty.labeled);
   $('#gap-unlabeled').textContent = fmt(D.difficulty.unlabeled);
   const per = S.period || [];
@@ -766,7 +775,7 @@ const D = /*__DATA__*/;
     const sel = $('#ex-task');
     const list = R.tasks.filter(t => t.domain === state.domain);
     if (!state.task || !list.some(t => t.id === state.task)) state.task = list[0].id;
-    sel.innerHTML = list.map(t => `<option value="${t.id}"${t.id === state.task ? ' selected' : ''}>${esc(t.name)}${t.review ? ' (검토 필요)' : ''}</option>`).join('');
+    sel.innerHTML = list.map(t => `<option value="${t.id}"${t.id === state.task ? ' selected' : ''}>${esc(t.name)}${t.review ? ' (역량 확인 중)' : ''}</option>`).join('');
     renderTask();
   }
   function renderLevels() {
@@ -786,9 +795,13 @@ const D = /*__DATA__*/;
     $('#ex-desc').textContent = t.desc;
     const tags = [];
     if (t.stage) tags.push(`<span class="tag">${esc(t.stage)}</span>`);
-    if (t.comp) tags.push(`<span class="tag">연결 역량: ${esc(t.comp)}</span>`);
-    if (t.ncs) tags.push(`<span class="tag">NCS ${esc(t.ncs)}</span>`);
-    if (t.review) tags.push('<span class="tag warn">역량 연결 검토 필요</span>');
+    // 검토가 필요한 과업은 임시로 붙은 역량·NCS 코드를 보여 주지 않는다
+    if (t.review) {
+      tags.push('<span class="tag warn">NCS 역량 연결 확인 중</span>');
+    } else {
+      if (t.comp) tags.push(`<span class="tag">연결 역량: ${esc(t.comp)}</span>`);
+      if (t.ncs) tags.push(`<span class="tag">NCS ${esc(t.ncs)}</span>`);
+    }
     $('#ex-tags').innerHTML = tags.join('');
     const recs = (t.recs && t.recs[state.level]) || [];
     const MAX = 95;
