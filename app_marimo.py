@@ -103,15 +103,31 @@ def __(mo):
             ### 💡 핵심 질문 (Core Research Question)
             **"인사·총무 직무에 필요한 핵심 역량(L1~L2)은 무엇이며, 이를 개발하기 위해 어떤 공공 교육과정을 우선 추천할 수 있을까?"**
             - **분석 직무**: 인사(HR), 총무·사무행정 (2개 직무)
-            - **핵심 역량**: 직무별 4~5개 (총 9개 핵심 역량)
-            - **연계 교육과정**: 3대 공공 API 실시간 30개 강좌 (NCS 10개, 내일배움카드 10개, 사업주훈련 10개)
+            - **핵심 역량**: 직무별 4~5개 (총 9개, 팀이 정의한 역량)
+            - **탭 1~4**: 1차로 3대 공공 API에서 수집한 30개 강좌 (NCS 10개, 내일배움카드 10개, 사업주훈련 10개)
+            - **탭 5**: 팀원이 수집한 295개 강좌의 텍스트 분석·추천 결과
             - **숙련도 범위**: Level 1 ~ Level 2 (입문·초급)
             """
         ),
         kind="info"
     )
 
-    return header_view, question_banner
+    # 데이터 한계 안내 (2026-10-28 데이터 검토 반영)
+    data_note = mo.callout(
+        mo.md(
+            """
+            **데이터 해석 시 주의**
+            - 추천 정확도는 아직 측정되지 않았습니다 (팀원 블라인드 평가 미완료).
+            - 탭 5의 수강생 만족도·교육시간은 수집 기본값(80점·40시간)이어서 제외했고, 추천 점수는 `(0.50×의미 유사도 + 0.35×키워드) ÷ 0.85`로 계산합니다.
+            - 군집은 실루엣 점수가 낮아(약 0.05) 주제 경계가 뚜렷하지 않습니다.
+            - 고용24 과정은 2025년 회차 기준이므로 현재 개설 여부는 링크에서 확인하세요.
+            - 이후 단계의 확정 과정(295건)과 고객용 화면은 `hr_career_platform_v2.html`에서 볼 수 있습니다.
+            """
+        ),
+        kind="warn"
+    )
+
+    return data_note, header_view, question_banner
 
 
 @app.cell
@@ -120,6 +136,8 @@ def __(df_courses, mo):
     total_cnt = len(df_courses) if not df_courses.empty else 30
     hr_cnt = int((df_courses["primary_job"] == "인사(HR)").sum()) if not df_courses.empty else 8
     ga_cnt = int((df_courses["primary_job"] == "총무·사무행정").sum()) if not df_courses.empty else 22
+    # 예전에는 95.0점으로 고정 표기했으나 실제 최고점은 데이터에서 계산한다
+    best_score = float(df_courses["suitability_score"].max()) if not df_courses.empty else 0.0
 
     kpi_banner = mo.hstack([
         mo.callout(
@@ -155,16 +173,16 @@ def __(df_courses, mo):
         mo.callout(
             mo.md(
                 f"""
-                **최고 추천 적합도**
-                # 95.0점
-                직무별 Top 3 추천 매핑
+                **최고 추천 적합도 (규칙 기반)**
+                # {best_score:.1f}점
+                1차 30개 강좌 중 최고점
                 """
             ),
             kind="warn"
         ),
     ], justify="start", gap=2)
 
-    return ga_cnt, hr_cnt, kpi_banner, total_cnt
+    return best_score, ga_cnt, hr_cnt, kpi_banner, total_cnt
 
 
 @app.cell
@@ -415,28 +433,38 @@ def __(hr_gap_data, mo):
 
 
 @app.cell
-def __(Path, alt, mo, pd):
-    # 5단계 탭: 295개 전수 NLP 텍스트 분석 & AI 스마트 추천 뷰
+def __(Path, alt, json, mo, pd):
+    # 5단계 탭: 팀원 295개 강좌 텍스트 분석 & 하이브리드 추천 뷰
+    # 숫자는 모두 결과 파일에서 읽는다 (2026-10-28: 예전 고정 점수·키워드·'결측치 0%' 문구 제거)
     clust_file = Path("data/hr/output/text_analysis/cluster_summary_k8.csv")
-
     courses_file = Path("data/hr/output/text_analysis/course_keywords_clusters_k8.csv")
+    cleaned_file = Path("data/processed/hr_courses_detailed_295.csv")
     bench_file = Path("data/hr/output/recommendation/hybrid_recommendation_benchmark.csv")
-    
+    metrics_file = Path("data/hr/reports/teammate_295_reproduction_metrics.json")
+
     df_clust = pd.read_csv(clust_file) if clust_file.exists() else pd.DataFrame()
     df_courses_295 = pd.read_csv(courses_file) if courses_file.exists() else pd.DataFrame()
     df_bench = pd.read_csv(bench_file) if bench_file.exists() else pd.DataFrame()
+    nlp_metrics = json.loads(metrics_file.read_text(encoding="utf-8")) if metrics_file.exists() else {}
 
-    # 상단 4대 NLP KPI 카드
-    n_total_courses = len(df_courses_295) if not df_courses_295.empty else 295
-    n_clusters = len(df_clust) if not df_clust.empty else 8
-    
+    # 교육시간·수강료는 기본값을 결측으로 정정한 파일(scripts/fix_295_imputed_values.py) 값으로 교체
+    if not df_courses_295.empty and cleaned_file.exists():
+        _cleaned = pd.read_csv(cleaned_file)[["id", "training_hours", "cost"]]
+        df_courses_295 = df_courses_295.drop(columns=["training_hours", "cost"]).merge(_cleaned, on="id", how="left")
+
+    n_total_courses = len(df_courses_295)
+    n_clusters = len(df_clust)
+    vocab_size = nlp_metrics.get("vocab_size")
+    silhouette = nlp_metrics.get("silhouette_score_cosine")
+    n_hours_known = int(df_courses_295["training_hours"].notna().sum()) if n_total_courses else 0
+
     nlp_kpis = mo.hstack([
         mo.callout(
             mo.md(
                 f"""
-                **전수 분석 강좌**
+                **분석 강좌**
                 # {n_total_courses}개
-                결측치 0% 상세 본문 정제
+                과정명·소개·목차 텍스트 (교육시간 확인 {n_hours_known}건)
                 """
             ),
             kind="info"
@@ -445,36 +473,35 @@ def __(Path, alt, mo, pd):
             mo.md(
                 f"""
                 **형태소 어휘 수**
-                # 1,200개
-                Kiwi 고속 형태소 + 도메인 사전
-                """
+                # {vocab_size:,}개
+                Kiwi 형태소 분석 (재현 실행 기준)
+                """ if vocab_size else "**형태소 어휘 수**\n# -"
             ),
             kind="neutral"
         ),
         mo.callout(
             mo.md(
                 f"""
-                **도출된 세부 군집**
-                # {n_clusters}대 클러스터
-                K-Means + 실루엣 코사인 최적화
-                """
+                **K-Means 군집**
+                # {n_clusters}개
+                실루엣 {silhouette:.3f} · 경계가 흐림
+                """ if silhouette is not None else f"**K-Means 군집**\n# {n_clusters}개"
             ),
             kind="success"
         ),
         mo.callout(
             mo.md(
                 """
-                **추천 모델 엔진**
+                **추천 모델**
                 # 하이브리드
-                LSA 의미유사도 + BM25 키워드
+                (0.50 의미 + 0.35 키워드) ÷ 0.85 · 정확도 미측정
                 """
             ),
             kind="warn"
         ),
     ], justify="start", gap=2)
 
-    # 1. 시각화 차트
-    # 군집별 분포 차트
+    # 1. 시각화 차트: 군집별 분포 (팀원 원본 결과)
     chart_clusters = None
     if not df_clust.empty:
         chart_clusters = (
@@ -490,94 +517,66 @@ def __(Path, alt, mo, pd):
                     alt.Tooltip("top_keywords:N", title="핵심 키워드"),
                 ]
             )
-            .properties(width=380, height=260, title="8대 직무 군집별 강좌 분포 및 대표 키워드")
+            .properties(width=380, height=260, title="군집별 강좌 수와 대표 키워드 (팀원 원본 결과)")
         )
 
-    # 상위 15대 TF-IDF 키워드 차트
-    top_kw_data = pd.DataFrame({
-        "keyword": ["분석", "비즈니스", "전략", "엑셀", "실기", "작성", "문서", "기업", "컴활", "데이터", "경영", "조직", "자격증", "커뮤니케이션", "회계"],
-        "tfidf": [9.10, 9.06, 8.38, 7.78, 7.42, 7.26, 7.09, 7.02, 6.53, 6.35, 6.25, 6.15, 6.14, 6.02, 5.20],
-        "freq": [66, 37, 62, 36, 33, 53, 39, 51, 24, 34, 28, 41, 34, 24, 26]
-    })
+    # 대표 키워드 Top 15: 강좌별 대표 키워드(top_keywords)에 등장한 강좌 수를 센다
+    top_kw_data = pd.DataFrame(columns=["keyword", "n_courses"])
+    if n_total_courses:
+        top_kw_data = (
+            df_courses_295["top_keywords"].dropna().str.split(r",\s*").explode().str.strip()
+            .loc[lambda s: s != ""].value_counts().head(15)
+            .rename_axis("keyword").reset_index(name="n_courses")
+        )
     chart_keywords = (
         alt.Chart(top_kw_data)
         .mark_bar(cornerRadius=6)
         .encode(
-            x=alt.X("tfidf:Q", title="TF-IDF 중요도 합계"),
-            y=alt.Y("keyword:N", sort="-x", title="핵심 키워드"),
-            color=alt.Color("tfidf:Q", legend=None, scale=alt.Scale(scheme="blues")),
-            tooltip=[
-                alt.Tooltip("keyword:N", title="키워드"),
-                alt.Tooltip("tfidf:Q", title="TF-IDF 점수"),
-                alt.Tooltip("freq:Q", title="등장 강좌 수"),
-            ]
+            x=alt.X("n_courses:Q", title="대표 키워드로 등장한 강좌 수"),
+            y=alt.Y("keyword:N", sort="-x", title="키워드"),
+            color=alt.Color("n_courses:Q", legend=None, scale=alt.Scale(scheme="blues")),
+            tooltip=[alt.Tooltip("keyword:N", title="키워드"), alt.Tooltip("n_courses:Q", title="강좌 수")]
         )
-        .properties(width=380, height=260, title="전체 295개 교육과정 Top 15 핵심 직무 키워드")
+        .properties(width=380, height=260, title=f"{n_total_courses}개 강좌의 대표 키워드 Top 15")
     )
 
-    # 2. 3대 실전 시나리오 하이브리드 추천 결과 카드
-    scenario_cards = [
-        mo.callout(
-            mo.md(
-                """
-                ### 🧑‍💼 [시나리오 1] 스타트업 총무 신입사원
-                > **질의**: *"사무용 비품 구매 계약이랑 회사 기획 문서, 공문서 작성법 배우고 싶어요"*
-                - 🥇 **1위**: **쉽게 쓰고 편하게 읽히는 2page 보고서 만들기** (윈스펙, 40H)
-                  - **종합 점수**: **68.2점** (의미일치 42.4% / 키워드일치 100.0% / 평점 80점)
-                  - **키워드 태그**: `#페이지 #작성법 #보고서 #문서 #작성`
-                - 🥈 **2위**: **일 잘하는 직장인의 업무력** (인비원, 40H, 60.1점)
-                """
-            ),
-            kind="info"
-        ),
-        mo.callout(
-            mo.md(
-                """
-                ### 👥 [시나리오 2] 인사담당 1년 차
-                > **질의**: *"직원 월급 주는 법이랑 퇴직금, 4대보험 법적 기준 계산을 체계적으로 알고 싶습니다"*
-                - 🥇 **1위**: **실무자를 위한 인사급여지급(급여계산+4대보험관리+원천징수+연말정산)B** (하이컴퓨터, 40H)
-                  - **종합 점수**: **56.6점** (키워드일치 100.0% / 평점 80점)
-                  - **키워드 태그**: `#급여 #4대보험 #연말정산 #지급 #급여지급`
-                - 🥈 **2위**: **기업이윤 창출을 위한 원가회계** (에듀퓨어, 40H, 56.2점)
-                """
-            ),
-            kind="success"
-        ),
-        mo.callout(
-            mo.md(
-                """
-                ### 🎓 [시나리오 3] 취업준비생
-                > **질의**: *"취업 스펙용으로 엑셀 실기 자격증 따고 데이터 다루는 법을 마스터하고 싶어요"*
-                - 🥇 **1위**: **[주말 컴활2급] 컴퓨터활용능력2급(엑셀)자격증 취득과정(실기)** (하이미디어, 40H)
-                  - **종합 점수**: **83.9점** (의미일치 73.7% / 키워드일치 100.0% / 평점 80점)
-                  - **키워드 태그**: `#도움 #취득 #선정 #취득과정 #실기`
-                - 🥈 **2위**: **컴퓨터활용능력 2급 자격증(실기)취득&엑셀실무** (더조은, 40H, 77.4점)
-                """
-            ),
-            kind="warn"
-        ),
-    ]
+    # 2. 시나리오별 하이브리드 추천 결과 카드 (결과 파일에서 생성)
+    scenario_cards = []
+    _kinds = ["info", "success", "warn"]
+    for _i, (_sc, _g) in enumerate(df_bench.groupby("scenario", sort=False) if not df_bench.empty else []):
+        _g = _g.sort_values("rank")
+        _lines = [
+            f"- **{int(r['rank'])}위**: **{r['course_title']}** ({r['platform']}) · "
+            f"종합 {r['final_score']:.1f}점 (의미일치 {r['semantic_sim']:.1f}% / 키워드일치 {r['bm25_score']:.1f}%)"
+            for _, r in _g.iterrows()
+        ]
+        scenario_cards.append(
+            mo.callout(
+                mo.md(f"### [시나리오 {_i + 1}] {_sc}\n> **질의**: *\"{_g['query'].iloc[0]}\"*\n\n" + "\n".join(_lines)),
+                kind=_kinds[_i % len(_kinds)],
+            )
+        )
 
-    # 3. 295개 강좌 전수 테이블 탐색기
+    # 3. 강좌 전수 테이블
     table_295 = mo.vstack([
-        mo.md("#### 📂 295개 교육과정 전수 키워드 및 군집 탐색 테이블"),
-        mo.md("> 키워드 태그(#...) 및 8대 군집 번호가 결합된 295개 전수 강좌 목록입니다. 검색 및 정렬이 가능합니다."),
+        mo.md(f"#### 📂 {n_total_courses}개 교육과정 키워드 및 군집 탐색 테이블"),
+        mo.md("> 대표 키워드와 군집 번호를 붙인 강좌 목록입니다. 교육시간·수강료 빈칸은 수집되지 않은 값입니다."),
         mo.ui.table(df_courses_295[[
-            "id", "course_title", "platform", "institution", 
+            "id", "course_title", "platform", "institution",
             "training_hours", "cost", "top_keywords", "cluster"
-        ]]) if not df_courses_295.empty else mo.md("데이터 없음")
+        ]]) if n_total_courses else mo.md("데이터 없음")
     ])
 
     tab5_content = mo.vstack([
-        mo.md("### 🤖 2단계·3단계 AI 자연어(NLP) 텍스트 분석 & 하이브리드 추천 결과"),
-        mo.md("> 295개 강좌 상세페이지 전수에서 홍보성 문구를 정제하고 형태소(Kiwi)·TF-IDF·KMeans 군집화 및 LSA 의미유사도 추천을 수행한 결과입니다."),
+        mo.md("### 🤖 텍스트 분석 & 하이브리드 추천 결과 (팀원 295개 강좌)"),
+        mo.md("> 강좌 소개·목차에서 홍보성 문구를 정제하고 형태소(Kiwi)·TF-IDF·K-Means 군집화와 LSA 의미 유사도 추천을 수행한 결과입니다."),
         nlp_kpis,
         mo.md("---"),
-        mo.md("#### 📊 텍스트 마이닝 & 군집화 시각화 (K-Means & TF-IDF)"),
+        mo.md("#### 📊 텍스트 마이닝 & 군집화 시각화"),
         mo.hstack([mo.ui.altair_chart(chart_clusters), mo.ui.altair_chart(chart_keywords)] if chart_clusters else [mo.ui.altair_chart(chart_keywords)], justify="start", gap=2),
         mo.md("---"),
-        mo.md("#### 🎯 실전 시나리오별 맞춤형 AI 하이브리드 추천 결과 (Top 3)"),
-        mo.vstack(scenario_cards),
+        mo.md("#### 🎯 시나리오별 하이브리드 추천 결과 (Top 3)"),
+        mo.vstack(scenario_cards) if scenario_cards else mo.md("추천 결과 파일이 없습니다."),
         mo.md("---"),
         table_295
     ])
@@ -588,11 +587,15 @@ def __(Path, alt, mo, pd):
         df_bench,
         df_clust,
         df_courses_295,
+        n_hours_known,
         nlp_kpis,
+        nlp_metrics,
         scenario_cards,
+        silhouette,
         tab5_content,
         table_295,
         top_kw_data,
+        vocab_size,
     )
 
 
@@ -600,6 +603,7 @@ def __(Path, alt, mo, pd):
 def __(
     charts_view,
     control_bar,
+    data_note,
     header_view,
     kpi_banner,
     mo,
@@ -621,6 +625,7 @@ def __(
     dashboard_layout = mo.vstack([
         header_view,
         question_banner,
+        data_note,
         kpi_banner,
         control_bar,
         mo.md("---"),
