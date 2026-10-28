@@ -6,7 +6,7 @@ import sys
 from pathlib import Path
 import pandas as pd
 
-WORKSPACE_ROOT = Path("d:/26_강의자료/프로젝트2_교육")
+WORKSPACE_ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(WORKSPACE_ROOT))
 INTEG_DIR = WORKSPACE_ROOT / "data" / "hr" / "output" / "integration"
 PROCESSED_DIR = WORKSPACE_ROOT / "data" / "hr" / "processed"

@@ -4,9 +4,10 @@ STEP 3 & 4 | 의미 유사도(Semantic Similarity, LSA Dense) & BM25 하이브�
     1. Sparse 검색: BM25 (키워드 정확도 매칭)
     2. Dense 의미 검색: Latent Semantic Analysis (LSA / SVD 128차원)
        - 글자가 달라도 동일 문맥(월급 ↔ 급여 ↔ 4대보험)을 벡터 공간의 각도(코사인 유사도)로 계산
-    3. 품질 보정: 수강생 만족도 평점
+    3. (제외) 수강생 만족도: 실제 값 미확보
 - 최종 스코어링:
-    최종 추천 점수 = 0.50 * Dense 의미 유사도 + 0.35 * Sparse BM25 점수 + 0.15 * 수강생 평점
+    최종 추천 점수 = (0.50 * Dense 의미 유사도 + 0.35 * Sparse BM25 점수) / 0.85
+    (수강생 만족도는 실제 값이 아닌 기본값이어서 점수에서 제외함)
 """
 
 import io
@@ -141,16 +142,14 @@ def recommend_courses(query: str, top_k: int = 3, max_budget: int = None):
     bm25_raw = np.array(bm25.get_scores(q_tokens))
     bm25_norm = bm25_raw / (bm25_raw.max() + 1e-6) if bm25_raw.max() > 0 else bm25_raw
 
-    # (4) 수강생 만족도 점수 (Quality)
-    ratings = df_raw["satisfaction_score_100"].fillna(80.0).values / 100.0
-
-    # (5) 하이브리드 스코어 결합 (0~100점)
-    hybrid_score = (0.50 * dense_scores) + (0.35 * bm25_norm) + (0.15 * ratings)
+    # (4) 하이브리드 스코어 결합 (0~100점)
+    # satisfaction_score_100은 295건 모두 수집 실패 시 넣은 기본값(80/88점)이거나
+    # 고정 입력값(인프런 96점)이어서 실제 만족도가 아니다. 실제 값 확보 전까지 점수에서 제외한다.
+    hybrid_score = ((0.50 * dense_scores) + (0.35 * bm25_norm)) / 0.85
 
     res = df_raw.copy()
     res["semantic_sim"] = (dense_scores * 100).round(1)
     res["bm25_score"] = (bm25_norm * 100).round(1)
-    res["satisfaction"] = df_raw["satisfaction_score_100"].fillna(0).astype(int)
     res["final_score"] = (hybrid_score * 100).round(1)
 
     if df_clust is not None:
@@ -191,7 +190,7 @@ for idx, sc in enumerate(test_scenarios, 1):
         cost_str = "무료" if row["cost"] == 0 else f"{int(row['cost']):,}원"
         print(f"  {rank}위. {row['course_title']}")
         print(f"       기관: {row['institution']} ({row['platform']}) | 시간: {row['training_hours']}H | 비용: {cost_str}")
-        print(f"       ★ 종합추천: {row['final_score']}점 [의미일치 {row['semantic_sim']}% / 키워드일치 {row['bm25_score']}% / 만족도 {row['satisfaction']}점]")
+        print(f"       ★ 종합추천: {row['final_score']}점 [의미일치 {row['semantic_sim']}% / 키워드일치 {row['bm25_score']}%]")
         if "top_keywords" in row and pd.notna(row["top_keywords"]):
             print(f"       태그: #{row['top_keywords'].replace(', ', ' #')}")
 print("=" * 75)

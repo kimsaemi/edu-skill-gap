@@ -144,7 +144,8 @@ def tab_gap(df):
 def tab_recommend(df, bench):
     st.subheader("맞춤 교육과정 추천")
     if bench is not None:
-        st.markdown("#### 시나리오별 하이브리드 추천 (0.50 의미 + 0.35 BM25 + 0.15 만족도)")
+        st.markdown("#### 시나리오별 하이브리드 추천 ((0.50 의미 + 0.35 BM25) ÷ 0.85)")
+        st.caption("만족도는 실제 값이 확보되지 않아 점수에 넣지 않았습니다. 추천 정확도는 팀원 평가 전이라 아직 측정되지 않았습니다.")
         sc = st.selectbox("시나리오", bench["scenario"].unique().tolist())
         b = bench[bench["scenario"] == sc]
         st.markdown(f"**질의**: {b['query'].iloc[0]}")

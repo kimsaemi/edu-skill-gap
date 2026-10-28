@@ -5,7 +5,7 @@ NCS 기반 인사·총무 교육 데이터 대시보드 (STEP 4 MVP)
 - 구성:
     TAB 1. 교육 데이터 현황 (KPI 카드, 플랫폼/직무/출처 분포)
     TAB 2. 교육과정 탐색 (다차원 실시간 필터링, 정렬, 상세 링크)
-    TAB 3. 직무역량 KSA 분석 (NCS 7대 핵심 역량 매핑 및 KSA 분포)
+    TAB 3. 직무역량 KSA 분석 (분석용 역량 코드 매핑 및 KSA 분포)
     TAB 4. 텍스트 분석·군집화 (TF-IDF 키워드, K-Means 군집, BM25 검색, 검색 방식 비교)
 """
 
@@ -64,11 +64,14 @@ def load_all_datasets():
 # ------------------------------------------------------------------------------
 # 2. 유틸리티 포맷팅 함수
 # ------------------------------------------------------------------------------
-def format_fee(val):
+def format_fee(val, platform=None):
     """수강료 값을 사용자 친화적 문자열로 변환합니다."""
     if pd.isna(val):
         return "미기재 (문의)"
     val = float(val)
+    if val == 0.0 and platform == "고용24_사업주훈련":
+        # 사업주훈련의 0원은 수강비 값이며 실제 훈련비는 사업주가 부담 후 환급받는다 (무료 아님)
+        return "수강비 0원 (사업주훈련·환급)"
     if val == 0.0:
         return "무료 (국비/공공)"
     return f"{int(val):,}원"
@@ -248,7 +251,7 @@ def render_learning_journey(datasets):
             with title_col:
                 st.markdown(f"**{rank}순위 · {course.course_name}**")
                 st.caption(
-                    f"{course.institution_name} · {course.course_level} · {format_hours(course.training_hours)} · {format_fee(course.course_fee)}"
+                    f"{course.institution_name} · {course.course_level} · {format_hours(course.training_hours)} · {format_fee(course.course_fee, course.source_platform)}"
                 )
                 st.write(f"추천 이유: 선택한 **{course.matched_competencies}** 역량과 직접 연결된 과정입니다.")
                 st.caption(
@@ -333,7 +336,7 @@ def render_tab1_overview(df_all):
             template="plotly_white"
         )
         fig_plat.update_layout(xaxis_tickangle=-30, legend=dict(orientation="h", yanchor="bottom", y=1.02, xanchor="right", x=1))
-        st.plotly_chart(fig_plat, use_container_width=True)
+        st.plotly_chart(fig_plat, width="stretch")
 
     with col_right:
         st.markdown("#### 🎯 직무군별 확정 강좌 비중 (INCLUDED 기준)")
@@ -349,7 +352,7 @@ def render_tab1_overview(df_all):
             color_discrete_sequence=["#3498db", "#9b59b6", "#1abc9c"],
             template="plotly_white"
         )
-        st.plotly_chart(fig_jg, use_container_width=True)
+        st.plotly_chart(fig_jg, width="stretch")
 
     # 3. 시각화 섹션 2: 세부 직무별 카테고리 & 출처 유형
     col_cat, col_src = st.columns([1.4, 1.0])
@@ -371,7 +374,7 @@ def render_tab1_overview(df_all):
         )
         fig_cat.update_layout(yaxis=dict(autorange="reversed"), coloraxis_showscale=False)
         fig_cat.update_traces(texttemplate="%{text}건", textposition="outside")
-        st.plotly_chart(fig_cat, use_container_width=True)
+        st.plotly_chart(fig_cat, width="stretch")
 
     with col_src:
         st.markdown("#### 🌐 데이터 수집 출처 비중")
@@ -385,7 +388,7 @@ def render_tab1_overview(df_all):
             color_discrete_map={"PUBLIC_API": "#2980b9", "SQLITE_DB": "#e67e22"},
             template="plotly_white"
         )
-        st.plotly_chart(fig_src, use_container_width=True)
+        st.plotly_chart(fig_src, width="stretch")
 
     st.info("💡 **데이터 해석 안내**: 본 집계는 고유 교육과정 식별자(global_course_key) 기준이며, 단순 중복이 제거된 상태입니다.")
 
@@ -491,7 +494,7 @@ def render_tab2_explorer(df_all):
             "상태": st.column_config.TextColumn("검증상태", help="INCLUDED: 직무적합, REVIEW: 검토대기, EXCLUDED: 제외")
         },
         hide_index=True,
-        use_container_width=True,
+        width="stretch",
         height=480
     )
 
@@ -541,7 +544,7 @@ def render_tab3_competency(datasets):
     c_left, c_right = st.columns([1.4, 1.0])
 
     with c_left:
-        st.markdown("#### 🎯 NCS 7대 핵심 역량별 교육 공급 현황")
+        st.markdown("#### 🎯 역량 코드별 교육 공급 현황 (분석용 코드, 기준 체계는 인사 9개 분야)")
         df_comp_chart = df_comp.copy()
         df_comp_chart["강좌수"] = df_comp_chart["competency_id"].apply(lambda cid: comp_course_counts.get(cid, 0))
         df_comp_chart = df_comp_chart.sort_values(by="강좌수", ascending=True)
@@ -559,7 +562,7 @@ def render_tab3_competency(datasets):
             template="plotly_white"
         )
         fig_comp.update_traces(texttemplate="%{text}건", textposition="outside")
-        st.plotly_chart(fig_comp, use_container_width=True)
+        st.plotly_chart(fig_comp, width="stretch")
 
     with c_right:
         st.markdown("#### 🧩 KSA 유형별 역량 분포")
@@ -569,15 +572,15 @@ def render_tab3_competency(datasets):
             ksa_summary,
             names="KSA유형",
             values="역량개수",
-            title="7대 역량의 K/S/A 구성 비율",
+            title="역량 코드의 K/S/A 구성 비율",
             color="KSA유형",
             color_discrete_map={"Skill": "#3498db", "Knowledge": "#9b59b6", "Attitude": "#1abc9c"},
             template="plotly_white"
         )
-        st.plotly_chart(fig_ksa, use_container_width=True)
+        st.plotly_chart(fig_ksa, width="stretch")
 
-    # 3. 7대 핵심 역량 마스터 정보 테이블
-    st.markdown("#### 📋 NCS 7대 핵심 역량 마스터 명세")
+    # 3. 역량 코드 마스터 정보 테이블
+    st.markdown("#### 📋 역량 코드 마스터 명세 (hr_scope: 인사 범위)")
     df_comp_table = pd.DataFrame({
         "역량 ID": df_comp["competency_id"],
         "NCS 능력단위코드": df_comp["ncs_unit_code"],
@@ -586,7 +589,7 @@ def render_tab3_competency(datasets):
         "공급 강좌수": df_comp["competency_id"].apply(lambda cid: f"{comp_course_counts.get(cid, 0)}건"),
         "역량 정의 및 설명": df_comp["definition"]
     })
-    st.dataframe(df_comp_table, hide_index=True, use_container_width=True)
+    st.dataframe(df_comp_table, hide_index=True, width="stretch")
 
     # 4. 분석 해석 주의사항 공지
     st.warning("""

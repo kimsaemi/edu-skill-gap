@@ -2,7 +2,7 @@ import sys
 from pathlib import Path
 
 # Add project root to sys.path
-sys.path.insert(0, str(Path("d:/26_강의자료/프로젝트2_교육")))
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
 from src.processors.data_loader import (
     load_integrated_courses,
@@ -23,8 +23,8 @@ def test_loader():
 
     # 2. Scope filter test
     df_ver = load_integrated_courses(scope="verified_only")
-    print(f" [PASS] load_integrated_courses(verified_only): {len(df_ver):,}행 (규칙 기반 자동 매핑 적합 3,595건 선별: 신규 3,499건 + 공공 96건, 사람의 전수 검수 대기)")
-    assert len(df_ver) == 3595
+    print(f" [PASS] load_integrated_courses(verified_only): {len(df_ver):,}행 (규칙 기반 자동 매핑 적합 3,285건: 신규 3,189건 + 공공 96건. 2026-10-25 영문 약어 오매칭·휴넷 접속 차단 페이지 제거 후)")
+    assert len(df_ver) == 3285
 
     # 3. Force CSV fallback test
     df_csv = load_integrated_courses(scope="all", force_csv=True)

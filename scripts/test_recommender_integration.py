@@ -59,7 +59,7 @@ print(df_ksa[['rank', 'title', 'provider', 'final_score', 'semantic_score', 'key
 assert len(df_ksa) == 5
 assert 'recommendation_reason' in df_ksa.columns
 assert 'ncs_unit_code' in df_ksa.columns
-assert df_ksa.iloc[0]['ncs_unit_code'] == "02020201_16v3"
+assert df_ksa.iloc[0]['ncs_unit_code'] == "02020201"  # NCS 세분류 '인사' (ksa_master.py 참고)
 print(f"추천 사유 샘플: {df_ksa.iloc[0]['recommendation_reason']}")
 print("[PASS] KSA 모드 역량 스코어링 및 커리큘럼 기반 추천 근거 도출 확인")
 

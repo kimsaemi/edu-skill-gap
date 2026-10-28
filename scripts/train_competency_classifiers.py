@@ -47,14 +47,14 @@ FILES = {
 
 # 8대 KSA 역량 마스터 정의
 COMPETENCY_TARGETS = [
-    {"id": "COMP_GA_01", "name": "문서작성 및 기획", "ncs_unit_code": "02010101_16v3", "job_family": "총무"},
-    {"id": "COMP_GA_02", "name": "비품 및 자산관리", "ncs_unit_code": "02010102_16v3", "job_family": "총무"},
-    {"id": "COMP_HR_01", "name": "인력채용", "ncs_unit_code": "02020201_16v3", "job_family": "인사"},
-    {"id": "COMP_HR_02", "name": "인사평가 및 보상", "ncs_unit_code": "02020202_16v3", "job_family": "인사"},
-    {"id": "COMP_LABOR_01", "name": "근로관계 법률 준수", "ncs_unit_code": "02030201_16v3", "job_family": "인사"},
-    {"id": "COMP_MGMT_01", "name": "프로젝트 및 조직관리", "ncs_unit_code": "01010102_16v3", "job_family": "경영지원"},
-    {"id": "COMP_MGMT_02", "name": "경영전략 및 재무회계 기초", "ncs_unit_code": "02030101_16v3", "job_family": "경영지원"},
-    {"id": "COMP_SEC_01", "name": "비즈니스 매너 및 커뮤니케이션", "ncs_unit_code": "02040302_16v3", "job_family": "경영지원"}
+    {"id": "COMP_GA_01", "name": "문서작성 및 기획", "ncs_unit_code": "", "job_family": "총무"},
+    {"id": "COMP_GA_02", "name": "비품 및 자산관리", "ncs_unit_code": "02020101", "job_family": "총무"},
+    {"id": "COMP_HR_01", "name": "인력채용", "ncs_unit_code": "02020201", "job_family": "인사"},
+    {"id": "COMP_HR_02", "name": "인사평가 및 보상", "ncs_unit_code": "02020201", "job_family": "인사"},
+    {"id": "COMP_LABOR_01", "name": "근로관계 법률 준수", "ncs_unit_code": "02020202", "job_family": "인사"},
+    {"id": "COMP_MGMT_01", "name": "프로젝트 및 조직관리", "ncs_unit_code": "", "job_family": "경영지원"},
+    {"id": "COMP_MGMT_02", "name": "경영전략 및 재무회계 기초", "ncs_unit_code": "", "job_family": "경영지원"},
+    {"id": "COMP_SEC_01", "name": "비즈니스 매너 및 커뮤니케이션", "ncs_unit_code": "", "job_family": "경영지원"}
 ]
 
 TARGET_COLS = [c["id"] for c in COMPETENCY_TARGETS]

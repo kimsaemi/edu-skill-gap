@@ -1,7 +1,7 @@
 """
 프로젝트 2 | NCS 기반 인사·총무 직무역량 분석 및 맞춤형 교육과정 추천 시스템
 - 대상: 인사(HR), 총무·사무행정 (2개 직무)
-- 역량: 직무별 핵심 역량 4~5개 (총 9개 핵심 역량)
+- 역량: 인사 9개 분야 (data/hr/reference/hr_domain_ncs_crosswalk.csv). 1차 탐색 데이터에는 총무 역량도 남아 있음
 - 숙련도: Level 1 ~ Level 2 (입문·초급)
 - 교육과정: 3대 공공 API (NCS 교육과정, 국민내일배움카드, 사업주훈련) 실시간 연동 30개 강좌
 """
@@ -299,7 +299,7 @@ def render_dashboard():
             <div style="font-size: 1.5rem;">💡</div>
             <div class="question-callout-text">
                 <strong>핵심 질문 (Core Research Question):</strong><br/>
-                "인사·총무 직무에 필요한 <strong>핵심 역량(L1~L2)</strong>은 무엇이며, 이를 개발하기 위해 어떤 <strong>공공 교육과정을 우선 추천</strong>할 수 있을까?"
+                "인사 직무에 필요한 <strong>핵심 역량(L1~L2)</strong>은 무엇이며, 이를 개발하기 위해 어떤 <strong>공공 교육과정을 우선 추천</strong>할 수 있을까?"
             </div>
         </div>
         """, unsafe_allow_html=True)
@@ -308,14 +308,14 @@ def render_dashboard():
         st.markdown(f"""
         <div class="kpi-grid">
             <div class="kpi-card-box c1">
-                <div class="kpi-t-label">분석 대상 직무</div>
-                <div class="kpi-t-val" style="color: #60A5FA;">2개 직무</div>
-                <div class="kpi-t-sub">인사(HR) · 총무·사무행정</div>
+                <div class="kpi-t-label">분석 범위</div>
+                <div class="kpi-t-val" style="color: #60A5FA;">인사(HR)</div>
+                <div class="kpi-t-sub">1차 탐색의 총무는 최종 제외</div>
             </div>
             <div class="kpi-card-box c2">
-                <div class="kpi-t-label">선정 핵심 역량 (L1~L2)</div>
-                <div class="kpi-t-val" style="color: #22D3EE;">9개 역량</div>
-                <div class="kpi-t-sub">직무별 4~5개 핵심 단위</div>
+                <div class="kpi-t-label">역량 체계</div>
+                <div class="kpi-t-val" style="color: #22D3EE;">인사 9개 분야</div>
+                <div class="kpi-t-sub">NCS 인사·노무관리 기반</div>
             </div>
             <div class="kpi-card-box c3">
                 <div class="kpi-t-label">연계 공공 API 강좌 수</div>
@@ -487,7 +487,7 @@ def render_dashboard():
                     "cost_type": "지원 유형",
                     "suitability_score": "적합도(점)"
                 }),
-                use_container_width=True,
+                width="stretch",
                 height=380
             )
 
@@ -519,7 +519,7 @@ def render_dashboard():
                         font=dict(color='#F8FAFC'),
                         margin=dict(l=10, r=10, t=40, b=10)
                     )
-                    st.plotly_chart(fig_pie, use_container_width=True)
+                    st.plotly_chart(fig_pie, width="stretch")
 
                 # 차트 2: 직무별 교육 공급 분포
                 with eda_row1_c2:
@@ -542,7 +542,7 @@ def render_dashboard():
                         font=dict(color='#F8FAFC'),
                         margin=dict(l=10, r=10, t=40, b=10)
                     )
-                    st.plotly_chart(fig_bar_job, use_container_width=True)
+                    st.plotly_chart(fig_bar_job, width="stretch")
 
                 st.markdown("---")
                 eda_row2_c1, eda_row2_c2 = st.columns(2)
@@ -567,7 +567,7 @@ def render_dashboard():
                         font=dict(color='#F8FAFC'),
                         margin=dict(l=10, r=10, t=40, b=10)
                     )
-                    st.plotly_chart(fig_hours, use_container_width=True)
+                    st.plotly_chart(fig_hours, width="stretch")
 
                 # 차트 4: 표준화된 핵심 실무 키워드 출현 빈도
                 with eda_row2_c2:
@@ -597,7 +597,7 @@ def render_dashboard():
                         font=dict(color='#F8FAFC'),
                         margin=dict(l=10, r=10, t=40, b=10)
                     )
-                    st.plotly_chart(fig_tags, use_container_width=True)
+                    st.plotly_chart(fig_tags, width="stretch")
 
         # -------------------------------------------------------------
         # 탭 4: 교육 공백(Skill Gap) & 향후 발전 로드맵
@@ -677,6 +677,7 @@ def render_dashboard():
         </div>
         """, unsafe_allow_html=True)
 
+        st.warning("⚠️ 예시 데이터 안내: 이 화면의 NCS 직무·능력단위·KSA는 공식 NCS가 아니라 같은 틀(레벨 1~5, 공통 문구)로 만든 예시 데이터이고, 인력 부족 통계(data/sample)도 시연용 생성 데이터입니다. 실제 분석·의사결정에 사용하지 마세요.")
         industry_stats = master_json.get("industry_stats", {})
         industry_options = []
         ind_code_map = {}
