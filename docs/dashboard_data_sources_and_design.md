@@ -18,7 +18,7 @@
 | 통합 교육과정 후보 | `data/hr/output/integration/hr_integrated_candidates.csv` | 과정명, 기관, 직무 분류, 난이도, 시수, 수강료, 원문 URL, 수집일, 검증 상태 | 553건 |
 | 검증된 과정-역량 매핑 | `data/hr/output/integration/hr_mapping_verified.csv` | 교육과정과 NCS 핵심 역량의 연결 | 295행 |
 | NCS 직무 마스터 | `data/hr/processed/jobs.csv` | 목표 직무 목록과 직무 설명 | 6개 직무 |
-| NCS 역량 마스터 | `data/hr/processed/competencies.csv` | 역량명, 정의, Knowledge/Skill/Attitude, 실무 기술 목록 | 7개 역량 |
+| NCS 역량 마스터 | `data/hr/processed/competencies.csv` | 역량명, 정의, Knowledge/Skill/Attitude, 실무 기술 목록, `hr_scope`(인사 범위) | 7개 분석용 역량 코드 (기준 체계는 인사 9개 분야) |
 | 직무-역량 매핑 | `data/hr/processed/job_competencies.csv` | 직무별 필수/선택 역량과 매핑 근거 | 7행 |
 
 ### 3.1 교육과정 출처 구성

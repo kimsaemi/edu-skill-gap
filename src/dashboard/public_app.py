@@ -1,7 +1,7 @@
 """
 프로젝트 2 | NCS 기반 인사·총무 직무역량 분석 및 맞춤형 교육과정 추천 시스템
 - 대상: 인사(HR), 총무·사무행정 (2개 직무)
-- 역량: 직무별 핵심 역량 4~5개 (총 9개 핵심 역량)
+- 역량: 인사 9개 분야 (data/hr/reference/hr_domain_ncs_crosswalk.csv). 1차 탐색 데이터에는 총무 역량도 남아 있음
 - 숙련도: Level 1 ~ Level 2 (입문·초급)
 - 교육과정: 3대 공공 API (NCS 교육과정, 국민내일배움카드, 사업주훈련) 실시간 연동 30개 강좌
 """
@@ -299,7 +299,7 @@ def render_dashboard():
             <div style="font-size: 1.5rem;">💡</div>
             <div class="question-callout-text">
                 <strong>핵심 질문 (Core Research Question):</strong><br/>
-                "인사·총무 직무에 필요한 <strong>핵심 역량(L1~L2)</strong>은 무엇이며, 이를 개발하기 위해 어떤 <strong>공공 교육과정을 우선 추천</strong>할 수 있을까?"
+                "인사 직무에 필요한 <strong>핵심 역량(L1~L2)</strong>은 무엇이며, 이를 개발하기 위해 어떤 <strong>공공 교육과정을 우선 추천</strong>할 수 있을까?"
             </div>
         </div>
         """, unsafe_allow_html=True)
@@ -308,14 +308,14 @@ def render_dashboard():
         st.markdown(f"""
         <div class="kpi-grid">
             <div class="kpi-card-box c1">
-                <div class="kpi-t-label">분석 대상 직무</div>
-                <div class="kpi-t-val" style="color: #60A5FA;">2개 직무</div>
-                <div class="kpi-t-sub">인사(HR) · 총무·사무행정</div>
+                <div class="kpi-t-label">분석 범위</div>
+                <div class="kpi-t-val" style="color: #60A5FA;">인사(HR)</div>
+                <div class="kpi-t-sub">1차 탐색의 총무는 최종 제외</div>
             </div>
             <div class="kpi-card-box c2">
-                <div class="kpi-t-label">선정 핵심 역량 (L1~L2)</div>
-                <div class="kpi-t-val" style="color: #22D3EE;">9개 역량</div>
-                <div class="kpi-t-sub">직무별 4~5개 핵심 단위</div>
+                <div class="kpi-t-label">역량 체계</div>
+                <div class="kpi-t-val" style="color: #22D3EE;">인사 9개 분야</div>
+                <div class="kpi-t-sub">NCS 인사·노무관리 기반</div>
             </div>
             <div class="kpi-card-box c3">
                 <div class="kpi-t-label">연계 공공 API 강좌 수</div>

@@ -17,8 +17,8 @@
    - '2026 안전보건교육 ...(채용 시_업종)' 휴넷 28건은 근로자가 입사 때 받는 법정 안전보건교육인데,
      과정명의 '채용 시'가 '채용' 키워드에 걸려 '인력채용' 역량으로 들어왔다 (인사 담당자의 역량 교육이 아님)
 
-실행 순서: fix_work24_course_urls.py -> attach_work24_satisfaction.py -> 이 스크립트
-(build_step4_5_recommendation_audit.py를 다시 실행하면 세 스크립트를 다시 실행해야 한다.)
+실행 순서: fix_work24_course_urls.py -> attach_work24_satisfaction.py -> 이 스크립트 -> apply_hr_scope_and_ncs_crosswalk.py
+(build_step4_5_recommendation_audit.py를 다시 실행하면 네 스크립트를 다시 실행해야 한다.)
 여러 번 실행해도 결과가 같다.
 """
 import json

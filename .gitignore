@@ -20,6 +20,8 @@ data/hr/*
 !data/hr/mapped/**
 !data/hr/reports/
 !data/hr/reports/**
+!data/hr/reference/
+!data/hr/reference/**
 
 # DB exceptions for managed datasets
 !data/hr/raw/external_courses/*.db

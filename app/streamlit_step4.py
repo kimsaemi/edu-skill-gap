@@ -5,7 +5,7 @@ NCS 기반 인사·총무 교육 데이터 대시보드 (STEP 4 MVP)
 - 구성:
     TAB 1. 교육 데이터 현황 (KPI 카드, 플랫폼/직무/출처 분포)
     TAB 2. 교육과정 탐색 (다차원 실시간 필터링, 정렬, 상세 링크)
-    TAB 3. 직무역량 KSA 분석 (NCS 7대 핵심 역량 매핑 및 KSA 분포)
+    TAB 3. 직무역량 KSA 분석 (분석용 역량 코드 매핑 및 KSA 분포)
     TAB 4. 텍스트 분석·군집화 (TF-IDF 키워드, K-Means 군집, BM25 검색, 검색 방식 비교)
 """
 
@@ -525,7 +525,7 @@ def render_tab3_competency(datasets):
     c_left, c_right = st.columns([1.4, 1.0])
 
     with c_left:
-        st.markdown("#### 🎯 NCS 7대 핵심 역량별 교육 공급 현황")
+        st.markdown("#### 🎯 역량 코드별 교육 공급 현황 (분석용 코드, 기준 체계는 인사 9개 분야)")
         df_comp_chart = df_comp.copy()
         df_comp_chart["강좌수"] = df_comp_chart["competency_id"].apply(lambda cid: comp_course_counts.get(cid, 0))
         df_comp_chart = df_comp_chart.sort_values(by="강좌수", ascending=True)
@@ -553,15 +553,15 @@ def render_tab3_competency(datasets):
             ksa_summary,
             names="KSA유형",
             values="역량개수",
-            title="7대 역량의 K/S/A 구성 비율",
+            title="역량 코드의 K/S/A 구성 비율",
             color="KSA유형",
             color_discrete_map={"Skill": "#3498db", "Knowledge": "#9b59b6", "Attitude": "#1abc9c"},
             template="plotly_white"
         )
         st.plotly_chart(fig_ksa, width="stretch")
 
-    # 3. 7대 핵심 역량 마스터 정보 테이블
-    st.markdown("#### 📋 NCS 7대 핵심 역량 마스터 명세")
+    # 3. 역량 코드 마스터 정보 테이블
+    st.markdown("#### 📋 역량 코드 마스터 명세 (hr_scope: 인사 범위)")
     df_comp_table = pd.DataFrame({
         "역량 ID": df_comp["competency_id"],
         "NCS 능력단위코드": df_comp["ncs_unit_code"],

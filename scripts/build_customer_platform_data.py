@@ -57,13 +57,13 @@ PLATFORM_NAMES = {
     "GSEEK": "경기도 GSEEK", "MULTICAMPUS": "멀티캠퍼스", "FASTCAMPUS": "패스트캠퍼스",
 }
 
-# v2 화면의 과정 분류 (기존 분류 키 유지 + 총무 추가)
+# v2 화면의 과정 분류. 프로젝트 범위가 '인사'로 정해져 총무(GA) 과정은 확정 데이터에서 제외되었다
+# (scripts/apply_hr_scope_and_ncs_crosswalk.py). 인사 분야가 아닌 과정은 '공통 업무역량'으로 보여준다.
 CATS = {
-    "HR": "인사 직접 관련", "GA": "총무·자산관리", "OFFICE": "엑셀·문서·사무", "DATA": "AI·데이터",
+    "HR": "인사 직접 관련", "OFFICE": "엑셀·문서·사무", "DATA": "AI·데이터",
     "COMM": "소통·보고", "LEAD": "리더십·직장 기본기", "OTHER": "기타",
 }
 CAT_WHY = {
-    "GA": "비품·자산·계약 같은 총무 실무 기초",
     "OFFICE": "자료 정리와 보고서 작성에 두루 쓰는 사무 도구",
     "DATA": "숫자와 데이터로 근거를 만드는 역량",
     "COMM": "구성원과 설득하고 소통하는 역량",
@@ -71,7 +71,7 @@ CAT_WHY = {
 }
 COMPETENCY_CAT = {
     "인력채용": "HR", "인사평가 및 보상": "HR", "근로관계 법률 준수": "HR",
-    "비품 및 자산관리": "GA", "문서작성 및 기획": "OFFICE", "비즈니스 매너 및 커뮤니케이션": "COMM",
+    "문서작성 및 기획": "OFFICE", "비즈니스 매너 및 커뮤니케이션": "COMM",
 }
 DATA_WORDS = ["ai", "데이터", "chatgpt", "챗gpt", "파이썬", "엑셀", "자동화", "디지털", "dx"]
 LEAD_WORDS = ["리더", "팀장", "관리자", "조직"]
@@ -229,6 +229,11 @@ def build_easy(courses):
     } for c in courses]
     data["metadata"]["total_courses"] = len(courses)
     data["metadata"]["course_source"] = "확정 과정(hr_recommendation_candidates.csv), 과정명 기준 묶음"
+    # 예전 이름표('16대 HR 직무')를 실제 화면 데이터(인사 9개 분야)에 맞춘다
+    data["metadata"]["standard"] = "인사 9개 분야 (NCS 인사·노무관리 기반, 대응표: data/hr/reference/hr_domain_ncs_crosswalk.csv)"
+    data["metadata"].pop("total_jobs", None)
+    data["metadata"]["total_domains"] = len(DOMAIN_KEYWORDS)
+    data["metadata"]["scope"] = "인사"
 
     by_dom = {d: [c for c in courses if d in c["doms"]] for d in DOMAIN_KEYWORDS}
     ms = data["matrix_system"]

@@ -104,12 +104,16 @@ JOBS_MASTER = [
     }
 ]
 
-# NCS 공식 표준 능력단위(Element/Unit) 기반 KSA 역량 마스터
+# KSA 역량 마스터
+# ncs_unit_code는 확인된 NCS 세분류 코드(인사 02020201, 노무관리 02020202, 총무 02020101)만 적는다.
+# 예전 값(예: 02020202_16v3를 '인사평가'로 표기)은 세분류 코드를 능력단위로 잘못 적은 것이라 고쳤다.
+# 인사 범위·9개 분야 대응은 scripts/apply_hr_scope_and_ncs_crosswalk.py와
+# data/hr/reference/hr_domain_ncs_crosswalk.csv 참고.
 COMPETENCIES_MASTER = [
     # 1. 인사 직무 역량
     {
         "competency_id": "COMP_HR_01",
-        "ncs_unit_code": "02020201_16v3",
+        "ncs_unit_code": "02020201",
         "competency_name": "인력채용",
         "ksa_type": "Skill",
         "definition": "조직의 인력 수급 계획에 따라 적합한 인재를 선발하고 배치하는 능력",
@@ -119,7 +123,7 @@ COMPETENCIES_MASTER = [
     },
     {
         "competency_id": "COMP_HR_02",
-        "ncs_unit_code": "02020202_16v3",
+        "ncs_unit_code": "02020201",
         "competency_name": "인사평가 및 보상",
         "ksa_type": "Knowledge",
         "definition": "조직원의 성과 및 역량을 객관적으로 평가하고 보상 체계를 운영하는 능력",
@@ -130,7 +134,7 @@ COMPETENCIES_MASTER = [
     # 2. 노무관리 직무 역량
     {
         "competency_id": "COMP_LABOR_01",
-        "ncs_unit_code": "02030201_16v3",
+        "ncs_unit_code": "02020202",
         "competency_name": "근로관계 법률 준수",
         "ksa_type": "Knowledge",
         "definition": "근로기준법, 노동조합법 등 노동관계 법령을 숙지하고 노무 리스크를 예방하는 능력",
@@ -141,7 +145,7 @@ COMPETENCIES_MASTER = [
     # 3. 총무·일반사무 직무 역량
     {
         "competency_id": "COMP_GA_01",
-        "ncs_unit_code": "02010101_16v3",
+        "ncs_unit_code": "",
         "competency_name": "문서작성 및 기획",
         "ksa_type": "Skill",
         "definition": "사내외 정보와 데이터를 분석하여 효과적인 보고서 및 기획서를 작성하는 능력",
@@ -151,7 +155,7 @@ COMPETENCIES_MASTER = [
     },
     {
         "competency_id": "COMP_GA_02",
-        "ncs_unit_code": "02010102_16v3",
+        "ncs_unit_code": "02020101",
         "competency_name": "비품 및 자산관리",
         "ksa_type": "Skill",
         "definition": "조직의 유무형 자산과 동산·부동산을 등록, 관리, 평가, 처분하는 능력",
@@ -162,7 +166,7 @@ COMPETENCIES_MASTER = [
     # 4. 비서·비즈니스 매너 역량
     {
         "competency_id": "COMP_SEC_01",
-        "ncs_unit_code": "02040302_16v3",
+        "ncs_unit_code": "",
         "competency_name": "비즈니스 매너 및 커뮤니케이션",
         "ksa_type": "Attitude",
         "definition": "조직 내외부 고객과의 원활한 소통을 위해 글로벌 비즈니스 에티켓을 실천하는 능력",
@@ -173,7 +177,7 @@ COMPETENCIES_MASTER = [
     # 5. 경영기획·프로젝트관리 인접 역량
     {
         "competency_id": "COMP_MGMT_01",
-        "ncs_unit_code": "01010102_16v3",
+        "ncs_unit_code": "",
         "competency_name": "애자일 프로젝트 관리",
         "ksa_type": "Skill",
         "definition": "변화하는 경영 환경에 대응하여 프로젝트 일정과 자원을 기민하게 관리하는 능력",
