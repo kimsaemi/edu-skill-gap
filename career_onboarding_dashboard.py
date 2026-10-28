@@ -23,7 +23,8 @@ def __(Path, json, pd):
     hr_courses_file = Path("data/processed/hr_courses_30.json")
     hr_comp_file = Path("data/processed/hr_ncs_competencies.json")
     hr_gap_file = Path("data/processed/hr_gap_analysis.json")
-    courses_295_file = Path("data/hr/output/text_analysis/course_keywords_clusters_k8.csv")
+    # 확정 과정(만족도·상세 링크·사업주훈련 실제 훈련비 정정 반영). 예전 팀원 295건 파일은 교육시간 기본값이 있어 쓰지 않는다.
+    confirmed_file = Path("data/hr/output/recommendation/hr_recommendation_candidates.csv")
 
     hr_courses_list = []
     if hr_courses_file.exists():
@@ -75,9 +76,12 @@ def __(Path, json, pd):
         }
 
     df_courses = pd.DataFrame(hr_courses_list)
-    df_courses_295 = pd.read_csv(courses_295_file) if courses_295_file.exists() else pd.DataFrame()
+    df_confirmed = pd.read_csv(confirmed_file, dtype=str) if confirmed_file.exists() else pd.DataFrame()
+    if not df_confirmed.empty:
+        # 이상치·주제 불일치로 제외된 과정은 뺀다
+        df_confirmed = df_confirmed[~df_confirmed["recommendation_readiness"].str.startswith("EXCLUDED")].reset_index(drop=True)
 
-    return df_courses, df_courses_295, hr_competencies, hr_courses_list, hr_gap_data
+    return df_confirmed, df_courses, hr_competencies, hr_courses_list, hr_gap_data
 
 
 @app.cell
@@ -635,66 +639,93 @@ def __(mo):
 
 
 @app.cell
-def __(action_dropdown, mo):
+def __(action_dropdown, df_confirmed, mo):
     # Tab 5 뷰: 70:20:10 실천 플래너
     _action_catalog = {
         "채용관리 (인사)": {
             "70": "채용 지원자 현황 시트에 지원 경로/일자/전형단계를 누락 없이 분류하고, 면접 일정 조율 안내 메일 초안을 작성하여 사수 피드백 받기",
             "20": "'선배님, 서류 전형 분류 시 저희 팀에서 가장 눈여겨보는 비공식 체크포인트나 탈락 기준이 무엇인가요?'",
-            "10": "채용 공고문 작성 및 면접 일정 조율 실무 지원 (NCS 02020201)",
             "tags": ["#채용", "#서류접수", "#면접안내", "#ATS"]
         },
         "인사정보 관리 (인사)": {
             "70": "이번 달 입·퇴사자 4대보험 취득/상실 신고 체크리스트를 만들어 전산 등록 전 항목별 대조 1회 완결하기",
             "20": "'근태/휴가 신청 승인 시 예외 처리(병가, 경조사 등) 승인 라인은 어떻게 규정되어 있나요?'",
-            "10": "실무자를 위한 인사급여지급 (급여계산+4대보험관리+원천징수)",
             "tags": ["#4대보험", "#근태관리", "#인사기록", "#ERP"]
         },
         "인사 관련 법규 이해 (인사)": {
             "70": "우리 회사 표준근로계약서 양식을 출력하여 근로기준법 필수 기재사항 7가지가 빠짐없이 들어있는지 조항별 형광펜 체크해보기",
             "20": "'선배님, 주휴수당과 연장근로수당 계산 시 우리 회사 취업규칙에서 특별히 주의해야 할 특약 조항이 있나요?'",
-            "10": "인사노무 핵심 법규 및 근로계약서 실무 검토 가이드",
             "tags": ["#근로기준법", "#주휴수당", "#근로계약", "#취업규칙"]
         },
         "인사 데이터 관리 (인사)": {
             "70": "인사 원천 데이터에서 피벗 테이블을 활용해 부서별/직급별 인원 구성 현황표를 1장짜리 시각화 보고서로 만들어보기",
             "20": "'월별 인사 통계 보고서 작성할 때 임원진이 가장 먼저 확인하는 핵심 지표(KPI)는 무엇인가요?'",
-            "10": "엑셀 데이터 분석과 대시보드 시각화 실무",
             "tags": ["#피벗테이블", "#인력통계", "#엑셀", "#대시보드"]
         },
         "문서작성 (총무)": {
             "70": "이번 주 기안할 협조전이나 품의서를 두괄식(1페이지 핵심 요약 + 3단 본문 구조)으로 작성하고 사수에게 퇴고 요청하기",
             "20": "'저희 회사 기안문에서 자주 반려되는 표현이나 양식상 오류는 주로 어떤 것들인가요?'",
-            "10": "쉽게 쓰고 편하게 읽히는 2page 보고서 만들기 (윈스펙)",
             "tags": ["#기안문", "#품의서", "#두괄식", "#1페이지보고서"]
         },
         "문서관리 (총무)": {
             "70": "팀 공용 드라이브 폴더의 파일 네이밍 규칙(YYYYMMDD_문서명_버전_작성자)을 정비하고 오래된 문서 5건 편철 정리하기",
             "20": "'계약서 및 대외 공문서의 법적 보존 연한(3년/5년/영구) 기준표는 어디서 확인할 수 있나요?'",
-            "10": "전자문서시스템(EDMS) 및 사내 문서 편철 실무",
             "tags": ["#문서분류", "#EDMS", "#보존연한", "#문서보안"]
         },
         "자료관리 (총무)": {
             "70": "사무실 비품 및 소모품 수불 대장을 실사 대조하여 재고 부족 품목 리스트업 및 자동 주문 수량 계산식 적용하기",
             "20": "'비품 구매 시 단가 비교 견적서(2곳 이상) 징구 기준 금액과 정기 구매 주기는 어떻게 되나요?'",
-            "10": "총무 실무자를 위한 자산·소모품 재고관리",
             "tags": ["#비품관리", "#재고실사", "#소모품", "#자산라벨"]
         },
         "사무자동화 (총무)": {
             "70": "매주 반복하는 정산/취합 업무에 엑셀 VLOOKUP/XLOOKUP 또는 조건부 서식을 적용해 수작업 시간 30분 단축하기",
             "20": "'선배님이 실무에서 가장 자주 쓰시는 사내 엑셀 템플릿이나 단축키 노하우가 있다면 공유 부탁드려도 될까요?'",
-            "10": "컴퓨터활용능력 2급 자격증 실기 & 엑셀 실무 (더조은)",
             "tags": ["#엑셀실무", "#VLOOKUP", "#사무자동화", "#컴활"]
         },
         "회의 운영·지원 (총무)": {
             "70": "주간 정기회의 1시간 전 회의실 기자재(마이크, 빔, 화상회의 링크)를 사전 리허설하고, 회의 종료 후 당일 내 액션 아이템 회의록 공유하기",
             "20": "'임원 회의 진행 시 의전이나 회의 자료 인쇄 배포 시 사전에 꼭 챙겨야 할 주의사항이 있을까요?'",
-            "10": "스마트한 회의 운영과 비즈니스 의전 실무",
             "tags": ["#회의록", "#의전", "#회의실세팅", "#화상회의"]
         }
     }
 
     _selected = _action_catalog.get(action_dropdown.value, _action_catalog["인사 관련 법규 이해 (인사)"])
+
+    # 10% 교육: 예전에는 과정명을 직접 적었으나 9개 중 6개가 수집 데이터에 없는 과정명이었다.
+    # 확정 과정에서 역량별 키워드가 과정명에 들어 있는 실제 과정을 찾는다 (앞쪽 키워드 우선, 같은 과정명은 1개만).
+    _course_keywords = {
+        "채용관리 (인사)": ["채용", "면접", "선발"],
+        "인사정보 관리 (인사)": ["4대보험", "근태", "인사정보", "급여", "인사관리"],
+        "인사 관련 법규 이해 (인사)": ["근로기준법", "노동법", "근로계약", "취업규칙", "노무"],
+        "인사 데이터 관리 (인사)": ["피플 애널리틱스", "hr 데이터", "인사데이터", "인사 데이터", "digital hr", "hr 애널리틱스"],
+        "문서작성 (총무)": ["보고서", "기안", "공문서", "문서작성", "글쓰기"],
+        "문서관리 (총무)": ["문서관리", "기록관리", "전자결재", "편철"],
+        "자료관리 (총무)": ["비품", "총무자산", "자산관리", "물품", "구매"],
+        "사무자동화 (총무)": ["엑셀", "컴활", "스프레드시트", "파워포인트", "자동화"],
+        "회의 운영·지원 (총무)": ["회의", "의전", "비서", "퍼실리테이션"],
+    }
+    _kws = _course_keywords.get(action_dropdown.value, [])
+    _picks = []
+    if not df_confirmed.empty and _kws:
+        _titles = df_confirmed["course_name"].str.lower()
+        _rank = _titles.map(lambda t: next((i for i, k in enumerate(_kws) if k in t), None))
+        # 같은 과정의 변형 이름('(지역)', '[1Day]', 'EB24..' 접두어 등)은 하나로 본다
+        _norm = (df_confirmed["course_name"].str.replace(r"^EB24\w+\s+", "", regex=True)
+                 .str.replace(r"\[[^\]]*\]|\([^)]*\)", "", regex=True).str.replace(r"\s+", "", regex=True))
+        _hits = (df_confirmed.assign(_rank=_rank, _norm=_norm, _len=df_confirmed["course_name"].str.len())
+                 .dropna(subset=["_rank"]).sort_values(["_rank", "_len", "course_name"]))
+        _picks = _hits.drop_duplicates("_norm").head(2).to_dict("records")
+    if _picks:
+        _course_md = "\n".join(
+            f"- **{c['course_name']}** · {c['institution_name']}\n"
+            f"  - {c['fee_desc']}\n"
+            + (f"  - 참고: 고용24 만족도 {float(c['satisfaction_official']):.1f}점(응답자 수 미공개, 2025년 회차)\n"
+               if str(c.get('satisfaction_official', '')) not in ('', 'nan') else "")
+            + f"  - [과정 페이지 열기]({c['course_url']})"
+            for c in _picks
+        )
+    else:
+        _course_md = "- 확정 과정 중 이 역량과 직접 맞는 과정이 아직 없습니다. 고용24에서 검색해 보세요."
 
     tab5_content = mo.vstack([
         mo.md("## 📋 70:20:10 나만의 현업 실천 플래너"),
@@ -723,11 +754,10 @@ def __(action_dropdown, mo):
             ),
             mo.callout(
                 mo.md(
-                    f"""
-                    #### 📚 **10% 추천 연계 공공 강좌**
-                    - **추천 과정**: **{_selected['10']}**
-                    - **키워드**: {' '.join(_selected['tags'])}
-                    """
+                    "#### 📚 **10% 정규 교육 (확정 과정에서 찾음)**\n\n"
+                    + _course_md
+                    + f"\n- **키워드**: {' '.join(_selected['tags'])}"
+                    + "\n\n*과정명 키워드로 찾은 결과이며 현재 개설 여부는 링크에서 확인하세요.*"
                 ),
                 kind="warn"
             )
@@ -738,21 +768,27 @@ def __(action_dropdown, mo):
 
 
 @app.cell
-def __(df_courses, df_courses_295, mo):
-    # Tab 6: 아카이브 공공 강좌 및 295개 전수 탐색기 계승
+def __(df_confirmed, df_courses, mo):
+    # Tab 6: 확정 교육과정 탐색기 (+ 1차 수집 30개 강좌 아카이브)
     tab6_content = mo.vstack([
-        mo.md("## 📂 공공 교육과정 탐색기 & 295개 전수 키워드 데이터"),
-        mo.md("> 3대 공공 API 실측 30개 강좌 및 NLP 텍스트 정제 295개 강좌 전수 목록입니다."),
+        mo.md("## 📂 교육과정 탐색기"),
+        mo.md(f"> 인사·총무 직무 관련으로 확정한 교육과정 {len(df_confirmed)}건입니다 "
+              "(고용24·휴넷·KPC·KMA 등). 사업주훈련은 실제 훈련비 기준, 만족도는 고용24 공식 값만 표시하며 "
+              "현재 개설 여부는 링크에서 확인하세요."),
+        mo.ui.table(df_confirmed[[
+            "course_name", "institution_name", "source_platform", "primary_competency_name",
+            "training_hours", "fee_desc", "satisfaction_official", "course_url"
+        ]].rename(columns={
+            "course_name": "과정명", "institution_name": "기관", "source_platform": "출처",
+            "primary_competency_name": "관련 역량", "training_hours": "교육시간", "fee_desc": "수강료",
+            "satisfaction_official": "고용24 만족도", "course_url": "링크"
+        })) if not df_confirmed.empty else mo.md("확정 과정 데이터 없음"),
+        mo.md("---"),
+        mo.md("#### 1차 수집 30개 강좌 (초기 단계 아카이브)"),
         mo.ui.table(df_courses[[
             "source_api", "course_name", "institution", "primary_job", 
             "training_hours", "cost", "suitability_score"
         ]]) if not df_courses.empty else mo.md("30개 강좌 로딩 대기"),
-        mo.md("---"),
-        mo.md("#### 🤖 295개 전수 강좌 NLP 군집 및 키워드 테이블"),
-        mo.ui.table(df_courses_295[[
-            "id", "course_title", "platform", "institution", 
-            "training_hours", "cost", "top_keywords", "cluster"
-        ]]) if not df_courses_295.empty else mo.md("295개 강좌 로딩 대기")
     ])
     return (tab6_content,)
 
@@ -775,7 +811,7 @@ def __(
         "🎖️ 3. 공식 승급(Lv1 ➡️ Lv2) 체크리스트": tab3_content,
         "📊 4. 직무역량 스킬 갭(Gap) 진단": tab4_content,
         "📋 5. 70:20:10 실천 플래너": tab5_content,
-        "📂 6. 공공 교육과정 탐색기": tab6_content
+        "📂 6. 교육과정 탐색기": tab6_content
     })
 
     main_dashboard_layout = mo.vstack([

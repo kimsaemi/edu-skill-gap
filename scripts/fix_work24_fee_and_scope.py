@@ -11,9 +11,11 @@
      course_fee 값 자체는 그대로 둔다(기존 분석과의 비교를 위해).
    - 정확한 항목 정의는 고용24 Open API 가이드에서 확인이 필요하다.
 
-2. 주제가 맞지 않는 과정 제외
+2. 주제가 맞지 않는 과정 제외 (recommendation_readiness = EXCLUDED_OFF_TOPIC)
    - '농협은행 자산관리 전문역 양성'(한국금융연수원, 실제 훈련비 14,876,000원)은 은행 금융자산관리 과정인데
-     '자산관리' 키워드로 총무 '비품 및 자산관리' 역량에 들어왔다 -> recommendation_readiness = EXCLUDED_OFF_TOPIC
+     '자산관리' 키워드로 총무 '비품 및 자산관리' 역량에 들어왔다
+   - '2026 안전보건교육 ...(채용 시_업종)' 휴넷 28건은 근로자가 입사 때 받는 법정 안전보건교육인데,
+     과정명의 '채용 시'가 '채용' 키워드에 걸려 '인력채용' 역량으로 들어왔다 (인사 담당자의 역량 교육이 아님)
 
 실행 순서: fix_work24_course_urls.py -> attach_work24_satisfaction.py -> 이 스크립트
 (build_step4_5_recommendation_audit.py를 다시 실행하면 세 스크립트를 다시 실행해야 한다.)
@@ -34,6 +36,10 @@ RAW_FILES = [
 ]
 OFF_TOPIC = {
     "농협은행 자산관리 전문역 양성": "은행 금융자산관리 과정으로 총무 비품·자산관리와 무관 (키워드 '자산관리' 오분류)",
+}
+# 과정명 패턴으로 제외하는 경우 (정규식 -> 사유)
+OFF_TOPIC_PATTERNS = {
+    r"^2026 안전보건교육.*채용 시_": "근로자 대상 법정 안전보건교육(채용 시 교육)으로 인사 담당자 역량 교육이 아님 (키워드 '채용' 오분류)",
 }
 
 
@@ -64,8 +70,9 @@ def main():
         for c, r in zip(df.loc[emp, "work24_course_fee"], df.loc[emp, "work24_training_cost"])
     ]
 
-    for name, reason in OFF_TOPIC.items():
-        hit = df["course_name"].eq(name)
+    rules = [(df["course_name"].eq(name), reason) for name, reason in OFF_TOPIC.items()]
+    rules += [(df["course_name"].str.contains(pat, regex=True, na=False), reason) for pat, reason in OFF_TOPIC_PATTERNS.items()]
+    for hit, reason in rules:
         df.loc[hit, "recommendation_readiness"] = "EXCLUDED_OFF_TOPIC"
         df.loc[hit, "recommendation_note"] = reason
 
