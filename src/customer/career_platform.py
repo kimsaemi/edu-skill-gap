@@ -7,6 +7,8 @@
 - 업무별 추천: 인사 9개 분야 90개 업무는 미리 계산한 결과(task_course_recommendations_90.csv)를 쓰고,
   나머지 12개 업무(총무·경영지원·비서)는 같은 규칙으로 실행 중에 계산합니다.
 - 원칙: 공식 만족도는 정보로만 보여 주고 추천 순위·점수에는 쓰지 않습니다.
+- 범위: 2026-10-28 팀 결정으로 '인사'만 다룹니다. 화면에는 인사 9개 분야(DOM_01~09)만 보여 주고,
+  마스터 파일의 총무·경영지원·비서 분야(DOM_10~12)는 지우지 않고 숨깁니다 (HR_SCOPE_DOMAINS).
 """
 
 from __future__ import annotations
@@ -85,8 +87,12 @@ def grades() -> List[Dict[str, Any]]:
     return master()["grades"]
 
 
+# 인사 9개 분야 (data/hr/reference/hr_domain_ncs_crosswalk.csv와 같은 ID)
+HR_SCOPE_DOMAINS = frozenset(f"DOM_{i:02d}" for i in range(1, 10))
+
+
 def domains() -> List[Dict[str, Any]]:
-    return master()["domains"]
+    return [d for d in master()["domains"] if d["id"] in HR_SCOPE_DOMAINS]
 
 
 def domain(dom_id: str) -> Optional[Dict[str, Any]]:

@@ -20,16 +20,16 @@
   "TASK_HR_D08_T02 타운홀 미팅(All-hands Meeting) 및 온·오프라인 전사 소통 채널 기획",
   "TASK_HR_D08_T09 세대 간 소통 단절 및 조직 사일로(Silo) 원인 분석, 협업 문화 개선 캠페인"
  ],
- "top3_slots": 806,
- "top3_distinct_courses": 301,
+ "top3_slots": 798,
+ "top3_distinct_courses": 294,
  "top3_most_reused": [
   {
    "title": "[DX&AI] 평가보상 설계 실무(밀코비치 기반)",
-   "count": 14
+   "count": 15
   },
   {
    "title": "[온앤오프] 현장에서 알아야 하는 노무관리 솔루션",
-   "count": 12
+   "count": 14
   },
   {
    "title": "HR, AI가 트렌드다 : 채용부터 퇴사까지",
@@ -44,29 +44,39 @@
    "count": 10
   },
   {
+   "title": "신규입사자의 온보딩 과정, 워(Work).플(People).킹(Networking)",
+   "count": 10
+  },
+  {
    "title": "[HRethink] 일하고 싶은 회사의 비밀, Employee eXperience",
    "count": 10
   },
   {
-   "title": "[여의도] 급여담당자를 위한 급여관리 실무",
-   "count": 9
-  },
-  {
-   "title": "엔지니어 채용의 모든 것, 테크 리크루팅 A TO Z",
-   "count": 9
-  },
-  {
-   "title": "신규입사자의 온보딩 과정, 워(Work).플(People).킹(Networking)",
-   "count": 9
-  },
-  {
    "title": "HR사무원자격증 취득과정 (종합반)",
+   "count": 10
+  },
+  {
+   "title": "채용을 디자인하라, 기업에 FIT한 인재 확보 전략",
+   "count": 9
+  },
+  {
+   "title": "[여의도] 급여담당자를 위한 급여관리 실무",
    "count": 9
   }
  ],
- "task_level_with_lt3_results": 3,
- "top1_semantic_score_median": 69.25,
- "top1_semantic_score_min": 50.099998474121094,
+ "task_level_with_lt3_results": 7,
+ "top1_semantic_score_median": 69.4000015258789,
+ "top1_semantic_score_min": 50.09999847412109,
  "low_confidence_tasks": [],
- "note": "합성 리뷰·평점은 사용하지 않았습니다. 점수 = 의미 유사도 50% + BM25 35%(범용 단어 제외, 업무명 핵심어 보정) + 난이도 적합 보너스. 노출 기준 = 의미 유사도 50 이상, 핵심어 1점 이상 또는 유사도 72 이상, 분야가 다른 강좌(개발·마케팅·의료·특허·생산·어학)는 핵심어 2점 이상"
+ "note": "합성 리뷰·평점은 사용하지 않았습니다. 점수 = 의미 유사도 50% + BM25 35%(범용 단어 제외, 업무명 핵심어 보정) + 난이도 적합 보너스. 노출 기준 = 의미 유사도 50 이상, 핵심어 1점 이상 또는 유사도 72 이상, 분야가 다른 강좌(개발·마케팅·의료·특허·생산·어학)는 핵심어 2점 이상",
+ "excluded_after_engine": {
+  "rows_removed": 64,
+  "by_reason": {
+   "인사 범위 밖: 고용24 NCS 총무(020201) 과정": 33,
+   "마케팅·커머스 (인사 업무 아님)": 20,
+   "법정 안전보건교육(근로자·관리감독자 대상)": 6,
+   "팀원 검수: 인사 업무와 무관": 5
+  },
+  "note": "인사 범위·팀원 검수에 따른 제외를 저장된 결과에서 적용함. 모델을 쓸 수 있는 PC에서 build_hr_task_catalog.py --reuse-catalog로 다시 계산하면 빈자리가 채워짐"
+ }
 }

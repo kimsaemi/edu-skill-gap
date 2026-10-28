@@ -2,7 +2,7 @@
 test_new_flow_verification.py
 고객용 앱(팀 v2.1 구조) 단계 흐름 검증
 
-1. 첫 화면: 히어로·단계 바, 직급 5개·분야 12개 선택
+1. 첫 화면: 히어로·단계 바, 직급 5개·분야 9개(인사) 선택
 2. 직급·분야 선택 → 2단계(업무별 숙련도 자가진단, 역량 선택, 진단 저장)
 3. 3단계: 부족 업무별 추천 카드, 종료 표시, 근거에 만족도 점수 미반영 안내
 4. 전체 교육 찾기: 검색·비용 필터
@@ -37,10 +37,10 @@ def test_flow():
     assert "내 위치를 골라 주세요" in md
     grade_btns = [b for b in at.button if b.key and b.key.startswith("g_")]
     dom_btns = [b for b in at.button if b.key and b.key.startswith("d_")]
-    assert len(grade_btns) == 5 and len(dom_btns) == 12, (len(grade_btns), len(dom_btns))
+    assert len(grade_btns) == 5 and len(dom_btns) == 9, (len(grade_btns), len(dom_btns))
     nxt = [b for b in at.button if "다음 · 내가 하는 일" in b.label][0]
     assert nxt.disabled, "직급·분야를 고르기 전에는 다음 버튼이 꺼져 있어야 합니다."
-    print("✅ 1. 첫 화면: 직급 5개·분야 12개, 선택 전 다음 버튼 비활성")
+    print("✅ 1. 첫 화면: 직급 5개·분야 9개(인사), 선택 전 다음 버튼 비활성")
 
     # 2. 과장 · 노사관계·노무 선택 → 2단계
     [b for b in at.button if b.key == "g_2"][0].click().run()
