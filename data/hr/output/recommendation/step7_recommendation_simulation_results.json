@@ -1,0 +1,1277 @@
+{
+  "신입사원 비즈니스 엑셀 데이터 분석 및 보고서 작성": {
+    "query": "신입사원 비즈니스 엑셀 데이터 분석 및 보고서 작성",
+    "top_k": 10,
+    "metrics": {
+      "jaccard_similarity_mode_a_vs_b": 0.0,
+      "jaccard_similarity_mode_a_vs_c": 0.0,
+      "mean_rank_shift_a_vs_b": 0.0
+    },
+    "top_a": [
+      {
+        "course_uid": "HUNET_Y00399549",
+        "title": "AI챔피언_도전! 그린역량 : 데이터 분석 실무",
+        "provider": "휴넷",
+        "score_mode_a": 100.0,
+        "average_rating_calculated": 4.0886,
+        "positive_review_ratio": 0.7342
+      },
+      {
+        "course_uid": "PUB_ABA20243000972962_324",
+        "title": "한달 공부로 실무에 바로 통하는 데이터분석",
+        "provider": "에듀퓨어",
+        "score_mode_a": 100.0,
+        "average_rating_calculated": 3.0,
+        "positive_review_ratio": 0.5
+      },
+      {
+        "course_uid": "PUB_ABA20243001001805_4",
+        "title": "EB1YZ9 AI 시대 일잘러의 필수 역량! 데이터 분석 업무에 적용하기",
+        "provider": "멀티캠퍼스 원격평생교육원",
+        "score_mode_a": 100.0,
+        "average_rating_calculated": 3.0,
+        "positive_review_ratio": 0.5
+      },
+      {
+        "course_uid": "KMA_112125_127649",
+        "title": "[여의도] AI 에이전트로 자동화하는 기획·문서·보고서 실무(with Claude Code)",
+        "provider": "한국능률협회(KMA)",
+        "score_mode_a": 100.0,
+        "average_rating_calculated": 3.9452,
+        "positive_review_ratio": 0.6986
+      },
+      {
+        "course_uid": "KMA_112126_127658",
+        "title": "[여의도] AI로 더 빠른! 일잘러의 원페이지 보고서 작성 비법",
+        "provider": "한국능률협회(KMA)",
+        "score_mode_a": 100.0,
+        "average_rating_calculated": 3.7179,
+        "positive_review_ratio": 0.6667
+      },
+      {
+        "course_uid": "KMA_112194_128025",
+        "title": "[여의도] 비즈니스 보고서 & 문서 실전 클리닉",
+        "provider": "한국능률협회(KMA)",
+        "score_mode_a": 100.0,
+        "average_rating_calculated": 3.7,
+        "positive_review_ratio": 0.6
+      },
+      {
+        "course_uid": "KMA_112092_127499",
+        "title": "[여의도] 업무를 혁신하는 생성형AI 활용 텍스트 분석과 보고서 작성",
+        "provider": "한국능률협회(KMA)",
+        "score_mode_a": 100.0,
+        "average_rating_calculated": 3.9444,
+        "positive_review_ratio": 0.8056
+      },
+      {
+        "course_uid": "KMA_112114_127595",
+        "title": "[여의도] 일잘러의 AI 활용 기획 및 기획서 작성 A to Z",
+        "provider": "한국능률협회(KMA)",
+        "score_mode_a": 100.0,
+        "average_rating_calculated": 4.061,
+        "positive_review_ratio": 0.7805
+      },
+      {
+        "course_uid": "KMA_112191_128010",
+        "title": "[여의도] 기획역량 향상 : 분석-대안-보고서까지",
+        "provider": "한국능률협회(KMA)",
+        "score_mode_a": 100.0,
+        "average_rating_calculated": 3.9254,
+        "positive_review_ratio": 0.7463
+      },
+      {
+        "course_uid": "KMA_112122_127637",
+        "title": "[여의도] AI 에이전트 보고서, 사업계획서 자동화 마스터클래스 -Gemini, ChatGPT, NotebookLM 실전 활용-",
+        "provider": "한국능률협회(KMA)",
+        "score_mode_a": 100.0,
+        "average_rating_calculated": 4.2817,
+        "positive_review_ratio": 0.8592
+      }
+    ],
+    "top_b": [
+      {
+        "course_uid": "KMA_112174_127906",
+        "title": "[여의도] 신입사원 Good Start",
+        "provider": "한국능률협회(KMA)",
+        "score_mode_b": 111.91,
+        "average_rating_calculated": 4.5882,
+        "positive_review_ratio": 0.9412
+      },
+      {
+        "course_uid": "KMA_112095_127515",
+        "title": "[여의도] 클릭만으로 배우는 생성형 AI 빅데이터 분석 및 보고서 작성 (with 크롬확장프로그램)",
+        "provider": "한국능률협회(KMA)",
+        "score_mode_b": 111.5,
+        "average_rating_calculated": 4.5333,
+        "positive_review_ratio": 1.0
+      },
+      {
+        "course_uid": "KPC_47479_151523",
+        "title": "AI와 빅데이터를 활용한 VOC 분석 운영 전략",
+        "provider": "한국생산성본부(KPC)",
+        "score_mode_b": 111.25,
+        "average_rating_calculated": 4.5,
+        "positive_review_ratio": 0.9375
+      },
+      {
+        "course_uid": "KPC_47353_151824",
+        "title": "연구성과 향상을 위한 R&D 기본",
+        "provider": "한국생산성본부(KPC)",
+        "score_mode_b": 111.25,
+        "average_rating_calculated": 4.5,
+        "positive_review_ratio": 0.9375
+      },
+      {
+        "course_uid": "KPC_47889_152743",
+        "title": "★ NEW : 생성형 AI와 ChatGPT를 활용한 프로젝트 혁신하기",
+        "provider": "한국생산성본부(KPC)",
+        "score_mode_b": 111.25,
+        "average_rating_calculated": 4.5,
+        "positive_review_ratio": 0.8889
+      },
+      {
+        "course_uid": "GSEEK_52754",
+        "title": "[칼퇴를 부르는 치트키_보고서편] 핵심만 콕! 비즈니스 문서작성의 핵심과 실무 스킬",
+        "provider": "GSEEK",
+        "score_mode_b": 110.83,
+        "average_rating_calculated": 4.4444,
+        "positive_review_ratio": 0.9167
+      },
+      {
+        "course_uid": "KMA_112084_127533",
+        "title": "[여의도] 생성형 AIㆍ엑셀 데이터 기반 비즈니스 전략 도출",
+        "provider": "한국능률협회(KMA)",
+        "score_mode_b": 110.71,
+        "average_rating_calculated": 4.4286,
+        "positive_review_ratio": 0.8571
+      },
+      {
+        "course_uid": "MULTICAMPUS_EA0DC8",
+        "title": "[AI Sense]챗GPT로 끝내주는 엑셀 자동화(참고도서제공)",
+        "provider": "멀티캠퍼스",
+        "score_mode_b": 110.66,
+        "average_rating_calculated": 4.4211,
+        "positive_review_ratio": 0.8947
+      },
+      {
+        "course_uid": "GSEEK_51952",
+        "title": "데이터로 일하는 일잘러 PWR 스킬",
+        "provider": "GSEEK",
+        "score_mode_b": 110.57,
+        "average_rating_calculated": 4.4091,
+        "positive_review_ratio": 0.8409
+      },
+      {
+        "course_uid": "KMA_112125_127650",
+        "title": "[여의도] AI 에이전트로 자동화하는 기획·문서·보고서 실무(with Claude Code)",
+        "provider": "한국능률협회(KMA)",
+        "score_mode_b": 110.57,
+        "average_rating_calculated": 4.4091,
+        "positive_review_ratio": 0.8636
+      }
+    ],
+    "top_c": [
+      {
+        "course_uid": "KMA_112095_127515",
+        "title": "[여의도] 클릭만으로 배우는 생성형 AI 빅데이터 분석 및 보고서 작성 (with 크롬확장프로그램)",
+        "provider": "한국능률협회(KMA)",
+        "score_mode_c": 107.5,
+        "average_rating_calculated": 4.5333,
+        "positive_review_ratio": 1.0
+      },
+      {
+        "course_uid": "KMA_112174_127906",
+        "title": "[여의도] 신입사원 Good Start",
+        "provider": "한국능률협회(KMA)",
+        "score_mode_c": 106.62,
+        "average_rating_calculated": 4.5882,
+        "positive_review_ratio": 0.9412
+      },
+      {
+        "course_uid": "KPC_47544_152903",
+        "title": "ChatGPT를 활용한 엑셀, VBA, PPT 업무 자동화",
+        "provider": "한국생산성본부(KPC)",
+        "score_mode_c": 106.62,
+        "average_rating_calculated": 4.3529,
+        "positive_review_ratio": 0.9412
+      },
+      {
+        "course_uid": "KPC_47353_151824",
+        "title": "연구성과 향상을 위한 R&D 기본",
+        "provider": "한국생산성본부(KPC)",
+        "score_mode_c": 106.56,
+        "average_rating_calculated": 4.5,
+        "positive_review_ratio": 0.9375
+      },
+      {
+        "course_uid": "KPC_47479_151523",
+        "title": "AI와 빅데이터를 활용한 VOC 분석 운영 전략",
+        "provider": "한국생산성본부(KPC)",
+        "score_mode_c": 106.56,
+        "average_rating_calculated": 4.5,
+        "positive_review_ratio": 0.9375
+      },
+      {
+        "course_uid": "HUNET_Y00258653",
+        "title": "비즈니스 애널리틱스, 데이터 분석 첫걸음",
+        "provider": "휴넷",
+        "score_mode_c": 106.35,
+        "average_rating_calculated": 4.3462,
+        "positive_review_ratio": 0.9231
+      },
+      {
+        "course_uid": "KMA_111157_124689",
+        "title": "[여의도] AI로 더 빠른! 일잘러의 원페이지 보고서 작성 비법",
+        "provider": "한국능률협회(KMA)",
+        "score_mode_c": 106.3,
+        "average_rating_calculated": 4.36,
+        "positive_review_ratio": 0.92
+      },
+      {
+        "course_uid": "GSEEK_52754",
+        "title": "[칼퇴를 부르는 치트키_보고서편] 핵심만 콕! 비즈니스 문서작성의 핵심과 실무 스킬",
+        "provider": "GSEEK",
+        "score_mode_c": 106.25,
+        "average_rating_calculated": 4.4444,
+        "positive_review_ratio": 0.9167
+      },
+      {
+        "course_uid": "KMA_112237_128216",
+        "title": "[여의도] AI로 기획하고 MS-Word로 완성하는 칼퇴 문서 작성법",
+        "provider": "한국능률협회(KMA)",
+        "score_mode_c": 106.21,
+        "average_rating_calculated": 4.4,
+        "positive_review_ratio": 0.9143
+      },
+      {
+        "course_uid": "KPC_49273_158889",
+        "title": "[제조 데이터 리터러시] 사업재편을 위한 공정 데이터 구조와 분석(무료교육)",
+        "provider": "한국생산성본부(KPC)",
+        "score_mode_c": 106.2,
+        "average_rating_calculated": 4.3913,
+        "positive_review_ratio": 0.913
+      }
+    ]
+  },
+  "인사평가 및 핵심성과지표 KPI 수립 실무": {
+    "query": "인사평가 및 핵심성과지표 KPI 수립 실무",
+    "top_k": 10,
+    "metrics": {
+      "jaccard_similarity_mode_a_vs_b": 0.1111,
+      "jaccard_similarity_mode_a_vs_c": 0.0,
+      "mean_rank_shift_a_vs_b": 1.5
+    },
+    "top_a": [
+      {
+        "course_uid": "KPC_46671_148506",
+        "title": "[온앤오프] 사업계획수립실무",
+        "provider": "한국생산성본부(KPC)",
+        "score_mode_a": 100.0,
+        "average_rating_calculated": 3.9524,
+        "positive_review_ratio": 0.6667
+      },
+      {
+        "course_uid": "PUB_NCS_CRS_02010101_5_1",
+        "title": "사회적경제경영실무1",
+        "provider": "전문대 사회적경제복지학과",
+        "score_mode_a": 100.0,
+        "average_rating_calculated": 3.0,
+        "positive_review_ratio": 0.5
+      },
+      {
+        "course_uid": "PUB_NCS_CRS_02010101_6_1",
+        "title": "사회적경제경영실무2",
+        "provider": "전문대 사회적경제복지학과",
+        "score_mode_a": 100.0,
+        "average_rating_calculated": 3.0,
+        "positive_review_ratio": 0.5
+      },
+      {
+        "course_uid": "KPC_47639_153149",
+        "title": "AI를 활용한 마케팅 트렌드 예측과 전략 수립 (마켓센싱)",
+        "provider": "한국생산성본부(KPC)",
+        "score_mode_a": 100.0,
+        "average_rating_calculated": 4.0,
+        "positive_review_ratio": 0.7467
+      },
+      {
+        "course_uid": "KPC_48583_156511",
+        "title": "[1day] 사업계획수립실무",
+        "provider": "한국생산성본부(KPC)",
+        "score_mode_a": 100.0,
+        "average_rating_calculated": 4.0,
+        "positive_review_ratio": 0.7407
+      },
+      {
+        "course_uid": "KPC_47875_152760",
+        "title": "Agile 프로젝트 관리 실무",
+        "provider": "한국생산성본부(KPC)",
+        "score_mode_a": 100.0,
+        "average_rating_calculated": 4.125,
+        "positive_review_ratio": 0.7375
+      },
+      {
+        "course_uid": "KPC_47569_152933",
+        "title": "엑셀, 데이터베이스, 파이썬 기반의 빅데이터 분석 실무",
+        "provider": "한국생산성본부(KPC)",
+        "score_mode_a": 100.0,
+        "average_rating_calculated": 4.25,
+        "positive_review_ratio": 0.8269
+      },
+      {
+        "course_uid": "KPC_47851_154646",
+        "title": "구매전략수립 및 추진",
+        "provider": "한국생산성본부(KPC)",
+        "score_mode_a": 100.0,
+        "average_rating_calculated": 4.2571,
+        "positive_review_ratio": 0.8286
+      },
+      {
+        "course_uid": "KPC_47608_153140",
+        "title": "AI 활용 매출채권관리실무",
+        "provider": "한국생산성본부(KPC)",
+        "score_mode_a": 100.0,
+        "average_rating_calculated": 3.8289,
+        "positive_review_ratio": 0.6842
+      },
+      {
+        "course_uid": "GSEEK_58627",
+        "title": "독공 전산회계2급(실무)",
+        "provider": "GSEEK",
+        "score_mode_a": 100.0,
+        "average_rating_calculated": 4.0488,
+        "positive_review_ratio": 0.7317
+      }
+    ],
+    "top_b": [
+      {
+        "course_uid": "KPC_48569_156558",
+        "title": "[1Day] 물류개선실무",
+        "provider": "한국생산성본부(KPC)",
+        "score_mode_b": 110.78,
+        "average_rating_calculated": 4.4375,
+        "positive_review_ratio": 0.875
+      },
+      {
+        "course_uid": "KPC_47636_153144",
+        "title": "AI 활용 매출채권관리실무(지역)",
+        "provider": "한국생산성본부(KPC)",
+        "score_mode_b": 110.71,
+        "average_rating_calculated": 4.4286,
+        "positive_review_ratio": 0.8857
+      },
+      {
+        "course_uid": "KPC_47422_154014",
+        "title": "생산계획수립실무",
+        "provider": "한국생산성본부(KPC)",
+        "score_mode_b": 110.21,
+        "average_rating_calculated": 4.3611,
+        "positive_review_ratio": 0.8889
+      },
+      {
+        "course_uid": "KPC_47351_157240",
+        "title": "가치창출을 위한 R&D 실무",
+        "provider": "한국생산성본부(KPC)",
+        "score_mode_b": 110.2,
+        "average_rating_calculated": 4.36,
+        "positive_review_ratio": 0.84
+      },
+      {
+        "course_uid": "KMA_112161_127816",
+        "title": "[여의도] AI를 활용한 마케팅 전략 수립 및 실행 실무",
+        "provider": "한국능률협회(KMA)",
+        "score_mode_b": 109.84,
+        "average_rating_calculated": 4.3125,
+        "positive_review_ratio": 0.8125
+      },
+      {
+        "course_uid": "MULTICAMPUS_FA01BJ",
+        "title": "[Shift+AI] 업무 자동화를 위한 Make와 AI 활용 실무",
+        "provider": "멀티캠퍼스",
+        "score_mode_b": 109.84,
+        "average_rating_calculated": 4.3125,
+        "positive_review_ratio": 0.8438
+      },
+      {
+        "course_uid": "GSEEK_57865",
+        "title": "[에듀스파] 2026 공인중개사 공인중개사법 및 실무 개념완성_김상진",
+        "provider": "GSEEK",
+        "score_mode_b": 109.53,
+        "average_rating_calculated": 4.2712,
+        "positive_review_ratio": 0.8136
+      },
+      {
+        "course_uid": "KPC_47851_154646",
+        "title": "구매전략수립 및 추진",
+        "provider": "한국생산성본부(KPC)",
+        "score_mode_b": 109.43,
+        "average_rating_calculated": 4.2571,
+        "positive_review_ratio": 0.8286
+      },
+      {
+        "course_uid": "KPC_48925_157752",
+        "title": "[KILA] 물류개선실무",
+        "provider": "한국생산성본부(KPC)",
+        "score_mode_b": 109.38,
+        "average_rating_calculated": 4.25,
+        "positive_review_ratio": 0.875
+      },
+      {
+        "course_uid": "KPC_47569_152933",
+        "title": "엑셀, 데이터베이스, 파이썬 기반의 빅데이터 분석 실무",
+        "provider": "한국생산성본부(KPC)",
+        "score_mode_b": 109.38,
+        "average_rating_calculated": 4.25,
+        "positive_review_ratio": 0.8269
+      }
+    ],
+    "top_c": [
+      {
+        "course_uid": "GSEEK_61982",
+        "title": "[랜드하나] 2026 공인중개사 중개사법령 및 실무 예상문제풀이_황정선",
+        "provider": "GSEEK",
+        "score_mode_c": 106.14,
+        "average_rating_calculated": 4.1364,
+        "positive_review_ratio": 0.9091
+      },
+      {
+        "course_uid": "KPC_47422_154014",
+        "title": "생산계획수립실무",
+        "provider": "한국생산성본부(KPC)",
+        "score_mode_c": 105.83,
+        "average_rating_calculated": 4.3611,
+        "positive_review_ratio": 0.8889
+      },
+      {
+        "course_uid": "KPC_47636_153144",
+        "title": "AI 활용 매출채권관리실무(지역)",
+        "provider": "한국생산성본부(KPC)",
+        "score_mode_c": 105.79,
+        "average_rating_calculated": 4.4286,
+        "positive_review_ratio": 0.8857
+      },
+      {
+        "course_uid": "KPC_48716_157034",
+        "title": "[Live] 인공지능(AI) 거버넌스 및 리스크 대응 실무",
+        "provider": "한국생산성본부(KPC)",
+        "score_mode_c": 105.77,
+        "average_rating_calculated": 4.2115,
+        "positive_review_ratio": 0.8846
+      },
+      {
+        "course_uid": "KPC_48925_157752",
+        "title": "[KILA] 물류개선실무",
+        "provider": "한국생산성본부(KPC)",
+        "score_mode_c": 105.62,
+        "average_rating_calculated": 4.25,
+        "positive_review_ratio": 0.875
+      },
+      {
+        "course_uid": "KPC_48569_156558",
+        "title": "[1Day] 물류개선실무",
+        "provider": "한국생산성본부(KPC)",
+        "score_mode_c": 105.62,
+        "average_rating_calculated": 4.4375,
+        "positive_review_ratio": 0.875
+      },
+      {
+        "course_uid": "GSEEK_2764",
+        "title": "중소·창업 기술 지키기, 기술보호 실무",
+        "provider": "GSEEK",
+        "score_mode_c": 105.38,
+        "average_rating_calculated": 4.1529,
+        "positive_review_ratio": 0.8588
+      },
+      {
+        "course_uid": "KPC_46683_148496",
+        "title": "기획담당자를 위한 전략·경영 컨설팅 기법 활용 실무",
+        "provider": "한국생산성본부(KPC)",
+        "score_mode_c": 105.36,
+        "average_rating_calculated": 4.2286,
+        "positive_review_ratio": 0.8571
+      },
+      {
+        "course_uid": "MULTICAMPUS_FA01BJ",
+        "title": "[Shift+AI] 업무 자동화를 위한 Make와 AI 활용 실무",
+        "provider": "멀티캠퍼스",
+        "score_mode_c": 105.16,
+        "average_rating_calculated": 4.3125,
+        "positive_review_ratio": 0.8438
+      },
+      {
+        "course_uid": "KPC_47590_152077",
+        "title": "VBA와 매크로를 활용한 문서 자동화 실무 (ChatGPT 활용)",
+        "provider": "한국생산성본부(KPC)",
+        "score_mode_c": 105.1,
+        "average_rating_calculated": 4.16,
+        "positive_review_ratio": 0.84
+      }
+    ]
+  },
+  "근로기준법 및 4대보험 노무관리": {
+    "query": "근로기준법 및 4대보험 노무관리",
+    "top_k": 10,
+    "metrics": {
+      "jaccard_similarity_mode_a_vs_b": 1.0,
+      "jaccard_similarity_mode_a_vs_c": 1.0,
+      "mean_rank_shift_a_vs_b": 2.6
+    },
+    "top_a": [
+      {
+        "course_uid": "KPC_46996_149756",
+        "title": "[온앤오프] 근로기준법실무",
+        "provider": "한국생산성본부(KPC)",
+        "score_mode_a": 100.0,
+        "average_rating_calculated": 3.6923,
+        "positive_review_ratio": 0.5962
+      },
+      {
+        "course_uid": "GSEEK_3217",
+        "title": "[창업공통]필수 근로기준법과 인사서식",
+        "provider": "GSEEK",
+        "score_mode_a": 100.0,
+        "average_rating_calculated": 4.0175,
+        "positive_review_ratio": 0.7018
+      },
+      {
+        "course_uid": "KPC_46996_149759",
+        "title": "[온앤오프] 근로기준법실무",
+        "provider": "한국생산성본부(KPC)",
+        "score_mode_a": 100.0,
+        "average_rating_calculated": 4.0893,
+        "positive_review_ratio": 0.8036
+      },
+      {
+        "course_uid": "KPC_47017_149799",
+        "title": "노동위원회 사례로 배우는 노무관리실무",
+        "provider": "한국생산성본부(KPC)",
+        "score_mode_a": 100.0,
+        "average_rating_calculated": 3.8246,
+        "positive_review_ratio": 0.7018
+      },
+      {
+        "course_uid": "KPC_47001_149763",
+        "title": "[온앤오프] 근로기준법 기본해설",
+        "provider": "한국생산성본부(KPC)",
+        "score_mode_a": 100.0,
+        "average_rating_calculated": 4.2439,
+        "positive_review_ratio": 0.8049
+      },
+      {
+        "course_uid": "KPC_47001_149764",
+        "title": "[온앤오프] 근로기준법 기본해설",
+        "provider": "한국생산성본부(KPC)",
+        "score_mode_a": 100.0,
+        "average_rating_calculated": 4.1905,
+        "positive_review_ratio": 0.8333
+      },
+      {
+        "course_uid": "KPC_46996_149757",
+        "title": "[온앤오프] 근로기준법실무",
+        "provider": "한국생산성본부(KPC)",
+        "score_mode_a": 100.0,
+        "average_rating_calculated": 3.8333,
+        "positive_review_ratio": 0.7222
+      },
+      {
+        "course_uid": "KPC_46996_149758",
+        "title": "[온앤오프] 근로기준법실무",
+        "provider": "한국생산성본부(KPC)",
+        "score_mode_a": 100.0,
+        "average_rating_calculated": 3.8553,
+        "positive_review_ratio": 0.6842
+      },
+      {
+        "course_uid": "KPC_47003_149790",
+        "title": "[온앤오프] 현장에서 알아야 하는 노무관리 솔루션",
+        "provider": "한국생산성본부(KPC)",
+        "score_mode_a": 100.0,
+        "average_rating_calculated": 3.7164,
+        "positive_review_ratio": 0.6716
+      },
+      {
+        "course_uid": "KPC_47006_149777",
+        "title": "[온앤오프] 노무분쟁 예방을 위한 전략적 노무관리",
+        "provider": "한국생산성본부(KPC)",
+        "score_mode_a": 89.0,
+        "average_rating_calculated": 4.2778,
+        "positive_review_ratio": 0.8056
+      }
+    ],
+    "top_b": [
+      {
+        "course_uid": "KPC_47001_149763",
+        "title": "[온앤오프] 근로기준법 기본해설",
+        "provider": "한국생산성본부(KPC)",
+        "score_mode_b": 109.33,
+        "average_rating_calculated": 4.2439,
+        "positive_review_ratio": 0.8049
+      },
+      {
+        "course_uid": "KPC_47001_149764",
+        "title": "[온앤오프] 근로기준법 기본해설",
+        "provider": "한국생산성본부(KPC)",
+        "score_mode_b": 108.93,
+        "average_rating_calculated": 4.1905,
+        "positive_review_ratio": 0.8333
+      },
+      {
+        "course_uid": "KPC_46996_149759",
+        "title": "[온앤오프] 근로기준법실무",
+        "provider": "한국생산성본부(KPC)",
+        "score_mode_b": 108.17,
+        "average_rating_calculated": 4.0893,
+        "positive_review_ratio": 0.8036
+      },
+      {
+        "course_uid": "GSEEK_3217",
+        "title": "[창업공통]필수 근로기준법과 인사서식",
+        "provider": "GSEEK",
+        "score_mode_b": 107.63,
+        "average_rating_calculated": 4.0175,
+        "positive_review_ratio": 0.7018
+      },
+      {
+        "course_uid": "KPC_46996_149758",
+        "title": "[온앤오프] 근로기준법실무",
+        "provider": "한국생산성본부(KPC)",
+        "score_mode_b": 106.41,
+        "average_rating_calculated": 3.8553,
+        "positive_review_ratio": 0.6842
+      },
+      {
+        "course_uid": "KPC_46996_149757",
+        "title": "[온앤오프] 근로기준법실무",
+        "provider": "한국생산성본부(KPC)",
+        "score_mode_b": 106.25,
+        "average_rating_calculated": 3.8333,
+        "positive_review_ratio": 0.7222
+      },
+      {
+        "course_uid": "KPC_47017_149799",
+        "title": "노동위원회 사례로 배우는 노무관리실무",
+        "provider": "한국생산성본부(KPC)",
+        "score_mode_b": 106.18,
+        "average_rating_calculated": 3.8246,
+        "positive_review_ratio": 0.7018
+      },
+      {
+        "course_uid": "KPC_47003_149790",
+        "title": "[온앤오프] 현장에서 알아야 하는 노무관리 솔루션",
+        "provider": "한국생산성본부(KPC)",
+        "score_mode_b": 105.37,
+        "average_rating_calculated": 3.7164,
+        "positive_review_ratio": 0.6716
+      },
+      {
+        "course_uid": "KPC_46996_149756",
+        "title": "[온앤오프] 근로기준법실무",
+        "provider": "한국생산성본부(KPC)",
+        "score_mode_b": 105.19,
+        "average_rating_calculated": 3.6923,
+        "positive_review_ratio": 0.5962
+      },
+      {
+        "course_uid": "KPC_47006_149777",
+        "title": "[온앤오프] 노무분쟁 예방을 위한 전략적 노무관리",
+        "provider": "한국생산성본부(KPC)",
+        "score_mode_b": 97.53,
+        "average_rating_calculated": 4.2778,
+        "positive_review_ratio": 0.8056
+      }
+    ],
+    "top_c": [
+      {
+        "course_uid": "KPC_47001_149764",
+        "title": "[온앤오프] 근로기준법 기본해설",
+        "provider": "한국생산성본부(KPC)",
+        "score_mode_c": 105.0,
+        "average_rating_calculated": 4.1905,
+        "positive_review_ratio": 0.8333
+      },
+      {
+        "course_uid": "KPC_47001_149763",
+        "title": "[온앤오프] 근로기준법 기본해설",
+        "provider": "한국생산성본부(KPC)",
+        "score_mode_c": 104.57,
+        "average_rating_calculated": 4.2439,
+        "positive_review_ratio": 0.8049
+      },
+      {
+        "course_uid": "KPC_46996_149759",
+        "title": "[온앤오프] 근로기준법실무",
+        "provider": "한국생산성본부(KPC)",
+        "score_mode_c": 104.55,
+        "average_rating_calculated": 4.0893,
+        "positive_review_ratio": 0.8036
+      },
+      {
+        "course_uid": "KPC_46996_149757",
+        "title": "[온앤오프] 근로기준법실무",
+        "provider": "한국생산성본부(KPC)",
+        "score_mode_c": 103.33,
+        "average_rating_calculated": 3.8333,
+        "positive_review_ratio": 0.7222
+      },
+      {
+        "course_uid": "GSEEK_3217",
+        "title": "[창업공통]필수 근로기준법과 인사서식",
+        "provider": "GSEEK",
+        "score_mode_c": 103.03,
+        "average_rating_calculated": 4.0175,
+        "positive_review_ratio": 0.7018
+      },
+      {
+        "course_uid": "KPC_47017_149799",
+        "title": "노동위원회 사례로 배우는 노무관리실무",
+        "provider": "한국생산성본부(KPC)",
+        "score_mode_c": 103.03,
+        "average_rating_calculated": 3.8246,
+        "positive_review_ratio": 0.7018
+      },
+      {
+        "course_uid": "KPC_46996_149758",
+        "title": "[온앤오프] 근로기준법실무",
+        "provider": "한국생산성본부(KPC)",
+        "score_mode_c": 102.76,
+        "average_rating_calculated": 3.8553,
+        "positive_review_ratio": 0.6842
+      },
+      {
+        "course_uid": "KPC_47003_149790",
+        "title": "[온앤오프] 현장에서 알아야 하는 노무관리 솔루션",
+        "provider": "한국생산성본부(KPC)",
+        "score_mode_c": 102.57,
+        "average_rating_calculated": 3.7164,
+        "positive_review_ratio": 0.6716
+      },
+      {
+        "course_uid": "KPC_46996_149756",
+        "title": "[온앤오프] 근로기준법실무",
+        "provider": "한국생산성본부(KPC)",
+        "score_mode_c": 101.44,
+        "average_rating_calculated": 3.6923,
+        "positive_review_ratio": 0.5962
+      },
+      {
+        "course_uid": "KPC_47006_149777",
+        "title": "[온앤오프] 노무분쟁 예방을 위한 전략적 노무관리",
+        "provider": "한국생산성본부(KPC)",
+        "score_mode_c": 93.08,
+        "average_rating_calculated": 4.2778,
+        "positive_review_ratio": 0.8056
+      }
+    ]
+  },
+  "생성형 AI를 활용한 업무 자동화 및 생산성 혁신": {
+    "query": "생성형 AI를 활용한 업무 자동화 및 생산성 혁신",
+    "top_k": 10,
+    "metrics": {
+      "jaccard_similarity_mode_a_vs_b": 0.0,
+      "jaccard_similarity_mode_a_vs_c": 0.0,
+      "mean_rank_shift_a_vs_b": 0.0
+    },
+    "top_a": [
+      {
+        "course_uid": "KMA_112111_127575",
+        "title": "[비대면] 생성형 AI와 노션으로 완성하는 업무 자동화 시스템",
+        "provider": "한국능률협회(KMA)",
+        "score_mode_a": 100.0,
+        "average_rating_calculated": 4.16,
+        "positive_review_ratio": 0.84
+      },
+      {
+        "course_uid": "KMA_112119_127736",
+        "title": "[여의도] 3일 완성! 업무에 활용하는 생성형AI (with AI Agent)",
+        "provider": "한국능률협회(KMA)",
+        "score_mode_a": 100.0,
+        "average_rating_calculated": 3.9848,
+        "positive_review_ratio": 0.7273
+      },
+      {
+        "course_uid": "KMA_112111_127574",
+        "title": "[비대면] 생성형 AI와 노션으로 완성하는 업무 자동화 시스템",
+        "provider": "한국능률협회(KMA)",
+        "score_mode_a": 100.0,
+        "average_rating_calculated": 3.9333,
+        "positive_review_ratio": 0.7667
+      },
+      {
+        "course_uid": "KMA_112119_127735",
+        "title": "[여의도] 3일 완성! 업무에 활용하는 생성형AI (with AI Agent)",
+        "provider": "한국능률협회(KMA)",
+        "score_mode_a": 100.0,
+        "average_rating_calculated": 3.9677,
+        "positive_review_ratio": 0.7419
+      },
+      {
+        "course_uid": "KMA_112103_127631",
+        "title": "[비대면] 단숨에 마스터하는 AI 업무 자동화 (Gemini & NotebookLM)",
+        "provider": "한국능률협회(KMA)",
+        "score_mode_a": 100.0,
+        "average_rating_calculated": 4.36,
+        "positive_review_ratio": 0.88
+      },
+      {
+        "course_uid": "KMA_112158_127806",
+        "title": "[여의도] AI 에이전트 시대, 블로그 콘텐츠 자동화 마스터 클래스",
+        "provider": "한국능률협회(KMA)",
+        "score_mode_a": 100.0,
+        "average_rating_calculated": 4.0714,
+        "positive_review_ratio": 0.7857
+      },
+      {
+        "course_uid": "KMA_112158_127805",
+        "title": "[여의도] AI 에이전트 시대, 블로그 콘텐츠 자동화 마스터 클래스",
+        "provider": "한국능률협회(KMA)",
+        "score_mode_a": 100.0,
+        "average_rating_calculated": 4.125,
+        "positive_review_ratio": 0.8125
+      },
+      {
+        "course_uid": "HUNET_Y00388838",
+        "title": "칼퇴하는 일잘러의 업무 스킬, 파이썬 업무 자동화",
+        "provider": "휴넷",
+        "score_mode_a": 100.0,
+        "average_rating_calculated": 4.1569,
+        "positive_review_ratio": 0.8235
+      },
+      {
+        "course_uid": "GSEEK_9585",
+        "title": "생성형 AI 시대의 변화와 기회(생성형 AI 혁신포럼)",
+        "provider": "GSEEK",
+        "score_mode_a": 100.0,
+        "average_rating_calculated": 4.2353,
+        "positive_review_ratio": 0.8529
+      },
+      {
+        "course_uid": "KMA_112158_127804",
+        "title": "[여의도] AI 에이전트 시대, 블로그 콘텐츠 자동화 마스터 클래스",
+        "provider": "한국능률협회(KMA)",
+        "score_mode_a": 100.0,
+        "average_rating_calculated": 3.8788,
+        "positive_review_ratio": 0.7273
+      }
+    ],
+    "top_b": [
+      {
+        "course_uid": "KPC_46891_149363",
+        "title": "[온앤오프] 공공기관 혁신을 위한 AX 추진 실무",
+        "provider": "한국생산성본부(KPC)",
+        "score_mode_b": 111.67,
+        "average_rating_calculated": 4.5556,
+        "positive_review_ratio": 0.9444
+      },
+      {
+        "course_uid": "KMA_112095_127515",
+        "title": "[여의도] 클릭만으로 배우는 생성형 AI 빅데이터 분석 및 보고서 작성 (with 크롬확장프로그램)",
+        "provider": "한국능률협회(KMA)",
+        "score_mode_b": 111.5,
+        "average_rating_calculated": 4.5333,
+        "positive_review_ratio": 1.0
+      },
+      {
+        "course_uid": "KPC_47889_152743",
+        "title": "★ NEW : 생성형 AI와 ChatGPT를 활용한 프로젝트 혁신하기",
+        "provider": "한국생산성본부(KPC)",
+        "score_mode_b": 111.25,
+        "average_rating_calculated": 4.5,
+        "positive_review_ratio": 0.8889
+      },
+      {
+        "course_uid": "KPC_47538_152853",
+        "title": "업무 생산성을 높이는 ChatGPT 활용 Skill-up",
+        "provider": "한국생산성본부(KPC)",
+        "score_mode_b": 111.02,
+        "average_rating_calculated": 4.4688,
+        "positive_review_ratio": 0.9062
+      },
+      {
+        "course_uid": "KPC_47556_155039",
+        "title": "[구글] 구글 Gemini로 업무 혁신하기",
+        "provider": "한국생산성본부(KPC)",
+        "score_mode_b": 110.98,
+        "average_rating_calculated": 4.4643,
+        "positive_review_ratio": 0.8571
+      },
+      {
+        "course_uid": "KPC_47677_153244",
+        "title": "마케팅의 판도를 바꾼다! 마케팅 AI(ChatGPT)의 모든 것",
+        "provider": "한국생산성본부(KPC)",
+        "score_mode_b": 110.83,
+        "average_rating_calculated": 4.4444,
+        "positive_review_ratio": 0.963
+      },
+      {
+        "course_uid": "KMA_112109_127567",
+        "title": "[여의도] 생성형 AI와 노션으로 완성하는 업무 자동화 시스템",
+        "provider": "한국능률협회(KMA)",
+        "score_mode_b": 110.83,
+        "average_rating_calculated": 4.4444,
+        "positive_review_ratio": 0.8889
+      },
+      {
+        "course_uid": "KMA_112084_127533",
+        "title": "[여의도] 생성형 AIㆍ엑셀 데이터 기반 비즈니스 전략 도출",
+        "provider": "한국능률협회(KMA)",
+        "score_mode_b": 110.71,
+        "average_rating_calculated": 4.4286,
+        "positive_review_ratio": 0.8571
+      },
+      {
+        "course_uid": "MULTICAMPUS_EA0DC8",
+        "title": "[AI Sense]챗GPT로 끝내주는 엑셀 자동화(참고도서제공)",
+        "provider": "멀티캠퍼스",
+        "score_mode_b": 110.66,
+        "average_rating_calculated": 4.4211,
+        "positive_review_ratio": 0.8947
+      },
+      {
+        "course_uid": "KMA_112125_127650",
+        "title": "[여의도] AI 에이전트로 자동화하는 기획·문서·보고서 실무(with Claude Code)",
+        "provider": "한국능률협회(KMA)",
+        "score_mode_b": 110.57,
+        "average_rating_calculated": 4.4091,
+        "positive_review_ratio": 0.8636
+      }
+    ],
+    "top_c": [
+      {
+        "course_uid": "KMA_112095_127515",
+        "title": "[여의도] 클릭만으로 배우는 생성형 AI 빅데이터 분석 및 보고서 작성 (with 크롬확장프로그램)",
+        "provider": "한국능률협회(KMA)",
+        "score_mode_c": 107.5,
+        "average_rating_calculated": 4.5333,
+        "positive_review_ratio": 1.0
+      },
+      {
+        "course_uid": "KPC_47677_153244",
+        "title": "마케팅의 판도를 바꾼다! 마케팅 AI(ChatGPT)의 모든 것",
+        "provider": "한국생산성본부(KPC)",
+        "score_mode_c": 106.94,
+        "average_rating_calculated": 4.4444,
+        "positive_review_ratio": 0.963
+      },
+      {
+        "course_uid": "KPC_46891_149363",
+        "title": "[온앤오프] 공공기관 혁신을 위한 AX 추진 실무",
+        "provider": "한국생산성본부(KPC)",
+        "score_mode_c": 106.67,
+        "average_rating_calculated": 4.5556,
+        "positive_review_ratio": 0.9444
+      },
+      {
+        "course_uid": "KPC_47544_152903",
+        "title": "ChatGPT를 활용한 엑셀, VBA, PPT 업무 자동화",
+        "provider": "한국생산성본부(KPC)",
+        "score_mode_c": 106.62,
+        "average_rating_calculated": 4.3529,
+        "positive_review_ratio": 0.9412
+      },
+      {
+        "course_uid": "KMA_112087_127481",
+        "title": "[여의도] 생성형 AIㆍ엑셀로 끝내는 데이터 분석",
+        "provider": "한국능률협회(KMA)",
+        "score_mode_c": 106.2,
+        "average_rating_calculated": 4.3913,
+        "positive_review_ratio": 0.913
+      },
+      {
+        "course_uid": "HUNET_Y00320907",
+        "title": "AI 시대의 인재, 창의력 마스터 (도서 포함)",
+        "provider": "휴넷",
+        "score_mode_c": 106.09,
+        "average_rating_calculated": 4.3585,
+        "positive_review_ratio": 0.9057
+      },
+      {
+        "course_uid": "KPC_47538_152853",
+        "title": "업무 생산성을 높이는 ChatGPT 활용 Skill-up",
+        "provider": "한국생산성본부(KPC)",
+        "score_mode_c": 106.09,
+        "average_rating_calculated": 4.4688,
+        "positive_review_ratio": 0.9062
+      },
+      {
+        "course_uid": "MULTICAMPUS_EA0DNJ",
+        "title": "2일만에 끝내는 파이썬 업무 자동화 프로젝트 with ChatGPT(참고도서제공)",
+        "provider": "멀티캠퍼스",
+        "score_mode_c": 106.07,
+        "average_rating_calculated": 4.3016,
+        "positive_review_ratio": 0.9048
+      },
+      {
+        "course_uid": "GSEEK_52127",
+        "title": "업무자동화까지 완성하는 파이썬 퀵스타트",
+        "provider": "GSEEK",
+        "score_mode_c": 106.07,
+        "average_rating_calculated": 4.381,
+        "positive_review_ratio": 0.9048
+      },
+      {
+        "course_uid": "KMA_112122_127633",
+        "title": "[여의도] AI 에이전트 보고서, 사업계획서 자동화 마스터클래스 -Gemini, ChatGPT, NotebookLM 실전 활용-",
+        "provider": "한국능률협회(KMA)",
+        "score_mode_c": 106.0,
+        "average_rating_calculated": 4.2333,
+        "positive_review_ratio": 0.9
+      }
+    ]
+  },
+  "팀장 리더십 및 조직 갈등 관리 소통 스킬": {
+    "query": "팀장 리더십 및 조직 갈등 관리 소통 스킬",
+    "top_k": 10,
+    "metrics": {
+      "jaccard_similarity_mode_a_vs_b": 0.0,
+      "jaccard_similarity_mode_a_vs_c": 0.0,
+      "mean_rank_shift_a_vs_b": 0.0
+    },
+    "top_a": [
+      {
+        "course_uid": "HUNET_Y00405809",
+        "title": "[포사이트 코리아 2027] 조직인사·리더십",
+        "provider": "휴넷",
+        "score_mode_a": 100.0,
+        "average_rating_calculated": 4.039,
+        "positive_review_ratio": 0.7662
+      },
+      {
+        "course_uid": "PUB_ABA20243001037760_86",
+        "title": "전략적 조직운영을 위한 인사관리 실무",
+        "provider": "에듀퓨어",
+        "score_mode_a": 100.0,
+        "average_rating_calculated": 3.0,
+        "positive_review_ratio": 0.5
+      },
+      {
+        "course_uid": "PUB_ABA20243001037760_85",
+        "title": "전략적 조직운영을 위한 인사관리 실무",
+        "provider": "에듀퓨어",
+        "score_mode_a": 100.0,
+        "average_rating_calculated": 3.0,
+        "positive_review_ratio": 0.5
+      },
+      {
+        "course_uid": "PUB_ABA20243001037760_84",
+        "title": "전략적 조직운영을 위한 인사관리 실무",
+        "provider": "에듀퓨어",
+        "score_mode_a": 100.0,
+        "average_rating_calculated": 3.0,
+        "positive_review_ratio": 0.5
+      },
+      {
+        "course_uid": "PUB_ABA20243001051626_1",
+        "title": "EB24OD 전략적 조직운영을 위한 인사관리 실무",
+        "provider": "멀티캠퍼스 원격평생교육원",
+        "score_mode_a": 100.0,
+        "average_rating_calculated": 3.0,
+        "positive_review_ratio": 0.5
+      },
+      {
+        "course_uid": "GSEEK_432",
+        "title": "수의사와 함께하는 반려견 건강관리",
+        "provider": "GSEEK",
+        "score_mode_a": 100.0,
+        "average_rating_calculated": 3.7639,
+        "positive_review_ratio": 0.6806
+      },
+      {
+        "course_uid": "GSEEK_673",
+        "title": "셀프 자동차 관리 노하우",
+        "provider": "GSEEK",
+        "score_mode_a": 100.0,
+        "average_rating_calculated": 3.6,
+        "positive_review_ratio": 0.6333
+      },
+      {
+        "course_uid": "GSEEK_1390",
+        "title": "나를 지키는 힘! 셀프리더십",
+        "provider": "GSEEK",
+        "score_mode_a": 100.0,
+        "average_rating_calculated": 3.625,
+        "positive_review_ratio": 0.625
+      },
+      {
+        "course_uid": "GSEEK_1408",
+        "title": "직장에서 소리치지 않고 통하는 마법",
+        "provider": "GSEEK",
+        "score_mode_a": 100.0,
+        "average_rating_calculated": 4.0882,
+        "positive_review_ratio": 0.7353
+      },
+      {
+        "course_uid": "GSEEK_2367",
+        "title": "티끌 모아 태산 되는 커리어 관리 기법",
+        "provider": "GSEEK",
+        "score_mode_a": 100.0,
+        "average_rating_calculated": 4.0566,
+        "positive_review_ratio": 0.7547
+      }
+    ],
+    "top_b": [
+      {
+        "course_uid": "KPC_47200_150977",
+        "title": "성공적 혁신을 이끄는 변화리더십",
+        "provider": "한국생산성본부(KPC)",
+        "score_mode_b": 111.09,
+        "average_rating_calculated": 4.4783,
+        "positive_review_ratio": 0.8913
+      },
+      {
+        "course_uid": "GSEEK_57923",
+        "title": "[핵심인재 아카이브] 차세대리더의 업무·관계역량(대리급)",
+        "provider": "GSEEK",
+        "score_mode_b": 110.94,
+        "average_rating_calculated": 4.4583,
+        "positive_review_ratio": 0.875
+      },
+      {
+        "course_uid": "KMA_112295_128444",
+        "title": "[여의도] 하루만에 끝내는 조직문화 담당자 필살기 노하우",
+        "provider": "한국능률협회(KMA)",
+        "score_mode_b": 110.78,
+        "average_rating_calculated": 4.4375,
+        "positive_review_ratio": 0.9375
+      },
+      {
+        "course_uid": "KPC_47636_153144",
+        "title": "AI 활용 매출채권관리실무(지역)",
+        "provider": "한국생산성본부(KPC)",
+        "score_mode_b": 110.71,
+        "average_rating_calculated": 4.4286,
+        "positive_review_ratio": 0.8857
+      },
+      {
+        "course_uid": "KPC_46981_149647",
+        "title": "[온앤오프] 인사관리기본",
+        "provider": "한국생산성본부(KPC)",
+        "score_mode_b": 110.66,
+        "average_rating_calculated": 4.4211,
+        "positive_review_ratio": 0.9474
+      },
+      {
+        "course_uid": "KMA_112297_128451",
+        "title": "[여의도] Culture Shift, 조직문화 혁신 전략",
+        "provider": "한국능률협회(KMA)",
+        "score_mode_b": 110.65,
+        "average_rating_calculated": 4.4194,
+        "positive_review_ratio": 0.8387
+      },
+      {
+        "course_uid": "KPC_47062_157407",
+        "title": "성과내는 팀을 만드는 팀장리더십",
+        "provider": "한국생산성본부(KPC)",
+        "score_mode_b": 110.41,
+        "average_rating_calculated": 4.3878,
+        "positive_review_ratio": 0.8571
+      },
+      {
+        "course_uid": "KMA_112247_128265",
+        "title": "[여의도] 다양성 조직문화와 리더십",
+        "provider": "한국능률협회(KMA)",
+        "score_mode_b": 110.41,
+        "average_rating_calculated": 4.3878,
+        "positive_review_ratio": 0.8571
+      },
+      {
+        "course_uid": "KPC_47501_151382",
+        "title": "내외부 고객과의 비즈니스협상스킬",
+        "provider": "한국생산성본부(KPC)",
+        "score_mode_b": 110.4,
+        "average_rating_calculated": 4.3871,
+        "positive_review_ratio": 0.871
+      },
+      {
+        "course_uid": "KPC_47633_153263",
+        "title": "영업마인드혁신전략",
+        "provider": "한국생산성본부(KPC)",
+        "score_mode_b": 110.34,
+        "average_rating_calculated": 4.3784,
+        "positive_review_ratio": 0.8649
+      }
+    ],
+    "top_c": [
+      {
+        "course_uid": "KPC_46981_149647",
+        "title": "[온앤오프] 인사관리기본",
+        "provider": "한국생산성본부(KPC)",
+        "score_mode_c": 106.71,
+        "average_rating_calculated": 4.4211,
+        "positive_review_ratio": 0.9474
+      },
+      {
+        "course_uid": "MULTICAMPUS_FA005J",
+        "title": "조직의 혁신을 창조하는 디지털 리더십",
+        "provider": "멀티캠퍼스",
+        "score_mode_c": 106.67,
+        "average_rating_calculated": 4.3333,
+        "positive_review_ratio": 0.9444
+      },
+      {
+        "course_uid": "KMA_112295_128444",
+        "title": "[여의도] 하루만에 끝내는 조직문화 담당자 필살기 노하우",
+        "provider": "한국능률협회(KMA)",
+        "score_mode_c": 106.56,
+        "average_rating_calculated": 4.4375,
+        "positive_review_ratio": 0.9375
+      },
+      {
+        "course_uid": "GSEEK_51981",
+        "title": "이호선의 0세부터 100세까지 가족 처방전",
+        "provider": "GSEEK",
+        "score_mode_c": 106.56,
+        "average_rating_calculated": 4.1875,
+        "positive_review_ratio": 0.9375
+      },
+      {
+        "course_uid": "KMA_112306_128485",
+        "title": "[여의도] 조직 갈등을 기회로: 코칭으로 푸는 해결의 기술",
+        "provider": "한국능률협회(KMA)",
+        "score_mode_c": 106.56,
+        "average_rating_calculated": 4.375,
+        "positive_review_ratio": 0.9375
+      },
+      {
+        "course_uid": "KMA_112306_128489",
+        "title": "[여의도] 조직 갈등을 기회로: 코칭으로 푸는 해결의 기술",
+        "provider": "한국능률협회(KMA)",
+        "score_mode_c": 106.5,
+        "average_rating_calculated": 4.2667,
+        "positive_review_ratio": 0.9333
+      },
+      {
+        "course_uid": "KPC_47226_152516",
+        "title": "CISO 관점의 정보보안 위험관리",
+        "provider": "한국생산성본부(KPC)",
+        "score_mode_c": 106.2,
+        "average_rating_calculated": 4.3478,
+        "positive_review_ratio": 0.913
+      },
+      {
+        "course_uid": "KMA_112183_127972",
+        "title": "[여의도] 초급관리자 역량개발",
+        "provider": "한국능률협회(KMA)",
+        "score_mode_c": 106.07,
+        "average_rating_calculated": 4.3571,
+        "positive_review_ratio": 0.9048
+      },
+      {
+        "course_uid": "KMA_112254_128299",
+        "title": "[여의도] 수평적 조직을 만드는 리더의 소통 스킬",
+        "provider": "한국능률협회(KMA)",
+        "score_mode_c": 106.06,
+        "average_rating_calculated": 4.3654,
+        "positive_review_ratio": 0.9038
+      },
+      {
+        "course_uid": "KPC_47199_150945",
+        "title": "조직을 이끄는 리더의 소통스킬(소통리더십)",
+        "provider": "한국생산성본부(KPC)",
+        "score_mode_c": 106.04,
+        "average_rating_calculated": 4.1707,
+        "positive_review_ratio": 0.9024
+      }
+    ]
+  }
+}

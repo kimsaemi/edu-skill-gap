@@ -1,0 +1,117 @@
+{
+  "all_passed": true,
+  "scenarios_count": 10,
+  "synthetic_review_isolated": true,
+  "results": [
+    {
+      "scenario_id": "SCENARIO_01_HR_ENTRY",
+      "name": "인사 신입: 신입사원 입사 온보딩 및 OJT (입문, 무료)",
+      "status": "PASSED",
+      "returned_count": 3,
+      "top1_title": "HR, AI가 트렌드다 : 채용부터 퇴사까지",
+      "top1_provider": "GSEEK",
+      "top1_score": 71.0,
+      "top1_reason_sample": "커리큘럼 내 '매력적인 채용 공고 생성: 지원자 홀리는 채용 공고, AI가 써준다 / 면접 가이드 만들기: ...",
+      "alternative_offerings_found": 2
+    },
+    {
+      "scenario_id": "SCENARIO_02_HR_MID",
+      "name": "인사 실무: 월별 급여 계산 및 4대보험 (실무, 30만원 이하)",
+      "status": "PASSED",
+      "returned_count": 3,
+      "top1_title": "인사 노무 관리의 기본, 사례로 습득하라!",
+      "top1_provider": "고려아카데미(원격)",
+      "top1_score": 71.6,
+      "top1_reason_sample": "커리큘럼 내 '1 근로기준법의 기본 원리와 적용대상 2 근로계약과 근로시간 3 임금과...' 등 실제 실무 ...",
+      "alternative_offerings_found": 0
+    },
+    {
+      "scenario_id": "SCENARIO_03_HR_MGR",
+      "name": "인사 관리자: 인사평가 및 성과관리 (관리자/심화)",
+      "status": "PASSED",
+      "returned_count": 3,
+      "top1_title": "인사평가시스템 구축실무",
+      "top1_provider": "한국생산성본부(KPC)",
+      "top1_score": 70.6,
+      "top1_reason_sample": "커리큘럼 내 '모듈 주제 내용 Module 1 인사평가 패러다임 변화 / 성과평가와 역량평가 구분' 등 실제...",
+      "alternative_offerings_found": 0
+    },
+    {
+      "scenario_id": "SCENARIO_04_GA_ENTRY",
+      "name": "총무 신입: 비즈니스 문서작성 및 기획 (입문)",
+      "status": "PASSED",
+      "returned_count": 3,
+      "top1_title": "DO IT 직장인 기본.zip : 회사에서 바로 통하는 보고서",
+      "top1_provider": "GSEEK",
+      "top1_score": 71.2,
+      "top1_reason_sample": "커리큘럼 내 '실무에서 바로 쓰는 보고서 작성법' 등 실제 실무 내용을 확인하여 [문서작성 및 기획] 역량 ...",
+      "alternative_offerings_found": 0
+    },
+    {
+      "scenario_id": "SCENARIO_05_GA_MID",
+      "name": "총무 실무: 비품 및 고정자산 관리 (실무)",
+      "status": "PASSED",
+      "returned_count": 3,
+      "top1_title": "EB2FI9 실무 꿀 tip! 총무 업무 지침서",
+      "top1_provider": "멀티캠퍼스 원격평생교육원",
+      "top1_score": 62.5,
+      "top1_reason_sample": "커리큘럼 내 '...6 인쇄물 및 우편물 관리 7 부동산관리 8 고정자산관리 9 차량 운영 및 관리 10 용...",
+      "alternative_offerings_found": 1
+    },
+    {
+      "scenario_id": "SCENARIO_06_MGMT_MID",
+      "name": "경영지원 실무: 연간 예산 편성 및 재무회계 (실무)",
+      "status": "PASSED",
+      "returned_count": 3,
+      "top1_title": "출근길에 마스터하는 회계 기초",
+      "top1_provider": "GSEEK",
+      "top1_score": 70.0,
+      "top1_reason_sample": "커리큘럼 내 '재무제표란 무엇인가 / 손익계산서 해석하기' 등 실제 실무 내용을 확인하여 [경영전략 및 재무...",
+      "alternative_offerings_found": 1
+    },
+    {
+      "scenario_id": "SCENARIO_07_LEADERSHIP",
+      "name": "관리자 공통: 팀 빌딩 및 조직 리더십 (관리자, 온라인)",
+      "status": "PASSED",
+      "returned_count": 3,
+      "top1_title": "리더십 4.0 시대, 일잘러의 IT 프로젝트 성과관리",
+      "top1_provider": "휴넷",
+      "top1_score": 69.1,
+      "top1_reason_sample": "커리큘럼 내 '0 시대, 일잘러의 IT 프로젝트 성과관리 - 제1장 리더십 / IT 프로젝트 일정관리 노하우...",
+      "alternative_offerings_found": 2
+    },
+    {
+      "scenario_id": "SCENARIO_08_FREE_ONLY",
+      "name": "무료 교육 전용: 근로계약 체결 및 노무 (무료)",
+      "status": "PASSED",
+      "returned_count": 3,
+      "top1_title": "입사에서 퇴사까지, 직장인을 위한 노동법 이야기",
+      "top1_provider": "GSEEK",
+      "top1_score": 72.0,
+      "top1_reason_sample": "커리큘럼 내 '근로계약과 근로조건의 결정 / 노동법을 이해하기 위한 기초' 등 실제 실무 내용을 확인하여 [...",
+      "alternative_offerings_found": 1
+    },
+    {
+      "scenario_id": "SCENARIO_09_TIME_BUDGET_LIMIT",
+      "name": "시간·예산 제한: 비즈니스 매너 (10시간 미만, 10만원 이하)",
+      "status": "PASSED",
+      "returned_count": 3,
+      "top1_title": "[Biz Skill Up]엣지있게 English Meeting",
+      "top1_provider": "멀티캠퍼스",
+      "top1_score": 65.8,
+      "top1_reason_sample": "과정 소개 내용 중 직무 키워드(직무 역량 정합)를 중심으로 [비즈니스 매너 및 커뮤니케이션] 실무 역량 강...",
+      "alternative_offerings_found": 0
+    },
+    {
+      "scenario_id": "SCENARIO_10_ZERO_RESULTS_FALLBACK",
+      "name": "조건 만족 0건 케이스: 극단적 조건 (무료 + 500시간 이상 장기)",
+      "status": "PASSED (Clean 0 rows handled)",
+      "returned_count": 2,
+      "top1_title": "[핵집]전기(산업)기사 실기",
+      "top1_provider": "GSEEK",
+      "top1_score": 28.0,
+      "top1_reason_sample": "과정 소개 내용 중 직무 키워드(직무 역량 정합)를 중심으로 [인력채용] 실무 역량 강화를 제공합니다....",
+      "alternative_offerings_found": 0
+    }
+  ]
+}

@@ -1,31 +1,83 @@
 {
-  "status": "PASS",
-  "total_corpus_courses": 8645,
-  "vocab_size": 9347,
-  "k_candidates_evaluated": [
-    5,
-    6,
-    8,
-    10,
-    12
+  "execution_timestamp": "2026-10-15 19:36:49",
+  "total_corpus_count": 8645,
+  "test_results": [
+    {
+      "test_id": "Test A",
+      "description": "급여·4대보험 검색 시 GSEEK/휴넷 동일 강좌 중복 제거 및 대체옵션 보존",
+      "query": "급여 4대보험 원천징수 실무",
+      "candidates": 8549,
+      "returned_count": 10,
+      "status": "PASS",
+      "details": "중복 0건, 대체옵션 연결=True"
+    },
+    {
+      "test_id": "Test B",
+      "description": "동일 제목이지만 커리큘럼/기관이 상이한 독립 과정 보존 (KMA vs KPC)",
+      "query": "PM Project Manager 프로젝트 관리자 양성",
+      "candidates": 8645,
+      "returned_count": 10,
+      "status": "PASS",
+      "details": "독립 교육기관 오프라인 과정 분리 보존 확인 (KMA=True, KPC=True)"
+    },
+    {
+      "test_id": "Test C",
+      "description": "무료/유료 교차 옵션 보존 및 사용자 필터 조건 위배 대안 경고 감사",
+      "query": "월급이 낭비되지 않도록 알기 쉬운 세금 상식",
+      "candidates": 5,
+      "returned_count": 5,
+      "status": "PASS",
+      "details": "무료 옵션 우선 추천 및 유료 대체 옵션에 비적합 경고 플래그 부여"
+    },
+    {
+      "test_id": "Test D",
+      "description": "총무 자산관리 검색 시 IT 개발 오매핑 강좌 원천 차단",
+      "query": "총무 자산관리 비품 구매 계약 실무",
+      "candidates": 8549,
+      "returned_count": 10,
+      "status": "PASS",
+      "details": "109건 중 96건 IT오류 차단, 13건 유지, IT노출 0건"
+    },
+    {
+      "test_id": "Test E",
+      "description": "군집 보너스 0.0점(기본) vs 5.0점(실험) 비교 분석",
+      "query": "인사평가 및 핵심인재 성과관리 피드백",
+      "candidates": 8549,
+      "returned_count": 5,
+      "status": "PASS",
+      "details": "가변 파라미터 cluster_boost 정상 동작, 점수 +5점 반영 및 순위 변동=True"
+    },
+    {
+      "test_id": "Test F",
+      "description": "오매핑 109건 방어 규칙 ON/OFF 비교 및 수치 일관성 검증",
+      "query": "사무행정 문서관리 및 총무 실무",
+      "candidates": 8549,
+      "returned_count": 5,
+      "status": "PASS",
+      "details": "차단 ON=8549건 vs OFF=8645건 (정확히 96건 차단 감지)"
+    },
+    {
+      "test_id": "Test G",
+      "description": "추천 엔진 반복 호출 시 결정론적 재현성(Deterministic Output) 검증",
+      "query": "노무관리 근로기준법 취업규칙 작성",
+      "candidates": 5,
+      "returned_count": 5,
+      "status": "PASS",
+      "details": "동일 파라미터 호출 시 UID 및 점수 100% 불변 재현"
+    },
+    {
+      "test_id": "Test H",
+      "description": "Top 3/5/10 실제 반환 개수 정확성 및 중복 0건 전수 감사",
+      "query": "조직문화 리더십 코칭과 팀 빌딩",
+      "candidates": 8645,
+      "returned_count": 10,
+      "status": "PASS",
+      "details": "Top 3: 3건(중복 0건), Top 5: 5건(중복 0건), Top 10: 10건(중복 0건)"
+    }
   ],
-  "selected_base_k": 8,
-  "selected_k_silhouette": 0.0413,
-  "cluster_distribution": {
-    "0": 1094,
-    "1": 389,
-    "2": 897,
-    "3": 912,
-    "4": 228,
-    "5": 1079,
-    "6": 150,
-    "7": 3896
-  },
-  "reproduction_notes": {
-    "is_ko_sroberta_implemented_full_corpus": false,
-    "ko_sroberta_status_note": "Ko-SRoBERTa는 STEP 5-2 400건 파일럿 단계 실측 완료 (embeddings_ko_sroberta_400.npy 존재), 8,645건 전수 임베딩은 후속 과제임",
-    "rating_imputation_applied": "결측 강좌 대상 Bayesian 기준 중립값(80.0점) 적용",
-    "deduplication_applied": "(provider, title) 기준 다회차 중복 제거 적용"
-  },
-  "execution_time_sec": 6.48
+  "summary": {
+    "total_tests": 8,
+    "passed_tests": 8,
+    "failed_tests": 0
+  }
 }

@@ -1,0 +1,468 @@
+{
+  "metrics_summary": {
+    "Model A (TF-IDF)": {
+      "training_samples": 3412,
+      "test_samples": 769,
+      "train_time_sec": 1.582,
+      "inference_time_ms_per_sample": 0.017,
+      "macro_f1": 0.7573,
+      "micro_f1": 0.826,
+      "samples_f1": 0.8125,
+      "macro_precision": 0.7583,
+      "macro_recall": 0.7677,
+      "roc_auc_mean": 0.949,
+      "hamming_loss": 0.0723,
+      "per_competency": {
+        "COMP_GA_01": {
+          "precision": 0.9514,
+          "recall": 0.8852,
+          "f1": 0.9171,
+          "auc": 0.9518,
+          "support": 575
+        },
+        "COMP_GA_02": {
+          "precision": 0.6866,
+          "recall": 0.8519,
+          "f1": 0.7603,
+          "auc": 0.9859,
+          "support": 54
+        },
+        "COMP_HR_01": {
+          "precision": 0.9423,
+          "recall": 0.7538,
+          "f1": 0.8376,
+          "auc": 0.9522,
+          "support": 65
+        },
+        "COMP_HR_02": {
+          "precision": 0.5652,
+          "recall": 0.65,
+          "f1": 0.6047,
+          "auc": 0.943,
+          "support": 60
+        },
+        "COMP_LABOR_01": {
+          "precision": 0.8551,
+          "recall": 0.7867,
+          "f1": 0.8194,
+          "auc": 0.9439,
+          "support": 75
+        },
+        "COMP_MGMT_01": {
+          "precision": 0.8642,
+          "recall": 0.8537,
+          "f1": 0.8589,
+          "auc": 0.9551,
+          "support": 246
+        },
+        "COMP_MGMT_02": {
+          "precision": 0.5,
+          "recall": 0.7167,
+          "f1": 0.589,
+          "auc": 0.9442,
+          "support": 60
+        },
+        "COMP_SEC_01": {
+          "precision": 0.7014,
+          "recall": 0.6433,
+          "f1": 0.6711,
+          "auc": 0.9158,
+          "support": 157
+        }
+      }
+    },
+    "Model B (Ko-SRoBERTa)": {
+      "training_samples": 3412,
+      "test_samples": 769,
+      "train_time_sec": 0.176,
+      "inference_time_ms_per_sample": 0.004,
+      "macro_f1": 0.5766,
+      "micro_f1": 0.6885,
+      "samples_f1": 0.6901,
+      "macro_precision": 0.4901,
+      "macro_recall": 0.7749,
+      "roc_auc_mean": 0.89,
+      "hamming_loss": 0.1544,
+      "per_competency": {
+        "COMP_GA_01": {
+          "precision": 0.9522,
+          "recall": 0.8661,
+          "f1": 0.9071,
+          "auc": 0.9297,
+          "support": 575
+        },
+        "COMP_GA_02": {
+          "precision": 0.4248,
+          "recall": 0.8889,
+          "f1": 0.5749,
+          "auc": 0.9361,
+          "support": 54
+        },
+        "COMP_HR_01": {
+          "precision": 0.2474,
+          "recall": 0.7231,
+          "f1": 0.3686,
+          "auc": 0.8292,
+          "support": 65
+        },
+        "COMP_HR_02": {
+          "precision": 0.2753,
+          "recall": 0.8167,
+          "f1": 0.4118,
+          "auc": 0.862,
+          "support": 60
+        },
+        "COMP_LABOR_01": {
+          "precision": 0.5413,
+          "recall": 0.7867,
+          "f1": 0.6413,
+          "auc": 0.939,
+          "support": 75
+        },
+        "COMP_MGMT_01": {
+          "precision": 0.7873,
+          "recall": 0.8577,
+          "f1": 0.821,
+          "auc": 0.9374,
+          "support": 246
+        },
+        "COMP_MGMT_02": {
+          "precision": 0.2803,
+          "recall": 0.6167,
+          "f1": 0.3854,
+          "auc": 0.8742,
+          "support": 60
+        },
+        "COMP_SEC_01": {
+          "precision": 0.4122,
+          "recall": 0.6433,
+          "f1": 0.5025,
+          "auc": 0.8121,
+          "support": 157
+        }
+      }
+    }
+  },
+  "simulation_results": [
+    {
+      "scenario": "인력채용",
+      "target_competency": "COMP_HR_01",
+      "spearman_corr_A_B": 0.5266,
+      "pearson_corr_A_B": 0.595,
+      "unrelated_filter_count": 2245,
+      "unrelated_filter_ratio": 25.97,
+      "high_confidence_candidates": 685
+    },
+    {
+      "scenario": "노무준법",
+      "target_competency": "COMP_LABOR_01",
+      "spearman_corr_A_B": 0.6579,
+      "pearson_corr_A_B": 0.805,
+      "unrelated_filter_count": 5036,
+      "unrelated_filter_ratio": 58.25,
+      "high_confidence_candidates": 743
+    },
+    {
+      "scenario": "자산관리",
+      "target_competency": "COMP_GA_02",
+      "spearman_corr_A_B": 0.641,
+      "pearson_corr_A_B": 0.7815,
+      "unrelated_filter_count": 4758,
+      "unrelated_filter_ratio": 55.04,
+      "high_confidence_candidates": 775
+    }
+  ],
+  "analysis_counts": {
+    "total_courses": 8645,
+    "mismatch_109_count": 109,
+    "mismatch_defended_by_model_a": 1,
+    "mismatch_defended_by_model_b": 3,
+    "ambiguous_courses_model_b": 1694,
+    "discrepancy_rule_mapped_but_both_zero": 21,
+    "unmapped_discovered_by_model_b": 1174
+  },
+  "sample_discrepancies": [
+    {
+      "course_uid": "HUNET_Y00404969",
+      "provider": "휴넷",
+      "title": "같은 AI, 왜 내 답만 별로일까? 결과물을 바꾸는 질문의 기술",
+      "max_prob_A": 0.4540746292242597,
+      "max_prob_B": 0.3824422061443329
+    },
+    {
+      "course_uid": "HUNET_Y00386275",
+      "provider": "휴넷",
+      "title": "[일머리스쿨] AI로 완성하는 일잘러의 보고서",
+      "max_prob_A": 0.37277509389148483,
+      "max_prob_B": 0.48372209072113037
+    },
+    {
+      "course_uid": "HUNET_Y00386276",
+      "provider": "휴넷",
+      "title": "Claude로 100배 빠르게 만드는 의료 문서",
+      "max_prob_A": 0.4265879838336096,
+      "max_prob_B": 0.35877007246017456
+    },
+    {
+      "course_uid": "HUNET_Y00313858",
+      "provider": "휴넷",
+      "title": "오피스 마스터가 알려주는 진짜 엑셀",
+      "max_prob_A": 0.4283561822595727,
+      "max_prob_B": 0.4980577826499939
+    },
+    {
+      "course_uid": "HUNET_Y00300119",
+      "provider": "휴넷",
+      "title": "글쓰기가 두려운 직장인을 위한 비즈니스 글쓰기 공략zip",
+      "max_prob_A": 0.386859254683919,
+      "max_prob_B": 0.3455900549888611
+    },
+    {
+      "course_uid": "HUNET_Y00270259",
+      "provider": "휴넷",
+      "title": "강한 문장을 만드는 글쓰기 PT",
+      "max_prob_A": 0.3756956129539336,
+      "max_prob_B": 0.4863658845424652
+    },
+    {
+      "course_uid": "HUNET_Y00211213",
+      "provider": "휴넷",
+      "title": "사례로 배우는 실전 Biz 프레젠테이션",
+      "max_prob_A": 0.47487431905857597,
+      "max_prob_B": 0.4469027519226074
+    },
+    {
+      "course_uid": "HUNET_Y00180496",
+      "provider": "휴넷",
+      "title": "New 프로 직장인의 스마트한 EXCEL 2010 활용",
+      "max_prob_A": 0.41927399449912256,
+      "max_prob_B": 0.3952736556529999
+    },
+    {
+      "course_uid": "HUNET_Y00117073",
+      "provider": "휴넷",
+      "title": "New 프로 직장인의 스마트한 POWERPOINT 2010 활용",
+      "max_prob_A": 0.393191110509827,
+      "max_prob_B": 0.4373592436313629
+    },
+    {
+      "course_uid": "HUNET_Y00090179",
+      "provider": "휴넷",
+      "title": "스낵Biz영어_영문서 꿀팁!",
+      "max_prob_A": 0.39510231182584066,
+      "max_prob_B": 0.31824538111686707
+    },
+    {
+      "course_uid": "HUNET_Y00082068",
+      "provider": "휴넷",
+      "title": "여행을 이야기하다",
+      "max_prob_A": 0.42252516372492216,
+      "max_prob_B": 0.2675607204437256
+    },
+    {
+      "course_uid": "GSEEK_2126",
+      "provider": "GSEEK",
+      "title": "삶의 균형을 되찾아라! 2탄 놀이의 재구성",
+      "max_prob_A": 0.45609416977869105,
+      "max_prob_B": 0.4350559711456299
+    },
+    {
+      "course_uid": "GSEEK_2310",
+      "provider": "GSEEK",
+      "title": "글로벌 스타트업 CEO 릴레이 특강",
+      "max_prob_A": 0.4190184606825344,
+      "max_prob_B": 0.4778515100479126
+    },
+    {
+      "course_uid": "GSEEK_3009",
+      "provider": "GSEEK",
+      "title": "함께 만들어가는 ALL That 뮤지컬",
+      "max_prob_A": 0.358832315688341,
+      "max_prob_B": 0.46629422903060913
+    },
+    {
+      "course_uid": "GSEEK_9892",
+      "provider": "GSEEK",
+      "title": "스마트하게 일상 생활하기",
+      "max_prob_A": 0.433584761358888,
+      "max_prob_B": 0.4578600525856018
+    },
+    {
+      "course_uid": "GSEEK_11749",
+      "provider": "GSEEK",
+      "title": "도시재생 전문과정 도시재생과 생태도시 및 에너지 자립",
+      "max_prob_A": 0.4225778345119416,
+      "max_prob_B": 0.382400780916214
+    },
+    {
+      "course_uid": "GSEEK_12274",
+      "provider": "GSEEK",
+      "title": "PUP AND KIT 만화로 배우는 초등영어 첫걸음 step 4",
+      "max_prob_A": 0.47615143242536806,
+      "max_prob_B": 0.4017835855484009
+    },
+    {
+      "course_uid": "GSEEK_12276",
+      "provider": "GSEEK",
+      "title": "PUP AND KIT 만화로 배우는 초등영어 첫걸음 step 5",
+      "max_prob_A": 0.45054926370711645,
+      "max_prob_B": 0.4056755304336548
+    },
+    {
+      "course_uid": "GSEEK_56936",
+      "provider": "GSEEK",
+      "title": "[이론+기출+모의고사 한번에 완성]스포츠지도사2급_스포츠심리학",
+      "max_prob_A": 0.3815656813284765,
+      "max_prob_B": 0.44562485814094543
+    },
+    {
+      "course_uid": "MULTICAMPUS_FB00FA",
+      "provider": "멀티캠퍼스",
+      "title": "[공인] [BC 아카데미] 4주차: Installing and Updating SAP S/4HANA Systems",
+      "max_prob_A": 0.49330013530923233,
+      "max_prob_B": 0.44199731945991516
+    }
+  ],
+  "sample_discovered": [
+    {
+      "course_uid": "HUNET_Y00404723",
+      "provider": "휴넷",
+      "title": "[지혜의 샘] 소유하는 삶에 지쳤다면, 에리히 프롬",
+      "max_prob_B": 0.8012619614601135,
+      "pred_count_B": 1
+    },
+    {
+      "course_uid": "HUNET_Y00399460",
+      "provider": "휴넷",
+      "title": "[지혜의 샘] 이기는 사람의 사고방식, 손자병법",
+      "max_prob_B": 0.8233960270881653,
+      "pred_count_B": 1
+    },
+    {
+      "course_uid": "HUNET_Y00397088",
+      "provider": "휴넷",
+      "title": "[뉴노멀 MBA] 초경쟁 시대의 생존전략, 생산·서비스관리",
+      "max_prob_B": 0.847388505935669,
+      "pred_count_B": 2
+    },
+    {
+      "course_uid": "HUNET_Y00390064",
+      "provider": "휴넷",
+      "title": "상식을 벗어나라! 틀을 깨는 비즈니스 혁신",
+      "max_prob_B": 0.8013248443603516,
+      "pred_count_B": 2
+    },
+    {
+      "course_uid": "HUNET_Y00387790",
+      "provider": "휴넷",
+      "title": "[북러닝] 리더의 교양(도서 제공)",
+      "max_prob_B": 0.9066353440284729,
+      "pred_count_B": 1
+    },
+    {
+      "course_uid": "HUNET_Y00386744",
+      "provider": "휴넷",
+      "title": "hunet MBA",
+      "max_prob_B": 0.8143907785415649,
+      "pred_count_B": 2
+    },
+    {
+      "course_uid": "HUNET_Y00386696",
+      "provider": "휴넷",
+      "title": "[hunet MBA] 마케팅",
+      "max_prob_B": 0.8831719160079956,
+      "pred_count_B": 2
+    },
+    {
+      "course_uid": "HUNET_Y00386692",
+      "provider": "휴넷",
+      "title": "[hunet MBA] AI 경영",
+      "max_prob_B": 0.8129611015319824,
+      "pred_count_B": 1
+    },
+    {
+      "course_uid": "HUNET_Y00386693",
+      "provider": "휴넷",
+      "title": "[hunet MBA] 전략경영",
+      "max_prob_B": 0.9177682995796204,
+      "pred_count_B": 2
+    },
+    {
+      "course_uid": "HUNET_Y00386317",
+      "provider": "휴넷",
+      "title": "내 경력을 돈으로 바꾸는 창업 전략",
+      "max_prob_B": 0.8148128390312195,
+      "pred_count_B": 1
+    },
+    {
+      "course_uid": "HUNET_Y00386278",
+      "provider": "휴넷",
+      "title": "판매·재고·발주 ‘1분 컷’: AI가 다 계산해 주는 유통 데이터 분석",
+      "max_prob_B": 0.8440636992454529,
+      "pred_count_B": 4
+    },
+    {
+      "course_uid": "HUNET_Y00386289",
+      "provider": "휴넷",
+      "title": "데이터 분석, 해 줘! 잔마왕이 알려주는 공정 데이터 분석 with Claude",
+      "max_prob_B": 0.8372271060943604,
+      "pred_count_B": 1
+    },
+    {
+      "course_uid": "HUNET_Y00386294",
+      "provider": "휴넷",
+      "title": "월급쟁이의 현실 재테크",
+      "max_prob_B": 0.8298366665840149,
+      "pred_count_B": 3
+    },
+    {
+      "course_uid": "HUNET_Y00382986",
+      "provider": "휴넷",
+      "title": "2026 안전보건교육 하반기(사무 및 판매근로자_건설업)_무재해",
+      "max_prob_B": 0.8631622791290283,
+      "pred_count_B": 1
+    },
+    {
+      "course_uid": "HUNET_Y00382987",
+      "provider": "휴넷",
+      "title": "2026 안전보건교육 하반기(사무 및 판매근로자_건설업)",
+      "max_prob_B": 0.8302233219146729,
+      "pred_count_B": 2
+    },
+    {
+      "course_uid": "HUNET_Y00382966",
+      "provider": "휴넷",
+      "title": "2026 안전보건교육 하반기(현장근로자_보건업)_무재해",
+      "max_prob_B": 0.8497002720832825,
+      "pred_count_B": 1
+    },
+    {
+      "course_uid": "HUNET_Y00382968",
+      "provider": "휴넷",
+      "title": "2026 안전보건교육 하반기(현장근로자_기타사업)_무재해",
+      "max_prob_B": 0.8447684049606323,
+      "pred_count_B": 1
+    },
+    {
+      "course_uid": "HUNET_Y00382970",
+      "provider": "휴넷",
+      "title": "2026 안전보건교육 하반기(현장근로자_금융업)_무재해",
+      "max_prob_B": 0.8492388129234314,
+      "pred_count_B": 1
+    },
+    {
+      "course_uid": "HUNET_Y00382972",
+      "provider": "휴넷",
+      "title": "2026 안전보건교육 하반기(현장근로자_건설업)_무재해",
+      "max_prob_B": 0.8734778761863708,
+      "pred_count_B": 1
+    },
+    {
+      "course_uid": "HUNET_Y00382973",
+      "provider": "휴넷",
+      "title": "2026 안전보건교육 하반기(현장근로자_건설업)",
+      "max_prob_B": 0.80353844165802,
+      "pred_count_B": 2
+    }
+  ]
+}

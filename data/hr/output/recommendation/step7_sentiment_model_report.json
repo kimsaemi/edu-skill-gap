@@ -1,0 +1,86 @@
+{
+  "evaluation_metadata": {
+    "dataset": "reviews_integrated.parquet",
+    "total_source_reviews": 482078,
+    "evaluation_sample_size": 30000,
+    "classes": [
+      "positive",
+      "neutral",
+      "negative"
+    ],
+    "class_distribution": {
+      "positive": 10000,
+      "neutral": 10000,
+      "negative": 10000
+    },
+    "disclaimer": "본 수강 후기 및 평점은 분석 실험을 위해 생성한 합성 데이터이며, 실제 수강생 평가를 의미하지 않습니다."
+  },
+  "leakage_verification": {
+    "naive_split_template_overlap_ratio": "High (shared templates across train/test)",
+    "group_split_template_overlap_count": 0,
+    "group_split_description": "GroupShuffleSplit by content template hash ensures zero template leakage"
+  },
+  "model_comparison": {
+    "model_a_tfidf_group_split": {
+      "model_name": "TF-IDF + Logistic Regression (Leakage-Free Group Split)",
+      "accuracy": 1.0,
+      "macro_f1": 1.0,
+      "macro_precision": 1.0,
+      "macro_recall": 1.0,
+      "positive_f1": 1.0,
+      "neutral_f1": 1.0,
+      "negative_f1": 1.0,
+      "confusion_matrix": [
+        [
+          2513,
+          0,
+          0
+        ],
+        [
+          0,
+          2431,
+          0
+        ],
+        [
+          0,
+          0,
+          2502
+        ]
+      ]
+    },
+    "model_a_tfidf_naive_split": {
+      "model_name": "TF-IDF + Logistic Regression (Naive Random Split with Leakage)",
+      "accuracy": 1.0,
+      "macro_f1": 1.0,
+      "macro_precision": 1.0,
+      "macro_recall": 1.0
+    },
+    "model_b_kosroberta_group_split": {
+      "model_name": "Ko-SRoBERTa 768D + Logistic Regression (Leakage-Free Group Split)",
+      "accuracy": 0.9999,
+      "macro_f1": 0.9999,
+      "macro_precision": 0.9999,
+      "macro_recall": 0.9999,
+      "positive_f1": 0.9998,
+      "neutral_f1": 0.9998,
+      "negative_f1": 1.0,
+      "confusion_matrix": [
+        [
+          2512,
+          1,
+          0
+        ],
+        [
+          0,
+          2431,
+          0
+        ],
+        [
+          0,
+          0,
+          2502
+        ]
+      ]
+    }
+  }
+}

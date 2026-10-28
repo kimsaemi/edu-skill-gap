@@ -365,3 +365,18 @@ def _():
 
 ```
 </example>
+
+## DESIGN.md System Guidelines (Awesome Design MD)
+
+When the user asks to **"먼저 DESIGN.md를 읽고, 이 규칙에 맞춰 구현해줘"** or whenever a `DESIGN.md` file is present:
+1. Always inspect `DESIGN.md` before writing or modifying any UI/HTML/CSS code.
+2. Extract and adhere strictly to:
+   - Colors (Background, Surface, Text, Accent, Border, Status hex codes)
+   - Typography (Font families, H1~H6 scale, line heights, font weights)
+   - Component & Interaction states (Buttons, Inputs, Cards, Hover/Active/Focus)
+   - Spacing & Layout (Grid, margins/paddings, shadows, border radius, mobile responsive rules)
+   - Dos and Don'ts (avoid generic AI defaults, adhere to brand aesthetic)
+
+## Lucian UX/UI Prompt Guidelines
+- Refer to [Lucian UX/UI Prompt](https://lucianlabs.dev/uxui-prompt/) (200 interactive UI elements) when building frontend UI, forms, cards, charts, toasts, or animations.
+- Use `.agents/skills/lucian-uxui/scripts/lucian-uxui.py` to search and port high-quality, dependency-free interactive snippets with light/dark `--ux-*` theme tokens.

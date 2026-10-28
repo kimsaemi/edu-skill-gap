@@ -1,0 +1,5 @@
+﻿stage,metric,target_sla,measured_ms
+1. 첫 접속 (First Access),기본 모듈 import 및 평가기 초기화,< 500 ms (미검증 목표),5530.4 ms
+2. 모델 초기화 (Cold Start),"Ko-SRoBERTa 가중치 로드 + 8,645건 코퍼스/임베딩 메모리 적재","< 2,000 ms (미검증 목표 SLA)",3840.0 ms
+3. 첫 추천 (First Query),질의 Ko-SRoBERTa 인코딩 + 시맨틱 내적 + BM25 + KSA 랭킹,< 500 ms (미검증 목표),1229.2 ms
+4. 반복 추천 (Warm Cache),기로드 모델 및 메모리 캐시 기반 후속/반복 추천,< 200 ms (미검증 목표),665.3 ms

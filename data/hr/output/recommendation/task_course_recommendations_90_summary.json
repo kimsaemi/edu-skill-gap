@@ -1,0 +1,82 @@
+{
+ "task_count": 90,
+ "comp_distribution": {
+  "COMP_HR_01": 34,
+  "COMP_HR_02": 43,
+  "COMP_LABOR_01": 13
+ },
+ "needs_review_count": 12,
+ "needs_review_tasks": [
+  "TASK_HR_D01_T04 전사 총인건비 예산 편성 및 한도(Cap) 설정",
+  "TASK_HR_D02_T03 사업부제·본부 단위 조직 구조(Org Architecture) 설계",
+  "TASK_HR_D02_T05 현업 직무 인터뷰 및 업무량 설문 조사(Work Sampling) 수행",
+  "TASK_HR_D03_T03 STAR 기법 기반 행동사건면접(BEI) 구조화 질문표 개발",
+  "TASK_HR_D04_T04 수습 평가(Probation Review) 기준표 및 본채용 심의 프로세스 수립",
+  "TASK_HR_D04_T07 수습기간 만료 평가 취합 및 본채용 확정/연장 품의",
+  "TASK_HR_D04_T10 직원 경험 여정 맵(EX Journey Map) 진단 및 온보딩 디지털화·자동화",
+  "TASK_HR_D06_T06 연차유급휴가 사용 촉진 및 연차미사용수당 정산 운영",
+  "TASK_HR_D07_T01 전사 연간 교육훈련 마스터플랜(Annual Training Plan) 및 HRD 예산 수립",
+  "TASK_HR_D07_T06 사내 강사 양성 과정(TTT: Train The Trainer) 운영 및 사내 지식 공유 활성화",
+  "TASK_HR_D08_T02 타운홀 미팅(All-hands Meeting) 및 온·오프라인 전사 소통 채널 기획",
+  "TASK_HR_D08_T09 세대 간 소통 단절 및 조직 사일로(Silo) 원인 분석, 협업 문화 개선 캠페인"
+ ],
+ "top3_slots": 798,
+ "top3_distinct_courses": 294,
+ "top3_most_reused": [
+  {
+   "title": "[DX&AI] 평가보상 설계 실무(밀코비치 기반)",
+   "count": 15
+  },
+  {
+   "title": "[온앤오프] 현장에서 알아야 하는 노무관리 솔루션",
+   "count": 14
+  },
+  {
+   "title": "HR, AI가 트렌드다 : 채용부터 퇴사까지",
+   "count": 11
+  },
+  {
+   "title": "HR, AI가 트렌드다 : 채용부터 퇴사까지",
+   "count": 10
+  },
+  {
+   "title": "우수인재 선발을 위한 면접관 역량개발",
+   "count": 10
+  },
+  {
+   "title": "신규입사자의 온보딩 과정, 워(Work).플(People).킹(Networking)",
+   "count": 10
+  },
+  {
+   "title": "[HRethink] 일하고 싶은 회사의 비밀, Employee eXperience",
+   "count": 10
+  },
+  {
+   "title": "HR사무원자격증 취득과정 (종합반)",
+   "count": 10
+  },
+  {
+   "title": "채용을 디자인하라, 기업에 FIT한 인재 확보 전략",
+   "count": 9
+  },
+  {
+   "title": "[여의도] 급여담당자를 위한 급여관리 실무",
+   "count": 9
+  }
+ ],
+ "task_level_with_lt3_results": 7,
+ "top1_semantic_score_median": 69.4000015258789,
+ "top1_semantic_score_min": 50.09999847412109,
+ "low_confidence_tasks": [],
+ "note": "합성 리뷰·평점은 사용하지 않았습니다. 점수 = 의미 유사도 50% + BM25 35%(범용 단어 제외, 업무명 핵심어 보정) + 난이도 적합 보너스. 노출 기준 = 의미 유사도 50 이상, 핵심어 1점 이상 또는 유사도 72 이상, 분야가 다른 강좌(개발·마케팅·의료·특허·생산·어학)는 핵심어 2점 이상",
+ "excluded_after_engine": {
+  "rows_removed": 64,
+  "by_reason": {
+   "인사 범위 밖: 고용24 NCS 총무(020201) 과정": 33,
+   "마케팅·커머스 (인사 업무 아님)": 20,
+   "법정 안전보건교육(근로자·관리감독자 대상)": 6,
+   "팀원 검수: 인사 업무와 무관": 5
+  },
+  "note": "인사 범위·팀원 검수에 따른 제외를 저장된 결과에서 적용함. 모델을 쓸 수 있는 PC에서 build_hr_task_catalog.py --reuse-catalog로 다시 계산하면 빈자리가 채워짐"
+ }
+}

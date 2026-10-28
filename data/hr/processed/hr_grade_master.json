@@ -1,0 +1,2594 @@
+[
+  {
+    "domain": "1. 인사기획 / 제도 (HR Planning & C&B)",
+    "job_name": "인사평가 및 승진 관리",
+    "grades": [
+      {
+        "rank_name": "주임",
+        "definition": "인사평가 및 승진 관리 단위 업무 온보딩 및 표준 절차 수행 (Level 1)",
+        "assigned_atomic_tasks": [
+          {
+            "task_step": "1. 사전기획 및 분석",
+            "task_code": "KGC-JOB-100-PT1",
+            "task_name": "인사평가 및 승진 관리 관련 기초 서식 및 집계표 작성 지원 1단계",
+            "guide": "표준 프로세스 지침에 따라 주임 필수 과업 수행"
+          },
+          {
+            "task_step": "2. 실행 및 성과산출",
+            "task_code": "KGC-JOB-100-PT2",
+            "task_name": "인사평가 및 승진 관리 주임 성과 산출물 도출 및 검증",
+            "guide": "결과물 검증 및 상위 직급/유관 부서 보고 완결"
+          }
+        ],
+        "recommended_books": [
+          "인적자원관리(이학종)",
+          "HR 실무 바이블(신승훈)"
+        ],
+        "recommended_courses": [
+          {
+            "platform": "고용24 국민내일배움카드",
+            "cost": 50490,
+            "cost_type": "STANDARD_PAID",
+            "course_title": "전략적 조직운영을 위한 인사평가 및 승진 관리 실무",
+            "institution": "(1st)인비원 평생교육원",
+            "training_hours": 40,
+            "url": "https://www.work24.go.kr"
+          },
+          {
+            "platform": "고용24 사업주훈련",
+            "cost": 0,
+            "cost_type": "GOV_SUBSIDIZED_FREE",
+            "course_title": "실무자를 위한 인사평가 및 승진 관리 핵심 역량 강화",
+            "institution": "한국생산성본부",
+            "training_hours": 32,
+            "url": "https://www.work24.go.kr"
+          }
+        ]
+      },
+      {
+        "rank_name": "대리",
+        "definition": "인사평가 및 승진 관리 독립 실무 이행 및 실무 이슈 대안 제시 (Level 2)",
+        "assigned_atomic_tasks": [
+          {
+            "task_step": "3. 사전기획 및 분석",
+            "task_code": "KGC-JOB-101-PT1",
+            "task_name": "인사평가 및 승진 관리 관련 세부 추진 액션 플랜 수립 및 실무 완결 1단계",
+            "guide": "표준 프로세스 지침에 따라 대리 필수 과업 수행"
+          },
+          {
+            "task_step": "4. 실행 및 성과산출",
+            "task_code": "KGC-JOB-101-PT2",
+            "task_name": "인사평가 및 승진 관리 대리 성과 산출물 도출 및 검증",
+            "guide": "결과물 검증 및 상위 직급/유관 부서 보고 완결"
+          }
+        ],
+        "recommended_books": [
+          "인적자원관리(이학종)",
+          "HR 실무 바이블(신승훈)"
+        ],
+        "recommended_courses": [
+          {
+            "platform": "고용24 국민내일배움카드",
+            "cost": 50490,
+            "cost_type": "STANDARD_PAID",
+            "course_title": "전략적 조직운영을 위한 인사평가 및 승진 관리 실무",
+            "institution": "(1st)인비원 평생교육원",
+            "training_hours": 40,
+            "url": "https://www.work24.go.kr"
+          },
+          {
+            "platform": "고용24 사업주훈련",
+            "cost": 0,
+            "cost_type": "GOV_SUBSIDIZED_FREE",
+            "course_title": "실무자를 위한 인사평가 및 승진 관리 핵심 역량 강화",
+            "institution": "한국생산성본부",
+            "training_hours": 32,
+            "url": "https://www.work24.go.kr"
+          }
+        ]
+      },
+      {
+        "rank_name": "과장",
+        "definition": "인사평가 및 승진 관리 제도 설계, 프로세스 개선 및 유관부서 협업 조율 (Level 3)",
+        "assigned_atomic_tasks": [
+          {
+            "task_step": "5. 사전기획 및 분석",
+            "task_code": "KGC-JOB-102-PT1",
+            "task_name": "인사평가 및 승진 관리 관련 연간 운영 계획 수립 및 제도 개정안 입안 1단계",
+            "guide": "표준 프로세스 지침에 따라 과장 필수 과업 수행"
+          },
+          {
+            "task_step": "6. 실행 및 성과산출",
+            "task_code": "KGC-JOB-102-PT2",
+            "task_name": "인사평가 및 승진 관리 과장 성과 산출물 도출 및 검증",
+            "guide": "결과물 검증 및 상위 직급/유관 부서 보고 완결"
+          }
+        ],
+        "recommended_books": [
+          "인적자원관리(이학종)",
+          "HR 실무 바이블(신승훈)"
+        ],
+        "recommended_courses": [
+          {
+            "platform": "고용24 국민내일배움카드",
+            "cost": 50490,
+            "cost_type": "STANDARD_PAID",
+            "course_title": "전략적 조직운영을 위한 인사평가 및 승진 관리 실무",
+            "institution": "(1st)인비원 평생교육원",
+            "training_hours": 40,
+            "url": "https://www.work24.go.kr"
+          },
+          {
+            "platform": "고용24 사업주훈련",
+            "cost": 0,
+            "cost_type": "GOV_SUBSIDIZED_FREE",
+            "course_title": "실무자를 위한 인사평가 및 승진 관리 핵심 역량 강화",
+            "institution": "한국생산성본부",
+            "training_hours": 32,
+            "url": "https://www.work24.go.kr"
+          }
+        ]
+      },
+      {
+        "rank_name": "차장",
+        "definition": "인사평가 및 승진 관리 전사 거버넌스 총괄 및 다차원 시뮬레이션 리딩 (Level 4)",
+        "assigned_atomic_tasks": [
+          {
+            "task_step": "7. 사전기획 및 분석",
+            "task_code": "KGC-JOB-103-PT1",
+            "task_name": "인사평가 및 승진 관리 관련 중장기 정책 수립 및 노사/경영진 전략 보고 1단계",
+            "guide": "표준 프로세스 지침에 따라 차장 필수 과업 수행"
+          },
+          {
+            "task_step": "8. 실행 및 성과산출",
+            "task_code": "KGC-JOB-103-PT2",
+            "task_name": "인사평가 및 승진 관리 차장 성과 산출물 도출 및 검증",
+            "guide": "결과물 검증 및 상위 직급/유관 부서 보고 완결"
+          }
+        ],
+        "recommended_books": [
+          "인적자원관리(이학종)",
+          "HR 실무 바이블(신승훈)"
+        ],
+        "recommended_courses": [
+          {
+            "platform": "고용24 국민내일배움카드",
+            "cost": 50490,
+            "cost_type": "STANDARD_PAID",
+            "course_title": "전략적 조직운영을 위한 인사평가 및 승진 관리 실무",
+            "institution": "(1st)인비원 평생교육원",
+            "training_hours": 40,
+            "url": "https://www.work24.go.kr"
+          },
+          {
+            "platform": "고용24 사업주훈련",
+            "cost": 0,
+            "cost_type": "GOV_SUBSIDIZED_FREE",
+            "course_title": "실무자를 위한 인사평가 및 승진 관리 핵심 역량 강화",
+            "institution": "한국생산성본부",
+            "training_hours": 32,
+            "url": "https://www.work24.go.kr"
+          }
+        ]
+      },
+      {
+        "rank_name": "부장",
+        "definition": "인사평가 및 승진 관리 경영진 의사결정 자문 및 조직 혁신 전략 총괄 (Level 5)",
+        "assigned_atomic_tasks": [
+          {
+            "task_step": "9. 사전기획 및 분석",
+            "task_code": "KGC-JOB-104-PT1",
+            "task_name": "인사평가 및 승진 관리 관련 3개년 HR/총무 마스터플랜 수립 및 승계관리 1단계",
+            "guide": "표준 프로세스 지침에 따라 부장 필수 과업 수행"
+          },
+          {
+            "task_step": "10. 실행 및 성과산출",
+            "task_code": "KGC-JOB-104-PT2",
+            "task_name": "인사평가 및 승진 관리 부장 성과 산출물 도출 및 검증",
+            "guide": "결과물 검증 및 상위 직급/유관 부서 보고 완결"
+          }
+        ],
+        "recommended_books": [
+          "인적자원관리(이학종)",
+          "HR 실무 바이블(신승훈)"
+        ],
+        "recommended_courses": [
+          {
+            "platform": "고용24 국민내일배움카드",
+            "cost": 50490,
+            "cost_type": "STANDARD_PAID",
+            "course_title": "전략적 조직운영을 위한 인사평가 및 승진 관리 실무",
+            "institution": "(1st)인비원 평생교육원",
+            "training_hours": 40,
+            "url": "https://www.work24.go.kr"
+          },
+          {
+            "platform": "고용24 사업주훈련",
+            "cost": 0,
+            "cost_type": "GOV_SUBSIDIZED_FREE",
+            "course_title": "실무자를 위한 인사평가 및 승진 관리 핵심 역량 강화",
+            "institution": "한국생산성본부",
+            "training_hours": 32,
+            "url": "https://www.work24.go.kr"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "domain": "1. 인사기획 / 제도 (HR Planning & C&B)",
+    "job_name": "보상 및 연봉 체계 기획",
+    "grades": [
+      {
+        "rank_name": "주임",
+        "definition": "보상 및 연봉 체계 기획 단위 업무 온보딩 및 표준 절차 수행 (Level 1)",
+        "assigned_atomic_tasks": [
+          {
+            "task_step": "1. 사전기획 및 분석",
+            "task_code": "KGC-JOB-105-PT1",
+            "task_name": "보상 및 연봉 체계 기획 관련 기초 서식 및 집계표 작성 지원 1단계",
+            "guide": "표준 프로세스 지침에 따라 주임 필수 과업 수행"
+          },
+          {
+            "task_step": "2. 실행 및 성과산출",
+            "task_code": "KGC-JOB-105-PT2",
+            "task_name": "보상 및 연봉 체계 기획 주임 성과 산출물 도출 및 검증",
+            "guide": "결과물 검증 및 상위 직급/유관 부서 보고 완결"
+          }
+        ],
+        "recommended_books": [
+          "인적자원관리(이학종)",
+          "HR 실무 바이블(신승훈)"
+        ],
+        "recommended_courses": [
+          {
+            "platform": "고용24 국민내일배움카드",
+            "cost": 50490,
+            "cost_type": "STANDARD_PAID",
+            "course_title": "전략적 조직운영을 위한 보상 및 연봉 체계 기획 실무",
+            "institution": "(1st)인비원 평생교육원",
+            "training_hours": 40,
+            "url": "https://www.work24.go.kr"
+          },
+          {
+            "platform": "고용24 사업주훈련",
+            "cost": 0,
+            "cost_type": "GOV_SUBSIDIZED_FREE",
+            "course_title": "실무자를 위한 보상 및 연봉 체계 기획 핵심 역량 강화",
+            "institution": "한국생산성본부",
+            "training_hours": 32,
+            "url": "https://www.work24.go.kr"
+          }
+        ]
+      },
+      {
+        "rank_name": "대리",
+        "definition": "보상 및 연봉 체계 기획 독립 실무 이행 및 실무 이슈 대안 제시 (Level 2)",
+        "assigned_atomic_tasks": [
+          {
+            "task_step": "3. 사전기획 및 분석",
+            "task_code": "KGC-JOB-106-PT1",
+            "task_name": "보상 및 연봉 체계 기획 관련 세부 추진 액션 플랜 수립 및 실무 완결 1단계",
+            "guide": "표준 프로세스 지침에 따라 대리 필수 과업 수행"
+          },
+          {
+            "task_step": "4. 실행 및 성과산출",
+            "task_code": "KGC-JOB-106-PT2",
+            "task_name": "보상 및 연봉 체계 기획 대리 성과 산출물 도출 및 검증",
+            "guide": "결과물 검증 및 상위 직급/유관 부서 보고 완결"
+          }
+        ],
+        "recommended_books": [
+          "인적자원관리(이학종)",
+          "HR 실무 바이블(신승훈)"
+        ],
+        "recommended_courses": [
+          {
+            "platform": "고용24 국민내일배움카드",
+            "cost": 50490,
+            "cost_type": "STANDARD_PAID",
+            "course_title": "전략적 조직운영을 위한 보상 및 연봉 체계 기획 실무",
+            "institution": "(1st)인비원 평생교육원",
+            "training_hours": 40,
+            "url": "https://www.work24.go.kr"
+          },
+          {
+            "platform": "고용24 사업주훈련",
+            "cost": 0,
+            "cost_type": "GOV_SUBSIDIZED_FREE",
+            "course_title": "실무자를 위한 보상 및 연봉 체계 기획 핵심 역량 강화",
+            "institution": "한국생산성본부",
+            "training_hours": 32,
+            "url": "https://www.work24.go.kr"
+          }
+        ]
+      },
+      {
+        "rank_name": "과장",
+        "definition": "보상 및 연봉 체계 기획 제도 설계, 프로세스 개선 및 유관부서 협업 조율 (Level 3)",
+        "assigned_atomic_tasks": [
+          {
+            "task_step": "5. 사전기획 및 분석",
+            "task_code": "KGC-JOB-107-PT1",
+            "task_name": "보상 및 연봉 체계 기획 관련 연간 운영 계획 수립 및 제도 개정안 입안 1단계",
+            "guide": "표준 프로세스 지침에 따라 과장 필수 과업 수행"
+          },
+          {
+            "task_step": "6. 실행 및 성과산출",
+            "task_code": "KGC-JOB-107-PT2",
+            "task_name": "보상 및 연봉 체계 기획 과장 성과 산출물 도출 및 검증",
+            "guide": "결과물 검증 및 상위 직급/유관 부서 보고 완결"
+          }
+        ],
+        "recommended_books": [
+          "인적자원관리(이학종)",
+          "HR 실무 바이블(신승훈)"
+        ],
+        "recommended_courses": [
+          {
+            "platform": "고용24 국민내일배움카드",
+            "cost": 50490,
+            "cost_type": "STANDARD_PAID",
+            "course_title": "전략적 조직운영을 위한 보상 및 연봉 체계 기획 실무",
+            "institution": "(1st)인비원 평생교육원",
+            "training_hours": 40,
+            "url": "https://www.work24.go.kr"
+          },
+          {
+            "platform": "고용24 사업주훈련",
+            "cost": 0,
+            "cost_type": "GOV_SUBSIDIZED_FREE",
+            "course_title": "실무자를 위한 보상 및 연봉 체계 기획 핵심 역량 강화",
+            "institution": "한국생산성본부",
+            "training_hours": 32,
+            "url": "https://www.work24.go.kr"
+          }
+        ]
+      },
+      {
+        "rank_name": "차장",
+        "definition": "보상 및 연봉 체계 기획 전사 거버넌스 총괄 및 다차원 시뮬레이션 리딩 (Level 4)",
+        "assigned_atomic_tasks": [
+          {
+            "task_step": "7. 사전기획 및 분석",
+            "task_code": "KGC-JOB-108-PT1",
+            "task_name": "보상 및 연봉 체계 기획 관련 중장기 정책 수립 및 노사/경영진 전략 보고 1단계",
+            "guide": "표준 프로세스 지침에 따라 차장 필수 과업 수행"
+          },
+          {
+            "task_step": "8. 실행 및 성과산출",
+            "task_code": "KGC-JOB-108-PT2",
+            "task_name": "보상 및 연봉 체계 기획 차장 성과 산출물 도출 및 검증",
+            "guide": "결과물 검증 및 상위 직급/유관 부서 보고 완결"
+          }
+        ],
+        "recommended_books": [
+          "인적자원관리(이학종)",
+          "HR 실무 바이블(신승훈)"
+        ],
+        "recommended_courses": [
+          {
+            "platform": "고용24 국민내일배움카드",
+            "cost": 50490,
+            "cost_type": "STANDARD_PAID",
+            "course_title": "전략적 조직운영을 위한 보상 및 연봉 체계 기획 실무",
+            "institution": "(1st)인비원 평생교육원",
+            "training_hours": 40,
+            "url": "https://www.work24.go.kr"
+          },
+          {
+            "platform": "고용24 사업주훈련",
+            "cost": 0,
+            "cost_type": "GOV_SUBSIDIZED_FREE",
+            "course_title": "실무자를 위한 보상 및 연봉 체계 기획 핵심 역량 강화",
+            "institution": "한국생산성본부",
+            "training_hours": 32,
+            "url": "https://www.work24.go.kr"
+          }
+        ]
+      },
+      {
+        "rank_name": "부장",
+        "definition": "보상 및 연봉 체계 기획 경영진 의사결정 자문 및 조직 혁신 전략 총괄 (Level 5)",
+        "assigned_atomic_tasks": [
+          {
+            "task_step": "9. 사전기획 및 분석",
+            "task_code": "KGC-JOB-109-PT1",
+            "task_name": "보상 및 연봉 체계 기획 관련 3개년 HR/총무 마스터플랜 수립 및 승계관리 1단계",
+            "guide": "표준 프로세스 지침에 따라 부장 필수 과업 수행"
+          },
+          {
+            "task_step": "10. 실행 및 성과산출",
+            "task_code": "KGC-JOB-109-PT2",
+            "task_name": "보상 및 연봉 체계 기획 부장 성과 산출물 도출 및 검증",
+            "guide": "결과물 검증 및 상위 직급/유관 부서 보고 완결"
+          }
+        ],
+        "recommended_books": [
+          "인적자원관리(이학종)",
+          "HR 실무 바이블(신승훈)"
+        ],
+        "recommended_courses": [
+          {
+            "platform": "고용24 국민내일배움카드",
+            "cost": 50490,
+            "cost_type": "STANDARD_PAID",
+            "course_title": "전략적 조직운영을 위한 보상 및 연봉 체계 기획 실무",
+            "institution": "(1st)인비원 평생교육원",
+            "training_hours": 40,
+            "url": "https://www.work24.go.kr"
+          },
+          {
+            "platform": "고용24 사업주훈련",
+            "cost": 0,
+            "cost_type": "GOV_SUBSIDIZED_FREE",
+            "course_title": "실무자를 위한 보상 및 연봉 체계 기획 핵심 역량 강화",
+            "institution": "한국생산성본부",
+            "training_hours": 32,
+            "url": "https://www.work24.go.kr"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "domain": "2. 채용 / 인재확보 (Talent Acquisition)",
+    "job_name": "채용 브랜딩 및 전형 기획",
+    "grades": [
+      {
+        "rank_name": "주임",
+        "definition": "채용 브랜딩 및 전형 기획 단위 업무 온보딩 및 표준 절차 수행 (Level 1)",
+        "assigned_atomic_tasks": [
+          {
+            "task_step": "1. 사전기획 및 분석",
+            "task_code": "KGC-JOB-110-PT1",
+            "task_name": "채용 브랜딩 및 전형 기획 관련 기초 서식 및 집계표 작성 지원 1단계",
+            "guide": "표준 프로세스 지침에 따라 주임 필수 과업 수행"
+          },
+          {
+            "task_step": "2. 실행 및 성과산출",
+            "task_code": "KGC-JOB-110-PT2",
+            "task_name": "채용 브랜딩 및 전형 기획 주임 성과 산출물 도출 및 검증",
+            "guide": "결과물 검증 및 상위 직급/유관 부서 보고 완결"
+          }
+        ],
+        "recommended_books": [
+          "인적자원관리(이학종)",
+          "HR 실무 바이블(신승훈)"
+        ],
+        "recommended_courses": [
+          {
+            "platform": "고용24 국민내일배움카드",
+            "cost": 50490,
+            "cost_type": "STANDARD_PAID",
+            "course_title": "전략적 조직운영을 위한 채용 브랜딩 및 전형 기획 실무",
+            "institution": "(1st)인비원 평생교육원",
+            "training_hours": 40,
+            "url": "https://www.work24.go.kr"
+          },
+          {
+            "platform": "고용24 사업주훈련",
+            "cost": 0,
+            "cost_type": "GOV_SUBSIDIZED_FREE",
+            "course_title": "실무자를 위한 채용 브랜딩 및 전형 기획 핵심 역량 강화",
+            "institution": "한국생산성본부",
+            "training_hours": 32,
+            "url": "https://www.work24.go.kr"
+          }
+        ]
+      },
+      {
+        "rank_name": "대리",
+        "definition": "채용 브랜딩 및 전형 기획 독립 실무 이행 및 실무 이슈 대안 제시 (Level 2)",
+        "assigned_atomic_tasks": [
+          {
+            "task_step": "3. 사전기획 및 분석",
+            "task_code": "KGC-JOB-111-PT1",
+            "task_name": "채용 브랜딩 및 전형 기획 관련 세부 추진 액션 플랜 수립 및 실무 완결 1단계",
+            "guide": "표준 프로세스 지침에 따라 대리 필수 과업 수행"
+          },
+          {
+            "task_step": "4. 실행 및 성과산출",
+            "task_code": "KGC-JOB-111-PT2",
+            "task_name": "채용 브랜딩 및 전형 기획 대리 성과 산출물 도출 및 검증",
+            "guide": "결과물 검증 및 상위 직급/유관 부서 보고 완결"
+          }
+        ],
+        "recommended_books": [
+          "인적자원관리(이학종)",
+          "HR 실무 바이블(신승훈)"
+        ],
+        "recommended_courses": [
+          {
+            "platform": "고용24 국민내일배움카드",
+            "cost": 50490,
+            "cost_type": "STANDARD_PAID",
+            "course_title": "전략적 조직운영을 위한 채용 브랜딩 및 전형 기획 실무",
+            "institution": "(1st)인비원 평생교육원",
+            "training_hours": 40,
+            "url": "https://www.work24.go.kr"
+          },
+          {
+            "platform": "고용24 사업주훈련",
+            "cost": 0,
+            "cost_type": "GOV_SUBSIDIZED_FREE",
+            "course_title": "실무자를 위한 채용 브랜딩 및 전형 기획 핵심 역량 강화",
+            "institution": "한국생산성본부",
+            "training_hours": 32,
+            "url": "https://www.work24.go.kr"
+          }
+        ]
+      },
+      {
+        "rank_name": "과장",
+        "definition": "채용 브랜딩 및 전형 기획 제도 설계, 프로세스 개선 및 유관부서 협업 조율 (Level 3)",
+        "assigned_atomic_tasks": [
+          {
+            "task_step": "5. 사전기획 및 분석",
+            "task_code": "KGC-JOB-112-PT1",
+            "task_name": "채용 브랜딩 및 전형 기획 관련 연간 운영 계획 수립 및 제도 개정안 입안 1단계",
+            "guide": "표준 프로세스 지침에 따라 과장 필수 과업 수행"
+          },
+          {
+            "task_step": "6. 실행 및 성과산출",
+            "task_code": "KGC-JOB-112-PT2",
+            "task_name": "채용 브랜딩 및 전형 기획 과장 성과 산출물 도출 및 검증",
+            "guide": "결과물 검증 및 상위 직급/유관 부서 보고 완결"
+          }
+        ],
+        "recommended_books": [
+          "인적자원관리(이학종)",
+          "HR 실무 바이블(신승훈)"
+        ],
+        "recommended_courses": [
+          {
+            "platform": "고용24 국민내일배움카드",
+            "cost": 50490,
+            "cost_type": "STANDARD_PAID",
+            "course_title": "전략적 조직운영을 위한 채용 브랜딩 및 전형 기획 실무",
+            "institution": "(1st)인비원 평생교육원",
+            "training_hours": 40,
+            "url": "https://www.work24.go.kr"
+          },
+          {
+            "platform": "고용24 사업주훈련",
+            "cost": 0,
+            "cost_type": "GOV_SUBSIDIZED_FREE",
+            "course_title": "실무자를 위한 채용 브랜딩 및 전형 기획 핵심 역량 강화",
+            "institution": "한국생산성본부",
+            "training_hours": 32,
+            "url": "https://www.work24.go.kr"
+          }
+        ]
+      },
+      {
+        "rank_name": "차장",
+        "definition": "채용 브랜딩 및 전형 기획 전사 거버넌스 총괄 및 다차원 시뮬레이션 리딩 (Level 4)",
+        "assigned_atomic_tasks": [
+          {
+            "task_step": "7. 사전기획 및 분석",
+            "task_code": "KGC-JOB-113-PT1",
+            "task_name": "채용 브랜딩 및 전형 기획 관련 중장기 정책 수립 및 노사/경영진 전략 보고 1단계",
+            "guide": "표준 프로세스 지침에 따라 차장 필수 과업 수행"
+          },
+          {
+            "task_step": "8. 실행 및 성과산출",
+            "task_code": "KGC-JOB-113-PT2",
+            "task_name": "채용 브랜딩 및 전형 기획 차장 성과 산출물 도출 및 검증",
+            "guide": "결과물 검증 및 상위 직급/유관 부서 보고 완결"
+          }
+        ],
+        "recommended_books": [
+          "인적자원관리(이학종)",
+          "HR 실무 바이블(신승훈)"
+        ],
+        "recommended_courses": [
+          {
+            "platform": "고용24 국민내일배움카드",
+            "cost": 50490,
+            "cost_type": "STANDARD_PAID",
+            "course_title": "전략적 조직운영을 위한 채용 브랜딩 및 전형 기획 실무",
+            "institution": "(1st)인비원 평생교육원",
+            "training_hours": 40,
+            "url": "https://www.work24.go.kr"
+          },
+          {
+            "platform": "고용24 사업주훈련",
+            "cost": 0,
+            "cost_type": "GOV_SUBSIDIZED_FREE",
+            "course_title": "실무자를 위한 채용 브랜딩 및 전형 기획 핵심 역량 강화",
+            "institution": "한국생산성본부",
+            "training_hours": 32,
+            "url": "https://www.work24.go.kr"
+          }
+        ]
+      },
+      {
+        "rank_name": "부장",
+        "definition": "채용 브랜딩 및 전형 기획 경영진 의사결정 자문 및 조직 혁신 전략 총괄 (Level 5)",
+        "assigned_atomic_tasks": [
+          {
+            "task_step": "9. 사전기획 및 분석",
+            "task_code": "KGC-JOB-114-PT1",
+            "task_name": "채용 브랜딩 및 전형 기획 관련 3개년 HR/총무 마스터플랜 수립 및 승계관리 1단계",
+            "guide": "표준 프로세스 지침에 따라 부장 필수 과업 수행"
+          },
+          {
+            "task_step": "10. 실행 및 성과산출",
+            "task_code": "KGC-JOB-114-PT2",
+            "task_name": "채용 브랜딩 및 전형 기획 부장 성과 산출물 도출 및 검증",
+            "guide": "결과물 검증 및 상위 직급/유관 부서 보고 완결"
+          }
+        ],
+        "recommended_books": [
+          "인적자원관리(이학종)",
+          "HR 실무 바이블(신승훈)"
+        ],
+        "recommended_courses": [
+          {
+            "platform": "고용24 국민내일배움카드",
+            "cost": 50490,
+            "cost_type": "STANDARD_PAID",
+            "course_title": "전략적 조직운영을 위한 채용 브랜딩 및 전형 기획 실무",
+            "institution": "(1st)인비원 평생교육원",
+            "training_hours": 40,
+            "url": "https://www.work24.go.kr"
+          },
+          {
+            "platform": "고용24 사업주훈련",
+            "cost": 0,
+            "cost_type": "GOV_SUBSIDIZED_FREE",
+            "course_title": "실무자를 위한 채용 브랜딩 및 전형 기획 핵심 역량 강화",
+            "institution": "한국생산성본부",
+            "training_hours": 32,
+            "url": "https://www.work24.go.kr"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "domain": "2. 채용 / 인재확보 (Talent Acquisition)",
+    "job_name": "면접관 트레이닝 및 지원자 관리",
+    "grades": [
+      {
+        "rank_name": "주임",
+        "definition": "면접관 트레이닝 및 지원자 관리 단위 업무 온보딩 및 표준 절차 수행 (Level 1)",
+        "assigned_atomic_tasks": [
+          {
+            "task_step": "1. 사전기획 및 분석",
+            "task_code": "KGC-JOB-115-PT1",
+            "task_name": "면접관 트레이닝 및 지원자 관리 관련 기초 서식 및 집계표 작성 지원 1단계",
+            "guide": "표준 프로세스 지침에 따라 주임 필수 과업 수행"
+          },
+          {
+            "task_step": "2. 실행 및 성과산출",
+            "task_code": "KGC-JOB-115-PT2",
+            "task_name": "면접관 트레이닝 및 지원자 관리 주임 성과 산출물 도출 및 검증",
+            "guide": "결과물 검증 및 상위 직급/유관 부서 보고 완결"
+          }
+        ],
+        "recommended_books": [
+          "인적자원관리(이학종)",
+          "HR 실무 바이블(신승훈)"
+        ],
+        "recommended_courses": [
+          {
+            "platform": "고용24 국민내일배움카드",
+            "cost": 50490,
+            "cost_type": "STANDARD_PAID",
+            "course_title": "전략적 조직운영을 위한 면접관 트레이닝 및 지원자 관리 실무",
+            "institution": "(1st)인비원 평생교육원",
+            "training_hours": 40,
+            "url": "https://www.work24.go.kr"
+          },
+          {
+            "platform": "고용24 사업주훈련",
+            "cost": 0,
+            "cost_type": "GOV_SUBSIDIZED_FREE",
+            "course_title": "실무자를 위한 면접관 트레이닝 및 지원자 관리 핵심 역량 강화",
+            "institution": "한국생산성본부",
+            "training_hours": 32,
+            "url": "https://www.work24.go.kr"
+          }
+        ]
+      },
+      {
+        "rank_name": "대리",
+        "definition": "면접관 트레이닝 및 지원자 관리 독립 실무 이행 및 실무 이슈 대안 제시 (Level 2)",
+        "assigned_atomic_tasks": [
+          {
+            "task_step": "3. 사전기획 및 분석",
+            "task_code": "KGC-JOB-116-PT1",
+            "task_name": "면접관 트레이닝 및 지원자 관리 관련 세부 추진 액션 플랜 수립 및 실무 완결 1단계",
+            "guide": "표준 프로세스 지침에 따라 대리 필수 과업 수행"
+          },
+          {
+            "task_step": "4. 실행 및 성과산출",
+            "task_code": "KGC-JOB-116-PT2",
+            "task_name": "면접관 트레이닝 및 지원자 관리 대리 성과 산출물 도출 및 검증",
+            "guide": "결과물 검증 및 상위 직급/유관 부서 보고 완결"
+          }
+        ],
+        "recommended_books": [
+          "인적자원관리(이학종)",
+          "HR 실무 바이블(신승훈)"
+        ],
+        "recommended_courses": [
+          {
+            "platform": "고용24 국민내일배움카드",
+            "cost": 50490,
+            "cost_type": "STANDARD_PAID",
+            "course_title": "전략적 조직운영을 위한 면접관 트레이닝 및 지원자 관리 실무",
+            "institution": "(1st)인비원 평생교육원",
+            "training_hours": 40,
+            "url": "https://www.work24.go.kr"
+          },
+          {
+            "platform": "고용24 사업주훈련",
+            "cost": 0,
+            "cost_type": "GOV_SUBSIDIZED_FREE",
+            "course_title": "실무자를 위한 면접관 트레이닝 및 지원자 관리 핵심 역량 강화",
+            "institution": "한국생산성본부",
+            "training_hours": 32,
+            "url": "https://www.work24.go.kr"
+          }
+        ]
+      },
+      {
+        "rank_name": "과장",
+        "definition": "면접관 트레이닝 및 지원자 관리 제도 설계, 프로세스 개선 및 유관부서 협업 조율 (Level 3)",
+        "assigned_atomic_tasks": [
+          {
+            "task_step": "5. 사전기획 및 분석",
+            "task_code": "KGC-JOB-117-PT1",
+            "task_name": "면접관 트레이닝 및 지원자 관리 관련 연간 운영 계획 수립 및 제도 개정안 입안 1단계",
+            "guide": "표준 프로세스 지침에 따라 과장 필수 과업 수행"
+          },
+          {
+            "task_step": "6. 실행 및 성과산출",
+            "task_code": "KGC-JOB-117-PT2",
+            "task_name": "면접관 트레이닝 및 지원자 관리 과장 성과 산출물 도출 및 검증",
+            "guide": "결과물 검증 및 상위 직급/유관 부서 보고 완결"
+          }
+        ],
+        "recommended_books": [
+          "인적자원관리(이학종)",
+          "HR 실무 바이블(신승훈)"
+        ],
+        "recommended_courses": [
+          {
+            "platform": "고용24 국민내일배움카드",
+            "cost": 50490,
+            "cost_type": "STANDARD_PAID",
+            "course_title": "전략적 조직운영을 위한 면접관 트레이닝 및 지원자 관리 실무",
+            "institution": "(1st)인비원 평생교육원",
+            "training_hours": 40,
+            "url": "https://www.work24.go.kr"
+          },
+          {
+            "platform": "고용24 사업주훈련",
+            "cost": 0,
+            "cost_type": "GOV_SUBSIDIZED_FREE",
+            "course_title": "실무자를 위한 면접관 트레이닝 및 지원자 관리 핵심 역량 강화",
+            "institution": "한국생산성본부",
+            "training_hours": 32,
+            "url": "https://www.work24.go.kr"
+          }
+        ]
+      },
+      {
+        "rank_name": "차장",
+        "definition": "면접관 트레이닝 및 지원자 관리 전사 거버넌스 총괄 및 다차원 시뮬레이션 리딩 (Level 4)",
+        "assigned_atomic_tasks": [
+          {
+            "task_step": "7. 사전기획 및 분석",
+            "task_code": "KGC-JOB-118-PT1",
+            "task_name": "면접관 트레이닝 및 지원자 관리 관련 중장기 정책 수립 및 노사/경영진 전략 보고 1단계",
+            "guide": "표준 프로세스 지침에 따라 차장 필수 과업 수행"
+          },
+          {
+            "task_step": "8. 실행 및 성과산출",
+            "task_code": "KGC-JOB-118-PT2",
+            "task_name": "면접관 트레이닝 및 지원자 관리 차장 성과 산출물 도출 및 검증",
+            "guide": "결과물 검증 및 상위 직급/유관 부서 보고 완결"
+          }
+        ],
+        "recommended_books": [
+          "인적자원관리(이학종)",
+          "HR 실무 바이블(신승훈)"
+        ],
+        "recommended_courses": [
+          {
+            "platform": "고용24 국민내일배움카드",
+            "cost": 50490,
+            "cost_type": "STANDARD_PAID",
+            "course_title": "전략적 조직운영을 위한 면접관 트레이닝 및 지원자 관리 실무",
+            "institution": "(1st)인비원 평생교육원",
+            "training_hours": 40,
+            "url": "https://www.work24.go.kr"
+          },
+          {
+            "platform": "고용24 사업주훈련",
+            "cost": 0,
+            "cost_type": "GOV_SUBSIDIZED_FREE",
+            "course_title": "실무자를 위한 면접관 트레이닝 및 지원자 관리 핵심 역량 강화",
+            "institution": "한국생산성본부",
+            "training_hours": 32,
+            "url": "https://www.work24.go.kr"
+          }
+        ]
+      },
+      {
+        "rank_name": "부장",
+        "definition": "면접관 트레이닝 및 지원자 관리 경영진 의사결정 자문 및 조직 혁신 전략 총괄 (Level 5)",
+        "assigned_atomic_tasks": [
+          {
+            "task_step": "9. 사전기획 및 분석",
+            "task_code": "KGC-JOB-119-PT1",
+            "task_name": "면접관 트레이닝 및 지원자 관리 관련 3개년 HR/총무 마스터플랜 수립 및 승계관리 1단계",
+            "guide": "표준 프로세스 지침에 따라 부장 필수 과업 수행"
+          },
+          {
+            "task_step": "10. 실행 및 성과산출",
+            "task_code": "KGC-JOB-119-PT2",
+            "task_name": "면접관 트레이닝 및 지원자 관리 부장 성과 산출물 도출 및 검증",
+            "guide": "결과물 검증 및 상위 직급/유관 부서 보고 완결"
+          }
+        ],
+        "recommended_books": [
+          "인적자원관리(이학종)",
+          "HR 실무 바이블(신승훈)"
+        ],
+        "recommended_courses": [
+          {
+            "platform": "고용24 국민내일배움카드",
+            "cost": 50490,
+            "cost_type": "STANDARD_PAID",
+            "course_title": "전략적 조직운영을 위한 면접관 트레이닝 및 지원자 관리 실무",
+            "institution": "(1st)인비원 평생교육원",
+            "training_hours": 40,
+            "url": "https://www.work24.go.kr"
+          },
+          {
+            "platform": "고용24 사업주훈련",
+            "cost": 0,
+            "cost_type": "GOV_SUBSIDIZED_FREE",
+            "course_title": "실무자를 위한 면접관 트레이닝 및 지원자 관리 핵심 역량 강화",
+            "institution": "한국생산성본부",
+            "training_hours": 32,
+            "url": "https://www.work24.go.kr"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "domain": "3. 인사운영 / 급여·노무 (HR Operations & ER)",
+    "job_name": "월간 급여 정산 및 4대보험 실무",
+    "grades": [
+      {
+        "rank_name": "주임",
+        "definition": "월간 급여 정산 및 4대보험 실무 단위 업무 온보딩 및 표준 절차 수행 (Level 1)",
+        "assigned_atomic_tasks": [
+          {
+            "task_step": "1. 사전기획 및 분석",
+            "task_code": "KGC-JOB-120-PT1",
+            "task_name": "월간 급여 정산 및 4대보험 실무 관련 기초 서식 및 집계표 작성 지원 1단계",
+            "guide": "표준 프로세스 지침에 따라 주임 필수 과업 수행"
+          },
+          {
+            "task_step": "2. 실행 및 성과산출",
+            "task_code": "KGC-JOB-120-PT2",
+            "task_name": "월간 급여 정산 및 4대보험 실무 주임 성과 산출물 도출 및 검증",
+            "guide": "결과물 검증 및 상위 직급/유관 부서 보고 완결"
+          }
+        ],
+        "recommended_books": [
+          "인적자원관리(이학종)",
+          "HR 실무 바이블(신승훈)"
+        ],
+        "recommended_courses": [
+          {
+            "platform": "고용24 국민내일배움카드",
+            "cost": 50490,
+            "cost_type": "STANDARD_PAID",
+            "course_title": "전략적 조직운영을 위한 월간 급여 정산 및 4대보험 실무 실무",
+            "institution": "(1st)인비원 평생교육원",
+            "training_hours": 40,
+            "url": "https://www.work24.go.kr"
+          },
+          {
+            "platform": "고용24 사업주훈련",
+            "cost": 0,
+            "cost_type": "GOV_SUBSIDIZED_FREE",
+            "course_title": "실무자를 위한 월간 급여 정산 및 4대보험 실무 핵심 역량 강화",
+            "institution": "한국생산성본부",
+            "training_hours": 32,
+            "url": "https://www.work24.go.kr"
+          }
+        ]
+      },
+      {
+        "rank_name": "대리",
+        "definition": "월간 급여 정산 및 4대보험 실무 독립 실무 이행 및 실무 이슈 대안 제시 (Level 2)",
+        "assigned_atomic_tasks": [
+          {
+            "task_step": "3. 사전기획 및 분석",
+            "task_code": "KGC-JOB-121-PT1",
+            "task_name": "월간 급여 정산 및 4대보험 실무 관련 세부 추진 액션 플랜 수립 및 실무 완결 1단계",
+            "guide": "표준 프로세스 지침에 따라 대리 필수 과업 수행"
+          },
+          {
+            "task_step": "4. 실행 및 성과산출",
+            "task_code": "KGC-JOB-121-PT2",
+            "task_name": "월간 급여 정산 및 4대보험 실무 대리 성과 산출물 도출 및 검증",
+            "guide": "결과물 검증 및 상위 직급/유관 부서 보고 완결"
+          }
+        ],
+        "recommended_books": [
+          "인적자원관리(이학종)",
+          "HR 실무 바이블(신승훈)"
+        ],
+        "recommended_courses": [
+          {
+            "platform": "고용24 국민내일배움카드",
+            "cost": 50490,
+            "cost_type": "STANDARD_PAID",
+            "course_title": "전략적 조직운영을 위한 월간 급여 정산 및 4대보험 실무 실무",
+            "institution": "(1st)인비원 평생교육원",
+            "training_hours": 40,
+            "url": "https://www.work24.go.kr"
+          },
+          {
+            "platform": "고용24 사업주훈련",
+            "cost": 0,
+            "cost_type": "GOV_SUBSIDIZED_FREE",
+            "course_title": "실무자를 위한 월간 급여 정산 및 4대보험 실무 핵심 역량 강화",
+            "institution": "한국생산성본부",
+            "training_hours": 32,
+            "url": "https://www.work24.go.kr"
+          }
+        ]
+      },
+      {
+        "rank_name": "과장",
+        "definition": "월간 급여 정산 및 4대보험 실무 제도 설계, 프로세스 개선 및 유관부서 협업 조율 (Level 3)",
+        "assigned_atomic_tasks": [
+          {
+            "task_step": "5. 사전기획 및 분석",
+            "task_code": "KGC-JOB-122-PT1",
+            "task_name": "월간 급여 정산 및 4대보험 실무 관련 연간 운영 계획 수립 및 제도 개정안 입안 1단계",
+            "guide": "표준 프로세스 지침에 따라 과장 필수 과업 수행"
+          },
+          {
+            "task_step": "6. 실행 및 성과산출",
+            "task_code": "KGC-JOB-122-PT2",
+            "task_name": "월간 급여 정산 및 4대보험 실무 과장 성과 산출물 도출 및 검증",
+            "guide": "결과물 검증 및 상위 직급/유관 부서 보고 완결"
+          }
+        ],
+        "recommended_books": [
+          "인적자원관리(이학종)",
+          "HR 실무 바이블(신승훈)"
+        ],
+        "recommended_courses": [
+          {
+            "platform": "고용24 국민내일배움카드",
+            "cost": 50490,
+            "cost_type": "STANDARD_PAID",
+            "course_title": "전략적 조직운영을 위한 월간 급여 정산 및 4대보험 실무 실무",
+            "institution": "(1st)인비원 평생교육원",
+            "training_hours": 40,
+            "url": "https://www.work24.go.kr"
+          },
+          {
+            "platform": "고용24 사업주훈련",
+            "cost": 0,
+            "cost_type": "GOV_SUBSIDIZED_FREE",
+            "course_title": "실무자를 위한 월간 급여 정산 및 4대보험 실무 핵심 역량 강화",
+            "institution": "한국생산성본부",
+            "training_hours": 32,
+            "url": "https://www.work24.go.kr"
+          }
+        ]
+      },
+      {
+        "rank_name": "차장",
+        "definition": "월간 급여 정산 및 4대보험 실무 전사 거버넌스 총괄 및 다차원 시뮬레이션 리딩 (Level 4)",
+        "assigned_atomic_tasks": [
+          {
+            "task_step": "7. 사전기획 및 분석",
+            "task_code": "KGC-JOB-123-PT1",
+            "task_name": "월간 급여 정산 및 4대보험 실무 관련 중장기 정책 수립 및 노사/경영진 전략 보고 1단계",
+            "guide": "표준 프로세스 지침에 따라 차장 필수 과업 수행"
+          },
+          {
+            "task_step": "8. 실행 및 성과산출",
+            "task_code": "KGC-JOB-123-PT2",
+            "task_name": "월간 급여 정산 및 4대보험 실무 차장 성과 산출물 도출 및 검증",
+            "guide": "결과물 검증 및 상위 직급/유관 부서 보고 완결"
+          }
+        ],
+        "recommended_books": [
+          "인적자원관리(이학종)",
+          "HR 실무 바이블(신승훈)"
+        ],
+        "recommended_courses": [
+          {
+            "platform": "고용24 국민내일배움카드",
+            "cost": 50490,
+            "cost_type": "STANDARD_PAID",
+            "course_title": "전략적 조직운영을 위한 월간 급여 정산 및 4대보험 실무 실무",
+            "institution": "(1st)인비원 평생교육원",
+            "training_hours": 40,
+            "url": "https://www.work24.go.kr"
+          },
+          {
+            "platform": "고용24 사업주훈련",
+            "cost": 0,
+            "cost_type": "GOV_SUBSIDIZED_FREE",
+            "course_title": "실무자를 위한 월간 급여 정산 및 4대보험 실무 핵심 역량 강화",
+            "institution": "한국생산성본부",
+            "training_hours": 32,
+            "url": "https://www.work24.go.kr"
+          }
+        ]
+      },
+      {
+        "rank_name": "부장",
+        "definition": "월간 급여 정산 및 4대보험 실무 경영진 의사결정 자문 및 조직 혁신 전략 총괄 (Level 5)",
+        "assigned_atomic_tasks": [
+          {
+            "task_step": "9. 사전기획 및 분석",
+            "task_code": "KGC-JOB-124-PT1",
+            "task_name": "월간 급여 정산 및 4대보험 실무 관련 3개년 HR/총무 마스터플랜 수립 및 승계관리 1단계",
+            "guide": "표준 프로세스 지침에 따라 부장 필수 과업 수행"
+          },
+          {
+            "task_step": "10. 실행 및 성과산출",
+            "task_code": "KGC-JOB-124-PT2",
+            "task_name": "월간 급여 정산 및 4대보험 실무 부장 성과 산출물 도출 및 검증",
+            "guide": "결과물 검증 및 상위 직급/유관 부서 보고 완결"
+          }
+        ],
+        "recommended_books": [
+          "인적자원관리(이학종)",
+          "HR 실무 바이블(신승훈)"
+        ],
+        "recommended_courses": [
+          {
+            "platform": "고용24 국민내일배움카드",
+            "cost": 50490,
+            "cost_type": "STANDARD_PAID",
+            "course_title": "전략적 조직운영을 위한 월간 급여 정산 및 4대보험 실무 실무",
+            "institution": "(1st)인비원 평생교육원",
+            "training_hours": 40,
+            "url": "https://www.work24.go.kr"
+          },
+          {
+            "platform": "고용24 사업주훈련",
+            "cost": 0,
+            "cost_type": "GOV_SUBSIDIZED_FREE",
+            "course_title": "실무자를 위한 월간 급여 정산 및 4대보험 실무 핵심 역량 강화",
+            "institution": "한국생산성본부",
+            "training_hours": 32,
+            "url": "https://www.work24.go.kr"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "domain": "3. 인사운영 / 급여·노무 (HR Operations & ER)",
+    "job_name": "취업규칙 개정 및 근로기준법 노무 관리",
+    "grades": [
+      {
+        "rank_name": "주임",
+        "definition": "취업규칙 개정 및 근로기준법 노무 관리 단위 업무 온보딩 및 표준 절차 수행 (Level 1)",
+        "assigned_atomic_tasks": [
+          {
+            "task_step": "1. 사전기획 및 분석",
+            "task_code": "KGC-JOB-125-PT1",
+            "task_name": "취업규칙 개정 및 근로기준법 노무 관리 관련 기초 서식 및 집계표 작성 지원 1단계",
+            "guide": "표준 프로세스 지침에 따라 주임 필수 과업 수행"
+          },
+          {
+            "task_step": "2. 실행 및 성과산출",
+            "task_code": "KGC-JOB-125-PT2",
+            "task_name": "취업규칙 개정 및 근로기준법 노무 관리 주임 성과 산출물 도출 및 검증",
+            "guide": "결과물 검증 및 상위 직급/유관 부서 보고 완결"
+          }
+        ],
+        "recommended_books": [
+          "인적자원관리(이학종)",
+          "HR 실무 바이블(신승훈)"
+        ],
+        "recommended_courses": [
+          {
+            "platform": "고용24 국민내일배움카드",
+            "cost": 50490,
+            "cost_type": "STANDARD_PAID",
+            "course_title": "전략적 조직운영을 위한 취업규칙 개정 및 근로기준법 노무 관리 실무",
+            "institution": "(1st)인비원 평생교육원",
+            "training_hours": 40,
+            "url": "https://www.work24.go.kr"
+          },
+          {
+            "platform": "고용24 사업주훈련",
+            "cost": 0,
+            "cost_type": "GOV_SUBSIDIZED_FREE",
+            "course_title": "실무자를 위한 취업규칙 개정 및 근로기준법 노무 관리 핵심 역량 강화",
+            "institution": "한국생산성본부",
+            "training_hours": 32,
+            "url": "https://www.work24.go.kr"
+          }
+        ]
+      },
+      {
+        "rank_name": "대리",
+        "definition": "취업규칙 개정 및 근로기준법 노무 관리 독립 실무 이행 및 실무 이슈 대안 제시 (Level 2)",
+        "assigned_atomic_tasks": [
+          {
+            "task_step": "3. 사전기획 및 분석",
+            "task_code": "KGC-JOB-126-PT1",
+            "task_name": "취업규칙 개정 및 근로기준법 노무 관리 관련 세부 추진 액션 플랜 수립 및 실무 완결 1단계",
+            "guide": "표준 프로세스 지침에 따라 대리 필수 과업 수행"
+          },
+          {
+            "task_step": "4. 실행 및 성과산출",
+            "task_code": "KGC-JOB-126-PT2",
+            "task_name": "취업규칙 개정 및 근로기준법 노무 관리 대리 성과 산출물 도출 및 검증",
+            "guide": "결과물 검증 및 상위 직급/유관 부서 보고 완결"
+          }
+        ],
+        "recommended_books": [
+          "인적자원관리(이학종)",
+          "HR 실무 바이블(신승훈)"
+        ],
+        "recommended_courses": [
+          {
+            "platform": "고용24 국민내일배움카드",
+            "cost": 50490,
+            "cost_type": "STANDARD_PAID",
+            "course_title": "전략적 조직운영을 위한 취업규칙 개정 및 근로기준법 노무 관리 실무",
+            "institution": "(1st)인비원 평생교육원",
+            "training_hours": 40,
+            "url": "https://www.work24.go.kr"
+          },
+          {
+            "platform": "고용24 사업주훈련",
+            "cost": 0,
+            "cost_type": "GOV_SUBSIDIZED_FREE",
+            "course_title": "실무자를 위한 취업규칙 개정 및 근로기준법 노무 관리 핵심 역량 강화",
+            "institution": "한국생산성본부",
+            "training_hours": 32,
+            "url": "https://www.work24.go.kr"
+          }
+        ]
+      },
+      {
+        "rank_name": "과장",
+        "definition": "취업규칙 개정 및 근로기준법 노무 관리 제도 설계, 프로세스 개선 및 유관부서 협업 조율 (Level 3)",
+        "assigned_atomic_tasks": [
+          {
+            "task_step": "5. 사전기획 및 분석",
+            "task_code": "KGC-JOB-127-PT1",
+            "task_name": "취업규칙 개정 및 근로기준법 노무 관리 관련 연간 운영 계획 수립 및 제도 개정안 입안 1단계",
+            "guide": "표준 프로세스 지침에 따라 과장 필수 과업 수행"
+          },
+          {
+            "task_step": "6. 실행 및 성과산출",
+            "task_code": "KGC-JOB-127-PT2",
+            "task_name": "취업규칙 개정 및 근로기준법 노무 관리 과장 성과 산출물 도출 및 검증",
+            "guide": "결과물 검증 및 상위 직급/유관 부서 보고 완결"
+          }
+        ],
+        "recommended_books": [
+          "인적자원관리(이학종)",
+          "HR 실무 바이블(신승훈)"
+        ],
+        "recommended_courses": [
+          {
+            "platform": "고용24 국민내일배움카드",
+            "cost": 50490,
+            "cost_type": "STANDARD_PAID",
+            "course_title": "전략적 조직운영을 위한 취업규칙 개정 및 근로기준법 노무 관리 실무",
+            "institution": "(1st)인비원 평생교육원",
+            "training_hours": 40,
+            "url": "https://www.work24.go.kr"
+          },
+          {
+            "platform": "고용24 사업주훈련",
+            "cost": 0,
+            "cost_type": "GOV_SUBSIDIZED_FREE",
+            "course_title": "실무자를 위한 취업규칙 개정 및 근로기준법 노무 관리 핵심 역량 강화",
+            "institution": "한국생산성본부",
+            "training_hours": 32,
+            "url": "https://www.work24.go.kr"
+          }
+        ]
+      },
+      {
+        "rank_name": "차장",
+        "definition": "취업규칙 개정 및 근로기준법 노무 관리 전사 거버넌스 총괄 및 다차원 시뮬레이션 리딩 (Level 4)",
+        "assigned_atomic_tasks": [
+          {
+            "task_step": "7. 사전기획 및 분석",
+            "task_code": "KGC-JOB-128-PT1",
+            "task_name": "취업규칙 개정 및 근로기준법 노무 관리 관련 중장기 정책 수립 및 노사/경영진 전략 보고 1단계",
+            "guide": "표준 프로세스 지침에 따라 차장 필수 과업 수행"
+          },
+          {
+            "task_step": "8. 실행 및 성과산출",
+            "task_code": "KGC-JOB-128-PT2",
+            "task_name": "취업규칙 개정 및 근로기준법 노무 관리 차장 성과 산출물 도출 및 검증",
+            "guide": "결과물 검증 및 상위 직급/유관 부서 보고 완결"
+          }
+        ],
+        "recommended_books": [
+          "인적자원관리(이학종)",
+          "HR 실무 바이블(신승훈)"
+        ],
+        "recommended_courses": [
+          {
+            "platform": "고용24 국민내일배움카드",
+            "cost": 50490,
+            "cost_type": "STANDARD_PAID",
+            "course_title": "전략적 조직운영을 위한 취업규칙 개정 및 근로기준법 노무 관리 실무",
+            "institution": "(1st)인비원 평생교육원",
+            "training_hours": 40,
+            "url": "https://www.work24.go.kr"
+          },
+          {
+            "platform": "고용24 사업주훈련",
+            "cost": 0,
+            "cost_type": "GOV_SUBSIDIZED_FREE",
+            "course_title": "실무자를 위한 취업규칙 개정 및 근로기준법 노무 관리 핵심 역량 강화",
+            "institution": "한국생산성본부",
+            "training_hours": 32,
+            "url": "https://www.work24.go.kr"
+          }
+        ]
+      },
+      {
+        "rank_name": "부장",
+        "definition": "취업규칙 개정 및 근로기준법 노무 관리 경영진 의사결정 자문 및 조직 혁신 전략 총괄 (Level 5)",
+        "assigned_atomic_tasks": [
+          {
+            "task_step": "9. 사전기획 및 분석",
+            "task_code": "KGC-JOB-129-PT1",
+            "task_name": "취업규칙 개정 및 근로기준법 노무 관리 관련 3개년 HR/총무 마스터플랜 수립 및 승계관리 1단계",
+            "guide": "표준 프로세스 지침에 따라 부장 필수 과업 수행"
+          },
+          {
+            "task_step": "10. 실행 및 성과산출",
+            "task_code": "KGC-JOB-129-PT2",
+            "task_name": "취업규칙 개정 및 근로기준법 노무 관리 부장 성과 산출물 도출 및 검증",
+            "guide": "결과물 검증 및 상위 직급/유관 부서 보고 완결"
+          }
+        ],
+        "recommended_books": [
+          "인적자원관리(이학종)",
+          "HR 실무 바이블(신승훈)"
+        ],
+        "recommended_courses": [
+          {
+            "platform": "고용24 국민내일배움카드",
+            "cost": 50490,
+            "cost_type": "STANDARD_PAID",
+            "course_title": "전략적 조직운영을 위한 취업규칙 개정 및 근로기준법 노무 관리 실무",
+            "institution": "(1st)인비원 평생교육원",
+            "training_hours": 40,
+            "url": "https://www.work24.go.kr"
+          },
+          {
+            "platform": "고용24 사업주훈련",
+            "cost": 0,
+            "cost_type": "GOV_SUBSIDIZED_FREE",
+            "course_title": "실무자를 위한 취업규칙 개정 및 근로기준법 노무 관리 핵심 역량 강화",
+            "institution": "한국생산성본부",
+            "training_hours": 32,
+            "url": "https://www.work24.go.kr"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "domain": "4. 인재개발 / 교육 (HRD & Leadership)",
+    "job_name": "직무 역량 모델링 및 교육 체계도 수립",
+    "grades": [
+      {
+        "rank_name": "주임",
+        "definition": "직무 역량 모델링 및 교육 체계도 수립 단위 업무 온보딩 및 표준 절차 수행 (Level 1)",
+        "assigned_atomic_tasks": [
+          {
+            "task_step": "1. 사전기획 및 분석",
+            "task_code": "KGC-JOB-130-PT1",
+            "task_name": "직무 역량 모델링 및 교육 체계도 수립 관련 기초 서식 및 집계표 작성 지원 1단계",
+            "guide": "표준 프로세스 지침에 따라 주임 필수 과업 수행"
+          },
+          {
+            "task_step": "2. 실행 및 성과산출",
+            "task_code": "KGC-JOB-130-PT2",
+            "task_name": "직무 역량 모델링 및 교육 체계도 수립 주임 성과 산출물 도출 및 검증",
+            "guide": "결과물 검증 및 상위 직급/유관 부서 보고 완결"
+          }
+        ],
+        "recommended_books": [
+          "인적자원관리(이학종)",
+          "HR 실무 바이블(신승훈)"
+        ],
+        "recommended_courses": [
+          {
+            "platform": "고용24 국민내일배움카드",
+            "cost": 50490,
+            "cost_type": "STANDARD_PAID",
+            "course_title": "전략적 조직운영을 위한 직무 역량 모델링 및 교육 체계도 수립 실무",
+            "institution": "(1st)인비원 평생교육원",
+            "training_hours": 40,
+            "url": "https://www.work24.go.kr"
+          },
+          {
+            "platform": "고용24 사업주훈련",
+            "cost": 0,
+            "cost_type": "GOV_SUBSIDIZED_FREE",
+            "course_title": "실무자를 위한 직무 역량 모델링 및 교육 체계도 수립 핵심 역량 강화",
+            "institution": "한국생산성본부",
+            "training_hours": 32,
+            "url": "https://www.work24.go.kr"
+          }
+        ]
+      },
+      {
+        "rank_name": "대리",
+        "definition": "직무 역량 모델링 및 교육 체계도 수립 독립 실무 이행 및 실무 이슈 대안 제시 (Level 2)",
+        "assigned_atomic_tasks": [
+          {
+            "task_step": "3. 사전기획 및 분석",
+            "task_code": "KGC-JOB-131-PT1",
+            "task_name": "직무 역량 모델링 및 교육 체계도 수립 관련 세부 추진 액션 플랜 수립 및 실무 완결 1단계",
+            "guide": "표준 프로세스 지침에 따라 대리 필수 과업 수행"
+          },
+          {
+            "task_step": "4. 실행 및 성과산출",
+            "task_code": "KGC-JOB-131-PT2",
+            "task_name": "직무 역량 모델링 및 교육 체계도 수립 대리 성과 산출물 도출 및 검증",
+            "guide": "결과물 검증 및 상위 직급/유관 부서 보고 완결"
+          }
+        ],
+        "recommended_books": [
+          "인적자원관리(이학종)",
+          "HR 실무 바이블(신승훈)"
+        ],
+        "recommended_courses": [
+          {
+            "platform": "고용24 국민내일배움카드",
+            "cost": 50490,
+            "cost_type": "STANDARD_PAID",
+            "course_title": "전략적 조직운영을 위한 직무 역량 모델링 및 교육 체계도 수립 실무",
+            "institution": "(1st)인비원 평생교육원",
+            "training_hours": 40,
+            "url": "https://www.work24.go.kr"
+          },
+          {
+            "platform": "고용24 사업주훈련",
+            "cost": 0,
+            "cost_type": "GOV_SUBSIDIZED_FREE",
+            "course_title": "실무자를 위한 직무 역량 모델링 및 교육 체계도 수립 핵심 역량 강화",
+            "institution": "한국생산성본부",
+            "training_hours": 32,
+            "url": "https://www.work24.go.kr"
+          }
+        ]
+      },
+      {
+        "rank_name": "과장",
+        "definition": "직무 역량 모델링 및 교육 체계도 수립 제도 설계, 프로세스 개선 및 유관부서 협업 조율 (Level 3)",
+        "assigned_atomic_tasks": [
+          {
+            "task_step": "5. 사전기획 및 분석",
+            "task_code": "KGC-JOB-132-PT1",
+            "task_name": "직무 역량 모델링 및 교육 체계도 수립 관련 연간 운영 계획 수립 및 제도 개정안 입안 1단계",
+            "guide": "표준 프로세스 지침에 따라 과장 필수 과업 수행"
+          },
+          {
+            "task_step": "6. 실행 및 성과산출",
+            "task_code": "KGC-JOB-132-PT2",
+            "task_name": "직무 역량 모델링 및 교육 체계도 수립 과장 성과 산출물 도출 및 검증",
+            "guide": "결과물 검증 및 상위 직급/유관 부서 보고 완결"
+          }
+        ],
+        "recommended_books": [
+          "인적자원관리(이학종)",
+          "HR 실무 바이블(신승훈)"
+        ],
+        "recommended_courses": [
+          {
+            "platform": "고용24 국민내일배움카드",
+            "cost": 50490,
+            "cost_type": "STANDARD_PAID",
+            "course_title": "전략적 조직운영을 위한 직무 역량 모델링 및 교육 체계도 수립 실무",
+            "institution": "(1st)인비원 평생교육원",
+            "training_hours": 40,
+            "url": "https://www.work24.go.kr"
+          },
+          {
+            "platform": "고용24 사업주훈련",
+            "cost": 0,
+            "cost_type": "GOV_SUBSIDIZED_FREE",
+            "course_title": "실무자를 위한 직무 역량 모델링 및 교육 체계도 수립 핵심 역량 강화",
+            "institution": "한국생산성본부",
+            "training_hours": 32,
+            "url": "https://www.work24.go.kr"
+          }
+        ]
+      },
+      {
+        "rank_name": "차장",
+        "definition": "직무 역량 모델링 및 교육 체계도 수립 전사 거버넌스 총괄 및 다차원 시뮬레이션 리딩 (Level 4)",
+        "assigned_atomic_tasks": [
+          {
+            "task_step": "7. 사전기획 및 분석",
+            "task_code": "KGC-JOB-133-PT1",
+            "task_name": "직무 역량 모델링 및 교육 체계도 수립 관련 중장기 정책 수립 및 노사/경영진 전략 보고 1단계",
+            "guide": "표준 프로세스 지침에 따라 차장 필수 과업 수행"
+          },
+          {
+            "task_step": "8. 실행 및 성과산출",
+            "task_code": "KGC-JOB-133-PT2",
+            "task_name": "직무 역량 모델링 및 교육 체계도 수립 차장 성과 산출물 도출 및 검증",
+            "guide": "결과물 검증 및 상위 직급/유관 부서 보고 완결"
+          }
+        ],
+        "recommended_books": [
+          "인적자원관리(이학종)",
+          "HR 실무 바이블(신승훈)"
+        ],
+        "recommended_courses": [
+          {
+            "platform": "고용24 국민내일배움카드",
+            "cost": 50490,
+            "cost_type": "STANDARD_PAID",
+            "course_title": "전략적 조직운영을 위한 직무 역량 모델링 및 교육 체계도 수립 실무",
+            "institution": "(1st)인비원 평생교육원",
+            "training_hours": 40,
+            "url": "https://www.work24.go.kr"
+          },
+          {
+            "platform": "고용24 사업주훈련",
+            "cost": 0,
+            "cost_type": "GOV_SUBSIDIZED_FREE",
+            "course_title": "실무자를 위한 직무 역량 모델링 및 교육 체계도 수립 핵심 역량 강화",
+            "institution": "한국생산성본부",
+            "training_hours": 32,
+            "url": "https://www.work24.go.kr"
+          }
+        ]
+      },
+      {
+        "rank_name": "부장",
+        "definition": "직무 역량 모델링 및 교육 체계도 수립 경영진 의사결정 자문 및 조직 혁신 전략 총괄 (Level 5)",
+        "assigned_atomic_tasks": [
+          {
+            "task_step": "9. 사전기획 및 분석",
+            "task_code": "KGC-JOB-134-PT1",
+            "task_name": "직무 역량 모델링 및 교육 체계도 수립 관련 3개년 HR/총무 마스터플랜 수립 및 승계관리 1단계",
+            "guide": "표준 프로세스 지침에 따라 부장 필수 과업 수행"
+          },
+          {
+            "task_step": "10. 실행 및 성과산출",
+            "task_code": "KGC-JOB-134-PT2",
+            "task_name": "직무 역량 모델링 및 교육 체계도 수립 부장 성과 산출물 도출 및 검증",
+            "guide": "결과물 검증 및 상위 직급/유관 부서 보고 완결"
+          }
+        ],
+        "recommended_books": [
+          "인적자원관리(이학종)",
+          "HR 실무 바이블(신승훈)"
+        ],
+        "recommended_courses": [
+          {
+            "platform": "고용24 국민내일배움카드",
+            "cost": 50490,
+            "cost_type": "STANDARD_PAID",
+            "course_title": "전략적 조직운영을 위한 직무 역량 모델링 및 교육 체계도 수립 실무",
+            "institution": "(1st)인비원 평생교육원",
+            "training_hours": 40,
+            "url": "https://www.work24.go.kr"
+          },
+          {
+            "platform": "고용24 사업주훈련",
+            "cost": 0,
+            "cost_type": "GOV_SUBSIDIZED_FREE",
+            "course_title": "실무자를 위한 직무 역량 모델링 및 교육 체계도 수립 핵심 역량 강화",
+            "institution": "한국생산성본부",
+            "training_hours": 32,
+            "url": "https://www.work24.go.kr"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "domain": "4. 인재개발 / 교육 (HRD & Leadership)",
+    "job_name": "리더십 파이프라인 및 사내 강사 양성",
+    "grades": [
+      {
+        "rank_name": "주임",
+        "definition": "리더십 파이프라인 및 사내 강사 양성 단위 업무 온보딩 및 표준 절차 수행 (Level 1)",
+        "assigned_atomic_tasks": [
+          {
+            "task_step": "1. 사전기획 및 분석",
+            "task_code": "KGC-JOB-135-PT1",
+            "task_name": "리더십 파이프라인 및 사내 강사 양성 관련 기초 서식 및 집계표 작성 지원 1단계",
+            "guide": "표준 프로세스 지침에 따라 주임 필수 과업 수행"
+          },
+          {
+            "task_step": "2. 실행 및 성과산출",
+            "task_code": "KGC-JOB-135-PT2",
+            "task_name": "리더십 파이프라인 및 사내 강사 양성 주임 성과 산출물 도출 및 검증",
+            "guide": "결과물 검증 및 상위 직급/유관 부서 보고 완결"
+          }
+        ],
+        "recommended_books": [
+          "인적자원관리(이학종)",
+          "HR 실무 바이블(신승훈)"
+        ],
+        "recommended_courses": [
+          {
+            "platform": "고용24 국민내일배움카드",
+            "cost": 50490,
+            "cost_type": "STANDARD_PAID",
+            "course_title": "전략적 조직운영을 위한 리더십 파이프라인 및 사내 강사 양성 실무",
+            "institution": "(1st)인비원 평생교육원",
+            "training_hours": 40,
+            "url": "https://www.work24.go.kr"
+          },
+          {
+            "platform": "고용24 사업주훈련",
+            "cost": 0,
+            "cost_type": "GOV_SUBSIDIZED_FREE",
+            "course_title": "실무자를 위한 리더십 파이프라인 및 사내 강사 양성 핵심 역량 강화",
+            "institution": "한국생산성본부",
+            "training_hours": 32,
+            "url": "https://www.work24.go.kr"
+          }
+        ]
+      },
+      {
+        "rank_name": "대리",
+        "definition": "리더십 파이프라인 및 사내 강사 양성 독립 실무 이행 및 실무 이슈 대안 제시 (Level 2)",
+        "assigned_atomic_tasks": [
+          {
+            "task_step": "3. 사전기획 및 분석",
+            "task_code": "KGC-JOB-136-PT1",
+            "task_name": "리더십 파이프라인 및 사내 강사 양성 관련 세부 추진 액션 플랜 수립 및 실무 완결 1단계",
+            "guide": "표준 프로세스 지침에 따라 대리 필수 과업 수행"
+          },
+          {
+            "task_step": "4. 실행 및 성과산출",
+            "task_code": "KGC-JOB-136-PT2",
+            "task_name": "리더십 파이프라인 및 사내 강사 양성 대리 성과 산출물 도출 및 검증",
+            "guide": "결과물 검증 및 상위 직급/유관 부서 보고 완결"
+          }
+        ],
+        "recommended_books": [
+          "인적자원관리(이학종)",
+          "HR 실무 바이블(신승훈)"
+        ],
+        "recommended_courses": [
+          {
+            "platform": "고용24 국민내일배움카드",
+            "cost": 50490,
+            "cost_type": "STANDARD_PAID",
+            "course_title": "전략적 조직운영을 위한 리더십 파이프라인 및 사내 강사 양성 실무",
+            "institution": "(1st)인비원 평생교육원",
+            "training_hours": 40,
+            "url": "https://www.work24.go.kr"
+          },
+          {
+            "platform": "고용24 사업주훈련",
+            "cost": 0,
+            "cost_type": "GOV_SUBSIDIZED_FREE",
+            "course_title": "실무자를 위한 리더십 파이프라인 및 사내 강사 양성 핵심 역량 강화",
+            "institution": "한국생산성본부",
+            "training_hours": 32,
+            "url": "https://www.work24.go.kr"
+          }
+        ]
+      },
+      {
+        "rank_name": "과장",
+        "definition": "리더십 파이프라인 및 사내 강사 양성 제도 설계, 프로세스 개선 및 유관부서 협업 조율 (Level 3)",
+        "assigned_atomic_tasks": [
+          {
+            "task_step": "5. 사전기획 및 분석",
+            "task_code": "KGC-JOB-137-PT1",
+            "task_name": "리더십 파이프라인 및 사내 강사 양성 관련 연간 운영 계획 수립 및 제도 개정안 입안 1단계",
+            "guide": "표준 프로세스 지침에 따라 과장 필수 과업 수행"
+          },
+          {
+            "task_step": "6. 실행 및 성과산출",
+            "task_code": "KGC-JOB-137-PT2",
+            "task_name": "리더십 파이프라인 및 사내 강사 양성 과장 성과 산출물 도출 및 검증",
+            "guide": "결과물 검증 및 상위 직급/유관 부서 보고 완결"
+          }
+        ],
+        "recommended_books": [
+          "인적자원관리(이학종)",
+          "HR 실무 바이블(신승훈)"
+        ],
+        "recommended_courses": [
+          {
+            "platform": "고용24 국민내일배움카드",
+            "cost": 50490,
+            "cost_type": "STANDARD_PAID",
+            "course_title": "전략적 조직운영을 위한 리더십 파이프라인 및 사내 강사 양성 실무",
+            "institution": "(1st)인비원 평생교육원",
+            "training_hours": 40,
+            "url": "https://www.work24.go.kr"
+          },
+          {
+            "platform": "고용24 사업주훈련",
+            "cost": 0,
+            "cost_type": "GOV_SUBSIDIZED_FREE",
+            "course_title": "실무자를 위한 리더십 파이프라인 및 사내 강사 양성 핵심 역량 강화",
+            "institution": "한국생산성본부",
+            "training_hours": 32,
+            "url": "https://www.work24.go.kr"
+          }
+        ]
+      },
+      {
+        "rank_name": "차장",
+        "definition": "리더십 파이프라인 및 사내 강사 양성 전사 거버넌스 총괄 및 다차원 시뮬레이션 리딩 (Level 4)",
+        "assigned_atomic_tasks": [
+          {
+            "task_step": "7. 사전기획 및 분석",
+            "task_code": "KGC-JOB-138-PT1",
+            "task_name": "리더십 파이프라인 및 사내 강사 양성 관련 중장기 정책 수립 및 노사/경영진 전략 보고 1단계",
+            "guide": "표준 프로세스 지침에 따라 차장 필수 과업 수행"
+          },
+          {
+            "task_step": "8. 실행 및 성과산출",
+            "task_code": "KGC-JOB-138-PT2",
+            "task_name": "리더십 파이프라인 및 사내 강사 양성 차장 성과 산출물 도출 및 검증",
+            "guide": "결과물 검증 및 상위 직급/유관 부서 보고 완결"
+          }
+        ],
+        "recommended_books": [
+          "인적자원관리(이학종)",
+          "HR 실무 바이블(신승훈)"
+        ],
+        "recommended_courses": [
+          {
+            "platform": "고용24 국민내일배움카드",
+            "cost": 50490,
+            "cost_type": "STANDARD_PAID",
+            "course_title": "전략적 조직운영을 위한 리더십 파이프라인 및 사내 강사 양성 실무",
+            "institution": "(1st)인비원 평생교육원",
+            "training_hours": 40,
+            "url": "https://www.work24.go.kr"
+          },
+          {
+            "platform": "고용24 사업주훈련",
+            "cost": 0,
+            "cost_type": "GOV_SUBSIDIZED_FREE",
+            "course_title": "실무자를 위한 리더십 파이프라인 및 사내 강사 양성 핵심 역량 강화",
+            "institution": "한국생산성본부",
+            "training_hours": 32,
+            "url": "https://www.work24.go.kr"
+          }
+        ]
+      },
+      {
+        "rank_name": "부장",
+        "definition": "리더십 파이프라인 및 사내 강사 양성 경영진 의사결정 자문 및 조직 혁신 전략 총괄 (Level 5)",
+        "assigned_atomic_tasks": [
+          {
+            "task_step": "9. 사전기획 및 분석",
+            "task_code": "KGC-JOB-139-PT1",
+            "task_name": "리더십 파이프라인 및 사내 강사 양성 관련 3개년 HR/총무 마스터플랜 수립 및 승계관리 1단계",
+            "guide": "표준 프로세스 지침에 따라 부장 필수 과업 수행"
+          },
+          {
+            "task_step": "10. 실행 및 성과산출",
+            "task_code": "KGC-JOB-139-PT2",
+            "task_name": "리더십 파이프라인 및 사내 강사 양성 부장 성과 산출물 도출 및 검증",
+            "guide": "결과물 검증 및 상위 직급/유관 부서 보고 완결"
+          }
+        ],
+        "recommended_books": [
+          "인적자원관리(이학종)",
+          "HR 실무 바이블(신승훈)"
+        ],
+        "recommended_courses": [
+          {
+            "platform": "고용24 국민내일배움카드",
+            "cost": 50490,
+            "cost_type": "STANDARD_PAID",
+            "course_title": "전략적 조직운영을 위한 리더십 파이프라인 및 사내 강사 양성 실무",
+            "institution": "(1st)인비원 평생교육원",
+            "training_hours": 40,
+            "url": "https://www.work24.go.kr"
+          },
+          {
+            "platform": "고용24 사업주훈련",
+            "cost": 0,
+            "cost_type": "GOV_SUBSIDIZED_FREE",
+            "course_title": "실무자를 위한 리더십 파이프라인 및 사내 강사 양성 핵심 역량 강화",
+            "institution": "한국생산성본부",
+            "training_hours": 32,
+            "url": "https://www.work24.go.kr"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "domain": "5. 기업문화 / 조직개발 (OD & Culture)",
+    "job_name": "조직문화 진단 및 핵심가치 내재화",
+    "grades": [
+      {
+        "rank_name": "주임",
+        "definition": "조직문화 진단 및 핵심가치 내재화 단위 업무 온보딩 및 표준 절차 수행 (Level 1)",
+        "assigned_atomic_tasks": [
+          {
+            "task_step": "1. 사전기획 및 분석",
+            "task_code": "KGC-JOB-140-PT1",
+            "task_name": "조직문화 진단 및 핵심가치 내재화 관련 기초 서식 및 집계표 작성 지원 1단계",
+            "guide": "표준 프로세스 지침에 따라 주임 필수 과업 수행"
+          },
+          {
+            "task_step": "2. 실행 및 성과산출",
+            "task_code": "KGC-JOB-140-PT2",
+            "task_name": "조직문화 진단 및 핵심가치 내재화 주임 성과 산출물 도출 및 검증",
+            "guide": "결과물 검증 및 상위 직급/유관 부서 보고 완결"
+          }
+        ],
+        "recommended_books": [
+          "인적자원관리(이학종)",
+          "HR 실무 바이블(신승훈)"
+        ],
+        "recommended_courses": [
+          {
+            "platform": "고용24 국민내일배움카드",
+            "cost": 50490,
+            "cost_type": "STANDARD_PAID",
+            "course_title": "전략적 조직운영을 위한 조직문화 진단 및 핵심가치 내재화 실무",
+            "institution": "(1st)인비원 평생교육원",
+            "training_hours": 40,
+            "url": "https://www.work24.go.kr"
+          },
+          {
+            "platform": "고용24 사업주훈련",
+            "cost": 0,
+            "cost_type": "GOV_SUBSIDIZED_FREE",
+            "course_title": "실무자를 위한 조직문화 진단 및 핵심가치 내재화 핵심 역량 강화",
+            "institution": "한국생산성본부",
+            "training_hours": 32,
+            "url": "https://www.work24.go.kr"
+          }
+        ]
+      },
+      {
+        "rank_name": "대리",
+        "definition": "조직문화 진단 및 핵심가치 내재화 독립 실무 이행 및 실무 이슈 대안 제시 (Level 2)",
+        "assigned_atomic_tasks": [
+          {
+            "task_step": "3. 사전기획 및 분석",
+            "task_code": "KGC-JOB-141-PT1",
+            "task_name": "조직문화 진단 및 핵심가치 내재화 관련 세부 추진 액션 플랜 수립 및 실무 완결 1단계",
+            "guide": "표준 프로세스 지침에 따라 대리 필수 과업 수행"
+          },
+          {
+            "task_step": "4. 실행 및 성과산출",
+            "task_code": "KGC-JOB-141-PT2",
+            "task_name": "조직문화 진단 및 핵심가치 내재화 대리 성과 산출물 도출 및 검증",
+            "guide": "결과물 검증 및 상위 직급/유관 부서 보고 완결"
+          }
+        ],
+        "recommended_books": [
+          "인적자원관리(이학종)",
+          "HR 실무 바이블(신승훈)"
+        ],
+        "recommended_courses": [
+          {
+            "platform": "고용24 국민내일배움카드",
+            "cost": 50490,
+            "cost_type": "STANDARD_PAID",
+            "course_title": "전략적 조직운영을 위한 조직문화 진단 및 핵심가치 내재화 실무",
+            "institution": "(1st)인비원 평생교육원",
+            "training_hours": 40,
+            "url": "https://www.work24.go.kr"
+          },
+          {
+            "platform": "고용24 사업주훈련",
+            "cost": 0,
+            "cost_type": "GOV_SUBSIDIZED_FREE",
+            "course_title": "실무자를 위한 조직문화 진단 및 핵심가치 내재화 핵심 역량 강화",
+            "institution": "한국생산성본부",
+            "training_hours": 32,
+            "url": "https://www.work24.go.kr"
+          }
+        ]
+      },
+      {
+        "rank_name": "과장",
+        "definition": "조직문화 진단 및 핵심가치 내재화 제도 설계, 프로세스 개선 및 유관부서 협업 조율 (Level 3)",
+        "assigned_atomic_tasks": [
+          {
+            "task_step": "5. 사전기획 및 분석",
+            "task_code": "KGC-JOB-142-PT1",
+            "task_name": "조직문화 진단 및 핵심가치 내재화 관련 연간 운영 계획 수립 및 제도 개정안 입안 1단계",
+            "guide": "표준 프로세스 지침에 따라 과장 필수 과업 수행"
+          },
+          {
+            "task_step": "6. 실행 및 성과산출",
+            "task_code": "KGC-JOB-142-PT2",
+            "task_name": "조직문화 진단 및 핵심가치 내재화 과장 성과 산출물 도출 및 검증",
+            "guide": "결과물 검증 및 상위 직급/유관 부서 보고 완결"
+          }
+        ],
+        "recommended_books": [
+          "인적자원관리(이학종)",
+          "HR 실무 바이블(신승훈)"
+        ],
+        "recommended_courses": [
+          {
+            "platform": "고용24 국민내일배움카드",
+            "cost": 50490,
+            "cost_type": "STANDARD_PAID",
+            "course_title": "전략적 조직운영을 위한 조직문화 진단 및 핵심가치 내재화 실무",
+            "institution": "(1st)인비원 평생교육원",
+            "training_hours": 40,
+            "url": "https://www.work24.go.kr"
+          },
+          {
+            "platform": "고용24 사업주훈련",
+            "cost": 0,
+            "cost_type": "GOV_SUBSIDIZED_FREE",
+            "course_title": "실무자를 위한 조직문화 진단 및 핵심가치 내재화 핵심 역량 강화",
+            "institution": "한국생산성본부",
+            "training_hours": 32,
+            "url": "https://www.work24.go.kr"
+          }
+        ]
+      },
+      {
+        "rank_name": "차장",
+        "definition": "조직문화 진단 및 핵심가치 내재화 전사 거버넌스 총괄 및 다차원 시뮬레이션 리딩 (Level 4)",
+        "assigned_atomic_tasks": [
+          {
+            "task_step": "7. 사전기획 및 분석",
+            "task_code": "KGC-JOB-143-PT1",
+            "task_name": "조직문화 진단 및 핵심가치 내재화 관련 중장기 정책 수립 및 노사/경영진 전략 보고 1단계",
+            "guide": "표준 프로세스 지침에 따라 차장 필수 과업 수행"
+          },
+          {
+            "task_step": "8. 실행 및 성과산출",
+            "task_code": "KGC-JOB-143-PT2",
+            "task_name": "조직문화 진단 및 핵심가치 내재화 차장 성과 산출물 도출 및 검증",
+            "guide": "결과물 검증 및 상위 직급/유관 부서 보고 완결"
+          }
+        ],
+        "recommended_books": [
+          "인적자원관리(이학종)",
+          "HR 실무 바이블(신승훈)"
+        ],
+        "recommended_courses": [
+          {
+            "platform": "고용24 국민내일배움카드",
+            "cost": 50490,
+            "cost_type": "STANDARD_PAID",
+            "course_title": "전략적 조직운영을 위한 조직문화 진단 및 핵심가치 내재화 실무",
+            "institution": "(1st)인비원 평생교육원",
+            "training_hours": 40,
+            "url": "https://www.work24.go.kr"
+          },
+          {
+            "platform": "고용24 사업주훈련",
+            "cost": 0,
+            "cost_type": "GOV_SUBSIDIZED_FREE",
+            "course_title": "실무자를 위한 조직문화 진단 및 핵심가치 내재화 핵심 역량 강화",
+            "institution": "한국생산성본부",
+            "training_hours": 32,
+            "url": "https://www.work24.go.kr"
+          }
+        ]
+      },
+      {
+        "rank_name": "부장",
+        "definition": "조직문화 진단 및 핵심가치 내재화 경영진 의사결정 자문 및 조직 혁신 전략 총괄 (Level 5)",
+        "assigned_atomic_tasks": [
+          {
+            "task_step": "9. 사전기획 및 분석",
+            "task_code": "KGC-JOB-144-PT1",
+            "task_name": "조직문화 진단 및 핵심가치 내재화 관련 3개년 HR/총무 마스터플랜 수립 및 승계관리 1단계",
+            "guide": "표준 프로세스 지침에 따라 부장 필수 과업 수행"
+          },
+          {
+            "task_step": "10. 실행 및 성과산출",
+            "task_code": "KGC-JOB-144-PT2",
+            "task_name": "조직문화 진단 및 핵심가치 내재화 부장 성과 산출물 도출 및 검증",
+            "guide": "결과물 검증 및 상위 직급/유관 부서 보고 완결"
+          }
+        ],
+        "recommended_books": [
+          "인적자원관리(이학종)",
+          "HR 실무 바이블(신승훈)"
+        ],
+        "recommended_courses": [
+          {
+            "platform": "고용24 국민내일배움카드",
+            "cost": 50490,
+            "cost_type": "STANDARD_PAID",
+            "course_title": "전략적 조직운영을 위한 조직문화 진단 및 핵심가치 내재화 실무",
+            "institution": "(1st)인비원 평생교육원",
+            "training_hours": 40,
+            "url": "https://www.work24.go.kr"
+          },
+          {
+            "platform": "고용24 사업주훈련",
+            "cost": 0,
+            "cost_type": "GOV_SUBSIDIZED_FREE",
+            "course_title": "실무자를 위한 조직문화 진단 및 핵심가치 내재화 핵심 역량 강화",
+            "institution": "한국생산성본부",
+            "training_hours": 32,
+            "url": "https://www.work24.go.kr"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "domain": "5. 기업문화 / 조직개발 (OD & Culture)",
+    "job_name": "조직 개편 및 체인지 매니지먼트",
+    "grades": [
+      {
+        "rank_name": "주임",
+        "definition": "조직 개편 및 체인지 매니지먼트 단위 업무 온보딩 및 표준 절차 수행 (Level 1)",
+        "assigned_atomic_tasks": [
+          {
+            "task_step": "1. 사전기획 및 분석",
+            "task_code": "KGC-JOB-145-PT1",
+            "task_name": "조직 개편 및 체인지 매니지먼트 관련 기초 서식 및 집계표 작성 지원 1단계",
+            "guide": "표준 프로세스 지침에 따라 주임 필수 과업 수행"
+          },
+          {
+            "task_step": "2. 실행 및 성과산출",
+            "task_code": "KGC-JOB-145-PT2",
+            "task_name": "조직 개편 및 체인지 매니지먼트 주임 성과 산출물 도출 및 검증",
+            "guide": "결과물 검증 및 상위 직급/유관 부서 보고 완결"
+          }
+        ],
+        "recommended_books": [
+          "인적자원관리(이학종)",
+          "HR 실무 바이블(신승훈)"
+        ],
+        "recommended_courses": [
+          {
+            "platform": "고용24 국민내일배움카드",
+            "cost": 50490,
+            "cost_type": "STANDARD_PAID",
+            "course_title": "전략적 조직운영을 위한 조직 개편 및 체인지 매니지먼트 실무",
+            "institution": "(1st)인비원 평생교육원",
+            "training_hours": 40,
+            "url": "https://www.work24.go.kr"
+          },
+          {
+            "platform": "고용24 사업주훈련",
+            "cost": 0,
+            "cost_type": "GOV_SUBSIDIZED_FREE",
+            "course_title": "실무자를 위한 조직 개편 및 체인지 매니지먼트 핵심 역량 강화",
+            "institution": "한국생산성본부",
+            "training_hours": 32,
+            "url": "https://www.work24.go.kr"
+          }
+        ]
+      },
+      {
+        "rank_name": "대리",
+        "definition": "조직 개편 및 체인지 매니지먼트 독립 실무 이행 및 실무 이슈 대안 제시 (Level 2)",
+        "assigned_atomic_tasks": [
+          {
+            "task_step": "3. 사전기획 및 분석",
+            "task_code": "KGC-JOB-146-PT1",
+            "task_name": "조직 개편 및 체인지 매니지먼트 관련 세부 추진 액션 플랜 수립 및 실무 완결 1단계",
+            "guide": "표준 프로세스 지침에 따라 대리 필수 과업 수행"
+          },
+          {
+            "task_step": "4. 실행 및 성과산출",
+            "task_code": "KGC-JOB-146-PT2",
+            "task_name": "조직 개편 및 체인지 매니지먼트 대리 성과 산출물 도출 및 검증",
+            "guide": "결과물 검증 및 상위 직급/유관 부서 보고 완결"
+          }
+        ],
+        "recommended_books": [
+          "인적자원관리(이학종)",
+          "HR 실무 바이블(신승훈)"
+        ],
+        "recommended_courses": [
+          {
+            "platform": "고용24 국민내일배움카드",
+            "cost": 50490,
+            "cost_type": "STANDARD_PAID",
+            "course_title": "전략적 조직운영을 위한 조직 개편 및 체인지 매니지먼트 실무",
+            "institution": "(1st)인비원 평생교육원",
+            "training_hours": 40,
+            "url": "https://www.work24.go.kr"
+          },
+          {
+            "platform": "고용24 사업주훈련",
+            "cost": 0,
+            "cost_type": "GOV_SUBSIDIZED_FREE",
+            "course_title": "실무자를 위한 조직 개편 및 체인지 매니지먼트 핵심 역량 강화",
+            "institution": "한국생산성본부",
+            "training_hours": 32,
+            "url": "https://www.work24.go.kr"
+          }
+        ]
+      },
+      {
+        "rank_name": "과장",
+        "definition": "조직 개편 및 체인지 매니지먼트 제도 설계, 프로세스 개선 및 유관부서 협업 조율 (Level 3)",
+        "assigned_atomic_tasks": [
+          {
+            "task_step": "5. 사전기획 및 분석",
+            "task_code": "KGC-JOB-147-PT1",
+            "task_name": "조직 개편 및 체인지 매니지먼트 관련 연간 운영 계획 수립 및 제도 개정안 입안 1단계",
+            "guide": "표준 프로세스 지침에 따라 과장 필수 과업 수행"
+          },
+          {
+            "task_step": "6. 실행 및 성과산출",
+            "task_code": "KGC-JOB-147-PT2",
+            "task_name": "조직 개편 및 체인지 매니지먼트 과장 성과 산출물 도출 및 검증",
+            "guide": "결과물 검증 및 상위 직급/유관 부서 보고 완결"
+          }
+        ],
+        "recommended_books": [
+          "인적자원관리(이학종)",
+          "HR 실무 바이블(신승훈)"
+        ],
+        "recommended_courses": [
+          {
+            "platform": "고용24 국민내일배움카드",
+            "cost": 50490,
+            "cost_type": "STANDARD_PAID",
+            "course_title": "전략적 조직운영을 위한 조직 개편 및 체인지 매니지먼트 실무",
+            "institution": "(1st)인비원 평생교육원",
+            "training_hours": 40,
+            "url": "https://www.work24.go.kr"
+          },
+          {
+            "platform": "고용24 사업주훈련",
+            "cost": 0,
+            "cost_type": "GOV_SUBSIDIZED_FREE",
+            "course_title": "실무자를 위한 조직 개편 및 체인지 매니지먼트 핵심 역량 강화",
+            "institution": "한국생산성본부",
+            "training_hours": 32,
+            "url": "https://www.work24.go.kr"
+          }
+        ]
+      },
+      {
+        "rank_name": "차장",
+        "definition": "조직 개편 및 체인지 매니지먼트 전사 거버넌스 총괄 및 다차원 시뮬레이션 리딩 (Level 4)",
+        "assigned_atomic_tasks": [
+          {
+            "task_step": "7. 사전기획 및 분석",
+            "task_code": "KGC-JOB-148-PT1",
+            "task_name": "조직 개편 및 체인지 매니지먼트 관련 중장기 정책 수립 및 노사/경영진 전략 보고 1단계",
+            "guide": "표준 프로세스 지침에 따라 차장 필수 과업 수행"
+          },
+          {
+            "task_step": "8. 실행 및 성과산출",
+            "task_code": "KGC-JOB-148-PT2",
+            "task_name": "조직 개편 및 체인지 매니지먼트 차장 성과 산출물 도출 및 검증",
+            "guide": "결과물 검증 및 상위 직급/유관 부서 보고 완결"
+          }
+        ],
+        "recommended_books": [
+          "인적자원관리(이학종)",
+          "HR 실무 바이블(신승훈)"
+        ],
+        "recommended_courses": [
+          {
+            "platform": "고용24 국민내일배움카드",
+            "cost": 50490,
+            "cost_type": "STANDARD_PAID",
+            "course_title": "전략적 조직운영을 위한 조직 개편 및 체인지 매니지먼트 실무",
+            "institution": "(1st)인비원 평생교육원",
+            "training_hours": 40,
+            "url": "https://www.work24.go.kr"
+          },
+          {
+            "platform": "고용24 사업주훈련",
+            "cost": 0,
+            "cost_type": "GOV_SUBSIDIZED_FREE",
+            "course_title": "실무자를 위한 조직 개편 및 체인지 매니지먼트 핵심 역량 강화",
+            "institution": "한국생산성본부",
+            "training_hours": 32,
+            "url": "https://www.work24.go.kr"
+          }
+        ]
+      },
+      {
+        "rank_name": "부장",
+        "definition": "조직 개편 및 체인지 매니지먼트 경영진 의사결정 자문 및 조직 혁신 전략 총괄 (Level 5)",
+        "assigned_atomic_tasks": [
+          {
+            "task_step": "9. 사전기획 및 분석",
+            "task_code": "KGC-JOB-149-PT1",
+            "task_name": "조직 개편 및 체인지 매니지먼트 관련 3개년 HR/총무 마스터플랜 수립 및 승계관리 1단계",
+            "guide": "표준 프로세스 지침에 따라 부장 필수 과업 수행"
+          },
+          {
+            "task_step": "10. 실행 및 성과산출",
+            "task_code": "KGC-JOB-149-PT2",
+            "task_name": "조직 개편 및 체인지 매니지먼트 부장 성과 산출물 도출 및 검증",
+            "guide": "결과물 검증 및 상위 직급/유관 부서 보고 완결"
+          }
+        ],
+        "recommended_books": [
+          "인적자원관리(이학종)",
+          "HR 실무 바이블(신승훈)"
+        ],
+        "recommended_courses": [
+          {
+            "platform": "고용24 국민내일배움카드",
+            "cost": 50490,
+            "cost_type": "STANDARD_PAID",
+            "course_title": "전략적 조직운영을 위한 조직 개편 및 체인지 매니지먼트 실무",
+            "institution": "(1st)인비원 평생교육원",
+            "training_hours": 40,
+            "url": "https://www.work24.go.kr"
+          },
+          {
+            "platform": "고용24 사업주훈련",
+            "cost": 0,
+            "cost_type": "GOV_SUBSIDIZED_FREE",
+            "course_title": "실무자를 위한 조직 개편 및 체인지 매니지먼트 핵심 역량 강화",
+            "institution": "한국생산성본부",
+            "training_hours": 32,
+            "url": "https://www.work24.go.kr"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "domain": "6. 총무 / 사옥자산관리 (General Affairs)",
+    "job_name": "고정자산 실사 및 구매 계약 관리",
+    "grades": [
+      {
+        "rank_name": "주임",
+        "definition": "고정자산 실사 및 구매 계약 관리 단위 업무 온보딩 및 표준 절차 수행 (Level 1)",
+        "assigned_atomic_tasks": [
+          {
+            "task_step": "1. 사전기획 및 분석",
+            "task_code": "KGC-JOB-150-PT1",
+            "task_name": "고정자산 실사 및 구매 계약 관리 관련 기초 서식 및 집계표 작성 지원 1단계",
+            "guide": "표준 프로세스 지침에 따라 주임 필수 과업 수행"
+          },
+          {
+            "task_step": "2. 실행 및 성과산출",
+            "task_code": "KGC-JOB-150-PT2",
+            "task_name": "고정자산 실사 및 구매 계약 관리 주임 성과 산출물 도출 및 검증",
+            "guide": "결과물 검증 및 상위 직급/유관 부서 보고 완결"
+          }
+        ],
+        "recommended_books": [
+          "인적자원관리(이학종)",
+          "HR 실무 바이블(신승훈)"
+        ],
+        "recommended_courses": [
+          {
+            "platform": "고용24 국민내일배움카드",
+            "cost": 50490,
+            "cost_type": "STANDARD_PAID",
+            "course_title": "전략적 조직운영을 위한 고정자산 실사 및 구매 계약 관리 실무",
+            "institution": "(1st)인비원 평생교육원",
+            "training_hours": 40,
+            "url": "https://www.work24.go.kr"
+          },
+          {
+            "platform": "고용24 사업주훈련",
+            "cost": 0,
+            "cost_type": "GOV_SUBSIDIZED_FREE",
+            "course_title": "실무자를 위한 고정자산 실사 및 구매 계약 관리 핵심 역량 강화",
+            "institution": "한국생산성본부",
+            "training_hours": 32,
+            "url": "https://www.work24.go.kr"
+          }
+        ]
+      },
+      {
+        "rank_name": "대리",
+        "definition": "고정자산 실사 및 구매 계약 관리 독립 실무 이행 및 실무 이슈 대안 제시 (Level 2)",
+        "assigned_atomic_tasks": [
+          {
+            "task_step": "3. 사전기획 및 분석",
+            "task_code": "KGC-JOB-151-PT1",
+            "task_name": "고정자산 실사 및 구매 계약 관리 관련 세부 추진 액션 플랜 수립 및 실무 완결 1단계",
+            "guide": "표준 프로세스 지침에 따라 대리 필수 과업 수행"
+          },
+          {
+            "task_step": "4. 실행 및 성과산출",
+            "task_code": "KGC-JOB-151-PT2",
+            "task_name": "고정자산 실사 및 구매 계약 관리 대리 성과 산출물 도출 및 검증",
+            "guide": "결과물 검증 및 상위 직급/유관 부서 보고 완결"
+          }
+        ],
+        "recommended_books": [
+          "인적자원관리(이학종)",
+          "HR 실무 바이블(신승훈)"
+        ],
+        "recommended_courses": [
+          {
+            "platform": "고용24 국민내일배움카드",
+            "cost": 50490,
+            "cost_type": "STANDARD_PAID",
+            "course_title": "전략적 조직운영을 위한 고정자산 실사 및 구매 계약 관리 실무",
+            "institution": "(1st)인비원 평생교육원",
+            "training_hours": 40,
+            "url": "https://www.work24.go.kr"
+          },
+          {
+            "platform": "고용24 사업주훈련",
+            "cost": 0,
+            "cost_type": "GOV_SUBSIDIZED_FREE",
+            "course_title": "실무자를 위한 고정자산 실사 및 구매 계약 관리 핵심 역량 강화",
+            "institution": "한국생산성본부",
+            "training_hours": 32,
+            "url": "https://www.work24.go.kr"
+          }
+        ]
+      },
+      {
+        "rank_name": "과장",
+        "definition": "고정자산 실사 및 구매 계약 관리 제도 설계, 프로세스 개선 및 유관부서 협업 조율 (Level 3)",
+        "assigned_atomic_tasks": [
+          {
+            "task_step": "5. 사전기획 및 분석",
+            "task_code": "KGC-JOB-152-PT1",
+            "task_name": "고정자산 실사 및 구매 계약 관리 관련 연간 운영 계획 수립 및 제도 개정안 입안 1단계",
+            "guide": "표준 프로세스 지침에 따라 과장 필수 과업 수행"
+          },
+          {
+            "task_step": "6. 실행 및 성과산출",
+            "task_code": "KGC-JOB-152-PT2",
+            "task_name": "고정자산 실사 및 구매 계약 관리 과장 성과 산출물 도출 및 검증",
+            "guide": "결과물 검증 및 상위 직급/유관 부서 보고 완결"
+          }
+        ],
+        "recommended_books": [
+          "인적자원관리(이학종)",
+          "HR 실무 바이블(신승훈)"
+        ],
+        "recommended_courses": [
+          {
+            "platform": "고용24 국민내일배움카드",
+            "cost": 50490,
+            "cost_type": "STANDARD_PAID",
+            "course_title": "전략적 조직운영을 위한 고정자산 실사 및 구매 계약 관리 실무",
+            "institution": "(1st)인비원 평생교육원",
+            "training_hours": 40,
+            "url": "https://www.work24.go.kr"
+          },
+          {
+            "platform": "고용24 사업주훈련",
+            "cost": 0,
+            "cost_type": "GOV_SUBSIDIZED_FREE",
+            "course_title": "실무자를 위한 고정자산 실사 및 구매 계약 관리 핵심 역량 강화",
+            "institution": "한국생산성본부",
+            "training_hours": 32,
+            "url": "https://www.work24.go.kr"
+          }
+        ]
+      },
+      {
+        "rank_name": "차장",
+        "definition": "고정자산 실사 및 구매 계약 관리 전사 거버넌스 총괄 및 다차원 시뮬레이션 리딩 (Level 4)",
+        "assigned_atomic_tasks": [
+          {
+            "task_step": "7. 사전기획 및 분석",
+            "task_code": "KGC-JOB-153-PT1",
+            "task_name": "고정자산 실사 및 구매 계약 관리 관련 중장기 정책 수립 및 노사/경영진 전략 보고 1단계",
+            "guide": "표준 프로세스 지침에 따라 차장 필수 과업 수행"
+          },
+          {
+            "task_step": "8. 실행 및 성과산출",
+            "task_code": "KGC-JOB-153-PT2",
+            "task_name": "고정자산 실사 및 구매 계약 관리 차장 성과 산출물 도출 및 검증",
+            "guide": "결과물 검증 및 상위 직급/유관 부서 보고 완결"
+          }
+        ],
+        "recommended_books": [
+          "인적자원관리(이학종)",
+          "HR 실무 바이블(신승훈)"
+        ],
+        "recommended_courses": [
+          {
+            "platform": "고용24 국민내일배움카드",
+            "cost": 50490,
+            "cost_type": "STANDARD_PAID",
+            "course_title": "전략적 조직운영을 위한 고정자산 실사 및 구매 계약 관리 실무",
+            "institution": "(1st)인비원 평생교육원",
+            "training_hours": 40,
+            "url": "https://www.work24.go.kr"
+          },
+          {
+            "platform": "고용24 사업주훈련",
+            "cost": 0,
+            "cost_type": "GOV_SUBSIDIZED_FREE",
+            "course_title": "실무자를 위한 고정자산 실사 및 구매 계약 관리 핵심 역량 강화",
+            "institution": "한국생산성본부",
+            "training_hours": 32,
+            "url": "https://www.work24.go.kr"
+          }
+        ]
+      },
+      {
+        "rank_name": "부장",
+        "definition": "고정자산 실사 및 구매 계약 관리 경영진 의사결정 자문 및 조직 혁신 전략 총괄 (Level 5)",
+        "assigned_atomic_tasks": [
+          {
+            "task_step": "9. 사전기획 및 분석",
+            "task_code": "KGC-JOB-154-PT1",
+            "task_name": "고정자산 실사 및 구매 계약 관리 관련 3개년 HR/총무 마스터플랜 수립 및 승계관리 1단계",
+            "guide": "표준 프로세스 지침에 따라 부장 필수 과업 수행"
+          },
+          {
+            "task_step": "10. 실행 및 성과산출",
+            "task_code": "KGC-JOB-154-PT2",
+            "task_name": "고정자산 실사 및 구매 계약 관리 부장 성과 산출물 도출 및 검증",
+            "guide": "결과물 검증 및 상위 직급/유관 부서 보고 완결"
+          }
+        ],
+        "recommended_books": [
+          "인적자원관리(이학종)",
+          "HR 실무 바이블(신승훈)"
+        ],
+        "recommended_courses": [
+          {
+            "platform": "고용24 국민내일배움카드",
+            "cost": 50490,
+            "cost_type": "STANDARD_PAID",
+            "course_title": "전략적 조직운영을 위한 고정자산 실사 및 구매 계약 관리 실무",
+            "institution": "(1st)인비원 평생교육원",
+            "training_hours": 40,
+            "url": "https://www.work24.go.kr"
+          },
+          {
+            "platform": "고용24 사업주훈련",
+            "cost": 0,
+            "cost_type": "GOV_SUBSIDIZED_FREE",
+            "course_title": "실무자를 위한 고정자산 실사 및 구매 계약 관리 핵심 역량 강화",
+            "institution": "한국생산성본부",
+            "training_hours": 32,
+            "url": "https://www.work24.go.kr"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "domain": "6. 총무 / 사옥자산관리 (General Affairs)",
+    "job_name": "사옥 보안·방재 및 의전 행사 기획",
+    "grades": [
+      {
+        "rank_name": "주임",
+        "definition": "사옥 보안·방재 및 의전 행사 기획 단위 업무 온보딩 및 표준 절차 수행 (Level 1)",
+        "assigned_atomic_tasks": [
+          {
+            "task_step": "1. 사전기획 및 분석",
+            "task_code": "KGC-JOB-155-PT1",
+            "task_name": "사옥 보안·방재 및 의전 행사 기획 관련 기초 서식 및 집계표 작성 지원 1단계",
+            "guide": "표준 프로세스 지침에 따라 주임 필수 과업 수행"
+          },
+          {
+            "task_step": "2. 실행 및 성과산출",
+            "task_code": "KGC-JOB-155-PT2",
+            "task_name": "사옥 보안·방재 및 의전 행사 기획 주임 성과 산출물 도출 및 검증",
+            "guide": "결과물 검증 및 상위 직급/유관 부서 보고 완결"
+          }
+        ],
+        "recommended_books": [
+          "인적자원관리(이학종)",
+          "HR 실무 바이블(신승훈)"
+        ],
+        "recommended_courses": [
+          {
+            "platform": "고용24 국민내일배움카드",
+            "cost": 50490,
+            "cost_type": "STANDARD_PAID",
+            "course_title": "전략적 조직운영을 위한 사옥 보안·방재 및 의전 행사 기획 실무",
+            "institution": "(1st)인비원 평생교육원",
+            "training_hours": 40,
+            "url": "https://www.work24.go.kr"
+          },
+          {
+            "platform": "고용24 사업주훈련",
+            "cost": 0,
+            "cost_type": "GOV_SUBSIDIZED_FREE",
+            "course_title": "실무자를 위한 사옥 보안·방재 및 의전 행사 기획 핵심 역량 강화",
+            "institution": "한국생산성본부",
+            "training_hours": 32,
+            "url": "https://www.work24.go.kr"
+          }
+        ]
+      },
+      {
+        "rank_name": "대리",
+        "definition": "사옥 보안·방재 및 의전 행사 기획 독립 실무 이행 및 실무 이슈 대안 제시 (Level 2)",
+        "assigned_atomic_tasks": [
+          {
+            "task_step": "3. 사전기획 및 분석",
+            "task_code": "KGC-JOB-156-PT1",
+            "task_name": "사옥 보안·방재 및 의전 행사 기획 관련 세부 추진 액션 플랜 수립 및 실무 완결 1단계",
+            "guide": "표준 프로세스 지침에 따라 대리 필수 과업 수행"
+          },
+          {
+            "task_step": "4. 실행 및 성과산출",
+            "task_code": "KGC-JOB-156-PT2",
+            "task_name": "사옥 보안·방재 및 의전 행사 기획 대리 성과 산출물 도출 및 검증",
+            "guide": "결과물 검증 및 상위 직급/유관 부서 보고 완결"
+          }
+        ],
+        "recommended_books": [
+          "인적자원관리(이학종)",
+          "HR 실무 바이블(신승훈)"
+        ],
+        "recommended_courses": [
+          {
+            "platform": "고용24 국민내일배움카드",
+            "cost": 50490,
+            "cost_type": "STANDARD_PAID",
+            "course_title": "전략적 조직운영을 위한 사옥 보안·방재 및 의전 행사 기획 실무",
+            "institution": "(1st)인비원 평생교육원",
+            "training_hours": 40,
+            "url": "https://www.work24.go.kr"
+          },
+          {
+            "platform": "고용24 사업주훈련",
+            "cost": 0,
+            "cost_type": "GOV_SUBSIDIZED_FREE",
+            "course_title": "실무자를 위한 사옥 보안·방재 및 의전 행사 기획 핵심 역량 강화",
+            "institution": "한국생산성본부",
+            "training_hours": 32,
+            "url": "https://www.work24.go.kr"
+          }
+        ]
+      },
+      {
+        "rank_name": "과장",
+        "definition": "사옥 보안·방재 및 의전 행사 기획 제도 설계, 프로세스 개선 및 유관부서 협업 조율 (Level 3)",
+        "assigned_atomic_tasks": [
+          {
+            "task_step": "5. 사전기획 및 분석",
+            "task_code": "KGC-JOB-157-PT1",
+            "task_name": "사옥 보안·방재 및 의전 행사 기획 관련 연간 운영 계획 수립 및 제도 개정안 입안 1단계",
+            "guide": "표준 프로세스 지침에 따라 과장 필수 과업 수행"
+          },
+          {
+            "task_step": "6. 실행 및 성과산출",
+            "task_code": "KGC-JOB-157-PT2",
+            "task_name": "사옥 보안·방재 및 의전 행사 기획 과장 성과 산출물 도출 및 검증",
+            "guide": "결과물 검증 및 상위 직급/유관 부서 보고 완결"
+          }
+        ],
+        "recommended_books": [
+          "인적자원관리(이학종)",
+          "HR 실무 바이블(신승훈)"
+        ],
+        "recommended_courses": [
+          {
+            "platform": "고용24 국민내일배움카드",
+            "cost": 50490,
+            "cost_type": "STANDARD_PAID",
+            "course_title": "전략적 조직운영을 위한 사옥 보안·방재 및 의전 행사 기획 실무",
+            "institution": "(1st)인비원 평생교육원",
+            "training_hours": 40,
+            "url": "https://www.work24.go.kr"
+          },
+          {
+            "platform": "고용24 사업주훈련",
+            "cost": 0,
+            "cost_type": "GOV_SUBSIDIZED_FREE",
+            "course_title": "실무자를 위한 사옥 보안·방재 및 의전 행사 기획 핵심 역량 강화",
+            "institution": "한국생산성본부",
+            "training_hours": 32,
+            "url": "https://www.work24.go.kr"
+          }
+        ]
+      },
+      {
+        "rank_name": "차장",
+        "definition": "사옥 보안·방재 및 의전 행사 기획 전사 거버넌스 총괄 및 다차원 시뮬레이션 리딩 (Level 4)",
+        "assigned_atomic_tasks": [
+          {
+            "task_step": "7. 사전기획 및 분석",
+            "task_code": "KGC-JOB-158-PT1",
+            "task_name": "사옥 보안·방재 및 의전 행사 기획 관련 중장기 정책 수립 및 노사/경영진 전략 보고 1단계",
+            "guide": "표준 프로세스 지침에 따라 차장 필수 과업 수행"
+          },
+          {
+            "task_step": "8. 실행 및 성과산출",
+            "task_code": "KGC-JOB-158-PT2",
+            "task_name": "사옥 보안·방재 및 의전 행사 기획 차장 성과 산출물 도출 및 검증",
+            "guide": "결과물 검증 및 상위 직급/유관 부서 보고 완결"
+          }
+        ],
+        "recommended_books": [
+          "인적자원관리(이학종)",
+          "HR 실무 바이블(신승훈)"
+        ],
+        "recommended_courses": [
+          {
+            "platform": "고용24 국민내일배움카드",
+            "cost": 50490,
+            "cost_type": "STANDARD_PAID",
+            "course_title": "전략적 조직운영을 위한 사옥 보안·방재 및 의전 행사 기획 실무",
+            "institution": "(1st)인비원 평생교육원",
+            "training_hours": 40,
+            "url": "https://www.work24.go.kr"
+          },
+          {
+            "platform": "고용24 사업주훈련",
+            "cost": 0,
+            "cost_type": "GOV_SUBSIDIZED_FREE",
+            "course_title": "실무자를 위한 사옥 보안·방재 및 의전 행사 기획 핵심 역량 강화",
+            "institution": "한국생산성본부",
+            "training_hours": 32,
+            "url": "https://www.work24.go.kr"
+          }
+        ]
+      },
+      {
+        "rank_name": "부장",
+        "definition": "사옥 보안·방재 및 의전 행사 기획 경영진 의사결정 자문 및 조직 혁신 전략 총괄 (Level 5)",
+        "assigned_atomic_tasks": [
+          {
+            "task_step": "9. 사전기획 및 분석",
+            "task_code": "KGC-JOB-159-PT1",
+            "task_name": "사옥 보안·방재 및 의전 행사 기획 관련 3개년 HR/총무 마스터플랜 수립 및 승계관리 1단계",
+            "guide": "표준 프로세스 지침에 따라 부장 필수 과업 수행"
+          },
+          {
+            "task_step": "10. 실행 및 성과산출",
+            "task_code": "KGC-JOB-159-PT2",
+            "task_name": "사옥 보안·방재 및 의전 행사 기획 부장 성과 산출물 도출 및 검증",
+            "guide": "결과물 검증 및 상위 직급/유관 부서 보고 완결"
+          }
+        ],
+        "recommended_books": [
+          "인적자원관리(이학종)",
+          "HR 실무 바이블(신승훈)"
+        ],
+        "recommended_courses": [
+          {
+            "platform": "고용24 국민내일배움카드",
+            "cost": 50490,
+            "cost_type": "STANDARD_PAID",
+            "course_title": "전략적 조직운영을 위한 사옥 보안·방재 및 의전 행사 기획 실무",
+            "institution": "(1st)인비원 평생교육원",
+            "training_hours": 40,
+            "url": "https://www.work24.go.kr"
+          },
+          {
+            "platform": "고용24 사업주훈련",
+            "cost": 0,
+            "cost_type": "GOV_SUBSIDIZED_FREE",
+            "course_title": "실무자를 위한 사옥 보안·방재 및 의전 행사 기획 핵심 역량 강화",
+            "institution": "한국생산성본부",
+            "training_hours": 32,
+            "url": "https://www.work24.go.kr"
+          }
+        ]
+      }
+    ]
+  }
+]

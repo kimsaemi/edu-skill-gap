@@ -182,9 +182,9 @@ def collect_kmbc_hr_courses():
         "returnType": "XML",
         "outType": "1",
         "pageNum": "1",
-        "pageSize": "20",
-        "srchTraStDt": "20250101",
-        "srchTraEndDt": "20251231",
+        "pageSize": "50",
+        "srchTraStDt": "20260101",
+        "srchTraEndDt": "20261231",
         "srchTraProcess": "인사"  # 인사 관련 검색어
     }
     headers = {
@@ -250,9 +250,9 @@ def collect_employer_hr_courses():
         "returnType": "XML",
         "outType": "1",
         "pageNum": "1",
-        "pageSize": "20",
-        "srchTraStDt": "20250101",
-        "srchTraEndDt": "20251231",
+        "pageSize": "50",
+        "srchTraStDt": "20260101",
+        "srchTraEndDt": "20261231",
         "srchTraProcess": "총무"  # 총무 관련 검색어
     }
     headers = {

@@ -13,6 +13,7 @@ import sys
 from pathlib import Path
 import pandas as pd
 import numpy as np
+import hashlib
 import streamlit as st
 import plotly.express as px
 import plotly.graph_objects as go
@@ -130,22 +131,38 @@ def render_learning_journey(datasets):
     task_source = required.merge(
         df_comp[["competency_id", "skill"]], on="competency_id", how="left"
     )
-    task_to_competency = {}
+    # NCS 역량 마스터의 실무 기술(skill)에서 정제된 업무 선택지 도출 (안정적인 task_id 부여)
+    task_catalog = {}
+    task_labels = []
     for task_row in task_source.itertuples():
-        for task in str(task_row.skill).split(","):
-            task = task.strip()
-            if task and task.lower() != "nan":
-                task_to_competency[f"{task} (연계 역량: {task_row.competency_name})"] = task_row.competency_id
+        c_id = task_row.competency_id
+        c_name = task_row.competency_name
+        skill_raw = str(task_row.skill) if pd.notna(task_row.skill) else ""
+        raw_items = [s.strip() for s in skill_raw.replace("/", ",").replace("\n", ",").split(",") if s.strip()]
+        for item in raw_items:
+            if item.lower() in ["nan", "none", "-"]:
+                continue
+            # 문장 순서 변경이나 삽입에도 불변인 결정론적 과업 고유 ID 생성 (SHA-256 슬러그 6자리)
+            task_slug = hashlib.sha256(f"{c_id}:{item}".encode("utf-8")).hexdigest()[:6].upper()
+            task_id = f"TASK_{c_id}_{task_slug}"
+            label = f"{item} (연계 역량: {c_name})"
+            task_catalog[label] = {
+                "task_id": task_id,
+                "task_name": item,
+                "competency_id": c_id,
+                "competency_name": c_name
+            }
+            task_labels.append(label)
 
     with diagnosis_col:
         st.markdown("**실제 수행 중인 업무 (복수 선택)**")
-        st.caption("NCS 역량 마스터의 실무 기술(Skill) 항목에서 자동으로 구성한 선택지입니다.")
-        default_tasks = list(task_to_competency) if current_level == "입문" else list(task_to_competency)[:2]
+        st.caption("NCS 역량 마스터의 실무 기술(Skill) 항목에서 도출한 안정적 업무 선택지입니다.")
+        default_tasks = task_labels if current_level == "입문" else task_labels[:2]
         selected_tasks = st.multiselect(
             "수행 중인 세부 업무",
-            list(task_to_competency),
+            task_labels,
             default=default_tasks,
-            help="선택한 업무의 연결 역량과 과정만 추천 우선순위에 반영합니다.",
+            help="선택한 업무의 연계 역량과 과정만 추천 우선순위에 반영합니다.",
             key=f"learning_tasks_{selected_job_id}",
         )
         with st.expander("기타 업무가 있나요? (선택)"):
@@ -153,7 +170,9 @@ def render_learning_journey(datasets):
                 "목록에 없는 업무만 직접 입력", placeholder="예: 해외 지사 인사운영 지원", key=f"learning_custom_task_{selected_job_id}"
             )
 
-    selected_competency_ids = list(dict.fromkeys(task_to_competency[task] for task in selected_tasks))
+    selected_competency_ids = list(dict.fromkeys(
+        task_catalog[task]["competency_id"] for task in selected_tasks if task in task_catalog
+    ))
     if not selected_competency_ids:
         st.info("수행 중인 업무를 하나 이상 선택하면 연결 역량과 맞춤 교육과정을 안내합니다.")
         return
@@ -208,7 +227,7 @@ def render_learning_journey(datasets):
     ).head(3)
 
     if recommendations.empty:
-        st.warning("선택한 역량과 직접 연결된 확정 교육과정이 아직 없습니다. 탐색 탭에서 검토 대기 과정까지 확인해 보세요.")
+        st.warning("선택한 역량과 직접 연결된 전처리 선별 교육과정이 아직 없습니다. 탐색 탭에서 검토 대기 과정까지 확인해 보세요.")
         return
 
     if "completed_course_keys" not in st.session_state:
@@ -220,7 +239,7 @@ def render_learning_journey(datasets):
     with metric_col:
         st.metric("완료한 추천 과정", f"{completion}/{len(recommendations)}개")
     with progress_col:
-        st.progress(completion / len(recommendations), text="추천 과정 완료율")
+        st.progress(completion / len(recommendations), text="자가 학습 완료율 (자기 기록용)")
 
     for rank, course in enumerate(recommendations.itertuples(), start=1):
         is_completed = course.global_course_key in completed
@@ -233,8 +252,8 @@ def render_learning_journey(datasets):
                 )
                 st.write(f"추천 이유: 선택한 **{course.matched_competencies}** 역량과 직접 연결된 과정입니다.")
                 st.caption(
-                    f"출처: {course.source_platform} ({course.source_type}) · 데이터 수집일: {format_collected_at(course.collected_at)} · "
-                    "완료 기준: 학습자가 수강기관의 수료 기준을 충족한 뒤 이 화면에서 완료 처리"
+                    f"출처: {course.source_platform} ({course.source_type}) · 데이터 수집 시점: {format_collected_at(course.collected_at)} · "
+                    "완료 기준: 학습자가 수강기관의 수료 기준을 충족한 뒤 이 화면에서 체크하는 자가 학습 기록 (자가 체크로 역량 점수가 자동 상승하지 않음)"
                 )
                 if pd.notna(course.course_url) and str(course.course_url).startswith("http"):
                     st.link_button("과정 상세 보기 ↗", str(course.course_url), key=f"course_link_{course.global_course_key}")

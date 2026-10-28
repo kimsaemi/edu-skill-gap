@@ -1,0 +1,398 @@
+{
+  "schemas": {
+    "competency_master": {
+      "table_name": "competency_master",
+      "description": "8대 KSA 직무역량 마스터 및 거버넌스 메타데이터",
+      "primary_key": [
+        "competency_id"
+      ],
+      "fields": {
+        "competency_id": {
+          "type": "VARCHAR(20)",
+          "nullable": false,
+          "description": "역량 고유 식별자 (예: COMP_HR_01)"
+        },
+        "competency_name": {
+          "type": "VARCHAR(50)",
+          "nullable": false,
+          "description": "역량 공식 명칭"
+        },
+        "job_family": {
+          "type": "VARCHAR(30)",
+          "nullable": false,
+          "description": "소속 직무군 (인사, 총무, 경영지원)"
+        },
+        "ksa_type": {
+          "type": "VARCHAR(15)",
+          "nullable": false,
+          "enum": [
+            "Knowledge",
+            "Skill",
+            "Attitude"
+          ],
+          "description": "K/S/A 구분"
+        },
+        "definition": {
+          "type": "TEXT",
+          "nullable": false,
+          "description": "역량 공식 행동 정의문"
+        },
+        "knowledge": {
+          "type": "TEXT",
+          "nullable": true,
+          "description": "핵심 관련 지식 요소"
+        },
+        "skill": {
+          "type": "TEXT",
+          "nullable": true,
+          "description": "핵심 관련 기술/기법 요소"
+        },
+        "attitude": {
+          "type": "TEXT",
+          "nullable": true,
+          "description": "핵심 관련 태도/가치관 요소"
+        },
+        "related_tasks": {
+          "type": "JSON",
+          "nullable": false,
+          "description": "연계된 표준 수행 업무 태스크 ID 목록"
+        },
+        "source": {
+          "type": "VARCHAR(50)",
+          "nullable": false,
+          "default": "NCS_2016v3_AND_KSA_FRAMEWORK",
+          "description": "기반 표준 출처"
+        },
+        "version": {
+          "type": "VARCHAR(10)",
+          "nullable": false,
+          "default": "v1.1",
+          "description": "마스터 버전"
+        },
+        "review_status": {
+          "type": "VARCHAR(20)",
+          "nullable": false,
+          "enum": [
+            "CONFIRMED_MASTER",
+            "DRAFT",
+            "ARCHIVED"
+          ],
+          "description": "검토 상태"
+        }
+      }
+    },
+    "course_core": {
+      "table_name": "course_core",
+      "description": "교육과정 정제 코어 메타데이터",
+      "primary_key": [
+        "course_uid"
+      ],
+      "fields": {
+        "course_uid": {
+          "type": "VARCHAR(50)",
+          "nullable": false,
+          "description": "교육과정 전역 고유 식별자"
+        },
+        "title": {
+          "type": "VARCHAR(255)",
+          "nullable": false,
+          "description": "교육과정 원본 제목"
+        },
+        "provider": {
+          "type": "VARCHAR(50)",
+          "nullable": false,
+          "description": "교육기관/플랫폼 명칭"
+        },
+        "course_intro": {
+          "type": "TEXT",
+          "nullable": true,
+          "description": "과정 소개 요약문"
+        },
+        "learning_goals": {
+          "type": "TEXT",
+          "nullable": true,
+          "description": "학습 목표 및 기대 효과"
+        },
+        "curriculum": {
+          "type": "TEXT",
+          "nullable": true,
+          "description": "커리큘럼 상세 목차"
+        },
+        "price": {
+          "type": "INTEGER",
+          "nullable": true,
+          "description": "수강료 정수형 금액 (원) - 미확인 시 NULL"
+        },
+        "duration_hours": {
+          "type": "FLOAT",
+          "nullable": true,
+          "description": "총 교육시간 (시간) - 미확인 시 NULL"
+        },
+        "education_type": {
+          "type": "VARCHAR(30)",
+          "nullable": false,
+          "enum": [
+            "온라인",
+            "오프라인",
+            "혼합",
+            "미확인"
+          ],
+          "description": "교육 진행 형태"
+        },
+        "url": {
+          "type": "VARCHAR(500)",
+          "nullable": false,
+          "description": "교육 상세 및 수강신청 링크"
+        }
+      }
+    },
+    "course_source_metadata": {
+      "table_name": "course_source_metadata",
+      "description": "교육과정 원천 수집 및 출처 이력 메타데이터 (동일 날짜 일괄 채우기 금지)",
+      "primary_key": [
+        "course_uid"
+      ],
+      "foreign_keys": [
+        {
+          "column": "course_uid",
+          "references": "course_core(course_uid)"
+        }
+      ],
+      "fields": {
+        "course_uid": {
+          "type": "VARCHAR(50)",
+          "nullable": false,
+          "description": "교육과정 UID"
+        },
+        "source_provider": {
+          "type": "VARCHAR(50)",
+          "nullable": false,
+          "description": "수집 원천 식별자 (GSEEK, HUNET, KMA, KPC 등)"
+        },
+        "source_url": {
+          "type": "VARCHAR(500)",
+          "nullable": false,
+          "description": "수집 원천 웹 URL"
+        },
+        "collected_at": {
+          "type": "TIMESTAMP",
+          "nullable": false,
+          "description": "최초 메타데이터 수집 일시 (ISO-8601)"
+        },
+        "source_updated_at": {
+          "type": "TIMESTAMP",
+          "nullable": true,
+          "description": "원문 웹페이지 수정 일시 (크롤러 미수집 시 NULL 유지)"
+        },
+        "last_verified_at": {
+          "type": "TIMESTAMP",
+          "nullable": true,
+          "description": "사람/운영자 최종 사실 확인 일자 (확인 이력 없을 시 NULL 유지)"
+        }
+      }
+    },
+    "course_competency_mapping": {
+      "table_name": "course_competency_mapping",
+      "description": "교육과정-역량 연결 관계 및 텍스트 증거 (별도 매핑 테이블)",
+      "primary_key": [
+        "course_uid",
+        "competency_id"
+      ],
+      "foreign_keys": [
+        {
+          "column": "course_uid",
+          "references": "course_core(course_uid)"
+        },
+        {
+          "column": "competency_id",
+          "references": "competency_master(competency_id)"
+        }
+      ],
+      "fields": {
+        "mapping_id": {
+          "type": "VARCHAR(60)",
+          "nullable": false,
+          "description": "매핑 고유 키 (course_uid + '_' + competency_id)"
+        },
+        "course_uid": {
+          "type": "VARCHAR(50)",
+          "nullable": false,
+          "description": "교육과정 UID"
+        },
+        "competency_id": {
+          "type": "VARCHAR(20)",
+          "nullable": false,
+          "description": "KSA 역량 ID"
+        },
+        "relation_type": {
+          "type": "VARCHAR(20)",
+          "nullable": false,
+          "enum": [
+            "DIRECT",
+            "PARTIAL",
+            "INSUFFICIENT",
+            "REJECTED"
+          ],
+          "description": "연계 정합성 수준"
+        },
+        "evidence_text": {
+          "type": "TEXT",
+          "nullable": true,
+          "description": "원문에 실재하는 커리큘럼/본문 발췌 증거 (임의 생성 금지)"
+        },
+        "evidence_location": {
+          "type": "VARCHAR(30)",
+          "nullable": false,
+          "enum": [
+            "CURRICULUM",
+            "TITLE",
+            "INTRO",
+            "GOALS",
+            "UNAVAILABLE"
+          ],
+          "description": "증거 발견 위치"
+        },
+        "mapping_method": {
+          "type": "VARCHAR(30)",
+          "nullable": false,
+          "enum": [
+            "HYBRID_EMBEDDING_BM25",
+            "RULE_BASED",
+            "MANUAL_CURATION"
+          ],
+          "description": "매핑 생성 알고리즘"
+        },
+        "mapping_confidence": {
+          "type": "VARCHAR(10)",
+          "nullable": false,
+          "enum": [
+            "HIGH",
+            "MEDIUM",
+            "LOW"
+          ],
+          "description": "추정 신뢰도"
+        },
+        "review_status": {
+          "type": "VARCHAR(25)",
+          "nullable": false,
+          "enum": [
+            "PENDING_HUMAN_REVIEW",
+            "VERIFIED_BY_HUMAN",
+            "REJECTED_BY_HUMAN"
+          ],
+          "description": "검토 상태 (자동생성은 PENDING_HUMAN_REVIEW)"
+        }
+      }
+    },
+    "human_review_log": {
+      "table_name": "human_review_log",
+      "description": "사람 전문가 검토 거버넌스 로그",
+      "primary_key": [
+        "review_id"
+      ],
+      "foreign_keys": [
+        {
+          "column": "mapping_id",
+          "references": "course_competency_mapping(mapping_id)"
+        }
+      ],
+      "fields": {
+        "review_id": {
+          "type": "VARCHAR(60)",
+          "nullable": false,
+          "description": "검토 일련번호"
+        },
+        "mapping_id": {
+          "type": "VARCHAR(60)",
+          "nullable": false,
+          "description": "대상 매핑 ID"
+        },
+        "reviewer": {
+          "type": "VARCHAR(50)",
+          "nullable": true,
+          "description": "사람 검토자 실명 또는 ID (미검토 시 NULL)"
+        },
+        "reviewed_at": {
+          "type": "TIMESTAMP",
+          "nullable": true,
+          "description": "검토 일시 (미검토 시 NULL)"
+        },
+        "human_verdict": {
+          "type": "VARCHAR(20)",
+          "nullable": true,
+          "enum": [
+            "DIRECT",
+            "PARTIAL",
+            "INSUFFICIENT",
+            "REJECTED",
+            null
+          ],
+          "description": "사람 최종 판정"
+        },
+        "review_note": {
+          "type": "TEXT",
+          "nullable": true,
+          "description": "사람 검토 의견 및 판정 근거 (미검토 시 NULL)"
+        }
+      }
+    },
+    "assessment_definition": {
+      "table_name": "assessment_definition",
+      "description": "역량 자기점검 진단 문항 및 평가 규격 정의",
+      "primary_key": [
+        "question_id"
+      ],
+      "foreign_keys": [
+        {
+          "column": "competency_id",
+          "references": "competency_master(competency_id)"
+        }
+      ],
+      "fields": {
+        "question_id": {
+          "type": "VARCHAR(20)",
+          "nullable": false,
+          "description": "문항 고유 ID (예: Q_HR_01)"
+        },
+        "job_family": {
+          "type": "VARCHAR(30)",
+          "nullable": false,
+          "description": "소속 직무"
+        },
+        "competency_id": {
+          "type": "VARCHAR(20)",
+          "nullable": false,
+          "description": "측정 대상 KSA 역량 ID"
+        },
+        "question_text": {
+          "type": "TEXT",
+          "nullable": false,
+          "description": "행동 기반 자기점검 질문문"
+        },
+        "behavior_example": {
+          "type": "TEXT",
+          "nullable": false,
+          "description": "구체적 행동 지표 예시"
+        },
+        "question_version": {
+          "type": "VARCHAR(10)",
+          "nullable": false,
+          "default": "v1.0",
+          "description": "문항 개정 버전"
+        },
+        "scale_scoring_version": {
+          "type": "VARCHAR(10)",
+          "nullable": false,
+          "default": "v1.0",
+          "description": "1~5점 척도 및 정보부족(2문항 미만 제외) 계산 규격 버전"
+        },
+        "review_status": {
+          "type": "VARCHAR(30)",
+          "nullable": false,
+          "default": "DRAFT_SELF_ASSESSMENT",
+          "description": "문항 검수 상태"
+        }
+      }
+    }
+  }
+}
