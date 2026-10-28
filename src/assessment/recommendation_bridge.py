@@ -98,6 +98,8 @@ def _common_card_fields(row: pd.Series, weekly_h: float) -> Dict[str, Any]:
     """추천 결과 1행에서 역량·업무와 무관한 공통 카드 정보(가격·시간·일정·출처·근거)를 만듭니다."""
     provider = row.get('canonical_platform', '')
     num_price = row.get('numeric_price')
+    # 빈 값(pd.NA·NaN·None)은 모두 None으로 맞춤 (pd.NA는 비교식에서 오류가 남)
+    num_price = None if num_price is None or pd.isna(num_price) else num_price
     price_status = row.get('price_status', 'UNCONFIRMED')
 
     # 수강료 정직 처리 (0=무료, 양수=수강료, 결측=가격 미확인)
@@ -109,6 +111,7 @@ def _common_card_fields(row: pd.Series, weekly_h: float) -> Dict[str, Any]:
         price_disp = "가격 미확인"
 
     num_dur = row.get('numeric_duration')
+    num_dur = None if num_dur is None or pd.isna(num_dur) else num_dur
     dur_disp = f"{float(num_dur):g}시간" if pd.notna(num_dur) and float(num_dur) > 0 else "시간 미확인"
 
     raw_edu = str(row.get('education_type', '')).strip()

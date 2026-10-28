@@ -20,6 +20,7 @@ CUSTOMER_FLOW_FILES = [
     ROOT / "customer_dashboard" / "streamlit_customer.py",
     ROOT / "customer_dashboard" / "app.py",
     ROOT / "src" / "assessment" / "recommendation_bridge.py",
+    ROOT / "src" / "customer" / "career_platform.py",
     ROOT / "src" / "assessment" / "evaluator.py",
     ROOT / "src" / "recommendation" / "unified_hybrid_recommender.py",
 ]

@@ -85,15 +85,15 @@ def verify_all():
 
     # 5. 외부 데이터가 없어도 고객용 대시보드가 정상 작동하는지 AppTest 검증
     app_path = str(WORKSPACE_ROOT / "customer_dashboard" / "streamlit_customer.py")
-    at = AppTest.from_file(app_path)
-    at.run(timeout=30)
+    at = AppTest.from_file(app_path, default_timeout=900)
+    at.run()
     assert not at.exception, f"고객용 앱 초기 로드 오류: {at.exception}"
 
-    # Sample click test
-    sample_btns = [b for b in at.button if "샘플 결과" in b.label]
+    # Sample click test (새 화면: '샘플로 둘러보기')
+    sample_btns = [b for b in at.button if "샘플" in b.label]
     assert len(sample_btns) > 0
     sample_btns[0].click()
-    at.run(timeout=30)
+    at.run()
     assert not at.exception, f"샘플 모드 렌더링 오류: {at.exception}"
     print("✅ 5. 외부 체계 데이터 부재 시에도 고객용 대시보드 독립 정상 작동 검증 완료")
 

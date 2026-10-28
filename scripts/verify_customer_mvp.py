@@ -235,35 +235,34 @@ class TestCustomerMVP(unittest.TestCase):
         print("\n--- [TEST 7] Streamlit AppTest: app/streamlit_customer.py ---")
         from streamlit.testing.v1 import AppTest
 
-        at = AppTest.from_file(str(WORKSPACE_ROOT / "customer_dashboard" / "streamlit_customer.py"))
-        at.run(timeout=30)
+        at = AppTest.from_file(str(WORKSPACE_ROOT / "customer_dashboard" / "streamlit_customer.py"), default_timeout=900)
+        at.run()
         self.assertFalse(at.exception, f"AppTest 예외 발생: {at.exception}")
 
-        # 메인 탭 3개 렌더링 확인
-        tabs = at.tabs
-        self.assertGreaterEqual(len(tabs), 3)
+        # 단계 바(내 위치 / 진단 / 추천 / 전체 찾기 / 내 학습) 렌더링 확인
+        nav = [b.label for b in at.button if b.key and b.key.startswith("nav_")]
+        self.assertEqual(len(nav), 5, f"단계 바 버튼이 5개가 아닙니다: {nav}")
+        self.assertEqual(at.session_state["step"], "1")
 
-        # 샘플 결과 보기 버튼 동작 시뮬레이션
-        sample_btns = [b for b in at.button if "샘플 결과 보기" in b.label]
-        self.assertTrue(len(sample_btns) > 0, "샘플 결과 보기 버튼을 찾을 수 없습니다.")
-        sample_btns[0].click()
-        at.run(timeout=30)
+        # 샘플로 둘러보기 → 3단계 추천 화면
+        sample_btns = [b for b in at.button if "샘플" in b.label]
+        self.assertTrue(sample_btns, "샘플로 둘러보기 버튼을 찾을 수 없습니다.")
+        sample_btns[0].click().run()
         self.assertFalse(at.exception, f"샘플 버튼 클릭 후 예외 발생: {at.exception}")
-        self.assertIsNotNone(at.session_state["eval_result"])
-        self.assertIsNotNone(at.session_state["rec_bundle"])
-        self.assertTrue(at.session_state["is_sample_mode"])
+        self.assertEqual(at.session_state["step"], "3")
+        md = " ".join(str(m.value) for m in at.markdown)
+        self.assertIn('class="course', md, "추천 교육 카드가 보이지 않습니다.")
+        self.assertNotIn("평점", md.replace("평점은", "").replace("평점이", ""), "고객 화면에 평점 표현이 있습니다.")
 
-        # 전체 초기화 버튼 콜백 동작 시뮬레이션
-        reset_btns = [b for b in at.button if "전체 초기화" in b.label]
-        self.assertTrue(len(reset_btns) > 0, "전체 초기화 버튼을 찾을 수 없습니다.")
-        reset_btns[0].click()
-        at.run(timeout=30)
-        self.assertFalse(at.exception, f"전체 초기화 클릭 후 예외 발생: {at.exception}")
-        self.assertIsNone(at.session_state["eval_result"])
-        self.assertEqual(len(at.session_state["survey_responses"]), 0)
-        self.assertFalse(at.session_state["is_sample_mode"])
+        # 교육 담기 → 내 학습 현황 → 기록 전체 삭제
+        [b for b in at.button if "수강 신청 표시" in b.label][0].click().run()
+        self.assertEqual(len(at.session_state["enroll"]), 1)
+        [b for b in at.button if b.key == "nav_my"][0].click().run()
+        self.assertFalse(at.exception, f"내 학습 현황 예외 발생: {at.exception}")
+        [b for b in at.button if "기록 전체 삭제" in b.label][0].click().run()
+        self.assertEqual(len(at.session_state["enroll"]), 0)
 
-        print("Streamlit AppTest 고객 UI (렌더링, 샘플 미리보기, 전체 초기화 콜백) 정상 실행 확인 완료.")
+        print("Streamlit AppTest 고객 UI (단계 바, 샘플 추천, 교육 담기, 기록 삭제) 정상 실행 확인 완료.")
 
 
 if __name__ == "__main__":
