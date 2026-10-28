@@ -7,7 +7,8 @@
 출력: data/hr/output/recommendation/domain_mapping_review_sheet.xlsx
   - 안내    : 입력 방법, 입력 예시
   - 검수    : 과정 1행 (확정 과정 212개, 같은 과정명 묶음). 노란 칸만 입력
-  - 요약    : 진행률·판정 분포·분야별 일치율 (수식으로 자동 계산)
+  - 교차검수: 20개 과정을 1차와 다른 팀원이 한 번 더 판정 (평가자 간 일치도 측정용)
+  - 요약    : 진행률·판정 분포·분야별 일치율·교차검수 일치율과 카파 (수식으로 자동 계산)
   - 분야 기준: 9개 분야와 연결 키워드
 
 이미 입력된 시트를 덮어쓰지 않도록, 파일이 있으면 멈춘다. 다시 만들려면 --force.
@@ -39,6 +40,7 @@ DOMAIN_NAMES = {
 REVIEWERS = ["팀원A", "팀원B", "팀원C", "팀원D"]
 RELEVANCE = ["관련", "일부 관련", "무관"]
 VERDICT = ["맞음", "일부 틀림", "틀림"]
+N_CROSS = 20  # 교차검수 과정 수 (팀원 1명당 5개 추가)
 
 FONT = "Arial"
 F_BODY = Font(name=FONT, size=10)
@@ -127,6 +129,125 @@ def build_review_sheet(ws, courses):
     return last
 
 
+def pick_cross_rows(courses, n=N_CROSS):
+    """분야(첫 번째 연결 분야, 없으면 '(없음)')별로 돌아가며 고르게 n개 과정을 고른다. 결과는 항상 같다."""
+    groups = {}
+    for i, c in enumerate(courses):
+        groups.setdefault(c["doms"][0] if c["doms"] else "NONE", []).append(i)
+    order = list(DOMAIN_KEYWORDS) + ["NONE"]
+    queues = {g: groups[g][:: max(1, len(groups[g]) // 4)] + groups[g] for g in order if g in groups}
+    picked, seen = [], set()
+    while len(picked) < n and any(queues.values()):
+        for g in order:
+            q = queues.get(g, [])
+            while q and q[0] in seen:
+                q.pop(0)
+            if q and len(picked) < n:
+                seen.add(q[0])
+                picked.append(q.pop(0))
+    return sorted(picked)
+
+
+CROSS_COLUMNS = [
+    ("번호", 6, False), ("교차 배정", 9, False), ("과정ID", 26, False), ("과정명", 44, False), ("기관", 20, False),
+    ("링크", 8, False), ("자동 연결 분야", 24, False), ("연결 근거 키워드", 18, False),
+    ("① 인사·총무 관련 여부", 14, True), ("② 자동 연결 분야 판정", 14, True),
+    ("③ 추가할 분야", 20, True), ("④ 뺄 분야", 20, True), ("메모", 30, True), ("검수자", 10, True), ("검수일", 12, True),
+    ("1차 배정", 9, False), ("1차 ① 관련 여부", 12, False), ("1차 ② 판정", 12, False), ("② 판정 일치", 10, False),
+    ("① 관련 여부 일치", 10, False),
+]
+CCOL = {name: i + 1 for i, (name, _, _) in enumerate(CROSS_COLUMNS)}
+
+
+def cletter(name):
+    return get_column_letter(CCOL[name])
+
+
+def build_cross_sheet(ws, courses, review_last):
+    """1차 배정과 다른 팀원이 같은 과정을 다시 판정한다. 1차 판정을 보여주는 열은 숨긴다(따라 하기 방지)."""
+    ws.title = "교차검수"
+    for i, (name, width, _) in enumerate(CROSS_COLUMNS, start=1):
+        c = ws.cell(row=1, column=i, value=name)
+        c.font, c.fill, c.border = F_HEAD, FILL_HEAD, BORDER
+        c.alignment = Alignment(wrap_text=True, vertical="center", horizontal="center")
+        ws.column_dimensions[get_column_letter(i)].width = width
+    ws.row_dimensions[1].height = 32
+
+    rv_rng = f"검수!${letter('① 인사·총무 관련 여부')}$2:${letter('① 인사·총무 관련 여부')}${review_last}"
+    vd_rng = f"검수!${letter('② 자동 연결 분야 판정')}$2:${letter('② 자동 연결 분야 판정')}${review_last}"
+    id_rng = f"검수!${letter('과정ID')}$2:${letter('과정ID')}${review_last}"
+
+    rows = pick_cross_rows(courses)
+    # 교차 배정: 1차 배정과 다른 팀원 중 지금까지 적게 받은 사람에게 (팀원별 개수를 고르게)
+    load = {m: 0 for m in REVIEWERS}
+    second_of = {}
+    for idx in rows:
+        first = REVIEWERS[idx % len(REVIEWERS)]
+        second = min((m for m in REVIEWERS if m != first), key=lambda m: (load[m], REVIEWERS.index(m)))
+        load[second] += 1
+        second_of[idx] = second
+    # 남은 불균형은 많이 받은 사람 -> 적게 받은 사람으로 넘겨 맞춘다 (1차 배정자와 같아지지 않게)
+    target = -(-len(rows) // len(REVIEWERS))
+    moved = True
+    while moved:
+        moved = False
+        over = [m for m in REVIEWERS if load[m] > target or (load[m] == target and min(load.values()) < target - 1)]
+        under = [m for m in REVIEWERS if load[m] < max(load.values()) - 1]
+        for idx in rows:
+            src = second_of[idx]
+            dst = next((m for m in under if m != REVIEWERS[idx % len(REVIEWERS)]), None)
+            if src in over and dst and load[src] - load[dst] > 1:
+                second_of[idx], load[src], load[dst], moved = dst, load[src] - 1, load[dst] + 1, True
+                break
+    for r, idx in enumerate(rows, start=2):
+        c = courses[idx]
+        first = REVIEWERS[idx % len(REVIEWERS)]
+        second = second_of[idx]
+        title_lower = c["title"].lower()
+        kws = sorted({k for d in c["doms"] for k in DOMAIN_KEYWORDS[d] if k in title_lower})
+        id_ref = f"${cletter('과정ID')}{r}"
+        values = {
+            "번호": r - 1, "교차 배정": second, "과정ID": c["id"], "과정명": c["title"], "기관": c["inst"],
+            "링크": "열기" if c["url"] else "",
+            "자동 연결 분야": ", ".join(DOMAIN_NAMES[d] for d in c["doms"]) or "(없음)",
+            "연결 근거 키워드": ", ".join(kws), "1차 배정": first,
+            "1차 ① 관련 여부": f'=IFERROR(IF(INDEX({rv_rng},MATCH({id_ref},{id_rng},0))="","",INDEX({rv_rng},MATCH({id_ref},{id_rng},0))),"")',
+            "1차 ② 판정": f'=IFERROR(IF(INDEX({vd_rng},MATCH({id_ref},{id_rng},0))="","",INDEX({vd_rng},MATCH({id_ref},{id_rng},0))),"")',
+            "② 판정 일치": f'=IF(OR({cletter("1차 ② 판정")}{r}="",{cletter("② 자동 연결 분야 판정")}{r}=""),"",'
+                         f'IF({cletter("1차 ② 판정")}{r}={cletter("② 자동 연결 분야 판정")}{r},"일치","불일치"))',
+            "① 관련 여부 일치": f'=IF(OR({cletter("1차 ① 관련 여부")}{r}="",{cletter("① 인사·총무 관련 여부")}{r}=""),"",'
+                             f'IF({cletter("1차 ① 관련 여부")}{r}={cletter("① 인사·총무 관련 여부")}{r},"일치","불일치"))',
+        }
+        for name, (_, _, is_input) in zip(CCOL, CROSS_COLUMNS):
+            cell = ws.cell(row=r, column=CCOL[name], value=values.get(name))
+            cell.font, cell.border, cell.alignment = F_BODY, BORDER, WRAP
+            cell.fill = FILL_INPUT if is_input else FILL_AUTO
+        if c["url"]:
+            link = ws.cell(row=r, column=CCOL["링크"])
+            link.hyperlink, link.font = c["url"], F_LINK
+
+    last = len(rows) + 1
+    # 1차 결과 열은 숨김 (교차 검수자가 보지 않도록). 요약 시트가 이 열로 일치율을 계산한다.
+    for name in ["1차 배정", "1차 ① 관련 여부", "1차 ② 판정", "② 판정 일치", "① 관련 여부 일치"]:
+        ws.column_dimensions[cletter(name)].hidden = True
+    ws.freeze_panes = "E2"
+    ws.auto_filter.ref = f"A1:{cletter('검수일')}{last}"
+    for options, name, msg in [(RELEVANCE, "① 인사·총무 관련 여부", "관련 / 일부 관련 / 무관 중에서 고르세요"),
+                               (VERDICT, "② 자동 연결 분야 판정", "맞음 / 일부 틀림 / 틀림 중에서 고르세요"),
+                               (REVIEWERS, "검수자", "팀원A~D 중에서 고르세요")]:
+        dv = DataValidation(type="list", formula1='"' + ",".join(options) + '"', allow_blank=True,
+                            showErrorMessage=True, errorTitle="목록에서 고르세요", error=msg)
+        ws.add_data_validation(dv)
+        dv.add(f"{cletter(name)}2:{cletter(name)}{last}")
+    date_dv = DataValidation(type="date", operator="greaterThan", formula1="DATE(2026,1,1)", allow_blank=True,
+                             showErrorMessage=True, error="날짜(예: 2026-10-30)를 입력하세요")
+    ws.add_data_validation(date_dv)
+    date_dv.add(f"{cletter('검수일')}2:{cletter('검수일')}{last}")
+    for r in range(2, last + 1):
+        ws.cell(row=r, column=CCOL["검수일"]).number_format = "yyyy-mm-dd"
+    return last
+
+
 def build_guide(ws):
     ws.title = "안내"
     ws.column_dimensions["A"].width = 24
@@ -144,7 +265,10 @@ def build_guide(ws):
         ("③ 추가할 분야 / ④ 뺄 분야", "'분야 기준' 시트의 분야 이름을 그대로 적습니다. 여러 개면 쉼표로 구분합니다. "
                                    "②가 틀림·일부 틀림인데 ③·④가 비어 있으면 ②가 빨간 글씨로 표시됩니다."),
         ("판단 기준", "과정명만 보고 애매하면 '링크'를 열어 과정 소개를 확인합니다. 그래도 애매하면 메모에 이유를 적습니다."),
-        ("결과 확인", "'요약' 시트에서 진행률과 판정 분포, 분야별 일치율이 자동으로 계산됩니다."),
+        ("교차검수", "'교차검수' 시트의 20개 과정은 1차 배정과 다른 팀원이 한 번 더 판정합니다(팀원당 5개). "
+                     "'교차 배정'에 적힌 팀원이 '검수' 시트의 판정을 보지 말고 독립적으로 입력해 주세요. "
+                     "두 판정의 일치율로 판정 기준이 팀원 간에 같은지 확인합니다."),
+        ("결과 확인", "'요약' 시트에서 진행률, 판정 분포, 분야별 일치율, 교차검수 일치율과 카파 계수가 자동으로 계산됩니다."),
         ("주의", "고용24 과정은 2025년 회차 기준이라 링크의 회차가 끝났을 수 있습니다. 검수는 과정 내용 기준으로 합니다."),
         (None, None),
         ("입력 예시 (검수 시트 형식)", None),
@@ -182,7 +306,7 @@ def build_domains(ws):
             c.font, c.border = F_BODY, BORDER
 
 
-def build_summary(ws, last):
+def build_summary(ws, last, cross_last):
     ws.title = "요약"
     ws.column_dimensions["A"].width = 26
     for col in "BCDEFG":
@@ -244,6 +368,32 @@ def build_summary(ws, last):
         put(f"B{rr}", f'=COUNTIF({asg},A{rr})')
         put(f"C{rr}", f'=COUNTIFS({asg},A{rr},{vd},"<>")')
         put(f"D{rr}", f"=IF(B{rr}=0,0,C{rr}/B{rr})", fmt="0.0%")
+        put(f"E{rr}", f'=COUNTIF(교차검수!${cletter("교차 배정")}$2:${cletter("교차 배정")}${cross_last},A{rr})')
+        put(f"F{rr}", f'=COUNTIFS(교차검수!${cletter("교차 배정")}$2:${cletter("교차 배정")}${cross_last},A{rr},'
+                      f'교차검수!${cletter("② 자동 연결 분야 판정")}$2:${cletter("② 자동 연결 분야 판정")}${cross_last},"<>")')
+    put(f"E{base}", "교차 배정", F_BOLD); put(f"F{base}", "교차 완료", F_BOLD)
+
+    # 교차검수: 두 사람이 모두 판정한 과정만으로 일치율과 카파 계수를 계산
+    a = f"교차검수!${cletter('1차 ② 판정')}$2:${cletter('1차 ② 판정')}${cross_last}"
+    b = f"교차검수!${cletter('② 자동 연결 분야 판정')}$2:${cletter('② 자동 연결 분야 판정')}${cross_last}"
+    ra = f"교차검수!${cletter('1차 ① 관련 여부')}$2:${cletter('1차 ① 관련 여부')}${cross_last}"
+    rb = f"교차검수!${cletter('① 인사·총무 관련 여부')}$2:${cletter('① 인사·총무 관련 여부')}${cross_last}"
+    both = f'(({a}<>"")*({b}<>""))'
+    cb = base + 7
+    put(f"A{cb}", "교차검수 (② 판정 기준)", F_BOLD)
+    put(f"A{cb + 1}", "교차검수 과정 수"); put(f"B{cb + 1}", f"=COUNTA(교차검수!${cletter('과정ID')}$2:${cletter('과정ID')}${cross_last})")
+    put(f"A{cb + 2}", "두 사람 모두 판정"); put(f"B{cb + 2}", f"=SUMPRODUCT({both})")
+    put(f"A{cb + 3}", "판정 일치"); put(f"B{cb + 3}", f'=SUMPRODUCT({both}*({a}={b}))')
+    put(f"A{cb + 4}", "일치율"); put(f"B{cb + 4}", f"=IF(B{cb + 2}=0,0,B{cb + 3}/B{cb + 2})", fmt="0.0%")
+    pe_terms = "+".join(
+        f'SUMPRODUCT({both}*({a}="{v}"))*SUMPRODUCT({both}*({b}="{v}"))' for v in VERDICT)
+    put(f"A{cb + 5}", "우연 일치 기대값(pe)"); put(f"B{cb + 5}", f"=IF(B{cb + 2}=0,0,({pe_terms})/B{cb + 2}^2)", fmt="0.000")
+    put(f"A{cb + 6}", "카파 계수(κ)"); put(f"B{cb + 6}", f'=IF(OR(B{cb + 2}=0,B{cb + 5}=1),"-",(B{cb + 4}-B{cb + 5})/(1-B{cb + 5}))', fmt="0.00")
+    put(f"A{cb + 7}", "① 관련 여부 일치율")
+    put(f"B{cb + 7}", f'=IF(SUMPRODUCT(({ra}<>"")*({rb}<>""))=0,0,'
+                      f'SUMPRODUCT(({ra}<>"")*({rb}<>"")*({ra}={rb}))/SUMPRODUCT(({ra}<>"")*({rb}<>"")))', fmt="0.0%")
+    note = ws.cell(row=cb + 8, column=1, value="카파 해석(참고): 0.6 이상이면 판정 기준이 대체로 일치, 0.4 미만이면 기준을 다시 맞추는 회의가 필요합니다.")
+    note.font = Font(name=FONT, size=9, italic=True)
 
 
 def main():
@@ -257,11 +407,13 @@ def main():
     wb = Workbook()
     build_guide(wb.active)
     last = build_review_sheet(wb.create_sheet(), courses)
-    build_summary(wb.create_sheet(), last)
+    cross_last = build_cross_sheet(wb.create_sheet(), courses, last)
+    build_summary(wb.create_sheet(), last, cross_last)
     build_domains(wb.create_sheet())
     OUT.parent.mkdir(parents=True, exist_ok=True)
     wb.save(OUT)
-    print(f"[저장] {OUT.relative_to(ROOT)}: 과정 {len(courses)}개, 팀원별 약 {len(courses) // len(REVIEWERS)}개")
+    print(f"[저장] {OUT.relative_to(ROOT)}: 과정 {len(courses)}개, 팀원별 약 {len(courses) // len(REVIEWERS)}개 "
+          f"+ 교차검수 {cross_last - 1}개(팀원별 약 {(cross_last - 1) // len(REVIEWERS)}개)")
 
 
 if __name__ == "__main__":
