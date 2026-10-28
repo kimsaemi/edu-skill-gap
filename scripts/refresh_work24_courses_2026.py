@@ -92,7 +92,40 @@ def norm_title(s):
     return re.sub(r"[\s\[\]\(\)【】<>·,.!?:~\-_\"']", "", str(s)).lower()
 
 
+def collect_kmbc_list(delay):
+    print("[+] 고용24 국민내일배움카드 최신 개강 회차 Open API 수집 (310L01)")
+    new_rows = []
+    for kw in KEYWORDS:
+        for page in range(1, 100):
+            text = get_text(BASE + "callOpenApiSvcInfo310L01.do", {
+                "authKey": os.getenv(PROGRAMS["K"]["key"]), "returnType": "XML", "outType": "1",
+                "pageNum": str(page), "pageSize": "100", "srchTraStDt": "20261001",
+                "srchTraEndDt": YEAR_TO.replace("-", ""), "srchTraProcessNm": kw,
+                "sort": "DESC", "sortCol": "TRNG_BGDE",
+            })
+            if "<HRDNet" not in text[:300]:
+                break
+            root = ET.fromstring(text)
+            items = root.findall(".//scn_list")
+            for it in items:
+                d = {c.tag: c.text for c in it}
+                d["_kw"] = kw
+                new_rows.append(d)
+            if not items or page * 100 >= int(root.findtext("scn_cnt") or 0):
+                break
+            time.sleep(delay)
+        print(f"  - 국민내일배움카드 [{kw}] 수신 완료")
+    existing = json.load(open(KMBC_RAW, encoding="utf-8")) if KMBC_RAW.exists() else []
+    combined = existing + new_rows
+    df_comb = pd.DataFrame(combined).drop_duplicates(subset=["trprId", "trprDegr"])
+    KMBC_RAW.parent.mkdir(parents=True, exist_ok=True)
+    df_comb.to_json(KMBC_RAW, orient="records", force_ascii=False)
+    print(f"  -> 국민내일배움카드 최신 회차 반영 완료 (총 {len(df_comb)}건)")
+    return df_comb.to_dict("records")
+
+
 def collect_employer_list(delay):
+    print("[+] 고용24 사업주훈련 최신 개강 회차 Open API 수집 (311L01)")
     rows = []
     for kw in KEYWORDS:
         for page in range(1, 400):
@@ -118,8 +151,13 @@ def collect_employer_list(delay):
     return rows
 
 
-def load_sessions(refresh_employer, delay):
-    kmbc = pd.DataFrame(json.load(open(KMBC_RAW, encoding="utf-8")))
+def load_sessions(refresh_employer, refresh_kmbc, delay):
+    if refresh_kmbc or not KMBC_RAW.exists():
+        kmbc_rows = collect_kmbc_list(delay)
+    else:
+        kmbc_rows = json.load(open(KMBC_RAW, encoding="utf-8"))
+    kmbc = pd.DataFrame(kmbc_rows)
+
     emp_rows = collect_employer_list(delay) if (refresh_employer or not EMP_RAW.exists()) else json.load(open(EMP_RAW, encoding="utf-8"))
     emp = pd.DataFrame(emp_rows)
     frames = []
@@ -136,13 +174,27 @@ def load_sessions(refresh_employer, delay):
 
 def pick_representatives(s):
     s = s.copy()
-    running = (s["traStartDate"] <= TODAY) & (s["traEndDate"] >= TODAY)
-    upcoming = s["traStartDate"] > TODAY
-    s["rank"] = np.where(running, 0, np.where(upcoming, 1, 2))
-    # 개강 예정은 가까운 순, 지난 회차는 최근 순으로 정렬되도록 키를 만든다
-    s["date_key"] = np.where(s["rank"] == 2, -pd.to_datetime(s["traStartDate"]).astype("int64"), pd.to_datetime(s["traStartDate"]).astype("int64"))
+    s["trprDegr_num"] = pd.to_numeric(s["trprDegr"], errors="coerce").fillna(0).astype(int)
+
+    # 개강 예정 (upcoming): traStartDate > TODAY
+    # 운영 중 (running): traStartDate <= TODAY <= traEndDate
+    # 운영 종료 (ended): traEndDate < TODAY
+    s["running"] = (s["traStartDate"] <= TODAY) & (s["traEndDate"] >= TODAY)
+    s["upcoming"] = s["traStartDate"] > TODAY
+
+    # 최신 회차 선정 우선순위:
+    # 1순위: 개강 예정 (upcoming, rank 0) -> 가장 가까운 개강일 (traStartDate 오름차순)으로 수강신청 가능 회차 우선
+    # 2순위: 현재 운영 중 (running, rank 1) -> 가장 최근 개강한 최신 회차 (traStartDate 내림차순, degr 내림차순)
+    # 3순위: 운영 종료 (ended, rank 2) -> 가장 최근 종료된 회차 (traStartDate 내림차순)
+    s["rank"] = np.where(s["upcoming"], 0, np.where(s["running"], 1, 2))
+    s["date_key"] = np.where(
+        s["rank"] == 0,
+        pd.to_datetime(s["traStartDate"]).astype("int64"),
+        -pd.to_datetime(s["traStartDate"]).astype("int64")
+    )
     s["prog_key"] = (s["program"] != "K").astype(int)
-    s = s.sort_values(["norm", "rank", "prog_key", "date_key"])
+    s["neg_degr"] = -s["trprDegr_num"]
+    s = s.sort_values(["norm", "rank", "prog_key", "date_key", "neg_degr"])
     reps = s.drop_duplicates("norm").copy()
 
     by_course = s.groupby("trprId")
@@ -153,8 +205,8 @@ def pick_representatives(s):
         "last_session_end": by_course["traEndDate"].max(),
     })
     reps = reps.join(stats, on="trprId")
-    reps["running_status"] = np.where(reps["running_sessions"] > 0, "운영 중",
-                               np.where(reps["upcoming_sessions"] > 0, "개강 예정", "운영 종료"))
+    reps["running_status"] = np.where(reps["upcoming_sessions"] > 0, "개강 예정",
+                               np.where(reps["running_sessions"] > 0, "운영 중", "운영 종료"))
     reps["same_title_courses"] = reps["norm"].map(s.groupby("norm")["trprId"].nunique())
     return reps
 
@@ -253,6 +305,8 @@ def load_func(path, name):
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--refresh-employer", action="store_true", help="사업주훈련 목록을 새로 수집")
+    parser.add_argument("--refresh-kmbc", action="store_true", help="국민내일배움카드 최신 회차를 새로 수집")
+    parser.add_argument("--refresh-all", action="store_true", help="고용24 API로부터 국민내일배움카드와 사업주훈련 최신 회차를 모두 새로 수집")
     parser.add_argument("--dry-run", action="store_true")
     parser.add_argument("--delay", type=float, default=0.2)
     parser.add_argument("--metadata-only", action="store_true", help="임베딩 메타데이터만 현재 카탈로그 순서로 다시 씀")
@@ -263,7 +317,9 @@ def main():
         print(f"메타데이터 저장: {META.relative_to(ROOT)}")
         return
 
-    sessions = load_sessions(args.refresh_employer, args.delay)
+    ref_emp = args.refresh_employer or args.refresh_all
+    ref_kmbc = args.refresh_kmbc or args.refresh_all
+    sessions = load_sessions(ref_emp, ref_kmbc, args.delay)
     reps = pick_representatives(sessions)
     print(f"[1] 2026년 '총무·인사' 회차 {len(sessions)}개 → 과정 {sessions['trprId'].nunique()}개 → 제목 기준 대표 {len(reps)}개")
     print(reps.groupby(["program", "running_status"]).size().to_string())

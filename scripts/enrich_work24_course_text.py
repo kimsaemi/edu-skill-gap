@@ -115,7 +115,7 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--dry-run", action="store_true")
     parser.add_argument("--limit", type=int, default=0)
-    parser.add_argument("--delay", type=float, default=1.0)
+    parser.add_argument("--delay", type=float, default=0.25)
     parser.add_argument("--reuse-extracted", action="store_true", help="이미 추출한 JSON을 다시 씀 (페이지 재요청 없음)")
     args = parser.parse_args()
 
@@ -124,27 +124,44 @@ def main():
     if args.limit:
         det = det.head(args.limit)
 
-    if args.reuse_extracted and EXTRACTED.exists():
-        extracted = json.load(open(EXTRACTED, encoding="utf-8"))
-    else:
-        extracted = {}
-        for i, r in enumerate(det.itertuples(), 1):
+    existing = json.load(open(EXTRACTED, encoding="utf-8")) if EXTRACTED.exists() else {}
+    by_trpr_id = {}
+    for k, v in existing.items():
+        parts = k.split("_")
+        if len(parts) >= 2 and "error" not in v and (v.get("goals") or v.get("content") or v.get("ncs_units")):
+            by_trpr_id[parts[1]] = v
+
+    extracted = dict(existing)
+    need_fetch = []
+    for r in det.itertuples():
+        if r.course_uid in extracted and "error" not in extracted[r.course_uid]:
+            continue
+        tid = getattr(r, "trprId", "") or (r.course_uid.split("_")[1] if "_" in r.course_uid else "")
+        if tid in by_trpr_id:
+            extracted[r.course_uid] = by_trpr_id[tid]
+        elif not args.reuse_extracted:
+            need_fetch.append(r)
+
+    if need_fetch:
+        print(f"  - 신규 미추출 과정 {len(need_fetch)}개 웹 페이지 수집 진행", flush=True)
+        for i, r in enumerate(need_fetch, 1):
             try:
                 html = requests.get(r.course_url, headers=HEADERS, timeout=30).text
                 extracted[r.course_uid] = parse_page(html)
             except requests.RequestException as e:
                 extracted[r.course_uid] = {"error": type(e).__name__}
-            if i % 25 == 0:
-                print(f"  - {i}/{len(det)} 페이지")
+            if i % 25 == 0 or i == len(need_fetch):
+                print(f"  - {i}/{len(need_fetch)} 페이지", flush=True)
             time.sleep(args.delay)
-        if not args.dry_run:
-            EXTRACTED.write_text(json.dumps(extracted, ensure_ascii=False, indent=1), encoding="utf-8")
+
+    if not args.dry_run and need_fetch:
+        EXTRACTED.write_text(json.dumps(extracted, ensure_ascii=False, indent=1), encoding="utf-8")
 
     ok = {u: e for u, e in extracted.items() if "error" not in e}
     n_goals = sum(bool(e["goals"]) for e in ok.values())
     n_content = sum(bool(e["content"]) for e in ok.values())
     n_units = sum(bool(e["ncs_units"]) for e in ok.values())
-    print(f"[1] 페이지 {len(extracted)}개 (오류 {len(extracted) - len(ok)}) | 훈련목표 {n_goals}, 훈련내용 {n_content}, NCS 능력단위 {n_units}")
+    print(f"[1] 페이지 {len(extracted)}개 (오류 {len(extracted) - len(ok)}) | 훈련목표 {n_goals}, 훈련내용 {n_content}, NCS 능력단위 {n_units}", flush=True)
 
     df = pd.read_parquet(CATALOG)
     idx_of = {u: i for i, u in enumerate(df["course_uid"])}
