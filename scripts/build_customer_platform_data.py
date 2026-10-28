@@ -78,8 +78,8 @@ LEAD_WORDS = ["리더", "팀장", "관리자", "조직"]
 
 COMMON_NOTICE = (
     "안내: 과정은 고용24·교육기관에서 수집한 실제 과정입니다(2025~2026년 수집). "
-    "현재 개설 여부와 수강료는 각 과정 페이지에서 확인하세요. 분야와 과정은 과정명 키워드로 연결했으며 "
-    "사람이 검수하지 않았습니다. 직급별 역할·승진 과제·조언은 팀이 만든 예시이며 공식 기준이 아닙니다."
+    "현재 개설 여부와 수강료는 각 과정 페이지에서 확인하세요. 분야와 과정의 연결은 팀원 4명이 검수했습니다"
+    "(검수하지 않은 3개 과정은 과정명 키워드로 연결). 직급별 역할·승진 과제·조언은 팀이 만든 예시이며 공식 기준이 아닙니다."
 )
 
 
@@ -106,8 +106,15 @@ def load_courses():
         first = g.iloc[0]
         lower = title.lower()
         doms = [d for d, kws in DOMAIN_KEYWORDS.items() if any(k in lower for k in kws)]
+        # 팀원 검수 결과가 있으면 키워드 대신 검수 결과를 쓴다 (scripts/apply_domain_review_results.py)
+        reviewed = first.get("domain_review_source") == "팀원 검수"
+        if reviewed:
+            rid = first.get("hr_domain_reviewed_id")
+            doms = [x for x in str(rid).split("|") if x] if isinstance(rid, str) else []
         comp = first["primary_competency_name"]
         cat = "HR" if doms else COMPETENCY_CAT.get(comp, "OTHER")
+        if reviewed and not doms and cat == "HR":
+            cat = "OFFICE"  # 검수에서 '사무 일반'으로 본 과정은 인사 분야 과정으로 보여주지 않는다
         if cat == "OFFICE" and any(w in lower for w in DATA_WORDS):
             cat = "DATA"
         if cat in ("OFFICE", "OTHER") and any(w in lower for w in LEAD_WORDS):
@@ -175,8 +182,13 @@ def sub_once(html, old, new):
     return html.replace(old, new)
 
 
+def drop_old_notice(html):
+    """예전 안내 문구(검수 전 버전)가 남아 있으면 지운다. 새 문구는 sub_once가 다시 넣는다."""
+    return re.sub(r"\n?[ \t]*<p [^>]*>안내: [^<]*사람이 검수하지 않았습니다[^<]*</p>(\n[ \t]*)?", "\n", html, count=1)
+
+
 def build_v2(courses):
-    html = V2_HTML.read_text(encoding="utf-8")
+    html = drop_old_notice(V2_HTML.read_text(encoding="utf-8"))
     data = read_const(html, "DATA")
     data["courses"] = [{
         "id": c["id"], "t": c["title"], "inst": c["inst"], "plat": c["platform"], "url": c["url"],
@@ -218,7 +230,7 @@ def build_v2(courses):
 
 
 def build_easy(courses):
-    html = EASY_HTML.read_text(encoding="utf-8")
+    html = drop_old_notice(EASY_HTML.read_text(encoding="utf-8"))
     data = read_const(html, "MASTER_DATA")
 
     data["course_catalog"] = [{

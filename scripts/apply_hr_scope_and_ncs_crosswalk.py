@@ -23,6 +23,7 @@
    - hr_scope 컬럼 추가.
 
 실행 순서: fix_work24_course_urls.py -> attach_work24_satisfaction.py -> fix_work24_fee_and_scope.py -> 이 스크립트
+          -> apply_domain_review_results.py(팀원 검수 반영) -> build_customer_platform_data.py
 여러 번 실행해도 결과가 같다.
 """
 import json

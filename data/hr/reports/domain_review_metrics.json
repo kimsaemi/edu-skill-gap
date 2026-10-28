@@ -1,0 +1,185 @@
+{
+  "reviewed_courses": 180,
+  "total_courses": 183,
+  "blank_courses": [
+    "[비대면] 일잘러의 AI 활용 기획 및 기획서 작성 A to Z",
+    "[여의도] 한번에 통하는 원페이지 보고서 작성 실무",
+    "[온앤오프] 근로기준법 기본해설"
+  ],
+  "precision": {
+    "correct": 87,
+    "auto_linked": 95,
+    "value": 0.9158
+  },
+  "recall": {
+    "found": 87,
+    "human_hr": 97,
+    "value": 0.8969
+  },
+  "no_domain_correct": {
+    "correct": 78,
+    "total": 85,
+    "value": 0.9176
+  },
+  "missed_by_keywords": [
+    [
+      "달콤한 업무꿀팁! 평범한 당신이 비범하게 일하는 기술",
+      "인재육성·사내교육"
+    ],
+    [
+      "전략적 조직운영을 위한 인사관리 실무",
+      "인사전략·인력기획"
+    ],
+    [
+      "[HRethink] 데이터가 흐르는 Digital HR",
+      "인사전략·인력기획"
+    ],
+    [
+      "[온앤오프] 인사관리기본",
+      "인사전략·인력기획"
+    ],
+    [
+      "고충처리 실무(성희롱 · 괴롭힘) (feat. 조사보고서 작성까지)",
+      "노사관계·노무"
+    ],
+    [
+      "[온앤오프] 인사관리종합",
+      "인사전략·인력기획"
+    ],
+    [
+      "인사관리, AI로 업그레이드",
+      "인사전략·인력기획"
+    ]
+  ],
+  "wrong_by_keywords": [
+    [
+      "채용에서 퇴직까지 인사관리 실무",
+      "인재채용",
+      "성과평가·목표관리"
+    ],
+    [
+      "인사담당자에게 묻는다! 면접 합격의 비밀",
+      "인재채용",
+      "인사 업무와 무관"
+    ],
+    [
+      "HR, AI가 트렌드다 : 채용부터 퇴사까지",
+      "인재채용",
+      "인사전략·인력기획"
+    ],
+    [
+      "[온보딩] 슬기로운 조직생활",
+      "온보딩·직원경험",
+      "인사 업무와 무관"
+    ],
+    [
+      "영업이익분석 및 성과관리 실무 (생성형 AI 활용)",
+      "성과평가·목표관리",
+      "인사 업무와 무관"
+    ],
+    [
+      "[온앤오프] 채용에서 퇴직까지 법률문제",
+      "인재채용",
+      "노사관계·노무"
+    ],
+    [
+      "[HRD] 교육평가 및 결과보고서 작성실무",
+      "인재육성·사내교육",
+      "사무 일반(엑셀·문서·소통)"
+    ],
+    [
+      "[패스트트랙] 신입 온보딩 과정",
+      "온보딩·직원경험",
+      "인사 업무와 무관"
+    ]
+  ],
+  "pick_counts": {
+    "사무 일반(엑셀·문서·소통)": 57,
+    "노사관계·노무": 27,
+    "인사 업무와 무관": 26,
+    "성과평가·목표관리": 20,
+    "인재육성·사내교육": 18,
+    "인재채용": 14,
+    "온보딩·직원경험": 10,
+    "인사전략·인력기획": 7,
+    "보상·급여·복리후생": 1
+  },
+  "cross_review": {
+    "pairs": 19,
+    "agree": 17,
+    "agreement": 0.8947,
+    "pe": 0.1524,
+    "kappa": 0.8758,
+    "disagreements": [
+      [
+        "[온보딩저니] 경력사원 과정",
+        "온보딩·직원경험",
+        "인사 업무와 무관"
+      ],
+      [
+        "[DX&AI] 평가보상 설계 실무(밀코비치 기반)",
+        "보상·급여·복리후생",
+        "성과평가·목표관리"
+      ]
+    ],
+    "blank": [
+      "SSS급 확보를 위한 면접관 교육"
+    ]
+  },
+  "per_domain": {
+    "인사전략·인력기획": {
+      "auto_linked": 1,
+      "auto_correct": 1,
+      "human_picked": 7,
+      "human_found_by_auto": 1
+    },
+    "조직설계·직무분석": {
+      "auto_linked": 1,
+      "auto_correct": 0,
+      "human_picked": 0,
+      "human_found_by_auto": 0
+    },
+    "인재채용": {
+      "auto_linked": 20,
+      "auto_correct": 14,
+      "human_picked": 14,
+      "human_found_by_auto": 14
+    },
+    "온보딩·직원경험": {
+      "auto_linked": 12,
+      "auto_correct": 10,
+      "human_picked": 10,
+      "human_found_by_auto": 10
+    },
+    "성과평가·목표관리": {
+      "auto_linked": 21,
+      "auto_correct": 19,
+      "human_picked": 20,
+      "human_found_by_auto": 19
+    },
+    "보상·급여·복리후생": {
+      "auto_linked": 2,
+      "auto_correct": 1,
+      "human_picked": 1,
+      "human_found_by_auto": 1
+    },
+    "인재육성·사내교육": {
+      "auto_linked": 18,
+      "auto_correct": 17,
+      "human_picked": 18,
+      "human_found_by_auto": 17
+    },
+    "조직문화·사내소통": {
+      "auto_linked": 0,
+      "auto_correct": 0,
+      "human_picked": 0,
+      "human_found_by_auto": 0
+    },
+    "노사관계·노무": {
+      "auto_linked": 25,
+      "auto_correct": 25,
+      "human_picked": 27,
+      "human_found_by_auto": 25
+    }
+  }
+}
