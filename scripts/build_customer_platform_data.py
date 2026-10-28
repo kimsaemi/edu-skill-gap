@@ -11,7 +11,8 @@
     + 고용24 상세 링크(scripts/fix_work24_course_urls.py)
 
 바꾸는 것 (2026-10-28 검토 결과)
-  1. 과정 목록: 예전 팀원 295건(교육시간 기본값 40시간 포함) -> 확정 295건 (890만 원 해외연수 1건 제외)
+  1. 과정 목록: 예전 팀원 295건(교육시간 기본값 40시간 포함) -> 확정 295건
+     (890만 원 해외연수 1건, 주제 불일치 1건 제외. 사업주훈련은 실제 훈련비로 표시)
      같은 과정명은 한 장의 카드로 묶고 기관 수를 표시한다.
   2. easy 화면의 '지금 추천하는 교육' 92개 과정은 수집 데이터 어디에도 없는 과정명이었다
      -> 확정 과정 중 분야 키워드가 과정명에 들어 있는 실제 과정으로 교체 (없으면 비워 두고 '없음' 안내)
@@ -88,11 +89,17 @@ def norm_title(t):
 
 def load_courses():
     df = pd.read_csv(CANDIDATES, dtype=str)
-    df = df[df["recommendation_readiness"] != "EXCLUDED_OUTLIER"].copy()
+    # 이상치(890만 원 해외연수)와 주제 불일치 과정(scripts/fix_work24_fee_and_scope.py) 제외
+    df = df[~df["recommendation_readiness"].str.startswith("EXCLUDED")].copy()
     df["title_norm"] = df["course_name"].map(norm_title)
     df["sat"] = pd.to_numeric(df.get("satisfaction_official"), errors="coerce")
     df["hours"] = pd.to_numeric(df["training_hours"], errors="coerce")
     df["fee"] = pd.to_numeric(df["course_fee"], errors="coerce")
+    # 사업주훈련은 수강비(courseMan) 대신 실제 훈련비(realMan)를 보여준다 (수강비 0원을 '무료'로 표시하던 오류 수정)
+    df["is_employer"] = df["source_platform"].eq("고용24_사업주훈련")
+    if "work24_training_cost" in df.columns:
+        real = pd.to_numeric(df["work24_training_cost"], errors="coerce")
+        df.loc[df["is_employer"] & real.notna(), "fee"] = real
 
     rows = []
     for title, g in df.groupby("title_norm", sort=False):
@@ -125,6 +132,10 @@ def load_courses():
             fee_text = f"{fees.iloc[0]:,.0f}원"
         else:
             fee_text = f"{fees.min():,.0f}~{fees.max():,.0f}원(기관별)"
+        if g["is_employer"].all():
+            fee_text = f"실제 훈련비 {fee_text} · 사업주훈련(사업주 부담 후 환급)"
+        elif g["is_employer"].any():
+            fee_text += " · 사업주훈련 포함(실제 훈련비 기준)"
 
         rows.append({
             "id": first["course_id"],
@@ -263,6 +274,17 @@ def build_easy(courses):
         "<p style=\"font-size:11.5px; color:#64748b; margin:10px 2px 0;\">" + COMMON_NOTICE + "</p>\n"
         "      <div class=\"recommendation-head\"><h3>지금 추천하는 교육</h3>",
     )
+    # 수강료 필터: '0원' 글자 검색은 '47,520원' 같은 금액에도 걸리는 버그가 있어 정확히 무료만 고르게 수정.
+    # 환급 필터는 사업주훈련 과정, K-Digital은 해당 과정이 없어 선택지에서 뺀다.
+    html = sub_once(html,
+                    "filtered = filtered.filter(c => (c.cost_type || '').includes('무료') || (c.cost_type || '').includes('0원'));",
+                    "filtered = filtered.filter(c => (c.cost_type || '').startsWith('무료'));")
+    html = sub_once(html,
+                    "filtered = filtered.filter(c => (c.cost_type || '').includes('환급'));",
+                    "filtered = filtered.filter(c => (c.cost_type || '').includes('사업주훈련'));")
+    html = sub_once(html, "<option value=\"FREE\">0원 전액무료 (내일배움)</option>", "<option value=\"FREE\">무료(0원) 과정</option>")
+    html = sub_once(html, "<option value=\"REFUND\">사업주 환급 훈련</option>", "<option value=\"REFUND\">사업주훈련(사업주 부담 후 환급)</option>")
+    html = html.replace("        <option value=\"KDIGITAL\">K-Digital</option>\n", "")
     # 과정 수 표시를 실제 개수로, 직급별 과제·결과물은 예시로 표시
     n = len(courses)
     html = re.sub(r">\d+개 과정 보기</div>", f">{n}개 과정 보기</div>", html)

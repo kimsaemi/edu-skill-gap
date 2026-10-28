@@ -63,11 +63,14 @@ def load_all_datasets():
 # ------------------------------------------------------------------------------
 # 2. 유틸리티 포맷팅 함수
 # ------------------------------------------------------------------------------
-def format_fee(val):
+def format_fee(val, platform=None):
     """수강료 값을 사용자 친화적 문자열로 변환합니다."""
     if pd.isna(val):
         return "미기재 (문의)"
     val = float(val)
+    if val == 0.0 and platform == "고용24_사업주훈련":
+        # 사업주훈련의 0원은 수강비 값이며 실제 훈련비는 사업주가 부담 후 환급받는다 (무료 아님)
+        return "수강비 0원 (사업주훈련·환급)"
     if val == 0.0:
         return "무료 (국비/공공)"
     return f"{int(val):,}원"
@@ -229,7 +232,7 @@ def render_learning_journey(datasets):
             with title_col:
                 st.markdown(f"**{rank}순위 · {course.course_name}**")
                 st.caption(
-                    f"{course.institution_name} · {course.course_level} · {format_hours(course.training_hours)} · {format_fee(course.course_fee)}"
+                    f"{course.institution_name} · {course.course_level} · {format_hours(course.training_hours)} · {format_fee(course.course_fee, course.source_platform)}"
                 )
                 st.write(f"추천 이유: 선택한 **{course.matched_competencies}** 역량과 직접 연결된 과정입니다.")
                 st.caption(

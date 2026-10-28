@@ -184,6 +184,9 @@ def load_interactive_search_engine():
 # ------------------------------------------------------------------------------
 datasets = load_main_datasets()
 df_main = datasets["df_main"]
+# 사업주훈련의 0원은 수강비 값이고 실제 훈련비는 사업주가 부담 후 환급받으므로 '무료'에서 뺀다
+df_main["is_employer_training"] = df_main["source_provider"].eq("고용24_사업주훈련")
+df_main["is_free"] = df_main["price"].eq(0) & ~df_main["is_employer_training"]
 
 with st.sidebar:
     st.image("https://img.shields.io/badge/Project-edu--skill--gap-blue?style=for-the-badge", width="stretch")
@@ -242,8 +245,9 @@ with tab1:
         prov_cnt = df_main["provider"].nunique()
         st.metric("통합 교육기관", f"{prov_cnt}개 기관", "휴넷, KPC, KMA, 멀티캠퍼스 등")
     with col3:
-        free_cnt = (df_main["price"] == 0).sum()
-        st.metric("무료 과정 (공공/GSEEK 등)", f"{free_cnt:,}건", f"{(free_cnt/len(df_main)*100):.1f}%")
+        free_cnt = int(df_main["is_free"].sum())
+        st.metric("무료 과정 (공공/GSEEK 등)", f"{free_cnt:,}건", f"{(free_cnt/len(df_main)*100):.1f}%",
+                  help="사업주훈련의 수강비 0원 과정은 사업주가 훈련비를 부담 후 환급받으므로 제외")
     with col4:
         avg_hours = df_main["duration_hours"].dropna().mean()
         st.metric("평균 교육시간", f"{avg_hours:.1f}시간", "중앙값: 8시간")
@@ -340,8 +344,9 @@ with tab1:
             return "60만원 이상"
 
         df_main["price_group"] = df_main["price"].apply(group_price)
+        df_main.loc[df_main["is_employer_training"] & df_main["price"].eq(0), "price_group"] = "사업주훈련(수강비 0원·환급)"
         pg_counts = df_main["price_group"].value_counts().reindex(
-            ["무료 (국비/공공)", "10만원 미만", "10~30만원", "30~60만원", "60만원 이상", "미기재"]
+            ["무료 (국비/공공)", "사업주훈련(수강비 0원·환급)", "10만원 미만", "10~30만원", "30~60만원", "60만원 이상", "미기재"]
         ).fillna(0).reset_index()
         pg_counts.columns = ["수강료구간", "과정수"]
         fig_p = px.bar(
@@ -418,7 +423,7 @@ with tab2:
         총과정수=("course_uid", "count"),
         평균시수=("duration_hours", "mean"),
         평균수강료=("price", "mean"),
-        무료과정수=("price", lambda p: (p == 0).sum())
+        무료과정수=("is_free", "sum")
     ).reset_index()
     prov_eda["무료비율(%)"] = (prov_eda["무료과정수"] / prov_eda["총과정수"] * 100).round(1)
     prov_eda["평균수강료(원)"] = prov_eda["평균수강료"].fillna(0).round().astype(int)

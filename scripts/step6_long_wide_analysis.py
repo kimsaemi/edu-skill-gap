@@ -284,11 +284,13 @@ def run_long_wide_analysis():
     # (1) 기관별 교육과정 통계 (고유 과정수, 회차수, 평균 수강료, 평균 교육시간)
     df_courses['price_numeric'] = pd.to_numeric(df_courses['price'], errors='coerce')
     df_courses['hours_numeric'] = pd.to_numeric(df_courses['duration_hours'], errors='coerce')
+    # 사업주훈련의 0원은 수강비 값이며 무료가 아니다 (사업주 부담 후 환급) -> 무료 집계에서 제외
+    df_courses['is_free'] = df_courses['price_numeric'].eq(0) & df_courses['source_provider'].ne('고용24_사업주훈련')
     
     summary_prov = df_courses.groupby('provider').agg(
         전체과정수=('course_uid', 'count'),
         고유제목수=('title', 'nunique'),
-        무료과정수=('price_numeric', lambda x: (x == 0).sum()),
+        무료과정수=('is_free', 'sum'),
         유료과정수=('price_numeric', lambda x: (x > 0).sum()),
         평균수강료_전체=('price_numeric', 'mean'),
         평균수강료_유료만=('price_numeric', lambda x: x[x > 0].mean() if (x > 0).any() else 0),
