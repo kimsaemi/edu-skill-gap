@@ -186,7 +186,7 @@ datasets = load_main_datasets()
 df_main = datasets["df_main"]
 
 with st.sidebar:
-    st.image("https://img.shields.io/badge/Project-edu--skill--gap-blue?style=for-the-badge", use_container_width=True)
+    st.image("https://img.shields.io/badge/Project-edu--skill--gap-blue?style=for-the-badge", width="stretch")
     st.title("🎓 NCS 교육 추천 시스템")
     st.markdown("**통합 분석 및 검색 대시보드 (v2.0)**")
     st.markdown("---")
@@ -268,7 +268,7 @@ with tab1:
         )
         fig_prov.update_traces(texttemplate="%{text:,}건", textposition="outside")
         fig_prov.update_layout(coloraxis_showscale=False, xaxis_tickangle=-25)
-        st.plotly_chart(fig_prov, use_container_width=True)
+        st.plotly_chart(fig_prov, width="stretch")
 
     with c_right:
         st.markdown("#### 🎯 직무 카테고리별 과정 비중")
@@ -295,7 +295,7 @@ with tab1:
             color_discrete_sequence=px.colors.qualitative.Safe,
             template="plotly_white"
         )
-        st.plotly_chart(fig_jf, use_container_width=True)
+        st.plotly_chart(fig_jf, width="stretch")
 
     # 3. 교육시간 & 비용 분포
     st.markdown("---")
@@ -327,7 +327,7 @@ with tab1:
         )
         fig_h.update_traces(texttemplate="%{text:,}건", textposition="outside")
         fig_h.update_layout(showlegend=False)
-        st.plotly_chart(fig_h, use_container_width=True)
+        st.plotly_chart(fig_h, width="stretch")
 
     with col_p:
         # 비용대 그룹핑
@@ -355,7 +355,7 @@ with tab1:
         )
         fig_p.update_traces(texttemplate="%{text:,}건", textposition="outside")
         fig_p.update_layout(showlegend=False)
-        st.plotly_chart(fig_p, use_container_width=True)
+        st.plotly_chart(fig_p, width="stretch")
 
     # 4. 결측 현황
     st.markdown("---")
@@ -384,7 +384,7 @@ with tab1:
     )
     fig_miss.update_layout(yaxis=dict(autorange="reversed"), coloraxis_showscale=False)
     fig_miss.update_traces(texttemplate="%{text}%", textposition="outside")
-    st.plotly_chart(fig_miss, use_container_width=True)
+    st.plotly_chart(fig_miss, width="stretch")
 
 # ------------------------------------------------------------------------------
 # 탭 2: EDA 분석 (STEP 4 & STEP 5)
@@ -434,7 +434,7 @@ with tab2:
             "무료비율(%)": st.column_config.NumberColumn("무료 비율", format="%.1f%%")
         },
         hide_index=True,
-        use_container_width=True
+        width="stretch"
     )
 
     # 3. 수강료 vs 교육시수 산점도 (Scatter)
@@ -456,7 +456,7 @@ with tab2:
         template="plotly_white",
         opacity=0.65
     )
-    st.plotly_chart(fig_scatter, use_container_width=True)
+    st.plotly_chart(fig_scatter, width="stretch")
 
 # ------------------------------------------------------------------------------
 # 탭 3: NCS·KSA 역량 분석
@@ -494,7 +494,7 @@ with tab3:
         )
         fig_c.update_layout(yaxis=dict(autorange="reversed"), coloraxis_showscale=False)
         fig_c.update_traces(texttemplate="%{text:,}건", textposition="outside")
-        st.plotly_chart(fig_c, use_container_width=True)
+        st.plotly_chart(fig_c, width="stretch")
 
     with col_c2:
         st.markdown("#### 🏷️ 매핑 상태 분포 (`mapping_status`)")
@@ -521,7 +521,7 @@ with tab3:
             },
             template="plotly_white"
         )
-        st.plotly_chart(fig_st, use_container_width=True)
+        st.plotly_chart(fig_st, width="stretch")
 
     # 2. 역량별 교육과정 인터랙티브 검색 테이블
     st.markdown("---")
@@ -572,7 +572,7 @@ with tab3:
             "url": st.column_config.LinkColumn("상세URL", display_text="상세보기 🔗")
         },
         hide_index=True,
-        use_container_width=True,
+        width="stretch",
         height=450
     )
 
@@ -612,7 +612,7 @@ with tab4:
         )
         fig_kw.update_layout(yaxis=dict(autorange="reversed"), coloraxis_showscale=False)
         fig_kw.update_traces(texttemplate="%{text:,}회", textposition="outside")
-        st.plotly_chart(fig_kw, use_container_width=True)
+        st.plotly_chart(fig_kw, width="stretch")
 
     st.markdown("---")
 
@@ -660,7 +660,7 @@ with tab4:
                 "overlap_keywords": "제목-본문 공통 키워드"
             },
             hide_index=True,
-            use_container_width=True,
+            width="stretch",
             height=380
         )
 
@@ -729,7 +729,7 @@ with tab5:
                     "url": st.column_config.LinkColumn("상세URL", display_text="상세보기 🔗")
                 },
                 hide_index=True,
-                use_container_width=True
+                width="stretch"
             )
 
         with col_b:
@@ -746,7 +746,7 @@ with tab5:
                     "url": st.column_config.LinkColumn("상세URL", display_text="상세보기 🔗")
                 },
                 hide_index=True,
-                use_container_width=True
+                width="stretch"
             )
 
         st.success(f"두 알고리즘의 Top 10 중 **총 {len(common_uids)}개 과정**이 상위 10위권에 동시에 포함되었습니다.")
@@ -804,14 +804,14 @@ with tab5:
                         st.dataframe(
                             pd.DataFrame(list(seen_t.values())),
                             column_config={"상세URL": st.column_config.LinkColumn("상세URL", display_text="상세보기 🔗")},
-                            hide_index=True, use_container_width=True
+                            hide_index=True, width="stretch"
                         )
                     with col_lb:
                         st.markdown(f"**BM25 실시간 검색 결과 ({len(seen_b)}건)**")
                         st.dataframe(
                             pd.DataFrame(list(seen_b.values())),
                             column_config={"상세URL": st.column_config.LinkColumn("상세URL", display_text="상세보기 🔗")},
-                            hide_index=True, use_container_width=True
+                            hide_index=True, width="stretch"
                         )
 
 # ------------------------------------------------------------------------------
@@ -857,7 +857,7 @@ with tab6:
                 "cleaning_actions": "적용 정제 조치"
             },
             hide_index=True,
-            use_container_width=True
+            width="stretch"
         )
 
     # 3. 정제 전후 검색 영향
@@ -879,7 +879,7 @@ with tab6:
                 "bm25_latency_ms": st.column_config.NumberColumn("BM25 응답속도", format="%.2f ms")
             },
             hide_index=True,
-            use_container_width=True
+            width="stretch"
         )
 
     # 4. STEP 5-2 임베딩 로드맵 안내
@@ -955,7 +955,7 @@ with tab7:
                 template="plotly_white"
             )
             fig_p_bar.update_layout(xaxis_tickangle=-15, legend_title="")
-            st.plotly_chart(fig_p_bar, use_container_width=True)
+            st.plotly_chart(fig_p_bar, width="stretch")
 
         with col_c2:
             st.dataframe(
@@ -974,7 +974,7 @@ with tab7:
                     "NCS매핑과정수": st.column_config.NumberColumn("매핑과정", format="%d건")
                 },
                 hide_index=True,
-                use_container_width=True
+                width="stretch"
             )
 
     st.markdown("---")
@@ -996,7 +996,7 @@ with tab7:
                 color_discrete_map={"고유교육과정수": "#4285F4", "연결건수": "#FBBC05"},
                 template="plotly_white"
             )
-            st.plotly_chart(fig_job, use_container_width=True)
+            st.plotly_chart(fig_job, width="stretch")
 
     with col_j2:
         st.markdown("##### (2) KSA 역량별 교육과정 수 & 검증 비율")
@@ -1013,7 +1013,7 @@ with tab7:
                 template="plotly_white"
             )
             fig_comp.update_layout(yaxis={"autorange": "reversed"})
-            st.plotly_chart(fig_comp, use_container_width=True)
+            st.plotly_chart(fig_comp, width="stretch")
 
     st.markdown("---")
 
@@ -1037,7 +1037,7 @@ with tab7:
             title="교육기관 × KSA 역량별 고유 교육과정 수 교차표 (Pivot Table)"
         )
         fig_hm.update_xaxes(tickangle=-25)
-        st.plotly_chart(fig_hm, use_container_width=True)
+        st.plotly_chart(fig_hm, width="stretch")
 
     st.markdown("---")
 
@@ -1077,7 +1077,7 @@ with tab7:
                 )
                 fig_kw_bar.update_traces(texttemplate="%.3f", textposition="outside")
                 fig_kw_bar.update_layout(yaxis={"autorange": "reversed"}, coloraxis_showscale=False)
-                st.plotly_chart(fig_kw_bar, use_container_width=True)
+                st.plotly_chart(fig_kw_bar, width="stretch")
 
     st.markdown("---")
 
@@ -1115,7 +1115,7 @@ with tab7:
                     "ksa_type", "mapping_confidence", "mapping_status"
                 ]],
                 hide_index=True,
-                use_container_width=True
+                width="stretch"
             )
         st.markdown(
             "- **장점**: 새로운 역량이 추가되어도 테이블 구조(Schema) 변경 불필요, `groupby` 필터링 및 집계에 최적화\n"
@@ -1130,7 +1130,7 @@ with tab7:
             st.dataframe(
                 demo_wide[comp_demo_cols],
                 hide_index=True,
-                use_container_width=True
+                width="stretch"
             )
         st.markdown(
             "- **장점**: 한눈에 전체 역량 보유 프로필 조망 가능, 행렬 연산 및 기계학습 모델 입력에 최적화\n"
@@ -1186,7 +1186,7 @@ with tab8:
                     yaxis_title="Silhouette Score (높을수록 좋음)",
                     template="plotly_white"
                 )
-                st.plotly_chart(fig_k, use_container_width=True)
+                st.plotly_chart(fig_k, width="stretch")
 
         with col_k2:
             if not df_k_comp.empty:
@@ -1200,7 +1200,7 @@ with tab8:
                         "max_cluster_size": st.column_config.NumberColumn("최대 군집 크기", format="%d건")
                     },
                     hide_index=True,
-                    use_container_width=True
+                    width="stretch"
                 )
             st.info("💡 **선정 배경**: 팀원의 기존 분류 체계(k=8)와의 연속성을 유지하면서 직무 세분화 및 해석 가능성을 종합 고려하여 기준 모델로 k=8을 적용했습니다.")
 
@@ -1227,7 +1227,7 @@ with tab8:
                 )
                 fig_c8.update_traces(texttemplate="%{text:,}건", textposition="outside")
                 fig_c8.update_layout(yaxis={"autorange": "reversed"}, coloraxis_showscale=False)
-                st.plotly_chart(fig_c8, use_container_width=True)
+                st.plotly_chart(fig_c8, width="stretch")
 
             with col_b2:
                 st.dataframe(
@@ -1239,7 +1239,7 @@ with tab8:
                         "top_10_keywords": "Top 10 핵심 키워드"
                     },
                     hide_index=True,
-                    use_container_width=True
+                    width="stretch"
                 )
 
         st.markdown("---")
@@ -1264,7 +1264,7 @@ with tab8:
                     "centroid_cosine_similarity": st.column_config.NumberColumn("중심점 코사인 유사도", format="%.4f")
                 },
                 hide_index=True,
-                use_container_width=True
+                width="stretch"
             )
 
         st.markdown("---")
@@ -1272,9 +1272,10 @@ with tab8:
         # 4. 하이브리드 추천 엔진 벤치마크 (5대 실무 시나리오)
         st.markdown("#### 4. AI 하이브리드 추천 엔진 벤치마크 (5대 실무 시나리오)")
         st.markdown(
-            "> **수식 검토 및 보정**: $\\text{최종 추천 점수} = (0.50 \\times \\text{LSA 의미}) + (0.35 \\times \\text{BM25 키워드}) + (0.15 \\times \\text{평점 신뢰성})$\n"
-            "> - **개선 사항**: BM25 및 LSA 원점수를 [0, 100] Min-Max 정규화 적용\n"
-            "> - **평점 결측 보정**: 평점이 없는 공공/신규 강좌는 Bayesian 중립값(80점) 부여\n"
+            "> **수식**: $\\text{최종 추천 점수} = (0.50 \\times \\text{LSA 의미} + 0.35 \\times \\text{BM25 키워드}) \\div 0.85$\n"
+            "> - **개선 사항**: BM25 및 LSA 원점수를 [0, 100] 정규화 적용\n"
+            "> - **평점 미반영**: 통합 8,645건에는 실제 수강생 평점이 없어 평점 항(0.15)을 제외함. 실제 평점 확보 후 재도입 예정\n"
+            "> - **검증 한계**: 팀원 블라인드 평가가 완료되지 않아 추천 정확도는 아직 측정되지 않음\n"
             "> - **다회차 중복 제거**: 동일 강좌 반복 개설건을 배제하고 고유 과정만 상위 추천"
         )
 
@@ -1304,7 +1305,7 @@ with tab8:
                         "duration_hours": st.column_config.NumberColumn("교육시간", format="%.1f시간")
                     },
                     hide_index=True,
-                    use_container_width=True
+                    width="stretch"
                 )
 
     else:
@@ -1324,7 +1325,7 @@ with tab8:
                         "top_keywords": "대표 키워드"
                     },
                     hide_index=True,
-                    use_container_width=True
+                    width="stretch"
                 )
 
         with col_r2:
@@ -1341,7 +1342,7 @@ with tab8:
                         "bm25_score": st.column_config.NumberColumn("BM25", format="%.1f")
                     },
                     hide_index=True,
-                    use_container_width=True
+                    width="stretch"
                 )
 
 

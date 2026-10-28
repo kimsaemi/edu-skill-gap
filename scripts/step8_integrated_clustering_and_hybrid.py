@@ -133,17 +133,9 @@ def run_clustering_and_hybrid():
     cluster_top10_keywords_rows = []
     cluster_rep_courses_rows = []
 
-    # 분석용 임시 명칭 정의 (공식 NCS 코드가 아님을 명시)
-    temp_cluster_names = {
-        0: "클러스터 0 (임시): 전산회계·세무 및 원가 재무관리",
-        1: "클러스터 1 (임시): 리더십·조직문화 및 팀 빌딩",
-        2: "클러스터 2 (임시): 노무관리 및 노동법률·근로기준 실무",
-        3: "클러스터 3 (임시): 엑셀 실무 및 스프레드시트 데이터 분석",
-        4: "클러스터 4 (임시): 비즈니스 기획·문서작성 및 공문서",
-        5: "클러스터 5 (임시): 총무·자산관리 및 사무행정 지원",
-        6: "클러스터 6 (임시): 인사평가·보상체계 및 채용 선발",
-        7: "클러스터 7 (임시): 생성형 AI·업무자동화 및 DX 역량"
-    }
+    # 군집 이름은 결과에서 나온 대표 키워드 상위 3개로 자동 생성한다.
+    # (예전에는 번호별로 이름을 미리 정해 두어, 실제 내용과 이름이 어긋났다.
+    #  K-Means 번호는 데이터가 바뀌면 달라지므로 고정 이름을 붙이면 안 된다.)
 
     for c_id in range(8):
         mask = labels_8 == c_id
@@ -167,7 +159,7 @@ def run_clustering_and_hybrid():
         # 요약 행
         cluster_k8_rows.append({
             "cluster_id": c_id,
-            "temporary_name": temp_cluster_names.get(c_id, f"클러스터 {c_id}"),
+            "temporary_name": f"클러스터 {c_id} (자동 명명): {' · '.join(top_kws[:3])}",
             "is_official_ncs": False,
             "n_courses": n_courses,
             "ratio_pct": round(n_courses / len(df_all) * 100, 2),
@@ -208,7 +200,8 @@ def run_clustering_and_hybrid():
         "course_uid", "provider", "title", "category_depth1", "category_depth2",
         "price", "duration_hours", "cluster_k8"
     ]].copy()
-    df_all_clusters["temporary_cluster_name"] = df_all_clusters["cluster_k8"].map(temp_cluster_names)
+    cluster_name_map = {r["cluster_id"]: r["temporary_name"] for r in cluster_k8_rows}
+    df_all_clusters["temporary_cluster_name"] = df_all_clusters["cluster_k8"].map(cluster_name_map)
     df_all_clusters.to_csv(out_dir / "integrated_course_clusters_k8.csv", index=False, encoding="utf-8-sig")
 
     print(" - [완료] k=8 군집 요약 및 강좌별 클러스터 매핑 CSV 생성 완료")
@@ -231,10 +224,7 @@ def run_clustering_and_hybrid():
 
     hybrid_results = []
     
-    # 평점 데이터 처리 원칙 (Damped Feedback / Bayesian Mean)
-    # 실제 수집 데이터 중 평점이 결측된 경우 중립값(80.0점) 부여
-    # 평점 신뢰성 보정: 수강생 평점 * 0.15 가중치
-    DEFAULT_RATING_SCORE = 80.0
+    # 평점 처리 원칙: 실제 평점이 없으므로 점수에 반영하지 않는다 (아래 3번 참고)
 
     for sc_name, query, target_domain in eval_scenarios:
         q_tokens = [t for t in query.split() if t in bm25_vocab]
@@ -258,12 +248,11 @@ def run_clustering_and_hybrid():
         else:
             lsa_norm_score = np.zeros(len(df_all))
 
-        # 3) 평점 점수 (결측값 보정)
-        # 만약 평점 컬럼이 있다면 사용하고, 없으면 기본 중립값 적용
-        rating_scores = np.full(len(df_all), DEFAULT_RATING_SCORE)
-
-        # 4) 하이브리드 점수 공식: 0.50 * LSA + 0.35 * BM25 + 0.15 * Rating
-        hybrid_scores = (0.50 * lsa_norm_score) + (0.35 * bm25_norm) + (0.15 * rating_scores)
+        # 3) 하이브리드 점수 공식: (0.50 * LSA + 0.35 * BM25) / 0.85
+        # 통합 8,645건에는 실제 수강생 평점 데이터가 없다. 예전에는 모든 강좌에 80점을
+        # 일괄 대입해 0.15 가중치로 더했는데, 이는 순위에 영향 없이 점수만 12점 부풀렸다.
+        # 실제 평점이 확보되기 전까지 평점 항은 제외하고, 두 점수를 0~100 범위로 재정규화한다.
+        hybrid_scores = ((0.50 * lsa_norm_score) + (0.35 * bm25_norm)) / 0.85
 
         # 5) 동일 강좌 다회차 중복 제거 (Dedup): (provider, title) 기준 최고점 1건만 노출
         # 정렬 후 drop_duplicates
@@ -276,8 +265,7 @@ def run_clustering_and_hybrid():
             "cluster_k8": df_all["cluster_k8"],
             "hybrid_score": hybrid_scores,
             "lsa_score": lsa_norm_score,
-            "bm25_score": bm25_norm,
-            "rating_score": rating_scores
+            "bm25_score": bm25_norm
         }).sort_values(by="hybrid_score", ascending=False)
 
         temp_dedup = temp_res.drop_duplicates(subset=["provider", "title"]).head(5)
@@ -315,7 +303,7 @@ def run_clustering_and_hybrid():
         "reproduction_notes": {
             "is_ko_sroberta_implemented_full_corpus": False,
             "ko_sroberta_status_note": "Ko-SRoBERTa는 STEP 5-2 400건 파일럿 단계 실측 완료 (embeddings_ko_sroberta_400.npy 존재), 8,645건 전수 임베딩은 후속 과제임",
-            "rating_imputation_applied": "결측 강좌 대상 Bayesian 기준 중립값(80.0점) 적용",
+            "rating_term": "실제 평점 데이터 없음 → 평점 항 제외, (0.50*LSA + 0.35*BM25)/0.85 로 산출",
             "deduplication_applied": "(provider, title) 기준 다회차 중복 제거 적용"
         },
         "execution_time_sec": round(time.time() - start_time, 2)

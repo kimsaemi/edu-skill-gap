@@ -51,7 +51,7 @@ Git 변경 이력(`git log`) 및 파이프라인 생성 스크립트(`scripts/ru
 
 ## 2. 상세정보 보완 대상 30선 (우선순위 선정)
 
-전체 295건 중 인사·총무 핵심 6대 직무 역량별로 플랫폼 편중을 방지하고 균형 있게 5건씩, 총 30건을 선별하여 [priority_enrichment_30.csv](file:///d:/26_강의자료/프로젝트2_교육/data/hr/output/recommendation/priority_enrichment_30.csv)로 저장하였습니다.
+전체 295건 중 인사·총무 핵심 6대 직무 역량별로 플랫폼 편중을 방지하고 균형 있게 5건씩, 총 30건을 선별하여 [priority_enrichment_30.csv](../recommendation/priority_enrichment_30.csv)로 저장하였습니다.
 
 ### 2-1. 선정 30선 전체 목록
 

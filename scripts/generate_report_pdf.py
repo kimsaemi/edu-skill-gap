@@ -12,14 +12,21 @@ from reportlab.pdfbase import pdfmetrics
 from reportlab.pdfbase.ttfonts import TTFont
 
 # 1. 한글 폰트 등록 (맑은 고딕)
-FONT_REGULAR = "C:/Windows/Fonts/malgun.ttf"
-FONT_BOLD = "C:/Windows/Fonts/malgunbd.ttf"
+# Windows는 맑은 고딕, 그 외 환경은 설치된 한글 글꼴을 순서대로 시도한다.
+FONT_CANDIDATES = [
+    ("C:/Windows/Fonts/malgun.ttf", "C:/Windows/Fonts/malgunbd.ttf"),
+    ("/usr/share/fonts/truetype/nanum/NanumGothic.ttf", "/usr/share/fonts/truetype/nanum/NanumGothicBold.ttf"),
+    ("/usr/share/fonts/truetype/wqy/wqy-zenhei.ttc", "/usr/share/fonts/truetype/wqy/wqy-zenhei.ttc"),
+]
+FONT_REGULAR, FONT_BOLD = next(
+    (r, b) for r, b in FONT_CANDIDATES if os.path.exists(r) and os.path.exists(b)
+)
 
 pdfmetrics.registerFont(TTFont("Malgun", FONT_REGULAR))
 pdfmetrics.registerFont(TTFont("Malgun-Bold", FONT_BOLD))
 
-# PDF 저장 경로
-OUTPUT_PDF = Path("c:/Users/d2och/edu-skill-gap/NCS_Demand_Analysis_Report.pdf")
+# PDF 저장 경로 (저장소 루트)
+OUTPUT_PDF = Path(__file__).resolve().parents[1] / "NCS_Demand_Analysis_Report.pdf"
 
 # Page layout callback for headers and footers
 class NumberedCanvas(canvas.Canvas):
@@ -161,9 +168,21 @@ def build_pdf():
     story.append(Paragraph("산업/직무별 요구 역량 인터랙티브 대시보드 구축과 직업교육·HRD·취업준비생 시사점 도출", style_subtitle))
     story.append(HRFlowable(width="100%", thickness=1.5, color=colors.HexColor("#2563EB"), spaceAfter=12))
 
+    # 2026-10-25 정정 안내
+    story.append(Paragraph("<b>[2026-10-25 정정 안내] 먼저 읽어 주세요</b>", style_h2))
+    for _line in [
+        "이 보고서는 data/processed/ncs_1360_units.csv(원래 dashboard.html에 들어 있던 데이터)를 근거로 작성되었습니다. 이 데이터는 <b>공식 NCS가 아니라</b>, 271개 직무에 같은 틀(레벨 1~5, 똑같은 기술·태도 문구, 고정 권장시간)을 적용해 만든 <b>예시 데이터</b>입니다.",
+        "• 데이터에는 Level 1~5만 있고 각 레벨이 정확히 20%입니다. 이전 판의 레벨 비중(10% / 48% / 32% / 10%)과 Level 6~8 내용은 데이터로 뒷받침되지 않아 정정했습니다.",
+        "• 산업별 레벨 비중 차이도 데이터에서 확인되지 않습니다(모든 직무가 같은 구조).",
+        "• KSA 표, 공통·특화 역량, 학습 로드맵, '온라인 60% + 오프라인 40%', '40시간 이탈 한계선' 등은 데이터 분석 결과가 아니라 팀의 기획 가설입니다.",
+        "• 공식 NCS 능력단위·능력단위요소·KSA를 다시 수집한 뒤 재분석해야 합니다.",
+    ]:
+        story.append(Paragraph(_line, style_bullet if _line.startswith("•") else style_body))
+    story.append(Spacer(1, 10))
+
     # Section 1
     story.append(Paragraph("1. 🏛️ 산업군(대분류 24개 분야) 역량 프로파일 분석", style_h1))
-    story.append(Paragraph("NCS 전체 능력단위(Unit)의 레벨(Level 1~8) 분포를 분석한 결과, 직업교육과 기업 재교육 현장에서 가장 파급력이 높은 핵심 구간은 <b>Level 3~4 (실무 주니어)</b>와 <b>Level 5~6 (중급 엔지니어)</b>인 것으로 도출되었습니다.", style_body))
+    story.append(Paragraph("아래 표는 레벨 구간별 역할 정의와 팀의 교육 설계 가설입니다. <b>비중 열은 데이터로 확인할 수 없어 '확인 불가'로 정정</b>했습니다(사용한 데이터는 Level 1~5가 각각 20%인 예시 데이터).", style_body))
 
     # Table 1: Level Distribution
     t1_data = [
@@ -176,26 +195,26 @@ def build_pdf():
         [
             Paragraph("Level 1~2", style_cell_bold),
             Paragraph("단순 보조 및 입문 실무", style_cell),
-            Paragraph("10%", style_cell),
-            Paragraph("업무 자동화(RPA/AI) 도입으로 단독 과정 수요 감소", style_cell)
+            Paragraph("확인 불가", style_cell),
+            Paragraph("(가설) 업무 자동화(RPA/AI) 도입으로 단독 과정 수요 감소", style_cell)
         ],
         [
             Paragraph("Level 3~4", style_cell_bold),
             Paragraph("<b>독립적 실무 수행 (주니어)</b>", style_cell),
-            Paragraph("<b>48%</b>", style_cell_bold),
+            Paragraph("확인 불가", style_cell),
             Paragraph("<b>직업교육 및 하이브리드 재교육의 핵심 공략 구간 (30~45H)</b>", style_cell)
         ],
         [
             Paragraph("Level 5~6", style_cell_bold),
             Paragraph("<b>복합 문제 해결 및 기획 (중급)</b>", style_cell),
-            Paragraph("<b>32%</b>", style_cell_bold),
+            Paragraph("확인 불가", style_cell),
             Paragraph("기업 HRD 재직자 딥스킬링(Upskilling) 및 마이크로디그리 타겟", style_cell)
         ],
         [
             Paragraph("Level 7~8", style_cell_bold),
             Paragraph("전략 수립 및 최고 전문가 (시니어)", style_cell),
-            Paragraph("10%", style_cell),
-            Paragraph("최고경영진/R&D 전략 과정으로 소수 정예 과정 운영", style_cell)
+            Paragraph("확인 불가 (데이터에 Level 6~8 없음)", style_cell),
+            Paragraph("(가설) 최고경영진/R&D 전략 과정으로 소수 정예 과정 운영", style_cell)
         ]
     ]
 
@@ -214,7 +233,7 @@ def build_pdf():
 
     # Sub-item: Industry Profile Characteristics
     story.append(Paragraph("산업군별 프로파일 특성:", style_h2))
-    story.append(Paragraph("• <b>기술 집약형 산업 (정보통신, 전기·전자, 바이오)</b>: Level 4~6 비율이 70% 이상을 차지하여 신규 기술 습득 장벽(Skill Gap)이 매우 높은 특징을 보입니다.", style_bullet))
+    story.append(Paragraph("• <strike><b>기술 집약형 산업 (정보통신, 전기·전자, 바이오)</b>: Level 4~6 비율이 70% 이상</strike> → <b>정정: 데이터에서 확인되지 않음</b> (모든 직무가 Level 1~5 각 1개 단위로 동일한 구조)", style_bullet))
     story.append(Paragraph("• <b>기본 직무 및 서비스 산업 (경영·회계, 유통·물류, 마케팅, 인사)</b>: Level 3~4 중심의 실무 단위가 다수 분포하며, 최근 디지털 전환(DX) 및 AI 융합 리스킬링(Reskilling) 요구가 급증하고 있습니다.", style_bullet))
     story.append(Spacer(1, 12))
 

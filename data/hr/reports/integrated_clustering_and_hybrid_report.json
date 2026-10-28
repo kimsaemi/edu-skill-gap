@@ -1,7 +1,7 @@
 {
   "status": "PASS",
   "total_corpus_courses": 8645,
-  "vocab_size": 9347,
+  "vocab_size": 9344,
   "k_candidates_evaluated": [
     5,
     6,
@@ -10,22 +10,22 @@
     12
   ],
   "selected_base_k": 8,
-  "selected_k_silhouette": 0.0413,
+  "selected_k_silhouette": 0.0462,
   "cluster_distribution": {
-    "0": 1094,
-    "1": 389,
-    "2": 897,
-    "3": 912,
-    "4": 228,
-    "5": 1079,
-    "6": 150,
-    "7": 3896
+    "0": 1052,
+    "1": 4246,
+    "2": 150,
+    "3": 934,
+    "4": 1189,
+    "5": 218,
+    "6": 394,
+    "7": 462
   },
   "reproduction_notes": {
     "is_ko_sroberta_implemented_full_corpus": false,
     "ko_sroberta_status_note": "Ko-SRoBERTa는 STEP 5-2 400건 파일럿 단계 실측 완료 (embeddings_ko_sroberta_400.npy 존재), 8,645건 전수 임베딩은 후속 과제임",
-    "rating_imputation_applied": "결측 강좌 대상 Bayesian 기준 중립값(80.0점) 적용",
+    "rating_term": "실제 평점 데이터 없음 → 평점 항 제외, (0.50*LSA + 0.35*BM25)/0.85 로 산출",
     "deduplication_applied": "(provider, title) 기준 다회차 중복 제거 적용"
   },
-  "execution_time_sec": 6.48
+  "execution_time_sec": 15.8
 }

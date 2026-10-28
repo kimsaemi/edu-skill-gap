@@ -20,7 +20,7 @@ plt.rcParams['font.family'] = 'Malgun Gothic'
 plt.rcParams['axes.unicode_minus'] = False
 sns.set_theme(style="whitegrid", font='Malgun Gothic')
 
-WORKSPACE_ROOT = Path("d:/26_강의자료/프로젝트2_교육")
+WORKSPACE_ROOT = Path(__file__).resolve().parents[1]
 INTEG_DIR = WORKSPACE_ROOT / "data" / "hr" / "output" / "integration"
 PROCESSED_DIR = WORKSPACE_ROOT / "data" / "hr" / "processed"
 
@@ -434,6 +434,12 @@ q5_audit.to_csv(TABLES_DIR / "table_q5_recommendation_readiness_audit.csv", inde
 # ==============================================================================
 # 최종 EDA 종합 보고서 Markdown 작성
 # ==============================================================================
+# 플랫폼별 확정 강좌 수는 실제 집계표(q0_cross)에서 생성한다 (수기 입력 금지)
+q0_included_lines = "\n".join(
+    f"  - {platform}: {int(cnt)}건"
+    for platform, cnt in q0_cross["INCLUDED"].drop(labels=["합계"], errors="ignore").sort_values(ascending=False).items()
+    if cnt > 0
+)
 report_content = f"""# [STEP 4] 확장 통합 데이터 기반 EDA 및 시각화 최종 분석 보고서
 
 - **작성 일시**: 2026-10-10
@@ -466,13 +472,7 @@ report_content = f"""# [STEP 4] 확장 통합 데이터 기반 EDA 및 시각화
 ### [Q0] 데이터 수집 및 통합 현황
 - **출처 분포**: 공공 API 140건(25.3%) + 민간/공공 SQLite DB 413건(74.7%) = 총 553건
 - **플랫폼별 확정 강좌(INCLUDED)**:
-  - 휴넷: 98건
-  - 고용24 (내일배움/사업주): 96건
-  - KPC (생산성본부): 44건
-  - GSEEK (경기도): 33건
-  - KMA (능률협회): 16건
-  - 패스트캠퍼스: 5건
-  - 멀티캠퍼스: 3건
+{q0_included_lines}
 - **시각화 산출물**:
   - `chart_q0_1_platform_candidate_counts.png` (플랫폼별 후보 수)
   - `chart_q0_2_status_stacked_distribution.png` (플랫폼별 분류 상태 누적 분포)

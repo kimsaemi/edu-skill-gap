@@ -173,14 +173,14 @@ Wide-form은 1개 교육과정(또는 교육기관)을 1개 행으로 고정하�
 ## 8. 최종 산출 파일 요약
 
 1. **Long-form 데이터셋**:
-   - [`course_competency_long.parquet`](file:///d:/26_강의자료/프로젝트2_교육/data/hr/output/recommendation/course_competency_long.parquet) (8,291행)
-   - [`course_keyword_long.parquet`](file:///d:/26_강의자료/프로젝트2_교육/data/hr/output/recommendation/course_keyword_long.parquet) (68,348행)
+   - [`course_competency_long.parquet`](../output/recommendation/course_competency_long.parquet) (8,291행)
+   - [`course_keyword_long.parquet`](../output/recommendation/course_keyword_long.parquet) (68,348행)
 2. **Wide-form 데이터셋**:
-   - [`matrix_course_competency_wide.parquet`](file:///d:/26_강의자료/프로젝트2_교육/data/hr/output/recommendation/matrix_course_competency_wide.parquet) (8,645행 × 24열)
-   - [`matrix_course_keyword_wide.csv`](file:///d:/26_강의자료/프로젝트2_교육/data/hr/output/recommendation/matrix_course_keyword_wide.csv) (8,645행 × 13열)
-   - [`pivot_provider_competency_wide.csv`](file:///d:/26_강의자료/프로젝트2_교육/data/hr/output/recommendation/pivot_provider_competency_wide.csv) (6대 기관 교차표)
-   - [`crosstab_provider_competency_links.csv`](file:///d:/26_강의자료/프로젝트2_교육/data/hr/output/recommendation/crosstab_provider_competency_links.csv) (연결건수 교차표)
+   - [`matrix_course_competency_wide.parquet`](../output/recommendation/matrix_course_competency_wide.parquet) (8,645행 × 24열)
+   - [`matrix_course_keyword_wide.csv`](../output/recommendation/matrix_course_keyword_wide.csv) (8,645행 × 13열)
+   - [`pivot_provider_competency_wide.csv`](../output/recommendation/pivot_provider_competency_wide.csv) (6대 기관 교차표)
+   - [`crosstab_provider_competency_links.csv`](../output/recommendation/crosstab_provider_competency_links.csv) (연결건수 교차표)
 3. **요약 집계 테이블**:
    - `summary_provider_stats.csv`, `summary_job_family_stats.csv`, `summary_competency_stats.csv`, `summary_course_comp_counts.csv`
 4. **대시보드 반영**:
-   - [`app/streamlit_integrated.py`](file:///d:/26_강의자료/프로젝트2_교육/app/streamlit_integrated.py) (탭 7: Long/Wide-form 구조화 및 교차집계 신설)
+   - [`app/streamlit_integrated.py`](../../../app/streamlit_integrated.py) (탭 7: Long/Wide-form 구조화 및 교차집계 신설)

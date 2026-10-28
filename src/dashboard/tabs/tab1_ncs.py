@@ -31,6 +31,8 @@ def render_tab1(df_ncs_dummy=None):
     st.markdown("### 🏛️ [1단계] NCS 24개 산업 272개 직무 역량(KSA) 체계 & 노동시장 EDA")
     st.write("한국산업인력공단 NCS 표준 프레임워크와 고용노동부 KOSIS 노동력 통계를 결합하여 **산업별 직무 역량 구조와 인력 공백(Skill-Gap)**을 정밀 분석합니다.")
 
+    st.warning("⚠️ 예시 데이터 안내: 이 화면의 NCS 직무·능력단위·KSA는 공식 NCS가 아니라 같은 틀(레벨 1~5, 공통 문구)로 만든 예시 데이터이고, 인력 부족 통계(data/sample)도 시연용 생성 데이터입니다. 실제 분석·의사결정에 사용하지 마세요.")
+
     # 1. 상단 KPI 요약 카드
     kpi1, kpi2, kpi3, kpi4 = st.columns(4)
     with kpi1:
@@ -79,7 +81,7 @@ def render_tab1(df_ncs_dummy=None):
             height=450
         )
         fig_major.update_layout(yaxis=dict(autorange="reversed"), margin=dict(l=10, r=10, t=40, b=10))
-        st.plotly_chart(fig_major, use_container_width=True)
+        st.plotly_chart(fig_major, width="stretch")
 
     with col_c2:
         st.markdown("#### 📈 KOSIS 직종별 인력 미충원율 (적격자 부족)")
@@ -99,7 +101,7 @@ def render_tab1(df_ncs_dummy=None):
         )
         fig_short.update_traces(texttemplate="%{text}%", textposition="outside")
         fig_short.update_layout(margin=dict(l=10, r=10, t=40, b=10))
-        st.plotly_chart(fig_short, use_container_width=True)
+        st.plotly_chart(fig_short, width="stretch")
 
     st.markdown("---")
 
@@ -148,7 +150,7 @@ def render_tab1(df_ncs_dummy=None):
                     }
                 ),
                 hide_index=True,
-                use_container_width=True
+                width="stretch"
             )
 
     st.markdown("---")
