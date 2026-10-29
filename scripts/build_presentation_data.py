@@ -50,6 +50,29 @@ CORE_SKILLS = {
 }
 
 
+# 프로젝트 범위: 인사만 (2026-10-28 팀 결정. 총무 GA는 뺌)
+HR_FIELDS = ["HR"]
+# --reuse-model-values: 문장 임베딩 모델 없이 실행. 모델이 필요한 값(영역별 공급, 민감도의 의미 기준,
+# 기관 편중의 후보 단계)만 이전 data.json에서 가져오고 나머지는 지금 데이터로 다시 계산한다.
+REUSE_MODEL_VALUES = "--reuse-model-values" in sys.argv
+_PREV = {}
+
+
+def previous_data():
+    if not _PREV:
+        _PREV.update(json.loads(OUT.read_text(encoding="utf-8")))
+    return _PREV
+
+
+def load_model():
+    try:
+        from sentence_transformers import SentenceTransformer
+        return SentenceTransformer("jhgan/ko-sroberta-multitask", device="cpu")
+    except Exception as e:  # 모델을 내려받을 수 없는 환경
+        print(f"[알림] 모델을 불러오지 못했습니다 ({type(e).__name__}). 모델이 필요한 값은 이전 결과를 씁니다.")
+        return None
+
+
 def pct(n, d):
     return round(n / d * 100, 1) if d else 0.0
 
@@ -83,24 +106,31 @@ def build_eda(df, off_topic, tasks_raw, top3, rec, summary, n):
     cleaning = [{"key": k, "label": lab, "n": int(acts.get(k, 0))} for k, lab in CLEAN_ACTIONS]
 
     # 3) 인사 실무 9개 영역별 공급: 영역 과업 중 하나와 의미 유사도가 DOMAIN_TAU 이상인 과정 수
-    from sentence_transformers import SentenceTransformer
+    #    과업 문장을 임베딩해야 해서 모델이 필요하다. 모델이 없으면 이전 data.json 값을 그대로 쓴다.
     emb = np.load(RECO / "embeddings_ko_sroberta_all.npy")
     keep = ~df["course_uid"].isin(off_topic).values
-    model = SentenceTransformer("jhgan/ko-sroberta-multitask", device="cpu")
-    tvec = model.encode([f"{t['task_name']}. {t.get('easy_description', '')}" for t in tasks_raw], normalize_embeddings=True)
-    sims = tvec @ emb[keep].T
+    model = load_model() if not REUSE_MODEL_VALUES else None
     doms = [t["domain_name"] for t in tasks_raw]
     dom_ids = {t["domain_name"]: t["domain_id"] for t in tasks_raw}
     top1 = rec[rec["rank"] == 1].groupby("domain_id")["semantic_score"].median()
-    mid_plus_mask = df.loc[keep, "difficulty"].fillna("").astype(str).str.contains("중급|고급").values
-    domain_supply = []
-    for d in dict.fromkeys(doms):
-        idx = [i for i, x in enumerate(doms) if x == d]
-        hit = sims[idx].max(0) >= DOMAIN_TAU
-        domain_supply.append({
-            "label": d, "n": int(hit.sum()), "mid_plus": int((hit & mid_plus_mask).sum()),
-            "top1_sem": round(float(top1.get(dom_ids[d], np.nan)), 1),
-        })
+    sims = None
+    if model is not None:
+        tvec = model.encode([f"{t['task_name']}. {t.get('easy_description', '')}" for t in tasks_raw], normalize_embeddings=True)
+        sims = tvec @ emb[keep].T
+        mid_plus_mask = df.loc[keep, "difficulty"].fillna("").astype(str).str.contains("중급|고급").values
+        domain_supply = []
+        for d in dict.fromkeys(doms):
+            idx = [i for i, x in enumerate(doms) if x == d]
+            hit = sims[idx].max(0) >= DOMAIN_TAU
+            domain_supply.append({"label": d, "n": int(hit.sum()), "mid_plus": int((hit & mid_plus_mask).sum())})
+        model_values_date = date.today().isoformat()
+    else:
+        prev = previous_data()
+        domain_supply = [{k: x[k] for k in ("label", "n", "mid_plus")} for x in prev["eda"]["domain_supply"]]
+        model_values_date = prev["eda"].get("model_values_date", prev["generated"])
+        print(f"[알림] 모델 없이 실행: 영역별 공급·민감도·기관 편중 분해는 {model_values_date} 값을 그대로 씁니다.")
+    for x in domain_supply:  # Top 1 의미 점수는 추천 결과 파일에서 바로 계산
+        x["top1_sem"] = round(float(top1.get(dom_ids[x["label"]], np.nan)), 1)
 
     # 4) 추천의 기관 편중: 카탈로그 비중 vs 추천 Top 3 비중
     cat_share = df["provider"].value_counts(normalize=True)
@@ -110,8 +140,8 @@ def build_eda(df, off_topic, tasks_raw, top3, rec, summary, n):
         for p in rec_share.head(6).index
     ]
 
-    # 5) 인사·총무 분야 과정의 비용·시간
-    hrga = df[df["field"].isin(["HR", "GA"]) & ~df["course_uid"].isin(off_topic)]  # df에는 분야 라벨이 이미 붙어 있음
+    # 5) 인사 분야 과정의 비용·시간 (2026-10-28 팀 결정으로 총무(GA)는 뺌)
+    hrga = df[df["field"].isin(HR_FIELDS) & ~df["course_uid"].isin(off_topic)]  # df에는 분야 라벨이 이미 붙어 있음
     price = pd.to_numeric(hrga["price"], errors="coerce")
     hours = pd.to_numeric(hrga["duration_hours"], errors="coerce")
     cost = {
@@ -145,6 +175,7 @@ def build_eda(df, off_topic, tasks_raw, top3, rec, summary, n):
     }
     robust = build_robustness(df, off_topic, tasks_raw, sims, keep, emb, model, top3, cat_share, rec_share)
     return {"missing": missing, "cleaning": cleaning, "domain_supply": domain_supply, "domain_tau": DOMAIN_TAU,
+            "model_values_date": model_values_date,
             "provider_bias": provider_bias, "cost": cost, "schedule": schedule, "monitor": monitor, "robust": robust}
 
 
@@ -173,48 +204,56 @@ def build_robustness(df, off_topic, tasks_raw, sims, keep, emb, model, top3, cat
     doms = [t["domain_name"] for t in tasks_raw]
 
     # (3) 영역별 공급 민감도: 의미 기준 3가지 기준값 + 제목 중복 제거 + 키워드 기준
+    #     의미 기준 값은 모델이 필요하다. 모델이 없으면 이전 값을 쓰고 키워드 기준만 다시 센다.
     text = dk["title"].fillna("") + " " + dk["clean_search_text"].fillna("")
+    prev_robust = previous_data()["eda"]["robust"] if model is None else None
+    prev_sens = {x["label"]: x for x in prev_robust["sensitivity"]} if prev_robust else {}
     rows = []
     for d in dict.fromkeys(doms):
-        best = sims[[i for i, x in enumerate(doms) if x == d]].max(0)
-        rows.append({
-            "label": d,
-            "s055": int((best >= 0.55).sum()), "s060": int((best >= 0.60).sum()), "s065": int((best >= 0.65).sum()),
-            "s060_titles": int(norm[best >= 0.60].nunique()),
-            "keyword": int(text.str.contains(DOMAIN_KEYWORDS[d], regex=True).sum()),
-        })
+        if model is not None:
+            best = sims[[i for i, x in enumerate(doms) if x == d]].max(0)
+            sem = {"s055": int((best >= 0.55).sum()), "s060": int((best >= 0.60).sum()), "s065": int((best >= 0.65).sum()),
+                   "s060_titles": int(norm[best >= 0.60].nunique())}
+        else:
+            sem = {k: prev_sens[d][k] for k in ("s055", "s060", "s065", "s060_titles")}
+        rows.append({"label": d, **sem, "keyword": int(text.str.contains(DOMAIN_KEYWORDS[d], regex=True).sum())})
     sens = pd.DataFrame(rows).set_index("label")
     ranks = sens.rank(method="min").astype(int)  # 1 = 가장 적음
     sensitivity = [{"label": d, **{k: int(v) for k, v in sens.loc[d].items()}, "ranks": {k: int(v) for k, v in ranks.loc[d].items()}}
                    for d in sens.index]
 
     # (2) 기관 편중 분해: 카탈로그 → 의미 상위 50 후보 → 제목 중복 제거 후보 → 추천 Top 3
-    spec = importlib.util.spec_from_file_location("btc", ROOT / "scripts" / "build_hr_task_catalog.py")
-    btc = importlib.util.module_from_spec(spec)
-    spec.loader.exec_module(btc)
-    qv = model.encode([btc.task_semantic_text(t) for t in tasks_raw], normalize_embeddings=True)
-    sem_all = qv @ emb.T
-    norm_all = df["title"].map(U.normalize_course_title).values
-    prov_all = df["provider"].values
-    pool, pool_dedup = [], []
-    for i in range(len(tasks_raw)):
-        order = np.argsort(-sem_all[i])
-        pool += list(prov_all[order[:50]])
-        seen = set()
-        for j in order:
-            if norm_all[j] in seen:
-                continue
-            seen.add(norm_all[j])
-            pool_dedup.append(prov_all[j])
-            if len(seen) == 50:
-                break
-    p1 = pd.Series(pool).value_counts(normalize=True)
-    p2 = pd.Series(pool_dedup).value_counts(normalize=True)
+    #     '의미 상위 50 후보' 두 단계는 모델이 필요하다. 모델이 없으면 그 두 값만 이전 값을 쓴다.
+    if model is not None:
+        spec = importlib.util.spec_from_file_location("btc", ROOT / "scripts" / "build_hr_task_catalog.py")
+        btc = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(btc)
+        qv = model.encode([btc.task_semantic_text(t) for t in tasks_raw], normalize_embeddings=True)
+        sem_all = qv @ emb.T
+        norm_all = df["title"].map(U.normalize_course_title).values
+        prov_all = df["provider"].values
+        pool, pool_dedup = [], []
+        for i in range(len(tasks_raw)):
+            order = np.argsort(-sem_all[i])
+            pool += list(prov_all[order[:50]])
+            seen = set()
+            for j in order:
+                if norm_all[j] in seen:
+                    continue
+                seen.add(norm_all[j])
+                pool_dedup.append(prov_all[j])
+                if len(seen) == 50:
+                    break
+        p1 = (pd.Series(pool).value_counts(normalize=True) * 100).round(1)
+        p2 = (pd.Series(pool_dedup).value_counts(normalize=True) * 100).round(1)
+    else:
+        p1 = {x["label"]: x["pool"] for x in prev_robust["bias_steps"]}
+        p2 = {x["label"]: x["pool_dedup"] for x in prev_robust["bias_steps"]}
     g = df.groupby("provider")
     bias_steps = [{
         "label": p,
-        "catalog": round(float(cat_share.get(p, 0)) * 100, 1), "pool": round(float(p1.get(p, 0)) * 100, 1),
-        "pool_dedup": round(float(p2.get(p, 0)) * 100, 1), "top3": round(float(rec_share.get(p, 0)) * 100, 1),
+        "catalog": round(float(cat_share.get(p, 0)) * 100, 1), "pool": float(p1.get(p, 0)),
+        "pool_dedup": float(p2.get(p, 0)), "top3": round(float(rec_share.get(p, 0)) * 100, 1),
         "rows_per_title": round(float(g.size()[p] / g["title"].nunique()[p]), 2),
     } for p in ["한국생산성본부(KPC)", "한국능률협회(KMA)", "GSEEK", "휴넷", "멀티캠퍼스"]]
 
@@ -235,10 +274,10 @@ def build_robustness(df, off_topic, tasks_raw, sims, keep, emb, model, top3, cat
 
     def beg(x):
         return round(float((x["lvl"] == "초급").mean()) * 100, 1)
-    hrga = lab["field"].isin(["HR", "GA"]) & ~lab["course_uid"].isin(off_topic)
+    hrga = lab["field"].isin(HR_FIELDS) & ~lab["course_uid"].isin(off_topic)
     h1_scenarios = [
         {"label": "전체", "pct": beg(lab), "n": int(len(lab))},
-        {"label": "인사·총무 분야만", "pct": beg(lab[hrga]), "n": int(hrga.sum())},
+        {"label": "인사 분야만", "pct": beg(lab[hrga]), "n": int(hrga.sum())},
         {"label": "휴넷 제외", "pct": beg(lab[lab["grp"] != "휴넷"]), "n": int((lab["grp"] != "휴넷").sum())},
         {"label": "GSEEK 제외", "pct": beg(lab[lab["grp"] != "GSEEK"]), "n": int((lab["grp"] != "GSEEK").sum())},
         {"label": "GSEEK·휴넷 제외", "pct": beg(lab[~lab["grp"].isin(["GSEEK", "휴넷"])]), "n": int((~lab["grp"].isin(["GSEEK", "휴넷"])).sum())},
@@ -246,9 +285,9 @@ def build_robustness(df, off_topic, tasks_raw, sims, keep, emb, model, top3, cat
     label_share = (lab["grp"].value_counts(normalize=True) * 100).round(1)
     label_source = [{"label": k, "pct": float(v)} for k, v in label_share.items() if v >= 1]
 
-    # (5) 비용 × 수준 (인사·총무 분야, 직무 무관 제외)
+    # (5) 비용 × 수준 (인사 분야, 직무 무관 제외)
     h = df.assign(lvl=lvl)
-    h = h[h["field"].isin(["HR", "GA"]) & ~h["course_uid"].isin(off_topic)]
+    h = h[h["field"].isin(HR_FIELDS) & ~h["course_uid"].isin(off_topic)]
     p = pd.to_numeric(h["price"], errors="coerce")
     hrs = pd.to_numeric(h["duration_hours"], errors="coerce")
     cost_by_level = []
@@ -425,7 +464,7 @@ def main():
             "title_only_pct": pct(tq.get("TITLE_ONLY", 0), n), "off_topic": len(off_topic),
             "work24_courses": int(work24_ids.size),
             "tasks": len(tasks), "domains": len(domains), "sat_scored": int(scores.size),
-            "sat_courses": int(len(sat)), "hr_field_pct": pct(fc.get("HR", 0) + fc.get("GA", 0), n),
+            "sat_courses": int(len(sat)), "hr_field_pct": pct(sum(fc.get(f, 0) for f in HR_FIELDS), n),
         },
         "providers": top_prov, "text_quality": text_quality, "edu_type": edu_type, "price": price,
         "fields": field_dist, "difficulty": difficulty, "core_skills": core,
