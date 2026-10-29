@@ -187,7 +187,12 @@ def write_report(m):
         "- 정답은 팀원 1인의 판단이며, 교차검수는 20개 과정만 했다.",
         "- 팀원 간 기준 차이: 신입사원이 직접 듣는 온보딩 과정을 '온보딩·직원경험'으로 볼지 '무관'으로 볼지 갈렸다(홍: 무관, 나머지: 온보딩).",
         "- 비즈니스 매너 과정은 시트 안내와 달리 팀원 모두 '무관'으로 판정했다.",
-        "- 검수 결과는 `hr_recommendation_candidates.csv`의 `hr_domain_reviewed`·`domain_review_source` 컬럼에 반영했다.",
+        "",
+        "## 반영 위치",
+        "",
+        "- 확정 과정: `hr_recommendation_candidates.csv`의 `hr_domain_reviewed`·`domain_review_source` 컬럼, '무관' 판정은 `EXCLUDED_REVIEW_UNRELATED`",
+        "- v2.1 고객 앱·업무별 추천: '무관' 판정 과정을 `scripts/build_off_topic_exclusions.py`의 제외 목록에 넣어 반영",
+        "  (`apply_exclusions_to_task_recommendations.py`로 저장된 추천에서도 제외)",
     ]
     REPORT_MD.write_text("\n".join(lines) + "\n", encoding="utf-8")
 

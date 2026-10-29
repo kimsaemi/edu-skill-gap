@@ -9,6 +9,53 @@
   - **연계 교육과정**: 초기 3대 공공 API 30개 강좌로 시작 → 현재 인사 범위 확정 217건(공공 API + 6개 교육기관 DB, 295건에서 오분류 29건·총무 20건·이상치 1건·검수 결과 무관 28건 제외), 통합 검색용 8,645건
 - **최종 목표**: 기업 HR 담당자가 직무별 필수 역량을 파악하고, 적합한 교육과정을 선택할 수 있도록 교육 추천 기초 자료 및 대시보드 구축
 
+## 현재 구성과 실행 방법 (2026-10-29)
+
+| 구분 | 파일 | 실행 |
+| :--- | :--- | :--- |
+| **고객 서비스** (v2.1) | `customer_dashboard/streamlit_customer.py` | `streamlit run app.py` |
+| **발표 자료** | `presentation/index.html` (배포: https://hr-edu-map.vercel.app) | 브라우저로 열기 |
+| 내부 분석 대시보드 | `app/streamlit_integrated.py` | `streamlit run app/streamlit_integrated.py` |
+| 발표용 marimo 대시보드 | `app_marimo.py` → `dashboard.html` | `marimo export html app_marimo.py -o dashboard.html` |
+| 1차 탐색 공개 화면 | `src/dashboard/public_app.py` | `streamlit run src/dashboard/app.py` |
+| 예전 화면 | `legacy/` (HTML 고객 화면 2종, 성장 경로, 온보딩 대시보드) | `legacy/README.md` 참고 |
+
+- **고객 서비스 흐름**: 직급 선택 → 인사 9개 분야의 업무 진단 → 부족한 업무별 추천 교육, 전체 교육 찾기, 내 학습 현황.
+  교육 카탈로그 9,089개 중 제외 목록 621개를 뺀 8,468개를 검색·추천에 쓴다. 공식 만족도는 정보로만 보여 주고 순위에는 쓰지 않는다.
+- **패키지**: `pip install -r requirements.txt`. 추천 모델(`jhgan/ko-sroberta-multitask`)은 처음 실행할 때 Hugging Face에서 내려받는다.
+  모델을 못 받으면 고객 앱은 키워드(BM25) 검색으로 동작한다.
+- **API 키**: 고용24 재수집에만 필요하다. `.env.example`을 `.env`로 복사해 키를 넣고, 키 파일은 커밋하지 않는다.
+
+### 데이터를 다시 만드는 순서
+
+```bash
+# 1) 고용24 과정 최신화 (API 키 필요) → 상세 설명 보강
+python scripts/refresh_work24_courses_2026.py
+python scripts/enrich_work24_course_text.py
+# 2) 분야 라벨 → 제외 목록 → 업무 90개별 추천 (모델 필요)
+python scripts/build_course_field_labels.py
+python scripts/build_off_topic_exclusions.py
+python scripts/build_hr_task_catalog.py --reuse-catalog
+#    모델을 못 받는 환경에서 제외 목록만 바꿨다면: python scripts/apply_exclusions_to_task_recommendations.py
+# 3) 발표 자료 (데이터 계산에 모델 필요)
+python scripts/build_presentation_data.py
+python scripts/build_presentation.py
+```
+
+팀원 분야 검수 결과를 바꿨다면: 구글 시트 '분야–과정 검수 시트'의 값을
+`data/hr/output/recommendation/domain_mapping_review_results.csv`·`domain_mapping_cross_review_results.csv`에 저장한 뒤
+`python scripts/apply_domain_review_results.py` → `python scripts/build_off_topic_exclusions.py` → 위 2)의 추천 단계를 실행한다.
+
+### 확인용 테스트
+
+```bash
+python scripts/check_customer_no_synthetic_reviews.py   # 고객 화면에 합성 리뷰·평점이 없는지
+python scripts/verify_customer_mvp.py                   # 고객 앱 단위 검증
+python scripts/test_new_flow_verification.py            # 고객 앱 단계 흐름
+python scripts/test_recommender_integration.py          # 추천 엔진
+python scripts/test_common_loader.py                    # 데이터 로더
+```
+
 ## 범위와 역량 체계 (2026-10-28 결정)
 
 - **범위**: 인사. 총무 과정은 확정 과정에서 제외(`EXCLUDED_OUT_OF_SCOPE`, 20건)
@@ -67,7 +114,10 @@ NCS 세분류 코드는 고용24 API의 공식 `ncsCd`와 과정명으로 확인
 3. **교육 매핑 및 추천 기준 설정**: 역량별 교육 연결, 적합도 점수(Suitability Score) 계산, 직무별 Top 3 추천
 4. **대시보드 및 리포트 완성**: 직무별 추천 교육 Top 3, 교육 공백(Skill Gap) 분석, 한계점 및 향후 확장 방향(HRD 추가, L3~L5 심화, 평생교육원 연계) 정리
 
-## 3. 실행 방법
+## 3. 실행 방법 (1차 탐색 단계)
+
+현재 고객 서비스·발표 자료 실행은 위 '현재 구성과 실행 방법'을 보세요. 아래는 1차 탐색(공공 API 30개 강좌) 당시 명령입니다.
+
 ```bash
 # 1. 의존성 설치 및 가상환경 실행
 .venv\Scripts\python.exe -m pip install -r requirements.txt
@@ -75,16 +125,16 @@ NCS 세분류 코드는 고용24 API의 공식 `ncsCd`와 과정명으로 확인
 # 2. 3대 공공 API 실시간 수집 & 전처리 파이프라인 가동 (30개 강좌)
 .venv\Scripts\python.exe scripts/collect_and_process_hr_data.py
 
-# 3. 인터랙티브 대시보드 실행
-.venv\Scripts\streamlit.exe run app.py
+# 3. 1차 탐색 공개 화면 실행 (루트 app.py는 현재 고객 서비스를 실행함)
+.venv\Scripts\streamlit.exe run src/dashboard/app.py
 ```
 
-기존 실행 명령 `uv run streamlit run src/dashboard/app.py`도 같은 화면을 표시합니다. 앱 자체는 API 키 없이 실행할 수 있습니다.
+앱 자체는 API 키 없이 실행할 수 있습니다.
 
 ## 주요 파일
 
 - `src/dashboard/public_app.py`: 공통 공개 화면과 필터·설계 로직
-- `app.py`, `src/dashboard/app.py`: 동일 앱의 실행 진입점
+- `src/dashboard/app.py`: 1차 탐색 공개 화면 실행 진입점 (루트 `app.py`는 고객 서비스 `customer_dashboard/streamlit_customer.py`를 실행)
 - `src/collectors/edu_collector.py`: 별도 API 수집 인터페이스; 현재 화면과 연결되지 않음
 - `data/sample/`: 시연 자료. 실제 개설·학점 인정 여부를 보장하지 않음
 - `scripts/check_public_dashboard.py`: 메뉴·필터·시간 계산 검증
@@ -106,7 +156,8 @@ API 수집을 별도로 사용할 때만 `.env.example`을 `.env`로 복사해 �
 
 ## 배포
 
-Python/Streamlit 실행을 지원하는 호스팅에서 `app.py`를 시작 파일로 사용합니다. 데모 공개 시 모든 화면과 다운로드의 시연 표시를 유지해야 합니다. 실제 서비스 전환 전에는 실제 자료 검증·모집 정보 갱신·모바일 접근성 점검이 필요합니다.
+- 발표 자료: `presentation/`을 Vercel 정적 호스팅으로 배포 (https://hr-edu-map.vercel.app, `presentation/.vercelignore`로 `src/` 제외).
+- 고객 서비스: Python/Streamlit 실행을 지원하는 호스팅에서 루트 `app.py`를 시작 파일로 사용합니다(`.streamlit/config.toml`). 데모 공개 시 모든 화면과 다운로드의 시연 표시를 유지해야 합니다. 실제 서비스 전환 전에는 실제 자료 검증·모집 정보 갱신·모바일 접근성 점검이 필요합니다.
 
 ## 팀 자료실·분석실 (추가)
 
