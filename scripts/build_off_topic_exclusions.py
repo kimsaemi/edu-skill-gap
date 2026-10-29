@@ -12,6 +12,9 @@
   - 온보딩 기준: '인사 담당자가 온보딩을 설계·운영하는 데 도움이 되는가'.
     신입사원·경력입사자·신임 리더 본인이 듣는 적응 과정은 인사 담당자용이 아니라 뺀다.
   - 온보딩 분야 추천에 섞여 있던 인사와 무관한 과정(개발·재무회계·영업 등)
+  - 다른 직무의 전문 과정(재무·회계·예산, 생산·구매·품질, 영업·홍보, IT 개발, 무역·외국어,
+    프로젝트 관리)과 공식 NCS 코드가 없는 기관의 총무 과정. 제목에 인사 실무 단어가 있으면 남긴다.
+    엑셀·보고서·생성형 AI 활용 같은 공통 업무 과정은 '사무 일반'으로 남긴다.
   분야 기준과 NCS 대응표: data/hr/reference/hr_domain_ncs_crosswalk.csv, 검수 결과: data/hr/reports/domain_review_report.md
 
 - 입력: data/hr/processed/education_courses_search_cleaned.parquet (8,645건)
@@ -52,6 +55,19 @@ TITLE_RULES = [
      r"Spring Framework|클로드 코드와 커서|^\[여의도\] 재무회계 기초$|영업사원 입문|금융 고객경험"
      r"|자립준비청년|퇴사를 준비하는 사람들"),
 ]
+# 다른 직무의 전문 과정. 제목에 인사 실무 단어(NON_HR_KEEP)가 있으면 남긴다.
+NON_HR_RULES = [
+    ("다른 직무: 재무·회계·예산", r"예산관리|예산편성|예산회계|관리회계|원가회계|원가계산|원가관리|재무회계|재무제표|재무관리"
+                             r"|기업가치평가|금융상품|세금 상식|사업 타당성|경영전략 및 사업혁신"),
+    ("다른 직무: 생산·구매·품질", r"생산능력|생산성측정|공장|구매조직|구매협상|구매관리|외자구매|글로벌소싱|품질관리|공수계획|수요예측|재고관리"),
+    ("다른 직무: 영업·홍보", r"영업전략|채널 입점|상품소개서|가격 전략|콘텐츠마케터|뉴스레터 영업|언론홍보|보도자료|저널리즘"),
+    ("다른 직무: IT 개발·데이터 엔지니어링", r"ABAP|하둡|벡터DB|GraphDB|머신러닝을 활용한 빅데이터|파이썬을 활용한 머신러닝|데이터 엔지니어링|Python 라이브러리를 활용한 인공지능"),
+    ("다른 직무: 무역·외국어", r"무역영어|수출입|비즈니스 영어"),
+    ("다른 직무: 프로젝트 관리", r"프로젝트 관리|프로젝트관리|프로젝트 품질"),
+    ("인사 범위 밖: 총무 과정 (NCS 코드 없는 기관)", r"총무"),
+]
+NON_HR_KEEP = r"인사|HR|노무|채용|급여|인건비|HRD|교육훈련|교육평가"
+
 # 위 규칙에 걸려도 인사 담당자용이라 남기는 제목
 KEEP_TITLE = r"온보딩 전략|인사·회계·법무 입문"
 
@@ -113,6 +129,8 @@ def main() -> int:
                     break
             if reason is None and re.search(CERT_RULE[1], t) and not re.search(CERT_HR_KEEP, t):
                 reason = CERT_RULE[0]
+            if reason is None and not re.search(NON_HR_KEEP, t):
+                reason = next((r for r, pat in NON_HR_RULES if re.search(pat, t)), None)
         if reason:
             rows.append({"course_uid": uid, "title": t, "provider": p, "reason": reason})
     out = pd.DataFrame(rows)

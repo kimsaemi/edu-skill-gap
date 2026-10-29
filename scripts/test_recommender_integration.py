@@ -79,14 +79,16 @@ assert df_adap.iloc[0]['ncs_unit_code'] == "02020201"  # NCS 세분류 '인사'
 print("[PASS] Thin Adapter와 UnifiedHybridRecommender KSA 모드 100% 일치, NCS 코드(02020201) 채움 확인")
 
 print("\n=== 6. 무료 필터 시 유료 대안 옵션 보존 및 조건 감사 ===")
+# 같은 과정이 GSEEK(무료)·휴넷(유료)에 함께 있는 인사 과정으로 확인한다.
+# (예전 예시였던 '세금 상식' 과정은 2026-10-29 팀 결정으로 추천 제외 목록에 들어갔다)
 df_free, _, _, _, _ = engine.recommend(
-    query="월급이 낭비되지 않도록 알기 쉬운 세금 상식",
+    query="HR, AI가 트렌드다 : 채용부터 퇴사까지",
     target_domain="인사",
     price_filter="FREE_ONLY",
     top_n=5
 )
-tax_matches = df_free[df_free['title'].str.contains("세금 상식", na=False)]
-assert not tax_matches.empty, "세금 상식 대표 강좌 미발견"
+tax_matches = df_free[df_free['title'].str.contains("AI가 트렌드다", na=False)]
+assert not tax_matches.empty, "무료·유료가 함께 있는 대표 강좌 미발견"
 tax_primary = tax_matches.iloc[0]
 print(f"대표 강좌: [{tax_primary['provider']}] {tax_primary['title']} ({tax_primary['price_display']})")
 print(f"대체 옵션 건수: {tax_primary['alt_count']}건")
