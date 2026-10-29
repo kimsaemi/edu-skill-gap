@@ -1,25 +1,21 @@
 {
-  "reviewed_courses": 180,
+  "reviewed_courses": 183,
   "total_courses": 183,
-  "blank_courses": [
-    "[비대면] 일잘러의 AI 활용 기획 및 기획서 작성 A to Z",
-    "[여의도] 한번에 통하는 원페이지 보고서 작성 실무",
-    "[온앤오프] 근로기준법 기본해설"
-  ],
+  "blank_courses": [],
   "precision": {
-    "correct": 87,
-    "auto_linked": 95,
-    "value": 0.9158
+    "correct": 88,
+    "auto_linked": 96,
+    "value": 0.9167
   },
   "recall": {
-    "found": 87,
-    "human_hr": 97,
-    "value": 0.8969
+    "found": 88,
+    "human_hr": 98,
+    "value": 0.898
   },
   "no_domain_correct": {
-    "correct": 78,
-    "total": 85,
-    "value": 0.9176
+    "correct": 80,
+    "total": 87,
+    "value": 0.9195
   },
   "missed_by_keywords": [
     [
@@ -94,8 +90,8 @@
     ]
   ],
   "pick_counts": {
-    "사무 일반(엑셀·문서·소통)": 57,
-    "노사관계·노무": 27,
+    "사무 일반(엑셀·문서·소통)": 59,
+    "노사관계·노무": 28,
     "인사 업무와 무관": 26,
     "성과평가·목표관리": 20,
     "인재육성·사내교육": 18,
@@ -105,11 +101,11 @@
     "보상·급여·복리후생": 1
   },
   "cross_review": {
-    "pairs": 19,
-    "agree": 17,
-    "agreement": 0.8947,
-    "pe": 0.1524,
-    "kappa": 0.8758,
+    "pairs": 20,
+    "agree": 18,
+    "agreement": 0.9,
+    "pe": 0.145,
+    "kappa": 0.883,
     "disagreements": [
       [
         "[온보딩저니] 경력사원 과정",
@@ -122,9 +118,7 @@
         "성과평가·목표관리"
       ]
     ],
-    "blank": [
-      "SSS급 확보를 위한 면접관 교육"
-    ]
+    "blank": []
   },
   "per_domain": {
     "인사전략·인력기획": {
@@ -176,10 +170,10 @@
       "human_found_by_auto": 0
     },
     "노사관계·노무": {
-      "auto_linked": 25,
-      "auto_correct": 25,
-      "human_picked": 27,
-      "human_found_by_auto": 25
+      "auto_linked": 26,
+      "auto_correct": 26,
+      "human_picked": 28,
+      "human_found_by_auto": 26
     }
   }
 }
