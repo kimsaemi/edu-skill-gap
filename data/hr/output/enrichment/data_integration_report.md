@@ -25,7 +25,7 @@
 
 ## 3. STEP 2. 고용24 우선순위 8건 실측 API 전수 테스트 결과
 
-수정된 스마트 연계 수집기([`src/collectors/edu_collector.py`](file:///d:/26_강의자료/프로젝트2_교육/src/collectors/edu_collector.py))를 가동하여 우선 선정 고용24 과정 8건을 전수 호출한 결과, **8건 전원 100% 실측 데이터 확보(SUCCESS 8 / FAIL 0)**에 성공했습니다.
+수정된 스마트 연계 수집기([`src/collectors/edu_collector.py`](../../../../src/collectors/edu_collector.py))를 가동하여 우선 선정 고용24 과정 8건을 전수 호출한 결과, **8건 전원 100% 실측 데이터 확보(SUCCESS 8 / FAIL 0)**에 성공했습니다.
 
 | 우선순위 | 과정명 | 플랫폼 | 과정 ID / 회차 | 훈련기관명 (기관 ID) | 교육시간 | 총 교육비 | 자부담금 | NCS 코드 (직무명) | 공식 출처 URL |
 | :---: | :--- | :--- | :---: | :--- | :---: | :---: | :---: | :---: | :--- |
@@ -88,13 +88,13 @@
 
 모든 결과물은 기존 원본 CSV 및 SQLite DB를 전혀 훼손하지 않고 독립된 결과 디렉터리에 생성되었습니다.
 
-1. [`data/hr/output/enrichment/hr_enriched_courses.csv`](file:///d:/26_강의자료/프로젝트2_교육/data/hr/output/enrichment/hr_enriched_courses.csv)  
+1. [`data/hr/output/enrichment/hr_enriched_courses.csv`](hr_enriched_courses.csv)  
    - 우선순위 30건에 대해 실측 시수, 수강료, 자부담금, NCS 코드를 100% 결합한 최종 정제 데이터셋 (30행, 13열)
-2. [`data/hr/output/enrichment/hr_search_corpus.csv`](file:///d:/26_강의자료/프로젝트2_교육/data/hr/output/enrichment/hr_search_corpus.csv)  
+2. [`data/hr/output/enrichment/hr_search_corpus.csv`](hr_search_corpus.csv)  
    - 30건 메타데이터 + 팀원 신규 심화 커리큘럼 20건을 표준 13개 컬럼으로 결합한 통합 자연어 코퍼스 (50행, 13열)
-3. [`data/hr/output/enrichment/data_quality_issues.csv`](file:///d:/26_강의자료/프로젝트2_교육/data/hr/output/enrichment/data_quality_issues.csv)  
+3. [`data/hr/output/enrichment/data_quality_issues.csv`](data_quality_issues.csv)  
    - 상세 목차가 부족하여 메타데이터만 존재하는 22건 강좌의 이슈 추적 로그
-4. [`data/hr/output/enrichment/data_integration_report.md`](file:///d:/26_강의자료/프로젝트2_교육/data/hr/output/enrichment/data_integration_report.md)  
+4. [`data/hr/output/enrichment/data_integration_report.md`](data_integration_report.md)  
    - 본 종합 데이터 통합 보고서
 
 ---
@@ -103,7 +103,7 @@
 
 ### 1) TF-IDF / BM25를 지금 바로 시작할 수 있는가?
 👉 **네, 즉시 시작할 수 있습니다!**  
-우리가 만든 [`hr_search_corpus.csv`](file:///d:/26_강의자료/프로젝트2_교육/data/hr/output/enrichment/hr_search_corpus.csv) 파일의 `search_text` 컬럼에 불필요한 숫자나 잡음 없이 깨끗한 교육명, 목표, 커리큘럼 텍스트가 완벽하게 정제되어 준비되었습니다.
+우리가 만든 [`hr_search_corpus.csv`](hr_search_corpus.csv) 파일의 `search_text` 컬럼에 불필요한 숫자나 잡음 없이 깨끗한 교육명, 목표, 커리큘럼 텍스트가 완벽하게 정제되어 준비되었습니다.
 
 ### 2) 팀원 4명 협업 가이드 (다음 주력 과제):
 - **팀원 1 (데이터 엔지니어링)**: `hr_search_corpus.csv`의 `search_text`를 형태소 분석기(Okt/Mecab)로 불용어(Stopwords) 제거 및 토큰화

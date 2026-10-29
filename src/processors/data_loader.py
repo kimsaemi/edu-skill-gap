@@ -44,9 +44,9 @@ def load_integrated_courses(
     Args:
         scope:
             - 'all': All 8,645 courses (default)
-            - 'verified_only': 3,595 courses with rule-based auto-matched NCS/KSA mapping.
+            - 'verified_only': 3,285 courses with rule-based auto-matched NCS/KSA mapping.
               ※ 주의: 본 수치는 사람의 육안 전수 검수 완료가 아닌, 키워드/규칙 기반 고신뢰도 자동 매핑(Auto-matched) 결과입니다.
-              (신규 6개 DB 3,499건 + 기존 공공 API 96건 = 총 3,595건)
+              (신규 6개 DB 3,189건 + 기존 공공 API 96건 = 총 3,285건. 2026-10-25 영문 약어 오매칭·휴넷 접속 차단 페이지 제거 후)
             - 'hr_ga_only': Courses mapped to HR, GA, or MGMT domains (including REVIEW_NEEDED)
         force_csv: If True, bypasses Parquet and reads CSV directly.
         

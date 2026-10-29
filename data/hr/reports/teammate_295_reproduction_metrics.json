@@ -1,5 +1,5 @@
 {
-  "status": "REPRODUCED_SUCCESS",
+  "status": "PARTIAL_REPRODUCTION",
   "input_courses_count": 295,
   "vocab_size": 1203,
   "k_clusters": 8,
@@ -15,5 +15,6 @@
     "6": 12
   },
   "benchmark_scenarios_tested": 3,
-  "execution_time_sec": 2.48
+  "execution_time_sec": 4.13,
+  "note": "추천 1위는 팀원 결과와 일치, 군집별 강좌 수는 다름"
 }

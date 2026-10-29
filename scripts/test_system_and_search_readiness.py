@@ -10,7 +10,7 @@ import sys
 from pathlib import Path
 import pandas as pd
 
-sys.path.insert(0, str(Path("d:/26_강의자료/프로젝트2_교육")))
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
 from src.processors.data_loader import load_integrated_courses, load_legacy_verified_courses
 from src.recommendation.text_preprocessor import HRTextPreprocessor

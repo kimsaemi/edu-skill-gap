@@ -19,13 +19,16 @@ DOMAIN_CLUSTER_MAP: Dict[str, List[int]] = {
     "조직문화": [2, 8]
 }
 
+# ncs_unit_code: 고용24 공식 ncsCd와 과정명으로 확인한 NCS 세분류 코드만 적는다(인사 02020201, 노무관리 02020202,
+# 총무 02020101). 예전 값(예: 02020202_16v3를 '인사평가'로 표기)은 세분류 코드에 버전을 붙인 것으로 능력단위 코드가 아니었다.
+# 확인하지 못한 코드는 비워 두며 화면에는 '-'로 표시된다. 대응표: data/hr/reference/hr_domain_ncs_crosswalk.csv
 # 8대 KSA 직무 역량 마스터 정의
 KSA_COMPETENCIES_MASTER: Dict[str, Dict[str, Any]] = {
     "COMP_HR_01": {
         "id": "COMP_HR_01",
         "name": "인력채용",
         "job_family": "인사",
-        "ncs_unit_code": "02020201_16v3",
+        "ncs_unit_code": "02020201",
         "ksa_type": "Skill",
         "definition": "조직의 인력 수급 계획에 따라 적합한 인재를 선발하고 배치하는 능력",
         "knowledge": "채용 프로세스, 선발 도구, 노동법상 채용 규정, 직무 분석",
@@ -38,7 +41,7 @@ KSA_COMPETENCIES_MASTER: Dict[str, Dict[str, Any]] = {
         "id": "COMP_HR_02",
         "name": "인사평가 및 보상",
         "job_family": "인사",
-        "ncs_unit_code": "02020202_16v3",
+        "ncs_unit_code": "02020201",
         "ksa_type": "Knowledge",
         "definition": "조직원의 성과 및 역량을 객관적으로 평가하고 보상 체계를 운영하는 능력",
         "knowledge": "KPI 지표 설계, 다면평가 기법, 보상 제도 설계, 직무급제, 연봉제",
@@ -51,7 +54,7 @@ KSA_COMPETENCIES_MASTER: Dict[str, Dict[str, Any]] = {
         "id": "COMP_LABOR_01",
         "name": "근로관계 법률 준수",
         "job_family": "인사",
-        "ncs_unit_code": "02030201_16v3",
+        "ncs_unit_code": "02020202",
         "ksa_type": "Knowledge",
         "definition": "근로기준법, 노동조합법 등 노동관계 법령을 숙지하고 노무 리스크를 예방하는 능력",
         "knowledge": "근로기준법령, 임금 계산 기준, 해고 및 퇴직 규정, 4대보험, 주52시간제",
@@ -64,7 +67,7 @@ KSA_COMPETENCIES_MASTER: Dict[str, Dict[str, Any]] = {
         "id": "COMP_GA_01",
         "name": "문서작성 및 기획",
         "job_family": "총무",
-        "ncs_unit_code": "02010101_16v3",
+        "ncs_unit_code": "",
         "ksa_type": "Skill",
         "definition": "사내외 정보와 데이터를 분석하여 효과적인 보고서 및 기획서를 작성하는 능력",
         "knowledge": "문서 규정, 기획 프로세스, 데이터 시각화, 공문서 양식",
@@ -77,7 +80,7 @@ KSA_COMPETENCIES_MASTER: Dict[str, Dict[str, Any]] = {
         "id": "COMP_GA_02",
         "name": "비품 및 자산관리",
         "job_family": "총무",
-        "ncs_unit_code": "02010102_16v3",
+        "ncs_unit_code": "02020101",
         "ksa_type": "Skill",
         "definition": "조직의 유무형 자산과 동산·부동산을 등록, 관리, 평가, 처분하는 능력",
         "knowledge": "자산 회계 기준, 감가상각 규정, 재물조사 절차, 계약법, 사옥시설관리",
@@ -90,7 +93,7 @@ KSA_COMPETENCIES_MASTER: Dict[str, Dict[str, Any]] = {
         "id": "COMP_SEC_01",
         "name": "비즈니스 매너 및 커뮤니케이션",
         "job_family": "경영지원",
-        "ncs_unit_code": "02040302_16v3",
+        "ncs_unit_code": "",
         "ksa_type": "Attitude",
         "definition": "조직 내외부 고객과의 원활한 소통을 위해 글로벌 비즈니스 에티켓을 실천하는 능력",
         "knowledge": "의전 규정, 글로벌 비즈니스 에티켓, 비언어적 커뮤니케이션, 전화응대",
@@ -103,7 +106,7 @@ KSA_COMPETENCIES_MASTER: Dict[str, Dict[str, Any]] = {
         "id": "COMP_MGMT_01",
         "name": "프로젝트 및 조직관리",
         "job_family": "경영지원",
-        "ncs_unit_code": "01010102_16v3",
+        "ncs_unit_code": "",
         "ksa_type": "Skill",
         "definition": "변화하는 경영 환경에 대응하여 프로젝트 일정과 자원을 기민하게 관리하는 능력",
         "knowledge": "애자일/스크럼 방법론, 스프린트 기획, 리스크 관리, 목표관리 MBO",
@@ -116,7 +119,7 @@ KSA_COMPETENCIES_MASTER: Dict[str, Dict[str, Any]] = {
         "id": "COMP_MGMT_02",
         "name": "경영전략 및 재무회계 기초",
         "job_family": "경영지원",
-        "ncs_unit_code": "02030101_16v3",
+        "ncs_unit_code": "",
         "ksa_type": "Knowledge",
         "definition": "조직의 경영 목표 달성을 위해 경영 환경을 분석하고 기초 재무제표와 원가를 관리하는 능력",
         "knowledge": "재무제표 분석(재무상태표, 손익계산서), 원가계산, 관리회계, 사업계획 수립",

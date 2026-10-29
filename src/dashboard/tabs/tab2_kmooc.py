@@ -54,7 +54,7 @@ def render_tab2(df_courses, analyzer):
         height=480,
         margin=dict(l=50, r=50, t=60, b=30)
     )
-    st.plotly_chart(fig_radar, use_container_width=True)
+    st.plotly_chart(fig_radar, width="stretch")
     
     st.success("""
     💡 **산·학·관(대학-서울시-경기도) 연계 핵심 인사이트**:
@@ -79,7 +79,7 @@ def render_tab2(df_courses, analyzer):
                 "경기데이터드림": "#10B981"
             }
         )
-        st.plotly_chart(fig_source, use_container_width=True)
+        st.plotly_chart(fig_source, width="stretch")
         
     with col_b:
         fig_region = px.bar(
@@ -89,7 +89,7 @@ def render_tab2(df_courses, analyzer):
             title="수도권 세부 지역(구/시)별 평생학습 강좌 인프라",
             labels={"region": "수도권 지역", "count": "강좌 수", "source_api": "출처 API"}
         )
-        st.plotly_chart(fig_region, use_container_width=True)
+        st.plotly_chart(fig_region, width="stretch")
 
     # 3. 출처별 필터 탭 & 상세 목록
     st.markdown("#### 🔍 수도권 통합 평생교육 강좌 상세 데이터 탐색")
@@ -107,5 +107,5 @@ def render_tab2(df_courses, analyzer):
     st.dataframe(
         display_courses[["source_api", "org_name", "region", "course_title", "category", "credit_type", "cost"]],
         hide_index=True,
-        use_container_width=True
+        width="stretch"
     )
