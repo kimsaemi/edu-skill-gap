@@ -94,10 +94,19 @@ def __(mo):
         label="🎯 **대상 직무:**"
     )
 
-    header_bar = mo.hstack([
-        mo.md("## 🌱 **직무 역량 & 온보딩·승급 내비게이터**"),
-        job_selector
-    ], justify="space-between", align="center")
+    # 2026-10-29 legacy/로 옮김. 저장소 최상위 폴더에서 실행해야 데이터 경로(data/...)를 찾는다.
+    _legacy_note = mo.callout(
+        mo.md("예전 버전 화면입니다. 현재 고객 서비스는 Streamlit 고객 앱(`customer_dashboard/streamlit_customer.py`), "
+              "발표 자료는 `presentation/index.html`입니다."),
+        kind="warn",
+    )
+    header_bar = mo.vstack([
+        _legacy_note,
+        mo.hstack([
+            mo.md("## 🌱 **직무 역량 & 온보딩·승급 내비게이터**"),
+            job_selector
+        ], justify="space-between", align="center"),
+    ])
 
     return header_bar, job_selector
 

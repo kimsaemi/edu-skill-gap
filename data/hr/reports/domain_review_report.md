@@ -1,9 +1,5 @@
 # 분야–과정 검수 결과와 자동 분류 정확도
 
-> **이 브랜치에서의 반영 (2026-10-28)**: 검수는 `claude/customer-dashboard-data` 브랜치(PR #3)의 확정 과정 183개로 했다.
-> 이 브랜치에서는 '인사 업무와 무관' 판정 과정을 `scripts/build_off_topic_exclusions.py`의 제외 목록에 넣어 추천 엔진과 고객 앱에 반영한다.
-> 아래 '반영' 항목의 `hr_recommendation_candidates.csv` 컬럼은 PR #3 브랜치 기준이다.
-
 - 검수: 팀원 4명이 과정명 기준 183개 과정 중 180개에 '가장 맞는 분야' 하나를 고름 (2026-10-28)
 - 미입력 3개는 자동 분류를 그대로 사용: [비대면] 일잘러의 AI 활용 기획 및 기획서 작성 A to Z, [여의도] 한번에 통하는 원페이지 보고서 작성 실무, [온앤오프] 근로기준법 기본해설
 - 자동 분류: 과정명에 분야 키워드가 들어 있으면 연결 (`scripts/build_customer_platform_data.py`의 `DOMAIN_KEYWORDS`)
@@ -66,4 +62,9 @@
 - 정답은 팀원 1인의 판단이며, 교차검수는 20개 과정만 했다.
 - 팀원 간 기준 차이: 신입사원이 직접 듣는 온보딩 과정을 '온보딩·직원경험'으로 볼지 '무관'으로 볼지 갈렸다(홍: 무관, 나머지: 온보딩).
 - 비즈니스 매너 과정은 시트 안내와 달리 팀원 모두 '무관'으로 판정했다.
-- 검수 결과는 `hr_recommendation_candidates.csv`의 `hr_domain_reviewed`·`domain_review_source` 컬럼에 반영했다.
+
+## 반영 위치
+
+- 확정 과정: `hr_recommendation_candidates.csv`의 `hr_domain_reviewed`·`domain_review_source` 컬럼, '무관' 판정은 `EXCLUDED_REVIEW_UNRELATED`
+- v2.1 고객 앱·업무별 추천: '무관' 판정 과정을 `scripts/build_off_topic_exclusions.py`의 제외 목록에 넣어 반영
+  (`apply_exclusions_to_task_recommendations.py`로 저장된 추천에서도 제외)

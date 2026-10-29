@@ -58,8 +58,6 @@ print(f"KSA 후보수: {n_kcand:,}건, 결과수: {len(df_ksa)}건")
 print(df_ksa[['rank', 'title', 'provider', 'final_score', 'semantic_score', 'keyword_score', 'level_score', 'cluster_bonus', 'ksa_aux_bonus']].to_string())
 assert len(df_ksa) == 5
 assert 'recommendation_reason' in df_ksa.columns
-assert 'ncs_unit_code' in df_ksa.columns
-assert df_ksa.iloc[0]['ncs_unit_code'] == "02020201"  # NCS 세분류 '인사' (ksa_master.py 참고)
 print(f"추천 사유 샘플: {df_ksa.iloc[0]['recommendation_reason']}")
 print("[PASS] KSA 모드 역량 스코어링 및 커리큘럼 기반 추천 근거 도출 확인")
 
@@ -75,7 +73,10 @@ print(f"Adapter 결과수: {len(df_adap)}건, 후보수: {a_cand:,}건")
 assert len(df_adap) == len(df_ksa)
 assert (df_adap['course_uid'] == df_ksa['course_uid']).all()
 assert (df_adap['final_score'] == df_ksa['final_score']).all()
-print("[PASS] Thin Adapter와 UnifiedHybridRecommender KSA 모드 100% 일치")
+# NCS 코드는 엔진 결과에는 없고, 화면용 어댑터가 역량 마스터(ksa_master.py)에서 채운다
+assert 'ncs_unit_code' in df_adap.columns
+assert df_adap.iloc[0]['ncs_unit_code'] == "02020201"  # NCS 세분류 '인사'
+print("[PASS] Thin Adapter와 UnifiedHybridRecommender KSA 모드 100% 일치, NCS 코드(02020201) 채움 확인")
 
 print("\n=== 6. 무료 필터 시 유료 대안 옵션 보존 및 조건 감사 ===")
 df_free, _, _, _, _ = engine.recommend(

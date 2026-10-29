@@ -10,7 +10,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 SRC = Path(sys.argv[1]) if len(sys.argv) > 1 else Path.home() / "Downloads" / "hr_enterprise_career_platform_easy.html"
-OUT = Path(sys.argv[2]) if len(sys.argv) > 2 else ROOT / "hr_career_platform_v2.html"
+OUT = Path(sys.argv[2]) if len(sys.argv) > 2 else ROOT / "legacy" / "hr_career_platform_v2.html"
 TEMPLATE = ROOT / "tools" / "hr_platform_v2_template.html"
 
 GRADE_SHORT = ["주임", "대리", "과장", "차장", "부장"]

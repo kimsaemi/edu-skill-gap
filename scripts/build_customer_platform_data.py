@@ -33,8 +33,23 @@ import pandas as pd
 
 ROOT = Path(__file__).resolve().parents[1]
 CANDIDATES = ROOT / "data" / "hr" / "output" / "recommendation" / "hr_recommendation_candidates.csv"
-V2_HTML = ROOT / "hr_career_platform_v2.html"
-EASY_HTML = ROOT / "hr_career_platform_easy.html"
+# 예전 HTML 고객 화면 (현재 고객 서비스는 customer_dashboard/streamlit_customer.py). 2026-10-29 legacy/로 옮김
+V2_HTML = ROOT / "legacy" / "hr_career_platform_v2.html"
+EASY_HTML = ROOT / "legacy" / "hr_career_platform_easy.html"
+LEGACY_BANNER = (
+    '<div id="legacy-banner" style="position:sticky;top:0;z-index:9999;background:#fff4ce;color:#5c4400;'
+    'border-bottom:1px solid #e0c060;padding:8px 14px;font:13px/1.5 sans-serif;">'
+    '예전 버전 화면입니다. 현재 고객 서비스는 Streamlit 고객 앱(customer_dashboard/streamlit_customer.py), '
+    '발표 자료는 presentation/index.html입니다. 이 화면의 과정은 2026-10-28 확정 과정(인사 범위, 팀원 검수 반영) 기준입니다.</div>'
+)
+
+
+def add_legacy_banner(html):
+    """<body> 바로 뒤에 예전 버전 안내를 한 번만 넣는다."""
+    if 'id="legacy-banner"' in html:
+        return html
+    m = re.search(r"<body[^>]*>", html)
+    return html[:m.end()] + "\n" + LEGACY_BANNER + html[m.end():] if m else LEGACY_BANNER + html
 
 # 9개 인사 분야 -> 과정명 키워드 (영문은 소문자로 비교)
 # '연봉'(예: '억대 연봉 작가'), '입사'(예: '입사에서 퇴사까지 노동법')처럼 다른 뜻으로 걸리는 단어는 뺐다.
@@ -226,7 +241,7 @@ def build_v2(courses):
         "<div class=\"card\"><h4>다음 직급으로 가려면</h4>",
         "<div class=\"card\"><h4>다음 직급으로 가려면 <span class=\"sub\">(예시)</span></h4>",
     )
-    V2_HTML.write_text(html, encoding="utf-8")
+    V2_HTML.write_text(add_legacy_banner(html), encoding="utf-8")
 
 
 def build_easy(courses):
@@ -308,7 +323,7 @@ def build_easy(courses):
     html = re.sub(r"<h2>📚 \d+개 지원 교육 과정 추천</h2>", f"<h2>📚 수집된 교육 과정 {n}개</h2>", html)
     html = sub_once(html, "<small>다음에 해볼 일</small>", "<small>다음에 해볼 일 (예시)</small>")
     html = sub_once(html, "<small>완성하면 남는 결과물</small>", "<small>완성하면 남는 결과물 (예시)</small>")
-    EASY_HTML.write_text(html, encoding="utf-8")
+    EASY_HTML.write_text(add_legacy_banner(html), encoding="utf-8")
     return by_dom
 
 
