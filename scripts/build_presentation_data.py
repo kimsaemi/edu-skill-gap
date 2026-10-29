@@ -31,13 +31,8 @@ FIELD_NAMES = {
     "FIN": "재무·회계", "MED": "의료·보건", "LEGAL_IP": "법무·지식재산",
 }
 
-# NCS 수요 분석 보고서(NCS_Demand_Analysis_Report.md)의 레벨 분포
-NCS_DEMAND = [
-    {"label": "입문 (L1~2)", "pct": 10},
-    {"label": "주니어 실무 (L3~4)", "pct": 48},
-    {"label": "중급 (L5~6)", "pct": 32},
-    {"label": "시니어 (L7~8)", "pct": 10},
-]
+# 수요 쪽 수준 분포(예전 NCS_DEMAND 10/48/32/10%)는 쓰지 않는다.
+# 팀의 NCS_Demand_Analysis_Report.md에서 '데이터로 뒷받침되지 않음'으로 정정된 값이다 (2026-10-29 팀 결정).
 
 # 리서치에서 뽑은 공통 핵심 역량과 강좌 텍스트에서 찾을 키워드 (app/streamlit_research.py와 동일)
 CORE_SKILLS = {
@@ -348,7 +343,7 @@ def main():
     fc = df["field"].value_counts()
     field_dist = [{"key": k, "label": FIELD_NAMES.get(k, k), "n": int(v)} for k, v in fc.items()]
 
-    # 5) 난이도 공급 vs NCS 수요
+    # 5) 난이도 공급 분포
     d = df["difficulty"].fillna("").str.strip()
     supply_counts = {
         "입문·초급": int(d.str.contains("초급|입문").sum()),
@@ -363,7 +358,6 @@ def main():
         "supply": supply, "labeled": labeled, "unlabeled": n - labeled,
         "unlabeled_pct": pct(n - labeled, n),
         "unlabeled_top": [{"label": k, "n": int(v)} for k, v in unlabeled_prov.head(2).items()],
-        "demand": NCS_DEMAND,
     }
 
     # 6) 핵심 역량 키워드 포함 비율

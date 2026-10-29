@@ -5,6 +5,13 @@
   - 고용24 공식 NCS 분류가 총무(020201…)인 과정: 인사 범위 밖 (data/hr/processed/work24_course_details.csv의 ncs_code)
   - 팀원 분야 검수에서 '인사 업무와 무관'으로 판정한 과정 (data/hr/output/recommendation/domain_mapping_review_results.csv)
   - 근로자·관리감독자 대상 법정 안전보건교육('채용 시'·'노무제공 시'가 채용·노무에 걸림), 마케팅·커머스 과정
+2026-10-29 팀 결정으로 더한 규칙
+  - 자격증 취득 과정(ITQ·컴활·OPIc·전산세무 등): 카탈로그에는 남기고 추천에서만 뺀다.
+    인사 실무와 묶인 과정(ERP 인사, 인사급여 실무, 채용면접 자격 등)은 남긴다.
+    엑셀·문서작성처럼 업무 활용이 목적인 과정은 '사무 일반'으로 남긴다.
+  - 온보딩 기준: '인사 담당자가 온보딩을 설계·운영하는 데 도움이 되는가'.
+    신입사원·경력입사자·신임 리더 본인이 듣는 적응 과정은 인사 담당자용이 아니라 뺀다.
+  - 온보딩 분야 추천에 섞여 있던 인사와 무관한 과정(개발·재무회계·영업 등)
   분야 기준과 NCS 대응표: data/hr/reference/hr_domain_ncs_crosswalk.csv, 검수 결과: data/hr/reports/domain_review_report.md
 
 - 입력: data/hr/processed/education_courses_search_cleaned.parquet (8,645건)
@@ -38,7 +45,21 @@ TITLE_RULES = [
     # 인사 담당자용인 '중대재해처벌법·산업안전보건법 해설' 과정은 남긴다.
     ("법정 안전보건교육(근로자·관리감독자 대상)", r"^2026 안전보건교육|안전보건 관리감독자 교육|관리감독자 우편통신 교육"),
     ("마케팅·커머스 (인사 업무 아님)", r"마케팅|커머스|소통판매"),
+    ("신입·경력·신임자 본인 대상 적응 과정 (온보딩 담당 업무 아님)",
+     r"신입사원|신입 온보딩|신규입사자의 온보딩|\[온보딩저니\] 경력사원|경력입사자 온보딩"
+     r"|신임\s?(?:리더|팀장|임원|부장|차장|과장|대리)|사회초년생|김경일의 슬기로운 직장생활|셀프리더 루키"),
+    ("온보딩 추천 점검: 인사 업무와 무관",
+     r"Spring Framework|클로드 코드와 커서|^\[여의도\] 재무회계 기초$|영업사원 입문|금융 고객경험"
+     r"|자립준비청년|퇴사를 준비하는 사람들"),
 ]
+# 위 규칙에 걸려도 인사 담당자용이라 남기는 제목
+KEEP_TITLE = r"온보딩 전략|인사·회계·법무 입문"
+
+# 자격증 취득 과정. 제목에 인사 실무 단어가 함께 있으면 남긴다.
+CERT_RULE = ("자격증 취득 과정 (인사 직무 자격 아님)",
+             r"ITQ|컴퓨터활용능력|컴활|GTQ|\bMOS\b|워드프로세서|자격증|자격\s*취득|빅데이터분석기사|사회조사분석사"
+             r"|전산세무|전산회계|재경관리사|정보관리기술사|정보처리기사|OPIc|토익|TOEIC|ADsP|SQLD")
+CERT_HR_KEEP = r"HR|채용|면접|인사|노무|HRD|교육|인사평가|성과평가|급여|노동|직업상담|코칭"
 WORK24_DETAILS = ROOT / "data" / "hr" / "processed" / "work24_course_details.csv"
 REVIEW_RESULTS = ROOT / "data" / "hr" / "output" / "recommendation" / "domain_mapping_review_results.csv"
 NCS_GA_PREFIX = "020201"  # 총무·인사 > 총무
@@ -87,9 +108,11 @@ def main() -> int:
             reason = "학교 학과 교육과정 (직무훈련 아님)"
         else:
             for r, pat in TITLE_RULES:
-                if re.search(pat, t):
+                if re.search(pat, t) and not re.search(KEEP_TITLE, t):
                     reason = r
                     break
+            if reason is None and re.search(CERT_RULE[1], t) and not re.search(CERT_HR_KEEP, t):
+                reason = CERT_RULE[0]
         if reason:
             rows.append({"course_uid": uid, "title": t, "provider": p, "reason": reason})
     out = pd.DataFrame(rows)
