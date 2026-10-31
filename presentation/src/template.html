@@ -351,7 +351,7 @@ ol.three li::marker { font-family: var(--pxb); color: var(--teal); }
     </div>
     <div class="findings">
       <div class="finding"><div class="k">H1</div><p><span class="t">입문·초급 과정이 많지만, 대형 이러닝 기관의 영향이 큽니다 (부분 채택).</span>난이도가 표기된 과정의 <mark><span id="f1-range"></span>%가 입문·초급</mark>입니다(어느 기관을 포함하느냐에 따라 범위가 달라짐). GSEEK·휴넷을 빼면 초급과 중급이 비슷합니다. 인사 분야 중급 과정의 유료 가격 중앙값은 <span class="mid-price"></span>원입니다.</p></div>
-      <div class="finding"><div class="k">H2</div><p><span class="t">노무·보상·조직문화 영역은 업무에 맞는 교육이 적습니다 (부분 채택).</span>노사관계·노무 영역에 맞는 과정은 <mark><span id="f2-labor-n"></span>개</mark>, 그중 중급 이상은 <span id="f2-labor-mid"></span>개입니다. 인재육성 영역(<span id="f2-hrd-n"></span>개)의 약 1/15 수준입니다.</p></div>
+      <div class="finding"><div class="k">H2</div><p><span class="t">노무·보상·조직문화 영역은 업무에 맞는 교육이 적습니다 (부분 채택).</span>노사관계·노무 영역에 맞는 과정은 <mark><span id="f2-labor-n"></span>개</mark>, 그중 중급 이상은 <span id="f2-labor-mid"></span>개입니다. 인재육성 영역(<span id="f2-hrd-n"></span>개)의 약 1/<span class="h2-ratio"></span> 수준입니다.</p></div>
       <div class="finding"><div class="k">H3</div><p><span class="t">평점은 추천 근거가 될 수 없습니다.</span>공식 만족도는 카탈로그의 <span id="f3-satpct"></span>%에만 있고, 있는 점수도 중앙값 <span id="f3-satmed"></span>점으로 몰려 있습니다. 그래서 업무 적합도(의미+키워드+난이도)로 추천합니다.</p></div>
     </div>
   </div>
@@ -671,7 +671,7 @@ ol.three li::marker { font-family: var(--pxb); color: var(--teal); }
     <div class="tbl"><table class="rank"><thead><tr><th>영역</th><th>의미 0.55</th><th>의미 0.60</th><th>의미 0.65</th><th>0.60 + 중복 제거</th><th>키워드</th></tr></thead><tbody id="tb-sens"></tbody></table></div>
     <p class="note">칸 숫자는 과정 수, 괄호는 9개 영역 중 적은 순위(1 = 가장 적음). 하위 3위는 강조 표시.<span class="mv-note"></span></p>
     <h3 class="h4">③ 기관 편중: 의미 검색 단계에서 생기고, 추천 단계에서 줄어듭니다</h3>
-    <p>과업마다 뜻이 가까운 후보 50개를 뽑으면 한국생산성본부가 절반을 넘습니다. 같은 과정을 회차별로 따로 등록한 영향을 걷어내도 45%대이고, 길이가 비슷한 과정끼리 비교해도 유사도가 높습니다. 과정 설명이 실무형 문장으로 쓰여 과업 설명과 문체가 비슷한 것으로 보입니다. <strong>정말 더 맞는 과정인지는 사람 평가로만 판정할 수 있어</strong>, 지금은 경고 지표로 두고 기관당 추천 상한을 다음 개선안으로 둡니다.</p>
+    <p>과업마다 뜻이 가까운 후보 50개를 뽑으면 한국생산성본부가 절반을 넘습니다. 같은 과정을 회차별로 따로 등록한 영향을 걷어내도 <span class="kpc-dedup"></span>%이고, 길이가 비슷한 과정끼리 비교해도 유사도가 높습니다. 과정 설명이 실무형 문장으로 쓰여 과업 설명과 문체가 비슷한 것으로 보입니다. <strong>정말 더 맞는 과정인지는 사람 평가로만 판정할 수 있어</strong>, 지금은 경고 지표로 두고 기관당 추천 상한을 다음 개선안으로 둡니다.</p>
     <div class="tbl"><table><thead><tr><th>기관</th><th>카탈로그</th><th>뜻이 가까운 후보</th><th>제목 중복 제거 후</th><th>추천 Top 3</th><th>제목당 등록 수</th></tr></thead><tbody id="tb-bias"></tbody></table></div>
     <p class="note"><span class="mv-note"></span></p>
     <h3 class="h4">④ 비용 × 수준: 중급 이상은 비싸고, 국비 과정이 대안입니다</h3>
@@ -885,6 +885,9 @@ const D = /*__DATA__*/;
   T('#k-cov', covPct); T('#g-cov', covPct); T('#m-cov', covPct); T('#c-cov', covPct);
   T('#g-sem', R.top1_sem_median); T('#m-sem', R.top1_sem_median);
   T('#g-w24', M.w24_open_pct); T('#m-w24', M.w24_open_pct);
+  document.querySelectorAll('.h2-ratio').forEach(n => { n.textContent = Math.round(dom('인재육성').n / Math.max(1, dom('노사관계').n)); });
+  { const kpc = E.robust.bias_steps.find(b => b.label.includes('한국생산성본부'));
+    document.querySelectorAll('.kpc-dedup').forEach(n => { n.textContent = kpc ? kpc.pool_dedup : '-'; }); }
   T('#f2-labor-n', fmt(dom('노사관계').n)); T('#f2-labor-mid', fmt(dom('노사관계').mid_plus)); T('#f2-hrd-n', fmt(dom('인재육성').n));
   T('#f3-satpct', S.catalog_scored_pct); T('#f3-satmed', S.median);
   T('#c3-top5', M.top5_share);
