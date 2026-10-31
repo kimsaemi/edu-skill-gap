@@ -63,6 +63,10 @@ python scripts/test_common_loader.py                    # 데이터 로더
 python scripts/validate_catalog.py            # 가격·일정·중복·추천 결과 정합성 점검
 python scripts/analyze_thin_task_supply.py    # 추천 3개를 못 채운 업무가 공급 부족인지 확인
 python scripts/eda_work24_employer_2026.py    # 저장된 고용24 사업주훈련 API 응답 EDA
+# API 키 필요 (.env 또는 환경 변수, 이름은 .env.example 참고)
+python scripts/check_work24_live.py --apply   # 고용24 일정 실시간 확인 → 운영 상태 갱신
+python scripts/collect_official_satisfaction.py   # 고용24 공식 만족도 다시 수집 (연결 오류가 많으면 기존 파일보다 적게 받을 수 있으니 건수 확인)
+python scripts/collect_kmooc_hr_supply.py     # K-MOOC 인사 관련 무료 강좌
 ```
 
 ## 범위와 역량 체계 (2026-10-28 결정)
