@@ -1,0 +1,20 @@
+{
+  "required_top3_slots": 513,
+  "actual_recommended_slots": 512,
+  "fill_rate_percent": 99.8,
+  "median_top1_semantic_57": 70.5,
+  "median_top1_semantic_90": 68.75,
+  "distinct_courses_57": 197,
+  "distinct_courses_90": 412,
+  "overlap_courses_count": 128,
+  "newly_discovered_courses_count": 69,
+  "thin_or_empty_slots_count": 1,
+  "thin_tasks_details": [
+    [
+      "HR10-03",
+      "인사이동 및 발령 이력 관리",
+      "실무",
+      2
+    ]
+  ]
+}
