@@ -75,7 +75,8 @@ KEEP_TITLE = r"온보딩 전략|인사·회계·법무 입문"
 # 자격증 취득 과정. 제목에 인사 실무 단어가 함께 있으면 남긴다.
 CERT_RULE = ("자격증 취득 과정 (인사 직무 자격 아님)",
              r"ITQ|컴퓨터활용능력|컴활|GTQ|\bMOS\b|워드프로세서|자격증|자격\s*취득|빅데이터분석기사|사회조사분석사"
-             r"|전산세무|전산회계|재경관리사|정보관리기술사|정보처리기사|OPIc|토익|TOEIC|ADsP|SQLD")
+             r"|전산세무|전산회계|재경관리사|정보관리기술사|정보처리기사|OPIc|토익|TOEIC|ADsP|SQLD"
+             r"|산업기사|기능사|기술사|기사 ?\(?필기|기사 ?실기")  # 국가기술자격 시험 대비 (사무자동화산업기사 등)
 CERT_HR_KEEP = r"HR|채용|면접|인사|노무|HRD|교육|인사평가|성과평가|급여|노동|직업상담|코칭"
 WORK24_DETAILS = ROOT / "data" / "hr" / "processed" / "work24_course_details.csv"
 REVIEW_RESULTS = ROOT / "data" / "hr" / "output" / "recommendation" / "domain_mapping_review_results.csv"
