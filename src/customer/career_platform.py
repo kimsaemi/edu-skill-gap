@@ -29,6 +29,8 @@ MASTER_PATH = ROOT / "data" / "hr" / "processed" / "hr_career_platform_master.js
 TASK_REC_PATH = ROOT / "data" / "hr" / "output" / "recommendation" / "task_course_recommendations_90.csv"
 WORK24_DETAIL_PATH = ROOT / "data" / "hr" / "processed" / "work24_course_details.csv"
 SATISFACTION_PATH = ROOT / "data" / "hr" / "processed" / "official_satisfaction.csv"
+# 같은 제목 과정을 운영하는 다른 기관 (scripts/build_work24_same_title_offerings.py)
+OFFERINGS_PATH = ROOT / "data" / "hr" / "processed" / "work24_same_title_offerings.csv"
 
 # 직급(주임·대리·과장·차장·부장) → 업무 숙련도 기준 단계, 추천 난이도
 LEVEL_OF_GRADE = [0, 1, 2, 3, 3]
@@ -186,12 +188,44 @@ def platform_label(row: pd.Series) -> str:
     return str(row.get("provider") or "")
 
 
+@lru_cache(maxsize=1)
+def other_offerings_table() -> Dict[str, List[Dict[str, Any]]]:
+    """대표 과정 course_uid → 같은 제목을 운영하는 다른 기관 목록 (개강일 순)."""
+    if not OFFERINGS_PATH.exists():
+        return {}
+    df = pd.read_csv(OFFERINGS_PATH, dtype=str).fillna("")
+    out: Dict[str, List[Dict[str, Any]]] = {}
+    for uid, g in df.groupby("course_uid", sort=False):
+        out[uid] = [{
+            "institution": r.institution, "program": r.program, "status": r.status,
+            "start": r.start, "end": r.end, "fee": int(r.fee) if r.fee.isdigit() else None,
+            "region": r.region, "url": r.url,
+        } for r in g.itertuples()]
+    return out
+
+
+def offerings_summary(others: List[Dict[str, Any]]) -> Optional[str]:
+    """'다른 기관 3곳에서도 운영 · 훈련비 50,490~110,000원 · 지역 2곳' (없으면 None)."""
+    if not others:
+        return None
+    fees = [o["fee"] for o in others if o.get("fee")]
+    regions = {o["region"].split()[0] for o in others if o.get("region")}
+    parts = [f"다른 기관 {len(others)}곳에서도 운영"]
+    if fees:
+        lo, hi = min(fees), max(fees)
+        parts.append(f"훈련비 {lo:,}원" if lo == hi else f"훈련비 {lo:,}~{hi:,}원")
+    if regions:
+        parts.append(f"지역 {len(regions)}곳")
+    return " · ".join(parts)
+
+
 def make_card(row: pd.Series, why: str = "", match: Optional[Dict[str, float]] = None) -> Dict[str, Any]:
     """카드 1장에 필요한 값. 가격·시간·일정·종료 표시는 공통 함수(_common_card_fields)를 그대로 씀."""
     base = _common_card_fields(row, 4.0)
     sat = row.get("sat")
     self_pay = row.get("self_pay")
     field = row.get("field")
+    others = other_offerings_table().get(str(row.get("course_uid") or ""), [])
     return {
         **base,
         "institution": str(row.get("provider") or ""),
@@ -208,6 +242,9 @@ def make_card(row: pd.Series, why: str = "", match: Optional[Dict[str, float]] =
         "ncs": str(row.get("ncs_code") or ""),
         "match": match,  # {"final", "sem", "bm25", "lvl"}
         "why": why,
+        # 같은 제목을 운영하는 다른 기관: 카드는 하나로 보여 주고 카드 안에서 펼쳐 봄
+        "other_offerings": others,
+        "other_offerings_summary": offerings_summary(others),
     }
 
 

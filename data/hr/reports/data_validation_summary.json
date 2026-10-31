@@ -1,7 +1,7 @@
 {
   "checked": "2026-10-31",
   "checks": {
-    "추천 대상 과정": 7773,
+    "추천 대상 과정": 7749,
     "과정 ID 중복": 0,
     "링크 빈칸": 0,
     "Base64 노이즈 남음": 0,
@@ -12,20 +12,20 @@
     "교육 시간 0 이하": 0,
     "가격 500만 원 초과 (해외 연수·임원 과정, 오류 아님)": 6,
     "설명 없이 제목만": 1648,
-    "일정이 지난 과정": 670,
-    "일정이 있는 과정": 3961
+    "일정이 지난 과정": 669,
+    "일정이 있는 과정": 3953
   },
   "duplicates": {
-    "duplicate_rows": 2207,
-    "distinct_titles": 5396,
+    "duplicate_rows": 2201,
+    "distinct_titles": 5379,
     "providers": [
       {
         "provider": "GSEEK",
-        "rows": 1758,
-        "titles": 1637,
+        "rows": 1742,
+        "titles": 1623,
         "rows_per_title": 1.07,
-        "row_share": 22.6,
-        "title_share": 30.3,
+        "row_share": 22.5,
+        "title_share": 30.2,
         "top3_share": 11.6
       },
       {
@@ -34,7 +34,7 @@
         "titles": 1590,
         "rows_per_title": 1.08,
         "row_share": 22.1,
-        "title_share": 29.5,
+        "title_share": 29.6,
         "top3_share": 17.1
       },
       {
@@ -42,14 +42,14 @@
         "rows": 1648,
         "titles": 440,
         "rows_per_title": 3.75,
-        "row_share": 21.2,
+        "row_share": 21.3,
         "title_share": 8.2,
         "top3_share": 17.0
       },
       {
         "provider": "한국생산성본부(KPC)",
-        "rows": 1256,
-        "titles": 763,
+        "rows": 1253,
+        "titles": 761,
         "rows_per_title": 1.65,
         "row_share": 16.2,
         "title_share": 14.1,
@@ -57,10 +57,10 @@
       },
       {
         "provider": "멀티캠퍼스",
-        "rows": 960,
-        "titles": 793,
+        "rows": 956,
+        "titles": 792,
         "rows_per_title": 1.21,
-        "row_share": 12.4,
+        "row_share": 12.3,
         "title_share": 14.7,
         "top3_share": 3.9
       },

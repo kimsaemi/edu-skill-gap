@@ -21,7 +21,7 @@
 | 예전 화면 | `legacy/` (HTML 고객 화면 2종, 성장 경로, 온보딩 대시보드) | `legacy/README.md` 참고 |
 
 - **고객 서비스 흐름**: 직급 선택 → 인사 9개 분야의 업무 진단 → 부족한 업무별 추천 교육, 전체 교육 찾기, 내 학습 현황.
-  교육 카탈로그 9,075개 중 제외 목록 1,302개를 뺀 7,773개를 검색·추천에 쓴다. 공식 만족도는 정보로만 보여 주고 순위에는 쓰지 않는다.
+  교육 카탈로그 9,075개 중 제외 목록 1,326개를 뺀 7,749개를 검색·추천에 쓴다. 공식 만족도는 정보로만 보여 주고 순위에는 쓰지 않는다.
 - **패키지**: `pip install -r requirements.txt`. 추천 모델(`jhgan/ko-sroberta-multitask`)은 처음 실행할 때 Hugging Face에서 내려받는다.
   모델을 못 받으면 고객 앱은 키워드(BM25) 검색으로 동작한다.
 - **API 키**: 고용24 재수집에만 필요하다. `.env.example`을 `.env`로 복사해 키를 넣고, 키 파일은 커밋하지 않는다.
@@ -55,6 +55,7 @@ python scripts/verify_customer_mvp.py                   # 고객 앱 단위 검�
 python scripts/test_new_flow_verification.py            # 고객 앱 단계 흐름
 python scripts/test_recommender_integration.py          # 추천 엔진
 python scripts/test_common_loader.py                    # 데이터 로더
+python scripts/test_same_title_offerings.py             # 같은 제목 과정의 '다른 운영 기관' 표시
 ```
 
 ### 데이터 검증 (모델·API 불필요, 결과: `data/hr/reports/data_validation_report.md`)
@@ -65,6 +66,7 @@ python scripts/analyze_thin_task_supply.py    # 추천 3개를 못 채운 업무
 python scripts/eda_work24_employer_2026.py    # 저장된 고용24 사업주훈련 API 응답 EDA
 # API 키 필요 (.env 또는 환경 변수, 이름은 .env.example 참고)
 python scripts/check_work24_live.py --apply   # 고용24 일정 실시간 확인 → 운영 상태 갱신
+python scripts/build_work24_same_title_offerings.py   # 같은 제목 과정을 운영하는 다른 기관 (고객 카드에 표시)
 python scripts/collect_official_satisfaction.py   # 고용24 공식 만족도 다시 수집 (연결 오류가 많으면 기존 파일보다 적게 받을 수 있으니 건수 확인)
 python scripts/collect_kmooc_hr_supply.py     # K-MOOC 인사 관련 무료 강좌
 ```

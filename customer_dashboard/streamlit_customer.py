@@ -225,6 +225,18 @@ def course_card(card: dict, key: str, for_what: str = "", note: str = ""):
       <div class="info">{''.join(f'<span>{x}</span>' for x in info)}</div>{why}</div>""", unsafe_allow_html=True)
     if note:
         st.caption(note)
+    others = card.get("other_offerings") or []
+    if others:
+        # 같은 제목 과정을 다른 기관도 운영: 카드는 하나로 두고, 기관별 훈련비·지역·개강일은 펼쳐서 봄
+        with st.expander(f"🏫 {card['other_offerings_summary']}"):
+            st.caption("같은 과정을 다른 훈련기관도 운영해요. 훈련비·지역·개강일을 비교해 보세요. (고용24 공개 정보 기준)")
+            for o in others:
+                fee = f"{o['fee']:,}원" if o.get("fee") else "훈련비 문의"
+                when = f"{o['status']} · {o['start']} 시작" if o.get("start") else o.get("status", "")
+                line = f"**{escape(o['institution'])}** · {escape(o.get('region') or '지역 미표기')} · {fee} · {when}"
+                if str(o.get("url", "")).startswith("https://"):
+                    line += f" · [고용24에서 보기 ↗]({o['url']})"
+                st.markdown(line)
     with st.expander("🔍 추천 근거 보기"):
         m = card.get("match")
         if m:
