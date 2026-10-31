@@ -2,7 +2,7 @@
 저장된 고용24 API 응답으로 2026년 사업주훈련 인사 교육 시장을 탐색한다. (API 호출·모델 불필요)
 
 입력
-- data/hr/raw/work24_2026/employer_2026_list_raw.json : 사업주훈련 목록 API, 2026년 회차, 인사 관련 키워드 15개로 검색(10-28 수집)
+- data/hr/raw/work24_2026/employer_2026_list_raw.json : 사업주훈련 목록 API, 2026년 회차, 인사 관련 키워드 15개로 검색
 - data/hr/processed/official_satisfaction.csv          : 국민내일배움카드 목록 API의 공식 만족도
 출력
 - data/hr/reports/work24_employer_2026_eda.json
@@ -12,6 +12,7 @@
 주의: 키워드 검색 결과라 사업주훈련 전체가 아니라 '인사 관련 키워드에 걸린 과정'의 분포다.
 """
 import json
+from datetime import date
 from pathlib import Path
 
 import pandas as pd
@@ -36,6 +37,7 @@ def pct(a, b):
 def main():
     r = pd.DataFrame(json.load(open(RAW, encoding="utf-8")))
     raw_rows = len(r)
+    collected = date.fromtimestamp(RAW.stat().st_mtime).strftime("%m-%d")  # 파일을 저장한 날
     keywords = sorted(r["_kw"].dropna().unique().tolist())
     r = r.drop_duplicates(["trprId", "trprDegr"]).copy()  # 키워드가 겹쳐 같은 회차가 여러 번 잡힘
     r["fee"] = pd.to_numeric(r["realMan"], errors="coerce")
@@ -97,7 +99,7 @@ def main():
     lines = [
         "# 고용24 사업주훈련 2026 인사 교육 시장 EDA",
         "",
-        f"저장된 고용24 사업주훈련 목록 API 응답(10-28 수집, 인사 관련 키워드 {len(keywords)}개 검색, 원본 {raw_rows:,}행)으로 계산했다. "
+        f"저장된 고용24 사업주훈련 목록 API 응답({collected} 수집, 인사 관련 키워드 {len(keywords)}개 검색, 원본 {raw_rows:,}행)으로 계산했다. "
         f"중복을 뺀 회차 {len(r):,}건, 과정 {courses.shape[0]:,}개, 기관 {result['source']['institutions']}곳이다. "
         "키워드 검색 결과라 사업주훈련 전체가 아니라 '인사 관련 키워드에 걸린 과정'의 분포다.",
         "",
