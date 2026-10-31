@@ -1,0 +1,186 @@
+{
+  "source": {
+    "file": "data/hr/raw/work24_2026/employer_2026_list_raw.json",
+    "raw_rows": 18693,
+    "sessions": 13632,
+    "courses": 741,
+    "institutions": 108,
+    "keywords": [
+      "교육훈련",
+      "근로기준법",
+      "급여",
+      "노무",
+      "문서",
+      "비서",
+      "사무",
+      "인사",
+      "인사관리",
+      "인사평가",
+      "자산관리",
+      "조직관리",
+      "채용",
+      "총무",
+      "총무관리"
+    ],
+    "period": [
+      "2026-01-01",
+      "2026-12-31"
+    ]
+  },
+  "by_ncs": [
+    {
+      "ncs_name": "기타",
+      "sessions": 2302,
+      "courses": 355,
+      "institutions": 71,
+      "fee_median": 65340.0,
+      "course_pct": 47.9,
+      "sessions_per_course": 6.5
+    },
+    {
+      "ncs_name": "인사",
+      "sessions": 2025,
+      "courses": 118,
+      "institutions": 23,
+      "fee_median": 50490.0,
+      "course_pct": 15.9,
+      "sessions_per_course": 17.2
+    },
+    {
+      "ncs_name": "경영기획",
+      "sessions": 4583,
+      "courses": 71,
+      "institutions": 19,
+      "fee_median": 26730.0,
+      "course_pct": 9.6,
+      "sessions_per_course": 64.5
+    },
+    {
+      "ncs_name": "사무행정",
+      "sessions": 2374,
+      "courses": 63,
+      "institutions": 25,
+      "fee_median": 89100.0,
+      "course_pct": 8.5,
+      "sessions_per_course": 37.7
+    },
+    {
+      "ncs_name": "총무",
+      "sessions": 2076,
+      "courses": 57,
+      "institutions": 20,
+      "fee_median": 50490.0,
+      "course_pct": 7.7,
+      "sessions_per_course": 36.4
+    },
+    {
+      "ncs_name": "노무관리",
+      "sessions": 211,
+      "courses": 50,
+      "institutions": 13,
+      "fee_median": 120000.0,
+      "course_pct": 6.7,
+      "sessions_per_course": 4.2
+    },
+    {
+      "ncs_name": "인사·조직 (세분류 없이 소분류 코드만)",
+      "sessions": 61,
+      "courses": 27,
+      "institutions": 5,
+      "fee_median": 700000.0,
+      "course_pct": 3.6,
+      "sessions_per_course": 2.3
+    }
+  ],
+  "other_ncs_top": {
+    "200107": 160,
+    "040301": 35,
+    "020302": 31,
+    "110101": 24,
+    "020402": 15
+  },
+  "hr_scope": {
+    "courses": 195,
+    "sessions": 2297,
+    "institutions": 31,
+    "labor_courses": 50,
+    "top5_institutions": [
+      {
+        "name": "HR에듀센터 인사드림",
+        "courses": 34
+      },
+      {
+        "name": "한국생산성본부",
+        "courses": 26
+      },
+      {
+        "name": "중앙경제HR교육원",
+        "courses": 22
+      },
+      {
+        "name": "한국표준협회 캠퍼스 강남",
+        "courses": 16
+      },
+      {
+        "name": "(주)휴넷",
+        "courses": 14
+      }
+    ],
+    "top5_course_pct": 57.4,
+    "fee_median": 50490.0,
+    "fee_p90": 300000.0,
+    "capacity_500plus_pct": 83.3
+  },
+  "sessions_per_course": {
+    "median": 1.0,
+    "mean": 18.4,
+    "ge12_pct": 12.8,
+    "max": 322
+  },
+  "hr_monthly_sessions": {
+    "2026-01": 208,
+    "2026-02": 191,
+    "2026-03": 267,
+    "2026-04": 208,
+    "2026-05": 214,
+    "2026-06": 219,
+    "2026-07": 223,
+    "2026-08": 206,
+    "2026-09": 202,
+    "2026-10": 226,
+    "2026-11": 101,
+    "2026-12": 32
+  },
+  "satisfaction_by_ncs": [
+    {
+      "ncs_name": "인사",
+      "count": 379,
+      "median": 92.9,
+      "mean": 90.1
+    },
+    {
+      "ncs_name": "총무",
+      "count": 246,
+      "median": 96.7,
+      "mean": 94.5
+    },
+    {
+      "ncs_name": "기타",
+      "count": 144,
+      "median": 93.2,
+      "mean": 90.0
+    },
+    {
+      "ncs_name": "사무행정",
+      "count": 10,
+      "median": 94.2,
+      "mean": 93.9
+    },
+    {
+      "ncs_name": "노무관리",
+      "count": 9,
+      "median": 92.9,
+      "mean": 92.2
+    }
+  ]
+}

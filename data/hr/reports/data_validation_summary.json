@@ -1,0 +1,83 @@
+{
+  "checked": "2026-10-31",
+  "checks": {
+    "추천 대상 과정": 7796,
+    "과정 ID 중복": 0,
+    "링크 빈칸": 0,
+    "Base64 노이즈 남음": 0,
+    "추천 결과에 제외 과정": 0,
+    "추천 결과에 카탈로그 없는 과정": 0,
+    "가격 0원인데 '정액 유료'": 0,
+    "시작일 > 종료일": 0,
+    "교육 시간 0 이하": 0,
+    "가격 500만 원 초과 (해외 연수·임원 과정, 오류 아님)": 6,
+    "설명 없이 제목만": 1647,
+    "일정이 지난 과정": 682,
+    "일정이 있는 과정": 3974
+  },
+  "duplicates": {
+    "duplicate_rows": 2210,
+    "distinct_titles": 5413,
+    "providers": [
+      {
+        "provider": "GSEEK",
+        "rows": 1768,
+        "titles": 1647,
+        "rows_per_title": 1.07,
+        "row_share": 22.7,
+        "title_share": 30.4,
+        "top3_share": 11.8
+      },
+      {
+        "provider": "휴넷",
+        "rows": 1715,
+        "titles": 1590,
+        "rows_per_title": 1.08,
+        "row_share": 22.0,
+        "title_share": 29.4,
+        "top3_share": 17.8
+      },
+      {
+        "provider": "한국능률협회(KMA)",
+        "rows": 1648,
+        "titles": 440,
+        "rows_per_title": 3.75,
+        "row_share": 21.1,
+        "title_share": 8.1,
+        "top3_share": 16.7
+      },
+      {
+        "provider": "한국생산성본부(KPC)",
+        "rows": 1262,
+        "titles": 766,
+        "rows_per_title": 1.65,
+        "row_share": 16.2,
+        "title_share": 14.2,
+        "top3_share": 30.3
+      },
+      {
+        "provider": "멀티캠퍼스",
+        "rows": 960,
+        "titles": 793,
+        "rows_per_title": 1.21,
+        "row_share": 12.3,
+        "title_share": 14.6,
+        "top3_share": 3.9
+      },
+      {
+        "provider": "한국직업방송(KFO)",
+        "rows": 134,
+        "titles": 49,
+        "rows_per_title": 2.73,
+        "row_share": 1.7,
+        "title_share": 0.9,
+        "top3_share": 0.0
+      }
+    ],
+    "top3_multi_row_pct": 39.2,
+    "catalog_multi_row_title_pct": 19.5,
+    "same_title_in_one_slot": 0,
+    "top3_distinct_titles": 248,
+    "top3_slots": 735
+  }
+}
