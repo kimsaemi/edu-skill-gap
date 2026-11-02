@@ -24,6 +24,7 @@ sys.path.insert(0, str(ROOT))
 PROCESSED = ROOT / "data" / "hr" / "processed"
 RECO = ROOT / "data" / "hr" / "output" / "recommendation"
 OUT = ROOT / "presentation" / "src" / "data.json"
+HUMAN_EVAL = ROOT / "data" / "hr" / "reports" / "precision_eval_metrics.json"
 
 FIELD_NAMES = {
     "HR": "인사·조직·직무 일반", "DATA_AI": "데이터·AI 활용", "IT_DEV": "IT·개발",
@@ -463,6 +464,8 @@ def main():
         "providers": top_prov, "text_quality": text_quality, "edu_type": edu_type, "price": price,
         "fields": field_dist, "difficulty": difficulty, "core_skills": core,
         "recommend": recommend, "satisfaction": satisfaction, "search": search,
+        # 사람 평가 Precision@3 (scripts/apply_precision_eval_results.py). 없으면 '측정 예정'으로 표시
+        "human_eval": (json.loads(HUMAN_EVAL.read_text(encoding="utf-8")) if HUMAN_EVAL.exists() else None),
     }
     OUT.parent.mkdir(parents=True, exist_ok=True)
     OUT.write_text(json.dumps(data, ensure_ascii=False, separators=(",", ":")), encoding="utf-8")
