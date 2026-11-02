@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """
 기존 90개 업무 대상 2단계 Cross-Encoder 리랭킹 추천 생성 스크립트
-- 입력: data/hr/output/recommendation/task_course_recommendations_90.csv (1,331행)
+- 입력: data/hr/output/recommendation/task_course_recommendations_90.csv
 - 모델: Dongjin-kr/ko-reranker (Cross-Encoder)
 - 출력: data/hr/output/recommendation/task_course_recommendations_90_reranked.csv
 """
@@ -25,12 +25,21 @@ from src.customer import career_platform as cp
 REC_90_PATH = ROOT / "data" / "hr" / "output" / "recommendation" / "task_course_recommendations_90.csv"
 OUT_90_RERANKED_PATH = ROOT / "data" / "hr" / "output" / "recommendation" / "task_course_recommendations_90_reranked.csv"
 CATALOG_PATH = ROOT / "data" / "hr" / "processed" / "hr_task_catalog_90.json"
+EXCL_PATH = ROOT / "data" / "hr" / "processed" / "off_topic_exclusions.csv"
 
 
 def main():
     print("=== Building Reranked Recommendations for Legacy 90 Tasks ===")
     df_rec = pd.read_csv(REC_90_PATH)
     print(f"Loaded {len(df_rec)} candidate rows from {REC_90_PATH.name}")
+
+    # Exclude any off-topic courses
+    if EXCL_PATH.exists():
+        excl_df = pd.read_csv(EXCL_PATH, dtype=str)
+        excl_uids = set(excl_df["course_uid"])
+        before_cnt = len(df_rec)
+        df_rec = df_rec[~df_rec["course_uid"].astype(str).isin(excl_uids)].copy()
+        print(f"Filtered out {before_cnt - len(df_rec)} off-topic courses. Remaining: {len(df_rec)} rows")
 
     # Load task details
     tasks_meta = {}
@@ -89,18 +98,19 @@ def main():
     ce_score = df_rec["reranker_score"]
     df_rec["reranked_final_score"] = np.round(alpha * ce_score + (1.0 - alpha) * stage1_score, 1)
 
-    # Filter out noise: reranker_score < 10.0 (or prob < 0.10)
-    # However, ensure at least 1 course remains per (task_id, level)
+    # Keep Top 3 per (task_id, level)
     out_rows = []
     groups = df_rec.groupby(["task_id", "level"], sort=False)
     
     dropped_noise_count = 0
     for (t_id, lvl), grp in groups:
-        # Filter relevant
-        valid = grp[grp["reranker_score"] >= 10.0].sort_values(by="reranked_final_score", ascending=False)
-        if valid.empty:
-            # Keep top 1
-            valid = grp.sort_values(by="reranked_final_score", ascending=False).head(1)
+        sorted_grp = grp.sort_values(by="reranked_final_score", ascending=False)
+        # Prioritize courses with reranker_score >= 0.1, up to Top 3
+        valid = sorted_grp[sorted_grp["reranker_score"] >= 0.1]
+        if len(valid) < 3:
+            valid = sorted_grp.head(3)
+        else:
+            valid = valid.head(3)
         
         dropped_noise_count += len(grp) - len(valid)
         valid = valid.copy()
