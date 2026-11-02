@@ -1,21 +1,21 @@
 {
   "checked": "2026-11-02",
-  "status": "중간",
-  "entered": 30,
+  "status": "완료",
+  "entered": 60,
   "assigned": 60,
   "items_total": 30,
-  "items_rated": 27,
+  "items_rated": 30,
   "precision_at_3": {
-    "n": 30,
-    "strict": 43.3,
-    "lenient": 83.3
+    "n": 55,
+    "strict": 52.7,
+    "lenient": 87.3
   },
   "target_pct": 70.0,
   "meets_target": false,
   "agreement": {
-    "pairs": 3,
-    "agree": 2,
-    "pct": 66.7
+    "pairs": 30,
+    "agree": 17,
+    "pct": 56.7
   },
   "raters": [
     {
@@ -30,20 +30,20 @@
     {
       "rater": "이",
       "assigned": 15,
-      "entered": 0,
-      "적합": 0,
-      "부분 적합": 0,
+      "entered": 15,
+      "적합": 8,
+      "부분 적합": 4,
       "부적합": 0,
-      "판단 불가": 0
+      "판단 불가": 3
     },
     {
       "rater": "박",
       "assigned": 15,
-      "entered": 0,
-      "적합": 0,
-      "부분 적합": 0,
-      "부적합": 0,
-      "판단 불가": 0
+      "entered": 15,
+      "적합": 8,
+      "부분 적합": 3,
+      "부적합": 2,
+      "판단 불가": 2
     },
     {
       "rater": "홍",
@@ -57,19 +57,19 @@
   ],
   "by_rank": {
     "1": {
-      "n": 10,
-      "strict": 60.0,
+      "n": 18,
+      "strict": 77.8,
       "lenient": 100.0
     },
     "2": {
-      "n": 10,
-      "strict": 40.0,
-      "lenient": 80.0
+      "n": 19,
+      "strict": 47.4,
+      "lenient": 84.2
     },
     "3": {
-      "n": 10,
-      "strict": 30.0,
-      "lenient": 70.0
+      "n": 18,
+      "strict": 33.3,
+      "lenient": 77.8
     }
   },
   "by_task": [
@@ -116,6 +116,15 @@
       "items": 3,
       "fit": 2,
       "partial": 1,
+      "unfit": 0
+    },
+    {
+      "domain": "보상·급여·복리후생",
+      "task": "외부 시장 임금 벤치마킹(Salary Survey) 분석 및 임금 경쟁력(Compa-Ratio) 진단",
+      "level": "관리자·심화",
+      "items": 3,
+      "fit": 1,
+      "partial": 2,
       "unfit": 0
     },
     {
