@@ -620,6 +620,27 @@ ol.three li::marker { font-family: var(--pxb); color: var(--teal); }
         <div class="chart" id="ch-fields"></div>
       </div>
     </figure>
+    <figure class="fig" id="map-fig">
+      <div class="hud">
+        <div class="hud-head"><span class="hud-title">대시보드에 연결된 분야별 강좌 수</span><span class="hud-sub">최종 대시보드 기준, 1칸 = 10개</span></div>
+        <div class="chart" id="ch-map-domain"></div>
+      </div>
+      <figcaption>같은 대시보드 안에서도 보상·노무 분야는 250개 이상, 온보딩·조직설계·인사전략은 60개 안팎입니다.</figcaption>
+    </figure>
+    <figure class="fig">
+      <div class="hud">
+        <div class="hud-head"><span class="hud-title">추천 강좌가 가장 적은 업무 10개</span><span class="hud-sub">업무마다 입문·실무·심화에 추천된 서로 다른 강좌 수, 1칸 = 1개</span></div>
+        <div class="chart" id="ch-map-thin"></div>
+      </div>
+      <figcaption>업무 <span id="map-total"></span>개 중 <b id="map-thin"></b>개는 추천 강좌가 <span id="map-thinmax"></span>개 이하입니다(가장 많은 업무는 <span id="map-max"></span>개). 직무기술서 관련 업무가 가장 얇습니다.</figcaption>
+    </figure>
+    <figure class="fig">
+      <div class="hud">
+        <div class="hud-head"><span class="hud-title">강좌가 하나도 없는 분야 × 카테고리</span><span class="hud-sub">카테고리: 엑셀·문서, AI·데이터, 회계·재무, 소통·보고, 리더십</span></div>
+        <ul class="results" id="map-gaps"></ul>
+      </div>
+      <figcaption>인사 직접 관련 강좌 외에, 업무를 보완하는 공통 역량(소통·리더십 등) 강좌가 비어 있는 곳입니다. 카테고리는 제목 규칙으로 붙인 값이라 오분류가 있을 수 있습니다.</figcaption>
+    </figure>
   </div>
   <div class="wrap">
     <h3>H3. 평점은 추천 근거가 될 수 없습니다</h3>
@@ -1100,6 +1121,17 @@ const D = /*__DATA__*/;
     $('#lg-quality').innerHTML = D.text_quality.map((d, i) => `<span><i style="background:var(${qColors[i]})"></i>${d.label} ${fmt(d.n)}</span>`).join('');
 
     blockBars($('#ch-fields'), D.fields, { unit: 50, color: (i, d) => d.key === 'HR' ? css('--yel') : d.key === 'GA' ? css('--teal-lt') : css('--hud-dim') });
+    if (D.dashboard_mapping) {
+      const MP = D.dashboard_mapping;
+      const lowMap = MP.domains.slice(0, 3).map(d => d.label);
+      blockBars($('#ch-map-domain'), MP.domains, { unit: 10, labelW: 150, color: (i, d) => lowMap.includes(d.label) ? css('--rust') : css('--teal-lt') });
+      blockBars($('#ch-map-thin'), MP.thinnest.map(t => ({ label: t.label.length > 26 ? t.label.slice(0, 25) + '…' : t.label, n: t.n })), { unit: 1, max: MP.task_max, labelW: 300, fmt: d => d.n + '개', color: () => css('--rust') });
+      $('#map-total').textContent = MP.tasks_total;
+      $('#map-thin').textContent = MP.thin_count;
+      $('#map-thinmax').textContent = MP.thin_max;
+      $('#map-max').textContent = MP.task_max;
+      $('#map-gaps').innerHTML = MP.empty_cells.map(g => `<li><b>${g.domain}</b> · ${g.category} 강좌 0개</li>`).join('');
+    }
 
     const gapColors = ['--yel', '--teal', '--blue'];
     strips($('#ch-gap'), [{ label: '과정 난이도', parts: D.difficulty.supply.map((d, i) => ({ pct: d.pct, color: gapColors[i] })) }]);
