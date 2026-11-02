@@ -382,13 +382,13 @@ ol.three li::marker { font-family: var(--pxb); color: var(--teal); }
         <tbody>
           <tr><td>업무마다 추천을 낸다</td><td>과업 90개 × 수준 3개 중 추천 3개를 찾은 조합 비율</td><td>95% 이상</td><td class="num"><b id="g-cov"></b>%</td></tr>
           <tr><td>업무에 맞는 교육을 낸다</td><td>1위 추천의 의미 유사도 중앙값 (0~100)</td><td>65점 이상</td><td class="num"><b id="g-sem"></b>점</td></tr>
-          <tr><td>사람이 봐도 맞다</td><td>사람 평가 Precision@3 (적합 판정 비율)</td><td>70% 이상</td><td><span class="pill pend">측정 예정</span></td></tr>
+          <tr><td>사람이 봐도 맞다</td><td>사람 평가 Precision@3 (적합 판정 비율)</td><td>70% 이상</td><td id="g-p3"><span class="pill pend">측정 예정</span></td></tr>
           <tr><td>믿을 수 있는 근거만 쓴다</td><td>추천에 쓴 합성 후기·평점 수</td><td>0건</td><td class="num"><b>0</b>건</td></tr>
           <tr><td>지금 들을 수 있는 교육을 낸다</td><td>고용24 과정 중 운영 중·개강 예정 비율</td><td>100%</td><td class="num"><b id="g-w24"></b>%</td></tr>
         </tbody>
       </table>
     </div>
-    <p class="note">기준값은 팀이 정한 내부 목표입니다. 사람 평가는 평가표 30건을 준비했고 아직 작성 전입니다.</p>
+    <p class="note">기준값은 팀이 정한 내부 목표입니다. <span id="g-p3-note">사람 평가는 평가표 30건을 준비했고 아직 작성 전입니다.</span></p>
   </div>
 </section>
 
@@ -883,6 +883,14 @@ const D = /*__DATA__*/;
   const dom = name => E.domain_supply.find(d => d.label.startsWith(name)) || { n: 0, mid_plus: 0 };
   const covPct = M.coverage_pct;
   T('#k-cov', covPct); T('#g-cov', covPct); T('#m-cov', covPct); T('#c-cov', covPct);
+  // 사람 평가 Precision@3: 결과 파일이 있으면 값, 없으면 '측정 예정' 그대로
+  if (D.human_eval && D.human_eval.precision_at_3 && D.human_eval.precision_at_3.strict != null) {
+    const H = D.human_eval, P = H.precision_at_3;
+    $('#g-p3').className = 'num';
+    $('#g-p3').innerHTML = `<b>${P.strict}</b>%` + (H.status === '중간' ? ' <span class="pill pend">중간</span>' : '');
+    T('#g-p3-note', `사람 평가는 추천 30개 항목을 두 사람씩 판정하며, 지금 ${H.assigned}건 중 ${H.entered}건이 입력된 ${H.status} 결과입니다. `
+      + `적합만 세면 ${P.strict}%, 부분 적합까지 세면 ${P.lenient}%이고, 순위 1위 추천은 적합 ${H.by_rank['1'].strict}%입니다.`);
+  }
   T('#g-sem', R.top1_sem_median); T('#m-sem', R.top1_sem_median);
   T('#g-w24', M.w24_open_pct); T('#m-w24', M.w24_open_pct);
   document.querySelectorAll('.h2-ratio').forEach(n => { n.textContent = Math.round(dom('인재육성').n / Math.max(1, dom('노사관계').n)); });
