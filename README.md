@@ -47,6 +47,11 @@ python scripts/build_presentation.py
 `data/hr/output/recommendation/domain_mapping_review_results.csv`·`domain_mapping_cross_review_results.csv`에 저장한 뒤
 `python scripts/apply_domain_review_results.py` → `python scripts/build_off_topic_exclusions.py` → 위 2)의 추천 단계를 실행한다.
 
+사람 평가(추천 Precision@3)를 반영하려면: 구글 시트 '추천 평가' 탭의 판정을
+`data/hr/output/recommendation/precision_eval_results.csv`의 `judgment` 열에 옮긴 뒤
+`python scripts/apply_precision_eval_results.py` → `python scripts/build_presentation_data.py` → `python scripts/build_presentation.py`를 실행한다.
+결과: `data/hr/reports/precision_eval_report.md` (평가가 덜 끝났으면 '중간'으로 표시)
+
 ### 확인용 테스트
 
 ```bash
