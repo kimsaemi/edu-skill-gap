@@ -103,3 +103,13 @@ class KoreanCrossEncoderReranker:
 
         return df_sorted
 
+
+_SHARED_RERANKER: Optional[KoreanCrossEncoderReranker] = None
+
+
+def get_shared_reranker() -> KoreanCrossEncoderReranker:
+    global _SHARED_RERANKER
+    if _SHARED_RERANKER is None:
+        _SHARED_RERANKER = KoreanCrossEncoderReranker()
+    return _SHARED_RERANKER
+
