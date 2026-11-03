@@ -39,8 +39,9 @@ python scripts/build_off_topic_exclusions.py
 python scripts/build_hr_task_catalog.py --reuse-catalog
 #    모델을 못 받는 환경에서 제외 목록만 바꿨다면: python scripts/apply_exclusions_to_task_recommendations.py
 # 3) 발표 자료 (데이터 계산에 모델 필요)
-python scripts/build_presentation_data.py
+python scripts/build_presentation_data.py   # 대시보드 매핑 섹션(dashboard_mapping)도 함께 계산
 python scripts/build_presentation.py
+python scripts/test_dashboard_mapping.py    # 매핑 섹션 회귀 테스트 (새 대시보드 html을 넣은 뒤에도 실행)
 ```
 
 팀원 분야 검수 결과를 바꿨다면: 구글 시트 '분야–과정 검수 시트'의 값을
