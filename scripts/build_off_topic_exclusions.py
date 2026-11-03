@@ -15,6 +15,10 @@
   - 다른 직무의 전문 과정(재무·회계·예산, 생산·구매·품질, 영업·홍보, IT 개발, 무역·외국어,
     프로젝트 관리)과 공식 NCS 코드가 없는 기관의 총무 과정. 제목에 인사 실무 단어가 있으면 남긴다.
     엑셀·보고서·생성형 AI 활용 같은 공통 업무 과정은 '사무 일반'으로 남긴다.
+2026-11-02~03 사람 평가(Precision@3) 부적합 판정 반영
+  - SAP S/4HANA(원가·물류·시스템), 콜센터 상담품질(QA), 보육 특화 노무 과정
+  - 전산회계·전산세무 자격증반 중 인사가 자격증 이름('ERP인사 2급', '(인사)')에만 붙은 과정.
+    급여계산·4대보험·연말정산 등 급여 실무가 함께 있는 과정은 남긴다.
   분야 기준과 NCS 대응표: data/hr/reference/hr_domain_ncs_crosswalk.csv, 검수 결과: data/hr/reports/domain_review_report.md
 
 - 입력: data/hr/processed/education_courses_search_cleaned.parquet (8,645건)
@@ -58,7 +62,6 @@ TITLE_RULES = [
     ("ERP 원가·물류·시스템 (인사 업무 아님)", r"S/4HANA|SAP|BC 아카데미|Software Logistics|Cost Centers|Internal Orders"),
     ("콜센터·상담품질 관리 (인사 온보딩 아님)", r"QA 전문가|상담품질 평가부터 코칭|고객센터 QA|콜센터"),
     ("보육 특화 노무 (일반 기업 노무 아님)", r"보육과 노무사이"),
-    ("전산회계·세무 자격증 학원반 (인사 전문 교육 아님)", r"전산회계|전산세무|다올컴퓨터아카데미"),
 ]
 # 다른 직무의 전문 과정. 제목에 인사 실무 단어(NON_HR_KEEP)가 있으면 남긴다.
 NON_HR_RULES = [
@@ -82,6 +85,11 @@ CERT_RULE = ("자격증 취득 과정 (인사 직무 자격 아님)",
              r"|전산세무|전산회계|재경관리사|정보관리기술사|정보처리기사|OPIc|토익|TOEIC|ADsP|SQLD"
              r"|산업기사|기능사|기술사|기사 ?\(?필기|기사 ?실기")  # 국가기술자격 시험 대비 (사무자동화산업기사 등)
 CERT_HR_KEEP = r"HR|채용|면접|인사|노무|HRD|교육|인사평가|성과평가|급여|노동|직업상담|코칭"
+# 전산회계·전산세무 자격증반 (2026-11-03, 사람 평가 3번 '전산회계1급+전산세무2급+ERP인사2급' 부적합 반영)
+# 'ERP인사 2급', '(인사)'처럼 인사가 자격증 이름에만 붙은 과정은 뺀다.
+# 급여계산·4대보험·연말정산 같은 급여 실무가 함께 있는 과정은 급여 담당자용이라 남긴다.
+ACCT_CERT_RULE = ("전산회계·세무 자격증반 (인사 실무 없이 자격증만)", r"전산회계|전산세무")
+ACCT_HR_PRACTICE = r"급여|임금|4대보험|연말정산|원천징수|퇴직|인사경리|인사실무|인사관리|인사회계|복리후생"
 WORK24_DETAILS = ROOT / "data" / "hr" / "processed" / "work24_course_details.csv"
 REVIEW_RESULTS = ROOT / "data" / "hr" / "output" / "recommendation" / "domain_mapping_review_results.csv"
 NCS_GA_PREFIX = "020201"  # 총무·인사 > 총무
@@ -133,6 +141,8 @@ def main() -> int:
                 if re.search(pat, t) and not re.search(KEEP_TITLE, t):
                     reason = r
                     break
+            if reason is None and re.search(ACCT_CERT_RULE[1], t) and not re.search(ACCT_HR_PRACTICE, t):
+                reason = ACCT_CERT_RULE[0]
             if reason is None and re.search(CERT_RULE[1], t) and not re.search(CERT_HR_KEEP, t):
                 reason = CERT_RULE[0]
             if reason is None and not re.search(NON_HR_KEEP, t):
