@@ -60,6 +60,19 @@ def previous_data():
     return _PREV
 
 
+def dashboard_mapping_section():
+    """발표 '대시보드 업무·강좌 매핑' 섹션 값 (scripts/build_dashboard_mapping_stats.py와 같은 계산).
+
+    data.json을 새로 쓸 때 이 키를 빠뜨리면 발표 화면에서 섹션이 오류 없이 사라진다. 그래서 여기서 함께 계산하고,
+    대시보드 파일(hr_career_platform_v2_*.html)이 없으면 이전 data.json 값을 그대로 쓴다.
+    """
+    sys.path.insert(0, str(ROOT / "scripts"))
+    import build_dashboard_mapping_stats as dms
+    if not list(ROOT.glob("hr_career_platform_v2_*.html")):
+        return previous_data().get("dashboard_mapping") if OUT.exists() else None
+    return dms.dashboard_mapping()
+
+
 def load_model():
     try:
         from sentence_transformers import SentenceTransformer
@@ -466,6 +479,8 @@ def main():
         "recommend": recommend, "satisfaction": satisfaction, "search": search,
         # 사람 평가 Precision@3 (scripts/apply_precision_eval_results.py). 없으면 '측정 예정'으로 표시
         "human_eval": (json.loads(HUMAN_EVAL.read_text(encoding="utf-8")) if HUMAN_EVAL.exists() else None),
+        # 대시보드 업무·강좌 매핑 (분야별 강좌 수, 부족 업무, 빈 카테고리)
+        "dashboard_mapping": dashboard_mapping_section(),
     }
     OUT.parent.mkdir(parents=True, exist_ok=True)
     OUT.write_text(json.dumps(data, ensure_ascii=False, separators=(",", ":")), encoding="utf-8")
