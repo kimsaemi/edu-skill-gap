@@ -1,0 +1,169 @@
+{
+  "round": "2차 (SAP·QA·전산회계 제외 후 같은 업무 10개)",
+  "checked": "2026-11-04",
+  "status": "완료",
+  "entered": 60,
+  "assigned": 60,
+  "items_total": 30,
+  "items_rated": 28,
+  "precision_at_3": {
+    "n": 52,
+    "strict": 67.3,
+    "lenient": 100.0
+  },
+  "target_pct": 70.0,
+  "meets_target": false,
+  "agreement": {
+    "pairs": 30,
+    "agree": 17,
+    "pct": 56.7
+  },
+  "raters": [
+    {
+      "rater": "김",
+      "assigned": 15,
+      "entered": 15,
+      "적합": 10,
+      "부분 적합": 4,
+      "부적합": 0,
+      "판단 불가": 1
+    },
+    {
+      "rater": "이",
+      "assigned": 15,
+      "entered": 15,
+      "적합": 11,
+      "부분 적합": 2,
+      "부적합": 0,
+      "판단 불가": 2
+    },
+    {
+      "rater": "박",
+      "assigned": 15,
+      "entered": 15,
+      "적합": 8,
+      "부분 적합": 4,
+      "부적합": 0,
+      "판단 불가": 3
+    },
+    {
+      "rater": "홍",
+      "assigned": 15,
+      "entered": 15,
+      "적합": 6,
+      "부분 적합": 7,
+      "부적합": 0,
+      "판단 불가": 2
+    }
+  ],
+  "by_rank": {
+    "1": {
+      "n": 17,
+      "strict": 82.4,
+      "lenient": 100.0
+    },
+    "2": {
+      "n": 18,
+      "strict": 61.1,
+      "lenient": 100.0
+    },
+    "3": {
+      "n": 17,
+      "strict": 58.8,
+      "lenient": 100.0
+    }
+  },
+  "by_task": [
+    {
+      "domain": "인사전략·인력기획",
+      "task": "연간 인력 수급 계획(Headcount Plan) 및 채용 T/O 배분",
+      "level": "입문",
+      "items": 3,
+      "fit": 3,
+      "partial": 0,
+      "unfit": 0
+    },
+    {
+      "domain": "조직설계·직무분석",
+      "task": "부서 간 업무 중복(Silo) 진단 및 RACI 책임 매트릭스 정립",
+      "level": "실무",
+      "items": 2,
+      "fit": 0,
+      "partial": 2,
+      "unfit": 0
+    },
+    {
+      "domain": "인재채용",
+      "task": "채용 채널별 비용 대비 효율(Cost-per-Hire) 분석 및 대행사 평가",
+      "level": "관리자·심화",
+      "items": 3,
+      "fit": 1,
+      "partial": 2,
+      "unfit": 0
+    },
+    {
+      "domain": "온보딩·직원경험",
+      "task": "입사 1개월/3개월 차 체크인 미팅(Check-in 1:1) 및 정착 고충 상담",
+      "level": "입문",
+      "items": 2,
+      "fit": 0,
+      "partial": 2,
+      "unfit": 0
+    },
+    {
+      "domain": "성과평가·목표관리",
+      "task": "평가 등급 상대배분(Forced Distribution) 및 캘리브레이션(Calibration) 세션 설계",
+      "level": "실무",
+      "items": 3,
+      "fit": 2,
+      "partial": 1,
+      "unfit": 0
+    },
+    {
+      "domain": "보상·급여·복리후생",
+      "task": "외부 시장 임금 벤치마킹(Salary Survey) 분석 및 임금 경쟁력(Compa-Ratio) 진단",
+      "level": "관리자·심화",
+      "items": 3,
+      "fit": 1,
+      "partial": 2,
+      "unfit": 0
+    },
+    {
+      "domain": "인재육성·사내교육",
+      "task": "교육 전후 현업 업무 적용도(현업 전이도) 추적 및 행동 변화 모니터링",
+      "level": "입문",
+      "items": 3,
+      "fit": 1,
+      "partial": 2,
+      "unfit": 0
+    },
+    {
+      "domain": "조직문화·사내소통",
+      "task": "타운홀 미팅(All-hands Meeting) 및 온·오프라인 전사 소통 채널 기획",
+      "level": "실무",
+      "items": 3,
+      "fit": 0,
+      "partial": 3,
+      "unfit": 0
+    },
+    {
+      "domain": "노사관계·노무",
+      "task": "주 52시간 근로시간 준수 모니터링 및 초과근로 승인 시스템 운영",
+      "level": "관리자·심화",
+      "items": 3,
+      "fit": 3,
+      "partial": 0,
+      "unfit": 0
+    },
+    {
+      "domain": "노사관계·노무",
+      "task": "유연근무제(선택근로/탄력근로/재택근무) 규정 및 근로시간 관리 가이드 설계",
+      "level": "입문",
+      "items": 3,
+      "fit": 3,
+      "partial": 0,
+      "unfit": 0
+    }
+  ],
+  "unfit_items": []
+}

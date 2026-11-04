@@ -1,0 +1,182 @@
+{
+  "round": "홀드아웃 (처음 보는 업무 10개)",
+  "checked": "2026-11-04",
+  "status": "완료",
+  "entered": 60,
+  "assigned": 60,
+  "items_total": 30,
+  "items_rated": 28,
+  "precision_at_3": {
+    "n": 55,
+    "strict": 74.5,
+    "lenient": 94.5
+  },
+  "target_pct": 70.0,
+  "meets_target": true,
+  "agreement": {
+    "pairs": 30,
+    "agree": 22,
+    "pct": 73.3
+  },
+  "raters": [
+    {
+      "rater": "김",
+      "assigned": 15,
+      "entered": 15,
+      "적합": 10,
+      "부분 적합": 1,
+      "부적합": 2,
+      "판단 불가": 2
+    },
+    {
+      "rater": "이",
+      "assigned": 15,
+      "entered": 15,
+      "적합": 11,
+      "부분 적합": 3,
+      "부적합": 1,
+      "판단 불가": 0
+    },
+    {
+      "rater": "박",
+      "assigned": 15,
+      "entered": 15,
+      "적합": 9,
+      "부분 적합": 3,
+      "부적합": 0,
+      "판단 불가": 3
+    },
+    {
+      "rater": "홍",
+      "assigned": 15,
+      "entered": 15,
+      "적합": 11,
+      "부분 적합": 4,
+      "부적합": 0,
+      "판단 불가": 0
+    }
+  ],
+  "by_rank": {
+    "1": {
+      "n": 17,
+      "strict": 82.4,
+      "lenient": 100.0
+    },
+    "2": {
+      "n": 18,
+      "strict": 66.7,
+      "lenient": 88.9
+    },
+    "3": {
+      "n": 20,
+      "strict": 75.0,
+      "lenient": 95.0
+    }
+  },
+  "by_task": [
+    {
+      "domain": "인사전략·인력기획",
+      "task": "전사 총인건비 예산 편성 및 한도(Cap) 설정",
+      "level": "실무",
+      "items": 3,
+      "fit": 1,
+      "partial": 1,
+      "unfit": 1
+    },
+    {
+      "domain": "조직설계·직무분석",
+      "task": "전사 직무분류체계(Job Family/Sub-family) 수립",
+      "level": "실무",
+      "items": 3,
+      "fit": 0,
+      "partial": 3,
+      "unfit": 0
+    },
+    {
+      "domain": "인재채용",
+      "task": "대외 채용 브랜딩(Employer Branding) 및 커리어 사이트 기획",
+      "level": "입문",
+      "items": 3,
+      "fit": 1,
+      "partial": 1,
+      "unfit": 1
+    },
+    {
+      "domain": "온보딩·직원경험",
+      "task": "직무 맞춤형 OJT(On-the-Job Training) 가이드 및 사수 멘토링 제도 설계",
+      "level": "입문",
+      "items": 3,
+      "fit": 2,
+      "partial": 1,
+      "unfit": 0
+    },
+    {
+      "domain": "성과평가·목표관리",
+      "task": "전사 연간 성과관리 제도(MBO/OKR) 및 KPI 평가지표 풀(Pool) 수립",
+      "level": "관리자·심화",
+      "items": 3,
+      "fit": 3,
+      "partial": 0,
+      "unfit": 0
+    },
+    {
+      "domain": "보상·급여·복리후생",
+      "task": "경영성과급(PS/PI) 및 단기 인센티브(STI) 산정 공식 모델링",
+      "level": "실무",
+      "items": 3,
+      "fit": 2,
+      "partial": 1,
+      "unfit": 0
+    },
+    {
+      "domain": "인재육성·사내교육",
+      "task": "직무별 전문 역량 향상 아카데미(Job Academy) 및 KSA 교육 코스 개발",
+      "level": "실무",
+      "items": 3,
+      "fit": 3,
+      "partial": 0,
+      "unfit": 0
+    },
+    {
+      "domain": "조직문화·사내소통",
+      "task": "정기 타운홀 미팅 및 경영진-직원 간 열린 대화 세션 운영",
+      "level": "관리자·심화",
+      "items": 3,
+      "fit": 1,
+      "partial": 2,
+      "unfit": 0
+    },
+    {
+      "domain": "노사관계·노무",
+      "task": "사내 취업규칙 및 인사 제규정 법적 적합성 검토 및 제·개정",
+      "level": "입문",
+      "items": 1,
+      "fit": 1,
+      "partial": 0,
+      "unfit": 0
+    },
+    {
+      "domain": "보상·급여·복리후생",
+      "task": "매월 임직원 급여·상여 계산, 4대보험 공제 및 원천징수 급여 대장 마감",
+      "level": "실무",
+      "items": 3,
+      "fit": 3,
+      "partial": 0,
+      "unfit": 0
+    }
+  ],
+  "unfit_items": [
+    {
+      "item_no": 2,
+      "task": "전사 총인건비 예산 편성 및 한도(Cap) 설정",
+      "title": "기업경영분석기초",
+      "provider": "한국생산성본부(KPC)"
+    },
+    {
+      "item_no": 9,
+      "task": "대외 채용 브랜딩(Employer Branding) 및 커리어 사이트 기획",
+      "title": "[여의도] 경력관리의 새로운 패러다임, 페르소나 브랜딩(Persona Branding)",
+      "provider": "한국능률협회(KMA)"
+    }
+  ]
+}
