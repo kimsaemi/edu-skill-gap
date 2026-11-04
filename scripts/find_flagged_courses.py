@@ -1,4 +1,8 @@
 # -*- coding: utf-8 -*-
+"""
+리랭커 추천 결과(task_course_recommendations_90_reranked.csv) 내의
+SAP, QA 상담품질, 전산회계 등 제외/점검 대상 키워드 과정 출현 현황 점검 스크립트
+"""
 import sys
 from pathlib import Path
 import pandas as pd

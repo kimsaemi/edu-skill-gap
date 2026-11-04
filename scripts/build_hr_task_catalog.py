@@ -19,6 +19,7 @@ Task별 추천 교육을 하이브리드 추천 엔진으로 다시 계산합니
 실행: python scripts/build_hr_task_catalog.py "C:/Users/.../hr_career_platform_v2.1_criteria.html"
 """
 
+import argparse
 import json
 import re
 import sys
@@ -121,12 +122,12 @@ def map_competencies(tasks: list, model) -> None:
         t["comp_mapping_method"] = "Ko-SRoBERTa 유사도 + 분야 기본 연결(+0.05)" if prior else "Ko-SRoBERTa 유사도"
 
 
-def recommend_for_tasks(tasks: list, engine: UnifiedHybridRecommender) -> pd.DataFrame:
+def recommend_for_tasks(tasks: list, engine: UnifiedHybridRecommender, query_prefix: str = "") -> pd.DataFrame:
     rows = []
     for i, t in enumerate(tasks, 1):
         for level in LEVELS:
             df, n_cand, *_ = engine.recommend(
-                query=task_semantic_text(t),
+                query=task_semantic_text(t, query_prefix=query_prefix),
                 keyword_query=task_keyword_text(t),
                 keyword_stopwords=GENERIC_TASK_TOKENS,
                 anchor_query=task_anchor_query(t),
@@ -186,17 +187,30 @@ def summarize(tasks: list, rec: pd.DataFrame) -> dict:
 
 
 def main() -> int:
-    if len(sys.argv) < 2:
-        print(__doc__)
-        print("교육 카탈로그만 바뀐 경우: python scripts/build_hr_task_catalog.py --reuse-catalog")
+    parser = argparse.ArgumentParser(description="인사 세부 업무 카탈로그 변환 및 교육 추천")
+    parser.add_argument("html_path", nargs="?", default=None, help="팀 v2.1 대시보드 HTML 경로")
+    parser.add_argument("--reuse-catalog", action="store_true", help="기존 Task 목록 재사용")
+    parser.add_argument("--query-prefix", default="", help="임베딩 질의 앞에 붙일 지시어 (BM25에는 미적용)")
+    parser.add_argument("--output-rec", default=str(REC_PATH), help="추천 결과 CSV 저장 경로")
+    parser.add_argument("--output-summary", default=str(SUMMARY_PATH), help="요약 JSON 저장 경로")
+    parser.add_argument("--output-catalog", default=str(CATALOG_PATH), help="Task 카탈로그 JSON 저장 경로")
+
+    args = parser.parse_args()
+
+    if not args.reuse_catalog and not args.html_path:
+        parser.print_help()
+        print("\n교육 카탈로그만 바뀐 경우: python scripts/build_hr_task_catalog.py --reuse-catalog")
         return 1
-    # --reuse-catalog: 이미 만든 과업 목록(역량 연결 포함)은 그대로 두고 추천만 다시 계산
-    reuse = sys.argv[1] == "--reuse-catalog"
-    if reuse:
+
+    catalog_path = Path(args.output_catalog)
+    rec_path = Path(args.output_rec)
+    summary_path = Path(args.output_summary)
+
+    if args.reuse_catalog:
         tasks = json.loads(CATALOG_PATH.read_text(encoding="utf-8"))["tasks"]
         print(f"1. 기존 Task 목록 {len(tasks)}개 사용 ({CATALOG_PATH.name})")
     else:
-        data = load_v21_data(Path(sys.argv[1]))
+        data = load_v21_data(Path(args.html_path))
         tasks = build_catalog(data)
         print(f"1. Task {len(tasks)}개 추출")
 
@@ -205,19 +219,25 @@ def main() -> int:
         print("[FAIL] 임베딩 모델을 불러오지 못했습니다.")
         return 1
 
-    if not reuse:
+    if not args.reuse_catalog:
         map_competencies(tasks, engine.model)
     print("2. 역량 연결: " + str(dict(Counter(t["primary_comp_id"] for t in tasks))))
 
-    print("3. Task × 숙련도별 추천 계산 중...")
-    rec = recommend_for_tasks(tasks, engine)
+    if args.query_prefix:
+        print(f"   (임베딩 query_prefix 적용: {args.query_prefix!r})")
 
-    if not reuse:
-        CATALOG_PATH.write_text(json.dumps({"version": "v2.1-import-1", "tasks": tasks}, ensure_ascii=False, indent=1), encoding="utf-8")
-    rec.to_csv(REC_PATH, index=False, encoding="utf-8-sig")
+    print("3. Task × 숙련도별 추천 계산 중...")
+    rec = recommend_for_tasks(tasks, engine, query_prefix=args.query_prefix)
+
+    if not args.reuse_catalog:
+        catalog_path.parent.mkdir(parents=True, exist_ok=True)
+        catalog_path.write_text(json.dumps({"version": "v2.1-import-1", "tasks": tasks}, ensure_ascii=False, indent=1), encoding="utf-8")
+    rec_path.parent.mkdir(parents=True, exist_ok=True)
+    rec.to_csv(rec_path, index=False, encoding="utf-8-sig")
     summary = summarize(tasks, rec)
-    SUMMARY_PATH.write_text(json.dumps(summary, ensure_ascii=False, indent=1), encoding="utf-8")
-    print(f"4. 저장 완료\n   {CATALOG_PATH}\n   {REC_PATH}\n   {SUMMARY_PATH}")
+    summary_path.parent.mkdir(parents=True, exist_ok=True)
+    summary_path.write_text(json.dumps(summary, ensure_ascii=False, indent=1), encoding="utf-8")
+    print(f"4. 저장 완료\n   {catalog_path}\n   {rec_path}\n   {summary_path}")
     print(json.dumps(summary, ensure_ascii=False, indent=1))
     return 0
 
