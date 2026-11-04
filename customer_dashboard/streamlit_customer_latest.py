@@ -237,10 +237,11 @@ def course_card(card: dict, key: str, for_what: str = "", note: str = ""):
         info.append(f"📈 {escape(card['difficulty'])}")
     info.append(f"🗓️ {escape(card['schedule_display'])}")
     why = f'<div class="why">💡 {escape(card["why"])}</div>' if card.get("why") else ""
+    intro = f'<div class="intro-summary" style="font-size:0.875rem; color:#475569; margin-top:0.35rem; line-height:1.45; background:#f8fafc; padding:0.35rem 0.55rem; border-radius:5px; border-left:3px solid #cbd5e1;">📝 {escape(card["intro_summary"])}</div>' if card.get("intro_summary") else ""
     st.markdown(f"""<div class="course {card['kind']}">{tags}
       <div class="title">{escape(card['title'])}</div>
       <div class="meta">🏢 {escape(card['institution'])}{' · ' + escape(card['platform']) if card['platform'] and card['platform'] != card['institution'] else ''}{sat}</div>
-      <div class="info">{''.join(f'<span>{x}</span>' for x in info)}</div>{why}</div>""", unsafe_allow_html=True)
+      <div class="info">{''.join(f'<span>{x}</span>' for x in info)}</div>{why}{intro}</div>""", unsafe_allow_html=True)
     if note:
         st.caption(note)
     others = card.get("other_offerings") or []

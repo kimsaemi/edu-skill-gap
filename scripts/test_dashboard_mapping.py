@@ -15,6 +15,8 @@ import tempfile
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
+if sys.platform == "win32":
+    sys.stdout.reconfigure(encoding="utf-8")
 sys.path.insert(0, str(ROOT / "scripts"))
 sys.argv = sys.argv[:1]  # build_presentation_data가 sys.argv 옵션을 읽으므로 비워 둔다
 

@@ -13,6 +13,8 @@ from pathlib import Path
 import pandas as pd
 
 ROOT = Path(__file__).resolve().parents[1]
+if sys.platform == "win32":
+    sys.stdout.reconfigure(encoding="utf-8")
 sys.path.insert(0, str(ROOT))
 
 from src.customer import career_platform as cp  # noqa: E402

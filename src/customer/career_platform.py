@@ -14,6 +14,7 @@
 from __future__ import annotations
 
 import json
+import re
 from functools import lru_cache
 from pathlib import Path
 from typing import Any, Dict, List, Optional
@@ -221,6 +222,27 @@ def offerings_summary(others: List[Dict[str, Any]]) -> Optional[str]:
     return " · ".join(parts)
 
 
+def course_intro_summary(course_or_uid: Any) -> str:
+    """과정 소개 요약: learning_goals -> course_intro -> curriculum 순으로
+    줄바꿈과 공백을 정리하고 앞 최대 200자를 원문 그대로 반환합니다. 모두 비면 빈 문자열."""
+    if isinstance(course_or_uid, str):
+        row = _row(course_or_uid)
+        if row is None:
+            return ""
+    elif isinstance(course_or_uid, (pd.Series, dict)):
+        row = course_or_uid
+    else:
+        return ""
+
+    for col in ["learning_goals", "course_intro", "curriculum"]:
+        val = row.get(col)
+        if pd.notna(val) and val is not None:
+            text = re.sub(r"\s+", " ", str(val)).strip()
+            if text:
+                return text[:200]
+    return ""
+
+
 def make_card(row: pd.Series, why: str = "", match: Optional[Dict[str, float]] = None) -> Dict[str, Any]:
     """카드 1장에 필요한 값. 가격·시간·일정·종료 표시는 공통 함수(_common_card_fields)를 그대로 씀."""
     base = _common_card_fields(row, 4.0)
@@ -247,6 +269,7 @@ def make_card(row: pd.Series, why: str = "", match: Optional[Dict[str, float]] =
         # 같은 제목을 운영하는 다른 기관: 카드는 하나로 보여 주고 카드 안에서 펼쳐 봄
         "other_offerings": others,
         "other_offerings_summary": offerings_summary(others),
+        "intro_summary": course_intro_summary(row),
     }
 
 
