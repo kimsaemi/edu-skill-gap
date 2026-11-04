@@ -383,9 +383,21 @@ def main():
 
     # 7) 추천 과업·결과
     tasks_raw = json.load(open(PROCESSED / "hr_task_catalog_90.json", encoding="utf-8"))["tasks"]
-    rec = pd.read_csv(RECO / "task_course_recommendations_90.csv")
+    # 최종 추천 = 2단계 리랭커 결과 (고객 앱·사람 평가와 같은 추천). 1단계 결과는 비교용으로만 쓴다.
+    rec1 = pd.read_csv(RECO / "task_course_recommendations_90.csv")
+    rec = pd.read_csv(RECO / "task_course_recommendations_90_reranked.csv")
     summary = json.load(open(RECO / "task_course_recommendations_90_summary.json", encoding="utf-8"))
     top3 = rec[rec["rank"] <= 3]
+    # 요약 파일(1단계 기준)의 추천 수치를 최종 추천으로 다시 계산해 덮어쓴다
+    slot_n = top3.groupby(["task_id", "level"]).size()
+    top1_sem = rec.loc[rec["rank"] == 1, "semantic_score"]
+    reuse_by = top3.groupby(["course_uid", "title"])["task_id"].nunique().sort_values(ascending=False)
+    summary.update({
+        "task_level_with_lt3_results": int((slot_n < 3).sum() + (len(tasks_raw) * 3 - len(slot_n))),
+        "top1_semantic_score_median": float(top1_sem.median()), "top1_semantic_score_min": float(top1_sem.min()),
+        "top3_slots": int(len(top3)), "top3_distinct_courses": int(top3["course_uid"].nunique()),
+        "top3_most_reused": [{"title": t, "count": int(c)} for (_, t), c in reuse_by.head(5).items()],
+    })
     domains, tasks = [], []
     for t in tasks_raw:
         if t["domain_name"] not in domains:
@@ -410,7 +422,20 @@ def main():
     reuse = top3.groupby("course_uid")["task_id"].nunique()
     heavy = reuse[reuse >= 5].index
     title_only = set(df.loc[df["text_quality_status"] == "TITLE_ONLY", "course_uid"])
+    # 1단계(리랭커 전)와 비교: 반복 추천·기관 쏠림이 리랭커로 줄었는지
+    top3_1 = rec1[rec1["rank"] <= 3]
+    reuse1 = top3_1.groupby("course_uid")["task_id"].nunique()
+    share1 = top3_1["provider"].value_counts(normalize=True)
+    share2 = top3["provider"].value_counts(normalize=True)
+    bias_p = (share2 - df["provider"].value_counts(normalize=True).reindex(share2.index).fillna(0)).idxmax()
+    stage1 = {
+        "reused5_slot_pct": pct(top3_1["course_uid"].isin(reuse1[reuse1 >= 5].index).sum(), len(top3_1)),
+        "top3_distinct": int(top3_1["course_uid"].nunique()),
+        "bias_provider": bias_p, "bias_top3_stage1": round(float(share1.get(bias_p, 0)) * 100, 1),
+        "bias_top3_final": round(float(share2.get(bias_p, 0)) * 100, 1),
+    }
     recommend = {
+        "stage1": stage1,
         "reused5_courses": int(len(heavy)),
         "reused5_slot_pct": pct(top3["course_uid"].isin(heavy).sum(), len(top3)),
         "title_only_top3_pct": pct(top3["course_uid"].isin(title_only).sum(), len(top3)),
@@ -479,6 +504,9 @@ def main():
         "recommend": recommend, "satisfaction": satisfaction, "search": search,
         # 사람 평가 Precision@3 (scripts/apply_precision_eval_results.py). 없으면 '측정 예정'으로 표시
         "human_eval": (json.loads(HUMAN_EVAL.read_text(encoding="utf-8")) if HUMAN_EVAL.exists() else None),
+        # 팀원 분야 검수 (고객 화면의 분야 연결 규칙 검증, scripts/apply_domain_review_results.py)
+        "domain_review": (json.loads((HUMAN_EVAL.parent / "domain_review_metrics.json").read_text(encoding="utf-8"))
+                          if (HUMAN_EVAL.parent / "domain_review_metrics.json").exists() else None),
         # 2차(같은 업무 10개, 개선 후)와 홀드아웃(처음 보는 업무 10개) 사람 평가. 없으면 1차만 표시
         "human_eval_rounds": {
             r: json.loads((HUMAN_EVAL.parent / f"precision_eval_{r}_metrics.json").read_text(encoding="utf-8"))
