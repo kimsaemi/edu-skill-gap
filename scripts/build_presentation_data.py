@@ -479,6 +479,11 @@ def main():
         "recommend": recommend, "satisfaction": satisfaction, "search": search,
         # 사람 평가 Precision@3 (scripts/apply_precision_eval_results.py). 없으면 '측정 예정'으로 표시
         "human_eval": (json.loads(HUMAN_EVAL.read_text(encoding="utf-8")) if HUMAN_EVAL.exists() else None),
+        # 2차(같은 업무 10개, 개선 후)와 홀드아웃(처음 보는 업무 10개) 사람 평가. 없으면 1차만 표시
+        "human_eval_rounds": {
+            r: json.loads((HUMAN_EVAL.parent / f"precision_eval_{r}_metrics.json").read_text(encoding="utf-8"))
+            for r in ("round2", "holdout") if (HUMAN_EVAL.parent / f"precision_eval_{r}_metrics.json").exists()
+        },
         # 대시보드 업무·강좌 매핑 (분야별 강좌 수, 부족 업무, 빈 카테고리)
         "dashboard_mapping": dashboard_mapping_section(),
     }

@@ -911,6 +911,16 @@ const D = /*__DATA__*/;
     $('#g-p3').innerHTML = `<b>${P.strict}</b>%` + (H.status === '중간' ? ' <span class="pill pend">중간</span>' : '');
     T('#g-p3-note', `사람 평가는 추천 30개 항목을 두 사람씩 판정하며, 지금 ${H.assigned}건 중 ${H.entered}건이 입력된 ${H.status} 결과입니다. `
       + `적합만 세면 ${P.strict}%, 부분 적합까지 세면 ${P.lenient}%이고, 순위 1위 추천은 적합 ${H.by_rank['1'].strict}%입니다.`);
+    // 개선 후 재평가: 대표값은 처음 보는 업무(홀드아웃). 같은 업무끼리 비교한 개선 폭은 설명에 적는다
+    const HR = D.human_eval_rounds || {}, R2 = HR.round2, HO = HR.holdout;
+    if (HO && HO.precision_at_3.strict != null) {
+      const Q = HO.precision_at_3;
+      $('#g-p3').innerHTML = `<b>${Q.strict}</b>%` + (HO.status === '중간' ? ' <span class="pill pend">중간</span>' : '');
+      T('#g-p3-note', `사람 평가(두 사람씩 판정, 판단 불가 제외)입니다. 처음 보는 업무 10개의 추천 Top 3는 적합 ${Q.strict}%`
+        + `(부분 적합 포함 ${Q.lenient}%, 판정 ${Q.n}건)입니다. `
+        + (R2 ? `같은 업무 10개로 비교하면 1차 ${P.strict}%에서 인사와 무관한 과정을 뺀 뒤 ${R2.precision_at_3.strict}%가 됐습니다. ` : '')
+        + `표본이 작아(판정 ${Q.n}건) 오차 범위가 넓습니다.`);
+    }
   }
   T('#g-sem', R.top1_sem_median); T('#m-sem', R.top1_sem_median);
   T('#g-w24', M.w24_open_pct); T('#m-w24', M.w24_open_pct);

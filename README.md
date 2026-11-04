@@ -53,6 +53,17 @@ python scripts/test_dashboard_mapping.py    # 매핑 섹션 회귀 테스트 (�
 `python scripts/apply_precision_eval_results.py` → `python scripts/build_presentation_data.py` → `python scripts/build_presentation.py`를 실행한다.
 결과: `data/hr/reports/precision_eval_report.md` (평가가 덜 끝났으면 '중간'으로 표시)
 
+개선 후 재평가(2026-11-04): '추천 평가 2차'(같은 업무 10개의 새 Top 3)와 '추천 평가 홀드아웃'(처음 보는 업무 10개) 탭.
+평가표는 `python scripts/prepare_round2_and_holdout.py`로 만들고(업무명·과정명은 데이터에서 읽음), 판정을
+`precision_eval_round2_results.csv`·`precision_eval_holdout_results.csv`에 옮긴 뒤
+`python scripts/apply_precision_eval_results.py --round round2`(또는 `holdout`)를 실행한다.
+발표 자료는 홀드아웃 값을 대표값으로, 같은 업무 비교(1차 → 2차)를 설명으로 보여 준다.
+| 평가 | 적합만 | 적합+부분 적합 | 판정 수 |
+| --- | ---: | ---: | ---: |
+| 1차 (같은 업무 10개, 개선 전) | 52.7% | 87.3% | 55 |
+| 2차 (같은 업무 10개, SAP·QA·전산회계 자격증 제외 후) | 67.3% | 100% | 52 |
+| 홀드아웃 (처음 보는 업무 10개) | 74.5% | 94.5% | 55 |
+
 ### 확인용 테스트
 
 ```bash
