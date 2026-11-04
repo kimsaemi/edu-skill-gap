@@ -83,8 +83,9 @@ def task_view_for_career(task: Dict[str, Any], career_range: str) -> Dict[str, A
     }
 
 
-def task_semantic_query(task: Dict[str, Any]) -> str:
-    return f"{task['task_name']}. {task['easy_description']} 필요 지식: {task['knowledge']}. 필요 기술: {task['skill']}"
+def task_semantic_query(task: Dict[str, Any], query_prefix: str = "") -> str:
+    base = f"{task['task_name']}. {task['easy_description']} 필요 지식: {task['knowledge']}. 필요 기술: {task['skill']}"
+    return f"{query_prefix}{base}" if query_prefix else base
 
 
 def task_keyword_query(task: Dict[str, Any]) -> str:

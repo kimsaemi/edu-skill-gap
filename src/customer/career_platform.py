@@ -27,6 +27,7 @@ from src.recommendation import hr_task_catalog as htc
 ROOT = Path(__file__).resolve().parent.parent.parent
 MASTER_PATH = ROOT / "data" / "hr" / "processed" / "hr_career_platform_master.json"
 TASK_REC_PATH = ROOT / "data" / "hr" / "output" / "recommendation" / "task_course_recommendations_90.csv"
+TASK_REC_RERANKED_PATH = ROOT / "data" / "hr" / "output" / "recommendation" / "task_course_recommendations_90_reranked.csv"
 WORK24_DETAIL_PATH = ROOT / "data" / "hr" / "processed" / "work24_course_details.csv"
 SATISFACTION_PATH = ROOT / "data" / "hr" / "processed" / "official_satisfaction.csv"
 # 같은 제목 과정을 운영하는 다른 기관 (scripts/build_work24_same_title_offerings.py)
@@ -171,11 +172,12 @@ def courses() -> pd.DataFrame:
     return df
 
 
-@lru_cache(maxsize=1)
-def task_rec_table() -> pd.DataFrame:
-    if not TASK_REC_PATH.exists():
+@lru_cache(maxsize=2)
+def task_rec_table(reranked: bool = False) -> pd.DataFrame:
+    p = TASK_REC_RERANKED_PATH if reranked and TASK_REC_RERANKED_PATH.exists() else TASK_REC_PATH
+    if not p.exists():
         return pd.DataFrame()
-    return pd.read_csv(TASK_REC_PATH)
+    return pd.read_csv(p)
 
 
 # ---------------------------------------------------------------------------
@@ -254,7 +256,7 @@ def _row(uid: str) -> Optional[pd.Series]:
     return df.loc[hit[0]] if len(hit) else None
 
 
-def _cards_from_engine(df_top: pd.DataFrame, why: str, limit: int, gate: bool = False) -> List[Dict[str, Any]]:
+def _cards_from_engine(df_top: pd.DataFrame, why: str, limit: int, gate: bool = False, is_reranked: bool = False) -> List[Dict[str, Any]]:
     cards = []
     base = courses().set_index("course_uid")
     for _, r in df_top.iterrows():
@@ -265,10 +267,18 @@ def _cards_from_engine(df_top: pd.DataFrame, why: str, limit: int, gate: bool = 
             continue
         row = base.loc[uid].copy()
         row["course_uid"] = uid
-        for k in ("final_score", "semantic_score", "bm25_score", "level_bonus"):
-            row[k] = r.get(k)
-        match = {"final": round(float(r.get("final_score", 0)), 1), "sem": round(float(r.get("semantic_score", 0)), 1),
-                 "bm25": round(float(r.get("bm25_score", 0)), 1), "lvl": round(float(r.get("level_bonus", 0)), 1)}
+        for k in ("final_score", "reranked_final_score", "reranker_score", "semantic_score", "bm25_score", "level_bonus"):
+            if k in r:
+                row[k] = r.get(k)
+        final_val = float(r.get("reranked_final_score" if is_reranked and "reranked_final_score" in r else "final_score", 0))
+        match = {
+            "final": round(final_val, 1),
+            "sem": round(float(r.get("semantic_score", 0)), 1),
+            "bm25": round(float(r.get("bm25_score", 0)), 1),
+            "lvl": round(float(r.get("level_bonus", 0)), 1),
+            "reranker": round(float(r.get("reranker_score", 0)), 1) if "reranker_score" in r and pd.notna(r.get("reranker_score")) else None,
+            "is_reranked": is_reranked,
+        }
         cards.append(make_card(row, why, match))
         if len(cards) >= limit:
             break
@@ -284,21 +294,22 @@ def _hr_task_id(source_task_id: str) -> str:
     return f"TASK_HR_D{parts[1]}_{parts[2]}" if len(parts) == 3 else source_task_id
 
 
-@lru_cache(maxsize=512)
-def task_recommendations(task_id: str, grade_idx: int, limit: int = 6) -> List[Dict[str, Any]]:
+@lru_cache(maxsize=1024)
+def task_recommendations(task_id: str, grade_idx: int, limit: int = 6, use_reranker: bool = False) -> List[Dict[str, Any]]:
     """업무 1개에 맞는 교육. 직급 난이도를 먼저, 부족하면 다른 난이도 결과로 채움."""
     t = task_index().get(task_id)
     if not t:
         return []
     level = ENGINE_LEVEL_OF_GRADE[grade_idx]
     why = f"[{t['name'][:22]}{'…' if len(t['name']) > 22 else ''}] 업무 보완"
-    tab = task_rec_table()
+    tab = task_rec_table(reranked=use_reranker)
     hr_id = _hr_task_id(task_id)
     if not tab.empty and (tab["task_id"] == hr_id).any():
         sub = tab[tab["task_id"] == hr_id].copy()
         sub["_lv"] = (sub["level"] != level).astype(int)
-        sub = sub.sort_values(["_lv", "rank"]).drop_duplicates("course_uid")
-        return _cards_from_engine(sub, why, limit)
+        score_col = "reranked_final_score" if use_reranker and "reranked_final_score" in sub.columns else "final_score"
+        sub = sub.sort_values(["_lv", score_col], ascending=[True, False]).drop_duplicates("course_uid")
+        return _cards_from_engine(sub, why, limit, is_reranked=use_reranker)
     # 미리 계산하지 않은 업무 (총무·경영지원·비서): 같은 규칙으로 계산
     task = {"task_name": t["name"], "easy_description": t.get("easy", ""), "knowledge": t.get("k", ""), "skill": t.get("s", "")}
     top, *_ = engine().recommend(

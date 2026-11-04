@@ -13,7 +13,10 @@
 - 두 평가자 일치율: 두 사람이 모두 입력한 항목 중 같은 판정을 고른 비율
 평가가 덜 끝났으면 status를 '중간'으로 표시한다. 다 끝나면 이 스크립트를 다시 실행한다.
 실행: python scripts/apply_precision_eval_results.py
+      2차·홀드아웃 평가: python scripts/apply_precision_eval_results.py --round round2   (또는 holdout)
+        입력 precision_eval_<round>_results.csv → 출력 precision_eval_<round>_metrics.json, _report.md
 """
+import argparse
 import json
 from datetime import date
 from pathlib import Path
@@ -39,7 +42,19 @@ def precision(s):
             "lenient": pct(int(judged.isin(["적합", "부분 적합"]).sum()), n)}
 
 
+ROUND_TITLES = {"": "1차", "round2": "2차 (SAP·QA·전산회계 제외 후 같은 업무 10개)",
+                "holdout": "홀드아웃 (처음 보는 업무 10개)"}
+
+
 def main():
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--round", default="", choices=list(ROUND_TITLES), help="빈값=1차, round2, holdout")
+    rnd = ap.parse_args().round
+    global SRC, OUT_JSON, OUT_MD
+    if rnd:
+        SRC = SRC.with_name(f"precision_eval_{rnd}_results.csv")
+        OUT_JSON = OUT_JSON.with_name(f"precision_eval_{rnd}_metrics.json")
+        OUT_MD = OUT_MD.with_name(f"precision_eval_{rnd}_report.md")
     df = pd.read_csv(SRC, dtype=str).fillna("")
     done = df[df["judgment"] != ""]
     overall = precision(done["judgment"])
@@ -75,6 +90,7 @@ def main():
 
     entered, assigned = len(done), len(df)
     result = {
+        "round": ROUND_TITLES[rnd],
         "checked": date.today().isoformat(),
         "status": "완료" if entered == assigned else "중간",
         "entered": entered, "assigned": assigned,
@@ -89,7 +105,7 @@ def main():
 
     p = overall
     lines = [
-        f"# 사람 평가 결과: Precision@3 ({result['status']}, {result['checked']})",
+        f"# 사람 평가 결과: Precision@3 — {result['round']} ({result['status']}, {result['checked']})",
         "",
         f"추천 Top 3 30개 항목을 두 사람씩 판정하는 평가에서 {assigned}건 중 {entered}건이 입력됐다"
         + (" (평가가 아직 끝나지 않은 중간 결과)." if result["status"] == "중간" else ".")

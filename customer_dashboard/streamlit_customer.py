@@ -111,6 +111,7 @@ def init_state():
     defaults = {
         "step": "1", "g": None, "ds": [], "d": None, "tl": {}, "skills": [], "open_task": None,
         "enroll": {}, "diag_log": [], "goals": [], "limit": 12, "more": False,
+        "use_reranker": True,
     }
     for k, v in defaults.items():
         if k not in st.session_state:
@@ -167,6 +168,21 @@ def stage_cls(stage: str) -> str:
 # ---------------------------------------------------------------------------
 # 공통 화면 요소
 # ---------------------------------------------------------------------------
+def render_sidebar():
+    with st.sidebar:
+        st.markdown("### ⚙️ 추천 엔진 설정")
+        use_reranker = st.toggle(
+            "⚡ 2단계 Cross-Encoder 정밀 추천",
+            value=S.get("use_reranker", True),
+            help="체크 시 한국어 RoBERTa Cross-Encoder(ko-reranker)로 문맥 일치도를 정밀 검증하여, 키워드 우연 일치로 침투한 무관 강좌(자금세탁방지, 단순 이메일 등)를 자동으로 배제합니다.",
+        )
+        S.use_reranker = use_reranker
+        if use_reranker:
+            st.success("🤖 **AI 정밀 검증 활성**\n\n문맥 연관도 10점 미만 부적합 강좌를 자동 배제하고 직무 전문 강좌를 우선 추천합니다.")
+        else:
+            st.info("ℹ️ **1단계 Baseline 모드**\n\n단일 Bi-Encoder 및 BM25 기본 추천 결과를 표시합니다.")
+
+
 def hero():
     st.markdown(f"""<div class="hero"><h1>🧭 인사·총무·경영지원 업무·성장·교육 안내</h1>
       <p>직급과 분야를 고르고 업무별 숙련도를 진단하면, 부족한 업무마다 맞는 교육을 골라 드려요.</p>
@@ -205,6 +221,8 @@ def toggle_enroll(card: dict, for_what: str = ""):
 def course_card(card: dict, key: str, for_what: str = "", note: str = ""):
     """교육 카드 1장. 공식 만족도는 정보로만 보여 주고 점수에는 넣지 않습니다."""
     tags = f'<span class="tag {card["kind"]}">{"✅ 직접 관련" if card["kind"] == "direct" else "🧰 공통 역량"}</span>'
+    if card.get("match", {}).get("is_reranked"):
+        tags += '<span class="tag" style="background:#e0e7ff; color:#3730a3; border: 1px solid #c7d2fe;">🤖 AI 정밀검증</span>' 
     if card.get("schedule_badge"):
         tags += f'<span class="tag closed">⏹ {escape(card["schedule_badge"])}</span>'
     elif card.get("w24_status") in ("운영 중", "개강 예정"):
@@ -240,12 +258,20 @@ def course_card(card: dict, key: str, for_what: str = "", note: str = ""):
     with st.expander("🔍 추천 근거 보기"):
         m = card.get("match")
         if m:
-            c1, c2, c3, c4 = st.columns(4)
-            c1.metric("추천 점수", f"{m['final']:g}")
-            c2.metric("업무와 뜻이 가까운 정도", f"{m['sem']:g}")
-            c3.metric("핵심 단어 일치", f"{m['bm25']:g}")
-            c4.metric("난이도 맞춤 가점", f"+{m['lvl']:g}")
-            st.caption("추천 점수 = 뜻이 가까운 정도 × 0.5 + 핵심 단어 일치 × 0.35 + 난이도 가점(0~10). 수강생 만족도는 점수에 넣지 않아요.")
+            if m.get("is_reranked") and m.get("reranker") is not None:
+                c1, c2, c3, c4 = st.columns(4)
+                c1.metric("2단계 추천점수", f"{m['final']:g}")
+                c2.metric("Cross-Encoder 정밀도", f"{m['reranker']:g}점")
+                c3.metric("업무 의미 유사도", f"{m['sem']:g}")
+                c4.metric("핵심 단어 일치", f"{m['bm25']:g}")
+                st.caption("2단계 AI Cross-Encoder가 문맥 적합도를 정밀 검증하여 무관한 노이즈 강좌를 자동 배제하였습니다.")
+            else:
+                c1, c2, c3, c4 = st.columns(4)
+                c1.metric("추천 점수", f"{m['final']:g}")
+                c2.metric("업무와 뜻이 가까운 정도", f"{m['sem']:g}")
+                c3.metric("핵심 단어 일치", f"{m['bm25']:g}")
+                c4.metric("난이도 맞춤 가점", f"+{m['lvl']:g}")
+                st.caption("추천 점수 = 뜻이 가까운 정도 × 0.5 + 핵심 단어 일치 × 0.35 + 난이도 가점(0~10). 수강생 만족도는 점수에 넣지 않아요.")
         rows = []
         if card.get("audience"):
             rows.append(("대상자", card["audience"]))
@@ -487,7 +513,7 @@ def view_courses():
         n = 0
         for w in weak:
             n += 1
-            cards = [c for c in cp.task_recommendations(w["id"], S.g) if c["course_uid"] not in used]
+            cards = [c for c in cp.task_recommendations(w["id"], S.g, use_reranker=S.get("use_reranker", True)) if c["course_uid"] not in used]
             st.markdown(f"##### {n}. 🟧 업무 · {escape(w['name'])} <span class='hint'>현재 {w['cur'] + 1}단계 → 기준 {w['std'] + 1}단계</span>", unsafe_allow_html=True)
             note = "⚠ 이 업무의 NCS 역량 연결은 팀에서 확인 중이에요. 추천은 업무 설명으로 계산해 참고할 수 있어요." if w["id"] in cp.review_task_ids() else ""
             if cards:
@@ -731,6 +757,7 @@ def view_my():
 if st.query_params.get("demo") == "1" and not S.get("_demo_loaded"):
     S._demo_loaded = True
     load_sample()
+render_sidebar()
 hero()
 stepbar()
 if S.step in ("2", "3") and not ready():
