@@ -21,6 +21,7 @@ ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT))
 
 from src.customer import career_platform as cp
+from src.customer.career_platform import course_intro_summary
 
 CATALOG_PATH = ROOT / "data" / "hr" / "processed" / "hr_task_catalog_90.json"
 EXCL_PATH = ROOT / "data" / "hr" / "processed" / "off_topic_exclusions.csv"
@@ -106,6 +107,7 @@ for ino in sorted(slot_keys.keys()):
             "url": url,
             "judgment": judg,
             "memo": memo,
+            "과정 소개(요약)": course_intro_summary(c_uid),
         })
 
 df_round2 = pd.DataFrame(round2_rows)
@@ -160,6 +162,7 @@ for tid, level, (r1, r2) in holdout_plan:
                 "url": url,
                 "judgment": "",
                 "memo": "",
+                "과정 소개(요약)": course_intro_summary(c_uid),
             })
         h_item_no += 1
 
