@@ -461,7 +461,7 @@ ol.three li::marker { font-family: var(--pxb); color: var(--teal); }
       <div><b>정제</b><small>노이즈 제거, 중복 정리, 품질 등급</small></div>
       <div><b>표현</b><small>형태소 토큰(BM25) + 문장 임베딩</small></div>
       <div><b>분류</b><small>분야 10개, 직무 무관 제외</small></div>
-      <div><b>추천·검증</b><small>과업별 점수 → Top 3 → 지표 점검</small></div>
+      <div><b>추천·검증</b><small>과업별 점수 → 2차 심사(리랭커) → Top 3 → 사람 평가</small></div>
     </div>
     <h3>주요 변수와 결측률</h3>
     <p>가장 중요한 과정명·기관은 결측이 없지만, 시간·개강일·난이도는 기관마다 제공 여부가 달라 결측이 큽니다. <strong>결측은 채워 넣지 않고 "미확인"으로 표시</strong>하는 것을 원칙으로 했습니다. 예를 들어 가격이 비어 있으면 무료로 보지 않습니다.</p>
@@ -499,6 +499,8 @@ ol.three li::marker { font-family: var(--pxb); color: var(--teal); }
           <tr><td>NCS 코드가 숫자로 저장돼 앞자리 0 손실 (02020201 → 2020201.0)</td><td>140개</td><td>8자리 문자열로 복원, 공식 코드와 130/130 일치 확인</td></tr>
           <tr><td>교육 형태가 "집합/원격 혼합"으로 일괄 입력돼 필터에 둘 다 걸림</td><td>130개</td><td>공식 훈련일수 기준으로 원격·집합 구분</td></tr>
           <tr><td>직무교육과 무관한 과정 (취미·학과 과목 등)</td><td><span data-k="off_topic"></span>개</td><td>추천 후보에서 제외 목록으로 관리</td></tr>
+          <tr><td>GSEEK 과정 링크가 과정 목록으로 열려 내용을 볼 수 없음</td><td>1,991개</td><td>화면·평가표에 내보낼 때 상세 페이지 링크로 보정 (원본 데이터는 그대로)</td></tr>
+          <tr><td>평가표·추천 카드에 과정 내용이 없어 판단이 어려움</td><td>평가 '판단 불가'의 주원인</td><td>학습목표·소개·목차 원문 앞부분을 최대 200자 그대로 표시 (지어낸 요약 없음)</td></tr>
         </tbody>
       </table>
     </div>
@@ -700,7 +702,11 @@ ol.three li::marker { font-family: var(--pxb); color: var(--teal); }
     <div class="tbl"><table><thead><tr><th>수준</th><th>과정 수</th><th>유료 가격 중앙값</th><th>30만 원 이하 비율</th><th>시간 중앙값</th><th>국비 지원 비율</th></tr></thead><tbody id="tb-cost"></tbody></table></div>
     <p class="note">가격이 확인된 과정 기준입니다. 휴넷은 가격, GSEEK·휴넷은 시간이 비어 있어 이 표에 덜 반영됩니다.</p>
     <h3>추천 결과</h3>
-    <p>과업 90개의 1위 추천은 의미 유사도 중앙값 <strong><span id="rv-med"></span>점</strong>, 최저 <span id="rv-min"></span>점입니다. Top 3 자리 <span id="rv-slots"></span>개를 서로 다른 <span id="rv-distinct"></span>개 과정이 채웠습니다. 제목만 있는 과정은 전체의 <span id="rv-to-all"></span>%지만 Top 3에서는 <mark><span id="rv-to-top"></span>%</mark>입니다.</p>
+    <p>과업 90개의 1위 추천은 의미 유사도 중앙값 <strong><span id="rv-med"></span>점</strong>, 최저 <span id="rv-min"></span>점입니다. Top 3 자리 <span id="rv-slots"></span>개를 서로 다른 <span id="rv-distinct"></span>개 과정이 채웠습니다. 순서는 1단계 점수로 뽑은 후보를 2단계 리랭커(업무 설명과 과정 설명을 한 쌍씩 다시 읽는 모델)가 다시 매겨 정했습니다. 고객 앱과 사람 평가도 이 최종 추천을 씁니다. 제목만 있는 과정은 전체의 <span id="rv-to-all"></span>%지만 Top 3에서는 <mark><span id="rv-to-top"></span>%</mark>입니다.</p>
+    <h3>사람 평가: 추천이 실제로 맞는가</h3>
+    <p>팀원 4명이 추천 Top 3를 한 항목에 두 사람씩, 서로 보지 않고 '적합 · 부분 적합 · 부적합 · 판단 불가'로 판정했습니다. 처음 보는 업무 10개(홀드아웃)에서 적합 <strong><span id="he-ho"></span>%</strong>로 목표 70%에 도달했습니다.</p>
+    <div class="tbl"><table><thead><tr><th>평가</th><th>대상</th><th>적합만</th><th>적합+부분 적합</th><th>판정 수</th></tr></thead><tbody id="tb-heval"></tbody></table></div>
+    <p class="note">판단 불가는 계산에서 뺐습니다. 개선 폭은 같은 업무끼리 비교한 1차 → 2차로 읽고, 2차는 규칙을 만든 업무와 같아 다소 높게 나올 수 있습니다. 판정 수가 적어 오차 범위가 넓습니다(홀드아웃 95% 신뢰구간 약 62~84%).</p>
   </div>
   <div class="wrap wide">
     <figure class="fig">
@@ -718,6 +724,7 @@ ol.three li::marker { font-family: var(--pxb); color: var(--teal); }
           <div class="tags" id="ex-tags"></div>
           <div class="recs" id="ex-recs"></div>
           <div class="legend"><span><i style="background:var(--teal)"></i>의미 유사도 기여</span><span><i style="background:var(--yel)"></i>키워드 일치 기여</span><span><i style="background:var(--blue)"></i>난이도 보너스</span></div>
+          <p class="note">순서는 2단계 리랭커가 정한 최종 추천이고, 막대는 1단계 점수의 구성입니다.</p>
         </div>
       </div>
     </figure>
@@ -773,7 +780,7 @@ ol.three li::marker { font-family: var(--pxb); color: var(--teal); }
         <div class="ins-h">5 · 추천이 한 기관에 쏠린다</div>
         <div class="ins-r"><span>발견</span><p>한국생산성본부는 카탈로그의 <b id="i5-cat"></b>%인데 추천 Top 3의 <b id="i5-top"></b>%를 차지합니다. 회차 중복 등록과 실무형 문체가 겹친 결과입니다.</p></div>
         <div class="ins-r"><span>의미</span><p>사용자는 비슷한 기관의 과정만 보게 되고, 다른 기관의 더 맞는 과정을 놓칠 수 있습니다.</p></div>
-        <div class="ins-r"><span>전략</span><p>후보 단계에서 같은 제목의 회차를 하나로 묶고, Top 3 안에서 같은 기관은 최대 2개로 제한합니다. 효과는 사람 평가 Precision@3로 확인합니다.</p></div>
+        <div class="ins-r"><span>전략</span><p>후보 단계에서 같은 제목의 회차를 하나로 묶고, Top 3 안에서 같은 기관은 최대 2개로 제한합니다. 2단계 리랭커만으로는 쏠림이 줄지 않았으므로(리랭커 전 <b id="i5-s1"></b>%), 이 규칙을 따로 넣고 사람 평가로 효과를 확인합니다.</p></div>
       </div>
       </div>
     </div>
@@ -794,7 +801,7 @@ ol.three li::marker { font-family: var(--pxb); color: var(--teal); }
       <table>
         <thead><tr><th>구분</th><th>할 일</th><th>기대 효과</th></tr></thead>
         <tbody>
-          <tr><td>평가</td><td>사람 평가 30건(2인 교차) 작성 → Precision@3 측정</td><td>북극성 지표 첫 측정값 확보</td></tr>
+          <tr><td>평가</td><td>처음 보는 업무 10개로 사람 평가 한 번 더 (판정 약 55건 → 110건)</td><td>74.5%의 오차 범위 축소, 링크·소개 보강 후 판단 불가 감소 확인</td></tr>
           <tr><td>데이터</td><td>민간 기관 시간·가격 결측 보완, 노무·보상 공급처 추가, 고용24 월간 자동 갱신</td><td>결측률·신선도 개선, H2 공백 완화</td></tr>
           <tr><td>모델</td><td>반복 추천 감점, 기관 편중 보정, 교육훈련·조직문화 NCS 능력단위 추가(과업 <span id="c-review"></span>개 연결)</td><td>다양성·정확도 개선</td></tr>
           <tr><td>시스템</td><td>수강 후 업무 도움 피드백 수집, 지표 대시보드 자동 갱신</td><td>평점 없이도 순위를 개선하는 피드백 루프</td></tr>
@@ -803,11 +810,11 @@ ol.three li::marker { font-family: var(--pxb); color: var(--teal); }
     </div>
     <h3>읽을 때 알아 둘 것</h3>
     <ol class="caveats">
-      <li><p><strong>난이도는 기관이 표기한 값입니다.</strong> 표기 기준이 기관마다 다르고, 실무자 쪽 수준별 수요는 확인된 자료가 없어 비교하지 않았습니다. 난이도 표기가 없는 <span id="cv-unl"></span>개(<span id="cv-unl-pct"></span>%)는 대부분 <span id="cv-unl-prov"></span> 과정이고, 표기된 과정은 GSEEK·휴넷이 대부분이라 초급 비율은 기관 구성에 따라 크게 달라집니다.</p></li>
-      <li><p><strong>분야 분류·영역 공급량·NCS 연결은 자동 결과입니다.</strong> 문장 임베딩과 규칙으로 계산했고 사람이 전부 검증하지는 않았습니다.</p></li>
+      <li><p><strong>난이도는 기관이 표기한 값입니다.</strong> 표기 기준이 기관마다 다르고, 실무자 쪽 수준별 수요는 확인된 자료가 없어 비교하지 않았습니다. 추천에서는 난이도가 없는 과정도 빼지 않고 난이도 보너스를 절반(10점 대신 5점)만 줍니다. 난이도 표기가 없는 <span id="cv-unl"></span>개(<span id="cv-unl-pct"></span>%)는 대부분 <span id="cv-unl-prov"></span> 과정이고, 표기된 과정은 GSEEK·휴넷이 대부분이라 초급 비율은 기관 구성에 따라 크게 달라집니다.</p></li>
+      <li><p><strong>분야 분류·영역 공급량·NCS 연결은 자동 결과입니다.</strong> 고객 화면의 분야 연결(키워드 규칙)은 팀원 4명이 과정 <span id="dr-n"></span>개를 직접 검수해 정밀도 <span id="dr-prec"></span>%, 재현율 <span id="dr-rec"></span>%를 확인했습니다. 10개 분야 분류와 영역별 공급량(H2)은 문장 임베딩 결과이고 사람이 전부 검증하지는 않았습니다.</p></li>
       <li><p><strong>과업 <span id="cv-review"></span>개는 맞는 NCS 역량이 아직 없습니다.</strong> 인사 연결 역량이 3개뿐이라 임시로 가장 가까운 역량에 붙어 있고, 탐색기에서는 역량 표시를 숨겼습니다. 추천은 과업 설명으로 계산해 영향을 받지 않습니다.</p></li>
-      <li><p><strong>일부 과정이 여러 과업에 반복 추천됩니다.</strong> 과정 <span id="cv-reuse"></span>개가 5개 이상 과업에 나오며 Top 3 자리의 <span id="cv-reuse-pct"></span>%를 차지합니다.</p></li>
-      <li><p><strong>공식 만족도는 국민내일배움카드 과정에만 있습니다.</strong> 응답자 수가 공개되지 않아 정밀한 평점으로 읽으면 안 됩니다.</p></li>
+      <li><p><strong>일부 과정이 여러 과업에 반복 추천됩니다.</strong> 과정 <span id="cv-reuse"></span>개가 5개 이상 과업에 나오며 Top 3 자리의 <span id="cv-reuse-pct"></span>%를 차지합니다. 2단계 리랭커 전(<span id="cv-reuse-s1"></span>%)과 거의 같아, 반복 감점은 앞으로 할 일입니다.</p></li>
+      <li><p><strong>공식 만족도는 국민내일배움카드 과정에만 있습니다.</strong> 응답자 수가 공개되지 않아 정밀한 평점으로 읽으면 안 됩니다. 데이터에 만들어 넣은 가짜 후기·평점은 모두 지웠고, 공식 만족도도 추천 점수에는 넣지 않습니다.</p></li>
     </ol>
   </div>
 </section>
@@ -826,7 +833,8 @@ ol.three li::marker { font-family: var(--pxb); color: var(--teal); }
           <tr><td>표현</td><td>Kiwi 형태소 토큰(BM25용), Ko-SRoBERTa 768차원 문장 임베딩</td><td><code>embeddings_ko_sroberta_all.npy</code></td></tr>
           <tr><td>분류</td><td>분야 대표 문장과의 유사도로 10개 분야 라벨, 직무 무관 과정 <span data-k="off_topic"></span>개 제외 목록</td><td><code>course_field_labels.csv</code></td></tr>
           <tr><td>과업</td><td>인사 9개 영역 × 10개 실무 과업, 직급별 역할, NCS 능력단위 연결</td><td><code>hr_task_catalog_90.json</code></td></tr>
-          <tr><td>추천</td><td>필터 → 의미 유사도·BM25·난이도 점수 → 통과 조건 → 기관 간 중복 제거 → Top 3</td><td><code>task_course_recommendations_90.csv</code></td></tr>
+          <tr><td>추천</td><td>필터 → 의미 유사도·BM25·난이도 점수 → 통과 조건 → 기관 간 중복 제거 → 후보 → 2단계 리랭커(Cross-Encoder, Dongjin-kr/ko-reranker)로 Top 3 재정렬</td><td><code>task_course_recommendations_90.csv</code> → <code>task_course_recommendations_90_reranked.csv</code></td></tr>
+          <tr><td>사람 평가</td><td>업무 10개 × Top 3를 두 사람씩 판정. 1차, 2차(같은 업무), 홀드아웃(처음 보는 업무)</td><td><code>precision_eval_*_results.csv</code>, <code>precision_eval_*_metrics.json</code></td></tr>
           <tr><td>만족도</td><td>고용24 310L01 전 페이지 수집, <code>trprId</code> 단위 정리, 0점은 결측 처리</td><td><code>official_satisfaction.csv</code></td></tr>
         </tbody>
       </table>
@@ -882,6 +890,20 @@ const D = /*__DATA__*/;
   T('#cv-review', R.needs_review);
   T('#cv-reuse', R.reused5_courses);
   T('#cv-reuse-pct', R.reused5_slot_pct);
+  if (R.stage1) { T('#cv-reuse-s1', R.stage1.reused5_slot_pct); T('#i5-s1', R.stage1.bias_top3_stage1); }
+  if (D.domain_review) {
+    T('#dr-n', D.domain_review.reviewed_courses);
+    T('#dr-prec', Math.round(D.domain_review.precision.value * 1000) / 10);
+    T('#dr-rec', Math.round(D.domain_review.recall.value * 1000) / 10);
+  }
+  {
+    const HE = [['1차 (개선 전)', '같은 업무 10개', D.human_eval],
+                ['2차 (개선 후)', '같은 업무 10개', (D.human_eval_rounds || {}).round2],
+                ['홀드아웃', '처음 보는 업무 10개', (D.human_eval_rounds || {}).holdout]].filter(r => r[2] && r[2].precision_at_3);
+    $('#tb-heval').innerHTML = HE.map(([a, b, h]) => `<tr><td>${a}</td><td>${b}</td><td class="num"><b>${h.precision_at_3.strict}%</b></td><td class="num">${h.precision_at_3.lenient}%</td><td class="num">${h.precision_at_3.n}</td></tr>`).join('');
+    const HO = (D.human_eval_rounds || {}).holdout;
+    if (HO) T('#he-ho', HO.precision_at_3.strict);
+  }
   T('#rv-to-all', R.title_only_all_pct);
   T('#rv-to-top', R.title_only_top3_pct);
   T('#cv-unl', fmt(D.difficulty.unlabeled));
