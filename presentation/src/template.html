@@ -625,14 +625,14 @@ ol.three li::marker { font-family: var(--pxb); color: var(--teal); }
         <div class="hud-head"><span class="hud-title">대시보드에 연결된 분야별 강좌 수</span><span class="hud-sub">최종 대시보드 기준, 1칸 = 10개</span></div>
         <div class="chart" id="ch-map-domain"></div>
       </div>
-      <figcaption>같은 대시보드 안에서도 <span id="map-domain-summary">보상·노무 분야는 250개 이상, 온보딩·조직설계·인사전략은 60개 안팎</span>입니다.</figcaption>
+      <figcaption><span id="map-domain-summary">대시보드에 연결된 분야별 강좌 수 현황입니다.</span></figcaption>
     </figure>
     <figure class="fig">
       <div class="hud">
-        <div class="hud-head"><span class="hud-title">추천 강좌가 가장 적은 업무 10개</span><span class="hud-sub">업무마다 입문·실무·심화에 추천된 서로 다른 강좌 수, 1칸 = 1개</span></div>
+        <div class="hud-head"><span class="hud-title">추천 강좌가 3개 미만인 업무×수준 슬롯</span><span class="hud-sub">정상 슬롯은 리랭커 Top 3 추천 (총 270개 슬롯), 1칸 = 1개</span></div>
         <div class="chart" id="ch-map-thin"></div>
       </div>
-      <figcaption>업무 <span id="map-total"></span>개 중 <b id="map-thin"></b>개는 추천 강좌가 <span id="map-thinmax"></span>개 이하입니다(가장 많은 업무는 <span id="map-max"></span>개). <span id="map-thinnest-summary">직무기술서 관련 업무가 가장 얇습니다.</span></figcaption>
+      <figcaption><span id="map-slots-summary">업무×수준 슬롯별 추천 강좌 수 현황입니다.</span></figcaption>
     </figure>
     <figure class="fig">
       <div class="hud">
@@ -1135,25 +1135,30 @@ const D = /*__DATA__*/;
       const MP = D.dashboard_mapping;
       const lowMap = MP.domains.slice(0, 3).map(d => d.label);
       blockBars($('#ch-map-domain'), MP.domains, { unit: 10, labelW: 150, color: (i, d) => lowMap.includes(d.label) ? css('--rust') : css('--teal-lt') });
-      blockBars($('#ch-map-thin'), MP.thinnest.map(t => ({ label: t.label.length > 26 ? t.label.slice(0, 25) + '…' : t.label, n: t.n })), { unit: 1, max: MP.task_max, labelW: 300, fmt: d => d.n + '개', color: () => css('--rust') });
-      $('#map-total').textContent = MP.tasks_total;
-      $('#map-thin').textContent = MP.thin_count;
-      $('#map-thinmax').textContent = MP.thin_max;
-      $('#map-max').textContent = MP.task_max;
       if (MP.domains && MP.domains.length >= 5) {
         const top2 = MP.domains.slice(-2);
         const bot3 = MP.domains.slice(0, 3);
-        const topStr = top2.map(d => d.label.split('·')[0]).join('·');
-        const botStr = bot3.map(d => d.label.split('·')[0]).join('·');
-        const topFloor = Math.floor(top2[0].n / 10) * 10;
-        const botCeil = Math.ceil(bot3[bot3.length - 1].n / 10) * 10;
+        const topStr = top2.map(d => `${d.label} ${d.n}개`).join(', ');
+        const botStr = bot3.map(d => `${d.label} ${d.n}개`).join(', ');
         const sumEl = $('#map-domain-summary');
-        if (sumEl) sumEl.textContent = `${topStr} 분야는 ${topFloor}개 이상, ${botStr}은 ${botCeil}개 안팎`;
+        if (sumEl) sumEl.textContent = `${topStr} ↔ ${botStr}`;
       }
-      if (MP.thinnest && MP.thinnest.length > 0) {
-        const t0 = MP.thinnest[0];
-        const thinEl = $('#map-thinnest-summary');
-        if (thinEl) thinEl.textContent = `'${t0.label}' 등 ${t0.n}개에 불과한 업무가 가장 얇습니다.`;
+      if (MP.thin_slot_list) {
+        blockBars($('#ch-map-thin'), MP.thin_slot_list.map(s => ({
+          label: `${s.task} (${s.level})`,
+          n: s.n
+        })), {
+          unit: 1,
+          max: MP.slot_min || 3,
+          labelW: 360,
+          fmt: d => d.n + '개',
+          color: () => css('--rust')
+        });
+        const slotItems = MP.thin_slot_list.map(s => `${s.task}(${s.level} ${s.n}개)`).join(', ');
+        const slotsSumEl = $('#map-slots-summary');
+        if (slotsSumEl) {
+          slotsSumEl.textContent = `업무×수준 ${MP.slots_total}개 슬롯 중 ${MP.thin_slots}개는 추천이 ${MP.slot_min}개보다 적습니다: ${slotItems}.`;
+        }
       }
       $('#map-gaps').innerHTML = MP.empty_cells.map(g => `<li><b>${g.domain}</b> · ${g.category} 강좌 0개</li>`).join('');
     }
