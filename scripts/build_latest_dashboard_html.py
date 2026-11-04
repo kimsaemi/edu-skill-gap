@@ -15,6 +15,8 @@ if sys.platform == "win32":
     sys.stdout.reconfigure(encoding="utf-8")
 
 ROOT = Path(__file__).resolve().parent.parent
+sys.path.insert(0, str(ROOT))
+from src.course_links import detail_url  # noqa: E402
 
 OLD_HTML = ROOT / "hr_career_platform_v2_2026-11-02.html"
 NEW_HTML = ROOT / "hr_career_platform_v2_2026-11-04.html"
@@ -71,7 +73,7 @@ def main():
         meta = cleaned_by_uid.get(uid, {})
         title = meta.get("title", uid)
         provider = meta.get("provider", "GSEEK")
-        url = meta.get("url", "")
+        url = detail_url(meta.get("url", ""))
         # Create minimal course entry matching dashboard schema
         new_course = {
             "id": uid,
@@ -123,6 +125,8 @@ def main():
     print(f"Updated recommendations for {updated_tasks} tasks.")
 
     # 3. Serialize back into HTML
+    for c in data["courses"]:  # GSEEK는 상세 페이지 링크로 (src/course_links.py)
+        c["url"] = detail_url(c.get("url", ""))
     new_json_str = json.dumps(data, ensure_ascii=False, separators=(",", ":"))
     new_html_content = text[:data_start] + new_json_str + text[data_start + end_idx:]
 
