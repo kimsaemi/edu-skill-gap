@@ -14,6 +14,7 @@ from typing import Dict, List, Any, Optional
 from dataclasses import dataclass, field
 import pandas as pd
 
+from src.course_links import detail_url
 from src.recommendation.unified_hybrid_recommender import UnifiedHybridRecommender
 from src.recommendation.ksa_master import KSA_COMPETENCY_MASTER
 from src.assessment.evaluator import AssessmentEvaluationResult, CompetencyScore
@@ -188,7 +189,7 @@ def _common_card_fields(row: pd.Series, weekly_h: float) -> Dict[str, Any]:
         course_uid=row['course_uid'],
         title=row['title'],
         provider=provider,
-        url=row.get('url', '#'),
+        url=detail_url(row.get('url', '#')),  # GSEEK는 상세 페이지 링크로 (src/course_links.py)
         price_display=price_disp,
         numeric_price=float(num_price) if pd.notna(num_price) else None,
         price_status=price_status,

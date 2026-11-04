@@ -22,6 +22,7 @@ sys.path.insert(0, str(ROOT))
 
 from src.customer import career_platform as cp
 from src.customer.career_platform import course_intro_summary
+from src.course_links import detail_url
 
 CATALOG_PATH = ROOT / "data" / "hr" / "processed" / "hr_task_catalog_90.json"
 EXCL_PATH = ROOT / "data" / "hr" / "processed" / "off_topic_exclusions.csv"
@@ -46,7 +47,7 @@ df_courses = cp.courses().set_index("course_uid")
 def get_course_info(uid):
     if uid in df_courses.index:
         c = df_courses.loc[uid]
-        return str(c.get("title", "")), str(c.get("provider", "")), str(c.get("url", ""))
+        return str(c.get("title", "")), str(c.get("provider", "")), detail_url(str(c.get("url", "")))
     return "", "", ""
 
 print("=== 1. Round 2 평가 항목 구성 ===")

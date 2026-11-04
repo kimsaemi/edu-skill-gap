@@ -73,7 +73,12 @@ python scripts/test_new_flow_verification.py            # 고객 앱 단계 흐�
 python scripts/test_recommender_integration.py          # 추천 엔진
 python scripts/test_common_loader.py                    # 데이터 로더
 python scripts/test_same_title_offerings.py             # 같은 제목 과정의 '다른 운영 기관' 표시
+python scripts/test_course_links.py                     # GSEEK 상세 링크 보정 (카드·대시보드·평가표)
 ```
+
+GSEEK 과정 링크(`…/online/view?s_sbjct_sn=번호`)는 과정 목록으로 넘어가 내용을 볼 수 없다. 화면·평가표에 내보낼 때만
+`src/course_links.py`의 `detail_url()`이 `s_sbjct_cycl_sn=1`을 붙여 상세 페이지로 연결한다 (원본 데이터 URL은 그대로).
+대시보드 HTML이나 평가표를 다시 만든 뒤에는 `python scripts/apply_detail_links.py`를 실행한다 (여러 번 실행해도 결과 같음).
 
 ### 데이터 검증 (모델·API 불필요, 결과: `data/hr/reports/data_validation_report.md`)
 
