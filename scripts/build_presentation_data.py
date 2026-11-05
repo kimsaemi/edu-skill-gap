@@ -514,6 +514,9 @@ def main():
         },
         # 대시보드 업무·강좌 매핑 (분야별 강좌 수, 부족 업무, 빈 카테고리)
         "dashboard_mapping": dashboard_mapping_section(),
+        # 인사 교육 지도 (발표 2D 맵)
+        "course_map": (json.loads((ROOT / "presentation" / "src" / "course_map.json").read_text(encoding="utf-8"))
+                       if (ROOT / "presentation" / "src" / "course_map.json").exists() else None),
     }
     OUT.parent.mkdir(parents=True, exist_ok=True)
     OUT.write_text(json.dumps(data, ensure_ascii=False, separators=(",", ":")), encoding="utf-8")

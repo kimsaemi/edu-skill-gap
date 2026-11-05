@@ -467,7 +467,7 @@ ol.three li::marker { font-family: var(--pxb); color: var(--teal); }
     <p>가장 중요한 과정명·기관은 결측이 없지만, 시간·개강일·난이도는 기관마다 제공 여부가 달라 결측이 큽니다. <strong>결측은 채워 넣지 않고 "미확인"으로 표시</strong>하는 것을 원칙으로 했습니다. 예를 들어 가격이 비어 있으면 무료로 보지 않습니다.</p>
   </div>
   <div class="wrap wide">
-    <figure class="fig">
+        <figure class="fig">
       <div class="hud">
         <div class="hud-head"><span class="hud-title">칼럼별 결측률</span><span class="hud-sub">전체 <span data-k="courses"></span>개, 1칸 = 1%p</span></div>
         <div class="chart" id="ch-missing"></div>
@@ -602,6 +602,25 @@ ol.three li::marker { font-family: var(--pxb); color: var(--teal); }
     <p>인사 실무 9개 영역의 과업 설명과 뜻이 가까운 과정을 셌습니다. 노사관계·노무, 보상·급여, 조직문화 영역은 인재육성 영역의 1/10 수준이고, <strong>중급 이상 과정은 수십 개</strong>에 불과합니다. 인재육성 영역이 많은 데에는 카탈로그 자체가 "교육" 과정이라 단어가 겹치는 영향도 있습니다.</p>
   </div>
   <div class="wrap wide">
+    <figure class="fig" id="course-map-fig" style="margin-top:0">
+      <div class="hud">
+        <div class="hud-head">
+          <span class="hud-title">인사 교육 지도: 강좌 <span data-k="courses">9,075</span>개와 인사 과업 <span data-k="tasks">90</span>개</span>
+          <span class="hud-sub">UMAP 2차원 투영 (768차원 임베딩 공간)</span>
+        </div>
+        <div class="course-map-container" style="position:relative; width:100%; max-width:960px; margin:0 auto; background:#0f172a; border-radius:8px; overflow:hidden; border:1px solid var(--line);">
+          <svg id="course-map-svg" viewBox="0 0 1000 1000" style="width:100%; height:auto; display:block; aspect-ratio:1/1;">
+            <!-- JS로 렌더링 -->
+          </svg>
+          <div id="course-map-tooltip" style="position:absolute; display:none; pointer-events:none; background:rgba(15,23,42,0.92); color:#fff; border:1px solid #38bdf8; padding:8px 12px; border-radius:6px; font-size:12px; line-height:1.4; z-index:100; max-width:280px; box-shadow:0 4px 12px rgba(0,0,0,0.5);"></div>
+        </div>
+        <div class="course-map-legend" id="course-map-legend" style="display:flex; flex-wrap:wrap; gap:8px 14px; margin-top:12px; font-size:12px; color:var(--hud-dim);"></div>
+      </div>
+      <figcaption>
+        <strong>[읽는 법 & 해석]</strong> 과업(★) 주변에 관련 강좌(•)들이 군집을 이루고 있는 모습입니다. 특히 인재육성·HR 일반 영역은 강좌가 조밀하게 밀집해 있는 반면, 보상·노무 영역은 강좌 밀도가 낮고 빨간 별표(★, 3개 미만 슬롯 업무)처럼 교육 과정이 희소한 과업이 두드러집니다.<br>
+        <small style="color:var(--dim); display:inline-block; margin-top:4px;">※ 주의: 원래 768차원을 2차원으로 줄인 그림이라 실제 거리와 정확히 일치하지는 않습니다.</small>
+      </figcaption>
+    </figure>
     <figure class="fig">
       <div class="hud">
         <div class="hud-head"><span class="hud-title">영역별로 뜻이 가까운 과정 수</span><span class="hud-sub">의미 유사도 <span id="dom-tau"></span> 이상, 1칸 = 50개</span></div>
@@ -1140,8 +1159,122 @@ const D = /*__DATA__*/;
 
   /* ---------- 차트 그리기 ---------- */
   const pctFmt = d => d.pct + '%';
+  function drawCourseMap() {
+    if (!D.course_map) return;
+    const svg = $('#course-map-svg');
+    if (!svg) return;
+    svg.innerHTML = '';
+
+    const CM = D.course_map;
+    const meta = CM.metadata || {};
+    const domains = meta.domains || {};
+
+    // 1. Draw course points
+    const gCourses = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+    gCourses.setAttribute('class', 'course-points-layer');
+
+    const courses = CM.courses || [];
+    for (let i = 0; i < courses.length; i++) {
+      const c = courses[i];
+      const x = c[0], y = c[1], f_code = c[2], is_excl = c[3];
+      const circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+      circle.setAttribute('class', 'map-course-point');
+      circle.setAttribute('cx', x);
+      circle.setAttribute('cy', y);
+      circle.setAttribute('r', '2.2');
+      const dInfo = domains[f_code] || { color: '#2563eb', name: f_code };
+      const color = is_excl ? (domains.EXCLUDED ? domains.EXCLUDED.color : '#94a3b8') : dInfo.color;
+      circle.setAttribute('fill', color);
+      circle.setAttribute('opacity', is_excl ? '0.35' : '0.65');
+      circle.setAttribute('data-field', f_code);
+      circle.setAttribute('data-excluded', is_excl);
+      circle.setAttribute('data-name', is_excl ? '추천 제외 과정' : dInfo.name);
+      gCourses.appendChild(circle);
+    }
+    svg.appendChild(gCourses);
+
+    // 2. Draw task stars
+    const gTasks = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+    gTasks.setAttribute('class', 'task-stars-layer');
+
+    function starPath(cx, cy, r) {
+      let d = '';
+      for (let i = 0; i < 10; i++) {
+        const radius = i % 2 === 0 ? r : r * 0.45;
+        const angle = (i * Math.PI) / 5 - Math.PI / 2;
+        const px = (cx + radius * Math.cos(angle)).toFixed(1);
+        const py = (cy + radius * Math.sin(angle)).toFixed(1);
+        d += (i === 0 ? 'M' : 'L') + px + ',' + py;
+      }
+      return d + 'Z';
+    }
+
+    const tasks = CM.tasks || [];
+    for (let i = 0; i < tasks.length; i++) {
+      const t = tasks[i];
+      const x = t[0], y = t[1], t_name = t[2], d_name = t[3], has_thin = t[4];
+      const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+      path.setAttribute('class', 'map-task-star' + (has_thin ? ' thin' : ''));
+      path.setAttribute('d', starPath(x, y, has_thin ? 9 : 7));
+      path.setAttribute('fill', has_thin ? '#ef4444' : '#fbbf24');
+      path.setAttribute('stroke', '#0f172a');
+      path.setAttribute('stroke-width', '1.5');
+      path.setAttribute('data-task', t_name);
+      path.setAttribute('data-domain', d_name);
+      path.setAttribute('data-thin', has_thin);
+      gTasks.appendChild(path);
+    }
+    svg.appendChild(gTasks);
+
+    // 3. Legend
+    const lg = $('#course-map-legend');
+    if (lg && !lg.hasChildNodes()) {
+      let html = '';
+      Object.entries(domains).forEach(([k, v]) => {
+        html += `<span style="display:inline-flex; align-items:center; gap:4px;"><i style="width:10px; height:10px; border-radius:50%; background:${v.color}; display:inline-block;"></i>${v.name}</span>`;
+      });
+      html += `<span style="display:inline-flex; align-items:center; gap:4px;"><span style="color:#fbbf24; font-size:14px;">★</span>인사 과업 (${tasks.length}개)</span>`;
+      const thinCount = tasks.filter(t => t[4]).length;
+      html += `<span style="display:inline-flex; align-items:center; gap:4px;"><span style="color:#ef4444; font-size:15px;">★</span>추천 부족 과업 (${thinCount}개)</span>`;
+      lg.innerHTML = html;
+    }
+
+    // 4. Tooltip interaction
+    const tip = $('#course-map-tooltip');
+    if (tip && !svg._hasTooltipEvents) {
+      svg._hasTooltipEvents = true;
+      svg.addEventListener('mousemove', e => {
+        const target = e.target;
+        if (target.classList.contains('map-task-star')) {
+          const tName = target.getAttribute('data-task');
+          const dName = target.getAttribute('data-domain');
+          const isThin = target.getAttribute('data-thin') === '1';
+          tip.innerHTML = `<strong>★ ${tName}</strong><br><span style="color:#94a3b8">분야: ${dName}</span>${isThin ? '<br><span style="color:#f87171; font-weight:bold;">⚠️ 추천 과정 3개 미만 슬롯 보유</span>' : ''}`;
+          tip.style.display = 'block';
+          const rect = svg.getBoundingClientRect();
+          tip.style.left = (e.clientX - rect.left + 12) + 'px';
+          tip.style.top = (e.clientY - rect.top + 12) + 'px';
+        } else if (target.classList.contains('map-course-point')) {
+          const fName = target.getAttribute('data-name');
+          const isExcl = target.getAttribute('data-excluded') === '1';
+          tip.innerHTML = `• ${fName}${isExcl ? ' (직무 무관 추천 제외)' : ''}`;
+          tip.style.display = 'block';
+          const rect = svg.getBoundingClientRect();
+          tip.style.left = (e.clientX - rect.left + 10) + 'px';
+          tip.style.top = (e.clientY - rect.top + 10) + 'px';
+        } else {
+          tip.style.display = 'none';
+        }
+      });
+      svg.addEventListener('mouseleave', () => {
+        tip.style.display = 'none';
+      });
+    }
+  }
+
   function drawAll() {
     drawDotfield();
+    drawCourseMap();
 
     blockBars($('#ch-providers'), D.providers, { unit: 50, color: (i, d) => d.label.startsWith('기타') ? css('--hud-dim') : css('--yel'), aria: '기관별 과정 수' });
     blockBars($('#ch-edutype'), D.edu_type, { unit: 100, labelW: 110, color: (i, d) => d.label === '미기재' ? css('--hud-dim') : css('--teal-lt') });
