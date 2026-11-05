@@ -329,6 +329,7 @@ ol.three li::marker { font-family: var(--pxb); color: var(--teal); }
       <a href="#insight">05 인사이트</a>
       <a href="#conclusion">06 결론</a>
       <a href="#method">부록</a>
+      <a href="#worklog">작업 내역</a>
     </div>
   </div>
 </nav>
@@ -867,6 +868,29 @@ ol.three li::marker { font-family: var(--pxb); color: var(--teal); }
       </table>
     </div>
     <p class="note">이 페이지의 모든 수치는 <code>scripts/build_presentation_data.py</code>가 위 산출물에서 다시 계산한 값입니다. 페이지는 <code>scripts/build_presentation.py</code>로 만듭니다.</p>
+  </div>
+</section>
+
+<section id="worklog">
+  <div class="wrap">
+    <div class="eyebrow"><b>부록</b> 작업 내역</div>
+    <h2>11월 2일부터 4일까지 한 작업</h2>
+    <div class="tbl">
+      <table>
+        <thead><tr><th>날짜</th><th>작업</th><th>결과</th></tr></thead>
+        <tbody>
+          <tr><td>11-02</td><td>대시보드 2026-11-02판: 자격시험·타 직종 과정 제외, 같은 제목 과정의 다른 운영 기관 표시</td><td>추천 카드에 운영 기관 목록 표시</td></tr>
+          <tr><td>11-02</td><td>강좌 매핑 EDA와 발표용 발견 정리, 발표 페이지에 업무·강좌 매핑 분석 추가</td><td>분야별 강좌 수, 부족 업무, 빈 카테고리</td></tr>
+          <tr><td>11-02</td><td>사람 평가 1차 완료 (60건)</td><td>Precision@3 52.7%</td></tr>
+          <tr><td>11-03~04</td><td>2단계 리랭커, 인사 무관 과정 제외 규칙 보강(전산회계 제외 규칙은 급여 실무 과정이 남도록 좁힘), HR 지시어 비교 실험(채택하지 않음)</td><td>사람 평가 재측정</td></tr>
+          <tr><td>11-04</td><td>사람 평가 2차와 홀드아웃 결과 반영</td><td>Precision@3 2차 67.3%, 홀드아웃 74.5%</td></tr>
+          <tr><td>11-04</td><td>평가·고객 화면에 과정 소개 표시, '부족 업무' 기준을 슬롯(3개 미만) 기준으로 교체, 대시보드 2026-11-04판</td><td><code>hr_career_platform_v2_2026-11-04.html</code></td></tr>
+          <tr><td>11-04</td><td>GSEEK 과정 링크를 상세 페이지로 연결 (화면·평가표 출력 시 보정, 원본 데이터는 그대로)</td><td><code>src/course_links.py</code></td></tr>
+          <tr><td>11-04</td><td>저장소 정리: 예전 대시보드 HTML을 <code>archive/</code>로 이동</td><td>루트에는 최신 대시보드 한 개만 남김</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="note">최신 대시보드는 저장소 루트의 <code>hr_career_platform_v2_2026-11-04.html</code>입니다.</p>
   </div>
 </section>
 </main>
