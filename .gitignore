@@ -93,3 +93,5 @@ edu-skill-gap/
 work_logs/
 DAILY_LOG.md
 
+data/hr/output/recommendation/.scored_candidates_90.parquet
+data/hr/output/recommendation/task_course_recommendations_90_reranked_*.csv
