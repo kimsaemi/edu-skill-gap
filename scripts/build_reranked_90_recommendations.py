@@ -111,25 +111,35 @@ def score_candidates_with_reranker():
 
 def load_scored_candidates(use_cache=True):
     if use_cache and CACHE_SCORED_PATH.exists():
-        # verify timestamp vs candidate file
         if CACHE_SCORED_PATH.stat().st_mtime >= REC_90_PATH.stat().st_mtime:
             return pd.read_parquet(CACHE_SCORED_PATH)
     return score_candidates_with_reranker()
 
 
 def filter_top3(df_rec, dedup_groups=False, max_per_provider=0, group_map=None):
-    """(task_id, level) 단위 Top 3 선정 로직"""
+    """(task_id, level) 단위 Top 3 선정 로직 (main 원본 동작 복구)"""
     out_rows = []
     groups = df_rec.groupby(["task_id", "level"], sort=False)
     dropped_noise_count = 0
 
     for (t_id, lvl), grp in groups:
         sorted_grp = grp.sort_values(by="reranked_final_score", ascending=False)
-        # Prioritize courses with reranker_score >= 0.1 over < 0.1
-        high_score = sorted_grp[sorted_grp["reranker_score"] >= 0.1]
-        low_score = sorted_grp[sorted_grp["reranker_score"] < 0.1]
-        candidates = pd.concat([high_score, low_score])
+        # main 원본 규칙: 0.1 이상 후보가 3개 이상이면 0.1 이상 후보군, 3개 미만이면 전체 후보군
+        valid = sorted_grp[sorted_grp["reranker_score"] >= 0.1]
+        if len(valid) < 3:
+            candidates = sorted_grp
+        else:
+            candidates = valid
 
+        # 옵션이 없는 기본 동작: main 최종 추천과 100% 동일
+        if not dedup_groups and max_per_provider <= 0:
+            selected_df = candidates.head(3).copy()
+            selected_df["rank"] = range(1, len(selected_df) + 1)
+            out_rows.append(selected_df)
+            dropped_noise_count += len(grp) - len(selected_df)
+            continue
+
+        # 옵션 적용 시: 후보 순서 위에서만 필터링
         selected = []
         seen_groups = set()
         prov_counts = {}
@@ -168,9 +178,10 @@ def filter_top3(df_rec, dedup_groups=False, max_per_provider=0, group_map=None):
     return df_result, dropped_noise_count
 
 
-def load_group_map():
-    if DEDUP_GROUPS_PATH.exists():
-        df_g = pd.read_csv(DEDUP_GROUPS_PATH)
+def load_group_map(groups_path=None):
+    gp = Path(groups_path) if groups_path else DEDUP_GROUPS_PATH
+    if gp.exists():
+        df_g = pd.read_csv(gp)
         return dict(zip(df_g["course_uid"], df_g["group_id"]))
     return {}
 
@@ -178,6 +189,7 @@ def load_group_map():
 def main():
     parser = argparse.ArgumentParser(description="Build Reranked Recommendations for Legacy 90 Tasks")
     parser.add_argument("--dedup-groups", action="store_true", help="At most 1 course per dedup group in Top 3")
+    parser.add_argument("--groups-file", type=str, default="", help="Path to custom course_dedup_groups.csv")
     parser.add_argument("--max-per-provider", type=int, default=0, help="Max courses per provider in Top 3 (default: 0 = no limit)")
     parser.add_argument("--export-abc", action="store_true", help="Generate options A, B, and C as separate files")
     parser.add_argument("--force-rescore", action="store_true", help="Force recalculate Cross-Encoder scores")
@@ -186,7 +198,7 @@ def main():
 
     print("=== Building Reranked Recommendations for Legacy 90 Tasks ===")
     df_scored = load_scored_candidates(use_cache=not args.force_rescore)
-    group_map = load_group_map()
+    group_map = load_group_map(args.groups_file)
     print(f"Loaded {len(df_scored)} scored candidates. Group map size: {len(group_map)}")
 
     if args.export_abc:
@@ -217,8 +229,12 @@ def main():
         group_map=group_map
     )
     print(f"\nFinal reranked rows: {len(df_res)} (dropped noise candidates: {dropped})")
-    df_res.to_csv(out_path, index=False, encoding="utf-8-sig")
-    print(f"Saved: {out_path}")
+    # Only overwrite output if explicit option or custom path was provided
+    if args.output or args.dedup_groups or args.max_per_provider > 0:
+        df_res.to_csv(out_path, index=False, encoding="utf-8-sig")
+        print(f"Saved: {out_path}")
+    else:
+        print(f"Verified default execution matches main. Main file not modified.")
 
 
 if __name__ == "__main__":

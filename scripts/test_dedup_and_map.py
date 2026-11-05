@@ -87,7 +87,10 @@ def test_course_map_consistency():
     courses = data.get("courses", [])
     tasks = data.get("tasks", [])
 
-    assert len(courses) == 9075, f"Expected 9075 courses, got {len(courses)}"
+    n_plotted = len(courses)
+    n_omitted = meta.get("n_omitted_courses", 0)
+    assert n_plotted + n_omitted == 9075, f"Expected 9075 total courses, got {n_plotted} + {n_omitted} = {n_plotted + n_omitted}"
+    assert n_plotted == meta.get("n_plotted_courses", n_plotted), "Mismatch in plotted course count"
     assert len(tasks) == 90, f"Expected 90 tasks, got {len(tasks)}"
 
     thin_tasks = [t for t in tasks if t[4] == 1]
@@ -96,7 +99,38 @@ def test_course_map_consistency():
     print("test_course_map_consistency PASSED")
 
 
+
+
+def test_default_filter_top3_matches_main():
+    """옵션 없이 filter_top3를 실행한 결과가 main 최종 추천과 행 단위로 100% 일치하는지 회귀 검증"""
+    cache_path = ROOT / "data" / "hr" / "output" / "recommendation" / ".scored_candidates_90.parquet"
+    main_rec_path = ROOT / "data" / "hr" / "output" / "recommendation" / "task_course_recommendations_90_reranked.csv"
+
+    if not cache_path.exists():
+        print("[SKIP] .scored_candidates_90.parquet 캐시 파일이 없어 모델 없이 실행하는 환경에서는 건너뜁니다.")
+        return
+
+    assert main_rec_path.exists(), "task_course_recommendations_90_reranked.csv missing"
+
+    import importlib.util
+    spec = importlib.util.spec_from_file_location("build_reranked", ROOT / "scripts" / "build_reranked_90_recommendations.py")
+    br = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(br)
+
+    df_scored = pd.read_parquet(cache_path)
+    df_a, _ = br.filter_top3(df_scored, dedup_groups=False, max_per_provider=0, group_map={})
+    df_main = pd.read_csv(main_rec_path)
+
+    assert len(df_a) == len(df_main), f"Row count mismatch: df_a={len(df_a)}, df_main={len(df_main)}"
+
+    key_cols = ["task_id", "level", "rank", "course_uid"]
+    diff = (df_a[key_cols] != df_main[key_cols]).any(axis=1)
+    diff_count = int(diff.sum())
+    assert diff_count == 0, f"Found {diff_count} differing rows between default filter_top3 and main recommendations!"
+    print(f"test_default_filter_top3_matches_main PASSED: 100% match ({len(df_a)} rows, 0 diff)")
+
 if __name__ == "__main__":
+    test_default_filter_top3_matches_main()
     test_dedup_groups_consistency()
     test_dedup_groups_option_b_constraint()
     test_max_per_provider_option_c_constraint()

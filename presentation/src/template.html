@@ -616,9 +616,9 @@ ol.three li::marker { font-family: var(--pxb); color: var(--teal); }
         </div>
         <div class="course-map-legend" id="course-map-legend" style="display:flex; flex-wrap:wrap; gap:8px 14px; margin-top:12px; font-size:12px; color:var(--hud-dim);"></div>
       </div>
-      <figcaption>
-        <strong>[읽는 법 & 해석]</strong> 과업(★) 주변에 관련 강좌(•)들이 군집을 이루고 있는 모습입니다. 특히 인재육성·HR 일반 영역은 강좌가 조밀하게 밀집해 있는 반면, 보상·노무 영역은 강좌 밀도가 낮고 빨간 별표(★, 3개 미만 슬롯 업무)처럼 교육 과정이 희소한 과업이 두드러집니다.<br>
-        <small style="color:var(--dim); display:inline-block; margin-top:4px;">※ 주의: 원래 768차원을 2차원으로 줄인 그림이라 실제 거리와 정확히 일치하지는 않습니다.</small>
+      <figcaption id="course-map-caption">
+        <strong>[읽는 법]</strong> 별(★)은 90개 인사 과업(색상 = 과업 9개 분야), 작은 점(•)은 교육 과정(10개 강좌 분야)입니다. <span id="map-thin-note">빨간 별은 추천이 3개보다 적은 업무입니다.</span> <span id="map-omitted-note"></span><br>
+        <small style="color:var(--dim); display:inline-block; margin-top:4px;">※ 주의: 원래 768차원을 2차원으로 줄인 그림이라 실제 거리와 정확히 일치하지는 않으며, 업무 설명과 과정 설명은 문체가 달라 업무 별이 한쪽에 모여 보입니다.</small>
       </figcaption>
     </figure>
     <figure class="fig">
@@ -797,9 +797,9 @@ ol.three li::marker { font-family: var(--pxb); color: var(--teal); }
         <div class="ins-r"><span>전략</span><p>고용24 과정을 월 1회 자동 갱신하고, 일정이 지난 과정에는 "운영 종료" 표시를 붙입니다(적용 완료). 데이터 신선도를 대시보드 지표로 관리합니다.</p></div>
       <div class="ins">
         <div class="ins-h">5 · 추천이 한 기관에 쏠린다</div>
-        <div class="ins-r"><span>발견</span><p>한국생산성본부는 카탈로그의 <b id="i5-cat"></b>%인데 추천 Top 3의 <b id="i5-top"></b>%를 차지합니다. 회차 중복 등록과 실무형 문체가 겹친 결과입니다.</p></div>
+        <div class="ins-r"><span>발견</span><p>한국생산성본부는 카탈로그의 <b id="i5-cat"></b>%인데 추천 Top 3의 <b id="i5-top"></b>%를 차지합니다. 거의 같은 과정을 묶어도 쏠림이 줄지 않았고(KPC 점유율 37.4% → 37.5%), 설명이 자세한 과정이 모델에서 높게 평가되는 경향이 주원인입니다.</p></div>
         <div class="ins-r"><span>의미</span><p>사용자는 비슷한 기관의 과정만 보게 되고, 다른 기관의 더 맞는 과정을 놓칠 수 있습니다.</p></div>
-        <div class="ins-r"><span>전략</span><p>후보 단계에서 같은 제목의 회차를 하나로 묶고, Top 3 안에서 같은 기관은 최대 2개로 제한합니다. 2단계 리랭커만으로는 쏠림이 줄지 않았으므로(리랭커 전 <b id="i5-s1"></b>%), 이 규칙을 따로 넣고 사람 평가로 효과를 확인합니다.</p></div>
+        <div class="ins-r"><span>전략</span><p>같은 기관 최대 2개 상한은 쏠림을 줄이지만(+21%p → +19%p) 추천이 3개 미만인 슬롯이 4개에서 25개로 늘어 그대로는 쓸 수 없습니다. 억지 상한 대신 데이터 공급 풀 다양화와 상세 설명 품질 가중치 보정이 필요합니다.</p></div>
       </div>
       </div>
     </div>
@@ -1167,9 +1167,23 @@ const D = /*__DATA__*/;
 
     const CM = D.course_map;
     const meta = CM.metadata || {};
-    const domains = meta.domains || {};
+    const taskDomains = meta.task_domains || {};
+    const courseDomains = meta.course_domains || {};
+    const thinTasks = meta.thin_tasks || [];
 
-    // 1. Draw course points
+    // Update dynamic caption text from data.json values
+    const thinDomName = thinTasks[0] ? thinTasks[0].domain_name : '직무설계·직무분석';
+    const thinNames = thinTasks.map(t => t.task_name).join(', ');
+    const noteEl = $('#map-thin-note');
+    if (noteEl && thinNames) {
+      noteEl.textContent = `빨간 별은 추천이 3개보다 적은 업무입니다: ${thinNames} (${thinDomName}).`;
+    }
+    const omitEl = $('#map-omitted-note');
+    if (omitEl && meta.n_omitted_courses) {
+      omitEl.textContent = `범위 밖 ${meta.n_omitted_courses}개 강좌는 생략했습니다 (전체 ${fmt(meta.n_courses || 9075)}개 강좌 중 1~99 백분위 외곽 강좌).`;
+    }
+
+    // 1. Draw course points (10 domains, lower opacity so stars stand out)
     const gCourses = document.createElementNS('http://www.w3.org/2000/svg', 'g');
     gCourses.setAttribute('class', 'course-points-layer');
 
@@ -1181,11 +1195,11 @@ const D = /*__DATA__*/;
       circle.setAttribute('class', 'map-course-point');
       circle.setAttribute('cx', x);
       circle.setAttribute('cy', y);
-      circle.setAttribute('r', '2.2');
-      const dInfo = domains[f_code] || { color: '#2563eb', name: f_code };
-      const color = is_excl ? (domains.EXCLUDED ? domains.EXCLUDED.color : '#94a3b8') : dInfo.color;
+      circle.setAttribute('r', '1.8');
+      const dInfo = courseDomains[f_code] || { color: '#38bdf8', name: f_code };
+      const color = is_excl ? (courseDomains.EXCLUDED ? courseDomains.EXCLUDED.color : '#64748b') : dInfo.color;
       circle.setAttribute('fill', color);
-      circle.setAttribute('opacity', is_excl ? '0.35' : '0.65');
+      circle.setAttribute('opacity', is_excl ? '0.18' : '0.28');
       circle.setAttribute('data-field', f_code);
       circle.setAttribute('data-excluded', is_excl);
       circle.setAttribute('data-name', is_excl ? '추천 제외 과정' : dInfo.name);
@@ -1193,7 +1207,7 @@ const D = /*__DATA__*/;
     }
     svg.appendChild(gCourses);
 
-    // 2. Draw task stars
+    // 2. Draw task stars (9 task domains with colored stars, thin tasks in red)
     const gTasks = document.createElementNS('http://www.w3.org/2000/svg', 'g');
     gTasks.setAttribute('class', 'task-stars-layer');
 
@@ -1212,30 +1226,90 @@ const D = /*__DATA__*/;
     const tasks = CM.tasks || [];
     for (let i = 0; i < tasks.length; i++) {
       const t = tasks[i];
-      const x = t[0], y = t[1], t_name = t[2], d_name = t[3], has_thin = t[4];
+      const x = t[0], y = t[1], t_name = t[2], d_name = t[3], has_thin = t[4], t_id = t[5], d_id = t[6];
       const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
       path.setAttribute('class', 'map-task-star' + (has_thin ? ' thin' : ''));
-      path.setAttribute('d', starPath(x, y, has_thin ? 9 : 7));
-      path.setAttribute('fill', has_thin ? '#ef4444' : '#fbbf24');
-      path.setAttribute('stroke', '#0f172a');
-      path.setAttribute('stroke-width', '1.5');
+      path.setAttribute('d', starPath(x, y, has_thin ? 10 : 7));
+
+      const dColor = (taskDomains[d_id] && taskDomains[d_id].color) || '#38bdf8';
+      path.setAttribute('fill', has_thin ? '#ef4444' : dColor);
+      path.setAttribute('stroke', has_thin ? '#ffffff' : '#0f172a');
+      path.setAttribute('stroke-width', has_thin ? '2.0' : '1.2');
       path.setAttribute('data-task', t_name);
       path.setAttribute('data-domain', d_name);
+      path.setAttribute('data-domain-id', d_id);
       path.setAttribute('data-thin', has_thin);
       gTasks.appendChild(path);
     }
     svg.appendChild(gTasks);
 
-    // 3. Legend
+    // Callout label for the thin tasks (combined neatly so they don't overlap)
+    if (thinTasks.length > 0) {
+      const gLabel = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+      gLabel.setAttribute('class', 'map-thin-callout');
+      const lx = thinTasks[0].x, ly = thinTasks[0].y;
+
+      const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+      line.setAttribute('x1', lx);
+      line.setAttribute('y1', ly);
+      line.setAttribute('x2', lx + 18);
+      line.setAttribute('y2', ly - 18);
+      line.setAttribute('stroke', '#ef4444');
+      line.setAttribute('stroke-width', '1.5');
+      gLabel.appendChild(line);
+
+      const rect = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+      rect.setAttribute('x', lx + 18);
+      rect.setAttribute('y', ly - 52);
+      rect.setAttribute('width', '285');
+      rect.setAttribute('height', '50');
+      rect.setAttribute('rx', '4');
+      rect.setAttribute('fill', 'rgba(15,23,42,0.94)');
+      rect.setAttribute('stroke', '#ef4444');
+      rect.setAttribute('stroke-width', '1.5');
+      gLabel.appendChild(rect);
+
+      const textTitle = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+      textTitle.setAttribute('x', lx + 26);
+      textTitle.setAttribute('y', ly - 36);
+      textTitle.setAttribute('fill', '#f87171');
+      textTitle.setAttribute('font-size', '11');
+      textTitle.setAttribute('font-weight', 'bold');
+      textTitle.textContent = `★ 추천 부족 과업 2개 (${thinDomName})`;
+      gLabel.appendChild(textTitle);
+
+      const text1 = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+      text1.setAttribute('x', lx + 26);
+      text1.setAttribute('y', ly - 22);
+      text1.setAttribute('fill', '#e2e8f0');
+      text1.setAttribute('font-size', '9.5');
+      text1.textContent = '• 표준 직무기술서(JD) 양식 설계 및 체계화';
+      gLabel.appendChild(text1);
+
+      const text2 = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+      text2.setAttribute('x', lx + 26);
+      text2.setAttribute('y', ly - 10);
+      text2.setAttribute('fill', '#e2e8f0');
+      text2.setAttribute('font-size', '9.5');
+      text2.textContent = '• 직무기술서(JD) DB 구축 및 관리 프로세스';
+      gLabel.appendChild(text2);
+
+      svg.appendChild(gLabel);
+    }
+
+    // 3. Legend (9 task domains + thin tasks + courses)
     const lg = $('#course-map-legend');
     if (lg && !lg.hasChildNodes()) {
-      let html = '';
-      Object.entries(domains).forEach(([k, v]) => {
-        html += `<span style="display:inline-flex; align-items:center; gap:4px;"><i style="width:10px; height:10px; border-radius:50%; background:${v.color}; display:inline-block;"></i>${v.name}</span>`;
+      let html = '<div style="width:100%; font-weight:bold; color:var(--hud-ink); margin-bottom:4px;">[과업 9개 분야 (★)]</div>';
+      Object.entries(taskDomains).forEach(([k, v]) => {
+        html += `<span style="display:inline-flex; align-items:center; gap:4px;"><span style="color:${v.color}; font-size:13px;">★</span>${v.name}</span>`;
       });
-      html += `<span style="display:inline-flex; align-items:center; gap:4px;"><span style="color:#fbbf24; font-size:14px;">★</span>인사 과업 (${tasks.length}개)</span>`;
-      const thinCount = tasks.filter(t => t[4]).length;
-      html += `<span style="display:inline-flex; align-items:center; gap:4px;"><span style="color:#ef4444; font-size:15px;">★</span>추천 부족 과업 (${thinCount}개)</span>`;
+      html += `<span style="display:inline-flex; align-items:center; gap:4px; font-weight:bold;"><span style="color:#ef4444; font-size:14px;">★</span>추천 부족 과업 (${meta.n_thin_tasks || 2}개)</span>`;
+      html += '<div style="width:100%; font-weight:bold; color:var(--hud-ink); margin-top:8px; margin-bottom:4px;">[강좌 10개 분야 (•)]</div>';
+      Object.entries(courseDomains).forEach(([k, v]) => {
+        html += `<span style="display:inline-flex; align-items:center; gap:4px;"><i style="width:7px; height:7px; border-radius:50%; background:${v.color}; display:inline-block; opacity:0.7;"></i>${v.name}</span>`;
+      });
+      html += `<span style="display:inline-flex; align-items:center; gap:4px; color:var(--dim);">(${fmt(meta.n_plotted_courses || 8728)}개 표시, 범위 밖 ${meta.n_omitted_courses || 347}개 생략)</span>`;
       lg.innerHTML = html;
     }
 
