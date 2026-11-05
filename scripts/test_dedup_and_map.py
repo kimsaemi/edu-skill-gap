@@ -46,32 +46,51 @@ def test_dedup_groups_consistency():
 
 def test_dedup_groups_option_b_constraint():
     """옵션 B에서는 한 슬롯 Top 3에 같은 group_id가 두 번 나오지 않음"""
-    if not REC_B_CSV.exists():
-        print("Skipping option B check: file missing")
+    cache_path = ROOT / "data" / "hr" / "output" / "recommendation" / ".scored_candidates_90.parquet"
+    if not cache_path.exists():
+        print("[SKIP] .scored_candidates_90.parquet 리랭커 점수 캐시가 없어 옵션 B 제약 검사를 건너뜁니다.")
         return
 
-    df_rec_b = pd.read_csv(REC_B_CSV)
+    import importlib.util
+    spec = importlib.util.spec_from_file_location("build_reranked", ROOT / "scripts" / "build_reranked_90_recommendations.py")
+    br = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(br)
+
+    df_scored = pd.read_parquet(cache_path)
     df_groups = pd.read_csv(DEDUP_GROUPS_CSV)
     group_map = dict(zip(df_groups["course_uid"], df_groups["group_id"]))
+
+    df_rec_b, _ = br.filter_top3(df_scored, dedup_groups=True, max_per_provider=0, group_map=group_map)
 
     df_rec_b["group_id"] = df_rec_b["course_uid"].map(group_map).fillna(df_rec_b["course_uid"])
     counts = df_rec_b.groupby(["task_id", "level"])["group_id"].value_counts()
     duplicates = counts[counts > 1]
     assert len(duplicates) == 0, f"Found duplicate groups in Option B: {len(duplicates)}"
-    print("test_dedup_groups_option_b_constraint PASSED")
+    print("test_dedup_groups_option_b_constraint PASSED (computed dynamically from scored candidates)")
 
 
 def test_max_per_provider_option_c_constraint():
     """옵션 C에서는 한 슬롯 Top 3에 동일 교육기관이 3개(2개 초과) 나오지 않음"""
-    if not REC_C_CSV.exists():
-        print("Skipping option C check: file missing")
+    cache_path = ROOT / "data" / "hr" / "output" / "recommendation" / ".scored_candidates_90.parquet"
+    if not cache_path.exists():
+        print("[SKIP] .scored_candidates_90.parquet 리랭커 점수 캐시가 없어 옵션 C 제약 검사를 건너뜁니다.")
         return
 
-    df_rec_c = pd.read_csv(REC_C_CSV)
+    import importlib.util
+    spec = importlib.util.spec_from_file_location("build_reranked", ROOT / "scripts" / "build_reranked_90_recommendations.py")
+    br = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(br)
+
+    df_scored = pd.read_parquet(cache_path)
+    df_groups = pd.read_csv(DEDUP_GROUPS_CSV)
+    group_map = dict(zip(df_groups["course_uid"], df_groups["group_id"]))
+
+    df_rec_c, _ = br.filter_top3(df_scored, dedup_groups=True, max_per_provider=2, group_map=group_map)
+
     prov_counts = df_rec_c.groupby(["task_id", "level"])["provider"].value_counts()
     exceeded = prov_counts[prov_counts > 2]
     assert len(exceeded) == 0, f"Found provider count > 2 in Option C: {len(exceeded)}"
-    print("test_max_per_provider_option_c_constraint PASSED")
+    print("test_max_per_provider_option_c_constraint PASSED (computed dynamically from scored candidates)")
 
 
 def test_course_map_consistency():

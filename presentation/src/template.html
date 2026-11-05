@@ -797,9 +797,9 @@ ol.three li::marker { font-family: var(--pxb); color: var(--teal); }
         <div class="ins-r"><span>전략</span><p>고용24 과정을 월 1회 자동 갱신하고, 일정이 지난 과정에는 "운영 종료" 표시를 붙입니다(적용 완료). 데이터 신선도를 대시보드 지표로 관리합니다.</p></div>
       <div class="ins">
         <div class="ins-h">5 · 추천이 한 기관에 쏠린다</div>
-        <div class="ins-r"><span>발견</span><p>한국생산성본부는 카탈로그의 <b id="i5-cat"></b>%인데 추천 Top 3의 <b id="i5-top"></b>%를 차지합니다. 거의 같은 과정을 묶어도 쏠림이 줄지 않았고(KPC 점유율 37.4% → 37.5%), 설명이 자세한 과정이 모델에서 높게 평가되는 경향이 주원인입니다.</p></div>
+        <div class="ins-r"><span>발견</span><p>한국생산성본부는 카탈로그의 <b id="i5-cat"></b>%인데 추천 Top 3의 <b id="i5-top"></b>%를 차지합니다. 거의 같은 과정을 묶어도 37.5%로 줄지 않아 회차 중복은 원인이 아니고, 설명 길이가 비슷한 과정끼리 비교해도 유사도가 높아(③) 원인은 아직 확정하지 못했습니다.</p></div>
         <div class="ins-r"><span>의미</span><p>사용자는 비슷한 기관의 과정만 보게 되고, 다른 기관의 더 맞는 과정을 놓칠 수 있습니다.</p></div>
-        <div class="ins-r"><span>전략</span><p>같은 기관 최대 2개 상한은 쏠림을 줄이지만(+21%p → +19%p) 추천이 3개 미만인 슬롯이 4개에서 25개로 늘어 그대로는 쓸 수 없습니다. 억지 상한 대신 데이터 공급 풀 다양화와 상세 설명 품질 가중치 보정이 필요합니다.</p></div>
+        <div class="ins-r"><span>전략</span><p>같은 기관 최대 2개 상한은 쏠림을 줄이지만(+21%p → +19%p) 추천이 3개 미만인 슬롯이 4개에서 25개로 늘어 그대로는 쓸 수 없습니다. 억지 상한 대신 원인 분석(문체·주제 분포 비교) 뒤 보정 방법 결정이 필요합니다.</p></div>
       </div>
       </div>
     </div>
@@ -1261,7 +1261,7 @@ const D = /*__DATA__*/;
       const rect = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
       rect.setAttribute('x', lx + 18);
       rect.setAttribute('y', ly - 52);
-      rect.setAttribute('width', '285');
+      rect.setAttribute('width', '315');
       rect.setAttribute('height', '50');
       rect.setAttribute('rx', '4');
       rect.setAttribute('fill', 'rgba(15,23,42,0.94)');
@@ -1278,21 +1278,15 @@ const D = /*__DATA__*/;
       textTitle.textContent = `★ 추천 부족 과업 2개 (${thinDomName})`;
       gLabel.appendChild(textTitle);
 
-      const text1 = document.createElementNS('http://www.w3.org/2000/svg', 'text');
-      text1.setAttribute('x', lx + 26);
-      text1.setAttribute('y', ly - 22);
-      text1.setAttribute('fill', '#e2e8f0');
-      text1.setAttribute('font-size', '9.5');
-      text1.textContent = '• 표준 직무기술서(JD) 양식 설계 및 체계화';
-      gLabel.appendChild(text1);
-
-      const text2 = document.createElementNS('http://www.w3.org/2000/svg', 'text');
-      text2.setAttribute('x', lx + 26);
-      text2.setAttribute('y', ly - 10);
-      text2.setAttribute('fill', '#e2e8f0');
-      text2.setAttribute('font-size', '9.5');
-      text2.textContent = '• 직무기술서(JD) DB 구축 및 관리 프로세스';
-      gLabel.appendChild(text2);
+      thinTasks.forEach((tt, idx) => {
+        const textItem = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+        textItem.setAttribute('x', lx + 26);
+        textItem.setAttribute('y', ly - (22 - idx * 12));
+        textItem.setAttribute('fill', '#e2e8f0');
+        textItem.setAttribute('font-size', '9.5');
+        textItem.textContent = `• ${tt.task_name}`;
+        gLabel.appendChild(textItem);
+      });
 
       svg.appendChild(gLabel);
     }

@@ -34,18 +34,11 @@ REC_RERANKED_PATH = ROOT / "data" / "hr" / "output" / "recommendation" / "task_c
 OUT_PATH = ROOT / "presentation" / "src" / "course_map.json"
 CACHE_UMAP_PATH = ROOT / "data" / "hr" / "output" / "recommendation" / ".raw_umap_coords.npy"
 
-# 9개 인사 과업 분야 및 고유 색상
-TASK_DOMAINS = {
-    "DOM_01": {"name": "인사전략·인력계획", "color": "#38bdf8"},
-    "DOM_02": {"name": "직무설계·직무분석", "color": "#2dd4bf"},
-    "DOM_03": {"name": "인재채용", "color": "#34d399"},
-    "DOM_04": {"name": "온보딩·배치", "color": "#a3e635"},
-    "DOM_05": {"name": "평가·목표관리", "color": "#facc15"},
-    "DOM_06": {"name": "보상·급여·복리후생", "color": "#fb923c"},
-    "DOM_07": {"name": "인재육성·경력개발", "color": "#c084fc"},
-    "DOM_08": {"name": "조직문화·조직몰입", "color": "#f472b6"},
-    "DOM_09": {"name": "노사관계·노무", "color": "#fb7185"}
-}
+# 9개 인사 과업 분야별 색상 (카탈로그 출현 순서대로 매핑)
+TASK_DOMAIN_COLORS = [
+    "#38bdf8", "#2dd4bf", "#34d399", "#a3e635", "#facc15",
+    "#fb923c", "#c084fc", "#f472b6", "#fb7185"
+]
 
 # 10개 강좌 분류 분야 및 고유 색상
 COURSE_DOMAINS = {
@@ -184,6 +177,8 @@ def build_course_map(force_recompute=False):
     print(f"Courses inside 1~99 percentile: {len(courses_out)}, Omitted outside: {omitted_count} (Total: {n_courses})")
 
     # Tasks: include all 90 tasks with domain_id and thin slot flag
+    task_domains = {}
+    color_idx = 0
     tasks_out = []
     thin_tasks_details = []
     for i, t in enumerate(tasks):
@@ -193,6 +188,14 @@ def build_course_map(force_recompute=False):
         t_name = t["task_name"]
         d_name = t.get("domain_name", "")
         d_id = t.get("domain_id", "")
+
+        if d_id and d_id not in task_domains:
+            task_domains[d_id] = {
+                "name": d_name,
+                "color": TASK_DOMAIN_COLORS[color_idx % len(TASK_DOMAIN_COLORS)]
+            }
+            color_idx += 1
+
         has_thin = 1 if t_id in thin_tasks else 0
         tasks_out.append([x, y, t_name, d_name, has_thin, t_id, d_id])
         if has_thin:
@@ -214,7 +217,7 @@ def build_course_map(force_recompute=False):
             "percentile_range": [1, 99],
             "method": reduction_method,
             "generated_at": time.strftime("%Y-%m-%d %H:%M:%S"),
-            "task_domains": TASK_DOMAINS,
+            "task_domains": task_domains,
             "course_domains": COURSE_DOMAINS,
             "thin_tasks": thin_tasks_details
         },
