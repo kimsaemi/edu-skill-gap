@@ -1,5 +1,6 @@
 {
-  "checked": "2026-11-02",
+  "round": "1차",
+  "checked": "2026-11-09",
   "status": "완료",
   "entered": 60,
   "assigned": 60,
@@ -8,15 +9,45 @@
   "precision_at_3": {
     "n": 55,
     "strict": 52.7,
-    "lenient": 87.3
+    "lenient": 87.3,
+    "ci95_wilson": [
+      39.8,
+      65.3
+    ],
+    "ci95_cluster_bootstrap": [
+      37.0,
+      67.9
+    ]
   },
   "target_pct": 70.0,
   "meets_target": false,
   "agreement": {
     "pairs": 30,
     "agree": 17,
-    "pct": 56.7
+    "pct": 56.7,
+    "cohen_kappa": 0.343
   },
+  "consensus": {
+    "items_total": 30,
+    "items_rated": 30,
+    "both_unclear": 0,
+    "fit": 11,
+    "partial": 14,
+    "unfit": 5,
+    "strict": 36.7,
+    "ci95_task_bootstrap": [
+      16.7,
+      56.7
+    ]
+  },
+  "ci95_wilson": [
+    39.8,
+    65.3
+  ],
+  "ci95_cluster_bootstrap": [
+    37.0,
+    67.9
+  ],
   "raters": [
     {
       "rater": "김",

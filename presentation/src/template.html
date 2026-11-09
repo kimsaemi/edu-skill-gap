@@ -1,6 +1,6 @@
 <title>인사 교육 지도</title>
 <meta name="claude:viewport-fit-sides" content="cover">
-<meta name="description" content="직무교육 과정 약 9,100개를 NCS 인사 실무 과업 90개에 연결한 교육 추천 프로젝트 발표 자료">
+<meta name="description" content="정제 카탈로그 직무교육 과정 9,075개를 NCS 인사 실무 과업 90개에 연결한 교육 추천 프로젝트 발표 자료">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@400;500;700&display=swap">
@@ -329,7 +329,7 @@ ol.three li::marker { font-family: var(--pxb); color: var(--teal); }
 <main>
 <header class="hero" id="hero">
   <div class="wrap wide">
-    <div class="eyebrow"><b>NCS</b> 인사 직무교육 추천 프로젝트</div>
+    <div class="eyebrow"><b><span class="glossary-term" tabindex="0" data-term="NCS" aria-label="NCS 용어 설명">NCS<span class="glossary-tooltip">나라가 정한 직무별 표준 업무 목록. 업무 90개의 바탕</span></span></b> 인사 직무교육 추천 프로젝트</div>
     <h1>인사 담당자에게 맞는 교육은 <em><span data-k="courses"></span>개 중 어디에</em> 있을까?</h1>
     <p class="lead">기관마다 분류도, 난이도 표기도, 설명 방식도 다릅니다. 우리는 교육기관 <span class="num" data-k="providers"></span>곳의 과정을 한곳에 모으고, 인사 실무 과업 90개를 기준으로 다시 읽어 맞는 교육을 찾아 주는 추천기를 만들었습니다.</p>
     <div class="dotfield" role="img" aria-label="카탈로그의 교육과정을 분야별 색 점으로 표시한 그림">
@@ -344,16 +344,65 @@ ol.three li::marker { font-family: var(--pxb); color: var(--teal); }
   <div class="wrap">
     <div class="eyebrow"><b>요약</b> 한눈에 보기</div>
     <h2>숫자 네 개와 검증한 가설 세 가지</h2>
-    <div class="kpis">
-      <div class="kpi"><div class="v num" data-k="courses"></div><div class="l">수집·정제한 직무교육 과정</div></div>
-      <div class="kpi"><div class="v num"><span data-k="tasks"></span><small>개</small></div><div class="l">추천 기준이 되는 인사 실무 과업 (<span data-k="domains"></span>개 영역)</div></div>
-      <div class="kpi"><div class="v num"><span id="k-cov"></span><small>%</small></div><div class="l">과업×수준 조합 중 추천 3개를 찾은 비율</div></div>
-      <div class="kpi"><div class="v num">0<small>건</small></div><div class="l">추천에 쓴 합성 후기·평점 (전부 제거)</div></div>
+
+    <div class="summary-conclusions">
+      <p>인사 교육은 다양하지만, 담당 업무에 맞는 교육을 찾기는 쉽지 않습니다. 특히 노무·보상처럼 법과 제도를 알아야 하는 업무는 맞는 교육이 적고(업무와 뜻이 가까운 과정 노무 256개·보상 249개, 인재육성의 1/13 수준), 다음 단계(중급) 교육은 비쌉니다(유료 가격 중앙값 <span class="mid-price">638,250</span>원).</p>
+      <p>그래서 업무 90개를 기준으로 교육을 추천하는 서비스를 만들었고, 처음 보는 업무 10개에서 추천의 74.5%가 '업무에 맞다'는 판정을 받았습니다. 표본이 작아 더 평가해 확인할 예정입니다.</p>
     </div>
+
+    <div class="kpis">
+      <div class="kpi">
+        <div class="v num" data-k="courses">9,075</div>
+        <div class="l">교육 데이터</div>
+        <div class="sub">정제 카탈로그 · 추천 후보 7,698개 · 기준일 <span class="kpi-gen-date"></span></div>
+      </div>
+      <div class="kpi">
+        <div class="v num"><span id="k-cov">98.5</span><small>%</small></div>
+        <div class="l"><span class="glossary-term" tabindex="0" data-term="커버리지">추천 커버리지<span class="glossary-tooltip">업무×수준 270개 조합 중 추천을 3개 다 채운 비율</span></span></div>
+        <div class="sub">목표 95% · 업무×수준 270칸 중 266칸</div>
+      </div>
+      <div class="kpi">
+        <div class="v num"><span id="k-human-p3">74.5</span><small>%</small></div>
+        <div class="l">사람 평가 (<span class="glossary-term" tabindex="0" data-term="홀드아웃">처음 보는 업무<span class="glossary-tooltip">규칙을 만들 때 보지 않은 업무 10개로 다시 시험한 결과</span></span>)</div>
+        <div class="sub">목표 70% · 판정 55건 · 95% <span class="glossary-term" tabindex="0" data-term="신뢰구간">범위<span class="glossary-tooltip">평가를 다시 하면 결과가 나올 수 있는 범위</span></span> 약 61~87% · 팀 내부 평가</div>
+      </div>
+      <div class="kpi">
+        <div class="v num">0<small>건</small></div>
+        <div class="l">검증</div>
+        <div class="sub">추천에 쓴 가짜 후기·평점 · 목표 0건</div>
+      </div>
+    </div>
+
     <div class="findings">
-      <div class="finding"><div class="k">H1</div><p><span class="t">입문·초급 과정이 많지만, 대형 이러닝 기관의 영향이 큽니다 (부분 채택).</span>난이도가 표기된 과정의 <mark><span id="f1-range"></span>%가 입문·초급</mark>입니다(어느 기관을 포함하느냐에 따라 범위가 달라짐). GSEEK·휴넷을 빼면 초급과 중급이 비슷합니다. 인사 분야 중급 과정의 유료 가격 중앙값은 <span class="mid-price"></span>원입니다.</p></div>
-      <div class="finding"><div class="k">H2</div><p><span class="t">노무·보상·조직문화 영역은 업무에 맞는 교육이 적습니다 (부분 채택).</span>노사관계·노무 영역에 맞는 과정은 <mark><span id="f2-labor-n"></span>개</mark>, 그중 중급 이상은 <span id="f2-labor-mid"></span>개입니다. 인재육성 영역(<span id="f2-hrd-n"></span>개)의 약 1/<span class="h2-ratio"></span> 수준입니다.</p></div>
-      <div class="finding"><div class="k">H3</div><p><span class="t">평점은 추천 근거가 될 수 없습니다.</span>공식 만족도는 카탈로그의 <span id="f3-satpct"></span>%에만 있고, 있는 점수도 중앙값 <span id="f3-satmed"></span>점으로 몰려 있습니다. 그래서 업무 적합도(의미+키워드+난이도)로 추천합니다.</p></div>
+      <div class="finding"><div class="k">H1</div><p><span class="t">입문·초급 과정이 많지만, 대형 이러닝 기관의 영향이 큽니다 (<span class="glossary-term" tabindex="0" data-term="부분 채택">부분 채택<span class="glossary-tooltip">가설이 대체로 맞지만 조건이 붙는다는 뜻</span></span>).</span>난이도가 표기된 과정의 <mark><span id="f1-range"></span>%가 입문·초급</mark>입니다(어느 기관을 포함하느냐에 따라 범위가 달라짐). GSEEK·휴넷을 빼면 초급과 중급이 비슷합니다. 인사 분야 중급 과정의 유료 가격 중앙값은 <span class="mid-price"></span>원입니다.</p></div>
+      <div class="finding"><div class="k">H2</div><p><span class="t">노무·보상·조직문화 영역은 업무에 맞는 교육이 적습니다 (<span class="glossary-term" tabindex="0" data-term="부분 채택">부분 채택<span class="glossary-tooltip">가설이 대체로 맞지만 조건이 붙는다는 뜻</span></span>).</span>노사관계·노무 영역에 맞는 과정은 <mark><span id="f2-labor-n"></span>개</mark>, 그중 중급 이상은 <span id="f2-labor-mid"></span>개입니다. 인재육성 영역(<span id="f2-hrd-n"></span>개)의 약 1/<span class="h2-ratio"></span> 수준입니다.</p></div>
+      <div class="finding"><div class="k">H3</div><p><span class="t">평점은 추천 근거가 될 수 없습니다.</span>공식 만족도는 카탈로그의 <span id="f3-satpct"></span>%에만 있고, 있는 점수도 중앙값 <span id="f3-satmed"></span>점으로 몰려 있습니다. 그래서 업무 적합도(<span class="glossary-term" tabindex="0" data-term="의미 유사도">의미<span class="glossary-tooltip">업무 설명과 과정 설명의 뜻이 얼마나 비슷한지 0~100점으로 나타낸 값</span></span>+키워드+난이도)로 추천합니다.</p></div>
+    </div>
+
+    <div class="robustness-checks">
+      <h3>결과가 흔들리지 않는지 확인한 것</h3>
+      <div class="check-grid">
+        <a href="#h2-sensitivity" class="check-card">
+          <div class="chk-num">검증 1 · H2 민감도</div>
+          <div class="chk-title">기준값을 0.55·0.60·0.65로 바꿔도 노무·보상·조직문화가 하위 3개 (H2)</div>
+          <div class="chk-link">민감도 분석 확인 &rarr;</div>
+        </a>
+        <a href="#h1-scenarios" class="check-card">
+          <div class="chk-num">검증 2 · H1 시나리오</div>
+          <div class="chk-title">GSEEK·휴넷을 빼고 다시 세면 초급≈중급이라 H1을 '부분 채택'으로</div>
+          <div class="chk-link">시나리오 분석 확인 &rarr;</div>
+        </a>
+        <a href="#caveats" class="check-card">
+          <div class="chk-num">검증 3 · 유의사항</div>
+          <div class="chk-title">근거가 확인되지 않은 NCS 레벨 비중은 발표에서 뺌</div>
+          <div class="chk-link">유의사항 확인 &rarr;</div>
+        </a>
+        <a href="#human-eval" class="check-card">
+          <div class="chk-num">검증 4 · 일반화 검증</div>
+          <div class="chk-title">규칙을 만들 때 보지 않은 업무 10개로 다시 평가 (홀드아웃)</div>
+          <div class="chk-link">홀드아웃 평가 확인 &rarr;</div>
+        </a>
+      </div>
     </div>
   </div>
 </section>
@@ -364,14 +413,40 @@ ol.three li::marker { font-family: var(--pxb); color: var(--teal); }
     <h2>교육은 많은데, 내 업무에 맞는 교육을 고르기는 어렵습니다</h2>
     <div class="facts">
       <div><span class="fk">도메인</span><span class="fv">기업 HR · 재직자 직무교육(HRD)</span></div>
-      <div><span class="fk">주제</span><span class="fv">NCS 인사 실무 과업 기준 교육과정 추천</span></div>
+      <div><span class="fk">주제</span><span class="fv"><span class="glossary-term" tabindex="0" data-term="NCS">NCS<span class="glossary-tooltip">나라가 정한 직무별 표준 업무 목록. 업무 90개의 바탕</span></span> 인사 실무 과업 기준 교육과정 추천</span></div>
       <div><span class="fk">사용자</span><span class="fv">인사 담당자 (신입 ~ 관리자)</span></div>
           <div><span class="fk">범위</span><span class="fv">인사 (총무 과정은 추천에서 제외, 2026-10-28 팀 결정)</span></div>
       <div><span class="fk">산출물</span><span class="fv">고객용 역량 진단·추천 서비스, 분석 대시보드, 이 발표 페이지</span></div>
     </div>
     <h3>왜 이 문제를 골랐나</h3>
     <p>인사 담당자가 "수습 평가 기준표를 만들어야 한다"는 과제를 받았다고 해 보겠습니다. 교육기관 사이트마다 분류 체계가 다르고, 과정 이름만으로는 이 업무를 다루는지 알기 어렵습니다. 수강 후기와 평점은 기관마다 기준이 다르거나 아예 없습니다. 결국 담당자는 여러 사이트를 돌며 제목을 읽고 감으로 고릅니다.</p>
-    <p>이 프로젝트는 질문을 바꿨습니다. "어떤 교육이 인기 있는가"가 아니라 <strong>"이 업무를 하려면 어떤 교육이 맞는가"</strong>입니다. 기준은 국가직무능력표준(NCS)의 인사·노무관리 능력단위와, 이를 실제 업무 단위로 쪼갠 실무 과업 90개입니다.</p>
+    <p>이 프로젝트는 질문을 바꿨습니다. "어떤 교육이 인기 있는가"가 아니라 <strong>"이 업무를 하려면 어떤 교육이 맞는가"</strong>입니다. 기준은 국가직무능력표준(NCS)의 인사·노무관리 능력단위와, 이를 실제 업무 단위로 쪼갠 실무 과업 90개(<span class="glossary-term" tabindex="0" data-term="KSA">KSA<span class="glossary-tooltip">업무에 필요한 지식(Knowledge)·기술(Skill)·태도(Attitude)</span></span> 기반)입니다.</p>
+
+    <div class="day-in-life" id="case-study">
+      <h3>한 담당자의 하루: 문제 상황에서 맞춤 추천까지</h3>
+      <p class="lead-sub">입사 3년 차 인사 담당자 김 매니저는 오늘 <strong>"수습 평가(Probation Review) 기준표 및 본채용 심의 프로세스 수립"</strong> 과제를 받았습니다. 교육기관 검색창에 '수습 평가'를 치면 나오는 과정이 거의 없고, 기관마다 분류도 제각각입니다. 아래 탐색기에서 해당 업무와 '실무' 수준을 선택하면, 모델이 7,698개 후보 중 문장의 뜻과 단어 일치도, 학습 난이도를 종합 계산해 선별한 상위 3개 추천과 그 추천 근거(기여도 막대)를 바로 확인할 수 있습니다.</p>
+      
+      <figure class="fig" style="margin: 12px 0 0;">
+        <div class="hud" id="explorer">
+          <div class="hud-head"><span class="hud-title">과업별 추천 탐색기</span><span class="hud-sub">90개 과업 × 3개 수준, 실제 추천 결과</span></div>
+          <div class="chips" id="ex-domains" aria-label="업무 영역"></div>
+          <div class="field-row">
+            <label for="ex-task">과업</label>
+            <select id="ex-task"></select>
+          </div>
+          <div class="chips" id="ex-levels" aria-label="수준"></div>
+          <div class="task-card">
+            <div class="task-name" id="ex-name"></div>
+            <p class="task-desc" id="ex-desc"></p>
+            <div class="tags" id="ex-tags"></div>
+            <div class="recs" id="ex-recs"></div>
+            <div class="legend"><span><i style="background:var(--teal)"></i>의미 유사도 기여</span><span><i style="background:var(--yel)"></i>키워드 일치 기여</span><span><i style="background:var(--blue)"></i>난이도 보너스</span></div>
+            <p class="note">순서는 2단계 <span class="glossary-term" tabindex="0" data-term="리랭커">리랭커<span class="glossary-tooltip">1차로 뽑은 후보를 업무 설명과 한 쌍씩 다시 읽고 순서를 다시 매기는 모델</span></span>가 정한 최종 추천이고, 막대는 1단계 점수의 구성입니다.</p>
+          </div>
+        </div>
+      </figure>
+    </div>
+
     <h3>서비스 배경</h3>
     <p>재직자 교육은 늘었지만 고르는 비용은 줄지 않았습니다. 기관마다 분류와 난이도 표기가 달라, 실무자가 지금 하는 업무에 맞는 다음 단계 교육을 찾기 어렵습니다. 업무를 기준으로 교육을 찾아 주는 도구가 필요했습니다.</p>
   </div>
@@ -383,13 +458,13 @@ ol.three li::marker { font-family: var(--pxb); color: var(--teal); }
         <tbody>
           <tr><td>업무마다 추천을 낸다</td><td>과업 90개 × 수준 3개 중 추천 3개를 찾은 조합 비율</td><td>95% 이상</td><td class="num"><b id="g-cov"></b>%</td></tr>
           <tr><td>업무에 맞는 교육을 낸다</td><td>1위 추천의 의미 유사도 중앙값 (0~100)</td><td>65점 이상</td><td class="num"><b id="g-sem"></b>점</td></tr>
-          <tr><td>사람이 봐도 맞다</td><td>사람 평가 Precision@3 (적합 판정 비율)</td><td>70% 이상</td><td id="g-p3"><span class="pill pend">측정 예정</span></td></tr>
+          <tr><td>사람이 봐도 맞다</td><td>사람 평가 <span class="glossary-term" tabindex="0" data-term="Precision@3">Precision@3<span class="glossary-tooltip">추천 3개 중 사람이 "업무에 맞다"고 판정한 비율</span></span> (적합 판정 비율)</td><td>70% 이상</td><td id="g-p3" class="num"><b>74.5</b>%</td></tr>
           <tr><td>믿을 수 있는 근거만 쓴다</td><td>추천에 쓴 합성 후기·평점 수</td><td>0건</td><td class="num"><b>0</b>건</td></tr>
           <tr><td>지금 들을 수 있는 교육을 낸다</td><td>고용24 과정 중 운영 중·개강 예정 비율</td><td>100%</td><td class="num"><b id="g-w24"></b>%</td></tr>
         </tbody>
       </table>
     </div>
-    <p class="note">기준값은 팀이 정한 내부 목표입니다. <span id="g-p3-note">사람 평가는 평가표 30건을 준비했고 아직 작성 전입니다.</span></p>
+    <p class="note">기준값은 팀이 정한 내부 목표입니다. <span id="g-p3-note">사람 평가는 처음 보는 업무 10개(홀드아웃) 기준 적합 74.5%입니다.</span></p>
   </div>
 </section>
 
@@ -460,7 +535,7 @@ ol.three li::marker { font-family: var(--pxb); color: var(--teal); }
       <div><b>수집</b><small>기관 DB 6 + 고용24·NCS API</small></div>
       <div><b>표준화</b><small>42개 칼럼 스키마로 통일, 과정 ID 부여</small></div>
       <div><b>정제</b><small>노이즈 제거, 중복 정리, 품질 등급</small></div>
-      <div><b>표현</b><small>형태소 토큰(BM25) + 문장 임베딩</small></div>
+      <div><b>표현</b><small>형태소 토큰(BM25) + 문장 <span class="glossary-term" tabindex="0" data-term="임베딩">임베딩<span class="glossary-tooltip">문장의 뜻을 숫자 묶음으로 바꾼 것. 숫자가 비슷하면 뜻도 비슷함</span></span></small></div>
       <div><b>분류</b><small>분야 10개, 직무 무관 제외</small></div>
       <div><b>추천·검증</b><small>과업별 점수 → 2차 심사(리랭커) → Top 3 → 사람 평가</small></div>
     </div>
@@ -557,8 +632,9 @@ ol.three li::marker { font-family: var(--pxb); color: var(--teal); }
       <div class="step"><div class="n minus num">−96</div><div class="d">오매핑 의심 109개 중 규칙으로 걸러낸 과정</div></div>
       <div class="step"><div class="n num" id="st-cand"></div><div class="d">과업마다 점수를 매기는 후보</div></div>
     </div>
-    <div class="formula">최종 점수 = <span class="c1">의미 유사도 × 0.5</span> + <span class="c2">키워드 일치(BM25) × 0.35</span> + <span class="c3">난이도 보너스 0~10점</span></div>
+    <div class="formula">최종 점수 = <span class="c1">의미 유사도 × 0.5</span> + <span class="c2">키워드 일치(<span class="glossary-term" tabindex="0" data-term="BM25">BM25<span class="glossary-tooltip">업무 설명에 나온 단어가 과정 설명에 얼마나 들어 있는지 계산한 점수</span></span>) × 0.35</span> + <span class="c3">난이도 보너스 0~10점</span></div>
     <p class="note" style="margin-top:10px">의미 유사도와 키워드 일치는 각각 0~100점입니다. 수강 후기와 평점은 점수에 넣지 않았습니다.</p>
+    <p class="formula-expl" style="margin-top:12px;line-height:1.65;color:var(--ink);background:var(--card);padding:12px 16px;border-left:3px solid var(--teal);">업무 설명과 교육 내용의 뜻이 얼마나 비슷한지를 가장 크게 보고(50%), 같은 단어가 있는지(35%)와 학습 난이도가 맞는지(보너스 최대 10점)를 함께 고려했습니다. 그다음 리랭커가 후보를 업무 설명과 한 쌍씩 다시 읽고, 리랭커 점수 60%와 앞의 점수 40%를 합쳐 최종 순서를 정합니다.</p>
   </div>
 </section>
 
@@ -607,7 +683,7 @@ ol.three li::marker { font-family: var(--pxb); color: var(--teal); }
       <div class="hud">
         <div class="hud-head">
           <span class="hud-title">인사 교육 지도: 강좌 <span data-k="courses">9,075</span>개와 인사 과업 <span data-k="tasks">90</span>개</span>
-          <span class="hud-sub">UMAP 2차원 투영 (768차원 임베딩 공간)</span>
+          <span class="hud-sub"><span class="glossary-term" tabindex="0" data-term="UMAP">UMAP 2차원 투영<span class="glossary-tooltip">뜻이 비슷한 과정끼리 가깝게 놓이도록 평면에 펼친 지도</span></span> (768차원 임베딩 공간)</span>
         </div>
         <div class="course-map-container" style="position:relative; width:100%; max-width:960px; margin:0 auto; background:#0f172a; border-radius:8px; overflow:hidden; border:1px solid var(--line);">
           <svg id="course-map-svg" viewBox="0 0 1000 1000" style="width:100%; height:auto; display:block; aspect-ratio:1/1;">
@@ -689,7 +765,7 @@ ol.three li::marker { font-family: var(--pxb); color: var(--teal); }
   <div class="wrap">
     <h3>결과가 단단한가 · 추가 검증</h3>
     <p>가설을 채택하기 전에, 결측이나 방법 선택 때문에 결과가 달라지지 않는지 네 가지를 확인했습니다.</p>
-    <h3 class="h4">① 결측 편향: 난이도 표기는 두 기관에서만 나옵니다</h3>
+    <h3 class="h4" id="h1-scenarios">① 결측 편향: 난이도 표기는 두 기관에서만 나옵니다</h3>
     <p>난이도를 표기한 과정의 <strong><span id="rb-ls"></span></strong>입니다. 한국능률협회·한국생산성본부는 난이도가 거의 비어 있고, GSEEK·휴넷은 시간이 비어 있습니다. 그래서 H1의 초급 비율은 어느 기관을 넣느냐에 따라 <strong><span id="rb-h1min"></span>~<span id="rb-h1max"></span>%</strong>로 움직입니다. 두 기관을 빼면 초급이 <span class="h1-min"></span>%로 중급과 비슷해지므로, <strong>H1은 부분 채택</strong>으로 판단했습니다.</p>
   </div>
   <div class="wrap wide">
@@ -709,7 +785,7 @@ ol.three li::marker { font-family: var(--pxb); color: var(--teal); }
     </div>
   </div>
   <div class="wrap">
-    <h3 class="h4">② H2 민감도: 의미 기준은 안정적, 키워드 기준과는 엇갈립니다</h3>
+    <h3 class="h4" id="h2-sensitivity">② H2 민감도: 의미 기준은 안정적, 키워드 기준과는 엇갈립니다</h3>
     <p>기준값(0.55·0.60·0.65)을 바꾸거나 같은 제목을 하나로 묶어도 의미 기준의 하위 3개는 노무·보상·조직문화로 같습니다. 키워드로 세면 보상(급여 계산·회계 과정)과 조직문화가 많게 나옵니다. <strong>급여 계산처럼 주제 단어가 들어간 과정은 있지만, 보상 설계나 노무 실무처럼 업무 설명에 맞는 과정은 적다</strong>고 해석했고, H2는 부분 채택으로 표시했습니다.</p>
     <div class="tbl"><table class="rank"><thead><tr><th>영역</th><th>의미 0.55</th><th>의미 0.60</th><th>의미 0.65</th><th>0.60 + 중복 제거</th><th>키워드</th></tr></thead><tbody id="tb-sens"></tbody></table></div>
     <p class="note">칸 숫자는 과정 수, 괄호는 9개 영역 중 적은 순위(1 = 가장 적음). 하위 3위는 강조 표시.<span class="mv-note"></span></p>
@@ -722,32 +798,46 @@ ol.three li::marker { font-family: var(--pxb); color: var(--teal); }
     <div class="tbl"><table><thead><tr><th>수준</th><th>과정 수</th><th>유료 가격 중앙값</th><th>30만 원 이하 비율</th><th>시간 중앙값</th><th>국비 지원 비율</th></tr></thead><tbody id="tb-cost"></tbody></table></div>
     <p class="note">가격이 확인된 과정 기준입니다. 휴넷은 가격, GSEEK·휴넷은 시간이 비어 있어 이 표에 덜 반영됩니다.</p>
     <h3>추천 결과</h3>
-    <p>과업 90개의 1위 추천은 의미 유사도 중앙값 <strong><span id="rv-med"></span>점</strong>, 최저 <span id="rv-min"></span>점입니다. Top 3 자리 <span id="rv-slots"></span>개를 서로 다른 <span id="rv-distinct"></span>개 과정이 채웠습니다. 순서는 1단계 점수로 뽑은 후보를 2단계 리랭커(업무 설명과 과정 설명을 한 쌍씩 다시 읽는 모델)가 다시 매겨 정했습니다. 고객 앱과 사람 평가도 이 최종 추천을 씁니다. 제목만 있는 과정은 전체의 <span id="rv-to-all"></span>%지만 Top 3에서는 <mark><span id="rv-to-top"></span>%</mark>입니다.</p>
-    <h3>사람 평가: 추천이 실제로 맞는가</h3>
-    <p>팀원 4명이 추천 Top 3를 한 항목에 두 사람씩, 서로 보지 않고 '적합 · 부분 적합 · 부적합 · 판단 불가'로 판정했습니다. 처음 보는 업무 10개(홀드아웃)에서 적합 <strong><span id="he-ho"></span>%</strong>로 목표 70%에 도달했습니다.</p>
-    <div class="tbl"><table><thead><tr><th>평가</th><th>대상</th><th>적합만</th><th>적합+부분 적합</th><th>판정 수</th></tr></thead><tbody id="tb-heval"></tbody></table></div>
-    <p class="note">판단 불가는 계산에서 뺐습니다. 개선 폭은 같은 업무끼리 비교한 1차 → 2차로 읽고, 2차는 규칙을 만든 업무와 같아 다소 높게 나올 수 있습니다. 판정 수가 적어 오차 범위가 넓습니다(홀드아웃 95% 신뢰구간 약 62~84%).</p>
+    <p>과업 90개의 1위 추천은 의미 유사도 중앙값 <strong><span id="rv-med"></span>점</strong>, 최저 <span id="rv-min"></span>점입니다. Top 3 <span class="glossary-term" tabindex="0" data-term="슬롯">자리(슬롯)<span class="glossary-tooltip">업무 하나 × 수준 하나의 추천 칸</span></span> <span id="rv-slots"></span>개를 서로 다른 <span id="rv-distinct"></span>개 과정이 채웠습니다. 순서는 1단계 점수로 뽑은 후보를 2단계 리랭커(업무 설명과 과정 설명을 한 쌍씩 다시 읽는 모델)가 다시 매겨 정했습니다. 고객 앱과 사람 평가도 이 최종 추천을 씁니다. 제목만 있는 과정은 전체의 <span id="rv-to-all"></span>%지만 Top 3에서는 <mark><span id="rv-to-top"></span>%</mark>입니다.</p>
+    <h3 id="human-eval">사람 평가: 추천이 실제로 맞는가</h3>
+    <p>팀원 4명이 추천 Top 3를 한 항목에 두 사람씩, 서로 보지 않고 '적합 · 부분 적합 · 부적합 · <span class="glossary-term" tabindex="0" data-term="판단 불가">판단 불가<span class="glossary-tooltip">정보가 없어 평가자가 판정하지 못한 건. 계산에서 뺌</span></span>'로 판정했습니다. 처음 보는 업무 10개(홀드아웃)에서 적합 <strong><span id="he-ho"></span>%</strong>로 평균은 목표 70%를 넘었고, 표본이 작아 더 평가해 확인할 예정입니다.</p>
+    
+    <div class="hud" style="margin:22px 0 18px;padding:18px 18px 14px;">
+      <div class="hud-head">
+        <span class="hud-title">사람 평가 Precision@3 및 95% 신뢰구간 (오차 막대)</span>
+        <span class="hud-sub">판정 건 적합률(A) & 항목 클러스터 부트스트랩 95% CI</span>
+      </div>
+      <div id="ch-heval-errorbar" style="width:100%;min-height:220px;"></div>
+      <div class="legend">
+        <span><i style="background:var(--teal-lt)"></i>1차·2차 (동일 업무 개선 전후)</span>
+        <span><i style="background:var(--yel)"></i>홀드아웃 (처음 보는 업무)</span>
+        <span style="color:var(--yel)">--- 목표 70% (내부 기준선)</span>
+        <span style="color:var(--hud-dim)">수염: 항목 클러스터 부트스트랩 95% 신뢰구간 (10,000회 재추출)</span>
+      </div>
+    </div>
+
+    <div class="tbl">
+      <table>
+        <thead>
+          <tr>
+            <th>평가 구분</th>
+            <th>대상 업무</th>
+            <th>판정 수 (A)</th>
+            <th>판정 건 적합률 (A, 95% CI)</th>
+            <th>항목 합의 적합률 (B, 95% CI)</th>
+            <th>평가자 일치율 (C, 카파)</th>
+            <th>1위 적합률</th>
+          </tr>
+        </thead>
+        <tbody id="tb-heval"></tbody>
+      </table>
+    </div>
+    <p class="note">판단 불가는 계산에서 뺐습니다. 개선 폭은 같은 업무끼리 비교한 1차 → 2차로 읽고, 2차는 규칙을 만든 업무와 같아 다소 높게 나올 수 있습니다. 표본이 작아(10개 업무, 30개 항목) 오차 범위가 넓습니다(홀드아웃 95% 신뢰구간 약 61~87%).</p>
   </div>
   <div class="wrap wide">
-    <figure class="fig">
-      <div class="hud" id="explorer">
-        <div class="hud-head"><span class="hud-title">과업별 추천 탐색기</span><span class="hud-sub">90개 과업 × 3개 수준, 실제 추천 결과</span></div>
-        <div class="chips" id="ex-domains" aria-label="업무 영역"></div>
-        <div class="field-row">
-          <label for="ex-task">과업</label>
-          <select id="ex-task"></select>
-        </div>
-        <div class="chips" id="ex-levels" aria-label="수준"></div>
-        <div class="task-card">
-          <div class="task-name" id="ex-name"></div>
-          <p class="task-desc" id="ex-desc"></p>
-          <div class="tags" id="ex-tags"></div>
-          <div class="recs" id="ex-recs"></div>
-          <div class="legend"><span><i style="background:var(--teal)"></i>의미 유사도 기여</span><span><i style="background:var(--yel)"></i>키워드 일치 기여</span><span><i style="background:var(--blue)"></i>난이도 보너스</span></div>
-          <p class="note">순서는 2단계 리랭커가 정한 최종 추천이고, 막대는 1단계 점수의 구성입니다.</p>
-        </div>
-      </div>
-    </figure>
+    <div class="hud" style="margin:24px 0 28px;padding:16px 20px;border-left:4px solid var(--yel);">
+      <p style="margin:0;font-size:15px;color:var(--hud-ink);">💡 <strong>과업별 추천 탐색기</strong>는 <a href="#explorer" style="color:var(--yel);text-decoration:underline;font-weight:bold;">01장 '한 담당자의 하루' 섹션</a>으로 이동하여 실제 업무 사례(수습 평가 기준표)와 함께 확인하실 수 있습니다.</p>
+    </div>
     <div class="two">
       <figure class="fig" style="margin-top:0">
         <div class="hud">
@@ -828,13 +918,14 @@ ol.three li::marker { font-family: var(--pxb); color: var(--teal); }
         </tbody>
       </table>
     </div>
-    <h3>읽을 때 알아 둘 것</h3>
+    <h3 id="caveats">읽을 때 알아 둘 것</h3>
     <ol class="caveats">
       <li><p><strong>난이도는 기관이 표기한 값입니다.</strong> 표기 기준이 기관마다 다르고, 실무자 쪽 수준별 수요는 확인된 자료가 없어 비교하지 않았습니다. 추천에서는 난이도가 없는 과정도 빼지 않고 난이도 보너스를 절반(10점 대신 5점)만 줍니다. 난이도 표기가 없는 <span id="cv-unl"></span>개(<span id="cv-unl-pct"></span>%)는 대부분 <span id="cv-unl-prov"></span> 과정이고, 표기된 과정은 GSEEK·휴넷이 대부분이라 초급 비율은 기관 구성에 따라 크게 달라집니다.</p></li>
       <li><p><strong>분야 분류·영역 공급량·NCS 연결은 자동 결과입니다.</strong> 고객 화면의 분야 연결(키워드 규칙)은 팀원 4명이 과정 <span id="dr-n"></span>개를 직접 검수해 정밀도 <span id="dr-prec"></span>%, 재현율 <span id="dr-rec"></span>%를 확인했습니다. 10개 분야 분류와 영역별 공급량(H2)은 문장 임베딩 결과이고 사람이 전부 검증하지는 않았습니다.</p></li>
       <li><p><strong>과업 <span id="cv-review"></span>개는 맞는 NCS 역량이 아직 없습니다.</strong> 인사 연결 역량이 3개뿐이라 임시로 가장 가까운 역량에 붙어 있고, 탐색기에서는 역량 표시를 숨겼습니다. 추천은 과업 설명으로 계산해 영향을 받지 않습니다.</p></li>
       <li><p><strong>일부 과정이 여러 과업에 반복 추천됩니다.</strong> 과정 <span id="cv-reuse"></span>개가 5개 이상 과업에 나오며 Top 3 자리의 <span id="cv-reuse-pct"></span>%를 차지합니다. 2단계 리랭커 전(<span id="cv-reuse-s1"></span>%)과 거의 같아, 반복 감점은 앞으로 할 일입니다.</p></li>
       <li><p><strong>공식 만족도는 국민내일배움카드 과정에만 있습니다.</strong> 응답자 수가 공개되지 않아 정밀한 평점으로 읽으면 안 됩니다. 데이터에 만들어 넣은 가짜 후기·평점은 모두 지웠고, 공식 만족도도 추천 점수에는 넣지 않습니다.</p></li>
+      <li><p><strong>사람 평가는 팀원 4명이 했습니다.</strong> 두 사람씩 서로 보지 않고 판정했지만, 만든 사람이 평가한 결과라 후하게 나왔을 수 있습니다. 같은 항목을 두 사람이 본 판정은 서로 독립이 아니어서, 신뢰구간은 항목 단위로 묶어 다시 계산했습니다. 다음 평가에서는 팀 밖 인사 담당자와 키워드 검색 추천을 함께 넣어 비교할 예정입니다.</p></li>
     </ol>
   </div>
 </section>
@@ -859,6 +950,29 @@ ol.three li::marker { font-family: var(--pxb); color: var(--teal); }
         </tbody>
       </table>
     </div>
+        <h3>용어 정리</h3>
+    <div class="tbl">
+      <table>
+        <thead><tr><th>용어</th><th>설명</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Precision@3</strong></td><td>추천 상위 3개 중 사람이 "업무에 맞다"고 판정한 비율 (목표 70%)</td></tr>
+          <tr><td><strong>홀드아웃 (Holdout)</strong></td><td>규칙을 만들 때 보지 않은 업무 10개로 다시 시험한 결과</td></tr>
+          <tr><td><strong>의미 유사도</strong></td><td>업무 설명과 과정 설명의 뜻이 얼마나 비슷한지 0~100점으로 나타낸 값</td></tr>
+          <tr><td><strong>BM25 (키워드 일치)</strong></td><td>업무 설명에 나온 단어가 과정 설명에 얼마나 들어 있는지 계산한 점수</td></tr>
+          <tr><td><strong>리랭커 (Reranker)</strong></td><td>1차로 뽑은 후보를 업무 설명과 한 쌍씩 다시 읽고 순서를 다시 매기는 Cross-Encoder 모델</td></tr>
+          <tr><td><strong>커버리지 (Coverage)</strong></td><td>업무×수준 270개 조합 중 추천을 3개 다 채운 비율 (현재 98.5%)</td></tr>
+          <tr><td><strong>신뢰구간 (Confidence Interval)</strong></td><td>평가를 다시 하면 결과가 나올 수 있는 통계적 범위 (95% 기준)</td></tr>
+          <tr><td><strong>UMAP 2차원 투영</strong></td><td>뜻이 비슷한 과정끼리 가깝게 놓이도록 평면에 펼친 지도</td></tr>
+          <tr><td><strong>임베딩 (Embedding)</strong></td><td>문장의 뜻을 숫자 묶음(768차원 벡터)으로 바꾼 것. 숫자가 비슷하면 뜻도 비슷함</td></tr>
+          <tr><td><strong>NCS</strong></td><td>국가직무능력표준. 나라가 정한 직무별 표준 업무 목록으로 실무 과업 90개의 바탕</td></tr>
+          <tr><td><strong>KSA</strong></td><td>업무 수행에 필요한 지식(Knowledge)·기술(Skill)·태도(Attitude)</td></tr>
+          <tr><td><strong>슬롯 (Slot)</strong></td><td>업무 하나 × 수준 하나의 추천 칸 (총 90 × 3 = 270개)</td></tr>
+          <tr><td><strong>판단 불가</strong></td><td>정보가 없어 평가자가 판정하지 못한 건. 계산 분모에서 제외함</td></tr>
+          <tr><td><strong>부분 채택</strong></td><td>가설이 대체로 맞지만 특정 조건이나 전제가 붙는다는 뜻</td></tr>
+        </tbody>
+      </table>
+    </div>
+
     <p class="note">이 페이지의 모든 수치는 <code>scripts/build_presentation_data.py</code>가 위 산출물에서 다시 계산한 값입니다. 페이지는 <code>scripts/build_presentation.py</code>로 만듭니다.</p>
   </div>
 </section>
@@ -878,7 +992,8 @@ ol.three li::marker { font-family: var(--pxb); color: var(--teal); }
           <tr><td>11-04</td><td>사람 평가 2차와 홀드아웃 결과 반영</td><td>Precision@3 2차 67.3%, 홀드아웃 74.5%</td></tr>
           <tr><td>11-04</td><td>평가·고객 화면에 과정 소개 표시, '부족 업무' 기준을 슬롯(3개 미만) 기준으로 교체, 대시보드 2026-11-04판</td><td><code>hr_career_platform_v2_2026-11-04.html</code></td></tr>
           <tr><td>11-04</td><td>GSEEK 과정 링크를 상세 페이지로 연결 (화면·평가표 출력 시 보정, 원본 데이터는 그대로)</td><td><code>src/course_links.py</code></td></tr>
-          <tr><td>11-04</td><td>저장소 정리: 예전 대시보드 HTML을 <code>archive/</code>로 이동</td><td>루트에는 최신 대시보드 한 개만 남김</td></tr>
+                    <tr><td>11-04</td><td>저장소 정리: 예전 대시보드 HTML을 <code>archive/</code>로 이동</td><td>루트에는 최신 대시보드 한 개만 남김</td></tr>
+          <tr><td>11-05</td><td>교육 지도(2D UMAP) 추가, 중복 과정 묶기 실험(채택하지 않음, 회차 중복은 쏠림 원인이 아님)</td><td><code>course_map.json</code>, <code>dedup_experiment.md</code></td></tr>
         </tbody>
       </table>
     </div>
@@ -891,6 +1006,7 @@ ol.three li::marker { font-family: var(--pxb); color: var(--teal); }
   <div class="wrap">
     <p><b>인사 교육 지도</b><br>NCS 기반 인사 맞춤형 교육과정 추천 프로젝트 발표 자료. 저장소: kimsaemi/edu-skill-gap</p>
     <p>데이터: 교육기관별 공개 과정 정보, 고용24 Open API, 공공데이터포털 NCS API. 과정 정보의 저작권은 각 교육기관에 있습니다. 픽셀 글꼴: 갈무리(Galmuri, SIL Open Font License 1.1).</p>
+    <p class="reference" style="margin-top:1.25rem;padding-top:1.25rem;border-top:1px solid rgba(255,255,255,0.12);font-size:0.85rem;line-height:1.6;color:var(--hud-dim,#9aa0a9);">참고: 언더스코어 × MBC 《PD수첩》, 「AI의 등장 이후 고용 시장은 어떻게 변화했을까?」 (<a href="https://korean-labor-market-after-ai.vercel.app" target="_blank" rel="noopener" style="color:var(--yel);text-decoration:underline;">https://korean-labor-market-after-ai.vercel.app</a>). 결론 먼저 쓰기, 결과를 흔들 수 있는 다른 요인 점검, 한계를 번호로 밝히기, 오차 범위 함께 그리기 방식을 참고했습니다. 비교 대상·위약 검정과 선행 연구 정리는 다음 단계에서 진행합니다.</p>
   </div>
 </footer>
 
@@ -919,7 +1035,7 @@ const D = /*__DATA__*/;
     const v = D.kpi[n.dataset.k];
     n.textContent = typeof v === 'number' && Number.isInteger(v) ? fmt(v) : v;
   });
-  T('#gen-date', D.generated);
+  T('#gen-date', D.generated); $$('.kpi-gen-date').forEach(el => { el.textContent = D.generated; });
   const beg = D.difficulty.supply[0];
       T('#f2-labor', D.core_skills.find(c => c.label.startsWith('노무')).pct);
   const R = D.recommend, S = D.satisfaction;
@@ -943,10 +1059,148 @@ const D = /*__DATA__*/;
     const HE = [['1차 (개선 전)', '같은 업무 10개', D.human_eval],
                 ['2차 (개선 후)', '같은 업무 10개', (D.human_eval_rounds || {}).round2],
                 ['홀드아웃', '처음 보는 업무 10개', (D.human_eval_rounds || {}).holdout]].filter(r => r[2] && r[2].precision_at_3);
-    $('#tb-heval').innerHTML = HE.map(([a, b, h]) => `<tr><td>${a}</td><td>${b}</td><td class="num"><b>${h.precision_at_3.strict}%</b></td><td class="num">${h.precision_at_3.lenient}%</td><td class="num">${h.precision_at_3.n}</td></tr>`).join('');
+    $('#tb-heval').innerHTML = HE.map(([a, b, h]) => {
+      const p = h.precision_at_3;
+      const ci_a = p.ci95_cluster_bootstrap || p.ci95_wilson || [0, 0];
+      const c = h.consensus || {};
+      const ci_b = c.ci95_task_bootstrap || [0, 0];
+      const ag = h.agreement || {};
+      const r1 = (h.by_rank && h.by_rank['1']) ? h.by_rank['1'].strict : '-';
+      return `<tr>
+        <td><strong>${a}</strong></td>
+        <td>${b}</td>
+        <td class="num">${p.n}건</td>
+        <td class="num"><b>${p.strict}%</b> <small style="color:var(--dim)">[${ci_a[0]}~${ci_a[1]}%]</small></td>
+        <td class="num">${c.strict != null ? `<b>${c.strict}%</b> (${c.fit}/${c.items_rated}개) <small style="color:var(--dim)">[${ci_b[0]}~${ci_b[1]}%]</small>` : '-'}</td>
+        <td class="num">${ag.pct != null ? `${ag.pct}%` : '-'} <small style="color:var(--dim)">(${ag.cohen_kappa != null ? `κ=${ag.cohen_kappa}` : ''})</small></td>
+        <td class="num">${r1}%</td>
+      </tr>`;
+    }).join('');
     const HO = (D.human_eval_rounds || {}).holdout;
-    if (HO) T('#he-ho', HO.precision_at_3.strict);
+    if (HO) {
+      T('#he-ho', HO.precision_at_3.strict);
+      T('#k-human-p3', HO.precision_at_3.strict);
+    }
   }
+
+  /* ---------- 사람 평가 오차 막대 차트 (Inline SVG) ---------- */
+  function drawErrorBarChart() {
+    const box = $('#ch-heval-errorbar');
+    if (!box) return;
+    const HE = [
+      { name: '1차 (개선 전)', sub: '동일 업무 10개', data: D.human_eval, x: 140, color: css('--teal-lt') || '#4cd9b8' },
+      { name: '2차 (개선 후)', sub: '동일 업무 10개', data: (D.human_eval_rounds || {}).round2, x: 270, color: css('--teal-lt') || '#4cd9b8' },
+      { name: '홀드아웃', sub: '처음 보는 업무 10개', data: (D.human_eval_rounds || {}).holdout, x: 470, color: css('--yel') || '#f6c431' }
+    ].filter(r => r.data && r.data.precision_at_3);
+
+    const W = 620, H = 240;
+    const padL = 60, padR = 40, padT = 45, padB = 40;
+    const plotH = H - padT - padB;
+    const yAt = pct => padT + (1 - pct / 100) * plotH;
+
+    const svg = document.createElementNS(NS, 'svg');
+    svg.setAttribute('viewBox', `0 0 ${W} ${H}`);
+    svg.setAttribute('width', '100%');
+    svg.setAttribute('height', '100%');
+    svg.setAttribute('style', 'overflow:visible;');
+
+    // Y Gridlines
+    [0, 20, 40, 60, 80, 100].forEach(val => {
+      const y = yAt(val);
+      const line = el('line', { x1: padL, y1: y, x2: W - padR, y2: y, stroke: 'var(--hud-line, #393e49)', 'stroke-width': '1' });
+      const txt = el('text', { x: padL - 8, y: y + 4, 'text-anchor': 'end', fill: 'var(--hud-dim, #9aa0a9)', 'font-size': '11', 'font-family': 'var(--px)' }, val + '%');
+      svg.appendChild(line);
+      svg.appendChild(txt);
+    });
+
+    // Target 70% line
+    const y70 = yAt(70);
+    const tgtLine = el('line', { x1: padL, y1: y70, x2: W - padR, y2: y70, stroke: 'var(--yel, #f6c431)', 'stroke-width': '1.5', 'stroke-dasharray': '5,4' });
+    const tgtTxt = el('text', { x: W - padR + 5, y: y70 + 4, fill: 'var(--yel, #f6c431)', 'font-size': '11', 'font-weight': 'bold', 'font-family': 'var(--px)' }, '목표 70%');
+    svg.appendChild(tgtLine);
+    svg.appendChild(tgtTxt);
+
+    // Group labels above
+    const grp1 = el('text', { x: (140 + 270) / 2, y: 20, 'text-anchor': 'middle', fill: 'var(--hud-dim, #9aa0a9)', 'font-size': '11', 'font-family': 'var(--pxb)' }, '같은 업무 10개 (개선 전후)');
+    const grpLine1 = el('line', { x1: 95, y1: 26, x2: 315, y2: 26, stroke: 'var(--hud-line, #393e49)', 'stroke-width': '1' });
+    const grp2 = el('text', { x: 470, y: 20, 'text-anchor': 'middle', fill: 'var(--yel, #f6c431)', 'font-size': '11', 'font-family': 'var(--pxb)' }, '처음 보는 업무 10개 (홀드아웃)');
+    const grpLine2 = el('line', { x1: 415, y1: 26, x2: 525, y2: 26, stroke: 'var(--yel, #f6c431)', 'stroke-width': '1' });
+    svg.appendChild(grp1); svg.appendChild(grpLine1);
+    svg.appendChild(grp2); svg.appendChild(grpLine2);
+
+    const barW = 50;
+    HE.forEach(item => {
+      const p = item.data.precision_at_3;
+      const strict = p.strict;
+      const ci = p.ci95_cluster_bootstrap || p.ci95_wilson || [strict, strict];
+      const yVal = yAt(strict);
+      const yBase = yAt(0);
+      const h = yBase - yVal;
+
+      const rect = el('rect', {
+        x: item.x - barW / 2,
+        y: yVal,
+        width: barW,
+        height: h,
+        fill: item.color,
+        rx: '2',
+        opacity: '0.85'
+      });
+      svg.appendChild(rect);
+
+      const yLo = yAt(ci[0]);
+      const yHi = yAt(ci[1]);
+      const wLine = el('line', { x1: item.x, y1: yLo, x2: item.x, y2: yHi, stroke: 'var(--hud-ink, #f1ebd8)', 'stroke-width': '2' });
+      const capTop = el('line', { x1: item.x - 10, y1: yHi, x2: item.x + 10, y2: yHi, stroke: 'var(--hud-ink, #f1ebd8)', 'stroke-width': '2' });
+      const capBot = el('line', { x1: item.x - 10, y1: yLo, x2: item.x + 10, y2: yLo, stroke: 'var(--hud-ink, #f1ebd8)', 'stroke-width': '2' });
+      svg.appendChild(wLine);
+      svg.appendChild(capTop);
+      svg.appendChild(capBot);
+
+      const valTxt = el('text', {
+        x: item.x,
+        y: yVal - 14,
+        'text-anchor': 'middle',
+        fill: 'var(--hud-ink, #f1ebd8)',
+        'font-family': 'var(--pxb)',
+        'font-size': '13'
+      }, strict + '%');
+      svg.appendChild(valTxt);
+
+      const ciTxt = el('text', {
+        x: item.x,
+        y: yHi - 6,
+        'text-anchor': 'middle',
+        fill: 'var(--hud-dim, #9aa0a9)',
+        'font-family': 'var(--px)',
+        'font-size': '10'
+      }, `[${ci[0]}~${ci[1]}%]`);
+      svg.appendChild(ciTxt);
+
+      const xLabel = el('text', {
+        x: item.x,
+        y: H - 16,
+        'text-anchor': 'middle',
+        fill: 'var(--hud-ink, #f1ebd8)',
+        'font-family': 'var(--pxb)',
+        'font-size': '12'
+      }, item.name);
+      const xSub = el('text', {
+        x: item.x,
+        y: H - 2,
+        'text-anchor': 'middle',
+        fill: 'var(--hud-dim, #9aa0a9)',
+        'font-family': 'var(--px)',
+        'font-size': '10'
+      }, `(${p.n}건)`);
+      svg.appendChild(xLabel);
+      svg.appendChild(xSub);
+    });
+
+    box.innerHTML = '';
+    box.appendChild(svg);
+  }
+  drawErrorBarChart();
   T('#rv-to-all', R.title_only_all_pct);
   T('#rv-to-top', R.title_only_top3_pct);
   T('#cv-unl', fmt(D.difficulty.unlabeled));
@@ -969,7 +1223,7 @@ const D = /*__DATA__*/;
   const dom = name => E.domain_supply.find(d => d.label.startsWith(name)) || { n: 0, mid_plus: 0 };
   const covPct = M.coverage_pct;
   T('#k-cov', covPct); T('#g-cov', covPct); T('#m-cov', covPct); T('#c-cov', covPct);
-  // 사람 평가 Precision@3: 결과 파일이 있으면 값, 없으면 '측정 예정' 그대로
+  // 사람 평가 Precision@3: 홀드아웃 결과(74.5%)를 기본값으로 반영
   if (D.human_eval && D.human_eval.precision_at_3 && D.human_eval.precision_at_3.strict != null) {
     const H = D.human_eval, P = H.precision_at_3;
     $('#g-p3').className = 'num';
@@ -1436,7 +1690,12 @@ const D = /*__DATA__*/;
 
   /* ---------- 과업별 추천 탐색기 ---------- */
   const LEVELS = ['입문', '실무', '관리자·심화'];
-  const state = { domain: R.domains[R.domains.length - 1], task: null, level: '실무' };
+    const defaultTaskObj = R.tasks.find(t => t.name.includes('수습 평가')) || R.tasks[0];
+  const state = {
+    domain: defaultTaskObj ? defaultTaskObj.domain : '온보딩·직원경험',
+    task: defaultTaskObj ? defaultTaskObj.id : null,
+    level: '실무'
+  };
 
   function renderDomains() {
     const box = $('#ex-domains');
