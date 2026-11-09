@@ -887,6 +887,26 @@ ol.three li::marker { font-family: var(--pxb); color: var(--teal); }
       </table>
     </div>
     <p class="note">판단 불가는 계산에서 뺐습니다. 개선 폭은 같은 업무끼리 비교한 1차 → 2차로 읽고, 2차는 규칙을 만든 업무와 같아 다소 높게 나올 수 있습니다. 표본이 작아(10개 업무, 30개 항목) 오차 범위가 넓습니다(홀드아웃 95% 신뢰구간 약 61~87%).</p>
+
+    <!-- 단순 검색과 비교 (홀드아웃 2차 데이터가 있을 때만 조건부 노출) -->
+    <div id="block-bm25-compare" style="display:none; margin-top:24px;">
+      <h3 class="h4" style="margin-bottom:6px;">단순 검색(BM25)과 비교 (홀드아웃 2차)</h3>
+      <p style="margin-bottom:10px;">단어 빈도만으로 추천한 대조군(BM25)과 최종 추천(하이브리드+리랭커)을 블라인드 비교 평가한 결과입니다.</p>
+      <div class="tbl" style="margin-bottom:10px;">
+        <table>
+          <thead>
+            <tr>
+              <th>구분</th>
+              <th>A. 판정 건 적합률 (95% CI)</th>
+              <th>B. 항목 합의 적합률 (95% CI)</th>
+              <th>성능 차이 (%p)</th>
+            </tr>
+          </thead>
+          <tbody id="tb-bm25-compare"></tbody>
+        </table>
+      </div>
+      <div id="block-decoy-summary" style="font-size:13.5px; line-height:1.6; color:var(--ink);"></div>
+    </div>
   </div>
   <div class="wrap wide">
     <div class="hud" style="margin:24px 0 28px;padding:16px 20px;border-left:4px solid var(--yel);">
@@ -979,7 +999,7 @@ ol.three li::marker { font-family: var(--pxb); color: var(--teal); }
       <li><p><strong>과업 <span id="cv-review"></span>개는 맞는 NCS 역량이 아직 없습니다.</strong> 인사 연결 역량이 3개뿐이라 임시로 가장 가까운 역량에 붙어 있고, 탐색기에서는 역량 표시를 숨겼습니다. 추천은 과업 설명으로 계산해 영향을 받지 않습니다.</p></li>
       <li><p><strong>일부 과정이 여러 과업에 반복 추천됩니다.</strong> 과정 <span id="cv-reuse"></span>개가 5개 이상 과업에 나오며 Top 3 자리의 <span id="cv-reuse-pct"></span>%를 차지합니다. 2단계 리랭커 전(<span id="cv-reuse-s1"></span>%)과 거의 같아, 반복 감점은 앞으로 할 일입니다.</p></li>
       <li><p><strong>공식 만족도는 국민내일배움카드 과정에만 있습니다.</strong> 응답자 수가 공개되지 않아 정밀한 평점으로 읽으면 안 됩니다. 데이터에 만들어 넣은 가짜 후기·평점은 모두 지웠고, 공식 만족도도 추천 점수에는 넣지 않습니다.</p></li>
-      <li><p><strong>사람 평가는 팀원 4명이 했습니다.</strong> 두 사람씩 서로 보지 않고 판정했지만, 만든 사람이 평가한 결과라 후하게 나왔을 수 있습니다. 같은 항목을 두 사람이 본 판정은 서로 독립이 아니어서, 신뢰구간은 항목 단위로 묶어 다시 계산했습니다. 다음 평가에서는 팀 밖 인사 담당자와 키워드 검색 추천을 함께 넣어 비교할 예정입니다.</p></li>
+      <li><p><strong>평가자가 후하게 평가했을 가능성이 있습니다.</strong> 홀드아웃 2차 평가 시트에 가짜 추천(다른 분야 과정)을 섞어 부적합을 제대로 가려내는지 확인하는 장치를 마련했습니다.</p></li>
       <li><p><strong>앞에서 예로 든 '수습 평가 기준표' 업무(실무)는 추천이 아직 약합니다.</strong> 리랭커 점수가 <span id="cv-probation-scores">0.0, 0.0, 0.1</span>로, 맞는 과정이 부족해 관련이 낮은 과정이 채워졌습니다. 이처럼 리랭커 점수가 0.1 미만인 과정이 들어간 슬롯은 270개 중 <span id="cv-lt01-slots">132</span>개입니다.</p></li>
     </ol>
   </div>
@@ -1146,6 +1166,39 @@ const D = /*__DATA__*/;
           const [lo, hi] = HO.consensus.ci95_task_bootstrap;
           T('#kpi-consensus-ci', `${Math.round(lo)}~${Math.round(hi)}`);
         }
+      }
+    }
+    const HO2 = D.human_eval_holdout2 || (D.human_eval_rounds || {}).holdout2;
+    if (HO2 && HO2.final_recommendation && HO2.final_recommendation.precision_at_3 && HO2.final_recommendation.precision_at_3.strict != null) {
+      const blk = $('#block-bm25-compare');
+      if (blk) blk.style.display = 'block';
+      const fp = HO2.final_recommendation.precision_at_3;
+      const fc = HO2.final_recommendation.consensus;
+      const bp = HO2.bm25_recommendation.precision_at_3;
+      const bc = HO2.bm25_recommendation.consensus;
+      const cmp = HO2.comparison || {};
+      const dec = HO2.decoy_analysis || {};
+
+      const tb = $('#tb-bm25-compare');
+      if (tb) {
+        tb.innerHTML = `
+          <tr>
+            <td><strong>최종 추천 (하이브리드+리랭커)</strong></td>
+            <td class="num"><b>${fp.strict}%</b> <small style="color:var(--dim)">[${(fp.ci95_wilson||[0,0])[0]}~${(fp.ci95_wilson||[0,0])[1]}%]</small></td>
+            <td class="num"><b>${fc.strict != null ? fc.strict + '%' : '-'}</b> <small style="color:var(--dim)">[${(fc.ci95_task_bootstrap||[0,0])[0]}~${(fc.ci95_task_bootstrap||[0,0])[1]}%]</small></td>
+            <td class="num" rowspan="2" style="vertical-align:middle;font-weight:bold;color:var(--yel);">A: +${cmp.diff_strict_a != null ? cmp.diff_strict_a : '-'}%p<br><small style="color:var(--dim);font-weight:normal;">(B: +${cmp.diff_strict_b != null ? cmp.diff_strict_b : '-'}%p)</small></td>
+          </tr>
+          <tr>
+            <td><strong>대조군 (BM25 키워드 단독)</strong></td>
+            <td class="num"><b>${bp.strict}%</b> <small style="color:var(--dim)">[${(bp.ci95_wilson||[0,0])[0]}~${(bp.ci95_wilson||[0,0])[1]}%]</small></td>
+            <td class="num"><b>${bc.strict != null ? bc.strict + '%' : '-'}</b> <small style="color:var(--dim)">[${(bc.ci95_task_bootstrap||[0,0])[0]}~${(bc.ci95_task_bootstrap||[0,0])[1]}%]</small></td>
+          </tr>
+        `;
+      }
+      const dSum = $('#block-decoy-summary');
+      if (dSum && dec.total_evaluations) {
+        dSum.innerHTML = `<strong>위약(가짜 추천) 검정:</strong> 다른 분야 과정을 섞어 넣은 ${dec.total_items}개 과정(${dec.total_evaluations}건 판정) 중 <strong>${dec.filter_success_rate}%</strong>(${dec.unfit_count}건)를 평가자가 정상적으로 부적합 판정했습니다.`
+          + (dec.passed_count > 0 ? ` (오판정 통과 ${dec.passed_count}건)` : ` (오판정 0건)`);
       }
     }
   }

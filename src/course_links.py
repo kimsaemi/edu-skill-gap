@@ -26,3 +26,19 @@ def detail_url(url):
     if "s_sbjct_sn" not in keys or "s_sbjct_cycl_sn" in keys:
         return url
     return urlunsplit(parts._replace(query=urlencode(query + [("s_sbjct_cycl_sn", "1")])))
+
+
+def build_course_link(provider: str, course_id: str, url: str = None) -> str:
+    """과정 상세 링크를 생성합니다. url이 주어지면 detail_url을 적용하고,
+    주어지지 않으면 courses DB에서 조회하여 detail_url을 적용합니다."""
+    if url:
+        return detail_url(url)
+    try:
+        from src.customer import career_platform as cp
+        import pandas as pd
+        row = cp._row(course_id)
+        if row is not None and pd.notna(row.get("url")):
+            return detail_url(str(row["url"]))
+    except Exception:
+        pass
+    return ""
