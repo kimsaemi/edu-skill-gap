@@ -5,7 +5,7 @@ Principles:
 2. CSV fallback: Seamlessly falls back to .csv if .parquet is missing.
 3. Explicit error: Raises FileNotFoundError with clear guidance if neither exists.
 4. Preserves string types: Keeps course_uid, source_course_id, ncs_code as strings with leading zeros intact.
-5. Scope separation: Distinguishes between new integrated master (8,645 courses) and legacy verified analysis (295 courses).
+5. Scope separation: Distinguishes between new integrated master (9,075 courses) and legacy verified analysis (295 courses).
 """
 
 import os
@@ -35,7 +35,7 @@ def load_integrated_courses(
     scope: Literal["all", "verified_only", "hr_ga_only"] = "all",
     force_csv: bool = False
 ) -> pd.DataFrame:
-    """Loads the 8,645 integrated master course dataset.
+    """Loads the 9,075 integrated master course dataset.
     
     Priority:
     1. data/hr/processed/education_courses_integrated.parquet
@@ -43,7 +43,7 @@ def load_integrated_courses(
     
     Args:
         scope:
-            - 'all': All 8,645 courses (default)
+            - 'all': All 9,075 courses (default)
             - 'verified_only': 3,285 courses with rule-based auto-matched NCS/KSA mapping.
               ※ 주의: 본 수치는 사람의 육안 전수 검수 완료가 아닌, 키워드/규칙 기반 고신뢰도 자동 매핑(Auto-matched) 결과입니다.
               (신규 6개 DB 3,189건 + 기존 공공 API 96건 = 총 3,285건. 2026-10-25 영문 약어 오매칭·휴넷 접속 차단 페이지 제거 후)

@@ -1,6 +1,6 @@
 """
 통합 하이브리드 추천 엔진 공통 모듈 (Unified Hybrid Recommender)
-- 8,645건 통합 교육 코퍼스 대상 Ko-SRoBERTa 딥러닝(768차원) + BM25 Okapi + 난이도 통합 (수강 리뷰·평점 미사용)
+- 9,075건 통합 교육 코퍼스 대상 Ko-SRoBERTa 딥러닝(768차원) + BM25 Okapi + 난이도 통합 (수강 리뷰·평점 미사용)
 - 직무(인사·총무·경영지원) 및 8대 KSA 역량 기반 맞춤형 스코어링 모드(KSA Mode) 완전 통합
 - 세부 조건 Faceted Filtering (비용 결측 왜곡 차단, 시간 경계값)
 - 오매핑 109건 조건부 선별 차단 (96건 차단 / 13건 보존 엄격 재현 및 추적)
@@ -43,7 +43,7 @@ class UnifiedHybridRecommender:
         self._init_models()
 
     def _load_data(self):
-        # 1. 정제 코퍼스 8,645건
+        # 1. 정제 코퍼스 9,075건
         p_clean = PROCESSED_DIR / "education_courses_search_cleaned.parquet"
         self.df_courses = pd.read_parquet(p_clean)
 
@@ -166,7 +166,7 @@ class UnifiedHybridRecommender:
         # KSA (course_uid, competency_id) 검증용 튜플 세트 사전 생성 (8,291건 1회만 계산)
         self.ksa_pair_set = set(zip(self.df_comp_long['course_uid'], self.df_comp_long['competency_id'])) if not self.df_comp_long.empty else set()
 
-        # 정적 표시 포맷 사전 생성 (8,645건 전수 대상 최초 1회만 계산하여 쿼리 시점 반복 연산 제거)
+        # 정적 표시 포맷 사전 생성 (9,075건 전수 대상 최초 1회만 계산하여 쿼리 시점 반복 연산 제거)
         self.df_courses['price_display'] = self.df_courses['numeric_price'].apply(self.format_price)
         self.df_courses['duration_display'] = self.df_courses['numeric_duration'].apply(self.format_duration)
 

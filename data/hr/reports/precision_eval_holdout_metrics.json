@@ -1,6 +1,6 @@
 {
   "round": "홀드아웃 (처음 보는 업무 10개)",
-  "checked": "2026-11-04",
+  "checked": "2026-11-09",
   "status": "완료",
   "entered": 60,
   "assigned": 60,
@@ -9,15 +9,45 @@
   "precision_at_3": {
     "n": 55,
     "strict": 74.5,
-    "lenient": 94.5
+    "lenient": 94.5,
+    "ci95_wilson": [
+      61.7,
+      84.2
+    ],
+    "ci95_cluster_bootstrap": [
+      60.7,
+      87.3
+    ]
   },
   "target_pct": 70.0,
   "meets_target": true,
   "agreement": {
     "pairs": 30,
     "agree": 22,
-    "pct": 73.3
+    "pct": 73.3,
+    "cohen_kappa": 0.457
   },
+  "consensus": {
+    "items_total": 30,
+    "items_rated": 28,
+    "both_unclear": 2,
+    "fit": 17,
+    "partial": 9,
+    "unfit": 2,
+    "strict": 60.7,
+    "ci95_task_bootstrap": [
+      39.3,
+      82.1
+    ]
+  },
+  "ci95_wilson": [
+    61.7,
+    84.2
+  ],
+  "ci95_cluster_bootstrap": [
+    60.7,
+    87.3
+  ],
   "raters": [
     {
       "rater": "김",

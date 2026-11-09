@@ -383,6 +383,27 @@ def main():
 
     # 7) 추천 과업·결과
     tasks_raw = json.load(open(PROCESSED / "hr_task_catalog_90.json", encoding="utf-8"))["tasks"]
+    # 사람 평가 마크 수집 (1차 -> 2차 -> 홀드아웃 순으로 덮어씀)
+    eval_marks = {}
+    eval_rounds_files = [
+        ("1차", RECO / "precision_eval_results.csv"),
+        ("2차", RECO / "precision_eval_round2_results.csv"),
+        ("홀드아웃", RECO / "precision_eval_holdout_results.csv"),
+    ]
+    for r_name, p in eval_rounds_files:
+        if p.exists():
+            df_ev = pd.read_csv(p, dtype=str).fillna("")
+            for (t_id, lvl, c_uid), g in df_ev.groupby(["task_id", "level", "course_uid"]):
+                c = g["judgment"].value_counts().to_dict()
+                key = f"{t_id}::{lvl}::{c_uid}"
+                eval_marks[key] = {
+                    "적합": int(c.get("적합", 0)),
+                    "부분 적합": int(c.get("부분 적합", 0)),
+                    "부적합": int(c.get("부적합", 0)),
+                    "판단 불가": int(c.get("판단 불가", 0)),
+                    "round": r_name,
+                }
+
     # 최종 추천 = 2단계 리랭커 결과 (고객 앱·사람 평가와 같은 추천). 1단계 결과는 비교용으로만 쓴다.
     rec1 = pd.read_csv(RECO / "task_course_recommendations_90.csv")
     rec = pd.read_csv(RECO / "task_course_recommendations_90_reranked.csv")
@@ -406,9 +427,12 @@ def main():
         for lvl, g in top3[top3["task_id"] == t["task_id"]].groupby("level"):
             recs[lvl] = [
                 {
+                    "uid": r.course_uid,
                     "title": r.title, "provider": r.provider, "final": round(float(r.final_score), 1),
                     "sem": round(float(r.semantic_score), 1), "bm25": round(float(r.bm25_score), 1),
                     "lvl": round(float(r.level_bonus), 1),
+                    "reranker": round(float(r.reranker_score), 1),
+                    "eval": eval_marks.get(f"{t['task_id']}::{lvl}::{r.course_uid}"),
                 }
                 for r in g.sort_values("rank").itertuples()
             ]
@@ -434,8 +458,21 @@ def main():
         "bias_provider": bias_p, "bias_top3_stage1": round(float(share1.get(bias_p, 0)) * 100, 1),
         "bias_top3_final": round(float(share2.get(bias_p, 0)) * 100, 1),
     }
+
+    # 리랭커 점수가 0.1 미만인 슬롯 및 수습 평가 업무 점수 계산
+    d04_top3 = top3[(top3["task_id"] == "TASK_HR_D04_T04") & (top3["level"] == "실무")]
+    probation_reranker_scores = sorted([round(float(r.reranker_score), 1) for r in d04_top3.itertuples()])
+    lt01_slots = int(top3[top3["reranker_score"] < 0.1].groupby(["task_id", "level"]).ngroups)
     recommend = {
         "stage1": stage1,
+        "eval_marks": eval_marks,
+        "weak_slots": {
+            "probation_task_id": "TASK_HR_D04_T04",
+            "probation_level": "실무",
+            "probation_reranker_scores": probation_reranker_scores,
+            "lt01_slots": lt01_slots,
+            "total_slots": 270,
+        },
         "reused5_courses": int(len(heavy)),
         "reused5_slot_pct": pct(top3["course_uid"].isin(heavy).sum(), len(top3)),
         "title_only_top3_pct": pct(top3["course_uid"].isin(title_only).sum(), len(top3)),
