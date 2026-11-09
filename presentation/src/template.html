@@ -204,6 +204,7 @@ select:focus, input[type="search"]:focus { border-color: var(--yel); outline: no
 .rec .sc small { display: block; font-family: var(--px); font-size: 10px; color: var(--hud-dim); }
 .scorebar { grid-column: 2 / 4; display: flex; height: 10px; background: var(--hud); border: 1px solid var(--hud-line); }
 .scorebar span { display: block; height: 100%; }
+.eval-badge { display: inline-block; font-family: var(--px); font-size: 11px; background: rgba(31, 143, 120, 0.2); color: var(--teal-lt); border: 1px solid var(--teal); padding: 1px 6px; margin-left: 6px; vertical-align: 1px; white-space: nowrap; }
 @media (max-width: 520px) { .rec { grid-template-columns: 28px minmax(0, 1fr); } .rec .sc { grid-column: 2; text-align: left; } .scorebar { grid-column: 1 / 3; } }
 
 /* 파이프라인 단계 */
@@ -347,7 +348,7 @@ ol.three li::marker { font-family: var(--pxb); color: var(--teal); }
 
     <div class="summary-conclusions">
       <p>인사 교육은 다양하지만, 담당 업무에 맞는 교육을 찾기는 쉽지 않습니다. 특히 노무·보상처럼 법과 제도를 알아야 하는 업무는 맞는 교육이 적고(업무와 뜻이 가까운 과정 노무 256개·보상 249개, 인재육성의 1/13 수준), 다음 단계(중급) 교육은 비쌉니다(유료 가격 중앙값 <span class="mid-price">638,250</span>원).</p>
-      <p>그래서 업무 90개를 기준으로 교육을 추천하는 서비스를 만들었고, 처음 보는 업무 10개에서 추천의 74.5%가 '업무에 맞다'는 판정을 받았습니다. 표본이 작아 더 평가해 확인할 예정입니다.</p>
+      <p>그래서 업무 90개를 기준으로 교육을 추천하는 서비스를 만들었고, 처음 보는 업무 10개에서 추천의 74.5%가 '업무에 맞다'는 판정을 받았습니다. 두 사람 판정이 다를 때 낮은 쪽을 쓰면 60.7%로, 표본이 작아 더 평가해 확인할 예정입니다.</p>
     </div>
 
     <div class="kpis">
@@ -364,7 +365,7 @@ ol.three li::marker { font-family: var(--pxb); color: var(--teal); }
       <div class="kpi">
         <div class="v num"><span id="k-human-p3">74.5</span><small>%</small></div>
         <div class="l">사람 평가 (<span class="glossary-term" tabindex="0" data-term="홀드아웃">처음 보는 업무<span class="glossary-tooltip">규칙을 만들 때 보지 않은 업무 10개로 다시 시험한 결과</span></span>)</div>
-        <div class="sub">목표 70% · 판정 55건 · 95% <span class="glossary-term" tabindex="0" data-term="신뢰구간">범위<span class="glossary-tooltip">평가를 다시 하면 결과가 나올 수 있는 범위</span></span> 약 61~87% · 팀 내부 평가</div>
+        <div class="sub">목표 70% · 판정 55건 · 95% <span class="glossary-term" tabindex="0" data-term="신뢰구간">범위<span class="glossary-tooltip">평가를 다시 하면 결과가 나올 수 있는 범위</span></span> 약 61~87% · 팀 내부 평가<br>두 사람 합의(낮은 쪽) 기준 <span id="kpi-consensus-val">60.7</span>% · 95% 범위 약 <span id="kpi-consensus-ci">39~82</span>%</div>
       </div>
       <div class="kpi">
         <div class="v num">0<small>건</small></div>
@@ -424,7 +425,7 @@ ol.three li::marker { font-family: var(--pxb); color: var(--teal); }
 
     <div class="day-in-life" id="case-study">
       <h3>한 담당자의 하루: 문제 상황에서 맞춤 추천까지</h3>
-      <p class="lead-sub">입사 3년 차 인사 담당자 김 매니저는 오늘 <strong>"수습 평가(Probation Review) 기준표 및 본채용 심의 프로세스 수립"</strong> 과제를 받았습니다. 교육기관 검색창에 '수습 평가'를 치면 나오는 과정이 거의 없고, 기관마다 분류도 제각각입니다. 아래 탐색기에서 해당 업무와 '실무' 수준을 선택하면, 모델이 7,698개 후보 중 문장의 뜻과 단어 일치도, 학습 난이도를 종합 계산해 선별한 상위 3개 추천과 그 추천 근거(기여도 막대)를 바로 확인할 수 있습니다.</p>
+      <p class="lead-sub">급여 담당자가 '매월 급여·상여를 계산하고 4대보험·원천징수를 마감하는 업무'를 처음 맡았습니다 &rarr; 업무를 고르고 &rarr; 실무 수준을 고르고 &rarr; 추천 3개를 받고 &rarr; 막대로 추천 이유를 확인합니다.</p>
       
       <figure class="fig" style="margin: 12px 0 0;">
         <div class="hud" id="explorer">
@@ -816,6 +817,7 @@ ol.three li::marker { font-family: var(--pxb); color: var(--teal); }
       </div>
     </div>
 
+    <p class="note" style="margin-bottom:8px;"><strong>지표 구분:</strong> <strong>A (판정 단위)</strong>는 판정 하나하나 중 적합 비율이며, <strong>B (두 사람 합의)</strong>는 두 사람 판정을 합쳐 낮은 쪽을 쓴 항목 비율(보수적)입니다.</p>
     <div class="tbl">
       <table>
         <thead>
@@ -836,7 +838,7 @@ ol.three li::marker { font-family: var(--pxb); color: var(--teal); }
   </div>
   <div class="wrap wide">
     <div class="hud" style="margin:24px 0 28px;padding:16px 20px;border-left:4px solid var(--yel);">
-      <p style="margin:0;font-size:15px;color:var(--hud-ink);">💡 <strong>과업별 추천 탐색기</strong>는 <a href="#explorer" style="color:var(--yel);text-decoration:underline;font-weight:bold;">01장 '한 담당자의 하루' 섹션</a>으로 이동하여 실제 업무 사례(수습 평가 기준표)와 함께 확인하실 수 있습니다.</p>
+      <p style="margin:0;font-size:15px;color:var(--hud-ink);">💡 <strong>과업별 추천 탐색기</strong>는 <a href="#explorer" style="color:var(--yel);text-decoration:underline;font-weight:bold;">01장 '한 담당자의 하루' 섹션</a>으로 이동하여 실제 업무 사례(급여 실무)와 함께 확인하실 수 있습니다.</p>
     </div>
     <div class="two">
       <figure class="fig" style="margin-top:0">
@@ -926,6 +928,7 @@ ol.three li::marker { font-family: var(--pxb); color: var(--teal); }
       <li><p><strong>일부 과정이 여러 과업에 반복 추천됩니다.</strong> 과정 <span id="cv-reuse"></span>개가 5개 이상 과업에 나오며 Top 3 자리의 <span id="cv-reuse-pct"></span>%를 차지합니다. 2단계 리랭커 전(<span id="cv-reuse-s1"></span>%)과 거의 같아, 반복 감점은 앞으로 할 일입니다.</p></li>
       <li><p><strong>공식 만족도는 국민내일배움카드 과정에만 있습니다.</strong> 응답자 수가 공개되지 않아 정밀한 평점으로 읽으면 안 됩니다. 데이터에 만들어 넣은 가짜 후기·평점은 모두 지웠고, 공식 만족도도 추천 점수에는 넣지 않습니다.</p></li>
       <li><p><strong>사람 평가는 팀원 4명이 했습니다.</strong> 두 사람씩 서로 보지 않고 판정했지만, 만든 사람이 평가한 결과라 후하게 나왔을 수 있습니다. 같은 항목을 두 사람이 본 판정은 서로 독립이 아니어서, 신뢰구간은 항목 단위로 묶어 다시 계산했습니다. 다음 평가에서는 팀 밖 인사 담당자와 키워드 검색 추천을 함께 넣어 비교할 예정입니다.</p></li>
+      <li><p><strong>앞에서 예로 든 '수습 평가 기준표' 업무(실무)는 추천이 아직 약합니다.</strong> 리랭커 점수가 <span id="cv-probation-scores">{0.0, 0.0, 0.1}</span>로, 맞는 과정이 부족해 관련이 낮은 과정이 채워졌습니다. 이처럼 리랭커 점수가 0.1 미만인 과정이 들어간 슬롯은 270개 중 <span id="cv-lt01-slots">132</span>개입니다.</p></li>
     </ol>
   </div>
 </section>
@@ -1050,6 +1053,11 @@ const D = /*__DATA__*/;
   T('#cv-reuse', R.reused5_courses);
   T('#cv-reuse-pct', R.reused5_slot_pct);
   if (R.stage1) { T('#cv-reuse-s1', R.stage1.reused5_slot_pct); T('#i5-s1', R.stage1.bias_top3_stage1); }
+  if (R.weak_slots) {
+    const ws = R.weak_slots;
+    T('#cv-probation-scores', `{${ws.probation_reranker_scores.map(s => Number(s).toFixed(1)).join(', ')}}`);
+    T('#cv-lt01-slots', ws.lt01_slots);
+  }
   if (D.domain_review) {
     T('#dr-n', D.domain_review.reviewed_courses);
     T('#dr-prec', Math.round(D.domain_review.precision.value * 1000) / 10);
@@ -1080,6 +1088,13 @@ const D = /*__DATA__*/;
     if (HO) {
       T('#he-ho', HO.precision_at_3.strict);
       T('#k-human-p3', HO.precision_at_3.strict);
+      if (HO.consensus) {
+        T('#kpi-consensus-val', HO.consensus.strict);
+        if (HO.consensus.ci95_task_bootstrap) {
+          const [lo, hi] = HO.consensus.ci95_task_bootstrap;
+          T('#kpi-consensus-ci', `${Math.round(lo)}~${Math.round(hi)}`);
+        }
+      }
     }
   }
 
@@ -1690,10 +1705,10 @@ const D = /*__DATA__*/;
 
   /* ---------- 과업별 추천 탐색기 ---------- */
   const LEVELS = ['입문', '실무', '관리자·심화'];
-    const defaultTaskObj = R.tasks.find(t => t.name.includes('수습 평가')) || R.tasks[0];
+  const defaultTaskObj = R.tasks.find(t => t.id === 'TASK_HR_D06_T05') || R.tasks[0];
   const state = {
-    domain: defaultTaskObj ? defaultTaskObj.domain : '온보딩·직원경험',
-    task: defaultTaskObj ? defaultTaskObj.id : null,
+    domain: defaultTaskObj ? defaultTaskObj.domain : '보상·급여·복리후생',
+    task: defaultTaskObj ? defaultTaskObj.id : 'TASK_HR_D06_T05',
     level: '실무'
   };
 
@@ -1744,9 +1759,21 @@ const D = /*__DATA__*/;
     const MAX = 95;
     $('#ex-recs').innerHTML = recs.length ? recs.map((r, i) => {
       const a = r.sem * .5, b = r.bm25 * .35, c = r.lvl;
+      let evalBadge = '';
+      if (r.eval) {
+        const fit = r.eval['적합'] || 0;
+        const partial = r.eval['부분 적합'] || 0;
+        const unfit = r.eval['부적합'] || 0;
+        const total = fit + partial + unfit + (r.eval['판단 불가'] || 0);
+        let statusText = `적합 ${fit}/${total}`;
+        if (fit === 0 && partial > 0) statusText = `부분 적합 ${partial}/${total}`;
+        else if (fit === 0 && unfit > 0) statusText = `부적합 ${unfit}/${total}`;
+        const rnd = r.eval.round ? ` (${esc(r.eval.round)})` : '';
+        evalBadge = `<span class="badge eval-badge">사람 평가: ${statusText}${rnd}</span>`;
+      }
       return `<div class="rec">
         <div class="rk">${i + 1}</div>
-        <div><div class="ti">${esc(r.title)}</div><div class="pv">${esc(r.provider)} · 의미 ${r.sem} · 키워드 ${r.bm25}${c ? ' · 난이도 +' + c : ''}</div></div>
+        <div><div class="ti">${esc(r.title)}${evalBadge}</div><div class="pv">${esc(r.provider)} · 의미 ${r.sem} · 키워드 ${r.bm25}${c ? ' · 난이도 +' + c : ''}</div></div>
         <div class="sc">${r.final}<small>점</small></div>
         <div class="scorebar" aria-hidden="true"><span style="width:${a / MAX * 100}%;background:var(--teal)"></span><span style="width:${b / MAX * 100}%;background:var(--yel)"></span><span style="width:${c / MAX * 100}%;background:var(--blue)"></span></div>
       </div>`;
