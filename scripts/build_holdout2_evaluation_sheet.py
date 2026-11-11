@@ -26,7 +26,7 @@ if sys.platform == "win32":
 ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT))
 
-from src.course_links import build_course_link, detail_url
+from src.course_links import detail_url
 from src.customer import career_platform as cp
 from src.customer.career_platform import course_intro_summary
 
@@ -233,9 +233,7 @@ def build_evaluation_items(plan, df_final, df_bm25, df_courses, seed=7):
         course_row = df_courses.loc[c_uid] if c_uid in df_courses.index else None
         c_url = ""
         if course_row is not None and pd.notna(course_row.get("url")):
-            c_url = build_course_link(item["provider"], c_uid, str(course_row["url"]))
-        else:
-            c_url = build_course_link(item["provider"], c_uid)
+            c_url = detail_url(str(course_row["url"]))
 
         intro_sum = course_intro_summary(c_uid)
 

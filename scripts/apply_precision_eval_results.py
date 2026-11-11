@@ -67,7 +67,7 @@ def precision(s):
 ROUND_TITLES = {
     "": "1차",
     "round2": "2차 (SAP·QA·전산회계 제외 후 같은 업무 10개)",
-    "holdout": "홀드아웃 1차 (처음 보는 업무 10개)",
+    "holdout": "홀드아웃 (처음 보는 업무 10개)",
     "holdout2": "홀드아웃 2차 (키워드 추천 대조군 + 위약 검정 포함 10개 업무)",
     "holdout_all": "홀드아웃 전체 (1차+2차 통합 20개 업무)",
 }
@@ -535,6 +535,11 @@ def main():
         + (f" [둘 다 판단 불가 {consensus['both_unclear']}개 제외]" if consensus["both_unclear"] > 0 else ""),
         f"- **C. 평가자 간 일치도**: 일치율 **{result['agreement']['pct']}%** ({agree}/{result['agreement']['pairs']}쌍 일치), 코헨 카파(Cohen's Kappa) **κ={kappa}**",
         "",
+        "> **지표 구분 및 차이 설명**  ",
+        "> - **A (판정 단위)**는 평가자 4명의 개별 평가 건(n=55 등)을 독립된 관측치로 집계한 지표입니다. 평가자 한 명이 적합으로 판단한 건도 분자에 반영됩니다.  ",
+        "> - **B (항목 합의 단위)**는 추천 항목(과정) 하나에 대해 두 평가자의 판정 중 **더 낮은(보수적인) 판정**을 채택한 지표입니다. 두 사람 모두 '적합'으로 합의해야 적합으로 인정되므로 A보다 엄격하며 수치가 더 낮게 산출됩니다.  ",
+        "> - **C (평가자 일치도)**는 두 평가자의 판정 일치율과 우연에 의한 일치를 보정한 코헨 카파 지수입니다. 동일 항목을 두 평가자가 중복 채점하므로 신뢰구간 산출 시 클러스터 부트스트랩을 적용해 독립성 위반을 보정합니다.",
+        "",
         "## 평가자별",
         "",
         "| 평가자 | 배정 | 입력 | 적합 | 부분 적합 | 부적합 | 판단 불가 |",
@@ -542,7 +547,26 @@ def main():
     ] + [
         f"| {r['rater']} | {r['assigned']} | {r['entered']} | {r['적합']} | {r['부분 적합']} | {r['부적합']} | {r['판단 불가']} |"
         for r in raters
-    ]
+    ] + [
+        "",
+        f"두 사람이 모두 입력한 항목은 {result['agreement']['pairs']}개이고 그중 {result['agreement']['agree']}개가 같은 판정이다"
+        + (f" (일치율 {result['agreement']['pct']}%, 코헨 카파 κ={kappa})." if result["agreement"]["pairs"] else "."),
+        "",
+        "## 순위별 Precision",
+        "",
+        "| 순위 | 판정 수 | 적합만 | 적합+부분 적합 |",
+        "| --- | ---: | ---: | ---: |",
+    ] + [f"| {r}위 | {v['n']} | {v['strict']}% | {v['lenient']}% |" for r, v in by_rank.items()] + [
+        "",
+        "## 업무별 (항목 판정은 두 사람 중 낮은 쪽)",
+        "",
+        "| 분야 | 업무 | 수준 | 적합 | 부분 적합 | 부적합 |",
+        "| --- | --- | --- | ---: | ---: | ---: |",
+    ] + [f"| {t['domain']} | {t['task']} | {t['level']} | {t['fit']} | {t['partial']} | {t['unfit']} |" for t in by_task] + [
+        "",
+        "## 부적합으로 판정된 추천",
+        "",
+    ] + [f"- {u[id_col]}번 {u['task']} → {u['title']} ({u['provider']})" for u in result["unfit_items"]] + [""]
     OUT_MD.write_text("\n".join(lines), encoding="utf-8")
     print(f"[{result['round']}] Done -> {OUT_JSON.name}, {OUT_MD.name}")
 
