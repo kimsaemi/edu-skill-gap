@@ -1,0 +1,368 @@
+{
+  "round": "홀드아웃 전체 (1차+2차 통합 20개 업무)",
+  "checked": "2026-11-12",
+  "status": "완료",
+  "entered": 120,
+  "assigned": 120,
+  "items_total": 60,
+  "items_rated": 58,
+  "precision_at_3": {
+    "n": 114,
+    "strict": 66.7,
+    "lenient": 83.3,
+    "ci95_wilson": [
+      57.6,
+      74.7
+    ],
+    "ci95_cluster_bootstrap": [
+      56.1,
+      76.5
+    ]
+  },
+  "target_pct": 70.0,
+  "meets_target": false,
+  "agreement": {
+    "pairs": 60,
+    "agree": 41,
+    "pct": 68.3,
+    "cohen_kappa": 0.421
+  },
+  "consensus": {
+    "items_total": 60,
+    "items_rated": 58,
+    "both_unclear": 2,
+    "fit": 31,
+    "partial": 14,
+    "unfit": 13,
+    "strict": 53.4,
+    "ci95_task_bootstrap": [
+      36.7,
+      70.0
+    ]
+  },
+  "ci95_wilson": [
+    57.6,
+    74.7
+  ],
+  "ci95_cluster_bootstrap": [
+    56.1,
+    76.5
+  ],
+  "raters": [
+    {
+      "rater": "김",
+      "assigned": 27,
+      "entered": 27,
+      "적합": 17,
+      "부분 적합": 4,
+      "부적합": 4,
+      "판단 불가": 2
+    },
+    {
+      "rater": "이",
+      "assigned": 31,
+      "entered": 31,
+      "적합": 20,
+      "부분 적합": 5,
+      "부적합": 5,
+      "판단 불가": 1
+    },
+    {
+      "rater": "박",
+      "assigned": 30,
+      "entered": 30,
+      "적합": 20,
+      "부분 적합": 4,
+      "부적합": 3,
+      "판단 불가": 3
+    },
+    {
+      "rater": "홍",
+      "assigned": 32,
+      "entered": 32,
+      "적합": 19,
+      "부분 적합": 6,
+      "부적합": 7,
+      "판단 불가": 0
+    }
+  ],
+  "by_rank": {
+    "1": {
+      "n": 17,
+      "strict": 82.4,
+      "lenient": 100.0
+    },
+    "2": {
+      "n": 18,
+      "strict": 66.7,
+      "lenient": 88.9
+    },
+    "3": {
+      "n": 20,
+      "strict": 75.0,
+      "lenient": 95.0
+    }
+  },
+  "by_task": [
+    {
+      "domain": "인사전략·인력기획",
+      "task": "전사 총인건비 예산 편성 및 한도(Cap) 설정",
+      "level": "실무",
+      "items": 3,
+      "fit": 1,
+      "partial": 1,
+      "unfit": 1
+    },
+    {
+      "domain": "조직설계·직무분석",
+      "task": "전사 직무분류체계(Job Family/Sub-family) 수립",
+      "level": "실무",
+      "items": 3,
+      "fit": 0,
+      "partial": 3,
+      "unfit": 0
+    },
+    {
+      "domain": "인재채용",
+      "task": "대외 채용 브랜딩(Employer Branding) 및 커리어 사이트 기획",
+      "level": "입문",
+      "items": 3,
+      "fit": 1,
+      "partial": 1,
+      "unfit": 1
+    },
+    {
+      "domain": "온보딩·직원경험",
+      "task": "직무 맞춤형 OJT(On-the-Job Training) 가이드 및 사수 멘토링 제도 설계",
+      "level": "입문",
+      "items": 3,
+      "fit": 2,
+      "partial": 1,
+      "unfit": 0
+    },
+    {
+      "domain": "성과평가·목표관리",
+      "task": "전사 연간 성과관리 제도(MBO/OKR) 및 KPI 평가지표 풀(Pool) 수립",
+      "level": "관리자·심화",
+      "items": 3,
+      "fit": 3,
+      "partial": 0,
+      "unfit": 0
+    },
+    {
+      "domain": "보상·급여·복리후생",
+      "task": "경영성과급(PS/PI) 및 단기 인센티브(STI) 산정 공식 모델링",
+      "level": "실무",
+      "items": 3,
+      "fit": 2,
+      "partial": 1,
+      "unfit": 0
+    },
+    {
+      "domain": "인재육성·사내교육",
+      "task": "직무별 전문 역량 향상 아카데미(Job Academy) 및 KSA 교육 코스 개발",
+      "level": "실무",
+      "items": 3,
+      "fit": 3,
+      "partial": 0,
+      "unfit": 0
+    },
+    {
+      "domain": "조직문화·사내소통",
+      "task": "정기 타운홀 미팅 및 경영진-직원 간 열린 대화 세션 운영",
+      "level": "관리자·심화",
+      "items": 3,
+      "fit": 1,
+      "partial": 2,
+      "unfit": 0
+    },
+    {
+      "domain": "노사관계·노무",
+      "task": "사내 취업규칙 및 인사 제규정 법적 적합성 검토 및 제·개정",
+      "level": "입문",
+      "items": 1,
+      "fit": 1,
+      "partial": 0,
+      "unfit": 0
+    },
+    {
+      "domain": "보상·급여·복리후생",
+      "task": "매월 임직원 급여·상여 계산, 4대보험 공제 및 원천징수 급여 대장 마감",
+      "level": "실무",
+      "items": 3,
+      "fit": 3,
+      "partial": 0,
+      "unfit": 0
+    },
+    {
+      "domain": "인사전략·인력기획",
+      "task": "조직 슬림화 및 유휴 인력 최적화·재배치 전략 수립",
+      "level": "입문",
+      "items": 3,
+      "fit": 0,
+      "partial": 2,
+      "unfit": 1
+    },
+    {
+      "domain": "조직설계·직무분석",
+      "task": "직무가치평가 위원회 운영 및 등급(Grade) 1차 판정",
+      "level": "실무",
+      "items": 3,
+      "fit": 1,
+      "partial": 0,
+      "unfit": 2
+    },
+    {
+      "domain": "인재채용",
+      "task": "면접 전형(1차 실무/2차 임원) 진행 및 면접관 오리엔테이션",
+      "level": "관리자·심화",
+      "items": 3,
+      "fit": 3,
+      "partial": 0,
+      "unfit": 0
+    },
+    {
+      "domain": "온보딩·직원경험",
+      "task": "직원 경험 여정 맵(EX Journey Map) 진단 및 온보딩 디지털화·자동화",
+      "level": "입문",
+      "items": 3,
+      "fit": 1,
+      "partial": 0,
+      "unfit": 2
+    },
+    {
+      "domain": "성과평가·목표관리",
+      "task": "연말 종합 성과평가 실시, 평가 데이터 취합 및 이의신청(Appeal) 접수·조정",
+      "level": "실무",
+      "items": 3,
+      "fit": 1,
+      "partial": 0,
+      "unfit": 2
+    },
+    {
+      "domain": "보상·급여·복리후생",
+      "task": "통상임금 및 평균임금 산정 범위 법적 리스크 점검 및 소급분 시뮬레이션",
+      "level": "관리자·심화",
+      "items": 3,
+      "fit": 2,
+      "partial": 1,
+      "unfit": 0
+    },
+    {
+      "domain": "인재육성·사내교육",
+      "task": "커크패트릭(Kirkpatrick) 4단계 교육 효과성(반응·학습·행동·결과) 평가 분석",
+      "level": "입문",
+      "items": 3,
+      "fit": 3,
+      "partial": 0,
+      "unfit": 0
+    },
+    {
+      "domain": "조직문화·사내소통",
+      "task": "동료 인정 및 포상 제도(Peer Recognition, 우수사원 포상) 기준 설계",
+      "level": "실무",
+      "items": 3,
+      "fit": 0,
+      "partial": 1,
+      "unfit": 2
+    },
+    {
+      "domain": "노사관계·노무",
+      "task": "단체교섭(노사협의회) 사측 교섭 전략 수립 및 노조 요구안 사전 시뮬레이션",
+      "level": "관리자·심화",
+      "items": 3,
+      "fit": 3,
+      "partial": 0,
+      "unfit": 0
+    },
+    {
+      "domain": "인재채용",
+      "task": "링크드인·전문 인재DB 다이렉트 소싱(Direct Sourcing) 수행",
+      "level": "실무",
+      "items": 3,
+      "fit": 0,
+      "partial": 1,
+      "unfit": 2
+    }
+  ],
+  "unfit_items": [
+    {
+      "combined_item_id": "h1_2",
+      "task": "전사 총인건비 예산 편성 및 한도(Cap) 설정",
+      "title": "기업경영분석기초",
+      "provider": "한국생산성본부(KPC)"
+    },
+    {
+      "combined_item_id": "h1_9",
+      "task": "대외 채용 브랜딩(Employer Branding) 및 커리어 사이트 기획",
+      "title": "[여의도] 경력관리의 새로운 패러다임, 페르소나 브랜딩(Persona Branding)",
+      "provider": "한국능률협회(KMA)"
+    },
+    {
+      "combined_item_id": "h2_4",
+      "task": "조직 슬림화 및 유휴 인력 최적화·재배치 전략 수립",
+      "title": "2026 직업상담사 필기_노동시장",
+      "provider": "GSEEK"
+    },
+    {
+      "combined_item_id": "h2_9",
+      "task": "직무가치평가 위원회 운영 및 등급(Grade) 1차 판정",
+      "title": "노동위원회 사건대리 최고역량 과정",
+      "provider": "한국생산성본부(KPC)"
+    },
+    {
+      "combined_item_id": "h2_12",
+      "task": "직무가치평가 위원회 운영 및 등급(Grade) 1차 판정",
+      "title": "국내산 원산지증명서 작성 및 검증",
+      "provider": "한국생산성본부(KPC)"
+    },
+    {
+      "combined_item_id": "h2_20",
+      "task": "직원 경험 여정 맵(EX Journey Map) 진단 및 온보딩 디지털화·자동화",
+      "title": "HR, AI가 트렌드다 : 채용부터 퇴사까지",
+      "provider": "GSEEK"
+    },
+    {
+      "combined_item_id": "h2_23",
+      "task": "직원 경험 여정 맵(EX Journey Map) 진단 및 온보딩 디지털화·자동화",
+      "title": "[여의도] NotebookLM으로 업무 리서치 자동화",
+      "provider": "한국능률협회(KMA)"
+    },
+    {
+      "combined_item_id": "h2_24",
+      "task": "연말 종합 성과평가 실시, 평가 데이터 취합 및 이의신청(Appeal) 접수·조정",
+      "title": "[온앤오프] 민사 소송 실무",
+      "provider": "한국생산성본부(KPC)"
+    },
+    {
+      "combined_item_id": "h2_28",
+      "task": "연말 종합 성과평가 실시, 평가 데이터 취합 및 이의신청(Appeal) 접수·조정",
+      "title": "FTA관세종합",
+      "provider": "한국생산성본부(KPC)"
+    },
+    {
+      "combined_item_id": "h2_41",
+      "task": "동료 인정 및 포상 제도(Peer Recognition, 우수사원 포상) 기준 설계",
+      "title": "[DX&AI] 평가보상 설계 실무(밀코비치 기반)",
+      "provider": "한국생산성본부(KPC)"
+    },
+    {
+      "combined_item_id": "h2_44",
+      "task": "동료 인정 및 포상 제도(Peer Recognition, 우수사원 포상) 기준 설계",
+      "title": "[인재키움] 인사평가시스템 구축실무",
+      "provider": "한국생산성본부"
+    },
+    {
+      "combined_item_id": "h2_52",
+      "task": "링크드인·전문 인재DB 다이렉트 소싱(Direct Sourcing) 수행",
+      "title": "실전! AI 추천 시스템 알고리즘 이해 및 구현",
+      "provider": "멀티캠퍼스"
+    },
+    {
+      "combined_item_id": "h2_54",
+      "task": "링크드인·전문 인재DB 다이렉트 소싱(Direct Sourcing) 수행",
+      "title": "알고리즘으로 풀어보는 신경망, 딥러닝 첫걸음 with 파이썬",
+      "provider": "멀티캠퍼스"
+    }
+  ]
+}
