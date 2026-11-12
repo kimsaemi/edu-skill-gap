@@ -1,31 +1,31 @@
 {
   "round": "홀드아웃 전체 (1차+2차 통합 20개 업무)",
   "checked": "2026-11-12",
-  "status": "중간",
-  "entered": 119,
+  "status": "완료",
+  "entered": 120,
   "assigned": 120,
   "items_total": 60,
   "items_rated": 58,
   "precision_at_3": {
-    "n": 113,
-    "strict": 66.4,
-    "lenient": 83.2,
+    "n": 114,
+    "strict": 66.7,
+    "lenient": 83.3,
     "ci95_wilson": [
-      57.3,
-      74.4
+      57.6,
+      74.7
     ],
     "ci95_cluster_bootstrap": [
-      55.9,
-      76.3
+      56.1,
+      76.5
     ]
   },
   "target_pct": 70.0,
   "meets_target": false,
   "agreement": {
-    "pairs": 59,
-    "agree": 40,
-    "pct": 67.8,
-    "cohen_kappa": 0.418
+    "pairs": 60,
+    "agree": 41,
+    "pct": 68.3,
+    "cohen_kappa": 0.421
   },
   "consensus": {
     "items_total": 60,
@@ -41,12 +41,12 @@
     ]
   },
   "ci95_wilson": [
-    57.3,
-    74.4
+    57.6,
+    74.7
   ],
   "ci95_cluster_bootstrap": [
-    55.9,
-    76.3
+    56.1,
+    76.5
   ],
   "raters": [
     {
@@ -61,8 +61,8 @@
     {
       "rater": "이",
       "assigned": 31,
-      "entered": 30,
-      "적합": 19,
+      "entered": 31,
+      "적합": 20,
       "부분 적합": 5,
       "부적합": 5,
       "판단 불가": 1

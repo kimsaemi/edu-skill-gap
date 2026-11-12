@@ -1,21 +1,21 @@
 {
   "round": "홀드아웃 2차 (키워드 추천 대조군 + 위약 검정 포함 10개 업무)",
   "checked": "2026-11-12",
-  "status": "중간",
-  "entered": 108,
+  "status": "완료",
+  "entered": 110,
   "assigned": 110,
   "final_recommendation": {
     "precision_at_3": {
-      "n": 58,
-      "strict": 58.6,
-      "lenient": 72.4,
+      "n": 59,
+      "strict": 59.3,
+      "lenient": 72.9,
       "ci95_wilson": [
-        45.8,
-        70.4
+        46.6,
+        70.9
       ],
       "ci95_cluster_bootstrap": [
-        43.1,
-        73.3
+        43.3,
+        74.1
       ]
     },
     "consensus": {
@@ -34,16 +34,16 @@
   },
   "bm25_recommendation": {
     "precision_at_3": {
-      "n": 57,
-      "strict": 57.9,
-      "lenient": 77.2,
+      "n": 59,
+      "strict": 57.6,
+      "lenient": 76.3,
       "ci95_wilson": [
-        45.0,
-        69.8
+        44.9,
+        69.4
       ],
       "ci95_cluster_bootstrap": [
-        41.5,
-        73.7
+        41.4,
+        73.3
       ]
     },
     "consensus": {
@@ -61,10 +61,10 @@
     }
   },
   "comparison": {
-    "diff_strict_a": 0.7,
+    "diff_strict_a": 1.7,
     "ci95_diff_a": [
-      -5.1,
-      7.7
+      -4.0,
+      8.2
     ],
     "diff_strict_b": 0.0,
     "ci95_diff_b": [
@@ -186,10 +186,10 @@
     {
       "rater": "이",
       "assigned": 28,
-      "entered": 26,
-      "적합": 16,
+      "entered": 28,
+      "적합": 17,
       "부분 적합": 3,
-      "부적합": 5,
+      "부적합": 6,
       "판단 불가": 2
     },
     {
@@ -212,16 +212,16 @@
     }
   ],
   "precision_at_3": {
-    "n": 58,
-    "strict": 58.6,
-    "lenient": 72.4,
+    "n": 59,
+    "strict": 59.3,
+    "lenient": 72.9,
     "ci95_wilson": [
-      45.8,
-      70.4
+      46.6,
+      70.9
     ],
     "ci95_cluster_bootstrap": [
-      43.1,
-      73.3
+      43.3,
+      74.1
     ]
   },
   "consensus": {
