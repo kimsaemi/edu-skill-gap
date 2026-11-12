@@ -162,15 +162,15 @@ def add_slide_base(title_text, section_tag=None, subtitle_text=None, is_dark=Fal
     style_shape(bar, C_YEL if is_dark else C_TEAL)
 
     # Title + small section tag right beside title
-    tb = slide.shapes.add_textbox(Inches(0.65), Inches(0.32), Inches(11.6), Inches(0.65))
+    tb = slide.shapes.add_textbox(Inches(0.65), Inches(0.32), Inches(12.03), Inches(0.55))
     tf = tb.text_frame
     tf.word_wrap = True
     tf.margin_left = tf.margin_top = tf.margin_right = tf.margin_bottom = 0
     p = tf.paragraphs[0]
     r1 = p.add_run()
-    r1.text = title_text + "   "
+    r1.text = title_text + "  "
     r1.font.name = FONT_NAME
-    r1.font.size = Pt(24)
+    r1.font.size = Pt(21)
     r1.font.bold = True
     r1.font.color.rgb = C_HUD_INK if is_dark else C_INK
 
@@ -178,7 +178,7 @@ def add_slide_base(title_text, section_tag=None, subtitle_text=None, is_dark=Fal
         r2 = p.add_run()
         r2.text = f"[{section_tag}]"
         r2.font.name = FONT_NAME
-        r2.font.size = Pt(12)
+        r2.font.size = Pt(11.5)
         r2.font.bold = True
         r2.font.color.rgb = C_YEL if is_dark else C_TEAL
 
@@ -650,10 +650,10 @@ steps_s9 = [
         "• 키워드 일치 (35%): Kiwi 형태소 기반 BM25 점수",
         "• 난이도 보너스 (최대 +10점): 사용자 수준 일치 +10점, 난이도 미표기는 절반(+5점)"
     ]),
-    ("중간 필터: 통과 조건 및 중복 제거", C_BLUE, [
-        f"• 추천 제외 목록({kpi['off_topic']:,}개) 및 운영 종료 과정 사전 차단",
-        "• 동일 과정명의 여러 회차·유사 기관 중복 제거 후 상위 후보군 추출",
-        "• 설명 텍스트가 없는 제목 전용 과정은 점수 불이익 없이 리랭커에서 자연 선별"
+    ("중간 필터: 제외 규칙", C_BLUE, [
+        f"• 인사 업무와 무관한 과정 {kpi['off_topic']:,}개를 추천 후보에서 제외 (자격시험·타 직종 등, 규칙 목록으로 관리)",
+        "• 같은 제목의 다른 회차·기관 중복 제거는 실험했지만 빈 칸이 늘어 채택하지 않음",
+        "• 운영이 끝난 과정은 추천에서 빼지 않고 화면에 '운영 종료' 배지로 표시"
     ]),
     ("2단계: Cross-Encoder 리랭커 → Top 3", C_YEL, [
         "• 모델: Dongjin-kr/ko-reranker (업무 설명과 과정 설명을 한 쌍으로 동시 판독)",
@@ -775,7 +775,7 @@ add_text_lines(s12, 6.95, 5.95, 5.5, 0.72, [
 # SLIDE 13: ⑥ 비즈니스 인사이트 도출 - 인사이트 1 & 2
 # ==========================================
 s13 = add_slide_base(
-    "비즈니스 인사이트 ①: 중급 비용 장벽과 노무·보상·조직문화 공백",
+    "인사이트 ①: 중급 비용 장벽과 노무·보상·조직문화 공백",
     section_tag="⑥ 비즈니스 인사이트 도출",
     subtitle_text="대시보드 05장 인사이트 카드 1~2 (데이터 기반 발견 → 의미 → 전략)",
     slide_num=13
@@ -807,7 +807,7 @@ for idx, (title, col, items) in enumerate(ins12):
 # SLIDE 14: ⑥ 비즈니스 인사이트 도출 - 인사이트 3, 4, 5
 # ==========================================
 s14 = add_slide_base(
-    "비즈니스 인사이트 ②: 평점 한계·데이터 노후화·기관 쏠림",
+    "인사이트 ②: 평점 한계·데이터 노후화·기관 쏠림",
     section_tag="⑥ 비즈니스 인사이트 도출",
     subtitle_text="대시보드 05장 인사이트 카드 3~5 (KPC 쏠림은 '원인 미확인' 유지)",
     slide_num=14
@@ -892,7 +892,7 @@ add_text_lines(s16, 0.88, 1.72, 5.4, 4.7, [
 add_card(s16, 6.75, 1.5, 5.9, 5.15, fill=C_HUD, border=C_HUD_LINE)
 add_text_lines(s16, 7.0, 1.72, 5.4, 4.7, [
     "향후 고도화 로드맵",
-    "1. 평가 신뢰도 강화: 새로운 업무 10개 추가 평가(판정 55→110건), 팀 밖 인사 담당자 및 키워드 검색·위약 대조 평가 진행",
+    "1. 평가 신뢰도 강화: 처음 보는 업무 10개 추가 평가(홀드아웃 2차) — 키워드 검색(BM25) 추천과 블라인드 비교, 가짜 추천을 섞어 평가자가 걸러내는지 확인",
     "2. 데이터 파이프라인 자동화: 민간 기관 시간·가격 결측 보완 및 고용24 월간 자동 갱신 배치",
     f"3. 추천 모델 정교화: 반복 추천 감점 도입, 기관 편중 보정, 미연결 과업 {rec['needs_review']}개용 NCS 능력단위 보강",
     "4. 사용자 피드백 루프: 수강 후 '업무 적용 도움 여부' 데이터 수집 → 대시보드 지표 자동 반영"
