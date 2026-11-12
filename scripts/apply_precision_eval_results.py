@@ -288,6 +288,28 @@ def calculate_holdout2_metrics(df, df_key, rng=None):
     return result
 
 
+def build_holdout_all_df(df_h1, df_h2=None, df_k=None):
+    """홀드아웃 1차 전체와 홀드아웃 2차 최종 추천(final_top3, both)만 합치고 항목 번호를 h1_/h2_로 구분한다."""
+    h1 = df_h1.copy()
+    h1_id_col = "item_no" if "item_no" in h1.columns else "item_id"
+    h1["combined_item_id"] = "h1_" + h1[h1_id_col].astype(str).str.strip()
+    h1["holdout_round"] = 1
+
+    if df_h2 is not None and df_k is not None:
+        h2 = df_h2.copy()
+        k = df_k.copy()
+        h2["item_id"] = h2["item_id"].astype(int)
+        k["item_id"] = k["item_id"].astype(int)
+        m_h2 = h2.merge(k[["item_id", "source"]], on="item_id", how="left")
+        m_h2 = m_h2[m_h2["source"].isin(["final_top3", "both"])].copy()
+        m_h2["combined_item_id"] = "h2_" + m_h2["item_id"].astype(str).str.strip()
+        m_h2["holdout_round"] = 2
+        if "rank" not in m_h2.columns:
+            m_h2["rank"] = ""
+        return pd.concat([h1, m_h2], ignore_index=True).fillna("")
+    return h1.fillna("")
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--round", default="", choices=list(ROUND_TITLES), help="빈값=1차, round2, holdout, holdout2, holdout_all")
@@ -361,24 +383,12 @@ def main():
             raise FileNotFoundError(f"{H1_SRC} not found")
 
         df_h1 = pd.read_csv(H1_SRC, dtype=str).fillna("")
-        df_h1["holdout_round"] = 1
-
         if H2_SRC.exists() and KEY_PATH.exists():
             df_h2 = pd.read_csv(H2_SRC, dtype=str).fillna("")
             df_k = pd.read_csv(KEY_PATH)
-            df_h2["item_id"] = df_h2["item_id"].astype(int)
-            df_k["item_id"] = df_k["item_id"].astype(int)
-            m_h2 = df_h2.merge(df_k[["item_id", "source"]], on="item_id", how="left")
-            # filter final recommendations only
-            m_h2 = m_h2[m_h2["source"].isin(["final_top3", "both"])].copy()
-            m_h2["holdout_round"] = 2
-            # combine
-            df_all = pd.concat([df_h1, m_h2], ignore_index=True)
+            df = build_holdout_all_df(df_h1, df_h2, df_k)
         else:
-            df_all = df_h1
-
-        # Calculate standard metrics on combined
-        df = df_all
+            df = build_holdout_all_df(df_h1)
     else:
         if rnd:
             SRC = SRC.with_name(f"precision_eval_{rnd}_results.csv")
@@ -396,7 +406,10 @@ def main():
     ci95_wilson = wilson_ci(fit_a, n_a)
 
     rng = np.random.default_rng(42)
-    id_col = "item_id" if "item_id" in judged_a.columns else "item_no"
+    if rnd == "holdout_all":
+        id_col = "combined_item_id"
+    else:
+        id_col = "item_id" if "item_id" in judged_a.columns else "item_no"
     item_stats_a = {item_no: ((g["judgment"] == "적합").sum(), len(g)) for item_no, g in judged_a.groupby(id_col)}
     item_keys_a = list(item_stats_a.keys())
     if len(item_keys_a) > 0 and n_a > 0:
@@ -436,7 +449,7 @@ def main():
     rank_of = {"적합": 2, "부분 적합": 1, "부적합": 0}
     inv = {v: k for k, v in rank_of.items()}
     item_group_cols = [id_col, "domain", "task", "level", "title", "provider"]
-    if "rank" in done.columns:
+    if "rank" in done.columns and rnd != "holdout_all":
         item_group_cols.append("rank")
 
     item = (
@@ -446,8 +459,14 @@ def main():
         .agg(score=("score", "min"), raters=("rater", lambda s: "·".join(s)))
     )
     item["judgment"] = item["score"].map(inv)
-    item[id_col] = item[id_col].astype(int)
-    item = item.sort_values(id_col)
+    if rnd == "holdout_all":
+        item["_sort_key"] = item[id_col].map(
+            lambda s: (int(str(s).split("_")[0][1:]), int(str(s).split("_")[1]))
+        )
+        item = item.sort_values("_sort_key").drop(columns=["_sort_key"])
+    else:
+        item[id_col] = item[id_col].astype(int)
+        item = item.sort_values(id_col)
 
     # B task-level cluster bootstrap (10,000 resamples, random_state=42)
     task_stats_b = {t: ((g["judgment"] == "적합").sum(), len(g)) for t, g in item.groupby("task")}
@@ -492,7 +511,8 @@ def main():
 
     by_rank = {}
     if "rank" in done.columns:
-        by_rank = {str(r): precision(done.loc[done["rank"].astype(str) == str(r), "judgment"]) for r in ["1", "2", "3"]}
+        rank_src = done[done["holdout_round"] == 1] if rnd == "holdout_all" else done
+        by_rank = {str(r): precision(rank_src.loc[rank_src["rank"].astype(str) == str(r), "judgment"]) for r in ["1", "2", "3"]}
 
     entered, assigned = len(done), len(df)
     result = {
@@ -552,7 +572,7 @@ def main():
         f"두 사람이 모두 입력한 항목은 {result['agreement']['pairs']}개이고 그중 {result['agreement']['agree']}개가 같은 판정이다"
         + (f" (일치율 {result['agreement']['pct']}%, 코헨 카파 κ={kappa})." if result["agreement"]["pairs"] else "."),
         "",
-        "## 순위별 Precision",
+        "## 순위별 Precision (1차만)" if rnd == "holdout_all" else "## 순위별 Precision",
         "",
         "| 순위 | 판정 수 | 적합만 | 적합+부분 적합 |",
         "| --- | ---: | ---: | ---: |",
@@ -566,7 +586,10 @@ def main():
         "",
         "## 부적합으로 판정된 추천",
         "",
-    ] + [f"- {u[id_col]}번 {u['task']} → {u['title']} ({u['provider']})" for u in result["unfit_items"]] + [""]
+    ] + [
+        f"- {u[id_col]}{'' if rnd == 'holdout_all' else '번'} {u['task']} → {u['title']} ({u['provider']})"
+        for u in result["unfit_items"]
+    ] + [""]
     OUT_MD.write_text("\n".join(lines), encoding="utf-8")
     print(f"[{result['round']}] Done -> {OUT_JSON.name}, {OUT_MD.name}")
 

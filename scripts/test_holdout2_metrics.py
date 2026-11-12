@@ -18,10 +18,11 @@ if sys.platform == "win32":
 ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT))
 
-from scripts.apply_precision_eval_results import calculate_holdout2_metrics
+from scripts.apply_precision_eval_results import calculate_holdout2_metrics, build_holdout_all_df
 
 KEY_PATH = ROOT / "data" / "hr" / "output" / "recommendation" / "precision_eval_holdout2_key.csv"
 ITEMS_PATH = ROOT / "data" / "hr" / "output" / "recommendation" / "precision_eval_holdout2_items.csv"
+RESULTS_PATH = ROOT / "data" / "hr" / "output" / "recommendation" / "precision_eval_holdout2_results.csv"
 
 
 def test_holdout2_mock_metrics():
@@ -107,6 +108,50 @@ def test_holdout2_mock_metrics():
     print("[PASS] Zero side-effects: actual items file remains untouched with blank judgments")
 
 
+def test_holdout_all_combine():
+    print("\n=== 2. Testing build_holdout_all_df (Holdout 1 + Holdout 2 Final Only) ===")
+    df_h1 = pd.DataFrame([
+        {"item_no": "1", "rater": "김", "domain": "D1", "task": "T1", "level": "실무", "rank": "1", "title": "C1", "provider": "P1", "judgment": "적합"},
+        {"item_no": "1", "rater": "이", "domain": "D1", "task": "T1", "level": "실무", "rank": "1", "title": "C1", "provider": "P1", "judgment": "적합"},
+        {"item_no": "2", "rater": "김", "domain": "D1", "task": "T1", "level": "실무", "rank": "2", "title": "C2", "provider": "P1", "judgment": "부분 적합"},
+        {"item_no": "2", "rater": "이", "domain": "D1", "task": "T1", "level": "실무", "rank": "2", "title": "C2", "provider": "P1", "judgment": "적합"},
+    ])
+    df_h2 = pd.DataFrame([
+        {"item_id": "1", "rater": "박", "domain": "D2", "task": "T2", "level": "입문", "title": "C3", "provider": "P2", "judgment": "적합"},
+        {"item_id": "1", "rater": "홍", "domain": "D2", "task": "T2", "level": "입문", "title": "C3", "provider": "P2", "judgment": "부적합"},
+        {"item_id": "2", "rater": "박", "domain": "D2", "task": "T2", "level": "입문", "title": "C4", "provider": "P2", "judgment": "적합"},
+        {"item_id": "2", "rater": "홍", "domain": "D2", "task": "T2", "level": "입문", "title": "C4", "provider": "P2", "judgment": "적합"},
+        {"item_id": "3", "rater": "박", "domain": "D2", "task": "T2", "level": "입문", "title": "C5", "provider": "P2", "judgment": "부적합"},
+        {"item_id": "3", "rater": "홍", "domain": "D2", "task": "T2", "level": "입문", "title": "C5", "provider": "P2", "judgment": "부적합"},
+    ])
+    df_k = pd.DataFrame([
+        {"item_id": 1, "source": "final_top3"},
+        {"item_id": 2, "source": "bm25_top3"},
+        {"item_id": 3, "source": "decoy"},
+    ])
+
+    combined = build_holdout_all_df(df_h1, df_h2, df_k)
+    assert len(combined) == 6, f"Expected 6 rows (4 from H1 + 2 from H2 final_top3), got {len(combined)}"
+    assert set(combined["combined_item_id"]) == {"h1_1", "h1_2", "h2_1"}, f"Unexpected IDs: {set(combined['combined_item_id'])}"
+    assert "bm25_top3" not in set(combined["source"])
+    assert "decoy" not in set(combined["source"])
+
+    # Consensus count check (should be 3 distinct items: h1_1=적합, h1_2=부분 적합, h2_1=부적합)
+    rank_of = {"적합": 2, "부분 적합": 1, "부적합": 0}
+    item = (
+        combined[combined["judgment"].isin(rank_of)]
+        .assign(score=lambda x: x["judgment"].map(rank_of))
+        .groupby(["combined_item_id"], as_index=False)
+        .agg(score=("score", "min"))
+    )
+    assert len(item) == 3, f"Expected 3 consensus items, got {len(item)}"
+    assert (RESULTS_PATH.exists()), "precision_eval_holdout2_results.csv should exist"
+    df_res = pd.read_csv(RESULTS_PATH, dtype=str).fillna("")
+    assert (df_res["judgment"] != "").sum() > 0, "results.csv should contain entered judgments from sheet"
+    print("[PASS] holdout_all excludes bm25/decoy, separates h1_/h2_ IDs, and produces 3 consensus items")
+
+
 if __name__ == "__main__":
     test_holdout2_mock_metrics()
+    test_holdout_all_combine()
     print("\nAll tests in test_holdout2_metrics.py PASSED!")

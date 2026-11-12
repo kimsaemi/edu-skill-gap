@@ -1,0 +1,240 @@
+{
+  "round": "홀드아웃 2차 (키워드 추천 대조군 + 위약 검정 포함 10개 업무)",
+  "checked": "2026-11-12",
+  "status": "중간",
+  "entered": 108,
+  "assigned": 110,
+  "final_recommendation": {
+    "precision_at_3": {
+      "n": 58,
+      "strict": 58.6,
+      "lenient": 72.4,
+      "ci95_wilson": [
+        45.8,
+        70.4
+      ],
+      "ci95_cluster_bootstrap": [
+        43.1,
+        73.3
+      ]
+    },
+    "consensus": {
+      "items_total": 30,
+      "items_rated": 30,
+      "both_unclear": 0,
+      "fit": 14,
+      "partial": 5,
+      "unfit": 11,
+      "strict": 46.7,
+      "ci95_task_bootstrap": [
+        23.3,
+        70.0
+      ]
+    }
+  },
+  "bm25_recommendation": {
+    "precision_at_3": {
+      "n": 57,
+      "strict": 57.9,
+      "lenient": 77.2,
+      "ci95_wilson": [
+        45.0,
+        69.8
+      ],
+      "ci95_cluster_bootstrap": [
+        41.5,
+        73.7
+      ]
+    },
+    "consensus": {
+      "items_total": 30,
+      "items_rated": 30,
+      "both_unclear": 0,
+      "fit": 14,
+      "partial": 6,
+      "unfit": 10,
+      "strict": 46.7,
+      "ci95_task_bootstrap": [
+        23.3,
+        70.0
+      ]
+    }
+  },
+  "comparison": {
+    "diff_strict_a": 0.7,
+    "ci95_diff_a": [
+      -5.1,
+      7.7
+    ],
+    "diff_strict_b": 0.0,
+    "ci95_diff_b": [
+      -10.0,
+      10.0
+    ]
+  },
+  "decoy_analysis": {
+    "total_items": 10,
+    "total_evaluations": 20,
+    "unfit_count": 7,
+    "filter_success_rate": 35.0,
+    "passed_count": 13,
+    "passed_rate": 65.0,
+    "false_positives": [
+      {
+        "item_id": 2,
+        "rater": "박",
+        "task": "조직 슬림화 및 유휴 인력 최적화·재배치 전략 수립",
+        "title": "ERP정보관리사(인사/회계)2급 자격취득",
+        "judgment": "부분 적합"
+      },
+      {
+        "item_id": 7,
+        "rater": "김",
+        "task": "직무가치평가 위원회 운영 및 등급(Grade) 1차 판정",
+        "title": "핵심인재를 부르는 고용주 브랜딩과 채용 경험 디자인",
+        "judgment": "적합"
+      },
+      {
+        "item_id": 7,
+        "rater": "이",
+        "task": "직무가치평가 위원회 운영 및 등급(Grade) 1차 판정",
+        "title": "핵심인재를 부르는 고용주 브랜딩과 채용 경험 디자인",
+        "judgment": "적합"
+      },
+      {
+        "item_id": 21,
+        "rater": "박",
+        "task": "직원 경험 여정 맵(EX Journey Map) 진단 및 온보딩 디지털화·자동화",
+        "title": "공인노무사에게 배우는 노동법 실무",
+        "judgment": "적합"
+      },
+      {
+        "item_id": 25,
+        "rater": "김",
+        "task": "연말 종합 성과평가 실시, 평가 데이터 취합 및 이의신청(Appeal) 접수·조정",
+        "title": "역량평가 도입 및 설계 실전 아카데미",
+        "judgment": "부분 적합"
+      },
+      {
+        "item_id": 25,
+        "rater": "이",
+        "task": "연말 종합 성과평가 실시, 평가 데이터 취합 및 이의신청(Appeal) 접수·조정",
+        "title": "역량평가 도입 및 설계 실전 아카데미",
+        "judgment": "적합"
+      },
+      {
+        "item_id": 32,
+        "rater": "박",
+        "task": "통상임금 및 평균임금 산정 범위 법적 리스크 점검 및 소급분 시뮬레이션",
+        "title": "[여의도] 경력관리의 새로운 패러다임, 페르소나 브랜딩(Persona Branding)",
+        "judgment": "적합"
+      },
+      {
+        "item_id": 39,
+        "rater": "김",
+        "task": "커크패트릭(Kirkpatrick) 4단계 교육 효과성(반응·학습·행동·결과) 평가 분석",
+        "title": "엑셀 데이터 활용 대시보드 구축 실무",
+        "judgment": "부분 적합"
+      },
+      {
+        "item_id": 39,
+        "rater": "박",
+        "task": "커크패트릭(Kirkpatrick) 4단계 교육 효과성(반응·학습·행동·결과) 평가 분석",
+        "title": "엑셀 데이터 활용 대시보드 구축 실무",
+        "judgment": "부분 적합"
+      },
+      {
+        "item_id": 42,
+        "rater": "이",
+        "task": "동료 인정 및 포상 제도(Peer Recognition, 우수사원 포상) 기준 설계",
+        "title": "AI 시대, 성과를 이끌어 내는 Business Analytics",
+        "judgment": "부분 적합"
+      },
+      {
+        "item_id": 45,
+        "rater": "김",
+        "task": "단체교섭(노사협의회) 사측 교섭 전략 수립 및 노조 요구안 사전 시뮬레이션",
+        "title": "[여의도] Culture Transformation, 조직문화 담당자 기본",
+        "judgment": "부분 적합"
+      },
+      {
+        "item_id": 45,
+        "rater": "박",
+        "task": "단체교섭(노사협의회) 사측 교섭 전략 수립 및 노조 요구안 사전 시뮬레이션",
+        "title": "[여의도] Culture Transformation, 조직문화 담당자 기본",
+        "judgment": "적합"
+      },
+      {
+        "item_id": 51,
+        "rater": "김",
+        "task": "링크드인·전문 인재DB 다이렉트 소싱(Direct Sourcing) 수행",
+        "title": "[여의도] 안정적인 노사관계를 위한 노동법 및 노사협의회 운영실무",
+        "judgment": "부분 적합"
+      }
+    ]
+  },
+  "raters": [
+    {
+      "rater": "김",
+      "assigned": 28,
+      "entered": 28,
+      "적합": 12,
+      "부분 적합": 10,
+      "부적합": 6,
+      "판단 불가": 0
+    },
+    {
+      "rater": "이",
+      "assigned": 28,
+      "entered": 26,
+      "적합": 16,
+      "부분 적합": 3,
+      "부적합": 5,
+      "판단 불가": 2
+    },
+    {
+      "rater": "박",
+      "assigned": 27,
+      "entered": 27,
+      "적합": 17,
+      "부분 적합": 5,
+      "부적합": 5,
+      "판단 불가": 0
+    },
+    {
+      "rater": "홍",
+      "assigned": 27,
+      "entered": 27,
+      "적합": 12,
+      "부분 적합": 2,
+      "부적합": 13,
+      "판단 불가": 0
+    }
+  ],
+  "precision_at_3": {
+    "n": 58,
+    "strict": 58.6,
+    "lenient": 72.4,
+    "ci95_wilson": [
+      45.8,
+      70.4
+    ],
+    "ci95_cluster_bootstrap": [
+      43.1,
+      73.3
+    ]
+  },
+  "consensus": {
+    "items_total": 30,
+    "items_rated": 30,
+    "both_unclear": 0,
+    "fit": 14,
+    "partial": 5,
+    "unfit": 11,
+    "strict": 46.7,
+    "ci95_task_bootstrap": [
+      23.3,
+      70.0
+    ]
+  }
+}
