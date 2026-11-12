@@ -530,8 +530,55 @@ ol.three li::marker { font-family: var(--pxb); color: var(--teal); }
   <div class="wrap wide">
     <div class="c3">
       <div class="c3c"><div class="c3k">Customer · 인사 담당자</div><p>업무가 생기면 교육을 찾지만, 내 업무와 수준에 맞는지 판단할 근거가 없습니다. 시간과 예산이 빠듯해 여러 기관을 비교할 여유도 없습니다.</p></div>
-      <div class="c3c"><div class="c3k">Competitor · 기관 포털·고용24 검색</div><p>기관별로 분류가 다르고 키워드 검색 위주입니다. 상위 5개 기관이 과정의 <span id="c3-top5"></span>%를 차지하지만 서로 연결돼 있지 않고, 평점은 없거나 기준이 제각각입니다.</p></div>
-      <div class="c3c"><div class="c3k">Company · 우리 서비스</div><p>NCS 과업 90개를 공통 기준으로 삼아 기관을 가리지 않고 과정을 읽고, 추천마다 근거(뜻·키워드·난이도)를 보여 줍니다.</p></div>
+      <div class="c3c">
+        <div class="c3k">Competitor · 기존 교육 서비스 7곳 분석</div>
+        <p>기관별로 분류가 다르고 키워드 검색 위주입니다. 상위 5개 기관이 과정의 <span id="c3-top5"></span>%를 차지하지만 서로 연결돼 있지 않고, 확인한 범위에서는 과업 단위 추천이나 점수 근거를 제공하는 곳은 확인되지 않았습니다.</p>
+        <div class="tbl" style="margin: 10px 0 8px; font-size: 11.5px; border-radius: 4px; overflow-x: auto; -webkit-overflow-scrolling: touch;">
+          <table style="min-width: 440px; text-align: center;">
+            <thead>
+              <tr>
+                <th style="text-align: left; padding: 6px 8px;">서비스</th>
+                <th style="padding: 6px 4px;" title="직무(분야) 검색·분류">직무<br>분류</th>
+                <th style="padding: 6px 4px;" title="업무(Task) 단위 탐색">과업<br>탐색</th>
+                <th style="padding: 6px 4px;" title="숙련도(수준)별 추천">수준별<br>추천</th>
+                <th style="padding: 6px 4px;" title="역량(NCS/KSA) 연결">역량<br>연결</th>
+                <th style="padding: 6px 4px;" title="여러 기관 비교">다기관<br>비교</th>
+                <th style="padding: 6px 4px;" title="추천 근거 표시">추천<br>근거</th>
+                <th style="padding: 6px 4px;" title="수강료·시간·일정 표시">비용·<br>일정</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td style="text-align: left; font-weight: 500; padding: 5px 8px;">고용24</td><td>✅</td><td>❌</td><td>?</td><td>🔸</td><td>✅</td><td>❌</td><td>🔸</td></tr>
+              <tr><td style="text-align: left; font-weight: 500; padding: 5px 8px;">휴넷</td><td>✅</td><td>❌</td><td>?</td><td>❌</td><td>❌</td><td>❌</td><td>?</td></tr>
+              <tr><td style="text-align: left; font-weight: 500; padding: 5px 8px;">KPC (생산성본부)</td><td>✅</td><td>❌</td><td>?</td><td>❌</td><td>❌</td><td>❌</td><td>✅</td></tr>
+              <tr><td style="text-align: left; font-weight: 500; padding: 5px 8px;">KMA (능률협회)</td><td>✅</td><td>❌</td><td>?</td><td>?</td><td>❌</td><td>❌</td><td>?</td></tr>
+              <tr><td style="text-align: left; font-weight: 500; padding: 5px 8px;">멀티캠퍼스</td><td>✅</td><td>❌</td><td title="일부 (난이도 필터만 있고 추천은 없음)">🔸</td><td>❌</td><td>❌</td><td>❌</td><td>?</td></tr>
+              <tr><td style="text-align: left; font-weight: 500; padding: 5px 8px;">GSEEK (경기지식)</td><td>🔸</td><td>❌</td><td>?</td><td>❌</td><td>❌</td><td>❌</td><td>?</td></tr>
+              <tr><td style="text-align: left; font-weight: 500; padding: 5px 8px;">K-MOOC</td><td>🔸</td><td>❌</td><td>?</td><td>❌</td><td>🔸</td><td>❌</td><td>?</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="note" style="margin: 4px 0 8px; font-size: 11px;">범례: ✅ 있음 · 🔸 일부 · ❌ 확인한 범위에서 없음 · ? 확인 못 함 (확인일: 2026-11-11)</p>
+        <details style="margin-top: 8px; font-size: 12px; background: var(--paper-2, #f5f5f5); padding: 8px 10px; border-radius: 4px; border: 1px solid var(--line);">
+          <summary style="cursor: pointer; font-weight: 600; color: var(--ink);">출처 목록 펼치기</summary>
+          <div style="margin-top: 8px; line-height: 1.55;">
+            <div style="font-weight: 600; margin-bottom: 4px; font-size: 11.5px; color: var(--dim);">조사 대상 서비스 (확인일 2026-11-11)</div>
+            <ul style="margin: 0 0 0 16px; padding: 0; font-size: 11.5px;">
+              <li>고용24: <a href="https://www.work24.go.kr" target="_blank" rel="noopener">work24.go.kr</a></li>
+              <li>휴넷: <a href="https://www.hunet.co.kr" target="_blank" rel="noopener">hunet.co.kr</a></li>
+              <li>한국생산성본부: <a href="https://www.kpc.or.kr" target="_blank" rel="noopener">kpc.or.kr</a></li>
+              <li>한국능률협회: <a href="https://www.kma.or.kr" target="_blank" rel="noopener">kma.or.kr</a></li>
+              <li>멀티캠퍼스: <a href="https://www.multicampus.com" target="_blank" rel="noopener">multicampus.com</a></li>
+              <li>GSEEK: <a href="https://www.gseek.kr" target="_blank" rel="noopener">gseek.kr</a></li>
+              <li>K-MOOC: <a href="https://www.kmooc.kr" target="_blank" rel="noopener">kmooc.kr</a></li>
+            </ul>
+          </div>
+        </details>
+      </div>
+      <div class="c3c">
+        <div class="c3k">Company · 우리 서비스</div>
+        <p>인사 실무 업무 90개를 기준으로 여러 기관의 교육을 한곳에서 비교하고, 추천마다 왜 맞는지(뜻·단어·난이도 점수)와 사람 평가 결과를 보여 줍니다.</p>
+      </div>
     </div>
   </div>
   <div class="wrap">
