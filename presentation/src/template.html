@@ -1478,12 +1478,13 @@ const D = /*__DATA__*/;
   const kpcRow = RB.bias_steps.find(b => b.label.startsWith('한국생산성'));
   T('#i5-cat', kpcRow.catalog); T('#i5-top', kpcRow.top3);
   if (D.kpc_bias) {
-    T('#i5-hr-pct', D.kpc_bias.kpc_hr_pct);
-    T('#i5-pool-pct', D.kpc_bias.kpc_pool_pct);
-    T('#i5-bm-kpc', D.kpc_bias.bm25_kpc);
-    T('#i5-bm-oth', D.kpc_bias.bm25_other);
-    T('#i5-p-kpc', D.kpc_bias.eval_kpc);
-    T('#i5-p-oth', D.kpc_bias.eval_other);
+    const f1 = v => (v == null ? '' : Number(v).toFixed(1));
+    T('#i5-hr-pct', f1(D.kpc_bias.kpc_hr_pct));
+    T('#i5-pool-pct', f1(D.kpc_bias.kpc_pool_pct));
+    T('#i5-bm-kpc', f1(D.kpc_bias.bm25_kpc));
+    T('#i5-bm-oth', f1(D.kpc_bias.bm25_other));
+    T('#i5-p-kpc', f1(D.kpc_bias.eval_kpc));
+    T('#i5-p-oth', f1(D.kpc_bias.eval_other));
   }
   const tb = (id, html) => { const n = document.getElementById(id); if (n) n.innerHTML = html; };
   const short = s => s.replace(/\(.*\)/, '');
