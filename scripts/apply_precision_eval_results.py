@@ -69,6 +69,7 @@ ROUND_TITLES = {
     "round2": "2차 (SAP·QA·전산회계 제외 후 같은 업무 10개)",
     "holdout": "홀드아웃 (처음 보는 업무 10개)",
     "holdout2": "홀드아웃 2차 (키워드 추천 대조군 + 위약 검정 포함 10개 업무)",
+    "holdout3": "홀드아웃 3차 (기본 추천 vs 통합 개선안 비교 + 위약 검정 포함 10개 업무)",
     "holdout_all": "홀드아웃 전체 (1차+2차 통합 20개 업무)",
 }
 
@@ -288,6 +289,261 @@ def calculate_holdout2_metrics(df, df_key, rng=None):
     return result
 
 
+def calculate_holdout3_metrics(df, df_key, rng=None):
+    """홀드아웃 3차 결과 분석: 기본 추천(Baseline) vs 통합 개선안(Candidate) Precision@3 비교 및 위약 검정"""
+    if rng is None:
+        rng = np.random.default_rng(42)
+
+    df = df.copy()
+    df_key = df_key.copy()
+
+    # 열 이름 정규화 (한글/영문 지원)
+    col_map_df = {
+        "번호": "item_id",
+        "업무 분야": "domain",
+        "업무": "task",
+        "수준": "level",
+        "과정명": "title",
+        "기관": "provider",
+        "링크": "url",
+        "판정 (고르기)": "judgment",
+        "판정": "judgment",
+        "메모 (선택)": "memo",
+        "메모": "memo",
+        "평가자": "rater",
+    }
+    for k, v in col_map_df.items():
+        if k in df.columns and v not in df.columns:
+            df[v] = df[k]
+
+    col_map_key = {
+        "번호": "item_id",
+        "업무 ID": "task_id",
+        "과정 UID": "course_id",
+        "출처": "source",
+    }
+    for k, v in col_map_key.items():
+        if k in df_key.columns and v not in df_key.columns:
+            df_key[v] = df_key[k]
+
+    if "rater" not in df.columns:
+        df["rater"] = "평가자1"
+
+    df["item_id"] = df["item_id"].astype(int)
+    df_key["item_id"] = df_key["item_id"].astype(int)
+
+    merged = df.merge(
+        df_key[[c for c in ["item_id", "source", "task_id", "course_id", "디코이_분류", "decoy_origin_task_id"] if c in df_key.columns]],
+        on="item_id",
+        how="left"
+    )
+    done = merged[merged["judgment"].fillna("") != ""].copy()
+    entered = len(done)
+    assigned = len(merged)
+
+    # Decoy Analysis
+    decoy_df = done[done["source"] == "decoy"]
+    total_decoy_evals = len(decoy_df)
+    unfit_decoy_cnt = int((decoy_df["judgment"] == "부적합").sum())
+    passed_decoy_df = decoy_df[decoy_df["judgment"].isin(["적합", "부분 적합"])]
+    passed_decoy_cnt = len(passed_decoy_df)
+
+    decoy_analysis = {
+        "total_items": int(df_key[df_key["source"] == "decoy"]["item_id"].nunique()),
+        "total_evaluations": total_decoy_evals,
+        "unfit_count": unfit_decoy_cnt,
+        "filter_success_rate": pct(unfit_decoy_cnt, total_decoy_evals) if total_decoy_evals else None,
+        "passed_count": passed_decoy_cnt,
+        "passed_rate": pct(passed_decoy_cnt, total_decoy_evals) if total_decoy_evals else None,
+        "false_positives": [
+            {
+                "item_id": int(r["item_id"]),
+                "rater": r.get("rater", ""),
+                "task": r.get("task", ""),
+                "title": r.get("title", ""),
+                "judgment": r.get("judgment", ""),
+            }
+            for _, r in passed_decoy_df.iterrows()
+        ],
+    }
+
+    def compute_subset_metrics(sub_done, sub_all):
+        if len(sub_done) == 0:
+            return {
+                "precision_at_3": {"n": 0, "strict": None, "lenient": None, "ci95_wilson": [0.0, 0.0], "ci95_cluster_bootstrap": [0.0, 0.0]},
+                "consensus": {"items_total": int(sub_all["item_id"].nunique()), "items_rated": 0, "strict": None, "ci95_task_bootstrap": [0.0, 0.0]},
+                "item_df": pd.DataFrame(),
+            }
+
+        p_a = precision(sub_done["judgment"])
+        judged_a = sub_done[sub_done["judgment"].isin(["적합", "부분 적합", "부적합"])]
+        fit_a = int((judged_a["judgment"] == "적합").sum())
+        n_a = len(judged_a)
+        ci_w = wilson_ci(fit_a, n_a)
+
+        item_stats_a = {item_no: ((g["judgment"] == "적합").sum(), len(g)) for item_no, g in judged_a.groupby("item_id")}
+        item_keys_a = list(item_stats_a.keys())
+        if len(item_keys_a) > 0 and n_a > 0:
+            fit_arr_a = np.array([item_stats_a[k][0] for k in item_keys_a])
+            tot_arr_a = np.array([item_stats_a[k][1] for k in item_keys_a])
+            n_items_a = len(item_keys_a)
+            resamples_a = rng.choice(n_items_a, size=(5000, n_items_a), replace=True)
+            res_fits_a = fit_arr_a[resamples_a].sum(axis=1)
+            res_tots_a = tot_arr_a[resamples_a].sum(axis=1)
+            valid_b = res_tots_a > 0
+            boot_strict_a = np.where(valid_b, res_fits_a / np.maximum(res_tots_a, 1) * 100, 0.0)
+            ci_cb = [round(float(np.percentile(boot_strict_a, 2.5)), 1), round(float(np.percentile(boot_strict_a, 97.5)), 1)]
+        else:
+            ci_cb = [0.0, 0.0]
+
+        p_a["ci95_wilson"] = ci_w
+        p_a["ci95_cluster_bootstrap"] = ci_cb
+
+        # Consensus B
+        rank_of = {"적합": 2, "부분 적합": 1, "부적합": 0}
+        inv = {v: k for k, v in rank_of.items()}
+        item = (
+            sub_done[sub_done["judgment"].isin(rank_of)]
+            .assign(score=lambda x: x["judgment"].map(rank_of))
+            .groupby(["item_id", "task", "level", "title", "provider"], as_index=False)
+            .agg(score=("score", "min"), raters=("rater", lambda s: "·".join(s)))
+        )
+        item["judgment"] = item["score"].map(inv)
+
+        task_stats_b = {t: ((g["judgment"] == "적합").sum(), len(g)) for t, g in item.groupby("task")}
+        t_list_b = list(task_stats_b.keys())
+        if len(t_list_b) > 0 and len(item) > 0:
+            t_fit_arr_b = np.array([task_stats_b[k][0] for k in t_list_b])
+            t_tot_arr_b = np.array([task_stats_b[k][1] for k in t_list_b])
+            n_tasks_b = len(t_list_b)
+            t_resamples_b = rng.choice(n_tasks_b, size=(5000, n_tasks_b), replace=True)
+            t_res_fits_b = t_fit_arr_b[t_resamples_b].sum(axis=1)
+            t_res_tots_b = t_tot_arr_b[t_resamples_b].sum(axis=1)
+            valid_tb = t_res_tots_b > 0
+            boot_strict_b = np.where(valid_tb, t_res_fits_b / np.maximum(t_res_tots_b, 1) * 100, 0.0)
+            ci_tb = [round(float(np.percentile(boot_strict_b, 2.5)), 1), round(float(np.percentile(boot_strict_b, 97.5)), 1)]
+        else:
+            ci_tb = [0.0, 0.0]
+
+        items_total = int(sub_all["item_id"].nunique())
+        items_rated = int(item["item_id"].nunique())
+        fit_b = int((item["judgment"] == "적합").sum())
+        consensus = {
+            "items_total": items_total,
+            "items_rated": items_rated,
+            "both_unclear": items_total - items_rated,
+            "fit": fit_b,
+            "partial": int((item["judgment"] == "부분 적합").sum()),
+            "unfit": int((item["judgment"] == "부적합").sum()),
+            "strict": pct(fit_b, items_rated),
+            "ci95_task_bootstrap": ci_tb,
+        }
+        return {"precision_at_3": p_a, "consensus": consensus, "item_df": item}
+
+    # Subsets: Candidate vs Baseline
+    cand_sub_done = done[done["source"].isin(["candidate", "shared"])]
+    cand_sub_all = merged[merged["source"].isin(["candidate", "shared"])]
+    cand_res = compute_subset_metrics(cand_sub_done, cand_sub_all)
+
+    base_sub_done = done[done["source"].isin(["baseline", "shared"])]
+    base_sub_all = merged[merged["source"].isin(["baseline", "shared"])]
+    base_res = compute_subset_metrics(base_sub_done, base_sub_all)
+
+    # Difference bootstrap (Candidate - Baseline)
+    all_tasks = sorted(set(cand_sub_done["task"]) | set(base_sub_done["task"]))
+    n_tasks = len(all_tasks)
+
+    diff_a = None
+    ci95_diff_a = None
+    diff_b = None
+    ci95_diff_b = None
+
+    if cand_res["precision_at_3"]["strict"] is not None and base_res["precision_at_3"]["strict"] is not None:
+        diff_a = round(cand_res["precision_at_3"]["strict"] - base_res["precision_at_3"]["strict"], 1)
+
+    if cand_res["consensus"]["strict"] is not None and base_res["consensus"]["strict"] is not None:
+        diff_b = round(cand_res["consensus"]["strict"] - base_res["consensus"]["strict"], 1)
+
+    if n_tasks > 0 and len(cand_sub_done) > 0 and len(base_sub_done) > 0:
+        task_c_a = {t: ((g["judgment"] == "적합").sum(), len(g)) for t, g in cand_sub_done[cand_sub_done["judgment"].isin(["적합", "부분 적합", "부적합"])].groupby("task")}
+        task_b_a = {t: ((g["judgment"] == "적합").sum(), len(g)) for t, g in base_sub_done[base_sub_done["judgment"].isin(["적합", "부분 적합", "부적합"])].groupby("task")}
+
+        resamp = rng.choice(n_tasks, size=(5000, n_tasks), replace=True)
+        task_arr = np.array(all_tasks)
+
+        boot_diff_a = []
+        for idxs in resamp:
+            sampled_tasks = task_arr[idxs]
+            c_fit = sum(task_c_a.get(t, (0, 0))[0] for t in sampled_tasks)
+            c_tot = sum(task_c_a.get(t, (0, 0))[1] for t in sampled_tasks)
+            b_fit = sum(task_b_a.get(t, (0, 0))[0] for t in sampled_tasks)
+            b_tot = sum(task_b_a.get(t, (0, 0))[1] for t in sampled_tasks)
+            if c_tot > 0 and b_tot > 0:
+                boot_diff_a.append((c_fit / c_tot - b_fit / b_tot) * 100)
+
+        if boot_diff_a:
+            ci95_diff_a = [round(float(np.percentile(boot_diff_a, 2.5)), 1), round(float(np.percentile(boot_diff_a, 97.5)), 1)]
+
+        # Task-level bootstrap for difference B
+        item_c = cand_res["item_df"]
+        item_b = base_res["item_df"]
+        if not item_c.empty and not item_b.empty:
+            t_c_b = {t: ((g["judgment"] == "적합").sum(), len(g)) for t, g in item_c.groupby("task")}
+            t_b_b = {t: ((g["judgment"] == "적합").sum(), len(g)) for t, g in item_b.groupby("task")}
+            boot_diff_b = []
+            for idxs in resamp:
+                sampled_tasks = task_arr[idxs]
+                c_fit_b = sum(t_c_b.get(t, (0, 0))[0] for t in sampled_tasks)
+                c_tot_b = sum(t_c_b.get(t, (0, 0))[1] for t in sampled_tasks)
+                b_fit_b = sum(t_b_b.get(t, (0, 0))[0] for t in sampled_tasks)
+                b_tot_b = sum(t_b_b.get(t, (0, 0))[1] for t in sampled_tasks)
+                if c_tot_b > 0 and b_tot_b > 0:
+                    boot_diff_b.append((c_fit_b / c_tot_b - b_fit_b / b_tot_b) * 100)
+            if boot_diff_b:
+                ci95_diff_b = [round(float(np.percentile(boot_diff_b, 2.5)), 1), round(float(np.percentile(boot_diff_b, 97.5)), 1)]
+
+    comparison = {
+        "diff_strict_a": diff_a,
+        "ci95_diff_a": ci95_diff_a,
+        "diff_strict_b": diff_b,
+        "ci95_diff_b": ci95_diff_b,
+    }
+
+    raters = []
+    if "rater" in df.columns:
+        for r, g in df.groupby("rater", sort=False):
+            c = g["judgment"].value_counts()
+            raters.append({
+                "rater": r,
+                "assigned": len(g),
+                "entered": int((g["judgment"] != "").sum()),
+                **{lab: int(c.get(lab, 0)) for lab in LABELS},
+            })
+
+    result = {
+        "round": ROUND_TITLES["holdout3"],
+        "checked": date.today().isoformat(),
+        "status": "완료" if entered == assigned and entered > 0 else "중간",
+        "entered": entered,
+        "assigned": assigned,
+        "candidate_recommendation": {
+            "precision_at_3": cand_res["precision_at_3"],
+            "consensus": cand_res["consensus"],
+        },
+        "baseline_recommendation": {
+            "precision_at_3": base_res["precision_at_3"],
+            "consensus": base_res["consensus"],
+        },
+        "comparison": comparison,
+        "decoy_analysis": decoy_analysis,
+        "raters": raters,
+        # top level shortcuts for compatibility
+        "precision_at_3": cand_res["precision_at_3"],
+        "consensus": cand_res["consensus"],
+    }
+    return result
+
+
 def build_holdout_all_df(df_h1, df_h2=None, df_k=None):
     """홀드아웃 1차 전체와 홀드아웃 2차 최종 추천(final_top3, both)만 합치고 항목 번호를 h1_/h2_로 구분한다."""
     h1 = df_h1.copy()
@@ -355,6 +611,61 @@ def main():
             f"| **최종 추천 (하이브리드+리랭커)** | {fin_p['strict']}% ({fin_p['ci95_wilson'][0]}~{fin_p['ci95_wilson'][1]}%) | {fin_c['strict']}% ({fin_c['ci95_task_bootstrap'][0]}~{fin_c['ci95_task_bootstrap'][1]}%) |",
             f"| **대조군 (BM25 키워드 단독)** | {bm_p['strict']}% ({bm_p['ci95_wilson'][0]}~{bm_p['ci95_wilson'][1]}%) | {bm_c['strict']}% ({bm_c['ci95_task_bootstrap'][0]}~{bm_c['ci95_task_bootstrap'][1]}%) |",
             f"| **성능 차이 (최종 - BM25)** | **{cmp['diff_strict_a']}%p** ({cmp['ci95_diff_a'][0] if cmp['ci95_diff_a'] else '-'}~{cmp['ci95_diff_a'][1] if cmp['ci95_diff_a'] else '-'}%p) | **{cmp['diff_strict_b']}%p** ({cmp['ci95_diff_b'][0] if cmp['ci95_diff_b'] else '-'}~{cmp['ci95_diff_b'][1] if cmp['ci95_diff_b'] else '-'}%p) |",
+            "",
+            "## 2. 위약(가짜 추천) 검정 결과",
+            "",
+            f"- **전체 위약 평가 건수**: {dec['total_evaluations']}건 ({dec['total_items']}개 과정)",
+            f"- **부적합 판정 정상 차단율**: **{dec['filter_success_rate']}%** ({dec['unfit_count']}/{dec['total_evaluations']}건)",
+            f"- **오판정(적합/부분 적합) 통과율**: **{dec['passed_rate']}%** ({dec['passed_count']}/{dec['total_evaluations']}건)",
+        ]
+        if dec["false_positives"]:
+            lines += ["", "### 위약 오판정 상세 내역:"]
+            for fp in dec["false_positives"]:
+                lines.append(f"- [{fp['judgment']}] 평가자 {fp['rater']}: {fp['task']} → {fp['title']}")
+
+        OUT_MD.write_text("\n".join(lines), encoding="utf-8")
+        print(f"[{result['round']}] Done -> {OUT_JSON.name}, {OUT_MD.name}")
+        return
+
+    if rnd == "holdout3":
+        SRC = ROOT / "data" / "hr" / "output" / "recommendation" / "precision_eval_holdout3_results.csv"
+        KEY_PATH = ROOT / "data" / "hr" / "output" / "recommendation" / "precision_eval_holdout3_key.csv"
+        ITEMS_PATH = ROOT / "data" / "hr" / "output" / "recommendation" / "precision_eval_holdout3_items.csv"
+        OUT_JSON = ROOT / "data" / "hr" / "reports" / "precision_eval_holdout3_metrics.json"
+        OUT_MD = ROOT / "data" / "hr" / "reports" / "precision_eval_holdout3_report.md"
+
+        if SRC.exists():
+            df = pd.read_csv(SRC, dtype=str).fillna("")
+        elif ITEMS_PATH.exists():
+            df = pd.read_csv(ITEMS_PATH, dtype=str).fillna("")
+        else:
+            raise FileNotFoundError(f"Neither {SRC} nor {ITEMS_PATH} found.")
+
+        if not KEY_PATH.exists():
+            raise FileNotFoundError(f"Key file {KEY_PATH} not found.")
+        df_key = pd.read_csv(KEY_PATH)
+
+        result = calculate_holdout3_metrics(df, df_key)
+        OUT_JSON.write_text(json.dumps(result, ensure_ascii=False, indent=2), encoding="utf-8")
+
+        # Report MD
+        cand_p = result["candidate_recommendation"]["precision_at_3"]
+        cand_c = result["candidate_recommendation"]["consensus"]
+        base_p = result["baseline_recommendation"]["precision_at_3"]
+        base_c = result["baseline_recommendation"]["consensus"]
+        cmp = result["comparison"]
+        dec = result["decoy_analysis"]
+
+        lines = [
+            f"# 사람 평가 결과: 홀드아웃 3차 (통합 개선안 vs 기본 추천 비교) ({result['status']}, {result['checked']})",
+            "",
+            "## 1. 통합 개선안(Candidate) vs 기본 추천(Baseline) 비교",
+            "",
+            "| 구분 | A. 판정 단위 Precision@3 (Wilson 95%) | B. 항목 합의 Precision@3 (부트스트랩 95%) |",
+            "| :--- | :---: | :---: |",
+            f"| **통합 개선안 (E1+E2+E3+E4)** | {cand_p['strict']}% ({cand_p['ci95_wilson'][0]}~{cand_p['ci95_wilson'][1]}%) | {cand_c['strict']}% ({cand_c['ci95_task_bootstrap'][0]}~{cand_c['ci95_task_bootstrap'][1]}%) |",
+            f"| **기본 추천 (기존 하이브리드+리랭커)** | {base_p['strict']}% ({base_p['ci95_wilson'][0]}~{base_p['ci95_wilson'][1]}%) | {base_c['strict']}% ({base_c['ci95_task_bootstrap'][0]}~{base_c['ci95_task_bootstrap'][1]}%) |",
+            f"| **성능 차이 (개선안 - 기본)** | **{cmp['diff_strict_a']}%p** ({cmp['ci95_diff_a'][0] if cmp['ci95_diff_a'] else '-'}~{cmp['ci95_diff_a'][1] if cmp['ci95_diff_a'] else '-'}%p) | **{cmp['diff_strict_b']}%p** ({cmp['ci95_diff_b'][0] if cmp['ci95_diff_b'] else '-'}~{cmp['ci95_diff_b'][1] if cmp['ci95_diff_b'] else '-'}%p) |",
             "",
             "## 2. 위약(가짜 추천) 검정 결과",
             "",
