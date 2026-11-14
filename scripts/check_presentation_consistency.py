@@ -44,10 +44,12 @@ FORBIDDEN_RULES = [
     ("잡케어 운영 보고서", re.compile(r"잡케어\s*운영\s*보고서")),
     ("설명이 풍부해 의미 유사도가 높다(근거 없음)", re.compile(r"설명이\s*풍부해")),
     ("문체가 비슷한 것으로 보입니다(근거 없음)", re.compile(r"문체가\s*비슷한\s*것으로\s*보")),
+    ("개선안 우위 단정", re.compile(r"개선안이\s*(?:더\s*)?(?:우수|정확|낫)")),
+    ("개선 단정", re.compile(r"(?<!다시\s)(?<!표본이\s작아\s)개선(?:됐|되었)다(?!.*다시 확인할 예정)")),
 ]
 
 STALE_NUMBERS = [
-    ("66.4", re.compile(r"(?<![\d.])66\.4(?![\d.])"), "홀드아웃 1차+2차 합산 이전 옛 지표 (현재 66.7%)"),
+    ("66.4", re.compile(r"(?<![\d.])66\.4(?![\d.])"), "홀드아웃 1차+2차 합산 이전 옛 지표 (현재 66.1%, 1·2차 66.7%)"),
     ("58.6", re.compile(r"(?<![\d.])58\.6(?![\d.])"), "홀드아웃 2차 이전 옛 지표 (현재 최종 59.3%)"),
     ("57.9", re.compile(r"(?<![\d.])57\.9(?![\d.])"), "홀드아웃 2차 BM25 이전 옛 지표 (현재 BM25 57.6%)"),
     ("72.4", re.compile(r"(?<![\d.])72\.4(?![\d.])"), "이전 옛 지표 (금지값)"),
@@ -95,8 +97,19 @@ def load_references():
     pha_file = REPORTS_DIR / "precision_eval_holdout_all_metrics.json"
     if pha_file.exists():
         pha = json.loads(pha_file.read_text(encoding="utf-8"))
-        ref["eval_hoa_strict"] = pha.get("precision_at_3", {}).get("strict", 66.7)
+        ref["eval_hoa_strict"] = pha.get("precision_at_3", {}).get("strict", 66.1)
         ref["eval_hoa_consensus_strict"] = pha.get("consensus", {}).get("strict", 53.4)
+        ref["eval_ho12_strict"] = pha.get("holdout_12", {}).get("precision_at_3", {}).get("strict", 66.7)
+
+    ph3_file = REPORTS_DIR / "precision_eval_holdout3_metrics.json"
+    if ph3_file.exists():
+        ph3 = json.loads(ph3_file.read_text(encoding="utf-8"))
+        ref["eval_ho3_baseline_strict"] = ph3.get("baseline", {}).get("precision_at_3", {}).get("strict", 65.0)
+        ref["eval_ho3_candidate_strict"] = ph3.get("candidate", {}).get("precision_at_3", {}).get("strict", 71.2)
+        decoy3 = ph3.get("decoy_analysis", {})
+        ref["decoy3_total"] = decoy3.get("total_evaluations", 20)
+        ref["decoy3_unfit"] = decoy3.get("unfit_count", 14)
+        ref["decoy3_pct"] = decoy3.get("filter_success_rate", 70.0)
 
     dom_file = REPORTS_DIR / "domain_review_metrics.json"
     if dom_file.exists():
@@ -126,13 +139,25 @@ def load_references():
 
 def check_forbidden_expressions(file_path, lines, issues):
     """(b) 금지 표현 검사"""
+    in_avoid_table = False
     for idx, line in enumerate(lines, 1):
         # index.html의 const D = ... (raw 카탈로그 json 데이터 블록)은 제외 (template.html과 동일 기준)
         if file_path.name == "index.html" and (line.strip().startswith("const D =") or line.strip().startswith("<script>const D =")):
             continue
 
+        if file_path.name == "SCRIPT.md" and "## 발표에서 피할 표현" in line:
+            in_avoid_table = True
+        if in_avoid_table and line.startswith("## ") and "발표에서 피할 표현" not in line:
+            in_avoid_table = False
+
+        check_line = line
+        if in_avoid_table and line.strip().startswith("|"):
+            parts = [p.strip() for p in line.split("|")]
+            if len(parts) >= 3:
+                check_line = "|".join(parts[2:])
+
         for name, rx in FORBIDDEN_RULES:
-            if rx.search(line):
+            if rx.search(check_line):
                 issues.append({
                     "file": str(file_path),
                     "line": idx,
@@ -157,6 +182,18 @@ def check_stale_numbers(file_path, lines, issues):
                     "type": "STALE_NUMBER",
                     "found": stale_val,
                     "expected": desc,
+                    "text": line.strip()[:140],
+                })
+
+        # 66.7%가 1·2차 문맥 없이 사용되었는지 검사 (30개 전체 대표값은 66.1%)
+        if re.search(r"(?<![\d.])66\.7(?![\d.])", line):
+            if "1·2차" not in line and "1, 2차" not in line and "1·2" not in line:
+                issues.append({
+                    "file": str(file_path),
+                    "line": idx,
+                    "type": "UNCONTEXTUALIZED_66_7",
+                    "found": "66.7% (1·2차 문맥 누락)",
+                    "expected": "전체 홀드아웃 합산은 66.1%이며, 66.7%는 '1·2차' 문맥과 함께 사용되어야 함",
                     "text": line.strip()[:140],
                 })
 
@@ -268,6 +305,18 @@ def check_pptx(pptx_path, issues):
                         "text": text.strip()[:140],
                     })
 
+            # 66.7% 검사 (1·2차 문맥 확인)
+            if re.search(r"(?<![\d.])66\.7(?![\d.])", text):
+                if "1·2차" not in text and "1, 2차" not in text and "1·2" not in text and "1·2차" not in slide_full_text:
+                    issues.append({
+                        "file": f"PPTX 슬라이드 {s_idx}",
+                        "line": s_idx,
+                        "type": "UNCONTEXTUALIZED_66_7",
+                        "found": "66.7% (1·2차 문맥 누락)",
+                        "expected": "전체 홀드아웃 합산은 66.1%이며, 66.7%는 '1·2차' 문맥과 함께 사용되어야 함",
+                        "text": text.strip()[:140],
+                    })
+
             # 74.5% 단독 노출 검사 (슬라이드 전체 또는 행 문맥에 홀드아웃 1차 표기 확인)
             if re.search(r"(?<![\d.])74\.5%?", text):
                 if not ("홀드아웃 1차" in text or "홀드아웃(1차)" in text or "1차" in text or "홀드아웃 1차" in slide_full_text):
@@ -345,8 +394,10 @@ def main():
     print(f"  - 과업: {ref.get('tasks_count')}개, 추천 슬롯 {ref.get('slots_total')}칸, 3개미만 {ref.get('slots_lt3')}칸, 커버리지 {ref.get('coverage_pct')}%")
     print(f"  - 사람 평가: 1차 {ref.get('eval_r1_strict')}%, 2차 {ref.get('eval_r2_strict')}%, 홀드아웃1차 {ref.get('eval_ho1_strict')}%, "
           f"홀드아웃2차 {ref.get('eval_ho2_final_strict')}%(BM25 {ref.get('eval_ho2_bm25_strict')}%), "
-          f"홀드아웃 합산 {ref.get('eval_hoa_strict')}%, 합의 {ref.get('eval_hoa_consensus_strict')}%")
-    print(f"  - 가짜 추천 검증: {ref.get('decoy_total')}건 중 {ref.get('decoy_unfit')}건 부적합 판정({ref.get('decoy_pct')}%)")
+          f"홀드아웃3차 기본 {ref.get('eval_ho3_baseline_strict')}%, 개선안 {ref.get('eval_ho3_candidate_strict')}%, "
+          f"홀드아웃 합산 {ref.get('eval_hoa_strict')}%(1·2차 {ref.get('eval_ho12_strict')}%), 합의 {ref.get('eval_hoa_consensus_strict')}%")
+    print(f"  - 가짜 추천 검증: 2차 {ref.get('decoy_total')}건 중 {ref.get('decoy_unfit')}건 부적합({ref.get('decoy_pct')}%), "
+          f"3차 {ref.get('decoy3_total')}건 중 {ref.get('decoy3_unfit')}건 부적합({ref.get('decoy3_pct')}%)")
     print(f"  - KPC 지표: 카탈로그 {ref.get('kpc_catalog_share')}%, Top 3 {ref.get('kpc_top3_share')}%, "
           f"상위후보 {ref.get('kpc_pool_share')}%, BM25 {ref.get('kpc_bm25_median')} vs {ref.get('other_bm25_median')}, "
           f"사람평가 {ref.get('kpc_human_precision')}% vs {ref.get('other_human_precision')}%, 95% CI {ref.get('kpc_ci95')}")

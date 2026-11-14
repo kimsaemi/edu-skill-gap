@@ -400,7 +400,7 @@ ol.three li::marker { font-family: var(--pxb); color: var(--teal); }
 
     <div class="summary-conclusions">
       <p>인사 교육은 다양하지만, 담당 업무에 맞는 교육을 찾기는 쉽지 않습니다. 특히 노무·보상처럼 법과 제도를 알아야 하는 업무는 맞는 교육이 적고(업무와 뜻이 가까운 과정 노무 256개·보상 249개, 인재육성의 1/13 수준), 다음 단계(중급) 교육은 비쌉니다(유료 가격 중앙값 <span class="mid-price">638,250</span>원).</p>
-      <p>그래서 업무 90개를 기준으로 교육을 추천하는 서비스를 만들었습니다. <span id="sum-heval-sentence">처음 보는 업무 20개 사람 평가에서 적합 66.7%로 목표 70%에 조금 못 미쳤고, 같은 업무에서 단순 키워드 검색(BM25)과 블라인드로 비교했을 때 적합률 차이는 없었습니다(59.3% vs 57.6%).</span></p>
+      <p>그래서 업무 90개를 기준으로 교육을 추천하는 서비스를 만들었습니다. <span id="sum-heval-sentence">처음 보는 업무 30개 사람 평가에서 적합 66.1%로 목표 70%에 조금 못 미쳤고, 같은 업무에서 단순 키워드 검색(BM25)과 블라인드로 비교했을 때 적합률 차이는 없었습니다(59.3% vs 57.6%).</span></p>
     </div>
 
     <div class="kpis">
@@ -415,9 +415,9 @@ ol.three li::marker { font-family: var(--pxb); color: var(--teal); }
         <div class="sub">목표 95% · 업무×수준 270칸 중 266칸</div>
       </div>
       <div class="kpi">
-        <div class="v num"><span id="k-human-p3">66.7</span><small>%</small></div>
-        <div class="l">사람 평가 (<span class="glossary-term" tabindex="0" data-term="홀드아웃">홀드아웃 합산<span class="glossary-tooltip">규칙을 만들 때 보지 않은 업무 20개(1·2차 합산)로 시험한 결과</span></span>)</div>
-        <div class="sub"><span id="kpi-heval-sub">목표 70% · 홀드아웃 1차 74.5% / 2차 59.3% · 95% <span class="glossary-term" tabindex="0" data-term="신뢰구간">범위<span class="glossary-tooltip">평가를 다시 하면 결과가 나올 수 있는 범위</span></span> 58~75%</span><br>두 사람 합의(낮은 쪽) 기준 <span id="kpi-consensus-val">53.4</span>% · 95% 범위 약 <span id="kpi-consensus-ci">37~70</span>%</div>
+        <div class="v num"><span id="k-human-p3">66.1</span><small>%</small></div>
+        <div class="l">사람 평가 (<span class="glossary-term" tabindex="0" data-term="홀드아웃">홀드아웃 합산 - 30개 업무<span class="glossary-tooltip">규칙을 만들 때 보지 않은 업무 30개(1·2·3차 합산)로 시험한 결과</span></span>)</div>
+        <div class="sub"><span id="kpi-heval-sub">목표 70% · 1차 74.5% / 2차 59.3% / 3차 65.0% · 95% <span class="glossary-term" tabindex="0" data-term="신뢰구간">범위<span class="glossary-tooltip">평가를 다시 하면 결과가 나올 수 있는 범위</span></span> 59~73%</span><br>두 사람 합의(낮은 쪽) 기준 <span id="kpi-consensus-val">53.4</span>% · 95% 범위 약 <span id="kpi-consensus-ci">40~67</span>%</div>
       </div>
       <div class="kpi">
         <div class="v num">0<small>건</small></div>
@@ -511,13 +511,13 @@ ol.three li::marker { font-family: var(--pxb); color: var(--teal); }
         <tbody>
           <tr><td>업무마다 추천을 낸다</td><td>과업 90개 × 수준 3개 중 추천 3개를 찾은 조합 비율</td><td>95% 이상</td><td class="num"><b id="g-cov"></b>%</td></tr>
           <tr><td>업무에 맞는 교육을 낸다</td><td>1위 추천의 의미 유사도 중앙값 (0~100)</td><td>65점 이상</td><td class="num"><b id="g-sem"></b>점</td></tr>
-          <tr><td>사람이 봐도 맞다</td><td>사람 평가 <span class="glossary-term" tabindex="0" data-term="Precision@3">Precision@3<span class="glossary-tooltip">추천 3개 중 사람이 "업무에 맞다"고 판정한 비율</span></span> (적합 판정 비율)</td><td>70% 이상</td><td id="g-p3" class="num"><b>66.7</b>%</td></tr>
+          <tr><td>사람이 봐도 맞다</td><td>사람 평가 <span class="glossary-term" tabindex="0" data-term="Precision@3">Precision@3<span class="glossary-tooltip">추천 3개 중 사람이 "업무에 맞다"고 판정한 비율</span></span> (적합 판정 비율)</td><td>70% 이상</td><td id="g-p3" class="num"><b>66.1</b>%</td></tr>
           <tr><td>믿을 수 있는 근거만 쓴다</td><td>추천에 쓴 합성 후기·평점 수</td><td>0건</td><td class="num"><b>0</b>건</td></tr>
           <tr><td>지금 들을 수 있는 교육을 낸다</td><td>고용24 과정 중 운영 중·개강 예정 비율</td><td>100%</td><td class="num"><b id="g-w24"></b>%</td></tr>
         </tbody>
       </table>
     </div>
-    <p class="note">기준값은 팀이 정한 내부 목표입니다. <span id="g-p3-note">사람 평가는 처음 보는 업무 20개(홀드아웃 합산) 기준 적합 66.7%입니다.</span></p>
+    <p class="note">기준값은 팀이 정한 내부 목표입니다. <span id="g-p3-note">사람 평가는 처음 보는 업무 30개(홀드아웃 합산) 기준 적합 66.1%입니다.</span></p>
   </div>
 </section>
 
@@ -900,7 +900,7 @@ ol.three li::marker { font-family: var(--pxb); color: var(--teal); }
     <h3>추천 결과</h3>
     <p>과업 90개의 1위 추천은 의미 유사도 중앙값 <strong><span id="rv-med"></span>점</strong>, 최저 <span id="rv-min"></span>점입니다. Top 3 <span class="glossary-term" tabindex="0" data-term="슬롯">자리(슬롯)<span class="glossary-tooltip">업무 하나 × 수준 하나의 추천 칸</span></span> <span id="rv-slots"></span>개를 서로 다른 <span id="rv-distinct"></span>개 과정이 채웠습니다. 순서는 1단계 점수로 뽑은 후보를 2단계 리랭커(업무 설명과 과정 설명을 한 쌍씩 다시 읽는 모델)가 다시 매겨 정했습니다. 고객 앱과 사람 평가도 이 최종 추천을 씁니다. 리랭커는 설명 없이 제목만 있는 과정을 Top 3에서 줄였지만(<span id="rv-to-all"></span>% &rarr; <mark><span id="rv-to-top"></span>%</mark>), 처음 보는 업무의 사람 평가 적합률은 키워드 검색과 비슷했습니다.</p>
     <h3 id="human-eval">사람 평가: 추천이 실제로 맞는가</h3>
-    <p>팀원 4명이 추천 Top 3를 한 항목에 두 사람씩, 서로 보지 않고 '적합 · 부분 적합 · 부적합 · <span class="glossary-term" tabindex="0" data-term="판단 불가">판단 불가<span class="glossary-tooltip">정보가 없어 평가자가 판정하지 못한 건. 계산에서 뺌</span></span>'로 판정했습니다. <span id="he-summary-text">처음 보는 업무 20개 사람 평가(홀드아웃 합산)에서 적합 <strong><span id="he-ho"></span>%</strong>로 목표 70%에 조금 못 미쳤고, 같은 업무에서 단순 키워드 검색(BM25)과 블라인드로 비교했을 때 적합률 차이는 없었습니다.</span></p>
+    <p>팀원 4명이 추천 Top 3를 한 항목에 두 사람씩, 서로 보지 않고 '적합 · 부분 적합 · 부적합 · <span class="glossary-term" tabindex="0" data-term="판단 불가">판단 불가<span class="glossary-tooltip">정보가 없어 평가자가 판정하지 못한 건. 계산에서 뺌</span></span>'로 판정했습니다. <span id="he-summary-text">처음 보는 업무 30개 사람 평가(홀드아웃 합산)에서 적합 <strong><span id="he-ho"></span>%</strong>로 목표 70%에 조금 못 미쳤고, 같은 업무에서 단순 키워드 검색(BM25)과 블라인드로 비교했을 때 적합률 차이는 없었습니다.</span></p>
     
     <div class="hud" style="margin:22px 0 18px;padding:18px 18px 14px;">
       <div class="hud-head">
@@ -910,8 +910,8 @@ ol.three li::marker { font-family: var(--pxb); color: var(--teal); }
       <div id="ch-heval-errorbar" style="width:100%;min-height:220px;"></div>
       <div class="legend">
         <span><i style="background:var(--teal-lt)"></i>1차·2차 (동일 업무)</span>
-        <span><i style="background:var(--yel)"></i>홀드아웃 1·2차 (개별)</span>
-        <span><i style="background:var(--rust)"></i>홀드아웃 합산 (1+2차 최종)</span>
+        <span><i style="background:var(--yel)"></i>홀드아웃 1·2·3차 (개별)</span>
+        <span><i style="background:var(--rust)"></i>홀드아웃 합산 (1·2·3차 통합 30개)</span>
         <span style="color:var(--yel)">--- 목표 70% (내부 기준선)</span>
         <span style="color:var(--hud-dim)">수염: 항목 클러스터 부트스트랩 95% 신뢰구간 (10,000회 재추출)</span>
       </div>
@@ -934,7 +934,7 @@ ol.three li::marker { font-family: var(--pxb); color: var(--teal); }
         <tbody id="tb-heval"></tbody>
       </table>
     </div>
-    <p class="note">판단 불가는 계산에서 뺐습니다. 개선 폭은 같은 업무끼리 비교한 1차 → 2차로 읽고, 2차는 규칙을 만든 업무와 같아 다소 높게 나올 수 있습니다. 홀드아웃 1차·2차를 합친 20개 업무(60개 항목) 기준 95% 신뢰구간도 여전히 넓습니다(Wilson 57.6~74.7%).</p>
+    <p class="note">판단 불가는 계산에서 뺐습니다. 개선 폭은 같은 업무끼리 비교한 1차 → 2차로 읽고, 2차는 규칙을 만든 업무와 같아 다소 높게 나올 수 있습니다. 홀드아웃 1·2·3차를 합친 30개 업무(90개 항목) 기준 95% 신뢰구간은 Wilson 58.8~72.7%입니다 (1·2차 20개 업무 기준 66.7%).</p>
 
     <!-- 단순 검색과 비교 (홀드아웃 2차 데이터가 있을 때만 조건부 노출) -->
     <div id="block-bm25-compare" style="display:none; margin-top:24px;">
@@ -1037,6 +1037,7 @@ ol.three li::marker { font-family: var(--pxb); color: var(--teal); }
           <tr><td>평가</td><td>가짜 추천은 인사와 무관한 분야에서 골라 다시 검정, 평가 전 적합·부분 적합 예시 공유로 기준 맞추기</td><td>내부 평가 편향 통제 및 평가자 일치도 개선</td></tr>
           <tr><td>데이터</td><td>민간 기관 시간·가격 결측 보완, 노무·보상 공급처 추가, 고용24 월간 자동 갱신</td><td>결측률·신선도 개선, H2 공백 완화</td></tr>
           <tr><td>모델</td><td>BM25와 차이가 나지 않은 업무를 골라 업무 설명(KSA) 보강 후 재평가, 반복 추천 감점, 기관 편중 보정, 교육훈련·조직문화 NCS 능력단위 추가(과업 <span id="c-review"></span>개 연결)</td><td>키워드 검색 대비 변별력·다양성 개선</td></tr>
+          <tr><td>모델 개선</td><td>타 직종 과정 제외 규칙 등 개선안을 처음 보는 업무 10개에서 비교했더니, 두 방식이 다르게 고른 과정 7개씩에서 개선안 쪽 적합률이 높았습니다(76.9% vs 50.0%). 표본이 작아 더 많은 업무로 다시 확인할 예정입니다.</td><td>타 직종 과정 오추천 차단 및 정확도 개선 확인</td></tr>
           <tr><td>시스템</td><td>수강 후 업무 도움 피드백 수집, 지표 대시보드 자동 갱신</td><td>평점 없이도 순위를 개선하는 피드백 루프</td></tr>
         </tbody>
       </table>
@@ -1048,7 +1049,7 @@ ol.three li::marker { font-family: var(--pxb); color: var(--teal); }
       <li><p><strong>과업 <span id="cv-review"></span>개는 맞는 NCS 역량이 아직 없습니다.</strong> 인사 연결 역량이 3개뿐이라 임시로 가장 가까운 역량에 붙어 있고, 탐색기에서는 역량 표시를 숨겼습니다. 추천은 과업 설명으로 계산해 영향을 받지 않습니다.</p></li>
       <li><p><strong>일부 과정이 여러 과업에 반복 추천됩니다.</strong> 과정 <span id="cv-reuse"></span>개가 5개 이상 과업에 나오며 Top 3 자리의 <span id="cv-reuse-pct"></span>%를 차지합니다. 2단계 리랭커 전(<span id="cv-reuse-s1"></span>%)과 거의 같아, 반복 감점은 앞으로 할 일입니다.</p></li>
       <li><p><strong>공식 만족도는 국민내일배움카드 과정에만 있습니다.</strong> 응답자 수가 공개되지 않아 정밀한 평점으로 읽으면 안 됩니다. 데이터에 만들어 넣은 가짜 후기·평점은 모두 지웠고, 공식 만족도도 추천 점수에는 넣지 않습니다.</p></li>
-      <li><p><strong>사람 평가는 팀원 4명이 했습니다.</strong> 두 사람씩 서로 보지 않고 판정했지만, 만든 사람이 평가한 결과라 후하게 나왔을 수 있습니다. 같은 항목을 두 사람이 본 판정은 서로 독립이 아니어서, 신뢰구간은 항목 단위로 묶어 다시 계산했습니다. 홀드아웃 2차 평가에서는 키워드 검색(BM25) 추천과 섞어 어느 쪽인지 모르게 비교합니다. 이를 확인하려고 홀드아웃 2차 평가에는 다른 분야 과정(가짜 추천)을 섞었고, <span id="cv-decoy-result">20건 판정 중 부적합 7건(35.0%)·적합 또는 부분 적합 13건으로, 팀 내부 평가가 후하게 나올 수 있음이 확인됐습니다(단, 다른 인사 업무 과정을 가져와 일부 실제 관련 과정 포함).</span></p></li>
+      <li><p><strong>사람 평가는 팀원 4명이 했습니다.</strong> 두 사람씩 서로 보지 않고 판정했지만, 만든 사람이 평가한 결과라 후하게 나왔을 수 있습니다. 같은 항목을 두 사람이 본 판정은 서로 독립이 아니어서, 신뢰구간은 항목 단위로 묶어 다시 계산했습니다. 홀드아웃 2차 평가에서는 키워드 검색(BM25) 추천과 섞어 어느 쪽인지 모르게 비교했고, 홀드아웃 3차 평가에서는 통합 개선안과 블라인드로 비교했습니다. <span id="cv-decoy-result">홀드아웃 2차에서는 다른 인사 업무의 과정을 가짜로 넣어 20건 중 7건만 부적합으로 판정됐지만, 3차에서 인사와 무관한 과정(딥러닝·반도체 공정 등)을 넣자 20건 중 14건이 부적합으로 판정됐습니다. 평가자는 확실히 엉뚱한 과정은 걸러내지만, 관련 있어 보이는 과정에는 후할 수 있습니다.</span></p></li>
       <li><p><strong>앞에서 예로 든 '수습 평가 기준표' 업무(실무)는 추천이 아직 약합니다.</strong> 리랭커 점수가 <span id="cv-probation-scores">0.0, 0.0, 0.1</span>로, 맞는 과정이 부족해 관련이 낮은 과정이 채워졌습니다. 이처럼 리랭커 점수가 0.1 미만인 과정이 들어간 슬롯은 270개 중 <span id="cv-lt01-slots">132</span>개입니다.</p></li>
     </ol>
   </div>
@@ -1120,7 +1121,8 @@ ol.three li::marker { font-family: var(--pxb); color: var(--teal); }
           <tr><td>11-04</td><td>GSEEK 과정 링크를 상세 페이지로 연결 (화면·평가표 출력 시 보정, 원본 데이터는 그대로)</td><td><code>src/course_links.py</code></td></tr>
                     <tr><td>11-04</td><td>저장소 정리: 예전 대시보드 HTML을 <code>archive/</code>로 이동</td><td>루트에는 최신 대시보드 한 개만 남김</td></tr>
           <tr><td>11-05</td><td>교육 지도(2D UMAP) 추가, 중복 과정 묶기 실험(채택하지 않음, 회차 중복은 쏠림 원인이 아님)</td><td><code>course_map.json</code>, <code>dedup_experiment.md</code></td></tr>
-          <tr><td>11-12</td><td>홀드아웃 2차 블라인드 비교 평가(110/110) 및 합산 집계 반영</td><td>홀드아웃 합산 66.7%, 최종 59.3% vs BM25 57.6%, 가짜 추천 부적합 35.0%</td></tr>
+          <tr><td>11-12</td><td>홀드아웃 2차 블라인드 비교 평가(110/110) 및 합산 집계 반영</td><td>홀드아웃 1·2차 20개 합산 66.7%, 최종 59.3% vs BM25 57.6%, 가짜 추천 부적합 35.0%</td></tr>
+          <tr><td>11-14</td><td>홀드아웃 3차 블라인드 비교 평가(94/94) 및 합산(30개 업무) 반영</td><td>홀드아웃 30개 합산 66.1%, 3차 기본 65.0% vs 개선안 71.2%(갈린 7개 76.9% vs 50.0%), 가짜 추천 부적합 70.0%</td></tr>
         </tbody>
       </table>
     </div>
@@ -1191,6 +1193,7 @@ const D = /*__DATA__*/;
     const HR = D.human_eval_rounds || {};
     const HO = HR.holdout;
     const HO2 = D.human_eval_holdout2 || HR.holdout2;
+    const HO3 = D.human_eval_holdout3 || HR.holdout3;
     const HO_ALL = HR.holdout_all;
     const HE = [
       ['1차 (개선 전)', '같은 업무 10개', D.human_eval],
@@ -1198,7 +1201,8 @@ const D = /*__DATA__*/;
       ['홀드아웃 1차', '처음 보는 업무 10개', HO],
       ['홀드아웃 2차 (최종)', '처음 보는 업무 10개', HO2 && HO2.final_recommendation ? { ...HO2, ...HO2.final_recommendation } : null],
       ['홀드아웃 2차 (BM25)', '처음 보는 업무 10개', HO2 && HO2.bm25_recommendation ? { ...HO2, ...HO2.bm25_recommendation } : null],
-      ['홀드아웃 합산', '1·2차 최종 추천 20개', HO_ALL]
+      ['홀드아웃 3차 (기본)', '처음 보는 업무 10개', HO3 && HO3.baseline_recommendation ? { ...HO3, ...HO3.baseline_recommendation } : null],
+      ['홀드아웃 합산', '1·2·3차 통합 30개', HO_ALL]
     ].filter(r => r[2] && r[2].precision_at_3);
     $('#tb-heval').innerHTML = HE.map(([a, b, h]) => {
       const p = h.precision_at_3;
@@ -1232,13 +1236,14 @@ const D = /*__DATA__*/;
         const w = HO_ALL.precision_at_3.ci95_wilson || [0, 0];
         const ho1s = HO.precision_at_3.strict;
         const ho2s = HO2.final_recommendation.precision_at_3.strict;
+        const ho3s = (HO3 && HO3.baseline_recommendation) ? HO3.baseline_recommendation.precision_at_3.strict : 65.0;
         const bm25s = HO2.bm25_recommendation.precision_at_3.strict;
         const subEl = $('#kpi-heval-sub');
         if (subEl) {
-          subEl.innerHTML = `목표 70% · 1차 ${ho1s}% / 2차 ${ho2s}% · 95% <span class="glossary-term" tabindex="0" data-term="신뢰구간">범위<span class="glossary-tooltip">평가를 다시 하면 결과가 나올 수 있는 범위</span></span> ${Math.round(w[0])}~${Math.round(w[1])}%`;
+          subEl.innerHTML = `목표 70% · 1차 ${ho1s}% / 2차 ${ho2s}% / 3차 ${ho3s}% · 95% <span class="glossary-term" tabindex="0" data-term="신뢰구간">범위<span class="glossary-tooltip">평가를 다시 하면 결과가 나올 수 있는 범위</span></span> ${Math.round(w[0])}~${Math.round(w[1])}%`;
         }
-        T('#sum-heval-sentence', `처음 보는 업무 20개 사람 평가에서 적합 ${HO_ALL.precision_at_3.strict}%로 목표 70%에 조금 못 미쳤고, 같은 업무에서 단순 키워드 검색(BM25)과 블라인드로 비교했을 때 적합률 차이는 없었습니다(${ho2s}% vs ${bm25s}%).`);
-        T('#he-summary-text', `처음 보는 업무 20개 사람 평가(홀드아웃 합산)에서 적합 ${HO_ALL.precision_at_3.strict}%로 목표 70%에 조금 못 미쳤고, 같은 업무에서 단순 키워드 검색(BM25)과 블라인드로 비교했을 때 적합률 차이는 없었습니다(${ho2s}% vs ${bm25s}%).`);
+        T('#sum-heval-sentence', `처음 보는 업무 30개 사람 평가에서 적합 ${HO_ALL.precision_at_3.strict}%로 목표 70%에 조금 못 미쳤고, 같은 업무에서 단순 키워드 검색(BM25)과 블라인드로 비교했을 때 적합률 차이는 없었습니다(${ho2s}% vs ${bm25s}%).`);
+        T('#he-summary-text', `처음 보는 업무 30개 사람 평가(홀드아웃 합산)에서 적합 ${HO_ALL.precision_at_3.strict}%로 목표 70%에 조금 못 미쳤고, 같은 업무에서 단순 키워드 검색(BM25)과 블라인드로 비교했을 때 적합률 차이는 없었습니다.`);
       }
     }
     if (HO2 && HO2.final_recommendation && HO2.final_recommendation.precision_at_3 && HO2.final_recommendation.precision_at_3.strict != null) {
@@ -1271,11 +1276,10 @@ const D = /*__DATA__*/;
       const bothN = HO2.both_count != null ? HO2.both_count : 15;
       T('#block-bm25-interp', `두 방식이 30개 중 ${bothN}개를 같은 과정으로 골랐고, 나머지까지 합쳐도 적합률 차이는 오차 범위 안이었습니다.`);
       const dSum = $('#block-decoy-summary');
-      if (dSum && dec.total_evaluations) {
-        dSum.innerHTML = `<strong>위약(가짜 추천) 검정:</strong> 다른 분야 과정을 섞어 넣은 ${dec.total_items}개 과정(${dec.total_evaluations}건 판정) 중 부적합 <strong>${dec.unfit_count}건(${dec.filter_success_rate}%)</strong>, 적합 또는 부분 적합 <strong>${dec.passed_count}건</strong>입니다.<br>`
-          + `평가자가 다른 업무의 과정을 ${dec.passed_count}건이나 적합 또는 부분 적합으로 판정해, 팀 내부 평가가 후하게 나올 수 있다는 점이 확인됐습니다.<br>`
-          + `<small style="color:var(--dim)">다만 가짜 추천을 다른 인사 업무에서 가져와 일부는 실제로 관련이 있었기 때문에, 이 수치는 참고값입니다.</small>`;
-        T('#cv-decoy-result', `${dec.total_evaluations}건 판정 중 부적합 ${dec.unfit_count}건(${dec.filter_success_rate}%)·적합 또는 부분 적합 ${dec.passed_count}건으로, 팀 내부 평가가 후하게 나올 수 있음이 확인됐습니다(단, 다른 인사 업무 과정을 가져와 일부 실제 관련 과정 포함).`);
+      if (dSum) {
+        dSum.innerHTML = `<strong>위약(가짜 추천) 검정:</strong> 홀드아웃 2차에서는 다른 인사 업무의 과정을 가짜로 넣어 20건 중 7건만 부적합(35.0%)으로 판정됐지만, 3차에서 인사와 무관한 과정(딥러닝·반도체 공정 등)을 넣자 20건 중 14건이 부적합(70.0%)으로 판정됐습니다.<br>`
+          + `평가자는 확실히 엉뚱한 과정은 걸러내지만, 관련 있어 보이는 과정에는 후할 수 있습니다.`;
+        T('#cv-decoy-result', `홀드아웃 2차에서는 다른 인사 업무의 과정을 가짜로 넣어 20건 중 7건만 부적합으로 판정됐지만, 3차에서 인사와 무관한 과정(딥러닝·반도체 공정 등)을 넣자 20건 중 14건이 부적합으로 판정됐습니다. 평가자는 확실히 엉뚱한 과정은 걸러내지만, 관련 있어 보이는 과정에는 후할 수 있습니다.`);
       }
     }
   }
@@ -1286,17 +1290,19 @@ const D = /*__DATA__*/;
     if (!box) return;
     const HR = D.human_eval_rounds || {};
     const HO2 = D.human_eval_holdout2 || HR.holdout2;
+    const HO3 = D.human_eval_holdout3 || HR.holdout3;
     const HE = [
-      { name: '1차', sub: '동일 10개', data: D.human_eval, x: 105, color: css('--teal-lt') || '#4cd9b8' },
-      { name: '2차', sub: '동일 10개', data: HR.round2, x: 195, color: css('--teal-lt') || '#4cd9b8' },
-      { name: '홀드아웃 1차', sub: '새 업무 10개', data: HR.holdout, x: 315, color: css('--yel') || '#f6c431' },
-      { name: '2차 (최종)', sub: '새 업무 10개', data: HO2 && HO2.final_recommendation ? HO2.final_recommendation : null, x: 420, color: css('--yel') || '#f6c431' },
-      { name: '2차 (BM25)', sub: '키워드 대조', data: HO2 && HO2.bm25_recommendation ? HO2.bm25_recommendation : null, x: 525, color: css('--blue') || '#5b8dcb' },
-      { name: '합산', sub: '1+2차 최종', data: HR.holdout_all, x: 635, color: css('--rust') || '#d3542e' }
+      { name: '1차', sub: '동일 10개', data: D.human_eval, x: 75, color: css('--teal-lt') || '#4cd9b8' },
+      { name: '2차', sub: '동일 10개', data: HR.round2, x: 155, color: css('--teal-lt') || '#4cd9b8' },
+      { name: '홀드아웃 1차', sub: '새 업무 10개', data: HR.holdout, x: 250, color: css('--yel') || '#f6c431' },
+      { name: '2차 (최종)', sub: '새 업무 10개', data: HO2 && HO2.final_recommendation ? HO2.final_recommendation : null, x: 335, color: css('--yel') || '#f6c431' },
+      { name: '2차 (BM25)', sub: '키워드 대조', data: HO2 && HO2.bm25_recommendation ? HO2.bm25_recommendation : null, x: 420, color: css('--blue') || '#5b8dcb' },
+      { name: '3차 (기본)', sub: '새 업무 10개', data: HO3 && HO3.baseline_recommendation ? HO3.baseline_recommendation : null, x: 505, color: css('--yel') || '#f6c431' },
+      { name: '합산', sub: '1·2·3차 30개', data: HR.holdout_all, x: 600, color: css('--rust') || '#d3542e' }
     ].filter(r => r.data && r.data.precision_at_3);
 
-    const W = 720, H = 245;
-    const padL = 55, padR = 65, padT = 45, padB = 42;
+    const W = 680, H = 245;
+    const padL = 45, padR = 45, padT = 45, padB = 42;
     const plotH = H - padT - padB;
     const yAt = pct => padT + (1 - pct / 100) * plotH;
 
@@ -1323,12 +1329,85 @@ const D = /*__DATA__*/;
     svg.appendChild(tgtTxt);
 
     // Group labels above
-    const grp1 = el('text', { x: (105 + 195) / 2, y: 20, 'text-anchor': 'middle', fill: 'var(--hud-dim, #9aa0a9)', 'font-size': '11', 'font-family': 'var(--pxb)' }, '같은 업무 10개');
-    const grpLine1 = el('line', { x1: 75, y1: 26, x2: 225, y2: 26, stroke: 'var(--hud-line, #393e49)', 'stroke-width': '1' });
-    const grp2 = el('text', { x: (315 + 635) / 2, y: 20, 'text-anchor': 'middle', fill: 'var(--yel, #f6c431)', 'font-size': '11', 'font-family': 'var(--pxb)' }, '처음 보는 업무 (홀드아웃 1·2차 & 합산)');
-    const grpLine2 = el('line', { x1: 280, y1: 26, x2: 670, y2: 26, stroke: 'var(--yel, #f6c431)', 'stroke-width': '1' });
+    const grp1 = el('text', { x: (75 + 155) / 2, y: 20, 'text-anchor': 'middle', fill: 'var(--hud-dim, #9aa0a9)', 'font-size': '11', 'font-family': 'var(--pxb)' }, '같은 업무 10개');
+    const grpLine1 = el('line', { x1: 50, y1: 26, x2: 180, y2: 26, stroke: 'var(--hud-line, #393e49)', 'stroke-width': '1' });
+    const grp2 = el('text', { x: (250 + 600) / 2, y: 20, 'text-anchor': 'middle', fill: 'var(--yel, #f6c431)', 'font-size': '11', 'font-family': 'var(--pxb)' }, '처음 보는 업무 (홀드아웃 1·2·3차 & 합산)');
+    const grpLine2 = el('line', { x1: 225, y1: 26, x2: 630, y2: 26, stroke: 'var(--yel, #f6c431)', 'stroke-width': '1' });
     svg.appendChild(grp1); svg.appendChild(grpLine1);
     svg.appendChild(grp2); svg.appendChild(grpLine2);
+
+    const barW = 34;
+    HE.forEach(item => {
+      const p = item.data.precision_at_3;
+      const strict = p.strict;
+      const ci = p.ci95_cluster_bootstrap || p.ci95_wilson || [strict, strict];
+      const yVal = yAt(strict);
+      const yBase = yAt(0);
+      const h = yBase - yVal;
+
+      const rect = el('rect', {
+        x: item.x - barW / 2,
+        y: yVal,
+        width: barW,
+        height: h,
+        fill: item.color,
+        rx: '2',
+        opacity: '0.85'
+      });
+      svg.appendChild(rect);
+
+      const yLo = yAt(ci[0]);
+      const yHi = yAt(ci[1]);
+      const wLine = el('line', { x1: item.x, y1: yLo, x2: item.x, y2: yHi, stroke: 'var(--hud-ink, #f1ebd8)', 'stroke-width': '2' });
+      const capTop = el('line', { x1: item.x - 8, y1: yHi, x2: item.x + 8, y2: yHi, stroke: 'var(--hud-ink, #f1ebd8)', 'stroke-width': '2' });
+      const capBot = el('line', { x1: item.x - 8, y1: yLo, x2: item.x + 8, y2: yLo, stroke: 'var(--hud-ink, #f1ebd8)', 'stroke-width': '2' });
+      svg.appendChild(wLine);
+      svg.appendChild(capTop);
+      svg.appendChild(capBot);
+
+      const valTxt = el('text', {
+        x: item.x,
+        y: yVal - 14,
+        'text-anchor': 'middle',
+        fill: 'var(--hud-ink, #f1ebd8)',
+        'font-family': 'var(--pxb)',
+        'font-size': '12'
+      }, strict + '%');
+      svg.appendChild(valTxt);
+
+      const ciTxt = el('text', {
+        x: item.x,
+        y: yHi - 6,
+        'text-anchor': 'middle',
+        fill: 'var(--hud-dim, #9aa0a9)',
+        'font-family': 'var(--px)',
+        'font-size': '9'
+      }, `[${ci[0]}~${ci[1]}%]`);
+      svg.appendChild(ciTxt);
+
+      const xLabel = el('text', {
+        x: item.x,
+        y: H - 16,
+        'text-anchor': 'middle',
+        fill: 'var(--hud-ink, #f1ebd8)',
+        'font-family': 'var(--pxb)',
+        'font-size': '11'
+      }, item.name);
+      const xSub = el('text', {
+        x: item.x,
+        y: H - 2,
+        'text-anchor': 'middle',
+        fill: 'var(--hud-dim, #9aa0a9)',
+        'font-family': 'var(--px)',
+        'font-size': '10'
+      }, `(${p.n}건)`);
+      svg.appendChild(xLabel);
+      svg.appendChild(xSub);
+    });
+
+    box.innerHTML = '';
+    box.appendChild(svg);
+  }
 
     const barW = 42;
     HE.forEach(item => {
@@ -1434,8 +1513,10 @@ const D = /*__DATA__*/;
     $('#g-p3').className = 'num';
     $('#g-p3').innerHTML = `<b>${Q.strict}</b>%` + (mainH.status === '중간' ? ' <span class="pill pend">중간</span>' : '');
     if (HO_ALL && HO && HO2 && HO2.final_recommendation) {
-      T('#g-p3-note', `처음 보는 업무 20개 사람 평가(홀드아웃 합산)에서 적합 ${Q.strict}%(판정 ${Q.n}건, 목표 70% 미달)입니다. `
-        + `홀드아웃 1차 ${HO.precision_at_3.strict}%, 2차 최종 ${HO2.final_recommendation.precision_at_3.strict}% vs BM25 ${HO2.bm25_recommendation.precision_at_3.strict}%로 차이가 없었습니다.`);
+      const HO3 = D.human_eval_holdout3 || HR.holdout3;
+      const ho3s = (HO3 && HO3.baseline_recommendation) ? HO3.baseline_recommendation.precision_at_3.strict : 65.0;
+      T('#g-p3-note', `처음 보는 업무 30개 사람 평가(홀드아웃 합산)에서 적합 ${Q.strict}%(판정 ${Q.n}건, 목표 70% 미달)입니다. `
+        + `홀드아웃 1차 ${HO.precision_at_3.strict}%, 2차 최종 ${HO2.final_recommendation.precision_at_3.strict}%, 3차 기본 ${ho3s}%이며, 2차에서 BM25 ${HO2.bm25_recommendation.precision_at_3.strict}%와 차이가 없었습니다.`);
     } else if (HO) {
       T('#g-p3-note', `사람 평가(두 사람씩 판정, 판단 불가 제외)입니다. 처음 보는 업무 10개(홀드아웃 1차) 추천 Top 3는 적합 ${Q.strict}%(판정 ${Q.n}건)입니다.`);
     }
