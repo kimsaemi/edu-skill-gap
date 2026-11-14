@@ -1,0 +1,205 @@
+{
+  "round": "홀드아웃 3차 (기본 추천 vs 통합 개선안 비교 + 위약 검정 포함 10개 업무)",
+  "checked": "2026-11-14",
+  "status": "완료",
+  "entered": 94,
+  "assigned": 94,
+  "candidate_recommendation": {
+    "precision_at_3": {
+      "n": 59,
+      "strict": 71.2,
+      "lenient": 91.5,
+      "ci95_wilson": [
+        58.6,
+        81.2
+      ],
+      "ci95_cluster_bootstrap": [
+        57.6,
+        84.7
+      ]
+    },
+    "consensus": {
+      "items_total": 30,
+      "items_rated": 30,
+      "both_unclear": 0,
+      "fit": 18,
+      "partial": 9,
+      "unfit": 3,
+      "strict": 60.0,
+      "ci95_task_bootstrap": [
+        36.7,
+        83.3
+      ]
+    }
+  },
+  "baseline_recommendation": {
+    "precision_at_3": {
+      "n": 60,
+      "strict": 65.0,
+      "lenient": 91.7,
+      "ci95_wilson": [
+        52.4,
+        75.8
+      ],
+      "ci95_cluster_bootstrap": [
+        50.0,
+        80.0
+      ]
+    },
+    "consensus": {
+      "items_total": 30,
+      "items_rated": 30,
+      "both_unclear": 0,
+      "fit": 16,
+      "partial": 11,
+      "unfit": 3,
+      "strict": 53.3,
+      "ci95_task_bootstrap": [
+        33.3,
+        73.3
+      ]
+    }
+  },
+  "comparison": {
+    "diff_strict_a": 6.2,
+    "ci95_diff_a": [
+      1.1,
+      13.3
+    ],
+    "diff_strict_b": 6.7,
+    "ci95_diff_b": [
+      0.0,
+      16.7
+    ],
+    "discrepant_items_comparison": {
+      "baseline_only_strict": 50.0,
+      "candidate_only_strict": 76.9,
+      "diff_strict": 26.9
+    }
+  },
+  "breakdown": {
+    "shared": {
+      "n": 46,
+      "strict": 69.6,
+      "lenient": 95.7
+    },
+    "baseline_only": {
+      "n": 14,
+      "strict": 50.0,
+      "lenient": 78.6
+    },
+    "candidate_only": {
+      "n": 13,
+      "strict": 76.9,
+      "lenient": 76.9
+    }
+  },
+  "agreement": {
+    "items_evaluated_by_two": 47,
+    "agreed_count": 34,
+    "agreement_rate": 72.3,
+    "cohen_kappa": 0.556
+  },
+  "decoy_analysis": {
+    "total_items": 10,
+    "total_evaluations": 20,
+    "unfit_count": 14,
+    "filter_success_rate": 70.0,
+    "passed_count": 4,
+    "passed_rate": 20.0,
+    "false_positives": [
+      {
+        "item_id": 32,
+        "rater": "박",
+        "task": "핵심 인재(Hi-Po) 선발 기준 및 승계 계획(Succession Planning) 수립",
+        "title": "[비대면] QA 전문가 양성 : 상담품질 평가부터 코칭까지",
+        "judgment": "부분 적합"
+      },
+      {
+        "item_id": 36,
+        "rater": "박",
+        "task": "학습관리시스템(LMS) 학습 로그 데이터 분석 및 개인 맞춤형 교육 추천 체계 고도화",
+        "title": "실전 원가회계 : 생산성을 업그레이드하라!",
+        "judgment": "적합"
+      },
+      {
+        "item_id": 43,
+        "rater": "김",
+        "task": "전사 핵심가치(Core Values) 내재화 전략 및 행동 규범(Code of Conduct) 수립",
+        "title": "초일류 기업의 혁신비법, 품질경영",
+        "judgment": "부분 적합"
+      },
+      {
+        "item_id": 43,
+        "rater": "이",
+        "task": "전사 핵심가치(Core Values) 내재화 전략 및 행동 규범(Code of Conduct) 수립",
+        "title": "초일류 기업의 혁신비법, 품질경영",
+        "judgment": "부분 적합"
+      }
+    ]
+  },
+  "raters": [
+    {
+      "rater": "김",
+      "assigned": 24,
+      "entered": 24,
+      "적합": 12,
+      "부분 적합": 4,
+      "부적합": 8,
+      "판단 불가": 0
+    },
+    {
+      "rater": "이",
+      "assigned": 23,
+      "entered": 23,
+      "적합": 8,
+      "부분 적합": 6,
+      "부적합": 7,
+      "판단 불가": 2
+    },
+    {
+      "rater": "박",
+      "assigned": 23,
+      "entered": 23,
+      "적합": 17,
+      "부분 적합": 2,
+      "부적합": 4,
+      "판단 불가": 0
+    },
+    {
+      "rater": "홍",
+      "assigned": 24,
+      "entered": 24,
+      "적합": 13,
+      "부분 적합": 7,
+      "부적합": 3,
+      "판단 불가": 1
+    }
+  ],
+  "precision_at_3": {
+    "n": 59,
+    "strict": 71.2,
+    "lenient": 91.5,
+    "ci95_wilson": [
+      58.6,
+      81.2
+    ],
+    "ci95_cluster_bootstrap": [
+      57.6,
+      84.7
+    ]
+  },
+  "consensus": {
+    "items_total": 30,
+    "items_rated": 30,
+    "both_unclear": 0,
+    "fit": 18,
+    "partial": 9,
+    "unfit": 3,
+    "strict": 60.0,
+    "ci95_task_bootstrap": [
+      36.7,
+      83.3
+    ]
+  }
+}

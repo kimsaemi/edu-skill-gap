@@ -702,7 +702,7 @@ def main():
             "",
             "| 구분 | A. 판정 단위 Precision@3 (Wilson 95%) | B. 항목 합의 Precision@3 (부트스트랩 95%) |",
             "| :--- | :---: | :---: |",
-            f"| **통합 개선안 (E1+E2+E3+E4)** | {cand_p['strict']}% ({cand_p['ci95_wilson'][0]}~{cand_p['ci95_wilson'][1]}%) | {cand_c['strict']}% ({cand_c['ci95_task_bootstrap'][0]}~{cand_c['ci95_task_bootstrap'][1]}%) |",
+            f"| **개선안 (E1 안내 문구 정제 + E4 타 직종 제외 + 결합 비율 0.5)** | {cand_p['strict']}% ({cand_p['ci95_wilson'][0]}~{cand_p['ci95_wilson'][1]}%) | {cand_c['strict']}% ({cand_c['ci95_task_bootstrap'][0]}~{cand_c['ci95_task_bootstrap'][1]}%) |",
             f"| **기본 추천 (기존 하이브리드+리랭커)** | {base_p['strict']}% ({base_p['ci95_wilson'][0]}~{base_p['ci95_wilson'][1]}%) | {base_c['strict']}% ({base_c['ci95_task_bootstrap'][0]}~{base_c['ci95_task_bootstrap'][1]}%) |",
             f"| **성능 차이 (개선안 - 기본)** | **{cmp['diff_strict_a']}%p** ({cmp['ci95_diff_a'][0] if cmp['ci95_diff_a'] else '-'}~{cmp['ci95_diff_a'][1] if cmp['ci95_diff_a'] else '-'}%p) | **{cmp['diff_strict_b']}%p** ({cmp['ci95_diff_b'][0] if cmp['ci95_diff_b'] else '-'}~{cmp['ci95_diff_b'][1] if cmp['ci95_diff_b'] else '-'}%p) |",
             "",
