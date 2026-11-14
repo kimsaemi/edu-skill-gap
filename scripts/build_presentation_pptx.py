@@ -199,7 +199,7 @@ def add_slide_base(title_text, section_tag=None, subtitle_text=None, is_dark=Fal
         ftf = ft.text_frame
         ftf.margin_left = ftf.margin_top = ftf.margin_right = ftf.margin_bottom = 0
         fp = ftf.paragraphs[0]
-        fp.text = f"인사 교육 지도 (kimsaemi/edu-skill-gap)  |  {DASHBOARD_URL}  |  {slide_num} / 20"
+        fp.text = f"인사 교육 지도 (kimsaemi/edu-skill-gap)  |  {DASHBOARD_URL}  |  {slide_num} / 21"
         fp.alignment = PP_ALIGN.RIGHT
         fp.font.name = FONT_NAME
         fp.font.size = Pt(9.5)
@@ -320,6 +320,8 @@ dm = data["dashboard_mapping"]
 rec = data["recommend"]
 eda = data["eda"]
 ho = data["human_eval_rounds"]["holdout"]
+ho2 = data["human_eval_holdout2"]
+ho_all = data["human_eval_rounds"]["holdout_all"]
 r2 = data["human_eval_rounds"]["round2"]
 r1 = r1_metrics
 
@@ -393,13 +395,23 @@ filled_slots = dm["slots_total"] - dm["thin_slots"]
 ho_p3 = ho["precision_at_3"]["strict"]
 ho_ci = ho["precision_at_3"]["ci95_cluster_bootstrap"]
 ho_cons = ho["consensus"]["strict"]
+ho2_p3 = ho2["final_recommendation"]["precision_at_3"]["strict"]
+ho2_cons = ho2["final_recommendation"]["consensus"]["strict"]
+bm25_p3 = ho2["bm25_recommendation"]["precision_at_3"]["strict"]
+bm25_cons = ho2["bm25_recommendation"]["consensus"]["strict"]
+ho_all_p3 = ho_all["precision_at_3"]["strict"]
+ho_all_w = ho_all["precision_at_3"]["ci95_wilson"]
+ho_all_cb = ho_all["precision_at_3"]["ci95_cluster_bootstrap"]
+ho_all_cons = ho_all["consensus"]["strict"]
+decoy = ho2["decoy_analysis"]
+both_n = ho2.get("both_count", 15)
 
 add_kpi_card(s2, 0.65, 1.5, 2.85, 2.2, f"{kpi['courses']:,}개", "교육 데이터",
              f"정제 카탈로그 (추천 후보 {cand_n:,}개)\n제공 기관 {kpi['providers']}곳 · 기준 {data['generated']}", C_TEAL)
 add_kpi_card(s2, 3.7, 1.5, 2.85, 2.2, f"{cov_pct:.1f}%", "추천 커버리지",
              f"목표 95% · 270개 슬롯 중 {filled_slots}칸 3개 채움", C_BLUE)
-add_kpi_card(s2, 6.75, 1.5, 2.85, 2.2, f"{ho_p3:.1f}%", "사람 평가 (홀드아웃)",
-             f"목표 70% · 95% 범위 {ho_ci[0]:.0f}~{ho_ci[1]:.0f}%\n두 사람 합의 기준 {ho_cons:.1f}%", C_YEL)
+add_kpi_card(s2, 6.75, 1.5, 2.85, 2.2, f"{ho_all_p3:.1f}%", "사람 평가 (홀드아웃 합산)",
+             f"목표 70% · 1차 {ho_p3:.1f}% / 2차 {ho2_p3:.1f}%\n95% 범위 {ho_all_w[0]:.0f}~{ho_all_w[1]:.0f}% · 합의 {ho_all_cons:.1f}%", C_YEL)
 add_kpi_card(s2, 9.8, 1.5, 2.85, 2.2, "0건", "합성 후기·평점",
              "가짜 후기·평점 전면 제거 (목표 0건)", C_RUST)
 
@@ -408,8 +420,8 @@ add_text_lines(s2, 0.9, 4.2, 11.5, 2.4, [
     "핵심 결론",
     f"• 인사 교육은 많지만, 노무({labor_n}개)·보상({comp_n}개) 실무 과정은 부족하고 중급 유료 가격 중앙값은 {mid_price:,}원으로 비쌉니다.",
     f"• NCS 과업 {kpi['tasks']}개 기준으로 기관을 가리지 않고 {cov_pct:.1f}% 조합에 맞춤 추천 Top 3를 제공합니다.",
-    f"• 처음 보는 업무 10개(홀드아웃) 사람 평가에서 {ho_p3:.1f}% 적합 판정을 받았으며(합의 기준 {ho_cons:.1f}%), 평점 대신 업무 적합도와 근거를 보여 줍니다."
-], font_size=14, color=C_INK, bold_first=True)
+    f"• 처음 보는 업무 20개 사람 평가에서 적합 {ho_all_p3:.1f}%로 목표 70%에 조금 못 미쳤고, 같은 업무에서 단순 키워드 검색(BM25)과 블라인드로 비교했을 때 적합률 차이는 없었습니다({ho2_p3:.1f}% vs {bm25_p3:.1f}%)."
+], font_size=13.5, color=C_INK, bold_first=True)
 
 
 # ==========================================
@@ -471,7 +483,7 @@ add_card(s4, 0.65, 1.45, 4.4, 2.2, fill=C_HUD, border=C_TEAL, border_pt=1.5)
 add_text_lines(s4, 0.85, 1.65, 4.0, 1.85, [
     "북극성 지표 (North Star Metric)",
     "과업 적합 추천률 (Precision@3)",
-    f"목표: 70.0% 이상 (현재 홀드아웃 {ho_p3:.1f}%)",
+    f"목표: 70.0% 이상 (현재 홀드아웃 합산 {ho_all_p3:.1f}%, 1차 {ho_p3:.1f}% / 2차 {ho2_p3:.1f}%)",
     "보조 KPI: 커버리지 · 1위 유사도 · 근거 품질 · 다양성"
 ], font_size=13.5, color=C_HUD_INK, bold_first=True)
 
@@ -658,7 +670,7 @@ steps_s9 = [
     ("2단계: Cross-Encoder 리랭커 → Top 3", C_YEL, [
         "• 모델: Dongjin-kr/ko-reranker (업무 설명과 과정 설명을 한 쌍으로 동시 판독)",
         f"• 최종 출력: {dm['slots_total']}개 슬롯 중 {filled_slots}칸({cov_pct:.1f}%)에 Top 3 추천",
-        f"• 제목 전용 과정 비율: 전체 {rec['title_only_all_pct']}% → 최종 Top 3 내 {rec['title_only_top3_pct']}%로 감소"
+        f"• 리랭커는 설명 없이 제목만 있는 과정을 Top 3에서 줄였지만({rec['title_only_all_pct']}% → {rec['title_only_top3_pct']}%), 처음 보는 업무의 적합률은 키워드 검색과 비슷함"
     ])
 ]
 
@@ -681,19 +693,19 @@ s10 = add_slide_base(
 )
 
 defs = [
-    ("A · 판정 건 적합률", f"{ho_p3:.1f}% (홀드아웃)", "평가자가 내린 개별 판정 중 '적합' 비율.\n95% 신뢰구간(클러스터 부트스트랩): " + f"{ho_ci[0]:.1f}~{ho_ci[1]:.1f}%"),
-    ("B · 항목 합의 적합률", f"{ho_cons:.1f}% (보수적)", "같은 항목을 본 두 사람 판정이 다를 때 낮은 쪽을 채택한 엄격 기준."),
-    ("C · 평가자 일치율", f"{ho['agreement']['pct']:.1f}% (κ={ho['agreement']['cohen_kappa']:.3f})", "두 평가자가 동일한 판정을 내린 비율과 우연 보정 일치도(Cohen's Kappa).")
+    ("A · 판정 건 적합률", f"{ho_all_p3:.1f}% (홀드아웃 합산)", "평가자가 내린 개별 판정 중 '적합' 비율.\n95% 신뢰구간(Wilson): " + f"{ho_all_w[0]:.1f}~{ho_all_w[1]:.1f}% (목표 70% 미달)"),
+    ("B · 항목 합의 적합률", f"{ho_all_cons:.1f}% (보수적)", "같은 항목을 본 두 사람 판정이 다를 때 낮은 쪽을 채택한 엄격 기준."),
+    ("C · 평가자 일치율", f"{ho_all['agreement']['pct']:.1f}% (κ={ho_all['agreement']['cohen_kappa']:.3f})", "두 평가자가 동일한 판정을 내린 비율과 우연 보정 일치도(Cohen's Kappa).")
 ]
 for idx, (d_t, d_v, d_d) in enumerate(defs):
     x = 0.65 + idx * 4.1
-    add_card(s10, x, 1.48, 3.85, 2.05)
-    add_text_lines(s10, x + 0.2, 1.65, 3.45, 1.75, [d_t, d_v, d_d], font_size=12, color=C_BODY, bold_first=True)
-    s10.shapes[-1].text_frame.paragraphs[1].font.size = Pt(18)
+    add_card(s10, x, 1.48, 3.85, 1.8)
+    add_text_lines(s10, x + 0.2, 1.62, 3.45, 1.55, [d_t, d_v, d_d], font_size=11.5, color=C_BODY, bold_first=True)
+    s10.shapes[-1].text_frame.paragraphs[1].font.size = Pt(17)
     s10.shapes[-1].text_frame.paragraphs[1].font.bold = True
     s10.shapes[-1].text_frame.paragraphs[1].font.color.rgb = C_TEAL
 
-tbl_s10 = s10.shapes.add_table(4, 6, Inches(0.65), Inches(3.8), Inches(12.0), Inches(2.85)).table
+tbl_s10 = s10.shapes.add_table(7, 6, Inches(0.65), Inches(3.45), Inches(12.0), Inches(3.4)).table
 tbl_s10.columns[0].width = Inches(2.8)
 tbl_s10.columns[1].width = Inches(1.4)
 tbl_s10.columns[2].width = Inches(2.4)
@@ -701,40 +713,104 @@ tbl_s10.columns[3].width = Inches(2.2)
 tbl_s10.columns[4].width = Inches(1.8)
 tbl_s10.columns[5].width = Inches(1.4)
 
+ho2_f = ho2["final_recommendation"]
+ho2_b = ho2["bm25_recommendation"]
 rows_s10 = [
     ["평가 라운드", "판정 수(A)", "판정 적합률 A (95% CI)", "합의 적합률 B", "일치율 C (카파)", "1위 적합률"],
-    ["1차 (규칙 개선 전 10개)", f"{r1['precision_at_3']['n']}건",
+    ["1차 (규칙 개선 전)", f"{r1['precision_at_3']['n']}건",
      f"{r1['precision_at_3']['strict']:.1f}% ({r1['precision_at_3']['ci95_cluster_bootstrap'][0]:.1f}~{r1['precision_at_3']['ci95_cluster_bootstrap'][1]:.1f}%)",
      f"{r1['consensus']['strict']:.1f}%", f"{r1['agreement']['pct']:.1f}% ({r1['agreement']['cohen_kappa']:.3f})", f"{r1['by_rank']['1']['strict']:.1f}%"],
-    ["2차 (개선 후 동일 10개)", f"{r2['precision_at_3']['n']}건",
+    ["2차 (개선 후 동일)", f"{r2['precision_at_3']['n']}건",
      f"{r2['precision_at_3']['strict']:.1f}% ({r2['precision_at_3']['ci95_cluster_bootstrap'][0]:.1f}~{r2['precision_at_3']['ci95_cluster_bootstrap'][1]:.1f}%)",
      f"{r2['consensus']['strict']:.1f}%", f"{r2['agreement']['pct']:.1f}% ({r2['agreement']['cohen_kappa']:.3f})", f"{r2['by_rank']['1']['strict']:.1f}%"],
-    ["홀드아웃 (새 업무 10개)", f"{ho['precision_at_3']['n']}건",
-     f"{ho['precision_at_3']['strict']:.1f}% ({ho_ci[0]:.1f}~{ho_ci[1]:.1f}%)",
-     f"{ho['consensus']['strict']:.1f}%", f"{ho['agreement']['pct']:.1f}% ({ho['agreement']['cohen_kappa']:.3f})", f"{ho['by_rank']['1']['strict']:.1f}%"]
+    ["홀드아웃 1차 (새 업무)", f"{ho['precision_at_3']['n']}건",
+     f"{ho_p3:.1f}% ({ho_ci[0]:.1f}~{ho_ci[1]:.1f}%)",
+     f"{ho_cons:.1f}%", f"{ho['agreement']['pct']:.1f}% ({ho['agreement']['cohen_kappa']:.3f})", f"{ho['by_rank']['1']['strict']:.1f}%"],
+    ["홀드아웃 2차 (최종)", f"{ho2_f['precision_at_3']['n']}건",
+     f"{ho2_p3:.1f}% ({ho2_f['precision_at_3']['ci95_wilson'][0]:.1f}~{ho2_f['precision_at_3']['ci95_wilson'][1]:.1f}%)",
+     f"{ho2_cons:.1f}%", "-", "-"],
+    ["홀드아웃 2차 (BM25)", f"{ho2_b['precision_at_3']['n']}건",
+     f"{bm25_p3:.1f}% ({ho2_b['precision_at_3']['ci95_wilson'][0]:.1f}~{ho2_b['precision_at_3']['ci95_wilson'][1]:.1f}%)",
+     f"{bm25_cons:.1f}%", "-", "-"],
+    ["홀드아웃 합산 (최종)", f"{ho_all['precision_at_3']['n']}건",
+     f"{ho_all_p3:.1f}% ({ho_all_w[0]:.1f}~{ho_all_w[1]:.1f}%)",
+     f"{ho_all_cons:.1f}%", f"{ho_all['agreement']['pct']:.1f}% ({ho_all['agreement']['cohen_kappa']:.3f})", f"{ho_all['by_rank']['1']['strict']:.1f}% (1차)"]
 ]
 for r_i, row in enumerate(rows_s10):
     for c_i, val in enumerate(row):
         tbl_s10.cell(r_i, c_i).text = val
-style_table(tbl_s10, font_size=11.5)
+style_table(tbl_s10, font_size=11)
 
 
 # ==========================================
-# SLIDE 11: ⑤ 대시보드 시각화 공유 - 오차막대 & 인사 교육 지도
+# SLIDE 11: ④ 핵심 분석 지표 설명 - 단순 키워드 검색과 비교 (홀드아웃 2차)
+# ==========================================
+s11_cmp = add_slide_base(
+    "단순 키워드 검색과 비교 (홀드아웃 2차)",
+    section_tag="④ 핵심 분석 지표 설명",
+    subtitle_text=f"처음 보는 업무 10개 블라인드 비교 ({ho2['entered']}/{ho2['assigned']}건 완료)",
+    slide_num=11
+)
+
+tbl_s11 = s11_cmp.shapes.add_table(3, 4, Inches(0.65), Inches(1.5), Inches(12.0), Inches(1.75)).table
+tbl_s11.columns[0].width = Inches(3.2)
+tbl_s11.columns[1].width = Inches(3.2)
+tbl_s11.columns[2].width = Inches(3.2)
+tbl_s11.columns[3].width = Inches(2.4)
+
+diff_a = ho2["comparison"]["diff_strict_a"]
+diff_b = ho2["comparison"]["diff_strict_b"]
+fmt_diff = lambda v: f"+{v:.1f}%p" if v > 0 else f"{v:.1f}%p"
+
+rows_s11 = [
+    ["추천 방식", "A. 판정 건 적합률 (Wilson 95% CI)", "B. 항목 합의 적합률 (업무 CI)", "성능 차이"],
+    ["최종 추천 (하이브리드+리랭커)",
+     f"{ho2_p3:.1f}% ({ho2_f['precision_at_3']['ci95_wilson'][0]:.1f}~{ho2_f['precision_at_3']['ci95_wilson'][1]:.1f}%)",
+     f"{ho2_cons:.1f}% ({ho2_f['consensus']['ci95_task_bootstrap'][0]:.1f}~{ho2_f['consensus']['ci95_task_bootstrap'][1]:.1f}%)",
+     f"A: {fmt_diff(diff_a)} / B: {fmt_diff(diff_b)}"],
+    ["대조군 (BM25 키워드 단독)",
+     f"{bm25_p3:.1f}% ({ho2_b['precision_at_3']['ci95_wilson'][0]:.1f}~{ho2_b['precision_at_3']['ci95_wilson'][1]:.1f}%)",
+     f"{bm25_cons:.1f}% ({ho2_b['consensus']['ci95_task_bootstrap'][0]:.1f}~{ho2_b['consensus']['ci95_task_bootstrap'][1]:.1f}%)",
+     f"95% CI: {ho2['comparison']['ci95_diff_a'][0]:.1f}~{ho2['comparison']['ci95_diff_a'][1]:.1f}%p"]
+]
+for r_i, row in enumerate(rows_s11):
+    for c_i, val in enumerate(row):
+        tbl_s11.cell(r_i, c_i).text = val
+style_table(tbl_s11, font_size=11.5)
+
+add_card(s11_cmp, 0.65, 3.5, 5.85, 3.2, fill=C_WARN_BG, border=C_RUST)
+add_text_lines(s11_cmp, 0.88, 3.7, 5.4, 2.8, [
+    "가짜 추천(위약) 검정 결과",
+    f"• 다른 업무 과정을 섞은 {decoy['total_items']}개({decoy['total_evaluations']}건) 중 부적합 {decoy['unfit_count']}건({decoy['filter_success_rate']:.1f}%), 적합 또는 부분 적합 {decoy['passed_count']}건",
+    f"• 평가자가 다른 업무 과정을 {decoy['passed_count']}건이나 적합·부분 적합으로 판정해, 팀 내부 평가가 후하게 나올 수 있음이 확인됨",
+    "• 다만 다른 인사 업무에서 가져와 일부 실제 관련 과정이 포함돼 이 수치는 참고값"
+], font_size=12, color=C_WARN_INK, bold_first=True, line_spacing=1.28)
+
+add_card(s11_cmp, 6.75, 3.5, 5.9, 3.2, fill=C_HUD, border=C_HUD_LINE)
+add_text_lines(s11_cmp, 7.0, 3.7, 5.4, 2.8, [
+    "비교 평가 해석",
+    f"• 두 방식이 30개 중 {both_n}개를 같은 과정으로 골랐고, 나머지까지 합쳐도 적합률 차이는 오차 범위 안",
+    f"• 리랭커는 제목 전용 과정을 줄였지만({rec['title_only_all_pct']}% → {rec['title_only_top3_pct']}%), 처음 보는 업무 적합률은 BM25와 비슷함",
+    "• 서비스 차별점은 정확도보다 업무 단위 정리와 추천 근거 제시에 있으며, 정확도는 개선 과제"
+], font_size=12, color=C_HUD_INK, bold_first=True, line_spacing=1.28)
+
+
+# ==========================================
+# SLIDE 12: ⑤ 대시보드 시각화 공유 - 오차막대 & 인사 교육 지도
 # ==========================================
 s11 = add_slide_base(
     "대시보드 시각화 ①: 사람 평가 오차막대와 인사 교육 지도",
     section_tag="⑤ 대시보드 시각화 공유",
     subtitle_text=f"라이브 대시보드 확인: {DASHBOARD_URL}/#human-eval  |  {DASHBOARD_URL}/#course-map-fig",
-    slide_num=11
+    slide_num=12
 )
 
 add_card(s11, 0.65, 1.48, 6.2, 5.28, is_dark=True)
 s11.shapes.add_picture(os.path.join(CHART_DIR, "dash_human_eval_errorbar.png"), Inches(0.8), Inches(1.62), width=Inches(5.9))
 add_text_lines(s11, 0.85, 5.45, 5.8, 1.15, [
     "사람 평가 Precision@3 오차막대 (#human-eval)",
-    f"• 1차 {r1['precision_at_3']['strict']:.1f}% → 2차 {r2['precision_at_3']['strict']:.1f}% → 홀드아웃 {ho_p3:.1f}%로 목표 70% 달성",
-    "• 표본이 작아(10개 업무) 95% 신뢰구간이 넓어 추가 평가 필요"
+    f"• 홀드아웃 1차 {ho_p3:.1f}%, 2차 {ho2_p3:.1f}%(BM25 {bm25_p3:.1f}%), 합산 {ho_all_p3:.1f}%로 목표 70%에 조금 못 미침",
+    "• 표본이 커졌으나 95% 신뢰구간(57.6~74.7%)은 여전히 넓음"
 ], font_size=11.5, color=C_HUD_INK, bold_first=True)
 
 add_card(s11, 7.05, 1.48, 5.6, 5.28, is_dark=True)
@@ -752,7 +828,7 @@ s12 = add_slide_base(
     "대시보드 시각화 ②: 기관 쏠림과 실무 사례 '급여 담당자'",
     section_tag="⑤ 대시보드 시각화 공유",
     subtitle_text=f"라이브 대시보드 확인: {DASHBOARD_URL}/#ch-bias  |  {DASHBOARD_URL}/#explorer",
-    slide_num=12
+    slide_num=13
 )
 
 add_card(s12, 0.65, 1.48, 5.9, 5.28, is_dark=True)
@@ -778,7 +854,7 @@ s13 = add_slide_base(
     "인사이트 ①: 중급 비용 장벽과 노무·보상·조직문화 공백",
     section_tag="⑥ 비즈니스 인사이트 도출",
     subtitle_text="대시보드 05장 인사이트 카드 1~2 (데이터 기반 발견 → 의미 → 전략)",
-    slide_num=13
+    slide_num=14
 )
 
 ins12 = [
@@ -810,7 +886,7 @@ s14 = add_slide_base(
     "인사이트 ②: 평점 한계·데이터 노후화·기관 쏠림",
     section_tag="⑥ 비즈니스 인사이트 도출",
     subtitle_text="대시보드 05장 인사이트 카드 3~5 (KPC 쏠림은 '원인 미확인' 유지)",
-    slide_num=14
+    slide_num=15
 )
 
 ins345 = [
@@ -847,7 +923,7 @@ s15 = add_slide_base(
     "개선 제안 & 액션 플랜 (So What → Now What)",
     section_tag="⑦ 개선 제안 & 액션 플랜",
     subtitle_text="발견된 5가지 인사이트에 대한 구체적 실행 계획 및 기대 효과",
-    slide_num=15
+    slide_num=16
 )
 
 tbl_s15 = s15.shapes.add_table(6, 4, Inches(0.65), Inches(1.5), Inches(12.0), Inches(5.15)).table
@@ -877,26 +953,26 @@ s16 = add_slide_base(
     "시스템의 남은 한계와 검증 고도화 계획",
     section_tag="⑦ 개선 제안 & 액션 플랜",
     subtitle_text="대시보드 06장 '읽을 때 알아 둘 것' 기반 솔직한 한계 명시",
-    slide_num=16
+    slide_num=17
 )
 
 add_card(s16, 0.65, 1.5, 5.85, 5.15, fill=C_WARN_BG, border=C_RUST)
 add_text_lines(s16, 0.88, 1.72, 5.4, 4.7, [
     "현재 시스템의 남은 한계 (주의사항)",
     f"• 약한 추천 칸: '수습 평가 기준표' 업무(실무)는 리랭커 점수가 {prob_scores}로 관련 낮은 과정이 채워짐 ({total_slots}개 슬롯 중 0.1 미만 포함 {lt01_slots}개)",
-    f"• 팀 내부 평가 한계: 팀원 4명 평가라 후하게 판정됐을 가능성 존재 (표본 10개 업무, 신뢰구간 {ho_ci[0]:.0f}~{ho_ci[1]:.0f}%)",
+    f"• 평가 결과와 내부 편향: 홀드아웃 합산 A {ho_all_p3:.1f}%(목표 70% 미달), BM25와 차이 없음({ho2_p3:.1f}% vs {bm25_p3:.1f}%). 가짜 추천 {decoy['total_evaluations']}건 중 {decoy['passed_count']}건 통과로 후한 판정 가능성 확인",
     f"• 난이도 표기 편차: 미표기 {data['difficulty']['unlabeled']:,}개({data['difficulty']['unlabeled_pct']}%)는 KMA·KPC 위주이며 표기 기준 기관별 상이",
     f"• 반복 추천 및 NCS 미연결: 과업 {rec['needs_review']}개는 임시 역량 연결, 과정 {rec['reused5_courses']}개가 5개+ 과업에 반복({rec['reused5_slot_pct']}%)"
-], font_size=12.5, color=C_WARN_INK, bold_first=True, line_spacing=1.28)
+], font_size=12, color=C_WARN_INK, bold_first=True, line_spacing=1.24)
 
 add_card(s16, 6.75, 1.5, 5.9, 5.15, fill=C_HUD, border=C_HUD_LINE)
 add_text_lines(s16, 7.0, 1.72, 5.4, 4.7, [
-    "향후 고도화 로드맵",
-    "1. 평가 신뢰도 강화: 처음 보는 업무 10개 추가 평가(홀드아웃 2차) — 키워드 검색(BM25) 추천과 블라인드 비교, 가짜 추천을 섞어 평가자가 걸러내는지 확인",
-    "2. 데이터 파이프라인 자동화: 민간 기관 시간·가격 결측 보완 및 고용24 월간 자동 갱신 배치",
-    f"3. 추천 모델 정교화: 반복 추천 감점 도입, 기관 편중 보정, 미연결 과업 {rec['needs_review']}개용 NCS 능력단위 보강",
-    "4. 사용자 피드백 루프: 수강 후 '업무 적용 도움 여부' 데이터 수집 → 대시보드 지표 자동 반영"
-], font_size=12.5, color=C_HUD_INK, bold_first=True, line_spacing=1.28)
+    "향후 개선 제안 (로드맵)",
+    "1. 가짜 추천 재검정 제안: 인사와 무관한 분야에서 가짜 추천을 골라 다시 검정",
+    "2. 평가 기준 정렬 제안: 평가 전에 적합·부분 적합 판정 예시를 공유해 기준 맞추기",
+    "3. 과업 설명 보강 제안: BM25와 차이가 나지 않은 업무를 골라 업무 설명(KSA) 보강 후 재평가",
+    f"4. 데이터·모델·피드백: 결측 보완 및 고용24 월간 갱신, 반복 추천 감점·미연결 과업 {rec['needs_review']}개 NCS 보강, 수강 후 도움 피드백 수집"
+], font_size=12, color=C_HUD_INK, bold_first=True, line_spacing=1.24)
 
 
 # ==========================================
@@ -906,7 +982,7 @@ s17 = add_slide_base(
     "팀 협업 및 역할 분담",
     section_tag="⑧ 회고",
     subtitle_text="팀원별 담당 영역과 협업 방식 (작성 대기 빈 틀)",
-    slide_num=17
+    slide_num=18
 )
 
 for idx in range(4):
@@ -933,7 +1009,7 @@ s18 = add_slide_base(
     "프로젝트 회고: 협업 · 어려웠던 점 · 배운 점",
     section_tag="⑧ 회고",
     subtitle_text="프로젝트를 마치며 팀원들이 직접 작성할 회고 공간입니다.",
-    slide_num=18
+    slide_num=19
 )
 
 retro_boxes = [
@@ -964,7 +1040,7 @@ s19 = add_slide_base(
     "부록: 핵심 용어 풀이",
     section_tag="부록 · 용어 정리",
     subtitle_text="발표 대시보드 '용어 정리' 기준",
-    slide_num=19
+    slide_num=20
 )
 
 tbl_s19 = s19.shapes.add_table(9, 2, Inches(0.65), Inches(1.48), Inches(12.0), Inches(5.25)).table
@@ -996,7 +1072,7 @@ s20 = add_slide_base(
     section_tag="마무리",
     subtitle_text="인사 교육 지도 프로젝트 결과물 및 소스 코드 안내",
     is_dark=True,
-    slide_num=20
+    slide_num=21
 )
 
 add_card(s20, 0.65, 1.7, 12.0, 2.7, is_dark=True, border=C_TEAL, border_pt=1.5)
