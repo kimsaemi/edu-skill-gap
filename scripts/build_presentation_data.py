@@ -566,10 +566,10 @@ def main():
         # 팀원 분야 검수 (고객 화면의 분야 연결 규칙 검증, scripts/apply_domain_review_results.py)
         "domain_review": (json.loads((HUMAN_EVAL.parent / "domain_review_metrics.json").read_text(encoding="utf-8"))
                           if (HUMAN_EVAL.parent / "domain_review_metrics.json").exists() else None),
-        # 2차(같은 업무 10개, 개선 후), 홀드아웃 1차, 홀드아웃 2차(비교평가), 홀드아웃 합산 사람 평가
+        # 2차(같은 업무 10개, 개선 후), 홀드아웃 1차, 홀드아웃 2차(비교평가), 홀드아웃 3차(개선안 비교), 홀드아웃 합산 사람 평가
         "human_eval_rounds": {
             r: json.loads((HUMAN_EVAL.parent / f"precision_eval_{r}_metrics.json").read_text(encoding="utf-8"))
-            for r in ("round2", "holdout", "holdout2", "holdout_all") if (HUMAN_EVAL.parent / f"precision_eval_{r}_metrics.json").exists()
+            for r in ("round2", "holdout", "holdout2", "holdout3", "holdout_all") if (HUMAN_EVAL.parent / f"precision_eval_{r}_metrics.json").exists()
         },
         "human_eval_holdout2": (
             {
@@ -580,6 +580,17 @@ def main():
                 ),
             }
             if (HUMAN_EVAL.parent / "precision_eval_holdout2_metrics.json").exists()
+            else None
+        ),
+        "human_eval_holdout3": (
+            {
+                **json.loads((HUMAN_EVAL.parent / "precision_eval_holdout3_metrics.json").read_text(encoding="utf-8")),
+                "shared_count": (
+                    int((pd.read_csv(RECO / "precision_eval_holdout3_key.csv")["source"] == "shared").sum())
+                    if (RECO / "precision_eval_holdout3_key.csv").exists() else 0
+                ),
+            }
+            if (HUMAN_EVAL.parent / "precision_eval_holdout3_metrics.json").exists()
             else None
         ),
         # 대시보드 업무·강좌 매핑 (분야별 강좌 수, 부족 업무, 빈 카테고리)

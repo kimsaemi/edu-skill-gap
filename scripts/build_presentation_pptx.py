@@ -137,6 +137,59 @@ def generate_data_charts():
     plt.savefig(os.path.join(CHART_DIR, "chart_missing.png"), dpi=260)
     plt.close()
 
+    # Chart 3: Human eval errorbar chart
+    hr = data.get("human_eval_rounds", {})
+    ho = hr.get("holdout", {})
+    ho2 = data.get("human_eval_holdout2") or hr.get("holdout2", {})
+    ho3 = data.get("human_eval_holdout3") or hr.get("holdout3", {})
+    ho_all = hr.get("holdout_all", {})
+    ho2_f = ho2.get("final_recommendation", {}) if ho2 else {}
+    ho2_b = ho2.get("bm25_recommendation", {}) if ho2 else {}
+    ho3_b = ho3.get("baseline_recommendation", {}) if ho3 else {}
+
+    bar_items = [
+        {"name": "1차", "sub": "동일 10개", "p": r1_metrics["precision_at_3"]["strict"], "ci": r1_metrics["precision_at_3"]["ci95_cluster_bootstrap"], "col": "#4CD9B8"},
+        {"name": "2차", "sub": "동일 10개", "p": r2_metrics["precision_at_3"]["strict"], "ci": r2_metrics["precision_at_3"]["ci95_cluster_bootstrap"], "col": "#4CD9B8"},
+        {"name": "홀드아웃 1차", "sub": "새 업무 10개", "p": ho["precision_at_3"]["strict"], "ci": ho["precision_at_3"]["ci95_cluster_bootstrap"], "col": "#F6C431"},
+        {"name": "2차 (최종)", "sub": "새 업무 10개", "p": ho2_f.get("precision_at_3", {}).get("strict", 59.3), "ci": ho2_f.get("precision_at_3", {}).get("ci95_wilson", [46.7, 70.9]), "col": "#F6C431"},
+        {"name": "2차 (BM25)", "sub": "키워드 대조", "p": ho2_b.get("precision_at_3", {}).get("strict", 57.6), "ci": ho2_b.get("precision_at_3", {}).get("ci95_wilson", [45.1, 69.2]), "col": "#5B8DCB"},
+        {"name": "3차 (기본)", "sub": "새 업무 10개", "p": ho3_b.get("precision_at_3", {}).get("strict", 65.0), "ci": ho3_b.get("precision_at_3", {}).get("ci95_wilson", [52.4, 75.8]), "col": "#F6C431"},
+        {"name": "합산", "sub": "1·2·3차 30개", "p": ho_all["precision_at_3"]["strict"], "ci": ho_all["precision_at_3"]["ci95_wilson"], "col": "#D3542E"},
+    ]
+
+    import numpy as np
+    fig, ax = plt.subplots(figsize=(7.2, 3.8), dpi=260)
+    fig.patch.set_facecolor("#17191F")
+    ax.set_facecolor("#17191F")
+
+    xs = np.arange(len(bar_items))
+    ax.bar(xs, [it["p"] for it in bar_items], color=[it["col"] for it in bar_items], width=0.55, alpha=0.88)
+
+    for idx, it in enumerate(bar_items):
+        lo, hi = it["ci"]
+        val = it["p"]
+        ax.errorbar(idx, val, yerr=[[max(0, val - lo)], [max(0, hi - val)]], fmt="none", ecolor="#F1EBD8", elinewidth=1.6, capsize=4.5, capthick=1.6)
+        ax.text(idx, 4, f"{val:.1f}%", ha="center", va="bottom", fontsize=9.5, fontweight="bold", color="#17191F")
+        ax.text(idx, hi + 1.2, f"[{lo:.1f}~{hi:.1f}]", ha="center", va="bottom", fontsize=7.5, color="#9AA0A9")
+
+    ax.axhline(70, color="#F6C431", linestyle="--", linewidth=1.5, alpha=0.9)
+    ax.set_xlim(-0.6, len(bar_items) - 0.4 + 0.75)
+    ax.text(len(bar_items) - 0.35, 70, "목표 70%", color="#F6C431", fontsize=8.5, fontweight="bold", ha="left", va="center")
+
+    ax.set_ylim(0, 105)
+    ax.set_xticks(xs)
+    ax.set_xticklabels([f"{it['name']}\n({it['sub']})" for it in bar_items], fontsize=8.5, color="#F1EBD8")
+    ax.tick_params(colors="#9AA0A9", labelsize=8.5)
+    ax.yaxis.grid(True, linestyle="--", alpha=0.3, color="#393E49")
+    ax.spines["top"].set_visible(False)
+    ax.spines["right"].set_visible(False)
+    ax.spines["left"].set_color("#393E49")
+    ax.spines["bottom"].set_color("#393E49")
+
+    plt.tight_layout()
+    plt.savefig(os.path.join(CHART_DIR, "dash_human_eval_errorbar.png"), dpi=260)
+    plt.close()
+
 
 generate_data_charts()
 
@@ -433,6 +486,8 @@ ho_all_p3 = ho_all["precision_at_3"]["strict"]
 ho_all_w = ho_all["precision_at_3"]["ci95_wilson"]
 ho_all_cb = ho_all["precision_at_3"]["ci95_cluster_bootstrap"]
 ho_all_cons = ho_all["consensus"]["strict"]
+ho3 = data.get("human_eval_holdout3") or data["human_eval_rounds"].get("holdout3")
+ho3_p3 = ho3["baseline_recommendation"]["precision_at_3"]["strict"] if ho3 and "baseline_recommendation" in ho3 else 65.0
 decoy = ho2["decoy_analysis"]
 both_n = ho2.get("both_count", 15)
 
@@ -441,7 +496,7 @@ add_kpi_card(s2, 0.65, 1.5, 2.85, 2.2, f"{kpi['courses']:,}개", "교육 데이�
 add_kpi_card(s2, 3.7, 1.5, 2.85, 2.2, f"{cov_pct:.1f}%", "추천 커버리지",
              f"목표 95% · 270개 슬롯 중 {filled_slots}칸 3개 채움", C_BLUE)
 add_kpi_card(s2, 6.75, 1.5, 2.85, 2.2, f"{ho_all_p3:.1f}%", "사람 평가 (홀드아웃 합산)",
-             f"목표 70% · 1차 {ho_p3:.1f}% / 2차 {ho2_p3:.1f}%\n95% 범위 {ho_all_w[0]:.0f}~{ho_all_w[1]:.0f}% · 합의 {ho_all_cons:.1f}%", C_YEL)
+             f"목표 70% · 1차 {ho_p3:.1f}% / 2차 {ho2_p3:.1f}% / 3차 {ho3_p3:.1f}%\n95% 범위 {ho_all_w[0]:.0f}~{ho_all_w[1]:.0f}% · 합의 {ho_all_cons:.1f}%", C_YEL)
 add_kpi_card(s2, 9.8, 1.5, 2.85, 2.2, "0건", "합성 후기·평점",
              "가짜 후기·평점 전면 제거 (목표 0건)", C_RUST)
 
@@ -450,7 +505,7 @@ add_text_lines(s2, 0.9, 4.2, 11.5, 2.4, [
     "핵심 결론",
     f"• 인사 교육은 많지만, 노무({labor_n}개)·보상({comp_n}개) 실무 과정은 부족하고 중급 유료 가격 중앙값은 {mid_price:,}원으로 비쌉니다.",
     f"• NCS 과업 {kpi['tasks']}개 기준으로 기관을 가리지 않고 {cov_pct:.1f}% 조합에 맞춤 추천 Top 3를 제공합니다.",
-    f"• 처음 보는 업무 20개 사람 평가에서 적합 {ho_all_p3:.1f}%로 목표 70%에 조금 못 미쳤고, 같은 업무에서 단순 키워드 검색(BM25)과 블라인드로 비교했을 때 적합률 차이는 없었습니다({ho2_p3:.1f}% vs {bm25_p3:.1f}%)."
+    f"• 처음 보는 업무 30개 사람 평가에서 적합 {ho_all_p3:.1f}%로 목표 70%에 조금 못 미쳤고, 같은 업무에서 단순 키워드 검색(BM25)과 블라인드로 비교했을 때 적합률 차이는 없었습니다({ho2_p3:.1f}% vs {bm25_p3:.1f}%)."
 ], font_size=13.5, color=C_INK, bold_first=True)
 
 
@@ -513,7 +568,7 @@ add_card(s4, 0.65, 1.45, 4.4, 2.2, fill=C_HUD, border=C_TEAL, border_pt=1.5)
 add_text_lines(s4, 0.85, 1.65, 4.0, 1.85, [
     "북극성 지표 (North Star Metric)",
     "과업 적합 추천률 (Precision@3)",
-    f"목표: 70.0% 이상 (현재 홀드아웃 합산 {ho_all_p3:.1f}%, 1차 {ho_p3:.1f}% / 2차 {ho2_p3:.1f}%)",
+    f"목표: 70.0% 이상 (현재 홀드아웃 합산 {ho_all_p3:.1f}%, 1차 {ho_p3:.1f}% / 2차 {ho2_p3:.1f}% / 3차 {ho3_p3:.1f}%)",
     "보조 KPI: 커버리지 · 1위 유사도 · 근거 품질 · 다양성"
 ], font_size=13.5, color=C_HUD_INK, bold_first=True)
 
@@ -735,7 +790,7 @@ for idx, (d_t, d_v, d_d) in enumerate(defs):
     s10.shapes[-1].text_frame.paragraphs[1].font.bold = True
     s10.shapes[-1].text_frame.paragraphs[1].font.color.rgb = C_TEAL
 
-tbl_s10 = s10.shapes.add_table(7, 6, Inches(0.65), Inches(3.45), Inches(12.0), Inches(3.4)).table
+tbl_s10 = s10.shapes.add_table(8, 6, Inches(0.65), Inches(3.45), Inches(12.0), Inches(3.4)).table
 tbl_s10.columns[0].width = Inches(2.8)
 tbl_s10.columns[1].width = Inches(1.4)
 tbl_s10.columns[2].width = Inches(2.4)
@@ -745,6 +800,11 @@ tbl_s10.columns[5].width = Inches(1.4)
 
 ho2_f = ho2["final_recommendation"]
 ho2_b = ho2["bm25_recommendation"]
+ho3_b = ho3["baseline_recommendation"] if ho3 and "baseline_recommendation" in ho3 else None
+ho3_b_n = ho3_b["precision_at_3"]["n"] if ho3_b else 60
+ho3_b_ci = ho3_b["precision_at_3"]["ci95_wilson"] if ho3_b else [52.4, 75.8]
+ho3_b_cons = ho3_b["consensus"]["strict"] if ho3_b else 50.0
+
 rows_s10 = [
     ["평가 라운드", "판정 수(A)", "판정 적합률 A (95% CI)", "합의 적합률 B", "일치율 C (카파)", "1위 적합률"],
     ["1차 (규칙 개선 전)", f"{r1['precision_at_3']['n']}건",
@@ -762,6 +822,9 @@ rows_s10 = [
     ["홀드아웃 2차 (BM25)", f"{ho2_b['precision_at_3']['n']}건",
      f"{bm25_p3:.1f}% ({ho2_b['precision_at_3']['ci95_wilson'][0]:.1f}~{ho2_b['precision_at_3']['ci95_wilson'][1]:.1f}%)",
      f"{bm25_cons:.1f}%", "-", "-"],
+    ["홀드아웃 3차 (기본)", f"{ho3_b_n}건",
+     f"{ho3_p3:.1f}% ({ho3_b_ci[0]:.1f}~{ho3_b_ci[1]:.1f}%)",
+     f"{ho3_b_cons:.1f}%", "-", "-"],
     ["홀드아웃 합산 (최종)", f"{ho_all['precision_at_3']['n']}건",
      f"{ho_all_p3:.1f}% ({ho_all_w[0]:.1f}~{ho_all_w[1]:.1f}%)",
      f"{ho_all_cons:.1f}%", f"{ho_all['agreement']['pct']:.1f}% ({ho_all['agreement']['cohen_kappa']:.3f})", f"{ho_all['by_rank']['1']['strict']:.1f}% (1차)"]
@@ -811,9 +874,9 @@ style_table(tbl_s11, font_size=11.5)
 add_card(s11_cmp, 0.65, 3.5, 5.85, 3.2, fill=C_WARN_BG, border=C_RUST)
 add_text_lines(s11_cmp, 0.88, 3.7, 5.4, 2.8, [
     "가짜 추천(위약) 검정 결과",
-    f"• 다른 업무 과정을 섞은 {decoy['total_items']}개({decoy['total_evaluations']}건) 중 부적합 {decoy['unfit_count']}건({decoy['filter_success_rate']:.1f}%), 적합 또는 부분 적합 {decoy['passed_count']}건",
-    f"• 평가자가 다른 업무 과정을 {decoy['passed_count']}건이나 적합·부분 적합으로 판정해, 팀 내부 평가가 후하게 나올 수 있음이 확인됨",
-    "• 다만 다른 인사 업무에서 가져와 일부 실제 관련 과정이 포함돼 이 수치는 참고값"
+    "• 2차(인사 타 업무 가짜 추천): 20건 중 부적합 7건(35.0%), 적합·부분 적합 13건으로 내부 평가의 관대함 확인",
+    "• 3차(비인사 무관 가짜 추천): 20건 중 부적합 14건(70.0%) 정상 차단, 4건 통과(2건 판단불가)",
+    "• 시사점: 완전히 엉뚱한 비인사 과정은 잘 걸러내지만, 관련 있어 보이는 과정에는 관대할 수 있음"
 ], font_size=12, color=C_WARN_INK, bold_first=True, line_spacing=1.28)
 
 add_card(s11_cmp, 6.75, 3.5, 5.9, 3.2, fill=C_HUD, border=C_HUD_LINE)
@@ -839,8 +902,8 @@ add_card(s11, 0.65, 1.48, 6.2, 5.28, is_dark=True)
 s11.shapes.add_picture(os.path.join(CHART_DIR, "dash_human_eval_errorbar.png"), Inches(0.8), Inches(1.62), width=Inches(5.9))
 add_text_lines(s11, 0.85, 5.45, 5.8, 1.15, [
     "사람 평가 Precision@3 오차막대 (#human-eval)",
-    f"• 홀드아웃 1차 {ho_p3:.1f}%, 2차 {ho2_p3:.1f}%(BM25 {bm25_p3:.1f}%), 합산 {ho_all_p3:.1f}%로 목표 70%에 조금 못 미침",
-    "• 표본이 커졌으나 95% 신뢰구간(57.6~74.7%)은 여전히 넓음"
+    f"• 홀드아웃 1차 {ho_p3:.1f}%, 2차 {ho2_p3:.1f}%(BM25 {bm25_p3:.1f}%), 3차 {ho3_p3:.1f}%, 30개 합산 {ho_all_p3:.1f}%",
+    f"• 95% 신뢰구간({ho_all_w[0]:.1f}~{ho_all_w[1]:.1f}%)은 30개 업무로 확장해 추정 정밀도 개선 (1·2차 20개 66.7%)"
 ], font_size=11.5, color=C_HUD_INK, bold_first=True)
 
 add_card(s11, 7.05, 1.48, 5.6, 5.28, is_dark=True)
@@ -991,7 +1054,7 @@ add_card(s16, 0.65, 1.5, 5.85, 5.15, fill=C_WARN_BG, border=C_RUST)
 add_text_lines(s16, 0.88, 1.72, 5.4, 4.7, [
     "현재 시스템의 남은 한계 (주의사항)",
     f"• 약한 추천 칸: '수습 평가 기준표' 업무(실무)는 리랭커 점수가 {prob_scores}로 관련 낮은 과정이 채워짐 ({total_slots}개 슬롯 중 0.1 미만 포함 {lt01_slots}개)",
-    f"• 평가 결과와 내부 편향: 홀드아웃 합산 A {ho_all_p3:.1f}%(목표 70% 미달), BM25와 차이 없음({ho2_p3:.1f}% vs {bm25_p3:.1f}%). 가짜 추천 {decoy['total_evaluations']}건 중 {decoy['passed_count']}건 통과로 후한 판정 가능성 확인",
+    f"• 평가 결과와 내부 편향: 홀드아웃 합산 A {ho_all_p3:.1f}%(목표 70% 미달), BM25와 차이 없음({ho2_p3:.1f}% vs {bm25_p3:.1f}%). 가짜 추천은 2차에서 타 인사 업무 7건(35.0%) 부적합, 3차에서 비인사 무관 과정 14건(70.0%) 부적합 차단",
     f"• 난이도 표기 편차: 미표기 {data['difficulty']['unlabeled']:,}개({data['difficulty']['unlabeled_pct']}%)는 KMA·KPC 위주이며 표기 기준 기관별 상이",
     f"• 반복 추천 및 NCS 미연결: 과업 {rec['needs_review']}개는 임시 역량 연결, 과정 {rec['reused5_courses']}개가 5개+ 과업에 반복({rec['reused5_slot_pct']}%)"
 ], font_size=12, color=C_WARN_INK, bold_first=True, line_spacing=1.24)
@@ -999,9 +1062,9 @@ add_text_lines(s16, 0.88, 1.72, 5.4, 4.7, [
 add_card(s16, 6.75, 1.5, 5.9, 5.15, fill=C_HUD, border=C_HUD_LINE)
 add_text_lines(s16, 7.0, 1.72, 5.4, 4.7, [
     "향후 개선 제안 (로드맵)",
-    "1. 가짜 추천 재검정 제안: 인사와 무관한 분야에서 가짜 추천을 골라 다시 검정",
-    "2. 평가 기준 정렬 제안: 평가 전에 적합·부분 적합 판정 예시를 공유해 기준 맞추기",
-    "3. 과업 설명 보강 제안: BM25와 차이가 나지 않은 업무를 골라 업무 설명(KSA) 보강 후 재평가",
+    "1. 타 직종 제외 등 개선안 추가 검증: 갈린 7개 과정에서 개선안 쪽이 높았으나(76.9% vs 50.0%) 표본이 작아 더 많은 업무로 다시 확인할 예정",
+    "2. 평가 기준 정렬: 평가 전에 적합·부분 적합 판정 예시를 공유해 기준 맞추기",
+    "3. 과업 설명 보강: BM25와 차이가 나지 않은 업무를 골라 업무 설명(KSA) 보강 후 재평가",
     f"4. 데이터·모델·피드백: 결측 보완 및 고용24 월간 갱신, 반복 추천 감점·미연결 과업 {rec['needs_review']}개 NCS 보강, 수강 후 도움 피드백 수집"
 ], font_size=12, color=C_HUD_INK, bold_first=True, line_spacing=1.24)
 

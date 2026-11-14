@@ -145,10 +145,31 @@ def test_holdout_all_combine():
         .agg(score=("score", "min"))
     )
     assert len(item) == 3, f"Expected 3 consensus items, got {len(item)}"
+
+    # 3-round test (Holdout 1 + Holdout 2 Final + Holdout 3 Baseline/Shared)
+    df_h3 = pd.DataFrame([
+        {"item_id": "1", "rater": "김", "domain": "D3", "task": "T3", "level": "실무", "title": "C6", "provider": "P3", "judgment": "적합"},
+        {"item_id": "1", "rater": "이", "domain": "D3", "task": "T3", "level": "실무", "title": "C6", "provider": "P3", "judgment": "적합"},
+        {"item_id": "2", "rater": "김", "domain": "D3", "task": "T3", "level": "실무", "title": "C7", "provider": "P3", "judgment": "부적합"},
+        {"item_id": "2", "rater": "이", "domain": "D3", "task": "T3", "level": "실무", "title": "C7", "provider": "P3", "judgment": "부적합"},
+        {"item_id": "3", "rater": "김", "domain": "D3", "task": "T3", "level": "실무", "title": "C8", "provider": "P3", "judgment": "부적합"},
+        {"item_id": "3", "rater": "이", "domain": "D3", "task": "T3", "level": "실무", "title": "C8", "provider": "P3", "judgment": "부적합"},
+    ])
+    df_k3 = pd.DataFrame([
+        {"item_id": 1, "source": "shared"},
+        {"item_id": 2, "source": "candidate"},
+        {"item_id": 3, "source": "decoy"},
+    ])
+    combined3 = build_holdout_all_df(df_h1, df_h2, df_k, df_h3, df_k3)
+    assert len(combined3) == 8, f"Expected 8 rows (6 from H1+H2 + 2 from H3 shared), got {len(combined3)}"
+    assert set(combined3["combined_item_id"]) == {"h1_1", "h1_2", "h2_1", "h3_1"}
+    assert "candidate" not in set(combined3["source"])
+    assert "decoy" not in set(combined3["source"])
+
     assert (RESULTS_PATH.exists()), "precision_eval_holdout2_results.csv should exist"
     df_res = pd.read_csv(RESULTS_PATH, dtype=str).fillna("")
     assert (df_res["judgment"] != "").sum() > 0, "results.csv should contain entered judgments from sheet"
-    print("[PASS] holdout_all excludes bm25/decoy, separates h1_/h2_ IDs, and produces 3 consensus items")
+    print("[PASS] holdout_all excludes bm25/candidate/decoy, separates h1_/h2_/h3_ IDs, and combines correctly across 3 rounds")
 
 
 if __name__ == "__main__":
