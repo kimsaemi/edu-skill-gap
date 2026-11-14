@@ -42,6 +42,8 @@ kpc_metrics = None
 if os.path.exists(KPC_METRICS_PATH):
     with open(KPC_METRICS_PATH, encoding="utf-8") as f:
         kpc_metrics = json.load(f)
+else:
+    print(f"[경고] {KPC_METRICS_PATH} 파일을 찾을 수 없어 기본 fallback 값을 사용합니다.")
 
 has_script = os.path.exists(SCRIPT_PATH)
 
@@ -370,8 +372,10 @@ if kpc_metrics:
         kpc_bm25_oth = h3_m["score_components"]["bm25_score"]["other"]["median"]
         kpc_p_kpc = h4_m["kpc_vs_others"]["kpc"]["strict_precision"]
         kpc_p_oth = h4_m["kpc_vs_others"]["others_all"]["strict_precision"]
-    except Exception:
-        pass
+    except Exception as e:
+        print(f"[경고] KPC 메트릭 파싱 실패 ({e}), fallback 값을 유지합니다.")
+else:
+    print("[경고] kpc_metrics 부재로 fallback 값을 사용합니다.")
 
 prob_scores = ", ".join(str(x) for x in rec["weak_slots"]["probation_reranker_scores"])
 lt01_slots = rec["weak_slots"]["lt01_slots"]

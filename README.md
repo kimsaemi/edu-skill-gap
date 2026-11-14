@@ -71,6 +71,7 @@ python scripts/test_dashboard_mapping.py    # 매핑 섹션 회귀 테스트 (�
 
 ```bash
 python scripts/check_customer_no_synthetic_reviews.py   # 고객 화면에 합성 리뷰·평점이 없는지
+python scripts/check_presentation_consistency.py        # 발표 자료 일관성 및 정직성 최종 점검
 python scripts/verify_customer_mvp.py                   # 고객 앱 단위 검증
 python scripts/test_new_flow_verification.py            # 고객 앱 단계 흐름
 python scripts/test_recommender_integration.py          # 추천 엔진

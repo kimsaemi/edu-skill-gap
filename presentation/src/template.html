@@ -1011,8 +1011,8 @@ ol.three li::marker { font-family: var(--pxb); color: var(--teal); }
         <div class="ins-r"><span>전략</span><p>고용24 과정을 월 1회 자동 갱신하고, 일정이 지난 과정에는 "운영 종료" 표시를 붙입니다(적용 완료). 데이터 신선도를 대시보드 지표로 관리합니다.</p></div>
       <div class="ins">
         <div class="ins-h">5 · 추천이 한 기관에 쏠린다</div>
-        <div class="ins-r"><span>발견</span><p>한국생산성본부는 카탈로그의 <b id="i5-cat"></b>%인데 추천 Top 3의 <b id="i5-top"></b>%를 차지합니다. 쏠림은 대부분 후보를 고르는 단계에서 생깁니다. 인사 분야 과정 중 KPC는 19.0%인데, 업무별 상위 후보에서는 32.1%가 되고, Top 3 안에서 KPC 과정의 키워드 점수가 더 높았습니다(중앙값 77.7 vs 70.0). 왜 상위 후보에 많이 들어가는지는 아직 일부만 설명됩니다.</p></div>
-        <div class="ins-r"><span>의미</span><p>사람 평가에서 KPC 추천의 적합률은 72.0%로 다른 기관(57.0%)보다 낮지 않았습니다. 다만 같은 과정의 반복 판정을 고려하면 확실한 우위라고 하기는 어렵습니다.</p></div>
+        <div class="ins-r"><span>발견</span><p>한국생산성본부는 카탈로그의 <b id="i5-cat"></b>%인데 추천 Top 3의 <b id="i5-top"></b>%를 차지합니다. 쏠림은 대부분 후보를 고르는 단계에서 생깁니다. 인사 분야 과정 중 KPC는 <span id="i5-hr-pct"></span>%인데, 업무별 상위 후보에서는 <span id="i5-pool-pct"></span>%가 되고, Top 3 안에서 KPC 과정의 키워드 점수가 더 높았습니다(중앙값 <span id="i5-bm-kpc"></span> vs <span id="i5-bm-oth"></span>). 왜 상위 후보에 많이 들어가는지는 아직 일부만 설명됩니다.</p></div>
+        <div class="ins-r"><span>의미</span><p>사람 평가에서 KPC 추천의 적합률은 <span id="i5-p-kpc"></span>%로 다른 기관(<span id="i5-p-oth"></span>%)보다 낮지 않았습니다. 다만 같은 과정의 반복 판정을 고려하면 확실한 우위라고 하기는 어렵습니다.</p></div>
         <div class="ins-r"><span>전략</span><p>같은 기관 최대 2개 상한은 추천 3개 미만 칸이 4개에서 25개로 늘어 쓰지 않았습니다. 대신 기관별 비중을 지표로 계속 지켜봅니다.</p></div>
       </div>
       </div>
@@ -1477,6 +1477,14 @@ const D = /*__DATA__*/;
   document.querySelectorAll('.mid-price').forEach(n => { n.textContent = midRow && midRow.paid_median ? fmt(midRow.paid_median) : '-'; });
   const kpcRow = RB.bias_steps.find(b => b.label.startsWith('한국생산성'));
   T('#i5-cat', kpcRow.catalog); T('#i5-top', kpcRow.top3);
+  if (D.kpc_bias) {
+    T('#i5-hr-pct', D.kpc_bias.kpc_hr_pct);
+    T('#i5-pool-pct', D.kpc_bias.kpc_pool_pct);
+    T('#i5-bm-kpc', D.kpc_bias.bm25_kpc);
+    T('#i5-bm-oth', D.kpc_bias.bm25_other);
+    T('#i5-p-kpc', D.kpc_bias.eval_kpc);
+    T('#i5-p-oth', D.kpc_bias.eval_other);
+  }
   const tb = (id, html) => { const n = document.getElementById(id); if (n) n.innerHTML = html; };
   const short = s => s.replace(/\(.*\)/, '');
   tb('tb-miss', RB.missing_by_provider.map(r => `<tr><td>${esc(short(r.label))}</td>` +

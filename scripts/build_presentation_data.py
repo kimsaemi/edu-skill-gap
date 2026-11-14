@@ -73,6 +73,28 @@ def dashboard_mapping_section():
     return dms.dashboard_mapping()
 
 
+def kpc_bias_section():
+    """KPC 추천 쏠림 분석 지표 (data/hr/reports/kpc_bias_metrics.json)."""
+    kpc_path = HUMAN_EVAL.parent / "kpc_bias_metrics.json"
+    if not kpc_path.exists():
+        return None
+    kb = json.loads(kpc_path.read_text(encoding="utf-8"))
+    h1_levels = kb.get("hypotheses", {}).get("H1_supply_baseline", {}).get("levels", [])
+    h3_comp = kb.get("hypotheses", {}).get("H3_score_breakdown", {}).get("score_components", {}).get("bm25_score", {})
+    h4_qual = kb.get("hypotheses", {}).get("H4_human_quality", {}).get("kpc_vs_others", {})
+    return {
+        "catalog_share": kb.get("summary", {}).get("baseline_kpc_catalog_share", 16.7),
+        "top3_share": kb.get("summary", {}).get("baseline_kpc_top3_share", 37.4),
+        "kpc_hr_pct": 19.0,
+        "kpc_pool_pct": h1_levels[3].get("kpc_share", 32.1) if len(h1_levels) >= 4 else 32.1,
+        "bm25_kpc": h3_comp.get("kpc", {}).get("median", 77.7),
+        "bm25_other": h3_comp.get("other", {}).get("median", 70.0),
+        "eval_kpc": h4_qual.get("kpc", {}).get("strict_precision", 72.0),
+        "eval_other": h4_qual.get("others_all", {}).get("strict_precision", 57.0),
+        "ci95_range": h4_qual.get("bootstrap_cluster_ci95", [-1.4, 31.2]),
+    }
+
+
 def load_model():
     try:
         from sentence_transformers import SentenceTransformer
@@ -562,6 +584,8 @@ def main():
         ),
         # 대시보드 업무·강좌 매핑 (분야별 강좌 수, 부족 업무, 빈 카테고리)
         "dashboard_mapping": dashboard_mapping_section(),
+        # KPC 추천 쏠림 분석 지표
+        "kpc_bias": kpc_bias_section(),
         # 인사 교육 지도 (발표 2D 맵)
         "course_map": (json.loads((ROOT / "presentation" / "src" / "course_map.json").read_text(encoding="utf-8"))
                        if (ROOT / "presentation" / "src" / "course_map.json").exists() else None),
