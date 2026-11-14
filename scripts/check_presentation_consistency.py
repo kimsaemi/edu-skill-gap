@@ -42,6 +42,8 @@ FORBIDDEN_RULES = [
     ("72.4%", re.compile(r"72\.4%")),
     ("HRD REVIEW", re.compile(r"HRD\s+REVIEW", re.IGNORECASE)),
     ("잡케어 운영 보고서", re.compile(r"잡케어\s*운영\s*보고서")),
+    ("설명이 풍부해 의미 유사도가 높다(근거 없음)", re.compile(r"설명이\s*풍부해")),
+    ("문체가 비슷한 것으로 보입니다(근거 없음)", re.compile(r"문체가\s*비슷한\s*것으로\s*보")),
 ]
 
 STALE_NUMBERS = [
