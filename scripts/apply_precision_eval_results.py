@@ -502,11 +502,48 @@ def calculate_holdout3_metrics(df, df_key, rng=None):
             if boot_diff_b:
                 ci95_diff_b = [round(float(np.percentile(boot_diff_b, 2.5)), 1), round(float(np.percentile(boot_diff_b, 97.5)), 1)]
 
+    # 공통, 기본 전용, 개선안 전용 세부 항목 분해
+    shared_done = done[done["source"] == "shared"]
+    base_only_done = done[done["source"] == "baseline"]
+    cand_only_done = done[done["source"] == "candidate"]
+
+    breakdown = {
+        "shared": precision(shared_done["judgment"]),
+        "baseline_only": precision(base_only_done["judgment"]),
+        "candidate_only": precision(cand_only_done["judgment"]),
+    }
+
+    # 두 추천이 갈린(discrepant) 항목 비교
+    discrepant_diff_a = None
+    if breakdown["candidate_only"]["strict"] is not None and breakdown["baseline_only"]["strict"] is not None:
+        discrepant_diff_a = round(breakdown["candidate_only"]["strict"] - breakdown["baseline_only"]["strict"], 1)
+
+    discrepant_comparison = {
+        "baseline_only_strict": breakdown["baseline_only"]["strict"],
+        "candidate_only_strict": breakdown["candidate_only"]["strict"],
+        "diff_strict": discrepant_diff_a,
+    }
+
     comparison = {
         "diff_strict_a": diff_a,
         "ci95_diff_a": ci95_diff_a,
         "diff_strict_b": diff_b,
         "ci95_diff_b": ci95_diff_b,
+        "discrepant_items_comparison": discrepant_comparison,
+    }
+
+    # 2인 평가자 일치율 및 Cohen's Kappa 계산
+    pairs = done.groupby("item_id")["judgment"].agg(list)
+    both = pairs[pairs.map(len) == 2]
+    agree_cnt = int(both.map(lambda x: x[0] == x[1]).sum())
+    r1 = [p[0] for p in both]
+    r2 = [p[1] for p in both]
+    kappa = round(float(cohen_kappa_score(r1, r2, labels=LABELS)), 3) if len(both) > 0 else 0.0
+    agreement = {
+        "items_evaluated_by_two": len(both),
+        "agreed_count": agree_cnt,
+        "agreement_rate": pct(agree_cnt, len(both)),
+        "cohen_kappa": kappa,
     }
 
     raters = []
@@ -535,6 +572,8 @@ def calculate_holdout3_metrics(df, df_key, rng=None):
             "consensus": base_res["consensus"],
         },
         "comparison": comparison,
+        "breakdown": breakdown,
+        "agreement": agreement,
         "decoy_analysis": decoy_analysis,
         "raters": raters,
         # top level shortcuts for compatibility

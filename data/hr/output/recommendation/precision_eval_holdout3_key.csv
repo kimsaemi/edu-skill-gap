@@ -1,45 +1,48 @@
-﻿번호,업무 ID,과정 UID,출처,수준,과정명,기관,디코이_분류
-1,TASK_HR_D01_T01,MULTICAMPUS_FA00AS,decoy,입문,"[Live] 알고리즘으로 풀어보는 신경망, 딥러닝 첫걸음 with 파이썬",멀티캠퍼스,IT_딥러닝
-2,TASK_HR_D01_T01,HUNET_Y00372252,baseline,입문,hunet MBA_Online,휴넷,
-3,TASK_HR_D01_T01,GSEEK_57075,candidate,입문,직급이 아닌 직무에 Focus하라. 직무급제의 모든것!,GSEEK,
-4,TASK_HR_D01_T01,KPC_46652_148636,shared,입문,공공기관 기획관리 전문가,한국생산성본부(KPC),
-5,TASK_HR_D01_T01,HUNET_Y00334600,shared,입문,HRBP로 커리어를 퀀텀점프 하라,휴넷,
-6,TASK_HR_D02_T09,KMA_111500_126182,decoy,실무,[여의도] 무역담당자가 알아야 할 수출입통관과 FTA 핵심 키 포인트,한국능률협회(KMA),무역_통관
-7,TASK_HR_D02_T09,KPC_46664_148488,shared,실무,기획관리전문가 양성,한국생산성본부(KPC),
-8,TASK_HR_D02_T09,MULTICAMPUS_EA0D0P,shared,실무,신뢰받는 중간 관리자의 역량-계층교육 중간리더 편,멀티캠퍼스,
-9,TASK_HR_D02_T09,KPC_47634_153052,shared,실무,성과창출형 영업관리자역량강화(생성형 AI활용)(지역),한국생산성본부(KPC),
-10,TASK_HR_D03_T05,KPC_47011_157556,baseline,관리자·심화,우수인재 선발을 위한 면접관 역량개발,한국생산성본부(KPC),
-11,TASK_HR_D03_T05,KPC_47744_152325,decoy,관리자·심화,부동산등기분석실무,한국생산성본부(KPC),민사_소송
-12,TASK_HR_D03_T05,KMA_110300_126735,shared,관리자·심화,[자격][온라인] 채용전문면접관,한국능률협회(KMA),
-13,TASK_HR_D03_T05,KPC_47003_149790,shared,관리자·심화,[온앤오프] 현장에서 알아야 하는 노무관리 솔루션,한국생산성본부(KPC),
-14,TASK_HR_D03_T05,KPC_46981_149644,candidate,관리자·심화,[온앤오프] 인사관리기본,한국생산성본부(KPC),
-15,TASK_HR_D04_T05,KMA_111542_126281,shared,입문,[여의도] 기초회계실무·세무실무,한국능률협회(KMA),
-16,TASK_HR_D04_T05,HUNET_Y00351361,decoy,입문,상상을 현실로! 미드저니 실전 이미지 제작,휴넷,AI_그래픽
-17,TASK_HR_D04_T05,HUNET_Y00369136,shared,입문,"HR, AI가 트렌드다 : 채용부터 퇴사까지",휴넷,
-18,TASK_HR_D04_T05,HUNET_Y00369600,shared,입문,"[HRethink] 일하고 싶은 회사의 비밀, Employee eXperience",휴넷,
-19,TASK_HR_D05_T06,KMA_112194_128024,shared,실무,[여의도] 비즈니스 보고서 & 문서 실전 클리닉,한국능률협회(KMA),
-20,TASK_HR_D05_T06,HUNET_Y00350960,shared,실무,[팀장리더십] 애자일 성과관리,휴넷,
-21,TASK_HR_D05_T06,KMA_111485_126123,decoy,실무,[여의도] 구매원가 계산실무,한국능률협회(KMA),구매_조달
-22,TASK_HR_D05_T06,KMA_112195_128027,baseline,실무,[여의도] 한번에 통하는 원페이지 보고서 작성 스킬 (with AI),한국능률협회(KMA),
-23,TASK_HR_D05_T06,KMA_111419_125846,candidate,실무,[여의도] 인정받는 직장인의 구두보고 스킬,한국능률협회(KMA),
-24,TASK_HR_D06_T10,MULTICAMPUS_FA0017,decoy,관리자·심화,[공인] [S/4HANA MM 아카데미] 1주차: Process Overview & MRP,멀티캠퍼스,SAP_비인사
-25,TASK_HR_D06_T10,KPC_47022_157545,shared,관리자·심화,[DX&AI] 평가보상 설계 실무(밀코비치 기반),한국생산성본부(KPC),
-26,TASK_HR_D06_T10,GSEEK_11820,shared,관리자·심화,"경기도 희망 보듬이, 명예사회복지공무원 직무 교육",GSEEK,
-27,TASK_HR_D06_T10,KPC_47643_153222,candidate,관리자·심화,"데이터 분석 활용 고객관리 실무 (ChatGPT, Power BI 활용)",한국생산성본부(KPC),
-28,TASK_HR_D06_T10,PUB_AIG20250000510031_1,baseline,관리자·심화,"ERP정보관리사(인사2급,회계2급)자격증반",탑평생교육원,
-29,TASK_HR_D07_T01,KPC_47312_151171,shared,입문,[HRD] 역량기반 교육체계 및 인재육성 로드맵 구축,한국생산성본부(KPC),
-30,TASK_HR_D07_T01,KMA_111252_125058,decoy,입문,[비대면] QA 전문가 양성 : 상담품질 평가부터 코칭까지,한국능률협회(KMA),콜센터_QA
-31,TASK_HR_D07_T01,KMA_109994_126651,shared,입문,[온라인][자격] HRD전문가,한국능률협회(KMA),
-32,TASK_HR_D07_T01,KPC_46667_148475,shared,입문,[온앤오프] 경영기획실무,한국생산성본부(KPC),
-33,TASK_HR_D08_T08,KPC_47308_151182,shared,실무,[조직문화] [Expert] 조직문화 진단 및 개선전략(데이터 중심),한국생산성본부(KPC),
-34,TASK_HR_D08_T08,HUNET_Y00369600,shared,실무,"[HRethink] 일하고 싶은 회사의 비밀, Employee eXperience",휴넷,
-35,TASK_HR_D08_T08,KPC_47311_151178,shared,실무,[조직문화] [Advanced] 조직문화 기획 및 운영실무(사례중심),한국생산성본부(KPC),
-36,TASK_HR_D08_T08,HUNET_Y00369595,decoy,실무,실전 원가회계 : 생산성을 업그레이드하라!,휴넷,재무_회계
-37,TASK_HR_D09_T05,KMA_111450_125998,shared,관리자·심화,[여의도] 안정적인 노사관계를 위한 노동법 및 노사협의회 운영 실무,한국능률협회(KMA),
-38,TASK_HR_D09_T05,PUB_ABA20263001175322_9,shared,관리자·심화,EB2FFU 채용에서 퇴직까지 인사노무관리 핵심실무,멀티캠퍼스 원격평생교육원,
-39,TASK_HR_D09_T05,HUNET_Y00318587,decoy,관리자·심화,"초일류 기업의 혁신비법, 품질경영",휴넷,제조_품질
-40,TASK_HR_D09_T05,PUB_ABA20263001500869_2,shared,관리자·심화,노동법 A to Z  근로계약부터 인사관리까지 핵심 총정리,한승원격평생교육원,
-41,TASK_HR_D01_T08,PUB_AIG20230000416793_3,shared,실무,"회계세무실무(전산회계1급,전산세무2급,FAT1급,TAT2급)및 4대보험 급여",911직업능력교육원,
-42,TASK_HR_D01_T08,KPC_47079_149925,shared,실무,경영분석전문가 양성,한국생산성본부(KPC),
-43,TASK_HR_D01_T08,KPC_47408_153994,shared,실무,생산KPI설정과 목표관리,한국생산성본부(KPC),
-44,TASK_HR_D01_T08,HUNET_Y00397078,decoy,실무,반도체 전문가를 위한 Ion Implant 공정,휴넷,전자_통신
+﻿item_id,task_id,course_uid,source,decoy_category
+1,TASK_HR_D01_T09,MULTICAMPUS_FA00AS,decoy,IT_딥러닝
+2,TASK_HR_D01_T09,KPC_47001_149763,baseline,
+3,TASK_HR_D01_T09,KPC_47643_153222,candidate,
+4,TASK_HR_D01_T09,KPC_46979_157552,shared,
+5,TASK_HR_D01_T09,KPC_46984_157559,shared,
+6,TASK_HR_D02_T09,KMA_111757_126950,candidate,
+7,TASK_HR_D02_T09,KPC_47634_153052,shared,
+8,TASK_HR_D02_T09,KPC_46664_148488,shared,
+9,TASK_HR_D02_T09,MULTICAMPUS_EA0D0P,baseline,
+10,TASK_HR_D02_T09,KMA_111500_126182,decoy,무역_통관
+11,TASK_HR_D03_T01,KPC_47021_157542,shared,
+12,TASK_HR_D03_T01,KPC_47851_154645,baseline,
+13,TASK_HR_D03_T01,KPC_47744_152325,decoy,민사_소송
+14,TASK_HR_D03_T01,PUB_ABA20263001383890_2,baseline,
+15,TASK_HR_D03_T01,GSEEK_57049,candidate,
+16,TASK_HR_D03_T01,HUNET_Y00317659,candidate,
+17,TASK_HR_D04_T01,HUNET_Y00369600,shared,
+18,TASK_HR_D04_T01,HUNET_Y00351361,decoy,AI_그래픽
+19,TASK_HR_D04_T01,KPC_46979_157552,shared,
+20,TASK_HR_D04_T01,HUNET_Y00265996,shared,
+21,TASK_HR_D05_T09,KMA_111444_125978,shared,
+22,TASK_HR_D05_T09,HUNET_Y00315991,shared,
+23,TASK_HR_D05_T09,KMA_111485_126123,decoy,구매_조달
+24,TASK_HR_D05_T09,HUNET_Y00342158,shared,
+25,TASK_HR_D06_T06,GSEEK_5045,shared,
+26,TASK_HR_D06_T06,KPC_47016_149794,candidate,
+27,TASK_HR_D06_T06,MULTICAMPUS_FA0017,decoy,SAP_비인사
+28,TASK_HR_D06_T06,GSEEK_2835,baseline,
+29,TASK_HR_D06_T06,PUB_ABA20263001503061_1,shared,
+30,TASK_HR_D07_T04,PUB_ACG20263001435047_67,shared,
+31,TASK_HR_D07_T04,HUNET_Y00350959,shared,
+32,TASK_HR_D07_T04,KMA_111252_125058,decoy,콜센터_QA
+33,TASK_HR_D07_T04,KPC_47011_157556,shared,
+34,TASK_HR_D07_T10,PUB_AIG20250000520785_14,shared,
+35,TASK_HR_D07_T10,MULTICAMPUS_FA0110,baseline,
+36,TASK_HR_D07_T10,HUNET_Y00369595,decoy,재무_회계
+37,TASK_HR_D07_T10,MULTICAMPUS_FA01OG,candidate,
+38,TASK_HR_D07_T10,HUNET_Y00339763,shared,
+39,TASK_HR_D08_T01,KMA_112291_128429,candidate,
+40,TASK_HR_D08_T01,KMA_112298_128455,baseline,
+41,TASK_HR_D08_T01,KMA_112296_128447,shared,
+42,TASK_HR_D08_T01,GSEEK_57090,shared,
+43,TASK_HR_D08_T01,HUNET_Y00318587,decoy,제조_품질
+44,TASK_HR_D09_T08,KPC_47017_149799,shared,
+45,TASK_HR_D09_T08,KPC_47018_149796,shared,
+46,TASK_HR_D09_T08,PUB_ACG20263001262996_189,shared,
+47,TASK_HR_D09_T08,HUNET_Y00397078,decoy,전자_통신
