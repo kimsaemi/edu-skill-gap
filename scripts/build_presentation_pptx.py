@@ -169,11 +169,12 @@ def generate_data_charts():
         lo, hi = it["ci"]
         val = it["p"]
         ax.errorbar(idx, val, yerr=[[max(0, val - lo)], [max(0, hi - val)]], fmt="none", ecolor="#F1EBD8", elinewidth=1.6, capsize=4.5, capthick=1.6)
-        ax.text(idx, val + 2.5, f"{val:.1f}%", ha="center", va="bottom", fontsize=9.5, fontweight="bold", color="#F1EBD8")
+        ax.text(idx, 4, f"{val:.1f}%", ha="center", va="bottom", fontsize=9.5, fontweight="bold", color="#17191F")
         ax.text(idx, hi + 1.2, f"[{lo:.1f}~{hi:.1f}]", ha="center", va="bottom", fontsize=7.5, color="#9AA0A9")
 
     ax.axhline(70, color="#F6C431", linestyle="--", linewidth=1.5, alpha=0.9)
-    ax.text(-0.35, 71.5, "목표 70%", color="#F6C431", fontsize=8.5, fontweight="bold", ha="left")
+    ax.set_xlim(-0.6, len(bar_items) - 0.4 + 0.75)
+    ax.text(len(bar_items) - 0.35, 70, "목표 70%", color="#F6C431", fontsize=8.5, fontweight="bold", ha="left", va="center")
 
     ax.set_ylim(0, 105)
     ax.set_xticks(xs)

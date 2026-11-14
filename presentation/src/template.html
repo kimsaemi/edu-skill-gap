@@ -1236,7 +1236,7 @@ const D = /*__DATA__*/;
         const w = HO_ALL.precision_at_3.ci95_wilson || [0, 0];
         const ho1s = HO.precision_at_3.strict;
         const ho2s = HO2.final_recommendation.precision_at_3.strict;
-        const ho3s = (HO3 && HO3.baseline_recommendation) ? HO3.baseline_recommendation.precision_at_3.strict : 65.0;
+        const ho3s = (HO3 && HO3.baseline_recommendation) ? Number(HO3.baseline_recommendation.precision_at_3.strict).toFixed(1) : "-";
         const bm25s = HO2.bm25_recommendation.precision_at_3.strict;
         const subEl = $('#kpi-heval-sub');
         if (subEl) {
@@ -1301,8 +1301,8 @@ const D = /*__DATA__*/;
       { name: '합산', sub: '1·2·3차 30개', data: HR.holdout_all, x: 600, color: css('--rust') || '#d3542e' }
     ].filter(r => r.data && r.data.precision_at_3);
 
-    const W = 680, H = 245;
-    const padL = 45, padR = 45, padT = 45, padB = 42;
+    const W = 720, H = 245;
+    const padL = 45, padR = 75, padT = 45, padB = 42;
     const plotH = H - padT - padB;
     const yAt = pct => padT + (1 - pct / 100) * plotH;
 
@@ -1367,12 +1367,15 @@ const D = /*__DATA__*/;
 
       const valTxt = el('text', {
         x: item.x,
-        y: yVal - 14,
+        y: yVal + 16,
         'text-anchor': 'middle',
         fill: 'var(--hud-ink, #f1ebd8)',
+        stroke: '#14161a',
+        'stroke-width': '3',
+        'paint-order': 'stroke',
         'font-family': 'var(--pxb)',
         'font-size': '12'
-      }, strict + '%');
+      }, Number(strict).toFixed(1) + '%');
       svg.appendChild(valTxt);
 
       const ciTxt = el('text', {
@@ -1409,78 +1412,6 @@ const D = /*__DATA__*/;
     box.appendChild(svg);
   }
 
-    const barW = 42;
-    HE.forEach(item => {
-      const p = item.data.precision_at_3;
-      const strict = p.strict;
-      const ci = p.ci95_cluster_bootstrap || p.ci95_wilson || [strict, strict];
-      const yVal = yAt(strict);
-      const yBase = yAt(0);
-      const h = yBase - yVal;
-
-      const rect = el('rect', {
-        x: item.x - barW / 2,
-        y: yVal,
-        width: barW,
-        height: h,
-        fill: item.color,
-        rx: '2',
-        opacity: '0.85'
-      });
-      svg.appendChild(rect);
-
-      const yLo = yAt(ci[0]);
-      const yHi = yAt(ci[1]);
-      const wLine = el('line', { x1: item.x, y1: yLo, x2: item.x, y2: yHi, stroke: 'var(--hud-ink, #f1ebd8)', 'stroke-width': '2' });
-      const capTop = el('line', { x1: item.x - 10, y1: yHi, x2: item.x + 10, y2: yHi, stroke: 'var(--hud-ink, #f1ebd8)', 'stroke-width': '2' });
-      const capBot = el('line', { x1: item.x - 10, y1: yLo, x2: item.x + 10, y2: yLo, stroke: 'var(--hud-ink, #f1ebd8)', 'stroke-width': '2' });
-      svg.appendChild(wLine);
-      svg.appendChild(capTop);
-      svg.appendChild(capBot);
-
-      const valTxt = el('text', {
-        x: item.x,
-        y: yVal - 14,
-        'text-anchor': 'middle',
-        fill: 'var(--hud-ink, #f1ebd8)',
-        'font-family': 'var(--pxb)',
-        'font-size': '13'
-      }, strict + '%');
-      svg.appendChild(valTxt);
-
-      const ciTxt = el('text', {
-        x: item.x,
-        y: yHi - 6,
-        'text-anchor': 'middle',
-        fill: 'var(--hud-dim, #9aa0a9)',
-        'font-family': 'var(--px)',
-        'font-size': '10'
-      }, `[${ci[0]}~${ci[1]}%]`);
-      svg.appendChild(ciTxt);
-
-      const xLabel = el('text', {
-        x: item.x,
-        y: H - 16,
-        'text-anchor': 'middle',
-        fill: 'var(--hud-ink, #f1ebd8)',
-        'font-family': 'var(--pxb)',
-        'font-size': '12'
-      }, item.name);
-      const xSub = el('text', {
-        x: item.x,
-        y: H - 2,
-        'text-anchor': 'middle',
-        fill: 'var(--hud-dim, #9aa0a9)',
-        'font-family': 'var(--px)',
-        'font-size': '10'
-      }, `(${p.n}건)`);
-      svg.appendChild(xLabel);
-      svg.appendChild(xSub);
-    });
-
-    box.innerHTML = '';
-    box.appendChild(svg);
-  }
   drawErrorBarChart();
   T('#rv-to-all', R.title_only_all_pct);
   T('#rv-to-top', R.title_only_top3_pct);
@@ -1514,7 +1445,7 @@ const D = /*__DATA__*/;
     $('#g-p3').innerHTML = `<b>${Q.strict}</b>%` + (mainH.status === '중간' ? ' <span class="pill pend">중간</span>' : '');
     if (HO_ALL && HO && HO2 && HO2.final_recommendation) {
       const HO3 = D.human_eval_holdout3 || HR.holdout3;
-      const ho3s = (HO3 && HO3.baseline_recommendation) ? HO3.baseline_recommendation.precision_at_3.strict : 65.0;
+      const ho3s = (HO3 && HO3.baseline_recommendation) ? Number(HO3.baseline_recommendation.precision_at_3.strict).toFixed(1) : "-";
       T('#g-p3-note', `처음 보는 업무 30개 사람 평가(홀드아웃 합산)에서 적합 ${Q.strict}%(판정 ${Q.n}건, 목표 70% 미달)입니다. `
         + `홀드아웃 1차 ${HO.precision_at_3.strict}%, 2차 최종 ${HO2.final_recommendation.precision_at_3.strict}%, 3차 기본 ${ho3s}%이며, 2차에서 BM25 ${HO2.bm25_recommendation.precision_at_3.strict}%와 차이가 없었습니다.`);
     } else if (HO) {
