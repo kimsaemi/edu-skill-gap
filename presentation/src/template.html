@@ -1011,9 +1011,9 @@ ol.three li::marker { font-family: var(--pxb); color: var(--teal); }
         <div class="ins-r"><span>전략</span><p>고용24 과정을 월 1회 자동 갱신하고, 일정이 지난 과정에는 "운영 종료" 표시를 붙입니다(적용 완료). 데이터 신선도를 대시보드 지표로 관리합니다.</p></div>
       <div class="ins">
         <div class="ins-h">5 · 추천이 한 기관에 쏠린다</div>
-        <div class="ins-r"><span>발견</span><p>한국생산성본부는 카탈로그의 <b id="i5-cat"></b>%인데 추천 Top 3의 <b id="i5-top"></b>%를 차지합니다. 거의 같은 과정을 묶어도 37.5%로 줄지 않아 회차 중복은 원인이 아니고, 설명 길이가 비슷한 과정끼리 비교해도 유사도가 높아(③) 원인은 아직 확정하지 못했습니다.</p></div>
-        <div class="ins-r"><span>의미</span><p>사용자는 비슷한 기관의 과정만 보게 되고, 다른 기관의 더 맞는 과정을 놓칠 수 있습니다.</p></div>
-        <div class="ins-r"><span>전략</span><p>같은 기관 최대 2개 상한은 쏠림을 줄이지만(+21%p → +19%p) 추천이 3개 미만인 슬롯이 4개에서 25개로 늘어 그대로는 쓸 수 없습니다. 억지 상한 대신 원인 분석(문체·주제 분포 비교) 뒤 보정 방법 결정이 필요합니다.</p></div>
+        <div class="ins-r"><span>발견</span><p>한국생산성본부는 카탈로그의 <b id="i5-cat"></b>%인데 추천 Top 3의 <b id="i5-top"></b>%를 차지합니다. 쏠림은 대부분 후보를 고르는 단계에서 생깁니다. 인사 분야 과정 중 KPC는 19.0%인데, 업무별 상위 후보에서는 32.1%가 되고, Top 3 안에서 KPC 과정의 키워드 점수가 더 높았습니다(중앙값 77.7 vs 70.0). 왜 상위 후보에 많이 들어가는지는 아직 일부만 설명됩니다.</p></div>
+        <div class="ins-r"><span>의미</span><p>사람 평가에서 KPC 추천의 적합률은 72.0%로 다른 기관(57.0%)보다 낮지 않았습니다. 다만 같은 과정의 반복 판정을 고려하면 확실한 우위라고 하기는 어렵습니다.</p></div>
+        <div class="ins-r"><span>전략</span><p>같은 기관 최대 2개 상한은 추천 3개 미만 칸이 4개에서 25개로 늘어 쓰지 않았습니다. 대신 기관별 비중을 지표로 계속 지켜봅니다.</p></div>
       </div>
       </div>
     </div>
@@ -1043,7 +1043,7 @@ ol.three li::marker { font-family: var(--pxb); color: var(--teal); }
     </div>
     <h3 id="caveats">읽을 때 알아 둘 것</h3>
     <ol class="caveats">
-      <li><p><strong>난이도는 기관이 표기한 값입니다.</strong> 표기 기준이 기관마다 다르고, 실무자 쪽 수준별 수요는 확인된 자료가 없어 비교하지 않았습니다. 추천에서는 난이도가 없는 과정도 빼지 않고 난이도 보너스를 절반(10점 대신 5점)만 줍니다. 난이도 표기가 없는 <span id="cv-unl"></span>개(<span id="cv-unl-pct"></span>%)는 대부분 <span id="cv-unl-prov"></span> 과정이고, 표기된 과정은 GSEEK·휴넷이 대부분이라 초급 비율은 기관 구성에 따라 크게 달라집니다.</p></li>
+      <li><p><strong>난이도는 기관이 표기한 값입니다.</strong> 표기 기준이 기관마다 다르고, 실무자 쪽 수준별 수요는 확인된 자료가 없어 비교하지 않았습니다. 추천에서는 난이도가 없는 과정도 빼지 않고 난이도 보너스를 주지 않습니다(0점). 난이도 표기가 없는 <span id="cv-unl"></span>개(<span id="cv-unl-pct"></span>%)는 대부분 <span id="cv-unl-prov"></span> 과정이고, 표기된 과정은 GSEEK·휴넷이 대부분이라 초급 비율은 기관 구성에 따라 크게 달라집니다.</p></li>
       <li><p><strong>분야 분류·영역 공급량·NCS 연결은 자동 결과입니다.</strong> 고객 화면의 분야 연결(키워드 규칙)은 팀원 4명이 과정 <span id="dr-n"></span>개를 직접 검수해 정밀도 <span id="dr-prec"></span>%, 재현율 <span id="dr-rec"></span>%를 확인했습니다. 10개 분야 분류와 영역별 공급량(H2)은 문장 임베딩 결과이고 사람이 전부 검증하지는 않았습니다.</p></li>
       <li><p><strong>과업 <span id="cv-review"></span>개는 맞는 NCS 역량이 아직 없습니다.</strong> 인사 연결 역량이 3개뿐이라 임시로 가장 가까운 역량에 붙어 있고, 탐색기에서는 역량 표시를 숨겼습니다. 추천은 과업 설명으로 계산해 영향을 받지 않습니다.</p></li>
       <li><p><strong>일부 과정이 여러 과업에 반복 추천됩니다.</strong> 과정 <span id="cv-reuse"></span>개가 5개 이상 과업에 나오며 Top 3 자리의 <span id="cv-reuse-pct"></span>%를 차지합니다. 2단계 리랭커 전(<span id="cv-reuse-s1"></span>%)과 거의 같아, 반복 감점은 앞으로 할 일입니다.</p></li>
@@ -1068,7 +1068,7 @@ ol.three li::marker { font-family: var(--pxb); color: var(--teal); }
           <tr><td>표현</td><td>Kiwi 형태소 토큰(BM25용), Ko-SRoBERTa 768차원 문장 임베딩</td><td><code>embeddings_ko_sroberta_all.npy</code></td></tr>
           <tr><td>분류</td><td>분야 대표 문장과의 유사도로 10개 분야 라벨, 직무 무관 과정 <span data-k="off_topic"></span>개 제외 목록</td><td><code>course_field_labels.csv</code></td></tr>
           <tr><td>과업</td><td>인사 9개 영역 × 10개 실무 과업, 직급별 역할, NCS 능력단위 연결</td><td><code>hr_task_catalog_90.json</code></td></tr>
-          <tr><td>추천</td><td>필터 → 의미 유사도·BM25·난이도 점수 → 통과 조건 → 기관 간 중복 제거 → 후보 → 2단계 리랭커(Cross-Encoder, Dongjin-kr/ko-reranker)로 Top 3 재정렬</td><td><code>task_course_recommendations_90.csv</code> → <code>task_course_recommendations_90_reranked.csv</code></td></tr>
+          <tr><td>추천</td><td>필터 → 의미 유사도·BM25·난이도 점수 → 통과 조건 → 인사 무관 과정 제외 → 후보 → 2단계 리랭커(Cross-Encoder, Dongjin-kr/ko-reranker)로 Top 3 재정렬</td><td><code>task_course_recommendations_90.csv</code> → <code>task_course_recommendations_90_reranked.csv</code></td></tr>
           <tr><td>사람 평가</td><td>업무 10개 × Top 3를 두 사람씩 판정. 1차, 2차(같은 업무), 홀드아웃(처음 보는 업무)</td><td><code>precision_eval_*_results.csv</code>, <code>precision_eval_*_metrics.json</code></td></tr>
           <tr><td>만족도</td><td>고용24 310L01 전 페이지 수집, <code>trprId</code> 단위 정리, 0점은 결측 처리</td><td><code>official_satisfaction.csv</code></td></tr>
         </tbody>
