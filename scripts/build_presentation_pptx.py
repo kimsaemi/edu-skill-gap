@@ -22,6 +22,7 @@ DATA_PATH = "presentation/src/data.json"
 R1_PATH = "data/hr/reports/precision_eval_metrics.json"
 R2_PATH = "data/hr/reports/precision_eval_round2_metrics.json"
 HO_PATH = "data/hr/reports/precision_eval_holdout_metrics.json"
+KPC_METRICS_PATH = "data/hr/reports/kpc_bias_metrics.json"
 SCRIPT_PATH = "presentation/SCRIPT.md"
 OUT_PPTX = "presentation/HR_교육지도_발표.pptx"
 CHART_DIR = "presentation/charts"
@@ -36,6 +37,11 @@ with open(R2_PATH, encoding="utf-8") as f:
     r2_metrics = json.load(f)
 with open(HO_PATH, encoding="utf-8") as f:
     ho_metrics = json.load(f)
+
+kpc_metrics = None
+if os.path.exists(KPC_METRICS_PATH):
+    with open(KPC_METRICS_PATH, encoding="utf-8") as f:
+        kpc_metrics = json.load(f)
 
 has_script = os.path.exists(SCRIPT_PATH)
 
@@ -346,6 +352,26 @@ bias_top3 = rec["stage1"]["bias_top3_final"]
 bias_cat = eda["monitor"]["bias_catalog"]
 top5_share = eda["monitor"]["top5_share"]
 past_n = eda["schedule"]["past"]
+
+# KPC bias metrics dynamic values
+kpc_hr_pct = 19.0
+kpc_pool_pct = 32.1
+kpc_bm25_kpc = 77.7
+kpc_bm25_oth = 70.0
+kpc_p_kpc = 72.0
+kpc_p_oth = 57.0
+if kpc_metrics:
+    try:
+        h1_m = kpc_metrics["hypotheses"]["H1_supply_baseline"]
+        h3_m = kpc_metrics["hypotheses"]["H3_score_breakdown"]
+        h4_m = kpc_metrics["hypotheses"]["H4_human_quality"]
+        kpc_pool_pct = h1_m["levels"][3]["kpc_share"]
+        kpc_bm25_kpc = h3_m["score_components"]["bm25_score"]["kpc"]["median"]
+        kpc_bm25_oth = h3_m["score_components"]["bm25_score"]["other"]["median"]
+        kpc_p_kpc = h4_m["kpc_vs_others"]["kpc"]["strict_precision"]
+        kpc_p_oth = h4_m["kpc_vs_others"]["others_all"]["strict_precision"]
+    except Exception:
+        pass
 
 prob_scores = ", ".join(str(x) for x in rec["weak_slots"]["probation_reranker_scores"])
 lt01_slots = rec["weak_slots"]["lt01_slots"]
@@ -660,7 +686,7 @@ steps_s9 = [
     ("1단계: 1차 후보 스코어링", C_TEAL, [
         "• 의미 유사도 (50%): Ko-SRoBERTa 768차원 임베딩 코사인 유사도",
         "• 키워드 일치 (35%): Kiwi 형태소 기반 BM25 점수",
-        "• 난이도 보너스 (최대 +10점): 사용자 수준 일치 +10점, 난이도 미표기는 절반(+5점)"
+        "• 난이도 보너스 (최대 +10점): 사용자 수준 일치 +10점, 난이도 미표기는 0점"
     ]),
     ("중간 필터: 제외 규칙", C_BLUE, [
         f"• 인사 업무와 무관한 과정 {kpi['off_topic']:,}개를 추천 후보에서 제외 (자격시험·타 직종 등, 규칙 목록으로 관리)",
@@ -836,8 +862,9 @@ s12.shapes.add_picture(os.path.join(CHART_DIR, "dash_provider_skew.png"), Inches
 add_text_lines(s12, 0.85, 4.75, 5.5, 1.85, [
     "기관 편중: 카탈로그 vs 추천 (#ch-bias)",
     f"• 한국생산성본부(KPC)는 카탈로그의 {bias_cat:.1f}%지만 추천 Top 3의 {bias_top3:.1f}% 차지",
-    "• 회차 중복 제거·길이 보정 비교에도 편중 지속 → 원인 분석 과제 도출"
-], font_size=12, color=C_HUD_INK, bold_first=True)
+    f"• 쏠림은 대부분 후보 단계에서 발생: 상위 후보 {kpc_pool_pct:.1f}%, 키워드 점수 우위(중앙값 {kpc_bm25_kpc:.1f} vs {kpc_bm25_oth:.1f})",
+    f"• 사람 평가 적합률 {kpc_p_kpc:.1f}% vs 타 기관 {kpc_p_oth:.1f}%로 낮지 않으나, 반복 판정 고려 시 확실한 우위는 아님"
+], font_size=11, color=C_HUD_INK, bold_first=True)
 
 add_card(s12, 6.75, 1.48, 5.9, 5.28, is_dark=True)
 s12.shapes.add_picture(os.path.join(CHART_DIR, "dash_salary_case.png"), Inches(7.45), Inches(1.58), height=Inches(4.25))
@@ -885,7 +912,7 @@ for idx, (title, col, items) in enumerate(ins12):
 s14 = add_slide_base(
     "인사이트 ②: 평점 한계·데이터 노후화·기관 쏠림",
     section_tag="⑥ 비즈니스 인사이트 도출",
-    subtitle_text="대시보드 05장 인사이트 카드 3~5 (KPC 쏠림은 '원인 미확인' 유지)",
+    subtitle_text="대시보드 05장 인사이트 카드 3~5 (발견 · 의미 · 전략)",
     slide_num=15
 )
 
@@ -901,9 +928,9 @@ ins345 = [
         ("전략: ", "고용24 과정 월 1회 자동 갱신 및 일정 경과 과정 '운영 종료' 배지 표시(적용 완료). 신선도를 상시 지표로 관리합니다.")
     ]),
     ("5 · 추천이 한 기관에 쏠린다", C_RUST, [
-        ("발견: ", f"한국생산성본부(KPC)가 카탈로그 {bias_cat:.1f}%인데 Top 3의 {bias_top3:.1f}% 점유. 회차 중복이나 길이 효과 제거 후에도 지속돼 원인은 아직 미확인."),
-        ("의미: ", "사용자가 다른 기관의 더 적합한 과정을 놓칠 수 있습니다."),
-        ("전략: ", "기관 상한(최대 2개) 적용 시 3개 미만 슬롯이 4→25개로 급증. 억지 상한 대신 문체·주제 분포 원인 분석 후 보정.")
+        ("발견: ", f"쏠림은 대부분 후보 단계에서 발생. 인사 과정 중 KPC {kpc_hr_pct:.1f}% → 상위 후보 {kpc_pool_pct:.1f}%, 키워드 점수 우위(중앙값 {kpc_bm25_kpc:.1f} vs {kpc_bm25_oth:.1f}). 상위 후보 다수 진입 원인은 일부만 설명."),
+        ("의미: ", f"사람 평가 적합률은 {kpc_p_kpc:.1f}%로 다른 기관({kpc_p_oth:.1f}%)보다 낮지 않음. 다만 반복 판정 고려 시 확실한 우위라고 하기는 어려움."),
+        ("전략: ", "같은 기관 최대 2개 상한은 추천 3개 미만 칸이 4개에서 25개로 늘어 쓰지 않음. 대신 기관별 비중을 지표로 계속 모니터링.")
     ])
 ]
 

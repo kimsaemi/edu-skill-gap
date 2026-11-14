@@ -1,0 +1,396 @@
+{
+  "analysis_title": "한국생산성본부(KPC) 추천 Top 3 쏠림 현상 분석",
+  "generated_at": "2026-11-14",
+  "summary": {
+    "baseline_kpc_catalog_share": 16.7,
+    "baseline_kpc_top3_share": 37.4,
+    "stage1_kpc_top3_share": 34.7,
+    "final_conclusion": "쏠림은 대부분 후보를 고르는 단계에서 생깁니다. 인사 분야 과정 중 KPC는 19.0%인데, 업무별 상위 후보에서는 32.1%가 되고, Top 3 안에서 KPC 과정의 키워드 점수가 더 높았습니다(중앙값 77.7 vs 70.0). 사람 평가에서 KPC 추천의 적합률은 72.0%로 다른 기관(57.0%)보다 낮지 않았으나(부트스트랩 95% 범위 -1.4~+31.2%p), 같은 과정의 반복 판정을 고려하면 확실한 우위라고 하기는 어렵습니다. 같은 기관 최대 2개 상한은 추천 3개 미만 칸이 4개에서 25개로 늘어 쓰지 않았으며, 대신 기관별 비중을 지표로 계속 지켜봅니다."
+  },
+  "hypotheses": {
+    "H1_supply_baseline": {
+      "verdict": "일부 설명",
+      "verdict_reason": "쏠림은 대부분 후보를 고르는 단계에서 생깁니다. 추천 후보 단계(16.3%)에서 1단계 상위 후보(32.1%)로 갈수록 KPC 점유율이 2배 가까이 늘어납니다. 최종 Top 3(37.4%)는 후보풀(32.1%)보다 추가로 +5.3%p 늘어나지만, 왜 상위 후보에 많이 들어가는지는 아직 일부만 설명됩니다.",
+      "levels": [
+        {
+          "level_name": "1. 전체 강좌 (카탈로그)",
+          "total": 9075,
+          "kpc_count": 1513,
+          "kpc_share": 16.7,
+          "kpc_count_norm": 1515,
+          "kpc_share_norm": 16.7
+        },
+        {
+          "level_name": "2. 유효 추천 후보 (직무 무관 제외)",
+          "total": 7698,
+          "kpc_count": 1252,
+          "kpc_share": 16.3,
+          "kpc_count_norm": 1254,
+          "kpc_share_norm": 16.3
+        },
+        {
+          "level_name": "3. 인사(HR) 분야 연결 과정",
+          "total": 3822,
+          "kpc_count": 661,
+          "kpc_share": 17.3,
+          "kpc_count_norm": 663,
+          "kpc_share_norm": 17.3
+        },
+        {
+          "level_name": "4. 1단계 상위 후보풀 (과업·수준별 풀)",
+          "total": 1332,
+          "kpc_count": 428,
+          "kpc_share": 32.1,
+          "kpc_count_norm": 443,
+          "kpc_share_norm": 33.3
+        },
+        {
+          "level_name": "5. 최종 추천 Top 3",
+          "total": 803,
+          "kpc_count": 300,
+          "kpc_share": 37.4,
+          "kpc_count_norm": 308,
+          "kpc_share_norm": 38.4
+        }
+      ],
+      "expansion": {
+        "catalog_to_top3": 20.7,
+        "candidates_to_top3": 21.1,
+        "pool_to_top3": 5.3
+      }
+    },
+    "H2_level_bonus": {
+      "verdict": "설명 안 됨",
+      "verdict_reason": "실제 추천 파일에서 난이도 미표시 과정 478개의 난이도 보너스는 전수 0점(478/478개)으로 확인됨(현재 추천 규칙: 맞음 10 / 미표시 0 / 안 맞음 0). 즉 KPC(미표시율 98.3%)는 난이도 보너스를 전혀 받지 못하고 있음. 보너스를 완전히 없애도(실험 c) KPC 비중은 37.4%에서 40.7%로 오히려 3.3%p 증가하므로 난이도 보너스는 쏠림의 원인이 아님.",
+      "verified_numbers": {
+        "top3_total_items": 803,
+        "top3_unlabeled_items": 478,
+        "top3_unlabeled_bonus_zero": 478,
+        "top3_unlabeled_bonus_zero_pct": 100.0
+      },
+      "missing_by_provider": [
+        {
+          "provider": "한국생산성본부(KPC)",
+          "total": 1515,
+          "unlabeled": 1489,
+          "unlabeled_pct": 98.3
+        },
+        {
+          "provider": "한국능률협회(KMA)",
+          "total": 1765,
+          "unlabeled": 1640,
+          "unlabeled_pct": 92.9
+        },
+        {
+          "provider": "GSEEK",
+          "total": 1991,
+          "unlabeled": 1,
+          "unlabeled_pct": 0.1
+        },
+        {
+          "provider": "휴넷",
+          "total": 1964,
+          "unlabeled": 6,
+          "unlabeled_pct": 0.3
+        },
+        {
+          "provider": "멀티캠퍼스",
+          "total": 1121,
+          "unlabeled": 45,
+          "unlabeled_pct": 4.0
+        },
+        {
+          "provider": "기타",
+          "total": 719,
+          "unlabeled": 278,
+          "unlabeled_pct": 38.7
+        }
+      ],
+      "experiments": [
+        {
+          "key": "rule_a_10_5_0",
+          "rule_name": "(a) 미표시 5점 부여 (맞음 10 / 미표시 5 / 안 맞음 0)",
+          "kpc_top3_count": 335,
+          "kpc_top3_share": 41.7,
+          "thin_slots_count": 4,
+          "changed_slots_count": 50,
+          "changed_slots_pct": 18.5
+        },
+        {
+          "key": "rule_b_10_0_0",
+          "rule_name": "(b) 실제 추천 규칙 (맞음 10 / 미표시 0 / 안 맞음 0)",
+          "kpc_top3_count": 300,
+          "kpc_top3_share": 37.4,
+          "thin_slots_count": 4,
+          "changed_slots_count": 0,
+          "changed_slots_pct": 0.0
+        },
+        {
+          "key": "rule_c_0_0_0",
+          "rule_name": "(c) 보너스 없음 (모두 0점)",
+          "kpc_top3_count": 327,
+          "kpc_top3_share": 40.7,
+          "thin_slots_count": 4,
+          "changed_slots_count": 63,
+          "changed_slots_pct": 23.3
+        }
+      ]
+    },
+    "H3_score_breakdown": {
+      "verdict": "숫자로 확인됨",
+      "verdict_reason": "Top 3 안에서 KPC 과정의 키워드 점수가 더 높았습니다(중앙값 77.7 vs 70.0). 리랭커 후에도 KPC 비중은 34.7%에서 37.4%로 소폭 늘어났습니다. 상투 안내 문구(온앤오프·서울본부 등)는 질의와 겹치지 않아 BM25 점수에 직접 영향을 주지 않았습니다(영향 0점).",
+      "score_components": {
+        "semantic_score": {
+          "kpc": {
+            "n": 300,
+            "median": 68.4,
+            "iqr": 9.2,
+            "q25": 64.7,
+            "q75": 73.9
+          },
+          "other": {
+            "n": 503,
+            "median": 67.4,
+            "iqr": 10.4,
+            "q25": 62.1,
+            "q75": 72.4
+          },
+          "diff_median": 1.0
+        },
+        "bm25_score": {
+          "kpc": {
+            "n": 300,
+            "median": 77.7,
+            "iqr": 31.4,
+            "q25": 62.4,
+            "q75": 93.8
+          },
+          "other": {
+            "n": 503,
+            "median": 70.0,
+            "iqr": 43.9,
+            "q25": 50.6,
+            "q75": 94.6
+          },
+          "diff_median": 7.7
+        },
+        "level_bonus": {
+          "kpc": {
+            "n": 300,
+            "median": 0.0,
+            "iqr": 0.0,
+            "q25": 0.0,
+            "q75": 0.0
+          },
+          "other": {
+            "n": 503,
+            "median": 0.0,
+            "iqr": 10.0,
+            "q25": 0.0,
+            "q75": 10.0
+          },
+          "diff_median": 0.0
+        },
+        "reranker_score": {
+          "kpc": {
+            "n": 300,
+            "median": 0.1,
+            "iqr": 0.6,
+            "q25": 0.0,
+            "q75": 0.6
+          },
+          "other": {
+            "n": 503,
+            "median": 0.1,
+            "iqr": 0.3,
+            "q25": 0.0,
+            "q75": 0.3
+          },
+          "diff_median": 0.0
+        },
+        "reranked_final_score": {
+          "kpc": {
+            "n": 300,
+            "median": 25.1,
+            "iqr": 5.0,
+            "q25": 22.9,
+            "q75": 27.9
+          },
+          "other": {
+            "n": 503,
+            "median": 25.2,
+            "iqr": 5.4,
+            "q25": 22.7,
+            "q75": 28.1
+          },
+          "diff_median": -0.1
+        }
+      },
+      "pipeline_stages": {
+        "stage1_top3_kpc_count": 279,
+        "stage1_top3_kpc_share": 34.7,
+        "final_top3_kpc_count": 300,
+        "final_top3_kpc_share": 37.4,
+        "stage_diff_pct": 2.7
+      },
+      "boilerplate_analysis": {
+        "kpc_total_courses": 1515,
+        "contains_onoff_count": 399,
+        "contains_onoff_pct": 26.3,
+        "contains_seoul_headquarters_count": 74,
+        "contains_seoul_headquarters_pct": 4.9,
+        "contains_any_notice_count": 550,
+        "contains_any_notice_pct": 36.3,
+        "top3_kpc_slots_with_notice": 108,
+        "top3_kpc_slots_with_notice_pct": 36.0,
+        "top3_kpc_unique_courses_with_notice": 27,
+        "top3_kpc_unique_courses_with_notice_pct": 36.5,
+        "bm25_rescoring_impact": "0점 변화 (질의어와 안내 문구 간 토큰 중복 없음. 임베딩 미확인)"
+      }
+    },
+    "H4_human_quality": {
+      "verdict": "낮지 않음 (확실한 우위는 아님)",
+      "verdict_reason": "사람 평가에서 KPC 추천의 적합률은 72.0%로 다른 기관(57.0%)보다 낮지 않았습니다. 다만 같은 과정이 여러 평가자·라운드에서 반복 판정되므로 업무×과정 단위 부트스트랩(10,000회)으로 계산한 95% 범위는 -1.4~+31.2%p(0 포함)로 나타나 확실한 우위라고 하기는 어렵습니다. 개선 전 평가인 1차를 뺀 민감도 분석에서도 KPC 70.1%(54/77) vs 나머지 64.0%(57/89)로 격차가 줄어듭니다.",
+      "providers": [
+        {
+          "provider": "한국생산성본부(KPC)",
+          "total_eval_count": 94,
+          "judged_count": 93,
+          "unclear_count": 1,
+          "strict_fit_count": 67,
+          "strict_precision": 72.0,
+          "strict_ci95_wilson": [
+            62.2,
+            80.1
+          ],
+          "lenient_fit_count": 82,
+          "lenient_precision": 88.2,
+          "lenient_ci95_wilson": [
+            80.1,
+            93.3
+          ],
+          "sample_size_note": "충분",
+          "is_small_sample": false
+        },
+        {
+          "provider": "휴넷",
+          "total_eval_count": 42,
+          "judged_count": 42,
+          "unclear_count": 0,
+          "strict_fit_count": 28,
+          "strict_precision": 66.7,
+          "strict_ci95_wilson": [
+            51.6,
+            79.0
+          ],
+          "lenient_fit_count": 42,
+          "lenient_precision": 100.0,
+          "lenient_ci95_wilson": [
+            91.6,
+            100.0
+          ],
+          "sample_size_note": "충분",
+          "is_small_sample": false
+        },
+        {
+          "provider": "한국능률협회(KMA)",
+          "total_eval_count": 28,
+          "judged_count": 25,
+          "unclear_count": 3,
+          "strict_fit_count": 17,
+          "strict_precision": 68.0,
+          "strict_ci95_wilson": [
+            48.4,
+            82.8
+          ],
+          "lenient_fit_count": 21,
+          "lenient_precision": 84.0,
+          "lenient_ci95_wilson": [
+            65.3,
+            93.6
+          ],
+          "sample_size_note": "표본 작음",
+          "is_small_sample": true
+        },
+        {
+          "provider": "GSEEK",
+          "total_eval_count": 28,
+          "judged_count": 14,
+          "unclear_count": 14,
+          "strict_fit_count": 3,
+          "strict_precision": 21.4,
+          "strict_ci95_wilson": [
+            7.6,
+            47.6
+          ],
+          "lenient_fit_count": 11,
+          "lenient_precision": 78.6,
+          "lenient_ci95_wilson": [
+            52.4,
+            92.4
+          ],
+          "sample_size_note": "표본 작음",
+          "is_small_sample": true
+        },
+        {
+          "provider": "기타",
+          "total_eval_count": 36,
+          "judged_count": 36,
+          "unclear_count": 0,
+          "strict_fit_count": 21,
+          "strict_precision": 58.3,
+          "strict_ci95_wilson": [
+            42.2,
+            72.9
+          ],
+          "lenient_fit_count": 35,
+          "lenient_precision": 97.2,
+          "lenient_ci95_wilson": [
+            85.8,
+            99.5
+          ],
+          "sample_size_note": "충분",
+          "is_small_sample": false
+        }
+      ],
+      "kpc_vs_others": {
+        "kpc": {
+          "n": 93,
+          "strict_fit_count": 67,
+          "strict_precision": 72.0,
+          "ci95_wilson": [
+            62.2,
+            80.1
+          ],
+          "lenient_precision": 88.2
+        },
+        "others_all": {
+          "n": 128,
+          "strict_fit_count": 73,
+          "strict_precision": 57.0,
+          "ci95_wilson": [
+            48.4,
+            65.3
+          ],
+          "lenient_precision": 88.3
+        },
+        "diff_observed": 15.0,
+        "bootstrap_cluster_ci95": [
+          -1.4,
+          31.2
+        ]
+      },
+      "sensitivity_excluding_round1": {
+        "description": "개선 전 평가인 1차를 뺀 민감도 분석 결과",
+        "kpc_fit_count": 54,
+        "kpc_n": 77,
+        "kpc_precision": 70.1,
+        "others_fit_count": 57,
+        "others_n": 89,
+        "others_precision": 64.0,
+        "diff_pct": 6.1
+      },
+      "gseek_unclear_note": "GSEEK은 판단 불가 14/28건(초기 링크 문제, 이후 보정 완료)이라 다른 기관과의 단순 적합률 비교 시 해석에 주의가 필요합니다."
+    }
+  }
+}
