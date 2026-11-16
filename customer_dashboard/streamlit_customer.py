@@ -221,7 +221,7 @@ def toggle_enroll(card: dict, for_what: str = ""):
 def course_card(card: dict, key: str, for_what: str = "", note: str = ""):
     """교육 카드 1장. 공식 만족도는 정보로만 보여 주고 점수에는 넣지 않습니다."""
     tags = f'<span class="tag {card["kind"]}">{"✅ 직접 관련" if card["kind"] == "direct" else "🧰 공통 역량"}</span>'
-    if card.get("match", {}).get("is_reranked"):
+    if (card.get("match") or {}).get("is_reranked"):
         tags += '<span class="tag" style="background:#e0e7ff; color:#3730a3; border: 1px solid #c7d2fe;">🤖 AI 정밀검증</span>' 
     if card.get("schedule_badge"):
         tags += f'<span class="tag closed">⏹ {escape(card["schedule_badge"])}</span>'
