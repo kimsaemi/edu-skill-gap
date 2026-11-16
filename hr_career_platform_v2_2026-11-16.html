@@ -341,6 +341,15 @@
     .gs b { font-size: 13.5px; }
     .gs small { font-size: 11px; }
   }
+/* ==== AI_CHAT_CSS_START ==== */
+  .chat-box { display: flex; flex-direction: column; gap: 14px; margin: 14px 0; }
+  .chat-msg { display: flex; gap: 10px; align-items: flex-start; }
+  .chat-msg > div { flex: 1; min-width: 0; }
+  .chat-msg.user > div { background: var(--primary-soft); border-radius: 12px; padding: 10px 14px; font-weight: 700; }
+  .chat-ico { font-size: 22px; line-height: 1.4; }
+  .chat-input { display: flex; gap: 8px; flex-wrap: wrap; position: sticky; bottom: 0; background: var(--surface); padding: 10px 0; }
+  .chat-input input { flex: 1; min-width: 200px; padding: 10px 12px; border: 1px solid var(--border); border-radius: 10px; font-size: 15px; background: var(--surface); color: inherit; }
+  /* ==== AI_CHAT_CSS_END ==== */
 </style>
 </head>
 <body>
@@ -351,7 +360,7 @@
       <h1>인사 업무·성장·교육 안내</h1>
       <p>직급과 분야를 선택하면 업무 기준과 맞는 교육을 안내합니다.</p>
     </div>
-    <div class="hero-stat"><small>고용24·인프런·휴넷·KPC·KMA 등 통합</small><strong id="heroCount"></strong><div class="row2"><button type="button" data-act="all">전체 교육 찾기 →</button><button type="button" data-act="step" data-v="my" id="heroMy">📋 내 학습 현황</button></div></div>
+    <div class="hero-stat"><small>고용24·인프런·휴넷·KPC·KMA 등 통합</small><strong id="heroCount"></strong><div class="row2"><button type="button" data-act="all">전체 교육 찾기 →</button><button type="button" data-act="step" data-v="chat">💬 AI 상담</button><button type="button" data-act="step" data-v="my" id="heroMy">📋 내 학습 현황</button></div></div>
   </header>
   <nav class="steps" id="stepbar" aria-label="진행 단계"></nav>
   <div id="summary"></div>
@@ -488,7 +497,7 @@ function readHash() {
     if (TASK_INDEX[id] && l !== undefined && l !== '' && Number(l) >= 0 && Number(l) <= 3) state.tl[id] = Number(l);
   });
   const s = p.get('s');
-  state.step = ['1', '2', '3', 'all', 'my'].includes(s) ? s : '1';
+  state.step = ['1', '2', '3', 'all', 'my', 'chat'].includes(s) ? s : '1';
   if ((state.step === '2' || state.step === '3') && !ready()) state.step = '1';
 }
 function go(patch) {
@@ -1241,11 +1250,11 @@ function renderStepper() {
     const on = state.step === n, done = Number(n) < Number(state.step);
     const dis = n !== '1' && !ready();
     return `<button type="button" class="step ${on ? 'on' : ''} ${done ? 'done' : ''}" data-act="step" data-v="${n}" ${dis ? 'disabled' : ''} ${on ? 'aria-current="step"' : ''}><span>${ico}</span><span>${n}. ${label}</span></button>`;
-  }).join('') + `<button type="button" class="step ${state.step === 'my' ? 'on' : ''}" data-act="step" data-v="my" style="margin-left:auto"><span>📋</span><span>내 학습 현황${n ? ' (' + n + ')' : ''}</span></button>`;
+  }).join('') + `<button type="button" class="step ${state.step === 'chat' ? 'on' : ''}" data-act="step" data-v="chat" style="margin-left:auto"><span>💬</span><span>AI 상담</span></button>` + `<button type="button" class="step ${state.step === 'my' ? 'on' : ''}" data-act="step" data-v="my"><span>📋</span><span>내 학습 현황${n ? ' (' + n + ')' : ''}</span></button>`;
 }
 function renderSummary() {
   const el = document.getElementById('summary');
-  if (!ready() || ['1', 'all', 'my'].includes(state.step)) { el.innerHTML = ''; return; }
+  if (!ready() || ['1', 'all', 'my', 'chat'].includes(state.step)) { el.innerHTML = ''; return; }
   const skillCountBadge = state.skills.length ? `<span class="badge" style="background:var(--primary);color:#fff;margin-left:6px">부족 역량 ${state.skills.length}개 선택</span>` : '';
   el.innerHTML = `<div class="summary"><span>지금 선택 · <b>${esc(G[state.g].name)}</b> · <b>${state.ds.map(id => icon(id) + ' ' + esc(domOf(id).short)).join(' · ')}</b>${skillCountBadge}</span><button type="button" class="btn link" data-act="step" data-v="1">바꾸기</button></div>`;
 }
@@ -1254,7 +1263,7 @@ let lastStep = null;
 function render() {
   renderStepper();
   renderSummary();
-  const views = { '1': viewPick, '2': viewTasks, '3': viewCourses, all: viewAll, my: viewMy };
+  const views = { '1': viewPick, '2': viewTasks, '3': viewCourses, all: viewAll, my: viewMy, chat: viewChat };
   document.getElementById('view').innerHTML = views[state.step]();
   if (lastStep !== state.step) window.scrollTo(0, 0);
   lastStep = state.step;
@@ -1434,6 +1443,201 @@ window.addEventListener('hashchange', () => { readHash(); render(); });
 
 document.getElementById('heroCount').textContent = `${C.length}개 과정 보기`;
 document.getElementById('foot').textContent = `교육기관 수집 ${DATA.rawCourseCount}건 중 중복 회차를 묶어 ${C.length}개를 표시합니다. 분류와 대상 직급은 과정명 기준의 참고 정보이며, 일정·비용은 상세 페이지에서 확인하십시오. ⭐ 만족도는 고용24(국민내일배움카드) 공식 설문 점수이며, 설문이 없는 과정은 표시하지 않습니다.`;
+/* ==== AI_CHAT_START ==== */
+const CHAT = { msgs: [], idx: null };
+// ===== AI 상담: 브라우저 안에서만 동작 (외부 호출·비용 없음) =====
+// 업무 연결: 질문과 90개 업무(업무명·쉬운 설명·지식·기술)의 글자 2개 묶음(bigram) TF-IDF 코사인 유사도
+// 과정 검색: 과정명·학습목표·커리큘럼 bigram BM25
+// 기준값 근거: 저장소 docs/html_chat_threshold_report.md (질문 묶음이 작아 바뀔 수 있는 값)
+const CHAT_CONF = { confident: 0.20, margin: 0.10, candidate: 0.10, outOfScope: 0.10 };
+const CHAT_HR_WORDS = ['인사', '채용', '면접', '온보딩', '입사', '급여', '임금', '연봉', '보상', '평가', '성과', '복리후생', '4대보험', '보험',
+  '근로', '노동', '노사', '노무', '퇴직', '연말정산', '교육', '훈련', '조직', '직무', '직급', '인력', '취업규칙', '연차', '휴가',
+  '징계', '해고', '괴롭힘', '성희롱', '고충', '승진', '면담', 'hr', 'hrd', '엑셀', '보고서', '리더십', '코칭', '인재', '역량', '사원', '팀장'];
+const CHAT_STOP = new Set(['알아야', '알아', '검토', '중인데', '고민', '모르겠어', '복잡', '찾아줘', '관리', '신규', '교재', '운영', '기본', '하고', '싶어', '싶어요', '해요', '어요', '에요', '알려', '알려줘', '처음', '궁금', '궁금해요', '배우', '배우고', '방법',
+  '어떻게', '무엇', '뭘', '해야', '하는', '있는', '대한', '관련', '과정', '강좌', '교육', '추천', '추천해줘', '실무']);
+// 저장소 제외 목록(off_topic_exclusions.csv)에 오른 과정과 이벤트·할인 안내는 상담 결과에서 뺀다
+const CHAT_EXCLUDE = new Set(["GSEEK_56917", "GSEEK_56918", "GSEEK_56920", "GSEEK_56953", "GSEEK_56954", "GSEEK_56955", "GSEEK_56956", "GSEEK_56960", "GSEEK_56961", "GSEEK_56962", "GSEEK_56977", "GSEEK_64494", "GSEEK_64495", "GSEEK_7568", "KMA_111252_125058", "KPC_47231_152547", "KPC_47463_151561", "KPC_48178_158881", "MULTICAMPUS_EB2IR8", "MULTICAMPUS_EB2IR9", "MULTICAMPUS_EB2IRA", "MULTICAMPUS_EB2IRB", "MULTICAMPUS_FA0017", "MULTICAMPUS_FA0019", "MULTICAMPUS_FA01OW", "MULTICAMPUS_FB0056", "MULTICAMPUS_FB006F", "MULTICAMPUS_FB006G", "MULTICAMPUS_FB006H", "MULTICAMPUS_FB006L", "MULTICAMPUS_FB006M", "MULTICAMPUS_FB006N", "MULTICAMPUS_FB00BC", "MULTICAMPUS_FB00C0", "MULTICAMPUS_FB00C1", "MULTICAMPUS_FB00C2", "MULTICAMPUS_FB00C3", "MULTICAMPUS_FB00C4", "MULTICAMPUS_FB00C5", "MULTICAMPUS_FB00C6", "MULTICAMPUS_FB00C7", "MULTICAMPUS_FB00C9", "MULTICAMPUS_FB00CG", "MULTICAMPUS_FB00DK", "MULTICAMPUS_FB00F8", "MULTICAMPUS_FB00F9", "MULTICAMPUS_FB00FA", "MULTICAMPUS_Q32160", "MULTICAMPUS_Q33540", "MULTICAMPUS_Q33560"]);
+const chatOk = c => c && !CHAT_EXCLUDE.has(c.id) && !/이벤트|event|할인/i.test(c.t);
+const CHAT_PERSONAL = [/내게\s*맞는/, /뭘\s*들어야/, /뭐부터/, /어디부터/, /진단\s*결과/, /나한테\s*맞는/];
+
+function chatNorm(s) { return String(s || '').toLowerCase().replace(/[^0-9a-z가-힣]+/g, ' ').trim(); }
+function chatBigrams(s) {
+  const out = [];
+  chatNorm(s).split(' ').forEach(w => {
+    if (!w) return;
+    if (w.length === 1) { out.push(w); return; }
+    for (let i = 0; i < w.length - 1; i++) out.push(w.slice(i, i + 2));
+  });
+  return out;
+}
+function chatWords(s) {
+  return chatNorm(s).split(' ').map(w => w.replace(/(이에요|예요|해요|어요|아요|해줘|이야|인데|해야)$/, '')).map(w => w.replace(/(으로|에서|에게|하고|이나|이랑|부터|까지|처럼|은|는|이|가|을|를|의|에|와|과|도|로|만)$/, ''))
+    .filter(w => w.length >= 2 && !CHAT_STOP.has(w));
+}
+
+function chatQuery(q) { const w = chatWords(q); return w.length ? w.join(' ') : chatNorm(q); }
+
+function chatIndex() {
+  if (CHAT.idx) return CHAT.idx;
+  // 업무 TF-IDF
+  const tasks = Object.values(TASK_INDEX);
+  const tdocs = tasks.map(t => chatBigrams([t.name, t.name, t.easy, t.k, t.s].join(' ')));
+  const df = new Map();
+  tdocs.forEach(toks => new Set(toks).forEach(x => df.set(x, (df.get(x) || 0) + 1)));
+  const N = tdocs.length;
+  const idf = x => Math.log((N + 1) / ((df.get(x) || 0) + 1)) + 1;
+  const vec = toks => {
+    const tf = new Map(); toks.forEach(x => tf.set(x, (tf.get(x) || 0) + 1));
+    let norm = 0; const v = new Map();
+    tf.forEach((f, x) => { const w = (1 + Math.log(f)) * idf(x); v.set(x, w); norm += w * w; });
+    return { v, norm: Math.sqrt(norm) || 1 };
+  };
+  const tvecs = tdocs.map(vec);
+  // 과정 BM25 (과정명 2배 + 학습목표 + 커리큘럼)
+  const cdocs = C.map(c => chatBigrams([c.t, c.t, c.ev && c.ev.g, c.ev && c.ev.cu].filter(Boolean).join(' ')));
+  const cdf = new Map(), ctf = [], clen = [];
+  cdocs.forEach(toks => {
+    const tf = new Map(); toks.forEach(x => tf.set(x, (tf.get(x) || 0) + 1));
+    ctf.push(tf); clen.push(toks.length); tf.forEach((_, x) => cdf.set(x, (cdf.get(x) || 0) + 1));
+  });
+  const avg = clen.reduce((a, b) => a + b, 0) / (clen.length || 1);
+  CHAT.idx = { tasks, tvecs, vec, ctf, clen, cdf, avg, CN: cdocs.length };
+  return CHAT.idx;
+}
+
+function chatTaskScores(q) {
+  const I = chatIndex();
+  const qv = I.vec(chatBigrams(chatQuery(q)));
+  return I.tasks.map((t, i) => {
+    let dot = 0; const tv = I.tvecs[i];
+    qv.v.forEach((w, x) => { const y = tv.v.get(x); if (y) dot += w * y; });
+    return { t, s: dot / (qv.norm * tv.norm) };
+  }).sort((a, b) => b.s - a.s);
+}
+
+function chatClassify(scores, q) {
+  const top = scores[0] ? scores[0].s : 0, second = scores[1] ? scores[1].s : 0;
+  const ql = chatNorm(q);
+  const hr = CHAT_HR_WORDS.some(w => ql.includes(w));
+  if (top < CHAT_CONF.outOfScope && !hr) return 'out';
+  if (top >= CHAT_CONF.confident && top - second >= CHAT_CONF.margin) return 'task';
+  if (top >= CHAT_CONF.candidate) return 'cand';
+  return 'search';
+}
+
+function chatSearch(q, n = 3) {
+  const I = chatIndex();
+  const qs = [...new Set(chatBigrams(chatQuery(q)))];
+  const idf = x => { const m = I.cdf.get(x) || 0; return Math.log(1 + (I.CN - m + 0.5) / (m + 0.5)); };
+  const scored = [];
+  I.ctf.forEach((tf, i) => {
+    let s = 0;
+    qs.forEach(x => { const f = tf.get(x); if (f) s += idf(x) * f * 2.2 / (f + 1.2 * (0.25 + 0.75 * I.clen[i] / I.avg)); });
+    if (s > 0 && chatOk(C[i])) scored.push({ c: C[i], s });
+  });
+  // 인사 직접 관련 과정에 작은 가산, 같은 과정명은 1번만
+  scored.forEach(x => { if (x.c.cat === 'HR') x.s *= 1.15; });
+  scored.sort((a, b) => b.s - a.s);
+  const seen = new Set(), out = [];
+  for (const x of scored) { const k = chatNorm(x.c.t).replace(/ /g, '').replace(/\d+$/, ''); if (seen.has(k)) continue; seen.add(k); out.push(x.c); if (out.length >= 12) break; }
+  // 비용순 재정렬(prefer)은 쓰지 않고 관련도 순서를 지키며 같은 기관만 몰리지 않게 한다
+  return diversify(out, c => c.plat).slice(0, n);
+}
+
+function chatTaskCourses(t, n = 3) {
+  const lv = REC_LEVEL[state.g !== null ? state.g : 1];
+  const rec = t.rec || [[], [], []];
+  const ids = [...new Set([...(rec[lv] || []), ...(rec[1] || []), ...(rec[0] || []), ...(rec[2] || [])])];
+  const seen = new Set();
+  return ids.map(id => COURSE_BY_ID.get(id)).filter(c => { if (!chatOk(c)) return false; const k = chatNorm(c.t).replace(/ /g, '').replace(/\d+$/, ''); if (seen.has(k)) return false; seen.add(k); return true; }).slice(0, n);
+}
+
+// 추천 이유: 과정명·학습목표·커리큘럼에 실제로 나오는 단어만 쓴다
+function chatWhy(q, c, t) {
+  const text = chatNorm([c.t, c.ev && c.ev.g, c.ev && c.ev.cu].filter(Boolean).join(' '));
+  const src = [q, t ? t.name : '', t ? t.k : '', t ? t.s : ''].join(' ');
+  const hits = [...new Set(chatWords(src))].filter(w => text.includes(w)).sort((a, b) => b.length - a.length).slice(0, 2);
+  if (!hits.length) return t ? '이 업무의 기본 추천 과정이에요. 과정 소개를 확인해 주세요.' : '질문과 가까운 과정으로 검색됐어요. 과정 소개를 확인해 주세요.';
+  return t ? `과정 정보에 ${hits.map(h => `'${h}'`).join('·')} 내용이 있어 이 업무와 연결돼요.` : `질문하신 ${hits.join('·')} 관련 내용이 과정 정보에 있어요.`;
+}
+
+function chatAnswer(q) {
+  const qq = String(q || '').trim();
+  if (!qq) return null;
+  const weak = typeof weakTasks === 'function' ? weakTasks() : [];
+  if (weak.length && CHAT_PERSONAL.some(r => r.test(qq))) {
+    const t = TASK_INDEX[weak[0].id] || weak[0];
+    return { mode: 'personal', q: qq, task: t, text: `진단 결과에서 숙련도 차이가 가장 큰 업무 [${t.name}] 기준으로 골랐어요.`, courses: chatTaskCourses(t) };
+  }
+  const scores = chatTaskScores(qq);
+  const mode = chatClassify(scores, qq);
+  if (mode === 'out') return { mode, q: qq, text: "이 서비스는 인사 교육과정 추천용이에요. 예: '평가 면담을 잘하고 싶어요'", courses: [] };
+  if (mode === 'task') {
+    const t = scores[0].t;
+    return { mode, q: qq, task: t, score: scores[0].s, text: `이 업무로 이해했어요: [${domOf(t.domId).short}] ${t.name}`, courses: chatTaskCourses(t) };
+  }
+  const courses = chatSearch(qq);
+  if (mode === 'cand') {
+    return { mode, q: qq, cands: scores.slice(0, 2).map(x => x.t), score: scores[0].s,
+      text: '어느 업무에 가까운지 골라 주세요. 그 사이 질문과 가까운 과정을 먼저 찾아봤어요.' + (courses.length ? '' : ' (검색 결과가 없어요)'), courses };
+  }
+  return { mode, q: qq, score: scores[0] ? scores[0].s : 0,
+    text: courses.length ? '특정 업무로 좁혀지지 않아서, 질문과 가까운 과정을 찾아봤어요.' : '맞는 과정을 찾지 못했어요. 업무를 조금 더 구체적으로 적어 주세요.', courses };
+}
+
+function chatPick(taskId, q) {
+  const t = TASK_INDEX[taskId];
+  if (!t) return null;
+  return { mode: 'task', q, task: t, text: `이 업무로 이해했어요: [${domOf(t.domId).short}] ${t.name}`, courses: chatTaskCourses(t) };
+}
+
+function viewChat() {
+  const ex = ['4대보험 신고 처음이에요', '직무급제 도입 고민', '신입사원 온보딩 기획', '평가 면담을 잘하고 싶어요'];
+  const msgs = CHAT.msgs.map((m, mi) => {
+    if (m.role === 'user') return `<div class="chat-msg user"><span class="chat-ico">🙋</span><div>${esc(m.text)}</div></div>`;
+    const a = m.a;
+    const cands = (a.cands || []).map(t => `<button type="button" class="chip" data-act="chat-pick" data-t="${esc(t.id)}" data-mi="${mi}">📌 ${esc(t.name)}</button>`).join('');
+    const cards = (a.courses || []).map(c => courseCard({ c, kind: c.cat === 'HR' ? 'direct' : 'common', why: chatWhy(a.q, c, a.task) + ' (자동 생성 문장)' })).join('');
+    return `<div class="chat-msg bot"><span class="chat-ico">🤖</span><div><div>${esc(a.text)}</div>
+      ${cands ? `<div class="chips" style="margin:8px 0">${cands}</div>` : ''}
+      ${cards ? `<div class="grid" style="margin-top:10px">${cards}</div>` : ''}</div></div>`;
+  }).join('');
+  return `<div class="shead"><span class="badge">상담</span><h2>💬 AI 상담</h2></div>
+    <p class="hint">업무 고민을 적으면 90개 인사 업무 중 가까운 업무를 찾아 실제 교육과정을 골라 드려요. 이 페이지 안에서만 계산하고 외부로 보내지 않아요. 추천 이유는 겹치는 단어로 만든 자동 생성 문장이에요.</p>
+    <div class="chips" style="margin:8px 0">${ex.map(q => `<button type="button" class="chip" data-act="chat-q" data-v="${esc(q)}">${esc(q)}</button>`).join('')}</div>
+    <div class="chat-box">${msgs || '<p class="sub">예시를 누르거나 아래에 질문을 적어 보세요.</p>'}</div>
+    <div class="chat-input"><input type="text" id="chatIn" placeholder="업무 고민이나 배우고 싶은 내용을 입력하세요 (예: 연말정산 처음 해봐요)" aria-label="AI 상담 질문">
+      <button type="button" class="btn primary" data-act="chat-send">보내기</button>
+      ${CHAT.msgs.length ? '<button type="button" class="btn" data-act="chat-reset">대화 지우기</button>' : ''}</div>`;
+}
+function chatPush(q, a) {
+  if (!a) return;
+  CHAT.msgs.push({ role: 'user', text: q }, { role: 'bot', a });
+  render();
+  const boxes = document.querySelectorAll('.chat-msg.bot');
+  if (boxes.length) boxes[boxes.length - 1].scrollIntoView({ block: 'start' });
+}
+function chatSend(q) { const qq = String(q || '').trim(); if (qq) chatPush(qq, chatAnswer(qq)); }
+document.addEventListener('click', ev => {
+  const el = ev.target.closest('[data-act^="chat-"]');
+  if (!el) return;
+  switch (el.dataset.act) {
+    case 'chat-q': chatSend(el.dataset.v); break;
+    case 'chat-send': { const inp = document.getElementById('chatIn'); chatSend(inp && inp.value); break; }
+    case 'chat-pick': {
+      const prev = CHAT.msgs[Number(el.dataset.mi)];
+      const t = TASK_INDEX[el.dataset.t];
+      if (t) chatPush('📌 ' + t.name, chatPick(t.id, prev && prev.a ? prev.a.q : t.name));
+      break;
+    }
+    case 'chat-reset': CHAT.msgs = []; render(); break;
+  }
+});
+document.addEventListener('keydown', ev => {
+  if (ev.target.id === 'chatIn' && ev.key === 'Enter' && !ev.isComposing) { ev.preventDefault(); chatSend(ev.target.value); }
+});
+
+/* ==== AI_CHAT_END ==== */
 readHash();
 render();
 </script>
