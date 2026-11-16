@@ -455,7 +455,7 @@ s1.shapes[-1].text_frame.paragraphs[1].font.color.rgb = C_HUD_DIM
 
 add_card(s1, 0.9, 4.3, 11.4, 1.8, is_dark=True)
 add_text_lines(s1, 1.2, 4.55, 10.8, 1.4, [
-    ("팀명: ", "[팀 작성 필요]"),
+    ("팀명: ", "쓰리포(3,4!)"),
     ("데이터 기준일: ", f"{data['generated']}  (고용24 2026년 운영 과정 반영)"),
     ("발표 대시보드: ", DASHBOARD_URL),
     ("GitHub 저장소: ", GITHUB_URL),
