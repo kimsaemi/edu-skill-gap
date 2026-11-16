@@ -75,12 +75,26 @@ python scripts/test_dashboard_mapping.py    # 매핑 섹션 회귀 테스트 (�
 ```bash
 python scripts/check_customer_no_synthetic_reviews.py   # 고객 화면에 합성 리뷰·평점이 없는지
 python scripts/check_presentation_consistency.py        # 발표 자료 일관성 및 정직성 최종 점검
+python -m unittest tests/test_chatbot.py                # 인사 추천 RAG 챗봇 핵심 기능 단위 테스트
 python scripts/verify_customer_mvp.py                   # 고객 앱 단위 검증
 python scripts/test_new_flow_verification.py            # 고객 앱 단계 흐름
 python scripts/test_recommender_integration.py          # 추천 엔진
 python scripts/test_common_loader.py                    # 데이터 로더
 python scripts/test_same_title_offerings.py             # 같은 제목 과정의 '다른 운영 기관' 표시
 python scripts/test_course_links.py                     # GSEEK 상세 링크 보정 (카드·대시보드·평가표)
+```
+
+### 인사 교육과정 추천 RAG 챗봇 실행
+
+자연어로 인사 실무 고민이나 배우고 싶은 교육 내용을 입력하면 90개 표준 업무 및 7,698개 후보 코퍼스를 2단계로 검색하여 맞춤 추천 및 이유를 제공합니다.
+
+```bash
+# 1. (선택) AI 설명 생성을 위한 환경변수 설정 (미설정 시 2단계 검색 표 모드로 동작)
+export ANTHROPIC_API_KEY="your-api-key"   # Linux/macOS
+# $env:ANTHROPIC_API_KEY="your-api-key"   # Windows PowerShell
+
+# 2. 챗봇 실행
+streamlit run chatbot_app.py
 ```
 
 GSEEK 과정 링크(`…/online/view?s_sbjct_sn=번호`)는 과정 목록으로 넘어가 내용을 볼 수 없다. 화면·평가표에 내보낼 때만
