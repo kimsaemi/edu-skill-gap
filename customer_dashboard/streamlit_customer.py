@@ -23,6 +23,8 @@ if str(WORKSPACE_ROOT) not in sys.path:
     sys.path.insert(0, str(WORKSPACE_ROOT))
 
 from src.customer import career_platform as cp  # noqa: E402
+from src.chatbot.matcher import match_and_recommend, recommend_for_task
+from src.chatbot.llm_optional import is_llm_available, generate_llm_explanation
 
 st.set_page_config(page_title="인사·총무·경영지원 성장·교육 안내", page_icon="🧭", layout="wide")
 
@@ -111,7 +113,7 @@ def init_state():
     defaults = {
         "step": "1", "g": None, "ds": [], "d": None, "tl": {}, "skills": [], "open_task": None,
         "enroll": {}, "diag_log": [], "goals": [], "limit": 12, "more": False,
-        "use_reranker": True,
+        "use_reranker": True, "chat_msgs": [],
     }
     for k, v in defaults.items():
         if k not in st.session_state:
@@ -192,8 +194,9 @@ def hero():
 def stepbar():
     n = len(S.enroll)
     defs = [("1", "👤 1. 내 위치"), ("2", "🩺 2. 진단 & 하는 일"), ("3", "📚 3. 추천 교육"),
-            ("all", "🔎 전체 교육 찾기"), ("my", f"📋 내 학습 현황{f' ({n})' if n else ''}")]
-    cols = st.columns([1, 1.25, 1, 1.15, 1.25])
+            ("all", "🔎 전체 교육 찾기"), ("my", f"📋 내 학습 현황{f' ({n})' if n else ''}"),
+            ("chat", "💬 AI 상담")]
+    cols = st.columns([1, 1.25, 1, 1.15, 1.2, 1.1])
     for col, (key, label) in zip(cols, defs):
         disabled = key in ("2", "3") and not ready()
         col.button(label, key=f"nav_{key}", use_container_width=True, disabled=disabled,
@@ -751,6 +754,107 @@ def view_my():
         st.button("기록 전체 삭제", on_click=reset_track)
 
 
+def view_chat():
+    st.markdown("### 💬 AI 추천 상담")
+    st.markdown("업무 고민이나 배우고 싶은 내용을 적으면 실제 교육과정 중에서 골라 드려요. 추천 이유는 겹치는 단어로 만든 자동 생성 문장이에요.")
+
+    # 실시간 AI 가용성 및 토글
+    llm_avail, _ = is_llm_available()
+    c_top1, c_top2 = st.columns([3, 1])
+    with c_top1:
+        if llm_avail:
+            st.toggle("실시간 AI 심층 설명 켜기 (비용 발생)", key="chat_use_llm")
+        else:
+            st.caption("💡 비용이 들지 않는 규칙 기반 설명으로 동작해요.")
+    with c_top2:
+        if st.button("대화 초기화", key="btn_reset_chat", use_container_width=True):
+            S.chat_msgs = []
+            st.rerun()
+
+    # 빠른 질문 예시 버튼 4개
+    st.caption("자주 묻는 질문:")
+    frequent_questions = [
+        "4대보험 신고 처음이에요",
+        "직무급제 도입 고민",
+        "신입사원 온보딩 기획",
+        "내게 맞는 과정 추천해줘"
+    ]
+    q_cols = st.columns(4)
+    selected_query = None
+    for i, (qcol, fq) in enumerate(zip(q_cols, frequent_questions)):
+        if qcol.button(fq, key=f"fq_btn_{i}", use_container_width=True):
+            selected_query = fq
+
+    # 대화 기록 렌더링
+    for msg_idx, msg in enumerate(S.chat_msgs):
+        with st.chat_message(msg["role"]):
+            st.markdown(msg["content"])
+            cands = msg.get("candidate_tasks") or []
+            if cands:
+                c_cols = st.columns(len(cands))
+                for ci, (ccol, ct) in enumerate(zip(c_cols, cands)):
+                    if ccol.button(f"📌 {ct.get('name')}", key=f"cand_{msg_idx}_{ci}", use_container_width=True):
+                        S.chat_pick = (ct.get("id"), msg.get("query", ""))
+            if msg.get("cards"):
+                st.markdown("##### 🎯 추천 교육 과정")
+                for card_idx, (card, exp) in enumerate(zip(msg["cards"], msg.get("explanations", []))):
+                    src_tag = "자동 생성 문장"
+                    note_str = f"💡 추천 이유: {exp.get('text', '')}  \n*{src_tag}*"
+                    course_card(card, key=f"chat_{msg_idx}_{card_idx}_{card.get('course_uid')}", for_what="AI 상담", note=note_str)
+
+    # 질의 처리 로직
+    def process_chat_query(query_text: str):
+        if not query_text.strip():
+            return
+        S.chat_msgs.append({"role": "user", "content": query_text})
+        grade = S.g if S.g is not None else 1
+        weak = weak_tasks()[0] if weak_tasks() else None
+        res = match_and_recommend(
+            query=query_text,
+            grade_idx=grade,
+            use_reranker=S.get("use_reranker", True),
+            weak_task=weak
+        )
+
+        llm_text = None
+        if S.get("chat_use_llm") and llm_avail and res.cards:
+            llm_text = generate_llm_explanation(query_text, res.cards)
+
+        resp_content = res.system_message
+        if llm_text:
+            resp_content += f"\n\n🤖 **AI 심층 분석**:\n{llm_text}"
+
+        S.chat_msgs.append({
+            "role": "assistant",
+            "content": resp_content,
+            "mode": res.mode,
+            "query": query_text,
+            "candidate_tasks": res.candidate_tasks,
+            "cards": res.cards,
+            "explanations": res.explanations
+        })
+
+    def process_task_pick(task_id: str, query_text: str):
+        res = recommend_for_task(task_id, query_text, S.g if S.g is not None else 1,
+                                 use_reranker=S.get("use_reranker", True))
+        S.chat_msgs.append({"role": "user", "content": f"📌 {res.matched_task['name']}"})
+        S.chat_msgs.append({"role": "assistant", "content": res.system_message, "mode": res.mode,
+                            "query": query_text, "candidate_tasks": [],
+                            "cards": res.cards, "explanations": res.explanations})
+
+    prompt = st.chat_input("업무 고민이나 관심 과정을 입력하세요 (예: 4대보험 신고 처음이에요)")
+    pick = S.pop("chat_pick", None)
+    if pick and pick[0]:
+        process_task_pick(*pick)
+        st.rerun()
+    elif selected_query:
+        process_chat_query(selected_query)
+        st.rerun()
+    elif prompt:
+        process_chat_query(prompt)
+        st.rerun()
+
+
 # ---------------------------------------------------------------------------
 # 실행
 # ---------------------------------------------------------------------------
@@ -763,7 +867,7 @@ hero()
 stepbar()
 if S.step in ("2", "3") and not ready():
     S.step = "1"
-{"1": view_pick, "2": view_tasks, "3": view_courses, "all": view_all, "my": view_my}[S.step]()
+{"1": view_pick, "2": view_tasks, "3": view_courses, "all": view_all, "my": view_my, "chat": view_chat}[S.step]()
 st.markdown("---")
 st.caption("교육 정보는 각 교육기관과 고용24의 공개 정보를 모은 것이에요. 수강료·일정은 바뀔 수 있으니 신청 전 교육기관에서 확인해 주세요. "
            "공식 만족도는 고용24 수강생 설문 점수로, 응답자 수가 공개되지 않아 추천 순위에는 쓰지 않아요.")

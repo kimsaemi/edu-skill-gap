@@ -39,8 +39,25 @@ streamlit run app.py
 3. **맞춤 추천**: 부족한 업무별 추천 교육 (업무 90개 × 숙련도 3단계, `data/hr/output/recommendation/task_course_recommendations_90.csv`)
 4. **전체 교육 찾기**: 교육 카탈로그 검색 (제외 목록 `data/hr/processed/off_topic_exclusions.csv`에 오른 과정은 숨김)
 5. **내 학습 현황**: 담은 교육의 수강 상태 관리
+6. **💬 AI 상담**: 업무 고민을 적으면 업무를 찾아 실제 교육과정을 골라 줌
 
 데이터: `data/hr/processed/hr_career_platform_master.json`(직급·분야·업무), `src/customer/career_platform.py`(데이터·추천 계층)
+
+---
+
+## 💬 AI 상담 탭 안내
+
+상단 메뉴의 **"💬 AI 상담"** 탭에 업무 고민을 적으면 실제 교육과정 중에서 골라 보여 줍니다. 기본 동작에는 실시간 AI 호출이 없어 비용이 0원입니다.
+
+- **업무 연결** (`src/chatbot/matcher.py`): 질문과 90개 업무를 비교합니다 (업무명 의미 유사도 + 업무 설명 BM25).
+  - 업무가 분명하면 → 그 업무의 기본 추천 3개
+  - 1·2위 업무가 비슷하면 → 업무 후보 버튼 2개 + 질문 검색 결과 (버튼을 누르면 그 업무 추천으로 이어짐)
+  - 업무 후보가 약하면 → 질문 검색 결과
+  - 인사와 무관해 보이면 → 안내 문구만
+  - 기준값과 근거: `docs/chat_threshold_report.md` (`python scripts/calibrate_chat_threshold.py`로 다시 계산)
+- **추천 이유** (`src/chatbot/explain.py`): 질문·업무와 과정 소개에 함께 나오는 단어로 만든 짧은 자동 생성 문장입니다. 과정 소개에 없는 내용은 쓰지 않습니다.
+- **대표 질문 실행 결과**: `docs/chatbot_smoke_test.md` (`python scripts/run_chatbot_smoke_test.py`, 팀 판정 칸은 빈칸)
+- **선택 기능 (실시간 AI 설명, 기본 꺼짐)**: `pip install anthropic` 후 `CHAT_LLM_ENABLED=true`와 `ANTHROPIC_API_KEY`를 환경변수 또는 `.streamlit/secrets.toml`에 넣으면 토글이 보입니다. 모델은 `CHAT_LLM_MODEL`로 바꿀 수 있습니다(기본 `claude-haiku-5-5`). 키나 라이브러리가 없어도 기본 동작은 그대로입니다.
 
 ---
 
