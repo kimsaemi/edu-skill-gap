@@ -1,0 +1,65 @@
+﻿item_id,row_id,rater_slot,task_id,level,course_uid,title,provider,side,is_retest,retest_origin,existing_raters,existing_judgments
+1,1,1,TASK_HR_D05_T07,입문,MULTICAMPUS_EA0DH0,국제표준과 정보보안감사 실무,멀티캠퍼스,candidate_only,False,,,[]
+1,2,2,TASK_HR_D05_T07,입문,MULTICAMPUS_EA0DH0,국제표준과 정보보안감사 실무,멀티캠퍼스,candidate_only,False,,,[]
+2,3,1,TASK_HR_D06_T06,입문,GSEEK_2835,인생 봄날 만드는 똑똑한 근로계약서,GSEEK,baseline_only,True,precision_eval_holdout3_results,"이:적합,홍:적합","[{""source_file"": ""precision_eval_holdout3_results"", ""rater"": ""이"", ""judgment"": ""적합"", ""memo"": NaN}, {""source_file"": ""precision_eval_holdout3_results"", ""rater"": ""홍"", ""judgment"": ""적합"", ""memo"": NaN}]"
+2,4,2,TASK_HR_D06_T06,입문,GSEEK_2835,인생 봄날 만드는 똑똑한 근로계약서,GSEEK,baseline_only,True,precision_eval_holdout3_results,"이:적합,홍:적합","[{""source_file"": ""precision_eval_holdout3_results"", ""rater"": ""이"", ""judgment"": ""적합"", ""memo"": NaN}, {""source_file"": ""precision_eval_holdout3_results"", ""rater"": ""홍"", ""judgment"": ""적합"", ""memo"": NaN}]"
+3,5,1,TASK_HR_D05_T07,입문,KPC_47815_154866,FTA관세종합,한국생산성본부(KPC),baseline_only,False,,,[]
+3,6,2,TASK_HR_D05_T07,입문,KPC_47815_154866,FTA관세종합,한국생산성본부(KPC),baseline_only,False,,,[]
+4,7,1,TASK_HR_D03_T01,실무,HUNET_Y00317659,"엔지니어 채용의 모든 것, 테크 리크루팅 A TO Z",휴넷,candidate_only,True,precision_eval_holdout3_results,"이:적합,홍:적합","[{""source_file"": ""precision_eval_holdout3_results"", ""rater"": ""이"", ""judgment"": ""적합"", ""memo"": NaN}, {""source_file"": ""precision_eval_holdout3_results"", ""rater"": ""홍"", ""judgment"": ""적합"", ""memo"": NaN}]"
+4,8,2,TASK_HR_D03_T01,실무,HUNET_Y00317659,"엔지니어 채용의 모든 것, 테크 리크루팅 A TO Z",휴넷,candidate_only,True,precision_eval_holdout3_results,"이:적합,홍:적합","[{""source_file"": ""precision_eval_holdout3_results"", ""rater"": ""이"", ""judgment"": ""적합"", ""memo"": NaN}, {""source_file"": ""precision_eval_holdout3_results"", ""rater"": ""홍"", ""judgment"": ""적합"", ""memo"": NaN}]"
+5,9,1,TASK_HR_D06_T06,실무,KPC_47016_149794,노동법 쟁점 88선 해설,한국생산성본부(KPC),candidate_only,False,,,[]
+5,10,2,TASK_HR_D06_T06,실무,KPC_47016_149794,노동법 쟁점 88선 해설,한국생산성본부(KPC),candidate_only,False,,,[]
+6,11,1,TASK_HR_D04_T06,입문,KMA_111368_125531,[비대면] 조직 갈등을 기회로! 코칭으로 배우는 해결의 기술,한국능률협회(KMA),candidate_only,False,,,[]
+6,12,2,TASK_HR_D04_T06,입문,KMA_111368_125531,[비대면] 조직 갈등을 기회로! 코칭으로 배우는 해결의 기술,한국능률협회(KMA),candidate_only,False,,,[]
+7,13,1,TASK_HR_D08_T01,관리자·심화,KMA_112291_128429,[여의도] 성과를 만드는 조직문화: 도전과 성장의 팀 빌딩,한국능률협회(KMA),candidate_only,False,,,[]
+7,14,2,TASK_HR_D08_T01,관리자·심화,KMA_112291_128429,[여의도] 성과를 만드는 조직문화: 도전과 성장의 팀 빌딩,한국능률협회(KMA),candidate_only,False,,,[]
+8,15,1,TASK_HR_D05_T07,실무,KPC_46976_157561,인사평가시스템 구축실무,한국생산성본부(KPC),candidate_only,False,,,[]
+8,16,2,TASK_HR_D05_T07,실무,KPC_46976_157561,인사평가시스템 구축실무,한국생산성본부(KPC),candidate_only,False,,,[]
+9,17,1,TASK_HR_D07_T10,관리자·심화,MULTICAMPUS_FA0110,실전! AI 추천 시스템 알고리즘 이해 및 구현,멀티캠퍼스,baseline_only,False,,,[]
+9,18,2,TASK_HR_D07_T10,관리자·심화,MULTICAMPUS_FA0110,실전! AI 추천 시스템 알고리즘 이해 및 구현,멀티캠퍼스,baseline_only,False,,,[]
+10,19,1,TASK_HR_D05_T07,관리자·심화,PUB_AIG20250000535683_5,[자체시험장] 인사경리실무자 향상과정(법인조정+전산세무1급+인사급여실무) C,하이미디어컴퓨터디자인학원,candidate_only,False,,,[]
+10,20,2,TASK_HR_D05_T07,관리자·심화,PUB_AIG20250000535683_5,[자체시험장] 인사경리실무자 향상과정(법인조정+전산세무1급+인사급여실무) C,하이미디어컴퓨터디자인학원,candidate_only,False,,,[]
+11,21,1,TASK_HR_D06_T06,입문,KPC_47016_149794,노동법 쟁점 88선 해설,한국생산성본부(KPC),candidate_only,True,precision_eval_holdout3_results,"박:적합,홍:적합","[{""source_file"": ""precision_eval_holdout3_results"", ""rater"": ""박"", ""judgment"": ""적합"", ""memo"": NaN}, {""source_file"": ""precision_eval_holdout3_results"", ""rater"": ""홍"", ""judgment"": ""적합"", ""memo"": NaN}]"
+11,22,2,TASK_HR_D06_T06,입문,KPC_47016_149794,노동법 쟁점 88선 해설,한국생산성본부(KPC),candidate_only,True,precision_eval_holdout3_results,"박:적합,홍:적합","[{""source_file"": ""precision_eval_holdout3_results"", ""rater"": ""박"", ""judgment"": ""적합"", ""memo"": NaN}, {""source_file"": ""precision_eval_holdout3_results"", ""rater"": ""홍"", ""judgment"": ""적합"", ""memo"": NaN}]"
+12,23,1,TASK_HR_D03_T06,실무,MULTICAMPUS_FA00PB,핵심! 빅데이터 분석 전문가,멀티캠퍼스,candidate_only,False,,,[]
+12,24,2,TASK_HR_D03_T06,실무,MULTICAMPUS_FA00PB,핵심! 빅데이터 분석 전문가,멀티캠퍼스,candidate_only,False,,,[]
+13,25,1,TASK_HR_D05_T07,실무,KPC_47011_157556,우수인재 선발을 위한 면접관 역량개발,한국생산성본부(KPC),candidate_only,False,,,[]
+13,26,2,TASK_HR_D05_T07,실무,KPC_47011_157556,우수인재 선발을 위한 면접관 역량개발,한국생산성본부(KPC),candidate_only,False,,,[]
+14,27,1,TASK_HR_D02_T09,관리자·심화,MULTICAMPUS_EA0D0P,신뢰받는 중간 관리자의 역량-계층교육 중간리더 편,멀티캠퍼스,baseline_only,True,precision_eval_holdout3_results,"김:부분 적합,박:적합","[{""source_file"": ""precision_eval_holdout3_results"", ""rater"": ""김"", ""judgment"": ""부분 적합"", ""memo"": NaN}, {""source_file"": ""precision_eval_holdout3_results"", ""rater"": ""박"", ""judgment"": ""적합"", ""memo"": NaN}]"
+14,28,2,TASK_HR_D02_T09,관리자·심화,MULTICAMPUS_EA0D0P,신뢰받는 중간 관리자의 역량-계층교육 중간리더 편,멀티캠퍼스,baseline_only,True,precision_eval_holdout3_results,"김:부분 적합,박:적합","[{""source_file"": ""precision_eval_holdout3_results"", ""rater"": ""김"", ""judgment"": ""부분 적합"", ""memo"": NaN}, {""source_file"": ""precision_eval_holdout3_results"", ""rater"": ""박"", ""judgment"": ""적합"", ""memo"": NaN}]"
+15,29,1,TASK_HR_D05_T07,실무,KPC_47261_151780,[온앤오프] 민사 소송 실무,한국생산성본부(KPC),baseline_only,True,precision_eval_holdout2_results,"이:부적합,박:부적합","[{""source_file"": ""precision_eval_holdout2_results"", ""rater"": ""이"", ""judgment"": ""부적합"", ""memo"": NaN}, {""source_file"": ""precision_eval_holdout2_results"", ""rater"": ""박"", ""judgment"": ""부적합"", ""memo"": NaN}]"
+15,30,2,TASK_HR_D05_T07,실무,KPC_47261_151780,[온앤오프] 민사 소송 실무,한국생산성본부(KPC),baseline_only,True,precision_eval_holdout2_results,"이:부적합,박:부적합","[{""source_file"": ""precision_eval_holdout2_results"", ""rater"": ""이"", ""judgment"": ""부적합"", ""memo"": NaN}, {""source_file"": ""precision_eval_holdout2_results"", ""rater"": ""박"", ""judgment"": ""부적합"", ""memo"": NaN}]"
+16,31,1,TASK_HR_D03_T01,실무,KPC_47851_154645,구매전략수립 및 추진,한국생산성본부(KPC),baseline_only,True,precision_eval_holdout3_results,"이:부적합,박:부적합","[{""source_file"": ""precision_eval_holdout3_results"", ""rater"": ""이"", ""judgment"": ""부적합"", ""memo"": NaN}, {""source_file"": ""precision_eval_holdout3_results"", ""rater"": ""박"", ""judgment"": ""부적합"", ""memo"": NaN}]"
+16,32,2,TASK_HR_D03_T01,실무,KPC_47851_154645,구매전략수립 및 추진,한국생산성본부(KPC),baseline_only,True,precision_eval_holdout3_results,"이:부적합,박:부적합","[{""source_file"": ""precision_eval_holdout3_results"", ""rater"": ""이"", ""judgment"": ""부적합"", ""memo"": NaN}, {""source_file"": ""precision_eval_holdout3_results"", ""rater"": ""박"", ""judgment"": ""부적합"", ""memo"": NaN}]"
+17,33,1,TASK_HR_D02_T07,실무,KPC_47837_154879,국내산 원산지증명서 작성 및 검증,한국생산성본부(KPC),baseline_only,True,precision_eval_holdout2_results,"이:부적합,박:부적합","[{""source_file"": ""precision_eval_holdout2_results"", ""rater"": ""이"", ""judgment"": ""부적합"", ""memo"": NaN}, {""source_file"": ""precision_eval_holdout2_results"", ""rater"": ""박"", ""judgment"": ""부적합"", ""memo"": NaN}]"
+17,34,2,TASK_HR_D02_T07,실무,KPC_47837_154879,국내산 원산지증명서 작성 및 검증,한국생산성본부(KPC),baseline_only,True,precision_eval_holdout2_results,"이:부적합,박:부적합","[{""source_file"": ""precision_eval_holdout2_results"", ""rater"": ""이"", ""judgment"": ""부적합"", ""memo"": NaN}, {""source_file"": ""precision_eval_holdout2_results"", ""rater"": ""박"", ""judgment"": ""부적합"", ""memo"": NaN}]"
+18,35,1,TASK_HR_D05_T07,관리자·심화,KPC_47815_154866,FTA관세종합,한국생산성본부(KPC),baseline_only,False,,,[]
+18,36,2,TASK_HR_D05_T07,관리자·심화,KPC_47815_154866,FTA관세종합,한국생산성본부(KPC),baseline_only,False,,,[]
+19,37,1,TASK_HR_D06_T09,입문,KMA_111447_126378,[여의도] 급여담당자를 위한 급여관리 실무,한국능률협회(KMA),candidate_only,False,,,[]
+19,38,2,TASK_HR_D06_T09,입문,KMA_111447_126378,[여의도] 급여담당자를 위한 급여관리 실무,한국능률협회(KMA),candidate_only,False,,,[]
+20,39,1,TASK_HR_D05_T07,입문,KPC_47261_151780,[온앤오프] 민사 소송 실무,한국생산성본부(KPC),baseline_only,False,,,[]
+20,40,2,TASK_HR_D05_T07,입문,KPC_47261_151780,[온앤오프] 민사 소송 실무,한국생산성본부(KPC),baseline_only,False,,,[]
+21,41,1,TASK_HR_D04_T06,입문,KPC_47024_149792,고충처리 실무(성희롱 · 괴롭힘) (feat. 조사보고서 작성까지),한국생산성본부(KPC),baseline_only,True,precision_eval_round2_results,"이:적합,홍:부분 적합","[{""source_file"": ""precision_eval_round2_results"", ""rater"": ""이"", ""judgment"": ""적합"", ""memo"": NaN}, {""source_file"": ""precision_eval_round2_results"", ""rater"": ""홍"", ""judgment"": ""부분 적합"", ""memo"": NaN}]"
+21,42,2,TASK_HR_D04_T06,입문,KPC_47024_149792,고충처리 실무(성희롱 · 괴롭힘) (feat. 조사보고서 작성까지),한국생산성본부(KPC),baseline_only,True,precision_eval_round2_results,"이:적합,홍:부분 적합","[{""source_file"": ""precision_eval_round2_results"", ""rater"": ""이"", ""judgment"": ""적합"", ""memo"": NaN}, {""source_file"": ""precision_eval_round2_results"", ""rater"": ""홍"", ""judgment"": ""부분 적합"", ""memo"": NaN}]"
+22,43,1,TASK_HR_D06_T06,실무,PUB_AIG20250000506781_10,아파트xperp인사,노원-한국아파트경리전문학원,baseline_only,False,,,[]
+22,44,2,TASK_HR_D06_T06,실무,PUB_AIG20250000506781_10,아파트xperp인사,노원-한국아파트경리전문학원,baseline_only,False,,,[]
+23,45,1,TASK_HR_D02_T07,실무,KPC_47019_157547,[국민주권정부 인사혁신 전략] 공공기관 직무급제 실무 워크숍,한국생산성본부(KPC),candidate_only,False,,,[]
+23,46,2,TASK_HR_D02_T07,실무,KPC_47019_157547,[국민주권정부 인사혁신 전략] 공공기관 직무급제 실무 워크숍,한국생산성본부(KPC),candidate_only,False,,,[]
+24,47,1,TASK_HR_D05_T07,관리자·심화,KPC_47261_151780,[온앤오프] 민사 소송 실무,한국생산성본부(KPC),baseline_only,False,,,[]
+24,48,2,TASK_HR_D05_T07,관리자·심화,KPC_47261_151780,[온앤오프] 민사 소송 실무,한국생산성본부(KPC),baseline_only,False,,,[]
+25,49,1,TASK_HR_D03_T06,실무,MULTICAMPUS_Q35120,Try IT! 비전공자를 위한 IT 기초 입문 : DB,멀티캠퍼스,candidate_only,False,,,[]
+25,50,2,TASK_HR_D03_T06,실무,MULTICAMPUS_Q35120,Try IT! 비전공자를 위한 IT 기초 입문 : DB,멀티캠퍼스,candidate_only,False,,,[]
+26,51,1,TASK_HR_D08_T01,실무,KMA_112298_128455,"[여의도] Culture Transformation, 조직문화 담당자 양성과정",한국능률협회(KMA),baseline_only,True,precision_eval_holdout3_results,"이:적합,홍:적합","[{""source_file"": ""precision_eval_holdout3_results"", ""rater"": ""이"", ""judgment"": ""적합"", ""memo"": NaN}, {""source_file"": ""precision_eval_holdout3_results"", ""rater"": ""홍"", ""judgment"": ""적합"", ""memo"": NaN}]"
+26,52,2,TASK_HR_D08_T01,실무,KMA_112298_128455,"[여의도] Culture Transformation, 조직문화 담당자 양성과정",한국능률협회(KMA),baseline_only,True,precision_eval_holdout3_results,"이:적합,홍:적합","[{""source_file"": ""precision_eval_holdout3_results"", ""rater"": ""이"", ""judgment"": ""적합"", ""memo"": NaN}, {""source_file"": ""precision_eval_holdout3_results"", ""rater"": ""홍"", ""judgment"": ""적합"", ""memo"": NaN}]"
+27,53,1,TASK_HR_D06_T09,입문,KPC_47003_149790,[온앤오프] 현장에서 알아야 하는 노무관리 솔루션,한국생산성본부(KPC),baseline_only,False,,,[]
+27,54,2,TASK_HR_D06_T09,입문,KPC_47003_149790,[온앤오프] 현장에서 알아야 하는 노무관리 솔루션,한국생산성본부(KPC),baseline_only,False,,,[]
+28,55,1,TASK_HR_D05_T07,관리자·심화,KPC_46976_157561,인사평가시스템 구축실무,한국생산성본부(KPC),candidate_only,False,,,[]
+28,56,2,TASK_HR_D05_T07,관리자·심화,KPC_46976_157561,인사평가시스템 구축실무,한국생산성본부(KPC),candidate_only,False,,,[]
+29,57,1,TASK_HR_D02_T09,관리자·심화,KMA_111757_126950,[여의도] 고급관리자를 위한 AX 전략 로드맵,한국능률협회(KMA),candidate_only,True,precision_eval_holdout3_results,"이:판단 불가,박:적합","[{""source_file"": ""precision_eval_holdout3_results"", ""rater"": ""이"", ""judgment"": ""판단 불가"", ""memo"": NaN}, {""source_file"": ""precision_eval_holdout3_results"", ""rater"": ""박"", ""judgment"": ""적합"", ""memo"": NaN}]"
+29,58,2,TASK_HR_D02_T09,관리자·심화,KMA_111757_126950,[여의도] 고급관리자를 위한 AX 전략 로드맵,한국능률협회(KMA),candidate_only,True,precision_eval_holdout3_results,"이:판단 불가,박:적합","[{""source_file"": ""precision_eval_holdout3_results"", ""rater"": ""이"", ""judgment"": ""판단 불가"", ""memo"": NaN}, {""source_file"": ""precision_eval_holdout3_results"", ""rater"": ""박"", ""judgment"": ""적합"", ""memo"": NaN}]"
+30,59,1,TASK_HR_D05_T07,입문,KPC_46976_157561,인사평가시스템 구축실무,한국생산성본부(KPC),candidate_only,False,,,[]
+30,60,2,TASK_HR_D05_T07,입문,KPC_46976_157561,인사평가시스템 구축실무,한국생산성본부(KPC),candidate_only,False,,,[]
+31,61,1,TASK_HR_D07_T10,관리자·심화,KMA_112233_128184,[여의도] AI 조교와 완성하는 프로 직장인의 엑셀 고급,한국능률협회(KMA),candidate_only,False,,,[]
+31,62,2,TASK_HR_D07_T10,관리자·심화,KMA_112233_128184,[여의도] AI 조교와 완성하는 프로 직장인의 엑셀 고급,한국능률협회(KMA),candidate_only,False,,,[]
+32,63,1,TASK_HR_D08_T01,관리자·심화,KMA_112298_128455,"[여의도] Culture Transformation, 조직문화 담당자 양성과정",한국능률협회(KMA),baseline_only,False,,,[]
+32,64,2,TASK_HR_D08_T01,관리자·심화,KMA_112298_128455,"[여의도] Culture Transformation, 조직문화 담당자 양성과정",한국능률협회(KMA),baseline_only,False,,,[]
