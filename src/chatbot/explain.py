@@ -46,8 +46,11 @@ def generate_rule_based_explanation(
         source_text = f"{query} {ksa_text}"
     source_tokens = set(prep.tokenize(source_text))
 
-    # 겹치는 명사 추출 (최대 3개, 우선순위는 긴 단어 순)
-    overlap = sorted(list(intro_tokens & source_tokens), key=lambda x: -len(x))
+    # 겹치는 명사 추출 (우선순위: 긴 단어 순, 동률 시 질의어 앞부분 등장 순으로 결정론적 정렬)
+    overlap = sorted(
+        list(intro_tokens & source_tokens),
+        key=lambda x: (-len(x), source_text.find(x) if source_text.find(x) != -1 else 999)
+    )
     # 불용 명사 필터링
     generic_drop = {"교육", "과정", "내용", "학습", "수강", "이해", "방법"}
     filtered_overlap = [w for w in overlap if w not in generic_drop]

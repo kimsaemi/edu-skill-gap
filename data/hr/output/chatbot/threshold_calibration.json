@@ -1,0 +1,155 @@
+{
+  "calibrated_threshold": 0.42,
+  "out_of_scope_threshold": 0.38,
+  "task_self_rank1_ratio": 1.0,
+  "task_nearest_neighbor_mean": 0.6904,
+  "task_nearest_neighbor_max": 0.8297,
+  "non_hr_max_score": 0.3751,
+  "non_hr_mean_score": 0.2961,
+  "hr_queries_min_score": 0.4165,
+  "hr_queries_mean_score": 0.6932,
+  "non_hr_details": [
+    {
+      "query": "안녕 반가워",
+      "best_score": 0.3751,
+      "matched_task": "입사 첫날 오리엔테이션(Day 1 Welcome Session) 및 웰컴키트·IT자산 지급 운영",
+      "matched_tid": "DOM_04_T05"
+    },
+    {
+      "query": "오늘 날씨 어때",
+      "best_score": 0.2219,
+      "matched_task": "입사 첫날 오리엔테이션(Day 1 Welcome Session) 및 웰컴키트·IT자산 지급 운영",
+      "matched_tid": "DOM_04_T05"
+    },
+    {
+      "query": "점심 메뉴 추천해줘",
+      "best_score": 0.2784,
+      "matched_task": "입사 첫날 오리엔테이션(Day 1 Welcome Session) 및 웰컴키트·IT자산 지급 운영",
+      "matched_tid": "DOM_04_T05"
+    },
+    {
+      "query": "파이썬으로 웹크롤링하는 법",
+      "best_score": 0.3411,
+      "matched_task": "표준 직무기술서(JD) 및 직무명세서 양식 체계화",
+      "matched_tid": "DOM_02_T02"
+    },
+    {
+      "query": "토익 점수 올리는 꿀팁",
+      "best_score": 0.3636,
+      "matched_task": "사내 강사 양성 과정(TTT: Train The Trainer) 운영 및 사내 지식 공유 활성화",
+      "matched_tid": "DOM_07_T06"
+    },
+    {
+      "query": "국내 주식 투자 전략",
+      "best_score": 0.348,
+      "matched_task": "퇴직연금(DB/DC형) 운용 규정 수립 및 금융기관 퇴직연금 수탁 관리",
+      "matched_tid": "DOM_06_T04"
+    },
+    {
+      "query": "주말에 드라이브 갈만한 코스",
+      "best_score": 0.201,
+      "matched_task": "연차유급휴가 사용 촉진 및 연차미사용수당 정산 운영",
+      "matched_tid": "DOM_06_T06"
+    },
+    {
+      "query": "헬스장 초보 분할 운동 루틴",
+      "best_score": 0.2823,
+      "matched_task": "전사 신규 입사자 온보딩 프로그램(Bootcamp) 커리큘럼 기획",
+      "matched_tid": "DOM_04_T01"
+    },
+    {
+      "query": "넷플릭스 주말 영화 추천",
+      "best_score": 0.1966,
+      "matched_task": "통솔 범위(Span of Control) 분석 및 계층(Layer) 축소",
+      "matched_tid": "DOM_02_T09"
+    },
+    {
+      "query": "스마트폰 요금제 알뜰폰 비교",
+      "best_score": 0.3527,
+      "matched_task": "외부 시장 임금 벤치마킹(Salary Survey) 분석 및 임금 경쟁력(Compa-Ratio) 진단",
+      "matched_tid": "DOM_06_T08"
+    }
+  ],
+  "hr_details": [
+    {
+      "query": "4대보험 신고를 처음 맡았어요",
+      "expected_task": "매월 임직원 급여·상여 계산, 4대보험 공제 및 원천징수 급여 대장 마감",
+      "matched_task": "매월 임직원 급여·상여 계산, 4대보험 공제 및 원천징수 급여 대장 마감",
+      "matched_tid": "DOM_06_T05",
+      "score": 0.4165,
+      "is_expected": true
+    },
+    {
+      "query": "직무급제 도입을 검토 중인데 뭘 알아야 해?",
+      "expected_task": "전사 임금체계(호봉제/연봉제/직무급제) 및 연봉 밴드(Pay Band) 설계",
+      "matched_task": "직무 순환(Job Rotation) 및 전환배치 수요 분석",
+      "matched_tid": "DOM_01_T09",
+      "score": 0.6358,
+      "is_expected": false
+    },
+    {
+      "query": "신입사원 온보딩 프로그램을 기획해야 해요",
+      "expected_task": "전사 신규 입사자 온보딩 프로그램(Bootcamp) 커리큘럼 기획",
+      "matched_task": "전사 신규 입사자 온보딩 프로그램(Bootcamp) 커리큘럼 기획",
+      "matched_tid": "DOM_04_T01",
+      "score": 0.8546,
+      "is_expected": true
+    },
+    {
+      "query": "노사협의회 운영 절차가 궁금해요",
+      "expected_task": "노사협의회(근로자참여법상 분기 회의) 안건 취합, 회의 진행 및 합의사항 공고",
+      "matched_task": "노사협의회(근로자참여법상 분기 회의) 안건 취합, 회의 진행 및 합의사항 공고",
+      "matched_tid": "DOM_09_T05",
+      "score": 0.7671,
+      "is_expected": true
+    },
+    {
+      "query": "퇴직금 계산이 복잡해요",
+      "expected_task": "통상임금 및 평균임금 산정 범위 법적 리스크 점검 및 소급분 시뮬레이션",
+      "matched_task": "통상임금 및 평균임금 산정 범위 법적 리스크 점검 및 소급분 시뮬레이션",
+      "matched_tid": "DOM_06_T09",
+      "score": 0.6085,
+      "is_expected": true
+    },
+    {
+      "query": "성희롱 예방교육 법정의무교육 찾아줘",
+      "expected_task": "직장 내 괴롭힘·성희롱 예방 지침 및 고충처리위원회 운영 매뉴얼 수립",
+      "matched_task": "직장 내 괴롭힘·성희롱 예방 지침 및 고충처리위원회 운영 매뉴얼 수립",
+      "matched_tid": "DOM_09_T04",
+      "score": 0.6835,
+      "is_expected": true
+    },
+    {
+      "query": "인사평가 다면평가 제도를 설계하고 싶어요",
+      "expected_task": "다면평가(360도 피드백) 프로세스 설계, 평가자 익명성 보장 및 결과 피드백",
+      "matched_task": "다면평가(Peer Review) 및 상향평가(리더십 다면진단) 기준표 설계",
+      "matched_tid": "DOM_05_T02",
+      "score": 0.7339,
+      "is_expected": false
+    },
+    {
+      "query": "취업규칙 변경 신고 절차가 어떻게 되나요?",
+      "expected_task": "취업규칙 제정·개정(근로기준법상 불이익변경 법리 검토) 및 고용노동부 신고",
+      "matched_task": "사내 취업규칙 및 인사 제규정 법적 적합성 검토 및 제·개정",
+      "matched_tid": "DOM_09_T01",
+      "score": 0.6648,
+      "is_expected": false
+    },
+    {
+      "query": "연말정산 간소화 자료 처리 실무",
+      "expected_task": "연말정산(소득공제/세액공제) 프로세스 기획, 국세청 간소화 자료 검증 및 정산 환급/징수",
+      "matched_task": "연말정산(원천징수 영수증) 시스템 오픈 및 서류 검증·소득공제 마감",
+      "matched_tid": "DOM_06_T07",
+      "score": 0.8307,
+      "is_expected": false
+    },
+    {
+      "query": "채용 역량면접 구조화 질문지 개발",
+      "expected_task": "구조화 역량면접(BEI) 질문지 개발, 평가 척도(BARS/BOS) 설계 및 면접관 교육",
+      "matched_task": "STAR 기법 기반 행동사건면접(BEI) 구조화 질문표 개발",
+      "matched_tid": "DOM_03_T03",
+      "score": 0.7362,
+      "is_expected": false
+    }
+  ]
+}

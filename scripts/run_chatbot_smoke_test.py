@@ -8,7 +8,7 @@ import sys
 
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-from src.chatbot.matcher import match_and_recommend, TASK_SIMILARITY_THRESHOLD
+from src.chatbot.matcher import match_and_recommend, TASK_SIMILARITY_THRESHOLD, OUT_OF_SCOPE_THRESHOLD
 
 QUERIES = [
     "4대보험 신고를 처음 맡았어요",
@@ -39,7 +39,7 @@ def main():
         "",
         "## 1. 개요",
         f"- **일시**: 2026-11-16",
-        f"- **유사도 임계값**: `{TASK_SIMILARITY_THRESHOLD}` (0.55 이상: 업무 매핑 / 0.55 미만: 과정 검색 / 개인화 키워드: 진단 연계)",
+        f"- **유사도 임계값**: `{TASK_SIMILARITY_THRESHOLD}` (실측 캘리브레이션 기반: {TASK_SIMILARITY_THRESHOLD} 이상 업무 매핑 / {OUT_OF_SCOPE_THRESHOLD}~{TASK_SIMILARITY_THRESHOLD} 키워드 검색 / {OUT_OF_SCOPE_THRESHOLD} 미만 인사 무관 질의 시 범위 밖 안내)",
         f"- **검토 원칙**: 사람 판정란은 비워 두어 팀 검토자가 직접 입력할 수 있도록 구성",
         "",
         "## 2. 질의별 추천 및 설명 실행 결과",
@@ -56,6 +56,8 @@ def main():
             matched_info = f"업무 매핑 (`{res.matched_task.get('name')}`), 유사도: {res.similarity_score:.4f}"
         elif res.mode == "personalization" and res.matched_task:
             matched_info = f"개인화 진단 연계 (`{res.matched_task.get('name')}`), 유사도: {res.similarity_score:.4f}"
+        elif res.mode == "out_of_scope":
+            matched_info = f"범위 밖 질의 (안내 메시지 표시, 과정 카드 미표시), 유사도: {res.similarity_score:.4f}"
         else:
             matched_info = f"키워드 검색 모드, 유사도: {res.similarity_score:.4f}"
 
@@ -65,15 +67,19 @@ def main():
         if res.alternative_task:
             report_lines.append(f"- **대안 업무 제안**: {res.alternative_task.get('name')}")
         report_lines.append("")
-        report_lines.append("| 순번 | 과정명 | 제공기관 | 추천 이유 설명 | 설명 출처 | 팀 판정 (적합/보통/부적합) |")
-        report_lines.append("| :---: | :--- | :--- | :--- | :---: | :---: |")
 
-        for c_idx, (card, exp) in enumerate(zip(res.cards[:3], res.explanations[:3]), 1):
-            title = card.get("title", "").replace("|", "-")
-            inst = card.get("provider", "") or card.get("institution", "")
-            exp_text = exp.get("text", "").replace("|", "-")
-            source = exp.get("source", "")
-            report_lines.append(f"| {c_idx} | {title} | {inst} | {exp_text} | {source} | |")
+        if not res.cards:
+            report_lines.append("*(범위 밖 안내 메시지만 표시되며 추천 과정 카드는 표시되지 않습니다.)*")
+        else:
+            report_lines.append("| 순번 | 과정명 | 제공기관 | 추천 이유 설명 | 설명 출처 | 팀 판정 (적합/보통/부적합) |")
+            report_lines.append("| :---: | :--- | :--- | :--- | :---: | :---: |")
+
+            for c_idx, (card, exp) in enumerate(zip(res.cards[:3], res.explanations[:3]), 1):
+                title = card.get("title", "").replace("|", "-")
+                inst = card.get("provider", "") or card.get("institution", "")
+                exp_text = exp.get("text", "").replace("|", "-")
+                source = exp.get("source", "")
+                report_lines.append(f"| {c_idx} | {title} | {inst} | {exp_text} | {source} | |")
 
         report_lines.append("")
 

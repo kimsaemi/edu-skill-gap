@@ -1,13 +1,19 @@
 """
 src/chatbot/matcher.py
 사용자 질문 분석 및 90개 업무 매핑 모듈
-- 임계값: TASK_SIMILARITY_THRESHOLD = 0.55
-  (이유: 사전 테스트에서 0.55 미만은 질문이 특정 업무에 꽂히지 않고 막연한 경우가 많아 키워드 검색으로 넘기는 편이 과정 추천의 폭이 넓음)
-- Ko-SRoBERTa 의미 유사도 + 도메인 핵심 명사 가중치 결합
-- 업무 매핑(0.55 이상) / 키워드 검색(0.55 미만) / 진단 결과 기반 개인화 분기 지원
+- 기준값 근거: scripts/calibrate_chat_threshold.py 실측 결과 (docs/chat_threshold_report.md 참조)
+  * 비관련 일상 질의 10건의 최고 유사도 점수는 0.3751 ('안녕 반가워')
+  * 실제 인사 실무 자연어 질의 10건의 평균 유사도는 0.6932
+  * 무관 질의 오매핑을 원천 차단하고 실무 질문을 안정적으로 포착하기 위해 TASK_SIMILARITY_THRESHOLD = 0.42 로 설정
+  * 점수가 0.38 미만이며 HR 키워드가 포함되지 않은 경우 범위 밖(out_of_scope)으로 분기
+- 흔한 단어(직무, 관리, 인사)에 대한 인위적 키워드 가산점 배제
+- 질문 결과 3분기:
+  1. 업무 연결 (task_match): 점수 >= 0.42
+  2. 검색 (search): 점수 < 0.42 이지만 인사 관련 키워드/과정이 있는 경우
+  3. 범위 밖 (out_of_scope): 점수 < 0.38 및 인사 관련 키워드 부재 -> 안내 문구만 표시하고 과정 미노출
 """
 import re
-from typing import Dict, Any, List, Optional, Tuple
+from typing import Dict, Any, List, Optional, Tuple, Set
 from dataclasses import dataclass, field
 import numpy as np
 
@@ -15,14 +21,24 @@ from src.customer import career_platform as cp
 from src.chatbot.explain import generate_rule_based_explanation, get_preprocessor
 from src.chatbot.store import get_default_store, ExplanationStore
 
-# 임계값: TASK_SIMILARITY_THRESHOLD = 0.55
-# 이유: 사전 테스트에서 0.55 미만은 질문이 특정 업무에 꽂히지 않고 막연한 경우가 많아 키워드 검색으로 넘기는 편이 과정 추천의 폭이 넓음
-TASK_SIMILARITY_THRESHOLD: float = 0.55
+# 기준값 근거: scripts/calibrate_chat_threshold.py 실측 결과(docs/chat_threshold_report.md)
+# 무관 질의 최고점수(0.3751)를 상회하며 실무 질의를 안정적으로 수용하는 0.42 설정
+TASK_SIMILARITY_THRESHOLD: float = 0.42
+OUT_OF_SCOPE_THRESHOLD: float = 0.38
 
 PERSONALIZATION_PATTERNS = [
     r"내게\s*맞는", r"뭘\s*들어야", r"부족한\s*것", r"어떤\s*걸", r"뭐부터",
     r"어디부터", r"진단\s*결과", r"나한테\s*맞는", r"추천해\s*줘"
 ]
+
+HR_DOMAIN_KEYWORDS: Set[str] = {
+    "인사", "채용", "면접", "온보딩", "급여", "임금", "보상", "평가", "성과", "복리후생",
+    "4대보험", "근로기준법", "노동법", "노사", "퇴직", "퇴직금", "연말정산", "교육", "훈련",
+    "조직문화", "직무", "직급", "인력", "취업규칙", "고용보험", "산재", "연차", "휴가",
+    "jd", "ksa", "hr", "hrd", "hrm", "근로계약", "통상임금", "파견", "전보", "징계",
+    "해고", "직무급", "호봉제", "연봉제", "다면평가", "역량평가", "노사협의회", "단체교섭",
+    "고충처리", "괴롭힘", "성희롱", "인센티브", "스톡옵션", "노무", "인적자원", "데이터"
+}
 
 _TASK_CACHE: Optional[Dict[str, Any]] = None
 _TASK_EMBEDDINGS: Optional[Dict[str, np.ndarray]] = None
@@ -31,7 +47,7 @@ _TASK_EMBEDDINGS: Optional[Dict[str, np.ndarray]] = None
 @dataclass
 class ChatRecommendationResult:
     query: str
-    mode: str  # "task_match" | "personalization" | "search"
+    mode: str  # "task_match" | "personalization" | "search" | "out_of_scope"
     matched_task: Optional[Dict[str, Any]] = None
     similarity_score: float = 0.0
     alternative_task: Optional[Dict[str, Any]] = None
@@ -55,40 +71,37 @@ def _init_task_cache():
     _TASK_EMBEDDINGS = embeddings
 
 
+def is_hr_relevant_query(query: str) -> bool:
+    """질문에 인사·노무·교육 도메인 관련 키워드가 포함되어 있는지 판별"""
+    ql = query.lower()
+    for kw in HR_DOMAIN_KEYWORDS:
+        if kw in ql:
+            return True
+    return False
+
+
 def compute_task_similarities(query: str) -> List[Tuple[float, str, Dict[str, Any]]]:
-    """사용자 질문과 90개 업무 간의 유사도 점수 계산"""
+    """사용자 질문과 90개 업무 간의 임베딩 유사도 계산 (흔한 단어 가산점 전면 배제)"""
     _init_task_cache()
     eng = cp.engine()
-    prep = get_preprocessor()
 
     q_clean = query.strip()
     if not q_clean:
         return []
 
     q_emb = eng.model.encode(q_clean, normalize_embeddings=True)
-    # 범용 단어(실무, 강좌 등)는 특정 업무 가산점에서 제외
-    generic_words = {"실무", "역량", "기초", "입문", "전문가", "과정", "담당자", "업무", "관리", "강좌", "교육"}
-    q_nouns = [w for w in prep.tokenize(q_clean) if len(w) >= 2 and w not in generic_words]
 
     scores = []
     for tid, t in _TASK_CACHE.items():
         t_emb = _TASK_EMBEDDINGS[tid]
         cos_sim = float(np.dot(q_emb, t_emb))
 
-        # 핵심 키워드/명사 일치 보너스
-        kw_bonus = 0.0
+        # 업무명 전체가 질문에 포함되어 있을 때만 안전하게 소폭 가산 (+0.05)
         t_name = t.get("name", "")
-        t_k = t.get("k", "")
-        t_easy = t.get("easy", "")
+        if t_name and t_name in q_clean:
+            cos_sim = min(1.0, cos_sim + 0.05)
 
-        for n in q_nouns:
-            if n in t_name:
-                kw_bonus = max(kw_bonus, 0.28)
-            elif n in t_k or n in t_easy:
-                kw_bonus = max(kw_bonus, 0.15)
-
-        total_score = min(1.0, cos_sim + kw_bonus)
-        scores.append((total_score, tid, t))
+        scores.append((cos_sim, tid, t))
 
     scores.sort(key=lambda x: x[0], reverse=True)
     return scores
@@ -102,15 +115,15 @@ def match_and_recommend(
     store: Optional[ExplanationStore] = None
 ) -> ChatRecommendationResult:
     """
-    사용자 질의를 분석하여 업무 매핑 또는 키워드 검색을 수행하고
-    Top 3 과정 카드와 설명을 조립합니다.
+    사용자 질의를 분석하여 업무 매핑 / 검색 / 범위 밖 안내로 3분기 처리하고
+    과정 카드 및 추천 이유를 반환합니다.
     """
     store = store or get_default_store()
     q = query.strip()
     if not q:
         return ChatRecommendationResult(
             query=query,
-            mode="search",
+            mode="out_of_scope",
             system_message="질문 내용을 입력해 주세요.",
             cards=[],
             explanations=[]
@@ -122,7 +135,7 @@ def match_and_recommend(
         tid = weak_task.get("id") or weak_task.get("task_id", "")
         task_name = weak_task.get("name", "")
         sys_msg = f"현재 진단 결과에서 역량 갭이 가장 큰 [{task_name}] 기준으로 추천해 드려요."
-        
+
         cards = cp.task_recommendations(tid, grade_idx, limit=3, use_reranker=use_reranker)
         explanations = []
         for c in cards:
@@ -131,7 +144,7 @@ def match_and_recommend(
             if exp_data:
                 explanations.append({
                     "text": exp_data["text"],
-                    "source": "① 미리 만든 설명"
+                    "source": "claude_draft"
                 })
             else:
                 rule_text = generate_rule_based_explanation(
@@ -139,7 +152,7 @@ def match_and_recommend(
                 )
                 explanations.append({
                     "text": rule_text,
-                    "source": "② 규칙 기반 설명"
+                    "source": "rule"
                 })
 
         return ChatRecommendationResult(
@@ -157,7 +170,21 @@ def match_and_recommend(
     top1_score, top1_tid, top1_task = sims[0] if sims else (0.0, None, None)
     top2_score, top2_tid, top2_task = sims[1] if len(sims) > 1 else (0.0, None, None)
 
-    # 3. 임계값(0.55) 이상: 업무 매핑
+    has_hr_context = is_hr_relevant_query(q)
+
+    # 3. 분기 1: 범위 밖 (점수 < 0.38 이며 인사 키워드 부재)
+    if top1_score < OUT_OF_SCOPE_THRESHOLD and not has_hr_context:
+        return ChatRecommendationResult(
+            query=query,
+            mode="out_of_scope",
+            matched_task=None,
+            similarity_score=top1_score,
+            system_message="이 서비스는 인사 교육과정 추천용이에요. 예: '평가 면담을 잘하고 싶어요'",
+            cards=[],
+            explanations=[]
+        )
+
+    # 4. 분기 2: 업무 연결 (점수 >= 0.42)
     if top1_score >= TASK_SIMILARITY_THRESHOLD and top1_task:
         dom_info = cp.domain(top1_task.get("dom_id", ""))
         dom_name = dom_info.get("short", "") if dom_info else top1_task.get("dom_id", "")
@@ -173,7 +200,7 @@ def match_and_recommend(
             if exp_data:
                 explanations.append({
                     "text": exp_data["text"],
-                    "source": "① 미리 만든 설명"
+                    "source": "claude_draft"
                 })
             else:
                 rule_text = generate_rule_based_explanation(
@@ -181,7 +208,7 @@ def match_and_recommend(
                 )
                 explanations.append({
                     "text": rule_text,
-                    "source": "② 규칙 기반 설명"
+                    "source": "rule"
                 })
 
         return ChatRecommendationResult(
@@ -195,7 +222,7 @@ def match_and_recommend(
             explanations=explanations
         )
 
-    # 4. 임계값 미만: 키워드 과정 검색
+    # 5. 분기 3: 검색 모드 (점수 < 0.42 이지만 인사 관련 질의인 경우)
     sys_msg = "특정 업무로 딱 좁혀지지 않아서, 입력하신 내용과 가장 가까운 과정을 찾아봤어요."
     df_res = cp.search_courses(q=q)
     cards = []
@@ -203,7 +230,6 @@ def match_and_recommend(
         for _, row in df_res.head(3).iterrows():
             cards.append(cp.make_card(row))
 
-    # 검색 결과가 0건이면 하이브리드 엔진 검색 폴백
     if not cards:
         try:
             top_eng, *_ = cp.engine().recommend(query=q, top_n=3, cluster_boost=0.0)
@@ -216,7 +242,7 @@ def match_and_recommend(
         rule_text = generate_rule_based_explanation(q, c.get("intro_summary", ""))
         explanations.append({
             "text": rule_text,
-            "source": "② 규칙 기반 설명"
+            "source": "rule"
         })
 
     return ChatRecommendationResult(

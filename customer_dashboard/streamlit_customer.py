@@ -795,7 +795,8 @@ def view_chat():
             if msg.get("cards"):
                 st.markdown("##### 🎯 추천 교육 과정")
                 for card_idx, (card, exp) in enumerate(zip(msg["cards"], msg.get("explanations", []))):
-                    note_str = f"💡 추천 이유: {exp.get('text', '')} ({exp.get('source', '')})"
+                    src_tag = "AI 작성 · 팀 검토 전" if exp.get("source") == "claude_draft" else "자동 생성 문장"
+                    note_str = f"💡 추천 이유: {exp.get('text', '')}  \n*{src_tag}*"
                     course_card(card, key=f"chat_{msg_idx}_{card_idx}_{card.get('course_uid')}", for_what="AI 상담", note=note_str)
 
     # 질의 처리 로직
@@ -813,7 +814,7 @@ def view_chat():
         )
 
         llm_text = None
-        if S.get("chat_use_llm") and llm_avail:
+        if S.get("chat_use_llm") and llm_avail and res.cards:
             llm_text = generate_llm_explanation(query_text, res.cards)
 
         resp_content = res.system_message
@@ -823,6 +824,7 @@ def view_chat():
         S.chat_msgs.append({
             "role": "assistant",
             "content": resp_content,
+            "mode": res.mode,
             "alt_task": res.alternative_task,
             "cards": res.cards,
             "explanations": res.explanations

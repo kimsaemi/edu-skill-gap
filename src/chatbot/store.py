@@ -56,7 +56,7 @@ class ExplanationStore:
             return None
         status = raw.get("status", "")
         text = raw.get("text", "").strip()
-        if status in ("ai_draft", "reviewed") and text:
+        if status in ("claude_draft", "ai_draft", "reviewed") and text:
             return raw
         return None
 
