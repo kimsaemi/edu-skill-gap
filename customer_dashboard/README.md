@@ -39,8 +39,27 @@ streamlit run app.py
 3. **맞춤 추천**: 부족한 업무별 추천 교육 (업무 90개 × 숙련도 3단계, `data/hr/output/recommendation/task_course_recommendations_90.csv`)
 4. **전체 교육 찾기**: 교육 카탈로그 검색 (제외 목록 `data/hr/processed/off_topic_exclusions.csv`에 오른 과정은 숨김)
 5. **내 학습 현황**: 담은 교육의 수강 상태 관리
+6. **💬 AI 상담**: 자연어 질의 기반 맞춤 과정 추천 및 설명 제공
 
 데이터: `data/hr/processed/hr_career_platform_master.json`(직급·분야·업무), `src/customer/career_platform.py`(데이터·추천 계층)
+
+---
+
+## 💬 AI 상담 탭 안내
+
+고객용 대시보드 상단 메뉴의 **"💬 AI 상담"** 탭은 사용자가 자연어로 직무 고민이나 학습 희망 분야를 입력하면 맞춤 과정을 찾아 추천 이유를 안내합니다.
+
+- **동작 방식 (기본 2단계 설명 구조, 실시간 AI 호출 없음)**:
+  1. **사전 제작 설명 (1단계)**: 질문이 90개 인사 직무 중 하나로 연결(`유사도 >= 0.55`)되면, 사전 생성·검증된 678개 업무-과정 설명 데이터(`data/hr/output/chatbot/rec_explanations_90.json`)를 표시합니다.
+  2. **규칙 기반 설명 (2단계)**: 특정 업무로 좁혀지지 않거나(`유사도 < 0.55`, 키워드 검색 모드) 사전 설명이 없는 경우, Kiwi 형태소 분석기로 질문/KSA와 과정 소개글의 겹치는 핵심 명사를 추출하여 정형 문장을 생성합니다.
+- **비용**: **기본 사용 시 0원** (질문할 때마다 발생하는 실시간 LLM API 호출 없음).
+- **선택 기능 (실시간 Claude 심층 설명)**:
+  - 심층 설명 기능이 필요한 경우 환경변수를 설정하고 상단 토글을 켜면 동작합니다:
+    ```bash
+    export CHAT_LLM_ENABLED=true
+    export ANTHROPIC_API_KEY="your-api-key"
+    ```
+  - `anthropic` 라이브러리가 미설치되어 있거나 API 키가 없어도 에러 없이 기본 2단계 설명 구조로 안전하게 폴백됩니다.
 
 ---
 
