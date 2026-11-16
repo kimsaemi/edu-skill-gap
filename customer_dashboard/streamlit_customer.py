@@ -23,7 +23,7 @@ if str(WORKSPACE_ROOT) not in sys.path:
     sys.path.insert(0, str(WORKSPACE_ROOT))
 
 from src.customer import career_platform as cp  # noqa: E402
-from src.chatbot.matcher import match_and_recommend
+from src.chatbot.matcher import match_and_recommend, recommend_for_task
 from src.chatbot.llm_optional import is_llm_available, generate_llm_explanation
 
 st.set_page_config(page_title="인사·총무·경영지원 성장·교육 안내", page_icon="🧭", layout="wide")
@@ -756,7 +756,7 @@ def view_my():
 
 def view_chat():
     st.markdown("### 💬 AI 추천 상담")
-    st.markdown("업무 고민이나 배우고 싶은 내용을 편하게 물어보세요. 직무 역량과 과정 커리큘럼을 분석해 꼭 맞는 과정을 찾아드려요.")
+    st.markdown("업무 고민이나 배우고 싶은 내용을 적으면 실제 교육과정 중에서 골라 드려요. 추천 이유는 겹치는 단어로 만든 자동 생성 문장이에요.")
 
     # 실시간 AI 가용성 및 토글
     llm_avail, _ = is_llm_available()
@@ -765,7 +765,7 @@ def view_chat():
         if llm_avail:
             st.toggle("실시간 AI 심층 설명 켜기 (비용 발생)", key="chat_use_llm")
         else:
-            st.caption("💡 비용이 들지 않는 기본 2단계 추천 설명(사전 제작 + 규칙 기반)으로 동작해요.")
+            st.caption("💡 비용이 들지 않는 규칙 기반 설명으로 동작해요.")
     with c_top2:
         if st.button("대화 초기화", key="btn_reset_chat", use_container_width=True):
             S.chat_msgs = []
@@ -789,13 +789,16 @@ def view_chat():
     for msg_idx, msg in enumerate(S.chat_msgs):
         with st.chat_message(msg["role"]):
             st.markdown(msg["content"])
-            if msg.get("alt_task"):
-                alt = msg["alt_task"]
-                st.info(f"💡 혹시 이 업무를 찾으셨나요? **{alt.get('name')}**")
+            cands = msg.get("candidate_tasks") or []
+            if cands:
+                c_cols = st.columns(len(cands))
+                for ci, (ccol, ct) in enumerate(zip(c_cols, cands)):
+                    if ccol.button(f"📌 {ct.get('name')}", key=f"cand_{msg_idx}_{ci}", use_container_width=True):
+                        S.chat_pick = (ct.get("id"), msg.get("query", ""))
             if msg.get("cards"):
                 st.markdown("##### 🎯 추천 교육 과정")
                 for card_idx, (card, exp) in enumerate(zip(msg["cards"], msg.get("explanations", []))):
-                    src_tag = "AI 작성 · 팀 검토 전" if exp.get("source") == "claude_draft" else "자동 생성 문장"
+                    src_tag = "자동 생성 문장"
                     note_str = f"💡 추천 이유: {exp.get('text', '')}  \n*{src_tag}*"
                     course_card(card, key=f"chat_{msg_idx}_{card_idx}_{card.get('course_uid')}", for_what="AI 상담", note=note_str)
 
@@ -825,13 +828,26 @@ def view_chat():
             "role": "assistant",
             "content": resp_content,
             "mode": res.mode,
-            "alt_task": res.alternative_task,
+            "query": query_text,
+            "candidate_tasks": res.candidate_tasks,
             "cards": res.cards,
             "explanations": res.explanations
         })
 
+    def process_task_pick(task_id: str, query_text: str):
+        res = recommend_for_task(task_id, query_text, S.g if S.g is not None else 1,
+                                 use_reranker=S.get("use_reranker", True))
+        S.chat_msgs.append({"role": "user", "content": f"📌 {res.matched_task['name']}"})
+        S.chat_msgs.append({"role": "assistant", "content": res.system_message, "mode": res.mode,
+                            "query": query_text, "candidate_tasks": [],
+                            "cards": res.cards, "explanations": res.explanations})
+
     prompt = st.chat_input("업무 고민이나 관심 과정을 입력하세요 (예: 4대보험 신고 처음이에요)")
-    if selected_query:
+    pick = S.pop("chat_pick", None)
+    if pick and pick[0]:
+        process_task_pick(*pick)
+        st.rerun()
+    elif selected_query:
         process_chat_query(selected_query)
         st.rerun()
     elif prompt:

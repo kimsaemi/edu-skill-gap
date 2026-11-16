@@ -8,7 +8,8 @@ import sys
 
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-from src.chatbot.matcher import match_and_recommend, TASK_SIMILARITY_THRESHOLD, OUT_OF_SCOPE_THRESHOLD
+from src.chatbot import matcher as M
+from src.chatbot.matcher import match_and_recommend
 
 QUERIES = [
     "4대보험 신고를 처음 맡았어요",
@@ -18,6 +19,7 @@ QUERIES = [
     "파이썬으로 인사 데이터 분석하고 싶어요",
     "엑셀 실무 강좌 알려줘",
     "퇴직금 계산이 복잡해요",
+    "평가 면담을 잘하고 싶어요",
     "성희롱 예방교육 법정의무교육 찾아줘",
     "뭘 들어야 할지 모르겠어요",
     "안녕 반가워"
@@ -35,37 +37,38 @@ def main():
     }
 
     report_lines = [
-        "# AI 추천 상담 챗봇 스모크 테스트 (10개 대표 질의)",
+        "# AI 상담 스모크 테스트 (대표 질문)",
         "",
         "## 1. 개요",
-        f"- **일시**: 2026-11-16",
-        f"- **유사도 임계값**: `{TASK_SIMILARITY_THRESHOLD}` (실측 캘리브레이션 기반: {TASK_SIMILARITY_THRESHOLD} 이상 업무 매핑 / {OUT_OF_SCOPE_THRESHOLD}~{TASK_SIMILARITY_THRESHOLD} 키워드 검색 / {OUT_OF_SCOPE_THRESHOLD} 미만 인사 무관 질의 시 범위 밖 안내)",
-        f"- **검토 원칙**: 사람 판정란은 비워 두어 팀 검토자가 직접 입력할 수 있도록 구성",
+        f"- **기준값**: 업무 연결 점수 ≥ {M.CONFIDENT_SCORE} 또는 (≥ {M.CANDIDATE_SCORE} 이면서 1·2위 차이 ≥ {M.CONFIDENT_MARGIN}) / 후보 {M.CANDIDATE_SCORE} / 범위 밖 의미 유사도 < {M.OUT_OF_SCOPE_SEM} (근거: docs/chat_threshold_report.md)",
+        "- **추천 이유**: 모두 규칙 기반 자동 생성 문장",
+        "- **팀 판정**: 빈칸으로 두고 팀원이 채웁니다",
         "",
         "## 2. 질의별 추천 및 설명 실행 결과",
         ""
     ]
 
     for idx, q in enumerate(QUERIES, 1):
-        # 9번 쿼리(뭘 들어야 할지 모르겠어요)는 개인화 연계 테스트용으로 weak_task 전달
-        weak = mock_weak if idx == 9 else None
+        # '뭘 들어야 할지 모르겠어요'는 진단 결과 연계 확인용으로 예시 부족 업무를 넘긴다
+        weak = mock_weak if q.startswith("뭘 들어야") else None
         res = match_and_recommend(query=q, grade_idx=1, use_reranker=True, weak_task=weak)
 
         matched_info = ""
         if res.mode == "task_match" and res.matched_task:
-            matched_info = f"업무 매핑 (`{res.matched_task.get('name')}`), 유사도: {res.similarity_score:.4f}"
+            matched_info = f"업무 매핑 (`{res.matched_task.get('name')}`), 점수: {res.similarity_score:.4f}"
         elif res.mode == "personalization" and res.matched_task:
-            matched_info = f"개인화 진단 연계 (`{res.matched_task.get('name')}`), 유사도: {res.similarity_score:.4f}"
+            matched_info = f"개인화 진단 연계 (`{res.matched_task.get('name')}`), 점수: {res.similarity_score:.4f}"
         elif res.mode == "out_of_scope":
-            matched_info = f"범위 밖 질의 (안내 메시지 표시, 과정 카드 미표시), 유사도: {res.similarity_score:.4f}"
+            matched_info = f"범위 밖 질의 (안내 메시지 표시, 과정 카드 미표시), 점수: {res.similarity_score:.4f}"
+        elif res.mode == "candidates":
+            names = " / ".join(t.get("name", "") for t in res.candidate_tasks)
+            matched_info = f"업무 후보 버튼 ({names}) + 질문 검색 결과, 점수: {res.similarity_score:.4f}"
         else:
-            matched_info = f"키워드 검색 모드, 유사도: {res.similarity_score:.4f}"
+            matched_info = f"질문 검색 결과, 점수: {res.similarity_score:.4f}"
 
         report_lines.append(f"### Q{idx}. \"{q}\"")
         report_lines.append(f"- **실행 모드**: {matched_info}")
         report_lines.append(f"- **시스템 메시지**: {res.system_message}")
-        if res.alternative_task:
-            report_lines.append(f"- **대안 업무 제안**: {res.alternative_task.get('name')}")
         report_lines.append("")
 
         if not res.cards:
@@ -78,7 +81,7 @@ def main():
                 title = card.get("title", "").replace("|", "-")
                 inst = card.get("provider", "") or card.get("institution", "")
                 exp_text = exp.get("text", "").replace("|", "-")
-                source = exp.get("source", "")
+                source = "자동 생성 문장"
                 report_lines.append(f"| {c_idx} | {title} | {inst} | {exp_text} | {source} | |")
 
         report_lines.append("")
