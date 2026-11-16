@@ -13,8 +13,8 @@ ROOT_DIR = Path(__file__).resolve().parent
 if str(ROOT_DIR) not in sys.path:
     sys.path.insert(0, str(ROOT_DIR))
 
-# 최신 검증된 고객용 대시보드 실행
-CUSTOMER_APP_PATH = ROOT_DIR / "customer_dashboard" / "streamlit_customer_latest.py"
+# 고객용 대시보드 실행 (복사본 streamlit_customer_latest.py는 삭제됨, 본 파일로 통일)
+CUSTOMER_APP_PATH = ROOT_DIR / "customer_dashboard" / "streamlit_customer.py"
 
 if __name__ == "__main__":
     runpy.run_path(str(CUSTOMER_APP_PATH), run_name="__main__")

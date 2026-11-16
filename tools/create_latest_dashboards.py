@@ -1,7 +1,7 @@
 """
 2026-10-31 최신 데이터 검증(PR #12) 결과를 반영한 대시보드 파일 생성 스크립트
 1. app/streamlit_integrated_latest.py (탭 14: 최신 데이터 품질 검증 및 실시간 API 현황 추가)
-2. customer_dashboard/streamlit_customer_latest.py (최신 검증 배너 및 고용24 실시간 운영 상태, 12개 공급 부족 업무 안내 배지 반영)
+2. (삭제됨) 고객용 대시보드 복사본은 만들지 않고 customer_dashboard/streamlit_customer.py를 그대로 실행
 3. app_latest.py (최신 버전 원클릭 런처)
 """
 
@@ -201,59 +201,8 @@ with open(ROOT / "app" / "streamlit_integrated_latest.py", "w", encoding="utf-8"
 print("Created: app/streamlit_integrated_latest.py")
 
 
-# ------------------------------------------------------------------------------
-# 2. customer_dashboard/streamlit_customer_latest.py 생성
-# ------------------------------------------------------------------------------
-with open(ROOT / "customer_dashboard" / "streamlit_customer.py", "r", encoding="utf-8") as f:
-    cust_code = f.read()
-
-# 히어로 영역 배너 업데이트
-old_hero = '''def hero():
-    st.markdown(f"""<div class="hero"><h1>🧭 인사·총무·경영지원 업무·성장·교육 안내</h1>
-      <p>직급과 분야를 고르고 업무별 숙련도를 진단하면, 부족한 업무마다 맞는 교육을 골라 드려요.</p>
-      <span class="cnt">📚 실제 교육 과정 {N_COURSES:,}개 · 업무 {len(cp.task_index())}개 기준</span></div>""", unsafe_allow_html=True)'''
-
-new_hero = '''def hero():
-    st.markdown(f"""<div class="hero"><h1>🧭 인사 실무 역량 성장·맞춤 교육 안내 (최신 검증판)</h1>
-      <p>직급과 분야를 고르고 업무별 숙련도를 진단하면, 부족한 업무마다 가장 적합한 교육을 골라 드려요.</p>
-      <span class="cnt">✨ 2026-10-31 최신 데이터 검증 완료 · 고용24 실시간 개강 현황 연동 · 추천 대상 과정 {N_COURSES:,}개</span></div>""", unsafe_allow_html=True)'''
-
-cust_code = cust_code.replace(old_hero, new_hero)
-
-# 공급 부족 12개 업무 알림 안내 배지 로직 추가
-old_weak = '''def weak_tasks():
-    std = std_level()
-    out = []
-    idx = cp.task_index()
-    for tid, lv in S.tl.items():
-        t = idx.get(tid)
-        if t and lv < std and t["dom_id"] in S.ds:
-            out.append({**t, "cur": lv, "std": std, "gap": std - lv})
-    return sorted(out, key=lambda x: -x["gap"])'''
-
-new_weak = '''THIN_TASK_IDS = {
-    "TASK_HR_D02_T06", "TASK_HR_D05_T08", "TASK_HR_D06_T02", "TASK_HR_D01_T04",
-    "TASK_HR_D01_T05", "TASK_HR_D07_T10", "TASK_HR_D01_T08", "TASK_HR_D03_T01",
-    "TASK_HR_D04_T01", "TASK_HR_D04_T03", "TASK_HR_D04_T05", "TASK_HR_D08_T06"
-}
-
-def weak_tasks():
-    std = std_level()
-    out = []
-    idx = cp.task_index()
-    for tid, lv in S.tl.items():
-        t = idx.get(tid)
-        if t and lv < std and t["dom_id"] in S.ds:
-            is_thin = tid in THIN_TASK_IDS
-            out.append({**t, "cur": lv, "std": std, "gap": std - lv, "is_thin": is_thin})
-    return sorted(out, key=lambda x: -x["gap"])'''
-
-cust_code = cust_code.replace(old_weak, new_weak)
-
-with open(ROOT / "customer_dashboard" / "streamlit_customer_latest.py", "w", encoding="utf-8") as f:
-    f.write(cust_code)
-
-print("Created: customer_dashboard/streamlit_customer_latest.py")
+# 2. (삭제) customer_dashboard/streamlit_customer_latest.py 복사본은 더 이상 만들지 않는다.
+#    고객용 대시보드는 customer_dashboard/streamlit_customer.py 하나로 통일했다.
 
 
 # ------------------------------------------------------------------------------
@@ -285,7 +234,7 @@ dashboard_mode = st.sidebar.radio(
 )
 
 if dashboard_mode.startswith("1."):
-    CUSTOMER_APP_PATH = ROOT_DIR / "customer_dashboard" / "streamlit_customer_latest.py"
+    CUSTOMER_APP_PATH = ROOT_DIR / "customer_dashboard" / "streamlit_customer.py"
     runpy.run_path(str(CUSTOMER_APP_PATH), run_name="__main__")
 else:
     INTEGRATED_APP_PATH = ROOT_DIR / "app" / "streamlit_integrated_latest.py"
