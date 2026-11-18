@@ -1,0 +1,17 @@
+<button type="button" class="rag-fab" id="ragFab" aria-expanded="false" aria-controls="ragPanel">📄 자료 질문</button>
+<section class="rag-panel" id="ragPanel" role="dialog" aria-label="자료 기반 질문 챗봇">
+  <div class="rag-head">
+    <div><strong>자료 기반 질문</strong><small id="ragStatus">연결 확인 중…</small></div>
+    <div><button type="button" id="ragGear" aria-label="검색 설정">⚙ 설정</button> <button type="button" id="ragClose" aria-label="닫기">✕</button></div>
+  </div>
+  <div class="rag-set" id="ragSet">
+    <label>검색 개수(top-k) <input type="number" id="ragK" min="1" max="20" value="5"></label>
+    <label>유사도 임계값 <input type="range" id="ragT" min="0" max="1" step="0.01" value="0.5"><b id="ragTv">0.50</b></label>
+  </div>
+  <div class="rag-log" id="ragLog" aria-live="polite"></div>
+  <p class="rag-hint">폴더의 문서·데이터에서 찾은 근거로만 답하며, 근거가 없으면 답하지 않습니다.</p>
+  <form class="rag-form" id="ragForm">
+    <input type="text" id="ragQ" placeholder="예: 주임이 갖춰야 할 역량은? / 노사협의회 운영 절차" maxlength="300" autocomplete="off" aria-label="질문">
+    <button type="submit" id="ragSend">전송</button>
+  </form>
+</section>

@@ -6,6 +6,8 @@
 - 제외 목록(data/hr/processed/off_topic_exclusions.csv)에 오른 과정은 상담 결과에서 뺀다.
 - 이미 넣은 파일에 다시 실행하면 상담 코드만 새로 바꾼다(여러 번 실행해도 결과가 같다).
 - GSEEK 상세 링크 보정도 함께 적용한다(src/course_links.py).
+- 오른쪽 아래 '📄 자료 질문' 패널(문서·직무 기준·교육과정에서 근거 찾기)도 넣는다:
+  src/html_rag/(rag_docs.json, rag_engine.js, rag_ui.js, rag_panel.html, rag.css)
 
 실행: python scripts/add_chat_to_dashboard_html.py [대상 html]   (생략하면 가장 최신 hr_career_platform_v2_*.html)
 """
@@ -46,6 +48,43 @@ PATCHES = [
     ('<button type="button" data-act="step" data-v="my" id="heroMy">',
      '<button type="button" data-act="step" data-v="chat">💬 AI 상담</button><button type="button" data-act="step" data-v="my" id="heroMy">'),
 ]
+
+
+RAG_START, RAG_END = "<!-- ==== RAG_PANEL_START ==== -->", "<!-- ==== RAG_PANEL_END ==== -->"
+RAG_CSS_START, RAG_CSS_END = "/* ==== RAG_CSS_START ==== */", "/* ==== RAG_CSS_END ==== */"
+# AI 상담 화면에서는 입력창과 겹치지 않게 '자료 질문' 버튼을 숨긴다
+RAG_FAB_TOGGLE = """
+(() => {
+  const sync = () => { const f = document.getElementById('ragFab'); if (f) f.style.display = /(^|&)s=chat(&|$)/.test(location.hash.slice(1)) ? 'none' : ''; };
+  window.addEventListener('hashchange', sync); sync();
+})();
+"""
+
+
+def inject_rag(text: str, excl_in_html: list) -> str:
+    rag = ROOT / "src" / "html_rag"
+    # 예전 '자료 질문' 코드(마커 없이 들어간 것 포함)가 있으면 먼저 지운다
+    text = re.sub(re.escape(RAG_START) + r".*?" + re.escape(RAG_END) + r"\n?", "", text, flags=re.S)
+    text = re.sub(re.escape(RAG_CSS_START) + r".*?" + re.escape(RAG_CSS_END) + r"\n?", "", text, flags=re.S)
+    if 'id="ragFab"' in text:
+        raise SystemExit("마커 없는 '자료 질문' 코드가 이미 있음: 원본 대시보드에 다시 적용해 주세요")
+    css = (rag / "rag.css").read_text(encoding="utf-8")
+    text = text.replace("</style>", f"{RAG_CSS_START}\n{css}{RAG_CSS_END}\n</style>", 1)
+    docs = json.loads((rag / "rag_docs.json").read_text(encoding="utf-8"))
+    block = "\n".join([
+        RAG_START,
+        (rag / "rag_panel.html").read_text(encoding="utf-8").strip(),
+        "<script>",
+        "const RAG_DOCS = " + json.dumps(docs, ensure_ascii=False, separators=(",", ":")) + ";",
+        "const RAG_EXCLUDE = " + json.dumps(excl_in_html, ensure_ascii=False) + ";",
+        (rag / "rag_engine.js").read_text(encoding="utf-8"),
+        (rag / "rag_ui.js").read_text(encoding="utf-8"),
+        RAG_FAB_TOGGLE,
+        "</script>",
+        RAG_END, ""])
+    if text.count("</body>") != 1:
+        raise SystemExit("</body>를 찾지 못함")
+    return text.replace("</body>", block + "</body>")
 
 
 def latest_html() -> Path:
@@ -90,8 +129,11 @@ def main(path: Path) -> None:
         raise SystemExit("마지막 실행 부분(readHash/render)을 찾지 못함")
     text = text.replace(tail, block + tail)
 
+    # 5) '자료 질문' 패널
+    text = inject_rag(text, excl_in_html)
+
     path.write_text(text, encoding="utf-8")
-    print(f"{path.name}: GSEEK 링크 {n_links}개 확인, 화면 패치 {applied}개 적용, 상담 제외 과정 {len(excl_in_html)}개")
+    print(f"{path.name}: GSEEK 링크 {n_links}개 확인, 화면 패치 {applied}개 적용, 상담 제외 과정 {len(excl_in_html)}개, 자료 질문 패널 포함")
 
 
 if __name__ == "__main__":
