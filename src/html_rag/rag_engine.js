@@ -13,7 +13,7 @@ const RagEngine = (() => {
     '대한', '위한', '관련', '무엇인가요', '인가요', '어떤', '있나요', '추천', '필요한', '필요', '좀', '수', '것',
     '처음', '싶어', '싶어요', '잘하고', '잘하', '배우고', '배우', '궁금', '궁금해요', '방법', '해봐요', '해요', '찾아줘', '알아야', '알고',
     '교육', '과정', '강좌', '강의', '하고싶', '중인데', '검토', '고민', '모르겠어요', '복잡', '복잡해요', '정도']);
-  const COURSE_BLOCK = /이벤트|event|할인/i;
+  const COURSE_BLOCK = /이벤트|\bevent\b|할인/i;   // 'Prevention' 같은 단어는 걸리지 않게 단어 경계로
   // 교육과정은 인사·업무 관련 단어가 있는 질문에만 보여 준다 (넷플릭스·주식 같은 질문에 과정이 걸리지 않게)
   const HR_WORDS = ['인사', '채용', '면접', '온보딩', '입사', '급여', '임금', '연봉', '보상', '평가', '성과', '복리후생', '4대보험', '보험',
     '근로', '노동', '노사', '노무', '퇴직', '연말정산', '훈련', '조직', '직무', '직급', '인력', '취업규칙', '연차', '휴가', '징계', '해고',
@@ -99,7 +99,15 @@ const RagEngine = (() => {
     const nCourse = Math.min(3, courses.length, Math.max(1, topK - Math.min(docs.length, topK - 1)));
     return [...docs.slice(0, topK - nCourse), ...courses.slice(0, nCourse)];
   }
-  return { buildCorpus, buildIndex, search, searchPart, gramsOf, hasHr };
+  // 질문과 가장 겹치는 줄만 골라 근거 문장으로 보여 준다 (11-18_rag_1판에서 가져옴)
+  function bestLines(text, query, n = 2) {
+    const qg = gramsOf(query);
+    return String(text).split(/\n+/).map(l => {
+      let s = 0; gramsOf(l).forEach((w, g) => { if (qg.has(g)) s += w; });
+      return { l: l.trim(), s };
+    }).filter(x => x.l).sort((a, b) => b.s - a.s).slice(0, n).map(x => x.l);
+  }
+  return { buildCorpus, buildIndex, search, searchPart, gramsOf, hasHr, bestLines };
 })();
 if (typeof window !== 'undefined') window.RagEngine = RagEngine;
 if (typeof module !== 'undefined') module.exports = RagEngine;

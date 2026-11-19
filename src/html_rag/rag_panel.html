@@ -9,7 +9,7 @@
     <label>유사도 임계값 <input type="range" id="ragT" min="0" max="1" step="0.01" value="0.5"><b id="ragTv">0.50</b></label>
   </div>
   <div class="rag-log" id="ragLog" aria-live="polite"></div>
-  <p class="rag-hint">폴더의 문서·데이터에서 찾은 근거로만 답하며, 근거가 없으면 답하지 않습니다.</p>
+  <p class="rag-hint" id="ragHint">폴더의 문서·데이터에서 찾은 근거로만 답하며, 근거가 없으면 답하지 않습니다.</p>
   <form class="rag-form" id="ragForm">
     <input type="text" id="ragQ" placeholder="예: 주임이 갖춰야 할 역량은? / 노사협의회 운영 절차" maxlength="300" autocomplete="off" aria-label="질문">
     <button type="submit" id="ragSend">전송</button>

@@ -48,7 +48,10 @@
     if (!hits.length) return { found: false, answer: NOT_FOUND, sources: [] };
     const sources = hits.map((h, i) => ({ n: i + 1, title: h.d, page: h.p || null, section: h.s, url: h.u, score: h.score,
       snippet: h.t.length > 300 ? h.t.slice(0, 300) + '…' : h.t }));
-    const lines = hits.map((h, i) => `[${i + 1}] ` + h.t.replace(/\s*\n+\s*/g, ' · ').slice(0, 150) + (h.t.length > 150 ? '…' : ''));
+    const lines = hits.map((h, i) => {
+      const body = h.kind === 'course' ? h.t.split('\n').slice(0, 2).join(' · ') : RagEngine.bestLines(h.t, q, 2).join(' · ');
+      return `[${i + 1}] ` + (body.length > 170 ? body.slice(0, 170) + '…' : body);
+    });
     const nd = hits.filter(h => h.kind === 'doc').length, nc = hits.length - nd;
     const head = [nd ? `문서 근거 ${nd}건` : '', nc ? `관련 교육과정 ${nc}건` : ''].filter(Boolean).join(' · ');
     return { found: true, sources, answer: `자료에서 찾은 ${head}입니다. (검색 결과를 그대로 보여 드려요)\n\n` + lines.join('\n') };
@@ -81,7 +84,9 @@
   tIn.value = LOCAL_THRESHOLD; tVal.textContent = LOCAL_THRESHOLD.toFixed(2);
   status.textContent = `내장 검색 모드 · 문서 ${new Set(RAG_DOCS.map(d => d.d)).size}종 + 교육과정 ${DATA.courses.length.toLocaleString()}건 (서버·AI 호출 없음)`;
   add('bot', '안녕하세요. 이 대시보드에 담긴 문서·직무 기준·교육과정에서 근거를 찾아 알려 드립니다. 자료에 없는 내용은 추측하지 않고 "찾지 못했습니다"라고 답합니다.');
-  detectServer();
+  const hint = $('ragHint');
+  if (hint) hint.textContent = 'AI 문장 답변은 꺼져 있어요. 자료에서 찾은 근거(문서·직무 기준·교육과정)만 보여 드려요.';
+  detectServer().then(() => { if (server && hint) hint.textContent = 'AI 답변 모드: 찾은 근거로만 문장을 만들어 답합니다.'; });
 
   form.addEventListener('submit', async ev => {
     ev.preventDefault();
