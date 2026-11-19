@@ -1,6 +1,6 @@
 # HTML 대시보드 AI 상담 기준값 점검
 
-`node scripts/check_html_chat.js` 실행 결과 (대상: `hr_career_platform_v2_2026-11-16.html`).
+`node scripts/check_html_chat.js` 실행 결과 (대상: `hr_career_platform_v2_2026-11-18.html`).
 
 ## 계산 방식
 - 브라우저 안에서만 계산합니다(외부 호출 없음). 의미 유사도 모델은 쓰지 않습니다.

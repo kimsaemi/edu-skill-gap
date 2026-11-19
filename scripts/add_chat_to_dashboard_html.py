@@ -61,13 +61,41 @@ RAG_FAB_TOGGLE = """
 """
 
 
+def strip_legacy_rag(text: str) -> str:
+    """마커 없이 들어간 예전 '자료 질문' 코드(11-18_rag판 형식)를 지운다.
+    지우는 범위: <style> 안의 .rag-* 규칙, 'rag-fab' 버튼부터 </body> 직전까지(패널·RAG_DOCS·엔진·화면 스크립트)."""
+    start = text.find('<button type="button" class="rag-fab"')
+    body_end = text.rfind("</body>")
+    if start < 0 or body_end < start:
+        raise SystemExit("예전 '자료 질문' 코드의 위치를 찾지 못함")
+    tail = text[start:body_end]
+    # 지우는 범위에 자료 질문과 무관한 코드가 섞여 있으면 멈춘다
+    if "RagEngine" not in tail or "const RAG_DOCS" not in tail or "readHash();" in tail:
+        raise SystemExit("예전 '자료 질문' 코드 범위가 예상과 다름: 직접 확인 필요")
+    text = text[:start] + text[body_end:]
+    style_end = text.find("</style>")
+    head, rest = text[:style_end], text[style_end:]
+    lines = head.split("\n")
+    kept, skip = [], False
+    for line in lines:
+        s = line.strip()
+        if s.startswith(".rag-") or (s.startswith("@media") and ".rag-" in s):
+            skip = not s.endswith("}") or s.count("{") > s.count("}")
+            continue
+        if skip:
+            skip = not s.endswith("}")
+            continue
+        kept.append(line)
+    return "\n".join(kept) + rest
+
+
 def inject_rag(text: str, excl_in_html: list) -> str:
     rag = ROOT / "src" / "html_rag"
     # 예전 '자료 질문' 코드(마커 없이 들어간 것 포함)가 있으면 먼저 지운다
     text = re.sub(re.escape(RAG_START) + r".*?" + re.escape(RAG_END) + r"\n?", "", text, flags=re.S)
     text = re.sub(re.escape(RAG_CSS_START) + r".*?" + re.escape(RAG_CSS_END) + r"\n?", "", text, flags=re.S)
     if 'id="ragFab"' in text:
-        raise SystemExit("마커 없는 '자료 질문' 코드가 이미 있음: 원본 대시보드에 다시 적용해 주세요")
+        text = strip_legacy_rag(text)
     css = (rag / "rag.css").read_text(encoding="utf-8")
     text = text.replace("</style>", f"{RAG_CSS_START}\n{css}{RAG_CSS_END}\n</style>", 1)
     docs = json.loads((rag / "rag_docs.json").read_text(encoding="utf-8"))
