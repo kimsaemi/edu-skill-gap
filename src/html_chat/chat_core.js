@@ -10,7 +10,7 @@ const CHAT_STOP = new Set(['알아야', '알아', '검토', '중인데', '고민
   '어떻게', '무엇', '뭘', '해야', '하는', '있는', '대한', '관련', '과정', '강좌', '교육', '추천', '추천해줘', '실무']);
 // 저장소 제외 목록(off_topic_exclusions.csv)에 오른 과정과 이벤트·할인 안내는 상담 결과에서 뺀다
 const CHAT_EXCLUDE = new Set(__CHAT_EXCLUDE__);
-const chatOk = c => c && !CHAT_EXCLUDE.has(c.id) && !/이벤트|event|할인/i.test(c.t);
+const chatOk = c => c && !CHAT_EXCLUDE.has(c.id) && !/이벤트|\bevent\b|할인/i.test(c.t);
 const CHAT_PERSONAL = [/내게\s*맞는/, /뭘\s*들어야/, /뭐부터/, /어디부터/, /진단\s*결과/, /나한테\s*맞는/];
 
 function chatNorm(s) { return String(s || '').toLowerCase().replace(/[^0-9a-z가-힣]+/g, ' ').trim(); }

@@ -32,7 +32,7 @@ HR_Q.forEach(q => { const h = run(q); rows.push([q, h]); if (!h.length) fails.pu
 const nonRows = NON_Q.map(q => [q, run(q)]);
 nonRows.forEach(([q, h]) => { if (h.length) fails.push(`무관 질문에 근거가 나옴: ${q} → ${label(h[0])}`); });
 const courseKeys = index.courses.items.map(c => c.key);
-if (courseKeys.some(k => /이벤트|event|할인/i.test(k))) fails.push('이벤트·할인 과정이 검색 대상에 남아 있음');
+if (courseKeys.some(k => /이벤트|\bevent\b|할인/i.test(k))) fails.push('이벤트·할인 과정이 검색 대상에 남아 있음');
 
 const md = ['# HTML 대시보드 \'자료 질문\' 기준값 점검', '',
   `\`node scripts/check_html_rag.js\` 실행 결과 (대상: \`${target}\`).`, '',
