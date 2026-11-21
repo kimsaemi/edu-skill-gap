@@ -1,0 +1,155 @@
+{
+  "title": "추천 정확도 개선안 재평가 (차이 나는 과정 전수 판정)",
+  "analyzed_at": "2026-11-21",
+  "mode_status": "사전 집계 (기존 판정만 반영 · 결론 아님)",
+  "sample_counts": {
+    "diff_cells": 17,
+    "diff_tasks": 11,
+    "total_diff_courses": 44,
+    "total_diff_courses_desc": "칸 단위 44건 (고유 과정 32개: 기본 14, 개선 18)",
+    "unique_diff_courses": 32,
+    "unique_baseline_courses": 14,
+    "unique_candidate_courses": 18,
+    "order_diff_cells": 33,
+    "order_diff_tasks": 20,
+    "order_diff_non_eval_tasks": 7,
+    "rank1_diff_non_eval_tasks": 3,
+    "baseline_only_courses": 22,
+    "candidate_only_courses": 22,
+    "already_evaluated_courses": 22,
+    "new_eval_needed_courses": 22,
+    "retest_items_in_sheet": 10,
+    "sheet_total_items": 32,
+    "sheet_total_rows": 64,
+    "total_combined_evaluations": 44
+  },
+  "baseline_recommendation": {
+    "n": 27,
+    "strict": 37.0,
+    "lenient": 55.6,
+    "strict_count": 10,
+    "partial_count": 5,
+    "unfit_count": 12,
+    "ci95_strict_wilson": [
+      21.5,
+      55.8
+    ],
+    "ci95_lenient_wilson": [
+      37.3,
+      72.4
+    ]
+  },
+  "candidate_recommendation": {
+    "n": 15,
+    "strict": 80.0,
+    "lenient": 80.0,
+    "strict_count": 12,
+    "partial_count": 0,
+    "unfit_count": 3,
+    "ci95_strict_wilson": [
+      54.8,
+      93.0
+    ],
+    "ci95_lenient_wilson": [
+      54.8,
+      93.0
+    ]
+  },
+  "comparison": {
+    "diff_strict": 43.0,
+    "ci95_diff_strict_bootstrap": null,
+    "diff_lenient": 24.4,
+    "ci95_diff_lenient_bootstrap": null,
+    "decision": "판정 보류 (새 판정 필요)",
+    "decision_reason": "이전 판정 재활용 집계이므로 판정을 내리지 않음 (새 판정 필요)"
+  },
+  "agreement": {
+    "agreement_rate": null,
+    "cohen_kappa": null,
+    "evaluated_pairs": 0
+  },
+  "retest_consistency": {
+    "retest_items": 0,
+    "evaluations_compared": 0,
+    "agreed_count": 0,
+    "agreement_rate": null
+  },
+  "subgroups": {
+    "holdout_1_2_tasks_e4_developed": {
+      "task_count": 4,
+      "description": "E4(타 직종 제외) 규칙 개발의 근거가 된 업무 (개선안에 유리하게 작용할 수 있음)",
+      "baseline": {
+        "n": 11,
+        "strict": 18.2,
+        "lenient": 18.2,
+        "strict_count": 2,
+        "partial_count": 0,
+        "unfit_count": 9,
+        "ci95_strict_wilson": [
+          5.1,
+          47.7
+        ],
+        "ci95_lenient_wilson": [
+          5.1,
+          47.7
+        ]
+      },
+      "candidate": {
+        "n": 2,
+        "strict": 100.0,
+        "lenient": 100.0,
+        "strict_count": 2,
+        "partial_count": 0,
+        "unfit_count": 0,
+        "ci95_strict_wilson": [
+          34.2,
+          100.0
+        ],
+        "ci95_lenient_wilson": [
+          34.2,
+          100.0
+        ]
+      },
+      "diff_strict": 81.8
+    },
+    "other_tasks": {
+      "task_count": 7,
+      "description": "E4 개발과 무관한 나머지 평가 업무",
+      "baseline": {
+        "n": 16,
+        "strict": 50.0,
+        "lenient": 81.2,
+        "strict_count": 8,
+        "partial_count": 5,
+        "unfit_count": 3,
+        "ci95_strict_wilson": [
+          28.0,
+          72.0
+        ],
+        "ci95_lenient_wilson": [
+          57.0,
+          93.4
+        ]
+      },
+      "candidate": {
+        "n": 13,
+        "strict": 76.9,
+        "lenient": 76.9,
+        "strict_count": 10,
+        "partial_count": 0,
+        "unfit_count": 3,
+        "ci95_strict_wilson": [
+          49.7,
+          91.8
+        ],
+        "ci95_lenient_wilson": [
+          49.7,
+          91.8
+        ]
+      },
+      "diff_strict": 26.9
+    }
+  },
+  "generalization_constraint": "평가하지 않은 50개 업무에서 추천 과정 구성은 같고, 7개 업무에서 순서가 다르며 그중 3개는 1위가 바뀐다",
+  "bias_note": "E4 규칙은 홀드아웃 1·2차 오답을 보고 만들었으므로, 그 업무들에서 개선안이 유리하게 나올 수 있다."
+}
