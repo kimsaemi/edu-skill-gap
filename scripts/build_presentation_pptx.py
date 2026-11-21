@@ -409,26 +409,30 @@ top5_share = eda["monitor"]["top5_share"]
 past_n = eda["schedule"]["past"]
 
 # KPC bias metrics dynamic values
-kpc_hr_pct = 19.0
-kpc_pool_pct = 32.1
-kpc_bm25_kpc = 77.7
-kpc_bm25_oth = 70.0
-kpc_p_kpc = 72.0
-kpc_p_oth = 57.0
+kpc_bias_data = data.get("kpc_bias", {})
+kpc_hr_pct = kpc_bias_data.get("kpc_hr_pct", 17.3)
+kpc_pool_pct = kpc_bias_data.get("kpc_pool_pct", 32.1)
+kpc_bm25_kpc = kpc_bias_data.get("bm25_kpc", 77.7)
+kpc_bm25_oth = kpc_bias_data.get("bm25_other", 70.0)
+kpc_p_kpc = kpc_bias_data.get("eval_kpc", 72.0)
+kpc_p_oth = kpc_bias_data.get("eval_other", 57.0)
+kpc_ci95_range = kpc_bias_data.get("ci95_range", [-1.1, 30.7])
 if kpc_metrics:
     try:
         h1_m = kpc_metrics["hypotheses"]["H1_supply_baseline"]
         h3_m = kpc_metrics["hypotheses"]["H3_score_breakdown"]
         h4_m = kpc_metrics["hypotheses"]["H4_human_quality"]
+        kpc_hr_pct = h1_m["levels"][2]["kpc_share"]
         kpc_pool_pct = h1_m["levels"][3]["kpc_share"]
         kpc_bm25_kpc = h3_m["score_components"]["bm25_score"]["kpc"]["median"]
         kpc_bm25_oth = h3_m["score_components"]["bm25_score"]["other"]["median"]
         kpc_p_kpc = h4_m["kpc_vs_others"]["kpc"]["strict_precision"]
         kpc_p_oth = h4_m["kpc_vs_others"]["others_all"]["strict_precision"]
+        kpc_ci95_range = h4_m["kpc_vs_others"]["bootstrap_cluster_ci95"]
     except Exception as e:
-        print(f"[경고] KPC 메트릭 파싱 실패 ({e}), fallback 값을 유지합니다.")
+        print(f"[경고] KPC 메트릭 파싱 실패 ({e}), data.json 값을 유지합니다.")
 else:
-    print("[경고] kpc_metrics 부재로 fallback 값을 사용합니다.")
+    print("[경고] kpc_metrics 부재로 data.json 값을 사용합니다.")
 
 prob_scores = ", ".join(str(x) for x in rec["weak_slots"]["probation_reranker_scores"])
 lt01_slots = rec["weak_slots"]["lt01_slots"]

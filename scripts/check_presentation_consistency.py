@@ -56,83 +56,102 @@ STALE_NUMBERS = [
 ]
 
 
+
+def need(d, *keys):
+    """원본 결과 파일에서 값을 꺼낸다. 키가 없으면 고정값으로 대신하지 않고 실패한다."""
+    cur = d
+    for k in keys:
+        if not isinstance(cur, dict) or k not in cur:
+            raise KeyError("원본 결과 파일에 값이 없음: " + " > ".join(keys))
+        cur = cur[k]
+    return cur
+
 def load_references():
     ref = {}
     if DATA_JSON_PATH.exists():
         d = json.loads(DATA_JSON_PATH.read_text(encoding="utf-8"))
-        ref["courses_total"] = d.get("kpi", {}).get("courses", 9075)
-        ref["courses_off_topic"] = d.get("kpi", {}).get("off_topic", 1377)
-        ref["courses_candidates"] = d.get("eda", {}).get("candidates_total", ref["courses_total"] - ref["courses_off_topic"])
-        ref["tasks_count"] = d.get("recommend", {}).get("n_tasks", 90)
+        ref["courses_total"] = need(d, "kpi", "courses")
+        ref["courses_off_topic"] = need(d, "kpi", "off_topic")
+        # 추천 후보 수 = 전체 − 제외 (data.json에 따로 저장된 값이 없어 계산한다)
+        ref["courses_candidates"] = ref["courses_total"] - ref["courses_off_topic"]
+        ref["tasks_count"] = need(d, "recommend", "n_tasks")
         ref["slots_total"] = ref["tasks_count"] * 3  # 270
-        ref["slots_lt3"] = d.get("recommend", {}).get("lt3", 4)
+        ref["slots_lt3"] = need(d, "recommend", "lt3")
         ref["coverage_pct"] = round((ref["slots_total"] - ref["slots_lt3"]) / ref["slots_total"] * 100, 1)
 
     # 평가 지표들
     p1_file = REPORTS_DIR / "precision_eval_metrics.json"
     if p1_file.exists():
         p1 = json.loads(p1_file.read_text(encoding="utf-8"))
-        ref["eval_r1_strict"] = p1.get("precision_at_3", {}).get("strict", 52.7)
+        ref["eval_r1_strict"] = need(p1, "precision_at_3", "strict")
 
     p2_file = REPORTS_DIR / "precision_eval_round2_metrics.json"
     if p2_file.exists():
         p2 = json.loads(p2_file.read_text(encoding="utf-8"))
-        ref["eval_r2_strict"] = p2.get("precision_at_3", {}).get("strict", 67.3)
+        ref["eval_r2_strict"] = need(p2, "precision_at_3", "strict")
 
     ph1_file = REPORTS_DIR / "precision_eval_holdout_metrics.json"
     if ph1_file.exists():
         ph1 = json.loads(ph1_file.read_text(encoding="utf-8"))
-        ref["eval_ho1_strict"] = ph1.get("precision_at_3", {}).get("strict", 74.5)
+        ref["eval_ho1_strict"] = need(ph1, "precision_at_3", "strict")
 
     ph2_file = REPORTS_DIR / "precision_eval_holdout2_metrics.json"
     if ph2_file.exists():
         ph2 = json.loads(ph2_file.read_text(encoding="utf-8"))
-        ref["eval_ho2_final_strict"] = ph2.get("final_recommendation", {}).get("precision_at_3", {}).get("strict", 59.3)
-        ref["eval_ho2_bm25_strict"] = ph2.get("bm25_recommendation", {}).get("precision_at_3", {}).get("strict", 57.6)
-        decoy = ph2.get("decoy_analysis", {})
-        ref["decoy_total"] = decoy.get("total_evaluations", 20)
-        ref["decoy_unfit"] = decoy.get("unfit_count", 7)
-        ref["decoy_pct"] = decoy.get("filter_success_rate", 35.0)
+        ref["eval_ho2_final_strict"] = need(ph2, "final_recommendation", "precision_at_3", "strict")
+        ref["eval_ho2_bm25_strict"] = need(ph2, "bm25_recommendation", "precision_at_3", "strict")
+        decoy = need(ph2, "decoy_analysis")
+        ref["decoy_total"] = need(decoy, "total_evaluations")
+        ref["decoy_unfit"] = need(decoy, "unfit_count")
+        ref["decoy_pct"] = need(decoy, "filter_success_rate")
 
     pha_file = REPORTS_DIR / "precision_eval_holdout_all_metrics.json"
     if pha_file.exists():
         pha = json.loads(pha_file.read_text(encoding="utf-8"))
-        ref["eval_hoa_strict"] = pha.get("precision_at_3", {}).get("strict", 66.1)
-        ref["eval_hoa_consensus_strict"] = pha.get("consensus", {}).get("strict", 53.4)
-        ref["eval_ho12_strict"] = pha.get("holdout_12", {}).get("precision_at_3", {}).get("strict", 66.7)
+        ref["eval_hoa_strict"] = need(pha, "precision_at_3", "strict")
+        ref["eval_hoa_consensus_strict"] = need(pha, "consensus", "strict")
+        ref["eval_ho12_strict"] = need(pha, "holdout_12", "precision_at_3", "strict")
 
     ph3_file = REPORTS_DIR / "precision_eval_holdout3_metrics.json"
     if ph3_file.exists():
         ph3 = json.loads(ph3_file.read_text(encoding="utf-8"))
-        ref["eval_ho3_baseline_strict"] = ph3.get("baseline", {}).get("precision_at_3", {}).get("strict", 65.0)
-        ref["eval_ho3_candidate_strict"] = ph3.get("candidate", {}).get("precision_at_3", {}).get("strict", 71.2)
-        decoy3 = ph3.get("decoy_analysis", {})
-        ref["decoy3_total"] = decoy3.get("total_evaluations", 20)
-        ref["decoy3_unfit"] = decoy3.get("unfit_count", 14)
-        ref["decoy3_pct"] = decoy3.get("filter_success_rate", 70.0)
+        if "baseline_recommendation" not in ph3:
+            raise KeyError("precision_eval_holdout3_metrics.json 에 'baseline_recommendation' 키가 없습니다.")
+        ref["eval_ho3_baseline_strict"] = ph3["baseline_recommendation"]["precision_at_3"]["strict"]
+        if "candidate_recommendation" not in ph3:
+            raise KeyError("precision_eval_holdout3_metrics.json 에 'candidate_recommendation' 키가 없습니다.")
+        ref["eval_ho3_candidate_strict"] = ph3["candidate_recommendation"]["precision_at_3"]["strict"]
+        decoy3 = need(ph3, "decoy_analysis")
+        ref["decoy3_total"] = need(decoy3, "total_evaluations")
+        ref["decoy3_unfit"] = need(decoy3, "unfit_count")
+        ref["decoy3_pct"] = need(decoy3, "filter_success_rate")
 
     dom_file = REPORTS_DIR / "domain_review_metrics.json"
     if dom_file.exists():
         dom = json.loads(dom_file.read_text(encoding="utf-8"))
-        ref["domain_precision"] = round(dom.get("precision", {}).get("value", 0.9167) * 100, 1)
-        ref["domain_recall"] = round(dom.get("recall", {}).get("value", 0.898) * 100, 1)
+        ref["domain_precision"] = round(need(dom, "precision", "value") * 100, 1)
+        ref["domain_recall"] = round(need(dom, "recall", "value") * 100, 1)
 
     kpc_file = REPORTS_DIR / "kpc_bias_metrics.json"
     if kpc_file.exists():
         kpc = json.loads(kpc_file.read_text(encoding="utf-8"))
-        ref["kpc_catalog_share"] = kpc.get("summary", {}).get("baseline_kpc_catalog_share", 16.7)
-        ref["kpc_top3_share"] = kpc.get("summary", {}).get("baseline_kpc_top3_share", 37.4)
-        h1_levels = kpc.get("hypotheses", {}).get("H1_supply_baseline", {}).get("levels", [])
+        ref["kpc_catalog_share"] = need(kpc, "summary", "baseline_kpc_catalog_share")
+        ref["kpc_top3_share"] = need(kpc, "summary", "baseline_kpc_top3_share")
+        h1_levels = need(kpc, "hypotheses", "H1_supply_baseline", "levels")
+        if len(h1_levels) < 3 or "kpc_share" not in h1_levels[2]:
+            raise KeyError("kpc_bias_metrics.json H1 levels[2]['kpc_share'] (인사 분야 KPC 비중) 누락")
+        ref["kpc_hr_domain_share"] = h1_levels[2]["kpc_share"]
         if len(h1_levels) >= 4:
-            ref["kpc_pool_share"] = h1_levels[3].get("kpc_share", 32.1)
-        ref["kpc_hr_domain_share"] = 19.0  # 인사 분야 과정 중 KPC 비중
-        bm25_comp = kpc.get("hypotheses", {}).get("H3_score_breakdown", {}).get("score_components", {}).get("bm25_score", {})
-        ref["kpc_bm25_median"] = bm25_comp.get("kpc", {}).get("median", 77.7)
-        ref["other_bm25_median"] = bm25_comp.get("other", {}).get("median", 70.0)
-        h4 = kpc.get("hypotheses", {}).get("H4_human_quality", {}).get("kpc_vs_others", {})
-        ref["kpc_human_precision"] = h4.get("kpc", {}).get("strict_precision", 72.0)
-        ref["other_human_precision"] = h4.get("others_all", {}).get("strict_precision", 57.0)
-        ref["kpc_ci95"] = h4.get("bootstrap_cluster_ci95", [-1.4, 31.2])
+            ref["kpc_pool_share"] = need(h1_levels[3], "kpc_share")
+        bm25_comp = need(kpc, "hypotheses", "H3_score_breakdown", "score_components", "bm25_score")
+        ref["kpc_bm25_median"] = need(bm25_comp, "kpc", "median")
+        ref["other_bm25_median"] = need(bm25_comp, "other", "median")
+        h4 = need(kpc, "hypotheses", "H4_human_quality", "kpc_vs_others")
+        ref["kpc_human_precision"] = need(h4, "kpc", "strict_precision")
+        ref["other_human_precision"] = need(h4, "others_all", "strict_precision")
+        if "bootstrap_cluster_ci95" not in h4:
+            raise KeyError("kpc_bias_metrics.json H4 'bootstrap_cluster_ci95' 누락")
+        ref["kpc_ci95"] = h4["bootstrap_cluster_ci95"]
 
     return ref
 
@@ -217,7 +236,7 @@ def check_headline_74_5(file_path, lines, issues):
                 })
 
 
-def check_template_hardcoded_kpc(file_path, lines, issues):
+def check_template_hardcoded_kpc(file_path, lines, issues, ref):
     """template.html 5번 인사이트 카드 내 하드코딩 수치 검사"""
     in_ins5 = False
     for idx, line in enumerate(lines, 1):
@@ -226,8 +245,10 @@ def check_template_hardcoded_kpc(file_path, lines, issues):
         if in_ins5 and idx > 1025 and '</div>' in line:
             in_ins5 = False
         if in_ins5:
-            # 19.0%, 32.1%, 77.7, 70.0, 72.0%, 57.0%가 <span> 태그 없이 직접 텍스트로 있는지 검사
-            for val in ["19.0%", "32.1%", "77.7", "70.0", "72.0%", "57.0%"]:
+            # KPC 지표 값이 <span> 태그 없이 직접 텍스트로 박혀 있는지 검사 (값은 원본 결과 파일에서 읽음)
+            kpc_vals = [f"{ref[k]:.1f}%" for k in ("kpc_hr_domain_share", "kpc_pool_share", "kpc_human_precision", "other_human_precision") if k in ref]
+            kpc_vals += [f"{ref[k]:.1f}" for k in ("kpc_bm25_median", "other_bm25_median") if k in ref]
+            for val in kpc_vals:
                 if val in line and f'>{val}<' not in line:
                     issues.append({
                         "file": str(file_path),
@@ -237,6 +258,162 @@ def check_template_hardcoded_kpc(file_path, lines, issues):
                         "expected": "data.json에서 값을 채우는 <span> 구조로 대체",
                         "text": line.strip()[:140],
                     })
+
+
+def check_data_json_values(ref, issues):
+    """data.json 안의 지표가 ref(보고서 원본 지표)와 정확히 일치하는지 대조"""
+    if not DATA_JSON_PATH.exists():
+        issues.append({
+            "file": str(DATA_JSON_PATH),
+            "line": 0,
+            "type": "MISSING_DATA_JSON",
+            "found": "파일 없음",
+            "expected": "presentation/src/data.json 존재",
+            "text": "",
+        })
+        return
+
+    data = json.loads(DATA_JSON_PATH.read_text(encoding="utf-8"))
+
+    # 1. KPC 비중 및 지표
+    kb = data.get("kpc_bias", {})
+    checks = [
+        ("kpc_bias.kpc_hr_pct", kb.get("kpc_hr_pct"), ref.get("kpc_hr_domain_share")),
+        ("kpc_bias.catalog_share", kb.get("catalog_share"), ref.get("kpc_catalog_share")),
+        ("kpc_bias.top3_share", kb.get("top3_share"), ref.get("kpc_top3_share")),
+        ("kpc_bias.kpc_pool_pct", kb.get("kpc_pool_pct"), ref.get("kpc_pool_share")),
+        ("kpc_bias.bm25_kpc", kb.get("bm25_kpc"), ref.get("kpc_bm25_median")),
+        ("kpc_bias.bm25_other", kb.get("bm25_other"), ref.get("other_bm25_median")),
+        ("kpc_bias.eval_kpc", kb.get("eval_kpc"), ref.get("kpc_human_precision")),
+        ("kpc_bias.eval_other", kb.get("eval_other"), ref.get("other_human_precision")),
+        ("kpc_bias.ci95_range", kb.get("ci95_range"), ref.get("kpc_ci95")),
+    ]
+
+    # 2. 사람 평가 지표
+    hoa = data.get("human_eval_rounds", {}).get("holdout_all", {})
+    if "eval_hoa_strict" in ref:
+        checks.append(("human_eval_rounds.holdout_all.precision_at_3.strict",
+                       hoa.get("precision_at_3", {}).get("strict"), ref.get("eval_hoa_strict")))
+    if "eval_hoa_consensus_strict" in ref:
+        checks.append(("human_eval_rounds.holdout_all.consensus.strict",
+                       hoa.get("consensus", {}).get("strict"), ref.get("eval_hoa_consensus_strict")))
+
+    ho = data.get("human_eval_rounds", {}).get("holdout", {})
+    if "eval_ho1_strict" in ref:
+        checks.append(("human_eval_rounds.holdout.precision_at_3.strict",
+                       ho.get("precision_at_3", {}).get("strict"), ref.get("eval_ho1_strict")))
+
+    ho2 = data.get("human_eval_holdout2", {})
+    if "eval_ho2_final_strict" in ref:
+        checks.append(("human_eval_holdout2.final_recommendation.precision_at_3.strict",
+                       ho2.get("final_recommendation", {}).get("precision_at_3", {}).get("strict"), ref.get("eval_ho2_final_strict")))
+    if "eval_ho2_bm25_strict" in ref:
+        checks.append(("human_eval_holdout2.bm25_recommendation.precision_at_3.strict",
+                       ho2.get("bm25_recommendation", {}).get("precision_at_3", {}).get("strict"), ref.get("eval_ho2_bm25_strict")))
+
+    ho3 = data.get("human_eval_holdout3", {})
+    if "eval_ho3_baseline_strict" in ref:
+        checks.append(("human_eval_holdout3.baseline_recommendation.precision_at_3.strict",
+                       ho3.get("baseline_recommendation", {}).get("precision_at_3", {}).get("strict"), ref.get("eval_ho3_baseline_strict")))
+    if "eval_ho3_candidate_strict" in ref:
+        checks.append(("human_eval_holdout3.candidate_recommendation.precision_at_3.strict",
+                       ho3.get("candidate_recommendation", {}).get("precision_at_3", {}).get("strict"), ref.get("eval_ho3_candidate_strict")))
+
+    for name, actual, expected in checks:
+        if actual != expected:
+            issues.append({
+                "file": str(DATA_JSON_PATH),
+                "line": 1,
+                "type": "DATA_JSON_VALUE_MISMATCH",
+                "found": f"{name} = {actual}",
+                "expected": f"{expected}",
+                "text": f"data.json 의 {name} 항목 값이 원본 지표({expected})와 불일치합니다.",
+            })
+
+
+def check_script_md_values(ref, file_path, lines, issues):
+    """SCRIPT.md 본문 내에 ref의 주요 수치가 올바르게 들어있는지 검사"""
+    full_text = "\n".join(lines)
+
+    if "kpc_hr_domain_share" in ref:
+        kpc_hr_str = f"{ref['kpc_hr_domain_share']:.1f}%"
+        if kpc_hr_str not in full_text:
+            issues.append({
+                "file": str(file_path),
+                "line": 0,
+                "type": "SCRIPT_VALUE_MISSING",
+                "found": f"{kpc_hr_str} 누락",
+                "expected": f"SCRIPT.md 본문에 KPC 인사 분야 점유율 {kpc_hr_str} 표기 필요",
+                "text": "인사 분야 과정 중 KPC 비중",
+            })
+
+    if "coverage_pct" in ref:
+        coverage_str = f"{ref['coverage_pct']:.1f}%"
+        if coverage_str not in full_text:
+            issues.append({
+                "file": str(file_path),
+                "line": 0,
+                "type": "SCRIPT_VALUE_MISSING",
+                "found": f"{coverage_str} 누락",
+                "expected": f"SCRIPT.md 본문에 추천 커버리지 {coverage_str} 표기 필요",
+                "text": "업무마다 추천을 낸다 커버리지",
+            })
+
+    if "eval_hoa_strict" in ref:
+        hoa_str = f"{ref['eval_hoa_strict']:.1f}%"
+        if hoa_str not in full_text:
+            issues.append({
+                "file": str(file_path),
+                "line": 0,
+                "type": "SCRIPT_VALUE_MISSING",
+                "found": f"{hoa_str} 누락",
+                "expected": f"SCRIPT.md 본문에 홀드아웃 합산 정확도 {hoa_str} 표기 필요",
+                "text": "홀드아웃 1·2·3차 30개 업무 합산",
+            })
+
+
+def check_pptx_values(ref, prs, issues):
+    """PPTX 슬라이드 전체 텍스트에서 ref의 핵심 지표가 누락되거나 틀리지 않았는지 검사"""
+    all_slide_texts = []
+    for s in prs.slides:
+        all_slide_texts.extend(extract_slide_units(s))
+    joined_text = " \n ".join(all_slide_texts)
+
+    if "kpc_hr_domain_share" in ref:
+        kpc_hr_str = f"{ref['kpc_hr_domain_share']:.1f}%"
+        if kpc_hr_str not in joined_text:
+            issues.append({
+                "file": "presentation/HR_교육지도_발표.pptx",
+                "line": 0,
+                "type": "PPTX_VALUE_MISSING",
+                "found": f"{kpc_hr_str} 누락",
+                "expected": f"PPTX 내에 KPC 인사 분야 점유율 {kpc_hr_str} 표기 필요",
+                "text": "인사 과정 중 KPC 비중",
+            })
+
+    if "eval_hoa_strict" in ref:
+        hoa_str = f"{ref['eval_hoa_strict']:.1f}%"
+        if hoa_str not in joined_text:
+            issues.append({
+                "file": "presentation/HR_교육지도_발표.pptx",
+                "line": 0,
+                "type": "PPTX_VALUE_MISSING",
+                "found": f"{hoa_str} 누락",
+                "expected": f"PPTX 내에 홀드아웃 합산 정확도 {hoa_str} 표기 필요",
+                "text": "홀드아웃 30개 업무 합산",
+            })
+
+    if "kpc_top3_share" in ref:
+        top3_str = f"{ref['kpc_top3_share']:.1f}%"
+        if top3_str not in joined_text:
+            issues.append({
+                "file": "presentation/HR_교육지도_발표.pptx",
+                "line": 0,
+                "type": "PPTX_VALUE_MISSING",
+                "found": f"{top3_str} 누락",
+                "expected": f"PPTX 내에 KPC Top 3 점유율 {top3_str} 표기 필요",
+                "text": "최종 추천 Top 3 점유율",
+            })
 
 
 def extract_slide_units(slide):
@@ -259,7 +436,7 @@ def extract_slide_units(slide):
     return units
 
 
-def check_pptx(pptx_path, issues):
+def check_pptx(pptx_path, issues, ref=None):
     """PPTX 텍스트 및 슬라이드 번호 체계 검사"""
     if not pptx_path.exists():
         issues.append({
@@ -275,6 +452,9 @@ def check_pptx(pptx_path, issues):
     prs = Presentation(str(pptx_path))
     total_slides = len(prs.slides)
     footer_rx = re.compile(r"^\s*(\d+)\s*/\s*(\d+)\s*$")
+
+    if ref:
+        check_pptx_values(ref, prs, issues)
 
     for s_idx, slide in enumerate(prs.slides, 1):
         units = extract_slide_units(slide)
@@ -349,6 +529,9 @@ def run_checks():
     ref = load_references()
     issues = []
 
+    # 1. data.json 직접 대조
+    check_data_json_values(ref, issues)
+
     text_files = [
         ROOT / "presentation" / "src" / "template.html",
         ROOT / "presentation" / "index.html",
@@ -373,12 +556,14 @@ def run_checks():
         check_forbidden_expressions(p, lines, issues)
         check_stale_numbers(p, lines, issues)
         check_headline_74_5(p, lines, issues)
+        if p.name == "SCRIPT.md":
+            check_script_md_values(ref, p, lines, issues)
         if p.name == "template.html":
-            check_template_hardcoded_kpc(p, lines, issues)
+            check_template_hardcoded_kpc(p, lines, issues, ref)
 
     # PPTX 검사
     pptx_path = ROOT / "presentation" / "HR_교육지도_발표.pptx"
-    check_pptx(pptx_path, issues)
+    check_pptx(pptx_path, issues, ref=ref)
 
     return ref, issues
 

@@ -105,7 +105,6 @@ def run_analysis():
     kpc_cand_norm = (cand_df["provider_norm"] == "한국생산성본부(KPC)").sum()
 
     # (3) 인사 분야 연결 과정 (field == 'HR' in valid candidates)
-    # Note: 749 KPC courses out of 3,939 valid candidates connected to HR/GA or HR field
     cand_with_fields = cand_df.merge(fields_df[["course_uid", "field"]], on="course_uid", how="left")
     hr_cand_df = cand_with_fields[cand_with_fields["field"] == "HR"]
     n_hr_cand = len(hr_cand_df)
@@ -450,13 +449,6 @@ def run_analysis():
     boot_diffs = (kpc_f_boot / kpc_n_boot - oth_f_boot / oth_n_boot) * 100
     ci_boot_lower = round(float(np.percentile(boot_diffs, 2.5)), 1)
     ci_boot_upper = round(float(np.percentile(boot_diffs, 97.5)), 1)
-    # Note: Reference value is approx -1.4 ~ +31.2%p. Seed 42 gives -1.1 ~ +30.7%p (Seed 4 gives -1.4 ~ +31.2%p)
-    # Using seed 4 gives exact -1.4 ~ +31.2%p:
-    np.random.seed(4)
-    idx_s4 = np.random.randint(0, n_cl, size=(10000, n_cl))
-    b_diffs4 = (kpc_f_arr[idx_s4].sum(axis=1) / kpc_n_arr[idx_s4].sum(axis=1) - oth_f_arr[idx_s4].sum(axis=1) / oth_n_arr[idx_s4].sum(axis=1)) * 100
-    ci_boot_lower = round(float(np.percentile(b_diffs4, 2.5)), 1)
-    ci_boot_upper = round(float(np.percentile(b_diffs4, 97.5)), 1)
 
     # Sensitivity: Exclude Round 1 (개선 전 평가 제외)
     df_no_r1 = df_judged[df_judged["round"] != "1차"]
@@ -467,7 +459,7 @@ def run_analysis():
 
     h4_metrics = {
         "verdict": "낮지 않음 (확실한 우위는 아님)",
-        "verdict_reason": "사람 평가에서 KPC 추천의 적합률은 72.0%로 다른 기관(57.0%)보다 낮지 않았습니다. 다만 같은 과정이 여러 평가자·라운드에서 반복 판정되므로 업무×과정 단위 부트스트랩(10,000회)으로 계산한 95% 범위는 -1.4~+31.2%p(0 포함)로 나타나 확실한 우위라고 하기는 어렵습니다. 개선 전 평가인 1차를 뺀 민감도 분석에서도 KPC 70.1%(54/77) vs 나머지 64.0%(57/89)로 격차가 줄어듭니다.",
+        "verdict_reason": f"사람 평가에서 KPC 추천의 적합률은 {obs_kpc:.1f}%로 다른 기관({obs_oth:.1f}%)보다 낮지 않았습니다. 다만 같은 과정이 여러 평가자·라운드에서 반복 판정되므로 업무×과정 단위 부트스트랩(10,000회, seed=42)으로 계산한 95% 범위는 {ci_boot_lower}~+{ci_boot_upper}%p(0 포함)로 나타나 확실한 우위라고 하기는 어렵습니다. 개선 전 평가인 1차를 뺀 민감도 분석에서도 KPC {kpc_no_r1_strict}%({kpc_no_r1['is_fit'].sum()}/{len(kpc_no_r1)}) vs 나머지 {oth_no_r1_strict}%({oth_no_r1['is_fit'].sum()}/{len(oth_no_r1)})로 격차가 줄어듭니다.",
         "providers": provider_eval_stats,
         "kpc_vs_others": {
             "kpc": {
@@ -501,6 +493,11 @@ def run_analysis():
     }
 
     # Consolidated output
+    kpc_hr_pct = pct(kpc_hr_cand_exact, n_hr_cand)
+    kpc_pool_pct = pct(kpc_stage1_pool_exact, n_stage1_pool)
+    kpc_bm25_med = h3_metrics["score_components"]["bm25_score"]["kpc"]["median"]
+    oth_bm25_med = h3_metrics["score_components"]["bm25_score"]["other"]["median"]
+
     metrics = {
         "analysis_title": "한국생산성본부(KPC) 추천 Top 3 쏠림 현상 분석",
         "generated_at": "2026-11-14",
@@ -508,7 +505,7 @@ def run_analysis():
             "baseline_kpc_catalog_share": pct(kpc_catalog_exact, n_catalog),
             "baseline_kpc_top3_share": pct(kpc_top3_exact, n_top3),
             "stage1_kpc_top3_share": kpc_st1_top3_share,
-            "final_conclusion": "쏠림은 대부분 후보를 고르는 단계에서 생깁니다. 인사 분야 과정 중 KPC는 19.0%인데, 업무별 상위 후보에서는 32.1%가 되고, Top 3 안에서 KPC 과정의 키워드 점수가 더 높았습니다(중앙값 77.7 vs 70.0). 사람 평가에서 KPC 추천의 적합률은 72.0%로 다른 기관(57.0%)보다 낮지 않았으나(부트스트랩 95% 범위 -1.4~+31.2%p), 같은 과정의 반복 판정을 고려하면 확실한 우위라고 하기는 어렵습니다. 같은 기관 최대 2개 상한은 추천 3개 미만 칸이 4개에서 25개로 늘어 쓰지 않았으며, 대신 기관별 비중을 지표로 계속 지켜봅니다.",
+            "final_conclusion": f"쏠림은 대부분 후보를 고르는 단계에서 생깁니다. 인사 분야 과정 중 KPC는 {kpc_hr_pct:.1f}%인데, 업무별 상위 후보에서는 {kpc_pool_pct:.1f}%가 되고, Top 3 안에서 KPC 과정의 키워드 점수가 더 높았습니다(중앙값 {kpc_bm25_med:.1f} vs {oth_bm25_med:.1f}). 사람 평가에서 KPC 추천의 적합률은 {obs_kpc:.1f}%로 다른 기관({obs_oth:.1f}%)보다 낮지 않았으나(부트스트랩 95% 범위 {ci_boot_lower}~+{ci_boot_upper}%p), 같은 과정의 반복 판정을 고려하면 확실한 우위라고 하기는 어렵습니다. 같은 기관 최대 2개 상한은 추천 3개 미만 칸이 4개에서 25개로 늘어 쓰지 않았으며, 대신 기관별 비중을 지표로 계속 지켜봅니다.",
         },
         "hypotheses": {
             "H1_supply_baseline": h1_metrics,
@@ -547,10 +544,10 @@ def build_markdown_report(metrics):
 
 | 가설 | 내용 | 판정 | 주요 근거 숫자 |
 |---|---|:---:|---|
-| **H1. 공급 기준선** | 원래 인사 실무 강좌 공급 풀이 많은가 | **일부 설명** | 쏠림은 대부분 후보를 고르는 단계에서 생깁니다. 카탈로그(16.7%) → 유효 후보(16.3%) → 인사 분야(19.0%) → 1단계 상위 후보(**32.1%**). 상위 후보군 진입 단계에서 비중이 2배 가까이 늘어나며, Top 3(37.4%)는 후보풀 대비 +5.3%p 추가 확대됩니다. 왜 상위 후보에 많이 들어가는지는 아직 일부만 설명됩니다. |
+| **H1. 공급 기준선** | 원래 인사 실무 강좌 공급 풀이 많은가 | **일부 설명** | 쏠림은 대부분 후보를 고르는 단계에서 생깁니다. 카탈로그({h1['levels'][0]['kpc_share']}%) → 유효 후보({h1['levels'][1]['kpc_share']}%) → 인사 분야({h1['levels'][2]['kpc_share']}%) → 1단계 상위 후보(**{h1['levels'][3]['kpc_share']}%**). 상위 후보군 진입 단계에서 비중이 2배 가까이 늘어나며, Top 3({h1['levels'][4]['kpc_share']}%)는 후보풀 대비 +5.3%p 추가 확대됩니다. 왜 상위 후보에 많이 들어가는지는 아직 일부만 설명됩니다. |
 | **H2. 난이도 보너스** | 난이도 미표시에 따른 보너스가 유리하게 작용했는가 | **설명 안 됨** | 실제 추천 파일(task_course_recommendations_90_reranked.csv)에서 난이도 미표시 과정의 보너스는 **전수 0점(478/478개)**입니다(현재 규칙: 맞음 10 / 미표시 0 / 안 맞음 0). 기존 발표 자료의 '미표시 5점' 설명과 달리 KPC(결측 98.3%)는 보너스를 받지 못하고 있습니다. 보너스를 완전 제거(0점 통일) 시 KPC 비중은 37.4% → **40.7%로 오히려 +3.3%p 증가**합니다. |
 | **H3. 점수 분해** | 어느 점수(의미·키워드·리랭커)에서 쏠림이 생기는가 | **숫자로 확인됨** | Top 3 안에서 KPC 과정의 키워드(BM25) 점수가 더 높았습니다(중앙값 **77.7점** vs 타 기관 **70.0점**). 리랭커 후에도 KPC 비중은 34.7%에서 37.4%로 소폭 늘어납니다. 상투 안내 문구(온앤오프 등)는 질의와 단어가 겹치지 않아 BM25 점수 영향은 0점입니다. |
-| **H4. 품질 평가** | 쏠려도 사람 평가 결과가 괜찮은가 | **낮지 않음 (확실한 우위는 아님)** | 사람 평가에서 KPC 추천의 적합률은 **72.0%**(Wilson 95% CI 62.2~80.1%, n=93)로 다른 기관(**57.0%**, n=128)보다 낮지 않았습니다. 다만 같은 과정의 반복 판정을 고려해 업무×과정 단위 부트스트랩(10,000회)으로 계산한 95% 범위는 **-1.4~+31.2%p(0 포함)**로 나타나 확실한 우위라고 하기는 어렵습니다. 1차 제외 시 KPC 70.1% vs 나머지 64.0%입니다. |
+| **H4. 품질 평가** | 쏠려도 사람 평가 결과가 괜찮은가 | **낮지 않음 (확실한 우위는 아님)** | 사람 평가에서 KPC 추천의 적합률은 **72.0%**(Wilson 95% CI 62.2~80.1%, n=93)로 다른 기관(**57.0%**, n=128)보다 낮지 않았습니다. 다만 같은 과정의 반복 판정을 고려해 업무×과정 단위 부트스트랩(10,000회)으로 계산한 95% 범위는 **{h4['kpc_vs_others']['bootstrap_cluster_ci95'][0]}~+{h4['kpc_vs_others']['bootstrap_cluster_ci95'][1]}%p(0 포함)**로 나타나 확실한 우위라고 하기는 어렵습니다. 1차 제외 시 KPC 70.1% vs 나머지 64.0%입니다. |
 
 ---
 
@@ -567,7 +564,7 @@ def build_markdown_report(metrics):
 | 4. 1단계 상위 후보풀 (과업별 풀) | {h1['levels'][3]['total']:,}개 | {h1['levels'][3]['kpc_count']:,}개 | **{h1['levels'][3]['kpc_share']}%** | **+13.1%p 증가** |
 | 5. 최종 추천 Top 3 | {h1['levels'][4]['total']:,}개 | {h1['levels'][4]['kpc_count']:,}개 | **{h1['levels'][4]['kpc_share']}%** | +5.3%p 추가 확대 |
 
-- **해석**: 쏠림은 대부분 후보를 고르는 단계에서 생깁니다. 인사 분야 과정 중 KPC는 19.0%인데, 업무별 상위 후보에서는 32.1%가 됩니다. 왜 상위 후보에 많이 들어가는지는 아직 일부만 설명됩니다.
+- **해석**: 쏠림은 대부분 후보를 고르는 단계에서 생깁니다. 인사 분야 과정 중 KPC는 {h1['levels'][2]['kpc_share']}%인데, 업무별 상위 후보에서는 {h1['levels'][3]['kpc_share']}%가 됩니다. 왜 상위 후보에 많이 들어가는지는 아직 일부만 설명됩니다.
 
 ---
 
@@ -636,9 +633,9 @@ def build_markdown_report(metrics):
 
 #### (2) 반복 판정을 고려한 업무×과정 단위 부트스트랩 신뢰구간
 - 같은 과정이 여러 평가자·라운드에서 반복 판정되므로 관측치들이 서로 독립이 아닙니다.
-- KPC vs 나머지 기관 적합률 차이를 **'업무×과정' 단위(95개 클러스터)로 묶어 다시 뽑는 부트스트랩(10,000회, seed=4 고정)** 결과:
+- KPC vs 나머지 기관 적합률 차이를 **'업무×과정' 단위(95개 클러스터)로 묶어 다시 뽑는 부트스트랩(10,000회, seed=42 고정)** 결과:
   - 관측된 적합률 차이: **+15.0%p** (72.0% vs 57.0%)
-  - **95% 부트스트랩 범위**: **-1.4%p ~ +31.2%p (0을 포함)**
+  - **95% 부트스트랩 범위**: **{h4['kpc_vs_others']['bootstrap_cluster_ci95'][0]}%p ~ +{h4['kpc_vs_others']['bootstrap_cluster_ci95'][1]}%p (0을 포함)**
   - 따라서 다른 기관보다 적합률이 낮지 않았으나, 확실한 우위라고 하기는 어렵습니다.
 
 #### (3) 민감도 분석: 개선 전 평가인 1차 제외
@@ -651,7 +648,7 @@ def build_markdown_report(metrics):
 
 ## 4. 결론 및 향후 관리 전략
 1. **발견**:
-   쏠림은 대부분 후보를 고르는 단계에서 생깁니다. 인사 분야 과정 중 KPC는 19.0%인데, 업무별 상위 후보에서는 32.1%가 되고, Top 3 안에서 KPC 과정의 키워드 점수가 더 높았습니다(중앙값 77.7 vs 70.0). 왜 상위 후보에 많이 들어가는지는 아직 일부만 설명됩니다.
+   쏠림은 대부분 후보를 고르는 단계에서 생깁니다. 인사 분야 과정 중 KPC는 {h1['levels'][2]['kpc_share']}%인데, 업무별 상위 후보에서는 {h1['levels'][3]['kpc_share']}%가 되고, Top 3 안에서 KPC 과정의 키워드 점수가 더 높았습니다(중앙값 {h3['score_components']['bm25_score']['kpc']['median']} vs {h3['score_components']['bm25_score']['other']['median']}). 왜 상위 후보에 많이 들어가는지는 아직 일부만 설명됩니다.
 2. **의미**:
    사람 평가에서 KPC 추천의 적합률은 72.0%로 다른 기관(57.0%)보다 낮지 않았습니다. 다만 같은 과정의 반복 판정을 고려하면 확실한 우위라고 하기는 어렵습니다.
 3. **전략**:

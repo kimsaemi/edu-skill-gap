@@ -61,32 +61,48 @@ RAG_FAB_TOGGLE = """
 """
 
 
+LEGACY_RAG_SCRIPT_SIGNS = ("const RAG_DOCS", "const RagEngine", "'ragFab'", '"ragFab"')
+
+
 def strip_legacy_rag(text: str) -> str:
     """마커 없이 들어간 예전 '자료 질문' 코드(11-18_rag판 형식)를 지운다.
-    지우는 범위: <style> 안의 .rag-* 규칙, 'rag-fab' 버튼부터 </body> 직전까지(패널·RAG_DOCS·엔진·화면 스크립트)."""
-    start = text.find('<button type="button" class="rag-fab"')
-    body_end = text.rfind("</body>")
-    if start < 0 or body_end < start:
-        raise SystemExit("예전 '자료 질문' 코드의 위치를 찾지 못함")
-    tail = text[start:body_end]
-    # 지우는 범위에 자료 질문과 무관한 코드가 섞여 있으면 멈춘다
-    if "RagEngine" not in tail or "const RAG_DOCS" not in tail or "readHash();" in tail:
-        raise SystemExit("예전 '자료 질문' 코드 범위가 예상과 다름: 직접 확인 필요")
-    text = text[:start] + text[body_end:]
+    자료 질문에 속한 조각만 하나씩 지운다 (그 사이의 다른 코드는 남긴다):
+      - <button ... id="ragFab"> ... </button>
+      - <section ... id="ragPanel"> ... </section>
+      - 내용에 RAG_DOCS·RagEngine·ragFab 이 들어 있는 <script> 블록 (문서 데이터·엔진·화면, 보통 3개)
+      - <style> 안의 .rag-* 규칙"""
+    n0 = len(text)
+    text, n_btn = re.subn(r'\ufeff?<button\b[^>]*\bid=["\']ragFab["\'][^>]*>.*?</button>\s*', "", text, flags=re.S)
+    text, n_sec = re.subn(r'\ufeff?<section\b[^>]*\bid=["\']ragPanel["\'][^>]*>.*?</section>\s*', "", text, flags=re.S)
+    n_scr = 0
+
+    def drop_script(m):
+        nonlocal n_scr
+        if any(sig in m.group(1) for sig in LEGACY_RAG_SCRIPT_SIGNS):
+            n_scr += 1
+            return ""
+        return m.group(0)
+
+    text = re.sub(r"\ufeff?<script\b[^>]*>(.*?)</script>\s*", drop_script, text, flags=re.S)
+    if not (n_btn and n_sec and n_scr):
+        raise SystemExit(f"예전 '자료 질문' 코드를 일부만 찾음(버튼 {n_btn}, 패널 {n_sec}, 스크립트 {n_scr}): 직접 확인 필요")
+    if "readHash();" not in text or "const DATA = " not in text:
+        raise SystemExit("대시보드 본 코드가 지워졌음: 중단")
     style_end = text.find("</style>")
     head, rest = text[:style_end], text[style_end:]
-    lines = head.split("\n")
     kept, skip = [], False
-    for line in lines:
-        s = line.strip()
-        if s.startswith(".rag-") or (s.startswith("@media") and ".rag-" in s):
-            skip = not s.endswith("}") or s.count("{") > s.count("}")
+    for line in head.split("\n"):
+        st = line.strip()
+        if st.startswith(".rag-") or (st.startswith("@media") and ".rag-" in st):
+            skip = st.count("{") > st.count("}")
             continue
         if skip:
-            skip = not s.endswith("}")
+            skip = not st.endswith("}")
             continue
         kept.append(line)
-    return "\n".join(kept) + rest
+    text = "\n".join(kept) + rest
+    print(f"예전 자료 질문 코드 제거: 버튼 {n_btn}, 패널 {n_sec}, 스크립트 {n_scr}, {n0 - len(text):,}자")
+    return text
 
 
 def inject_rag(text: str, excl_in_html: list) -> str:

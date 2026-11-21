@@ -64,8 +64,10 @@ def dashboard_mapping_section():
     """발표 '대시보드 업무·강좌 매핑' 섹션 값 (scripts/build_dashboard_mapping_stats.py와 같은 계산).
 
     data.json을 새로 쓸 때 이 키를 빠뜨리면 발표 화면에서 섹션이 오류 없이 사라진다. 그래서 여기서 함께 계산하고,
-    대시보드 파일(hr_career_platform_v2_*.html)이 없으면 이전 data.json 값을 그대로 쓴다.
+    대시보드 파일(hr_career_platform_v2_*.html)이 없거나 이전 값이 있으면 이전 data.json 값을 우선 유지한다.
     """
+    if OUT.exists() and "dashboard_mapping" in previous_data():
+        return previous_data()["dashboard_mapping"]
     sys.path.insert(0, str(ROOT / "scripts"))
     import build_dashboard_mapping_stats as dms
     if not list(ROOT.glob("hr_career_platform_v2_*.html")):
@@ -82,16 +84,20 @@ def kpc_bias_section():
     h1_levels = kb.get("hypotheses", {}).get("H1_supply_baseline", {}).get("levels", [])
     h3_comp = kb.get("hypotheses", {}).get("H3_score_breakdown", {}).get("score_components", {}).get("bm25_score", {})
     h4_qual = kb.get("hypotheses", {}).get("H4_human_quality", {}).get("kpc_vs_others", {})
+    if len(h1_levels) < 3 or "kpc_share" not in h1_levels[2]:
+        raise ValueError("kpc_bias_metrics.json H1 levels missing or incomplete")
+    if "bootstrap_cluster_ci95" not in h4_qual:
+        raise ValueError("kpc_bias_metrics.json H4 bootstrap_cluster_ci95 missing")
     return {
         "catalog_share": kb.get("summary", {}).get("baseline_kpc_catalog_share", 16.7),
         "top3_share": kb.get("summary", {}).get("baseline_kpc_top3_share", 37.4),
-        "kpc_hr_pct": 19.0,
+        "kpc_hr_pct": h1_levels[2]["kpc_share"],
         "kpc_pool_pct": h1_levels[3].get("kpc_share", 32.1) if len(h1_levels) >= 4 else 32.1,
         "bm25_kpc": h3_comp.get("kpc", {}).get("median", 77.7),
         "bm25_other": h3_comp.get("other", {}).get("median", 70.0),
         "eval_kpc": h4_qual.get("kpc", {}).get("strict_precision", 72.0),
         "eval_other": h4_qual.get("others_all", {}).get("strict_precision", 57.0),
-        "ci95_range": h4_qual.get("bootstrap_cluster_ci95", [-1.4, 31.2]),
+        "ci95_range": h4_qual["bootstrap_cluster_ci95"],
     }
 
 
@@ -181,8 +187,8 @@ def build_eda(df, off_topic, tasks_raw, top3, rec, summary, n):
         "hours_unknown": int(hours.isna().sum()),
     }
 
-    # 6) 일정 정보의 최신성 (카탈로그 전체)
-    today = date.today().isoformat()
+    # 6) 일정 정보의 최신성 (카탈로그 전체, 발표 기준일 2026-11-14 고정)
+    today = "2026-11-14"
     st = df["start_date"].fillna("").astype(str).str[:10]
     en = df["end_date"].fillna("").astype(str).str[:10]
     en = en.where(en != "", st)
@@ -550,7 +556,7 @@ def main():
 
     data = {
         "eda": eda,
-        "generated": date.today().isoformat(),
+        "generated": previous_data().get("generated", "2026-11-14") if OUT.exists() else date.today().isoformat(),
         "kpi": {
             "courses": n, "providers": int(prov.size), "rich_pct": pct(tq.get("RICH", 0), n),
             "title_only_pct": pct(tq.get("TITLE_ONLY", 0), n), "off_topic": len(off_topic),
