@@ -11,7 +11,7 @@ const html = fs.readFileSync(path.resolve(ROOT, target), 'utf8');
 const dataStart = html.indexOf('const DATA = ') + 'const DATA = '.length;
 const dataEnd = html.indexOf('\n', dataStart);
 const DATA = JSON.parse(html.slice(dataStart, dataEnd).replace(/;\s*$/, ''));
-const grab = name => { const m = html.match(new RegExp(`function ${name}\\([\\s\\S]*?\\n}\\n`)); if (!m) throw new Error('함수 없음: ' + name); return m[0]; };
+const grab = name => { const m = html.match(new RegExp(`function ${name}\\([\\s\\S]*?\\r?\\n}\\r?\\n`)); if (!m) throw new Error('함수 없음: ' + name); return m[0]; };
 const chat = html.slice(html.indexOf('/* ==== AI_CHAT_START ==== */'), html.indexOf('/* ==== AI_CHAT_END ==== */'));
 const core = chat.slice(0, chat.indexOf('function viewChat'));
 

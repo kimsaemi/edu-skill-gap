@@ -176,11 +176,11 @@ def render_sidebar():
         use_reranker = st.toggle(
             "⚡ 2단계 Cross-Encoder 정밀 추천",
             value=S.get("use_reranker", True),
-            help="체크 시 한국어 RoBERTa Cross-Encoder(ko-reranker)로 문맥 일치도를 정밀 검증하여, 키워드 우연 일치로 침투한 무관 강좌(자금세탁방지, 단순 이메일 등)를 자동으로 배제합니다.",
+            help="체크 시 문장 이해 모델(리랭커)로 후보 과정의 순서를 다시 정하고, 점수가 0.1점 미만인 과정은 제외합니다.",
         )
         S.use_reranker = use_reranker
         if use_reranker:
-            st.success("🤖 **AI 정밀 검증 활성**\n\n문맥 연관도 10점 미만 부적합 강좌를 자동 배제하고 직무 전문 강좌를 우선 추천합니다.")
+            st.success("🤖 **2단계 정밀 추천 사용 중** — 1단계 후보를 문장 이해 모델(리랭커)로 다시 점수 매겨 순서를 정하고, 점수가 거의 0(0.1점 미만)인 과정은 뺍니다.")
         else:
             st.info("ℹ️ **1단계 Baseline 모드**\n\n단일 Bi-Encoder 및 BM25 기본 추천 결과를 표시합니다.")
 

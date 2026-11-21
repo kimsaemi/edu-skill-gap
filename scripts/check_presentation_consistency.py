@@ -104,8 +104,12 @@ def load_references():
     ph3_file = REPORTS_DIR / "precision_eval_holdout3_metrics.json"
     if ph3_file.exists():
         ph3 = json.loads(ph3_file.read_text(encoding="utf-8"))
-        ref["eval_ho3_baseline_strict"] = ph3.get("baseline", {}).get("precision_at_3", {}).get("strict", 65.0)
-        ref["eval_ho3_candidate_strict"] = ph3.get("candidate", {}).get("precision_at_3", {}).get("strict", 71.2)
+        if "baseline_recommendation" not in ph3:
+            raise KeyError("precision_eval_holdout3_metrics.json 에 'baseline_recommendation' 키가 없습니다.")
+        ref["eval_ho3_baseline_strict"] = ph3["baseline_recommendation"]["precision_at_3"]["strict"]
+        if "candidate_recommendation" not in ph3:
+            raise KeyError("precision_eval_holdout3_metrics.json 에 'candidate_recommendation' 키가 없습니다.")
+        ref["eval_ho3_candidate_strict"] = ph3["candidate_recommendation"]["precision_at_3"]["strict"]
         decoy3 = ph3.get("decoy_analysis", {})
         ref["decoy3_total"] = decoy3.get("total_evaluations", 20)
         ref["decoy3_unfit"] = decoy3.get("unfit_count", 14)
@@ -123,16 +127,20 @@ def load_references():
         ref["kpc_catalog_share"] = kpc.get("summary", {}).get("baseline_kpc_catalog_share", 16.7)
         ref["kpc_top3_share"] = kpc.get("summary", {}).get("baseline_kpc_top3_share", 37.4)
         h1_levels = kpc.get("hypotheses", {}).get("H1_supply_baseline", {}).get("levels", [])
+        if len(h1_levels) < 3 or "kpc_share" not in h1_levels[2]:
+            raise KeyError("kpc_bias_metrics.json H1 levels[2]['kpc_share'] (인사 분야 KPC 비중) 누락")
+        ref["kpc_hr_domain_share"] = h1_levels[2]["kpc_share"]
         if len(h1_levels) >= 4:
             ref["kpc_pool_share"] = h1_levels[3].get("kpc_share", 32.1)
-        ref["kpc_hr_domain_share"] = 19.0  # 인사 분야 과정 중 KPC 비중
         bm25_comp = kpc.get("hypotheses", {}).get("H3_score_breakdown", {}).get("score_components", {}).get("bm25_score", {})
         ref["kpc_bm25_median"] = bm25_comp.get("kpc", {}).get("median", 77.7)
         ref["other_bm25_median"] = bm25_comp.get("other", {}).get("median", 70.0)
         h4 = kpc.get("hypotheses", {}).get("H4_human_quality", {}).get("kpc_vs_others", {})
         ref["kpc_human_precision"] = h4.get("kpc", {}).get("strict_precision", 72.0)
         ref["other_human_precision"] = h4.get("others_all", {}).get("strict_precision", 57.0)
-        ref["kpc_ci95"] = h4.get("bootstrap_cluster_ci95", [-1.4, 31.2])
+        if "bootstrap_cluster_ci95" not in h4:
+            raise KeyError("kpc_bias_metrics.json H4 'bootstrap_cluster_ci95' 누락")
+        ref["kpc_ci95"] = h4["bootstrap_cluster_ci95"]
 
     return ref
 
@@ -239,6 +247,162 @@ def check_template_hardcoded_kpc(file_path, lines, issues):
                     })
 
 
+def check_data_json_values(ref, issues):
+    """data.json 안의 지표가 ref(보고서 원본 지표)와 정확히 일치하는지 대조"""
+    if not DATA_JSON_PATH.exists():
+        issues.append({
+            "file": str(DATA_JSON_PATH),
+            "line": 0,
+            "type": "MISSING_DATA_JSON",
+            "found": "파일 없음",
+            "expected": "presentation/src/data.json 존재",
+            "text": "",
+        })
+        return
+
+    data = json.loads(DATA_JSON_PATH.read_text(encoding="utf-8"))
+
+    # 1. KPC 비중 및 지표
+    kb = data.get("kpc_bias", {})
+    checks = [
+        ("kpc_bias.kpc_hr_pct", kb.get("kpc_hr_pct"), ref.get("kpc_hr_domain_share")),
+        ("kpc_bias.catalog_share", kb.get("catalog_share"), ref.get("kpc_catalog_share")),
+        ("kpc_bias.top3_share", kb.get("top3_share"), ref.get("kpc_top3_share")),
+        ("kpc_bias.kpc_pool_pct", kb.get("kpc_pool_pct"), ref.get("kpc_pool_share")),
+        ("kpc_bias.bm25_kpc", kb.get("bm25_kpc"), ref.get("kpc_bm25_median")),
+        ("kpc_bias.bm25_other", kb.get("bm25_other"), ref.get("other_bm25_median")),
+        ("kpc_bias.eval_kpc", kb.get("eval_kpc"), ref.get("kpc_human_precision")),
+        ("kpc_bias.eval_other", kb.get("eval_other"), ref.get("other_human_precision")),
+        ("kpc_bias.ci95_range", kb.get("ci95_range"), ref.get("kpc_ci95")),
+    ]
+
+    # 2. 사람 평가 지표
+    hoa = data.get("human_eval_rounds", {}).get("holdout_all", {})
+    if "eval_hoa_strict" in ref:
+        checks.append(("human_eval_rounds.holdout_all.precision_at_3.strict",
+                       hoa.get("precision_at_3", {}).get("strict"), ref.get("eval_hoa_strict")))
+    if "eval_hoa_consensus_strict" in ref:
+        checks.append(("human_eval_rounds.holdout_all.consensus.strict",
+                       hoa.get("consensus", {}).get("strict"), ref.get("eval_hoa_consensus_strict")))
+
+    ho = data.get("human_eval_rounds", {}).get("holdout", {})
+    if "eval_ho1_strict" in ref:
+        checks.append(("human_eval_rounds.holdout.precision_at_3.strict",
+                       ho.get("precision_at_3", {}).get("strict"), ref.get("eval_ho1_strict")))
+
+    ho2 = data.get("human_eval_holdout2", {})
+    if "eval_ho2_final_strict" in ref:
+        checks.append(("human_eval_holdout2.final_recommendation.precision_at_3.strict",
+                       ho2.get("final_recommendation", {}).get("precision_at_3", {}).get("strict"), ref.get("eval_ho2_final_strict")))
+    if "eval_ho2_bm25_strict" in ref:
+        checks.append(("human_eval_holdout2.bm25_recommendation.precision_at_3.strict",
+                       ho2.get("bm25_recommendation", {}).get("precision_at_3", {}).get("strict"), ref.get("eval_ho2_bm25_strict")))
+
+    ho3 = data.get("human_eval_holdout3", {})
+    if "eval_ho3_baseline_strict" in ref:
+        checks.append(("human_eval_holdout3.baseline_recommendation.precision_at_3.strict",
+                       ho3.get("baseline_recommendation", {}).get("precision_at_3", {}).get("strict"), ref.get("eval_ho3_baseline_strict")))
+    if "eval_ho3_candidate_strict" in ref:
+        checks.append(("human_eval_holdout3.candidate_recommendation.precision_at_3.strict",
+                       ho3.get("candidate_recommendation", {}).get("precision_at_3", {}).get("strict"), ref.get("eval_ho3_candidate_strict")))
+
+    for name, actual, expected in checks:
+        if actual != expected:
+            issues.append({
+                "file": str(DATA_JSON_PATH),
+                "line": 1,
+                "type": "DATA_JSON_VALUE_MISMATCH",
+                "found": f"{name} = {actual}",
+                "expected": f"{expected}",
+                "text": f"data.json 의 {name} 항목 값이 원본 지표({expected})와 불일치합니다.",
+            })
+
+
+def check_script_md_values(ref, file_path, lines, issues):
+    """SCRIPT.md 본문 내에 ref의 주요 수치가 올바르게 들어있는지 검사"""
+    full_text = "\n".join(lines)
+
+    if "kpc_hr_domain_share" in ref:
+        kpc_hr_str = f"{ref['kpc_hr_domain_share']:.1f}%"
+        if kpc_hr_str not in full_text:
+            issues.append({
+                "file": str(file_path),
+                "line": 0,
+                "type": "SCRIPT_VALUE_MISSING",
+                "found": f"{kpc_hr_str} 누락",
+                "expected": f"SCRIPT.md 본문에 KPC 인사 분야 점유율 {kpc_hr_str} 표기 필요",
+                "text": "인사 분야 과정 중 KPC 비중",
+            })
+
+    if "coverage_pct" in ref:
+        coverage_str = f"{ref['coverage_pct']:.1f}%"
+        if coverage_str not in full_text:
+            issues.append({
+                "file": str(file_path),
+                "line": 0,
+                "type": "SCRIPT_VALUE_MISSING",
+                "found": f"{coverage_str} 누락",
+                "expected": f"SCRIPT.md 본문에 추천 커버리지 {coverage_str} 표기 필요",
+                "text": "업무마다 추천을 낸다 커버리지",
+            })
+
+    if "eval_hoa_strict" in ref:
+        hoa_str = f"{ref['eval_hoa_strict']:.1f}%"
+        if hoa_str not in full_text:
+            issues.append({
+                "file": str(file_path),
+                "line": 0,
+                "type": "SCRIPT_VALUE_MISSING",
+                "found": f"{hoa_str} 누락",
+                "expected": f"SCRIPT.md 본문에 홀드아웃 합산 정확도 {hoa_str} 표기 필요",
+                "text": "홀드아웃 1·2·3차 30개 업무 합산",
+            })
+
+
+def check_pptx_values(ref, prs, issues):
+    """PPTX 슬라이드 전체 텍스트에서 ref의 핵심 지표가 누락되거나 틀리지 않았는지 검사"""
+    all_slide_texts = []
+    for s in prs.slides:
+        all_slide_texts.extend(extract_slide_units(s))
+    joined_text = " \n ".join(all_slide_texts)
+
+    if "kpc_hr_domain_share" in ref:
+        kpc_hr_str = f"{ref['kpc_hr_domain_share']:.1f}%"
+        if kpc_hr_str not in joined_text:
+            issues.append({
+                "file": "presentation/HR_교육지도_발표.pptx",
+                "line": 0,
+                "type": "PPTX_VALUE_MISSING",
+                "found": f"{kpc_hr_str} 누락",
+                "expected": f"PPTX 내에 KPC 인사 분야 점유율 {kpc_hr_str} 표기 필요",
+                "text": "인사 과정 중 KPC 비중",
+            })
+
+    if "eval_hoa_strict" in ref:
+        hoa_str = f"{ref['eval_hoa_strict']:.1f}%"
+        if hoa_str not in joined_text:
+            issues.append({
+                "file": "presentation/HR_교육지도_발표.pptx",
+                "line": 0,
+                "type": "PPTX_VALUE_MISSING",
+                "found": f"{hoa_str} 누락",
+                "expected": f"PPTX 내에 홀드아웃 합산 정확도 {hoa_str} 표기 필요",
+                "text": "홀드아웃 30개 업무 합산",
+            })
+
+    if "kpc_top3_share" in ref:
+        top3_str = f"{ref['kpc_top3_share']:.1f}%"
+        if top3_str not in joined_text:
+            issues.append({
+                "file": "presentation/HR_교육지도_발표.pptx",
+                "line": 0,
+                "type": "PPTX_VALUE_MISSING",
+                "found": f"{top3_str} 누락",
+                "expected": f"PPTX 내에 KPC Top 3 점유율 {top3_str} 표기 필요",
+                "text": "최종 추천 Top 3 점유율",
+            })
+
+
 def extract_slide_units(slide):
     """슬라이드 내 검사 단위(텍스트 프레임, 테이블 행 등 문맥 단위) 추출"""
     units = []
@@ -259,7 +423,7 @@ def extract_slide_units(slide):
     return units
 
 
-def check_pptx(pptx_path, issues):
+def check_pptx(pptx_path, issues, ref=None):
     """PPTX 텍스트 및 슬라이드 번호 체계 검사"""
     if not pptx_path.exists():
         issues.append({
@@ -275,6 +439,9 @@ def check_pptx(pptx_path, issues):
     prs = Presentation(str(pptx_path))
     total_slides = len(prs.slides)
     footer_rx = re.compile(r"^\s*(\d+)\s*/\s*(\d+)\s*$")
+
+    if ref:
+        check_pptx_values(ref, prs, issues)
 
     for s_idx, slide in enumerate(prs.slides, 1):
         units = extract_slide_units(slide)
@@ -349,6 +516,9 @@ def run_checks():
     ref = load_references()
     issues = []
 
+    # 1. data.json 직접 대조
+    check_data_json_values(ref, issues)
+
     text_files = [
         ROOT / "presentation" / "src" / "template.html",
         ROOT / "presentation" / "index.html",
@@ -373,12 +543,14 @@ def run_checks():
         check_forbidden_expressions(p, lines, issues)
         check_stale_numbers(p, lines, issues)
         check_headline_74_5(p, lines, issues)
+        if p.name == "SCRIPT.md":
+            check_script_md_values(ref, p, lines, issues)
         if p.name == "template.html":
             check_template_hardcoded_kpc(p, lines, issues)
 
     # PPTX 검사
     pptx_path = ROOT / "presentation" / "HR_교육지도_발표.pptx"
-    check_pptx(pptx_path, issues)
+    check_pptx(pptx_path, issues, ref=ref)
 
     return ref, issues
 

@@ -239,9 +239,10 @@ class TestCustomerMVP(unittest.TestCase):
         at.run()
         self.assertFalse(at.exception, f"AppTest 예외 발생: {at.exception}")
 
-        # 단계 바(내 위치 / 진단 / 추천 / 전체 찾기 / 내 학습) 렌더링 확인
-        nav = [b.label for b in at.button if b.key and b.key.startswith("nav_")]
-        self.assertEqual(len(nav), 5, f"단계 바 버튼이 5개가 아닙니다: {nav}")
+        # 단계 바(내 위치 / 진단 / 추천 / 전체 찾기 / 내 학습 / AI 상담) 렌더링 확인
+        nav_keys = [b.key for b in at.button if b.key and b.key.startswith("nav_")]
+        expected_keys = ["nav_1", "nav_2", "nav_3", "nav_all", "nav_my", "nav_chat"]
+        self.assertEqual(sorted(nav_keys), sorted(expected_keys), f"단계 바 버튼 키가 일치하지 않습니다: {nav_keys}")
         self.assertEqual(at.session_state["step"], "1")
 
         # 샘플로 둘러보기 → 3단계 추천 화면
