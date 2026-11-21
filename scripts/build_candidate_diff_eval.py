@@ -79,26 +79,30 @@ def build_candidate_diff():
     b3["norm_title"] = b3["title"].apply(normalize_title)
     c3["norm_title"] = c3["title"].apply(normalize_title)
 
-    # 1. 차이 칸 탐색
+    # 1. 차이 칸 탐색 (집합 차이 및 순서 차이)
     all_slots = sorted(list(set(zip(b3["task_id"], b3["level"])) | set(zip(c3["task_id"], c3["level"]))))
     diff_cells = []
     diff_tasks = set()
+    order_diff_cells = []
+    order_diff_tasks = set()
     base_only_records = []
     cand_only_records = []
 
     for tid, lvl in all_slots:
-        bg = b3[(b3["task_id"] == tid) & (b3["level"] == lvl)]
-        cg = c3[(c3["task_id"] == tid) & (c3["level"] == lvl)]
+        bg = b3[(b3["task_id"] == tid) & (b3["level"] == lvl)].sort_values("rank")
+        cg = c3[(c3["task_id"] == tid) & (c3["level"] == lvl)].sort_values("rank")
 
-        b_uids = set(bg["course_uid"])
-        c_uids = set(cg["course_uid"])
+        b_uids = list(bg["course_uid"])
+        c_uids = list(cg["course_uid"])
+        b_uids_set = set(b_uids)
+        c_uids_set = set(c_uids)
 
-        if b_uids != c_uids:
+        if b_uids_set != c_uids_set:
             diff_cells.append((tid, lvl))
             diff_tasks.add(tid)
 
             # baseline only
-            for _, r in bg[bg["course_uid"].isin(b_uids - c_uids)].iterrows():
+            for _, r in bg[bg["course_uid"].isin(b_uids_set - c_uids_set)].iterrows():
                 base_only_records.append({
                     "task_id": tid,
                     "task": r["task_name"],
@@ -110,7 +114,7 @@ def build_candidate_diff():
                 })
 
             # candidate only
-            for _, r in cg[cg["course_uid"].isin(c_uids - b_uids)].iterrows():
+            for _, r in cg[cg["course_uid"].isin(c_uids_set - b_uids_set)].iterrows():
                 cand_only_records.append({
                     "task_id": tid,
                     "task": r["task_name"],
@@ -121,18 +125,34 @@ def build_candidate_diff():
                     "side": "candidate_only"
                 })
 
+        if b_uids != c_uids:
+            order_diff_cells.append((tid, lvl))
+            order_diff_tasks.add(tid)
+
     n_diff_cells = len(diff_cells)
     n_diff_tasks = len(diff_tasks)
+    n_order_diff_cells = len(order_diff_cells)
+    n_order_diff_tasks = len(order_diff_tasks)
+    order_only_cells = set(order_diff_cells) - set(diff_cells)
+    n_order_only_cells = len(order_only_cells)
+    n_order_only_tasks = len(set(t for t, l in order_only_cells))
+
     n_base_only = len(base_only_records)
     n_cand_only = len(cand_only_records)
+    n_base_unique_courses = len(set(r["course_uid"] for r in base_only_records))
+    n_cand_unique_courses = len(set(r["course_uid"] for r in cand_only_records))
+    n_total_unique_courses = len(set(r["course_uid"] for r in base_only_records) | set(r["course_uid"] for r in cand_only_records))
 
-    print(f"- 다른 칸(task_id, level) 수: {n_diff_cells} (기준: 17)")
-    print(f"- 다른 업무 수: {n_diff_tasks} (기준: 11)")
-    print(f"- 기본에만 있는 과정 수: {n_base_only} (기준: 22)")
-    print(f"- 개선안에만 있는 과정 수: {n_cand_only} (기준: 22)")
+    print(f"- 집합이 다른 칸(task_id, level) 수: {n_diff_cells} (기준: 17, 업무 {n_diff_tasks}개)")
+    print(f"- 순서가 다른 칸 수: {n_order_diff_cells} (기준: 33, 업무 {n_order_diff_tasks}개)")
+    print(f"- 순서만 다른 칸 수: {n_order_only_cells} (기준: 16, 업무 {n_order_only_tasks}개)")
+    print(f"- 과정 차이: 칸 단위 {n_base_only + n_cand_only}건 (기본 전용 {n_base_only}건, 개선안 전용 {n_cand_only}건)")
+    print(f"- 고유 과정 수: {n_total_unique_courses}개 (기본 {n_base_unique_courses}개, 개선안 {n_cand_unique_courses}개)")
 
     # 엄격한 수치 검증: 다르면 즉시 중단
-    if n_diff_cells != 17 or n_diff_tasks != 11 or n_base_only != 22 or n_cand_only != 22:
+    if (n_diff_cells != 17 or n_diff_tasks != 11 or n_base_only != 22 or n_cand_only != 22 or
+        n_order_diff_cells != 33 or n_order_diff_tasks != 20 or n_order_only_cells != 16 or n_order_only_tasks != 12 or
+        n_base_unique_courses != 14 or n_cand_unique_courses != 18 or n_total_unique_courses != 32):
         print("[오류] 차이 수치가 배경 수치와 일치하지 않습니다. 작업을 중단합니다.", file=sys.stderr)
         sys.exit(1)
 
@@ -177,13 +197,29 @@ def build_candidate_diff():
     print(f"- 기존 평가된 고유 업무 수: {len(evaluated_tasks_all)} (기준: 40)")
     assert len(evaluated_tasks_all) == 40, f"평가 업무 수 오류: {len(evaluated_tasks_all)} != 40"
 
-    # 11개 차이 업무가 모두 기존 40개 평가 업무에 포함되는지 확인
+    # 11개 집합 차이 업무가 모두 기존 40개 평가 업무에 포함되는지 확인
     assert diff_tasks.issubset(evaluated_tasks_all), "11개 차이 업무 중 미평가 업무가 존재합니다!"
     all_90_tasks = set(df_base["task_id"])
     non_evaluated_50 = all_90_tasks - evaluated_tasks_all
     assert len(non_evaluated_50) == 50, f"미평가 업무 수 오류: {len(non_evaluated_50)} != 50"
-    assert len(diff_tasks & non_evaluated_50) == 0, "미평가 50개 업무에서 두 추천이 일치하지 않습니다!"
-    print("- 11개 차이 업무 모두 기존 40개 평가 업무 내 존재 확인 (미평가 50개 업무 차이 0 확인)")
+    assert len(diff_tasks & non_evaluated_50) == 0, "미평가 50개 업무에서 집합 차이가 존재합니다!"
+
+    # 미평가 50개 업무 순서 차이 및 1위 변경 분석
+    non_eval_order_tasks = set(t for t, l in order_diff_cells if t in non_evaluated_50)
+    non_eval_rank1_changed = set()
+    for tid, lvl in order_diff_cells:
+        if tid in non_evaluated_50:
+            bg = b3[(b3["task_id"] == tid) & (b3["level"] == lvl)].sort_values("rank")
+            cg = c3[(c3["task_id"] == tid) & (c3["level"] == lvl)].sort_values("rank")
+            if list(bg["course_uid"])[0] != list(cg["course_uid"])[0]:
+                non_eval_rank1_changed.add(tid)
+
+    expected_7_tasks = {"TASK_HR_D04_T09", "TASK_HR_D06_T07", "TASK_HR_D07_T02", "TASK_HR_D07_T06", "TASK_HR_D08_T06", "TASK_HR_D08_T08", "TASK_HR_D09_T07"}
+    expected_3_tasks = {"TASK_HR_D04_T09", "TASK_HR_D07_T02", "TASK_HR_D09_T07"}
+    assert non_eval_order_tasks == expected_7_tasks, f"미평가 순서 차이 7개 업무 불일치: {non_eval_order_tasks}"
+    assert non_eval_rank1_changed == expected_3_tasks, f"미평가 1위 변경 3개 업무 불일치: {non_eval_rank1_changed}"
+
+    print(f"- 평가하지 않은 50개 업무에서 추천 과정 구성은 같고, {len(non_eval_order_tasks)}개 업무에서 순서가 다르며 그중 {len(non_eval_rank1_changed)}개는 1위가 바뀐다.")
 
     # 4. 각 차이 항목별 기존 평가 내역 결합
     for idx, r in df_diff.iterrows():

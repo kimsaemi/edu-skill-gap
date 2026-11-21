@@ -244,7 +244,8 @@ def analyze_candidate_diff(results_csv: str = None, is_mock: bool = False, preli
     new_results_path = Path(results_csv) if results_csv else RESULTS_PATH
 
     # 결과 파일이 없거나 preliminary 모드인 경우
-    if preliminary or (not new_results_path.exists() and not is_mock):
+    is_preliminary = preliminary or (not new_results_path.exists() and not is_mock)
+    if is_preliminary:
         print("[안내] 신규 사람 평가 시트(candidate_diff_eval_results.csv)가 아직 작성되지 않았습니다.")
         print("[안내] 기존에 평가된 22개 차이 과정 기준의 '사전 집계(결론 아님)' 모드로 진행합니다.")
         mode_status = "사전 집계 (기존 판정만 반영 · 결론 아님)"
@@ -358,7 +359,17 @@ def analyze_candidate_diff(results_csv: str = None, is_mock: bool = False, preli
     cand_metrics = compute_side_precision(cand_records)
 
     # 4. 차이 및 Cluster Bootstrap 95% 신뢰구간
-    boot_res = compute_cluster_bootstrap(combined_df, n_boot=10000, seed=42)
+    if is_preliminary:
+        boot_res = {
+            "diff_strict": round(cand_metrics["strict"] - base_metrics["strict"], 1) if (cand_metrics["strict"] is not None and base_metrics["strict"] is not None) else None,
+            "ci95_diff_strict_bootstrap": None,
+            "diff_lenient": round(cand_metrics["lenient"] - base_metrics["lenient"], 1) if (cand_metrics["lenient"] is not None and base_metrics["lenient"] is not None) else None,
+            "ci95_diff_lenient_bootstrap": None,
+            "decision": "판정 보류 (새 판정 필요)",
+            "decision_reason": "이전 판정 재활용 집계이므로 판정을 내리지 않음 (새 판정 필요)"
+        }
+    else:
+        boot_res = compute_cluster_bootstrap(combined_df, n_boot=10000, seed=42)
 
     # 5. 하위 집단 분석: E4 규칙 개발 업무(홀드아웃 1·2차, 4개) vs 나머지 업무(7개)
     h12_df = combined_df[combined_df["task_id"].isin(HOLDOUT_1_2_TASKS)]
@@ -396,6 +407,14 @@ def analyze_candidate_diff(results_csv: str = None, is_mock: bool = False, preli
             "diff_cells": 17,
             "diff_tasks": 11,
             "total_diff_courses": 44,
+            "total_diff_courses_desc": "칸 단위 44건 (고유 과정 32개: 기본 14, 개선 18)",
+            "unique_diff_courses": 32,
+            "unique_baseline_courses": 14,
+            "unique_candidate_courses": 18,
+            "order_diff_cells": 33,
+            "order_diff_tasks": 20,
+            "order_diff_non_eval_tasks": 7,
+            "rank1_diff_non_eval_tasks": 3,
             "baseline_only_courses": 22,
             "candidate_only_courses": 22,
             "already_evaluated_courses": 22,
@@ -411,7 +430,7 @@ def analyze_candidate_diff(results_csv: str = None, is_mock: bool = False, preli
         "agreement": eval_agreement,
         "retest_consistency": retest_agreement,
         "subgroups": subgroup_analysis,
-        "generalization_constraint": "평가하지 않은 50개 업무에서는 두 추천이 같아 일반화 근거가 없다",
+        "generalization_constraint": "평가하지 않은 50개 업무에서 추천 과정 구성은 같고, 7개 업무에서 순서가 다르며 그중 3개는 1위가 바뀐다",
         "bias_note": "E4 규칙은 홀드아웃 1·2차 오답을 보고 만들었으므로, 그 업무들에서 개선안이 유리하게 나올 수 있다."
     }
 
@@ -437,6 +456,17 @@ def generate_markdown_report(metrics: dict, out_path: Path):
     ret = metrics["retest_consistency"]
     sub = metrics["subgroups"]
 
+    boot_str = (
+        f"[{cmp['ci95_diff_strict_bootstrap'][0]}%p ~ {cmp['ci95_diff_strict_bootstrap'][1]}%p]"
+        if cmp.get("ci95_diff_strict_bootstrap") is not None
+        else "- (새 판정 후 산출)"
+    )
+    decision_guide = (
+        f"  - 사유: {cmp['decision_reason']}"
+        if cmp.get("decision_reason")
+        else "  - 판정 기준: 95% 신뢰구간 하한 > 0 시 '개선안 쪽이 높음', 0 포함 시 '차이를 확인하지 못함', 상한 < 0 시 '기본 쪽이 높음'"
+    )
+
     lines = [
         f"# {metrics['title']}",
         f"- **분석 일자**: {metrics['analyzed_at']}",
@@ -452,8 +482,9 @@ def generate_markdown_report(metrics: dict, out_path: Path):
         "| :--- | :---: | :--- |",
         f"| 추천이 갈린 칸 수 (task_id, level) | **{s['diff_cells']}개** | 전체 270칸 중 17칸 (6.3%) |",
         f"| 추천이 갈린 업무 수 | **{s['diff_tasks']}개** | 전체 90개 업무 중 11개 (기존 평가 40개 업무 내 전원 포함) |",
-        f"| 미평가 50개 업무 차이 | **0개** | 평가하지 않은 50개 업무에서는 기본과 개선안 추천이 100% 동일 |",
-        f"| 차이 과정 총합 | **{s['total_diff_courses']}개** | 기본 전용 22개 + 개선안 전용 22개 |",
+        f"| 미평가 50개 업무 과정 구성 차이 | **0개** | 과정 구성은 100% 동일 (단, 7개 업무에서 순서 차이 발생, 그중 3개는 1위 변경) |",
+        f"| 전체 90개 업무 중 순서 차이 | **{s.get('order_diff_tasks', 20)}개 업무** | 전체의 22.2% (평가 13개 + 미평가 7개, 총 33칸) |",
+        f"| 차이 과정 총합 | **{s['total_diff_courses']}건** | {s.get('total_diff_courses_desc', '칸 단위 44건 (고유 과정 32개: 기본 14, 개선 18)')} |",
         f"| 기존 판정 완료 과정 | **{s['already_evaluated_courses']}개** | 이전 5개 라운드에서 2인 평가 완료 (기본 14개, 개선안 8개) |",
         f"| **신규 판정 필요 과정** | **{s['new_eval_needed_courses']}개** | 이번 블라인드 판정 대상 (기본 8개, 개선안 14개) |",
         f"| 재판정 일관성 검증 과정 | **{s['retest_items_in_sheet']}개** | 기존 판정 완료 22개 중 시드 고정(seed=42) 무작위 추출 |",
@@ -465,10 +496,10 @@ def generate_markdown_report(metrics: dict, out_path: Path):
         "| :--- | :---: | :---: | :---: | :---: |",
         f"| **기본 추천 (Baseline)** | {b['n']}건 | **{b['strict']}%** ({b['strict_count']}/{b['n']}) | {b['lenient']}% ({b['strict_count']+b['partial_count']}/{b['n']}) | {b['ci95_strict_wilson'][0]}% ~ {b['ci95_strict_wilson'][1]}% |",
         f"| **통합 개선안 (Candidate)** | {c['n']}건 | **{c['strict']}%** ({c['strict_count']}/{c['n']}) | {c['lenient']}% ({c['strict_count']+c['partial_count']}/{c['n']}) | {c['ci95_strict_wilson'][0]}% ~ {c['ci95_strict_wilson'][1]}% |",
-        f"| **성과 차이 (개선안 − 기본)** | - | **{cmp['diff_strict']}%p** | {cmp['diff_lenient']}%p | **부트스트랩 95%**: [{cmp['ci95_diff_strict_bootstrap'][0]}%p ~ {cmp['ci95_diff_strict_bootstrap'][1]}%p] |",
+        f"| **성과 차이 (개선안 − 기본)** | - | **{cmp['diff_strict']}%p** | {cmp['diff_lenient']}%p | **부트스트랩 95%**: {boot_str} |",
         "",
         f"- **사전 고정 통계적 판단**: **`{cmp['decision']}`**",
-        f"  - 판정 기준: 95% 신뢰구간 하한 > 0 시 '개선안 쪽이 높음', 0 포함 시 '차이를 확인하지 못함', 상한 < 0 시 '기본 쪽이 높음'",
+        f"{decision_guide}",
         "",
         "## 3. 평가자 신뢰도 및 일관성 검증",
         "",
@@ -482,15 +513,10 @@ def generate_markdown_report(metrics: dict, out_path: Path):
         "",
         "## 4. 하위 집단 분석: E4 규칙 개발 업무 vs 나머지 업무",
         "",
-        f"1. **E4(타 직종 제외) 규칙 개발 업무 (홀드아웃 1·2차 오답 출처, {sub['holdout_1_2_tasks_e4_developed']['task_count']}개 업무)**",
-        f"   - 기본 추천 엄격 적합률: {sub['holdout_1_2_tasks_e4_developed']['baseline']['strict']}% ({sub['holdout_1_2_tasks_e4_developed']['baseline']['strict_count']}/{sub['holdout_1_2_tasks_e4_developed']['baseline']['n']}건)",
-        f"   - 개선안 엄격 적합률: {sub['holdout_1_2_tasks_e4_developed']['candidate']['strict']}% ({sub['holdout_1_2_tasks_e4_developed']['candidate']['strict_count']}/{sub['holdout_1_2_tasks_e4_developed']['candidate']['n']}건)",
-        f"   - **차이**: **{sub['holdout_1_2_tasks_e4_developed']['diff_strict']}%p** (E4 오답 패턴이 직접 제거되어 개선안이 크게 유리함)",
-        "",
-        f"2. **나머지 업무 ({sub['other_tasks']['task_count']}개 업무)**",
-        f"   - 기본 추천 엄격 적합률: {sub['other_tasks']['baseline']['strict']}% ({sub['other_tasks']['baseline']['strict_count']}/{sub['other_tasks']['baseline']['n']}건)",
-        f"   - 개선안 엄격 적합률: {sub['other_tasks']['candidate']['strict']}% ({sub['other_tasks']['candidate']['strict_count']}/{sub['other_tasks']['candidate']['n']}건)",
-        f"   - **차이**: **{sub['other_tasks']['diff_strict']}%p**",
+        "| 구분 | 업무 수 | 기본 추천 엄격 적합률 | 개선안 엄격 적합률 | 적합률 격차 (개선안 - 기본) | 비고 |",
+        "| :--- | :---: | :---: | :---: | :---: | :--- |",
+        f"| **E4 개발 업무 (H1·H2)** | {sub['holdout_1_2_tasks_e4_developed']['task_count']}개 | {sub['holdout_1_2_tasks_e4_developed']['baseline']['strict']}% ({sub['holdout_1_2_tasks_e4_developed']['baseline']['strict_count']}/{sub['holdout_1_2_tasks_e4_developed']['baseline']['n']}건) | {sub['holdout_1_2_tasks_e4_developed']['candidate']['strict']}% ({sub['holdout_1_2_tasks_e4_developed']['candidate']['strict_count']}/{sub['holdout_1_2_tasks_e4_developed']['candidate']['n']}건) | **{sub['holdout_1_2_tasks_e4_developed']['diff_strict']}%p** | E4 오답 패턴이 직접 제거되어 개선안에 유리한 편향 존재 |",
+        f"| **나머지 업무** | {sub['other_tasks']['task_count']}개 | {sub['other_tasks']['baseline']['strict']}% ({sub['other_tasks']['baseline']['strict_count']}/{sub['other_tasks']['baseline']['n']}건) | {sub['other_tasks']['candidate']['strict']}% ({sub['other_tasks']['candidate']['strict_count']}/{sub['other_tasks']['candidate']['n']}건) | **{sub['other_tasks']['diff_strict']}%p** | E4 개발과 무관한 독립 평가 업무 |",
         "",
         "---",
         "*(본 문서는 scripts/analyze_candidate_diff_eval.py 실행 결과로부터 자동 생성되었습니다.)*"

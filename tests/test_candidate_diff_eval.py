@@ -133,8 +133,19 @@ class TestCandidateDiffEval(unittest.TestCase):
             self.assertEqual(cmp["decision"], "차이를 확인하지 못함")
 
         # 필수 일반화 제약 문구 확인
-        self.assertIn("평가하지 않은 50개 업무에서는 두 추천이 같아 일반화 근거가 없다", metrics["generalization_constraint"])
+        self.assertIn("평가하지 않은 50개 업무에서 추천 과정 구성은 같고", metrics["generalization_constraint"])
+        self.assertIn("7개 업무에서 순서가 다르며 그중 3개는 1위가 바뀐다", metrics["generalization_constraint"])
         self.assertIn("E4 규칙은 홀드아웃 1·2차 오답을 보고 만들었으므로", metrics["bias_note"])
+
+    def test_06_preliminary_pipeline(self):
+        """사전 집계 모드 검증: 새 판정 전에는 부트스트랩 미수행 및 판정 보류 처리"""
+        metrics = analyze_candidate_diff(preliminary=True)
+        self.assertIsNotNone(metrics)
+        cmp = metrics["comparison"]
+        self.assertEqual(cmp["decision"], "판정 보류 (새 판정 필요)")
+        self.assertIsNone(cmp["ci95_diff_strict_bootstrap"])
+        self.assertIn("새 판정 필요", cmp["decision_reason"])
+        self.assertIn("7개 업무에서 순서가 다르며 그중 3개는 1위가 바뀐다", metrics["generalization_constraint"])
 
 
 if __name__ == "__main__":
