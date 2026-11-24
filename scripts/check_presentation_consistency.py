@@ -84,22 +84,36 @@ def load_references():
     if p1_file.exists():
         p1 = json.loads(p1_file.read_text(encoding="utf-8"))
         ref["eval_r1_strict"] = need(p1, "precision_at_3", "strict")
+        ref["eval_r1_wilson"] = need(p1, "precision_at_3", "ci95_wilson")
+        ref["eval_r1_kappa"] = need(p1, "agreement", "cohen_kappa")
+        ref["eval_r1_agree_pct"] = need(p1, "agreement", "pct")
+        ref["eval_r1_consensus_strict"] = need(p1, "consensus", "strict")
 
     p2_file = REPORTS_DIR / "precision_eval_round2_metrics.json"
     if p2_file.exists():
         p2 = json.loads(p2_file.read_text(encoding="utf-8"))
         ref["eval_r2_strict"] = need(p2, "precision_at_3", "strict")
+        ref["eval_r2_wilson"] = need(p2, "precision_at_3", "ci95_wilson")
+        ref["eval_r2_kappa"] = need(p2, "agreement", "cohen_kappa")
+        ref["eval_r2_agree_pct"] = need(p2, "agreement", "pct")
+        ref["eval_r2_consensus_strict"] = need(p2, "consensus", "strict")
 
     ph1_file = REPORTS_DIR / "precision_eval_holdout_metrics.json"
     if ph1_file.exists():
         ph1 = json.loads(ph1_file.read_text(encoding="utf-8"))
         ref["eval_ho1_strict"] = need(ph1, "precision_at_3", "strict")
+        ref["eval_ho1_wilson"] = need(ph1, "precision_at_3", "ci95_wilson")
+        ref["eval_ho1_kappa"] = need(ph1, "agreement", "cohen_kappa")
+        ref["eval_ho1_agree_pct"] = need(ph1, "agreement", "pct")
+        ref["eval_ho1_consensus_strict"] = need(ph1, "consensus", "strict")
 
     ph2_file = REPORTS_DIR / "precision_eval_holdout2_metrics.json"
     if ph2_file.exists():
         ph2 = json.loads(ph2_file.read_text(encoding="utf-8"))
         ref["eval_ho2_final_strict"] = need(ph2, "final_recommendation", "precision_at_3", "strict")
+        ref["eval_ho2_final_wilson"] = need(ph2, "final_recommendation", "precision_at_3", "ci95_wilson")
         ref["eval_ho2_bm25_strict"] = need(ph2, "bm25_recommendation", "precision_at_3", "strict")
+        ref["eval_ho2_bm25_wilson"] = need(ph2, "bm25_recommendation", "precision_at_3", "ci95_wilson")
         decoy = need(ph2, "decoy_analysis")
         ref["decoy_total"] = need(decoy, "total_evaluations")
         ref["decoy_unfit"] = need(decoy, "unfit_count")
@@ -109,6 +123,7 @@ def load_references():
     if pha_file.exists():
         pha = json.loads(pha_file.read_text(encoding="utf-8"))
         ref["eval_hoa_strict"] = need(pha, "precision_at_3", "strict")
+        ref["eval_hoa_wilson"] = need(pha, "precision_at_3", "ci95_wilson")
         ref["eval_hoa_consensus_strict"] = need(pha, "consensus", "strict")
         ref["eval_ho12_strict"] = need(pha, "holdout_12", "precision_at_3", "strict")
 
@@ -117,10 +132,12 @@ def load_references():
         ph3 = json.loads(ph3_file.read_text(encoding="utf-8"))
         if "baseline_recommendation" not in ph3:
             raise KeyError("precision_eval_holdout3_metrics.json 에 'baseline_recommendation' 키가 없습니다.")
-        ref["eval_ho3_baseline_strict"] = ph3["baseline_recommendation"]["precision_at_3"]["strict"]
+        ref["eval_ho3_baseline_strict"] = need(ph3, "baseline_recommendation", "precision_at_3", "strict")
+        ref["eval_ho3_baseline_wilson"] = need(ph3, "baseline_recommendation", "precision_at_3", "ci95_wilson")
         if "candidate_recommendation" not in ph3:
             raise KeyError("precision_eval_holdout3_metrics.json 에 'candidate_recommendation' 키가 없습니다.")
-        ref["eval_ho3_candidate_strict"] = ph3["candidate_recommendation"]["precision_at_3"]["strict"]
+        ref["eval_ho3_candidate_strict"] = need(ph3, "candidate_recommendation", "precision_at_3", "strict")
+        ref["eval_ho3_candidate_wilson"] = need(ph3, "candidate_recommendation", "precision_at_3", "ci95_wilson")
         decoy3 = need(ph3, "decoy_analysis")
         ref["decoy3_total"] = need(decoy3, "total_evaluations")
         ref["decoy3_unfit"] = need(decoy3, "unfit_count")
@@ -260,6 +277,13 @@ def check_template_hardcoded_kpc(file_path, lines, issues, ref):
                     })
 
 
+EXCLUDED_FROM_DATA_JSON_CHECK = {
+    "courses_candidates": "data.json에 단독 필드가 없으며 kpi.courses - kpi.off_topic 으로 계산됨",
+    "slots_total": "data.json에 단독 필드가 없으며 recommend.n_tasks * 3 으로 계산됨",
+    "coverage_pct": "data.json에 단독 필드가 없으며 (slots_total - slots_lt3) / slots_total 비율 계산값임 (대본/발표 검사에서 사용)",
+}
+
+
 def check_data_json_values(ref, issues):
     """data.json 안의 지표가 ref(보고서 원본 지표)와 정확히 일치하는지 대조"""
     if not DATA_JSON_PATH.exists():
@@ -275,60 +299,125 @@ def check_data_json_values(ref, issues):
 
     data = json.loads(DATA_JSON_PATH.read_text(encoding="utf-8"))
 
-    # 1. KPC 비중 및 지표
-    kb = data.get("kpc_bias", {})
-    checks = [
-        ("kpc_bias.kpc_hr_pct", kb.get("kpc_hr_pct"), ref.get("kpc_hr_domain_share")),
-        ("kpc_bias.catalog_share", kb.get("catalog_share"), ref.get("kpc_catalog_share")),
-        ("kpc_bias.top3_share", kb.get("top3_share"), ref.get("kpc_top3_share")),
-        ("kpc_bias.kpc_pool_pct", kb.get("kpc_pool_pct"), ref.get("kpc_pool_share")),
-        ("kpc_bias.bm25_kpc", kb.get("bm25_kpc"), ref.get("kpc_bm25_median")),
-        ("kpc_bias.bm25_other", kb.get("bm25_other"), ref.get("other_bm25_median")),
-        ("kpc_bias.eval_kpc", kb.get("eval_kpc"), ref.get("kpc_human_precision")),
-        ("kpc_bias.eval_other", kb.get("eval_other"), ref.get("other_human_precision")),
-        ("kpc_bias.ci95_range", kb.get("ci95_range"), ref.get("kpc_ci95")),
+    def need_data(d, *keys):
+        cur = d
+        for k in keys:
+            if not isinstance(cur, dict) or k not in cur:
+                path_str = " > ".join(keys)
+                raise KeyError(f"data.json 에 필수 항목 누락: {path_str}")
+            cur = cur[k]
+        return cur
+
+    check_definitions = [
+        # (ref_key, ("path", "in", "data.json"), transform_func_or_none)
+        ("kpc_hr_domain_share", ("kpc_bias", "kpc_hr_pct"), None),
+        ("kpc_catalog_share", ("kpc_bias", "catalog_share"), None),
+        ("kpc_top3_share", ("kpc_bias", "top3_share"), None),
+        ("kpc_pool_share", ("kpc_bias", "kpc_pool_pct"), None),
+        ("kpc_bm25_median", ("kpc_bias", "bm25_kpc"), None),
+        ("other_bm25_median", ("kpc_bias", "bm25_other"), None),
+        ("kpc_human_precision", ("kpc_bias", "eval_kpc"), None),
+        ("other_human_precision", ("kpc_bias", "eval_other"), None),
+        ("kpc_ci95", ("kpc_bias", "ci95_range"), None),
+
+        # 1차 평가 (human_eval)
+        ("eval_r1_strict", ("human_eval", "precision_at_3", "strict"), None),
+        ("eval_r1_wilson", ("human_eval", "precision_at_3", "ci95_wilson"), None),
+        ("eval_r1_kappa", ("human_eval", "agreement", "cohen_kappa"), None),
+        ("eval_r1_agree_pct", ("human_eval", "agreement", "pct"), None),
+        ("eval_r1_consensus_strict", ("human_eval", "consensus", "strict"), None),
+
+        # 2차 평가 (human_eval_rounds.round2)
+        ("eval_r2_strict", ("human_eval_rounds", "round2", "precision_at_3", "strict"), None),
+        ("eval_r2_wilson", ("human_eval_rounds", "round2", "precision_at_3", "ci95_wilson"), None),
+        ("eval_r2_kappa", ("human_eval_rounds", "round2", "agreement", "cohen_kappa"), None),
+        ("eval_r2_agree_pct", ("human_eval_rounds", "round2", "agreement", "pct"), None),
+        ("eval_r2_consensus_strict", ("human_eval_rounds", "round2", "consensus", "strict"), None),
+
+        # 홀드아웃 1차 (human_eval_rounds.holdout)
+        ("eval_ho1_strict", ("human_eval_rounds", "holdout", "precision_at_3", "strict"), None),
+        ("eval_ho1_wilson", ("human_eval_rounds", "holdout", "precision_at_3", "ci95_wilson"), None),
+        ("eval_ho1_kappa", ("human_eval_rounds", "holdout", "agreement", "cohen_kappa"), None),
+        ("eval_ho1_agree_pct", ("human_eval_rounds", "holdout", "agreement", "pct"), None),
+        ("eval_ho1_consensus_strict", ("human_eval_rounds", "holdout", "consensus", "strict"), None),
+
+        # 홀드아웃 2차 (human_eval_holdout2)
+        ("eval_ho2_final_strict", ("human_eval_holdout2", "final_recommendation", "precision_at_3", "strict"), None),
+        ("eval_ho2_final_wilson", ("human_eval_holdout2", "final_recommendation", "precision_at_3", "ci95_wilson"), None),
+        ("eval_ho2_bm25_strict", ("human_eval_holdout2", "bm25_recommendation", "precision_at_3", "strict"), None),
+        ("eval_ho2_bm25_wilson", ("human_eval_holdout2", "bm25_recommendation", "precision_at_3", "ci95_wilson"), None),
+        ("decoy_total", ("human_eval_holdout2", "decoy_analysis", "total_evaluations"), None),
+        ("decoy_unfit", ("human_eval_holdout2", "decoy_analysis", "unfit_count"), None),
+        ("decoy_pct", ("human_eval_holdout2", "decoy_analysis", "filter_success_rate"), None),
+
+        # 홀드아웃 3차 (human_eval_holdout3)
+        ("eval_ho3_baseline_strict", ("human_eval_holdout3", "baseline_recommendation", "precision_at_3", "strict"), None),
+        ("eval_ho3_baseline_wilson", ("human_eval_holdout3", "baseline_recommendation", "precision_at_3", "ci95_wilson"), None),
+        ("eval_ho3_candidate_strict", ("human_eval_holdout3", "candidate_recommendation", "precision_at_3", "strict"), None),
+        ("eval_ho3_candidate_wilson", ("human_eval_holdout3", "candidate_recommendation", "precision_at_3", "ci95_wilson"), None),
+        ("decoy3_total", ("human_eval_holdout3", "decoy_analysis", "total_evaluations"), None),
+        ("decoy3_unfit", ("human_eval_holdout3", "decoy_analysis", "unfit_count"), None),
+        ("decoy3_pct", ("human_eval_holdout3", "decoy_analysis", "filter_success_rate"), None),
+
+        # 홀드아웃 전체 (human_eval_rounds.holdout_all)
+        ("eval_hoa_strict", ("human_eval_rounds", "holdout_all", "precision_at_3", "strict"), None),
+        ("eval_hoa_wilson", ("human_eval_rounds", "holdout_all", "precision_at_3", "ci95_wilson"), None),
+        ("eval_hoa_consensus_strict", ("human_eval_rounds", "holdout_all", "consensus", "strict"), None),
+        ("eval_ho12_strict", ("human_eval_rounds", "holdout_all", "holdout_12", "precision_at_3", "strict"), None),
+
+        # 분야 검수
+        ("domain_precision", ("domain_review", "precision", "value"), lambda v: round(v * 100, 1)),
+        ("domain_recall", ("domain_review", "recall", "value"), lambda v: round(v * 100, 1)),
+
+        # 카탈로그 및 추천 기본
+        ("courses_total", ("kpi", "courses"), None),
+        ("courses_off_topic", ("kpi", "off_topic"), None),
+        ("tasks_count", ("recommend", "n_tasks"), None),
+        ("slots_lt3", ("recommend", "lt3"), None),
     ]
 
-    # 2. 사람 평가 지표
-    hoa = data.get("human_eval_rounds", {}).get("holdout_all", {})
-    if "eval_hoa_strict" in ref:
-        checks.append(("human_eval_rounds.holdout_all.precision_at_3.strict",
-                       hoa.get("precision_at_3", {}).get("strict"), ref.get("eval_hoa_strict")))
-    if "eval_hoa_consensus_strict" in ref:
-        checks.append(("human_eval_rounds.holdout_all.consensus.strict",
-                       hoa.get("consensus", {}).get("strict"), ref.get("eval_hoa_consensus_strict")))
+    checked_ref_keys = set()
+    for ref_key, path_keys, transform in check_definitions:
+        checked_ref_keys.add(ref_key)
+        path_str = ".".join(path_keys)
+        expected = ref.get(ref_key)
+        try:
+            actual = need_data(data, *path_keys)
+            if transform is not None:
+                actual = transform(actual)
+        except KeyError as e:
+            issues.append({
+                "file": str(DATA_JSON_PATH),
+                "line": 1,
+                "type": "DATA_JSON_KEY_MISSING",
+                "found": "항목 누락",
+                "expected": f"{path_str} 항목 존재 필요 (기준값: {expected})",
+                "text": str(e),
+            })
+            continue
 
-    ho = data.get("human_eval_rounds", {}).get("holdout", {})
-    if "eval_ho1_strict" in ref:
-        checks.append(("human_eval_rounds.holdout.precision_at_3.strict",
-                       ho.get("precision_at_3", {}).get("strict"), ref.get("eval_ho1_strict")))
-
-    ho2 = data.get("human_eval_holdout2", {})
-    if "eval_ho2_final_strict" in ref:
-        checks.append(("human_eval_holdout2.final_recommendation.precision_at_3.strict",
-                       ho2.get("final_recommendation", {}).get("precision_at_3", {}).get("strict"), ref.get("eval_ho2_final_strict")))
-    if "eval_ho2_bm25_strict" in ref:
-        checks.append(("human_eval_holdout2.bm25_recommendation.precision_at_3.strict",
-                       ho2.get("bm25_recommendation", {}).get("precision_at_3", {}).get("strict"), ref.get("eval_ho2_bm25_strict")))
-
-    ho3 = data.get("human_eval_holdout3", {})
-    if "eval_ho3_baseline_strict" in ref:
-        checks.append(("human_eval_holdout3.baseline_recommendation.precision_at_3.strict",
-                       ho3.get("baseline_recommendation", {}).get("precision_at_3", {}).get("strict"), ref.get("eval_ho3_baseline_strict")))
-    if "eval_ho3_candidate_strict" in ref:
-        checks.append(("human_eval_holdout3.candidate_recommendation.precision_at_3.strict",
-                       ho3.get("candidate_recommendation", {}).get("precision_at_3", {}).get("strict"), ref.get("eval_ho3_candidate_strict")))
-
-    for name, actual, expected in checks:
         if actual != expected:
             issues.append({
                 "file": str(DATA_JSON_PATH),
                 "line": 1,
                 "type": "DATA_JSON_VALUE_MISMATCH",
-                "found": f"{name} = {actual}",
+                "found": f"{path_str} = {actual}",
                 "expected": f"{expected}",
-                "text": f"data.json 의 {name} 항목 값이 원본 지표({expected})와 불일치합니다.",
+                "text": f"data.json 의 {path_str} 항목 값이 원본 지표({expected})와 불일치합니다.",
             })
+
+    # 안전장치: load_references()의 모든 키가 검증되었거나 제외 목록에 명시되었는지 전수 확인
+    all_accounted = checked_ref_keys | set(EXCLUDED_FROM_DATA_JSON_CHECK.keys())
+    missing_from_check = set(ref.keys()) - all_accounted
+    if missing_from_check:
+        issues.append({
+            "file": "scripts/check_presentation_consistency.py",
+            "line": 0,
+            "type": "REF_KEYS_UNVERIFIED",
+            "found": f"검증 누락된 ref 키: {missing_from_check}",
+            "expected": "load_references()의 모든 키가 check_definitions 또는 EXCLUDED_FROM_DATA_JSON_CHECK에 정의되어야 함",
+            "text": "ref 안전장치 검사 실패",
+        })
 
 
 def check_script_md_values(ref, file_path, lines, issues):
