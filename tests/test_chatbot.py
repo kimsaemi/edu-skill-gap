@@ -192,6 +192,7 @@ class TestRerankerLowScoreBadge(unittest.TestCase):
                 if r_score is not None and r_score < 0.1:
                     low_score_found = True
                     self.assertIn("⚠ 문맥 점수 낮음 (후보가 부족해 포함)", first_md)
+                    self.assertNotIn("AI 정밀검증", first_md)  # 낮은 점수와 '정밀검증'을 함께 표시하지 않음
                 elif r_score is not None and r_score >= 0.1:
                     normal_score_found = True
                     self.assertNotIn("⚠ 문맥 점수 낮음 (후보가 부족해 포함)", first_md)

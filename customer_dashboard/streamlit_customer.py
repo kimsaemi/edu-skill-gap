@@ -224,10 +224,12 @@ def toggle_enroll(card: dict, for_what: str = ""):
 def course_card(card: dict, key: str, for_what: str = "", note: str = ""):
     """교육 카드 1장. 공식 만족도는 정보로만 보여 주고 점수에는 넣지 않습니다."""
     tags = f'<span class="tag {card["kind"]}">{"✅ 직접 관련" if card["kind"] == "direct" else "🧰 공통 역량"}</span>'
-    if (card.get("match") or {}).get("is_reranked"):
-        tags += '<span class="tag" style="background:#e0e7ff; color:#3730a3; border: 1px solid #c7d2fe;">🤖 AI 정밀검증</span>'
-    if (card.get("match") or {}).get("reranker") is not None and (card.get("match") or {}).get("reranker") < 0.1:
+    m_ = card.get("match") or {}
+    low_rr = m_.get("reranker") is not None and m_.get("reranker") < 0.1
+    if low_rr:  # 리랭커 점수가 낮은 과정에는 'AI 정밀검증' 대신 낮음 표시만 단다
         tags += '<span class="tag review">⚠ 문맥 점수 낮음 (후보가 부족해 포함)</span>'
+    elif m_.get("is_reranked"):
+        tags += '<span class="tag" style="background:#e0e7ff; color:#3730a3; border: 1px solid #c7d2fe;">🤖 AI 정밀검증</span>'
     if card.get("schedule_badge"):
         tags += f'<span class="tag closed">⏹ {escape(card["schedule_badge"])}</span>'
     elif card.get("w24_status") in ("운영 중", "개강 예정"):

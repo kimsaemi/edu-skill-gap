@@ -28,7 +28,7 @@
 | 화면 구분 | 표시/관리 과정 수 | 원본 수집 건수 | 데이터 파일 및 처리 기준 | 데이터 기준일 |
 | :--- | :---: | :---: | :--- | :--- |
 | **Streamlit 고객 서비스** (`customer_dashboard/streamlit_customer.py`) | **9,075개** (`cp.courses()`) | 9,075건 | `data/hr/processed/education_courses_search_cleaned.parquet`<br>(제외 목록 1,377건 플래그 관리, 추천 후보 7,698건) | 확인 못 함 |
-| **HTML 고객 대시보드** (`hr_career_platform_v2_2026-11-18.html`) | **5,059개** (`C.length`) | 9,184건 (`DATA.rawCourseCount`) | 교육기관 수집 9,184건 중 같은 제목의 중복 회차를 묶어 5,059개 표시 | 2026-11-18 (파일명 기준, 수집 시점은 확인 못 함) |
+| **HTML 고객 대시보드** (`hr_career_platform_v2_2026-11-18.html`) | **5,059개** (`C.length`) | 9,184건 (`DATA.rawCourseCount`) | 교육기관 수집 9,184건 중 같은 제목의 중복 회차를 묶어 5,059개 표시 | 2026-11-09 (화면 하단 표시 기준, 파일 생성일은 11-18) |
 - **패키지**: `pip install -r requirements.txt`. 추천 모델(`jhgan/ko-sroberta-multitask`)은 처음 실행할 때 Hugging Face에서 내려받는다.
   모델을 못 받으면 고객 앱은 키워드(BM25) 검색으로 동작한다.
 - **API 키**: 고용24 재수집에만 필요하다. `.env.example`을 `.env`로 복사해 키를 넣고, 키 파일은 커밋하지 않는다.
