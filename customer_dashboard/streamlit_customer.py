@@ -176,11 +176,11 @@ def render_sidebar():
         use_reranker = st.toggle(
             "⚡ 2단계 Cross-Encoder 정밀 추천",
             value=S.get("use_reranker", True),
-            help="체크 시 문장 이해 모델(리랭커)로 후보 과정의 순서를 다시 정하고, 점수가 0.1점 미만인 과정은 제외합니다.",
+            help="체크 시 문장 이해 모델(리랭커)로 후보 과정의 순서를 다시 정합니다. 점수가 0.1점 이상인 과정을 먼저 고르고, 3개가 안 되는 칸은 점수가 낮은 과정으로 채웁니다.",
         )
         S.use_reranker = use_reranker
         if use_reranker:
-            st.success("🤖 **2단계 정밀 추천 사용 중** — 1단계 후보를 문장 이해 모델(리랭커)로 다시 점수 매겨 순서를 정하고, 점수가 거의 0(0.1점 미만)인 과정은 뺍니다.")
+            st.success("🤖 **2단계 정밀 추천 사용 중** — 1단계 후보를 문장 이해 모델(리랭커)로 다시 점수 매겨 순서를 정합니다. 점수가 0.1점 이상인 과정을 먼저 고르고, 3개가 안 되는 칸은 점수가 낮은 과정으로 채웁니다.")
         else:
             st.info("ℹ️ **1단계 Baseline 모드**\n\n단일 Bi-Encoder 및 BM25 기본 추천 결과를 표시합니다.")
 
@@ -225,7 +225,9 @@ def course_card(card: dict, key: str, for_what: str = "", note: str = ""):
     """교육 카드 1장. 공식 만족도는 정보로만 보여 주고 점수에는 넣지 않습니다."""
     tags = f'<span class="tag {card["kind"]}">{"✅ 직접 관련" if card["kind"] == "direct" else "🧰 공통 역량"}</span>'
     if (card.get("match") or {}).get("is_reranked"):
-        tags += '<span class="tag" style="background:#e0e7ff; color:#3730a3; border: 1px solid #c7d2fe;">🤖 AI 정밀검증</span>' 
+        tags += '<span class="tag" style="background:#e0e7ff; color:#3730a3; border: 1px solid #c7d2fe;">🤖 AI 정밀검증</span>'
+    if (card.get("match") or {}).get("reranker") is not None and (card.get("match") or {}).get("reranker") < 0.1:
+        tags += '<span class="tag review">⚠ 문맥 점수 낮음 (후보가 부족해 포함)</span>'
     if card.get("schedule_badge"):
         tags += f'<span class="tag closed">⏹ {escape(card["schedule_badge"])}</span>'
     elif card.get("w24_status") in ("운영 중", "개강 예정"):
@@ -268,7 +270,7 @@ def course_card(card: dict, key: str, for_what: str = "", note: str = ""):
                 c2.metric("Cross-Encoder 정밀도", f"{m['reranker']:g}점")
                 c3.metric("업무 의미 유사도", f"{m['sem']:g}")
                 c4.metric("핵심 단어 일치", f"{m['bm25']:g}")
-                st.caption("2단계 AI Cross-Encoder가 문맥 적합도를 정밀 검증하여 무관한 노이즈 강좌를 자동 배제하였습니다.")
+                st.caption("2단계 리랭커가 업무 설명과 과정 내용을 다시 비교해 순서를 정했습니다.")
             else:
                 c1, c2, c3, c4 = st.columns(4)
                 c1.metric("추천 점수", f"{m['final']:g}")

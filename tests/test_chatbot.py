@@ -126,12 +126,31 @@ class TestOptionalLLM(unittest.TestCase):
 
 
 class TestAppTest(unittest.TestCase):
+    def test_sidebar_text_rules(self):
+        from streamlit.testing.v1 import AppTest
+        app = str(Path(__file__).resolve().parent.parent / "customer_dashboard" / "streamlit_customer.py")
+        at = AppTest.from_file(app, default_timeout=600).run()
+        self.assertFalse(at.exception)
+        sidebar_text = " ".join(str(getattr(x, "value", "")) for x in at.sidebar)
+        self.assertNotIn("자동 배제", sidebar_text)
+        self.assertNotIn("제외합니다", sidebar_text)
+        self.assertIn("0.1점 이상인 과정을 먼저 고르고", sidebar_text)
+
     def test_tabs_and_chat_flow(self):
         from streamlit.testing.v1 import AppTest
         app = str(Path(__file__).resolve().parent.parent / "customer_dashboard" / "streamlit_customer.py")
         at = AppTest.from_file(app, default_timeout=600).run()
         self.assertFalse(at.exception)
-        for key in ["nav_1", "nav_all", "nav_my", "nav_chat"]:
+
+        # 진단 상태 초기화 후 6개 탭 모두 동작 검증
+        at.session_state["g"] = 0
+        at.session_state["ds"] = ["DOM_01"]
+        at.session_state["d"] = "DOM_01"
+        at.session_state["tl"] = {"DOM_01_T04": 0}
+        at.run()
+        self.assertFalse(at.exception)
+
+        for key in ["nav_1", "nav_2", "nav_3", "nav_all", "nav_my", "nav_chat"]:
             at.button(key=key).click().run()
             self.assertFalse(at.exception, key)
 
@@ -150,6 +169,35 @@ class TestAppTest(unittest.TestCase):
         self.assertEqual(len(msgs), n_before + 2)
         self.assertEqual(msgs[-1]["mode"], "task_match")
         self.assertTrue(msgs[-1]["cards"])
+
+
+class TestRerankerLowScoreBadge(unittest.TestCase):
+    def test_dom01_t04_grade0_badge(self):
+        from customer_dashboard.streamlit_customer import course_card
+        recs = cp.task_recommendations("DOM_01_T04", 0, use_reranker=True)
+        self.assertGreaterEqual(len(recs), 3)
+
+        low_score_found = False
+        normal_score_found = False
+
+        with mock.patch("streamlit.markdown") as mock_md, \
+             mock.patch("streamlit.expander"), \
+             mock.patch("streamlit.caption"), \
+             mock.patch("streamlit.columns", side_effect=lambda spec: [mock.MagicMock() for _ in range(spec if isinstance(spec, int) else len(spec))]):
+            for r in recs:
+                mock_md.reset_mock()
+                course_card(r, key=f"test_{r.get('course_uid')}")
+                first_md = mock_md.call_args_list[0][0][0]
+                r_score = (r.get("match") or {}).get("reranker")
+                if r_score is not None and r_score < 0.1:
+                    low_score_found = True
+                    self.assertIn("⚠ 문맥 점수 낮음 (후보가 부족해 포함)", first_md)
+                elif r_score is not None and r_score >= 0.1:
+                    normal_score_found = True
+                    self.assertNotIn("⚠ 문맥 점수 낮음 (후보가 부족해 포함)", first_md)
+
+        self.assertTrue(low_score_found, "리랭커 < 0.1 과정이 최소 1개 있어야 함")
+        self.assertTrue(normal_score_found, "리랭커 >= 0.1 과정이 최소 1개 있어야 함")
 
 
 if __name__ == "__main__":
