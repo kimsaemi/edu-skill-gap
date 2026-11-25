@@ -57,6 +57,65 @@ STALE_NUMBERS = [
 
 
 
+# (c) 빈 틀 / 미완성 플레이스홀더 검사 규칙
+PLACEHOLDER_RULES = [
+    ("[팀 작성 필요]", re.compile(r"\[팀\s*작성\s*필요\]")),
+    ("작성 대기", re.compile(r"작성\s*대기")),
+    ("TODO", re.compile(r"\bTODO\b")),
+    ("TBD", re.compile(r"\bTBD\b")),
+]
+
+
+def check_placeholders_in_lines(file_path, lines, placeholders):
+    for idx, line in enumerate(lines, 1):
+        if file_path.name == "index.html" and (line.strip().startswith("@font-face") or line.strip().startswith("const D =") or line.strip().startswith("<script>const D =") or "data:font" in line):
+            continue
+        for name, rx in PLACEHOLDER_RULES:
+            if rx.search(line):
+                placeholders.append({
+                    "file": str(file_path),
+                    "line": idx,
+                    "type": "PLACEHOLDER",
+                    "found": name,
+                    "expected": "빈 틀 / 플레이스홀더 작성 완료",
+                    "text": line.strip()[:140],
+                })
+
+
+def check_placeholders_in_pptx(pptx_path, placeholders):
+    if not pptx_path.exists():
+        return
+    prs = Presentation(pptx_path)
+    for s_idx, slide in enumerate(prs.slides, 1):
+        for shape in slide.shapes:
+            if shape.has_text_frame:
+                for p in shape.text_frame.paragraphs:
+                    for name, rx in PLACEHOLDER_RULES:
+                        if rx.search(p.text):
+                            placeholders.append({
+                                "file": str(pptx_path),
+                                "line": f"슬라이드 {s_idx}",
+                                "type": "PLACEHOLDER",
+                                "found": name,
+                                "expected": "빈 틀 / 플레이스홀더 작성 완료",
+                                "text": p.text.strip()[:140],
+                            })
+            if shape.has_table:
+                for row in shape.table.rows:
+                    for cell in row.cells:
+                        for p in cell.text_frame.paragraphs:
+                            for name, rx in PLACEHOLDER_RULES:
+                                if rx.search(p.text):
+                                    placeholders.append({
+                                        "file": str(pptx_path),
+                                        "line": f"슬라이드 {s_idx} 표",
+                                        "type": "PLACEHOLDER",
+                                        "found": name,
+                                        "expected": "빈 틀 / 플레이스홀더 작성 완료",
+                                        "text": p.text.strip()[:140],
+                                    })
+
+
 def need(d, *keys):
     """원본 결과 파일에서 값을 꺼낸다. 키가 없으면 고정값으로 대신하지 않고 실패한다."""
     cur = d
@@ -614,9 +673,10 @@ def check_pptx(pptx_path, issues, ref=None):
                     })
 
 
-def run_checks():
+def run_checks(is_final=False):
     ref = load_references()
     issues = []
+    placeholders = []
 
     # 1. data.json 직접 대조
     check_data_json_values(ref, issues)
@@ -625,6 +685,7 @@ def run_checks():
         ROOT / "presentation" / "src" / "template.html",
         ROOT / "presentation" / "index.html",
         ROOT / "presentation" / "SCRIPT.md",
+        ROOT / "presentation" / "SCRIPT_15min.md",
         ROOT / "README.md",
     ]
 
@@ -650,15 +711,32 @@ def run_checks():
         if p.name == "template.html":
             check_template_hardcoded_kpc(p, lines, issues, ref)
 
+        # 플레이스홀더 검사 대상: template.html, index.html, SCRIPT*.md
+        if p.name in ("template.html", "index.html") or p.name.startswith("SCRIPT"):
+            check_placeholders_in_lines(p, lines, placeholders)
+
     # PPTX 검사
     pptx_path = ROOT / "presentation" / "HR_교육지도_발표.pptx"
     check_pptx(pptx_path, issues, ref=ref)
+    check_placeholders_in_pptx(pptx_path, placeholders)
+
+    if placeholders:
+        if is_final:
+            for item in placeholders:
+                item["type"] = "PLACEHOLDER_FOUND"
+                item["expected"] = "플레이스홀더 제거 및 본문 작성 완료 (--final 모드)"
+                issues.append(item)
+        else:
+            print(f"[경고] 빈 틀 / 미완성 플레이스홀더 {len(placeholders)}건 발견 (기본 모드 통과, --final 시 에러 처리):")
+            for item in placeholders:
+                print(f"  - {item['file']}:{item.get('line', '?')} [{item['found']}] {item['text']}")
 
     return ref, issues
 
 
 def main():
-    ref, issues = run_checks()
+    is_final = "--final" in sys.argv
+    ref, issues = run_checks(is_final=is_final)
 
     print("=" * 80)
     print("발표 자료 일관성 및 정직성 점검 결과")
