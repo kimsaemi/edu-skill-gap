@@ -368,6 +368,368 @@ table.metric small { color: var(--dim); font-size: 11px; }
 ol.three { padding-left: 22px; display: grid; gap: 10px; margin: 0 0 26px; }
 ol.three li { font-size: 18px; color: var(--ink); line-height: 1.6; }
 ol.three li::marker { font-family: var(--pxb); color: var(--teal); }
+
+/* ==========================================================================
+   플로팅 책갈피 (Floating Bookmark & Quick Nav) & TOP 이동 버튼 UI/UX
+   ========================================================================== */
+.bm-progress-track {
+  position: fixed;
+  top: env(safe-area-inset-top, 0px);
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: transparent;
+  z-index: 100;
+  pointer-events: none;
+}
+.bm-progress-bar {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, var(--teal) 0%, var(--yel) 100%);
+  transition: width 0.1s ease-out;
+}
+
+.bookmark-dock {
+  position: fixed;
+  right: max(18px, env(safe-area-inset-right, 18px));
+  bottom: max(20px, env(safe-area-inset-bottom, 20px));
+  z-index: 60;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 8px;
+  font-family: var(--sans);
+  pointer-events: none;
+}
+
+.bm-compact-bar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  pointer-events: auto;
+}
+
+.bm-pill-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--hud);
+  color: var(--hud-ink);
+  border: 2px solid var(--hud-line);
+  border-radius: 999px;
+  padding: 8px 14px;
+  font-family: var(--px);
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.28);
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  user-select: none;
+}
+.bm-pill-btn:hover {
+  background: var(--hud-2);
+  border-color: var(--yel);
+  color: var(--yel);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.36);
+}
+.bm-pill-btn:active {
+  transform: translateY(0);
+}
+.bm-open-btn .bm-btn-pct {
+  background: var(--hud-2);
+  color: var(--teal-lt);
+  border: 1px solid var(--hud-line);
+  border-radius: 999px;
+  padding: 1px 7px;
+  font-size: 11px;
+  font-variant-numeric: tabular-nums;
+}
+.bm-top-btn {
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(8px);
+  transition: opacity 0.25s ease, transform 0.25s ease, visibility 0.25s, background 0.2s, border-color 0.2s, color 0.2s;
+  padding: 8px 13px;
+}
+.bm-top-btn.visible {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+.bm-top-arrow {
+  color: var(--yel);
+  font-size: 12px;
+}
+
+.bm-panel {
+  width: 290px;
+  max-height: min(580px, calc(100vh - 120px));
+  background: var(--hud);
+  border: 2px solid var(--hud-line);
+  border-radius: 10px;
+  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.42), 0 2px 8px rgba(0, 0, 0, 0.2);
+  color: var(--hud-ink);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  pointer-events: auto;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(12px) scale(0.96);
+  transform-origin: bottom right;
+  transition: opacity 0.22s cubic-bezier(0.16, 1, 0.3, 1), transform 0.22s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.22s;
+}
+.bookmark-dock.open .bm-panel {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0) scale(1);
+}
+.bookmark-dock.open .bm-open-btn {
+  border-color: var(--yel);
+  background: var(--hud-2);
+  color: var(--yel);
+}
+
+.bm-panel-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 11px 14px;
+  background: var(--hud-2);
+  border-bottom: 2px solid var(--hud-line);
+}
+.bm-header-title {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-family: var(--pxb);
+  font-size: 13.5px;
+  color: var(--hud-ink);
+}
+.bm-header-pct {
+  font-family: var(--px);
+  font-size: 11.5px;
+  color: var(--teal-lt);
+  background: rgba(31, 143, 120, 0.2);
+  border: 1px solid var(--teal);
+  border-radius: 999px;
+  padding: 1px 7px;
+  font-variant-numeric: tabular-nums;
+}
+.bm-close-btn {
+  background: transparent;
+  border: 1px solid transparent;
+  color: var(--hud-dim);
+  border-radius: 4px;
+  width: 26px;
+  height: 26px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 14px;
+  transition: all 0.15s;
+}
+.bm-close-btn:hover {
+  color: var(--hud-ink);
+  border-color: var(--hud-line);
+  background: var(--hud);
+}
+
+.bm-custom-pin {
+  padding: 10px 14px;
+  background: rgba(255, 255, 255, 0.03);
+  border-bottom: 1px dashed var(--hud-line);
+  font-size: 12px;
+}
+.bm-pin-btn {
+  width: 100%;
+  padding: 7px 10px;
+  background: var(--hud-2);
+  color: var(--hud-ink);
+  border: 1px solid var(--hud-line);
+  border-radius: 6px;
+  font-family: var(--px);
+  font-size: 12px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  transition: all 0.15s;
+}
+.bm-pin-btn:hover {
+  border-color: var(--teal-lt);
+  color: var(--teal-lt);
+  background: rgba(76, 217, 184, 0.08);
+}
+.bm-pinned-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 8px;
+}
+.bm-pinned-jump {
+  flex: 1;
+  padding: 6px 10px;
+  background: rgba(246, 196, 49, 0.12);
+  border: 1px solid var(--yel);
+  color: var(--yel);
+  border-radius: 6px;
+  font-family: var(--px);
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  text-align: left;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  transition: all 0.15s;
+}
+.bm-pinned-jump:hover {
+  background: rgba(246, 196, 49, 0.22);
+}
+.bm-pinned-text {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.bm-pinned-del {
+  background: transparent;
+  border: 1px solid var(--hud-line);
+  color: var(--hud-dim);
+  border-radius: 6px;
+  width: 28px;
+  height: 28px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  transition: all 0.15s;
+}
+.bm-pinned-del:hover {
+  border-color: var(--rust);
+  color: var(--rust);
+}
+
+.bm-list {
+  padding: 8px 6px;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  scrollbar-width: thin;
+  scrollbar-color: var(--hud-line) transparent;
+}
+.bm-list::-webkit-scrollbar {
+  width: 5px;
+}
+.bm-list::-webkit-scrollbar-thumb {
+  background: var(--hud-line);
+  border-radius: 3px;
+}
+.bm-item {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  padding: 7px 10px;
+  color: var(--hud-dim);
+  text-decoration: none;
+  font-size: 13px;
+  border-radius: 6px;
+  border-left: 3px solid transparent;
+  transition: all 0.15s ease;
+  user-select: none;
+}
+.bm-item:hover {
+  color: var(--hud-ink);
+  background: var(--hud-2);
+}
+.bm-item.on {
+  color: var(--hud-ink);
+  background: var(--hud-2);
+  border-left-color: var(--yel);
+  font-weight: 700;
+}
+.bm-badge {
+  font-family: var(--px);
+  font-size: 11px;
+  padding: 2px 6px;
+  border-radius: 3px;
+  background: var(--hud-2);
+  border: 1px solid var(--hud-line);
+  color: var(--hud-dim);
+  line-height: 1.2;
+}
+.bm-item.on .bm-badge {
+  background: var(--yel);
+  border-color: var(--yel);
+  color: #1B1D22;
+  font-weight: 700;
+}
+.bm-title {
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.bm-panel-footer {
+  padding: 10px 14px;
+  background: var(--hud-2);
+  border-top: 1px solid var(--hud-line);
+}
+.bm-footer-top-btn {
+  width: 100%;
+  padding: 8px;
+  background: var(--hud);
+  color: var(--hud-ink);
+  border: 1px solid var(--hud-line);
+  border-radius: 6px;
+  font-family: var(--pxb);
+  font-size: 12.5px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  transition: all 0.15s;
+}
+.bm-footer-top-btn:hover {
+  border-color: var(--yel);
+  color: var(--yel);
+  background: var(--hud-2);
+}
+
+.bm-toast {
+  position: fixed;
+  bottom: 84px;
+  right: max(24px, env(safe-area-inset-right, 24px));
+  background: var(--hud);
+  color: var(--yel);
+  border: 2px solid var(--yel);
+  border-radius: 8px;
+  padding: 9px 16px;
+  font-family: var(--px);
+  font-size: 12.5px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+  z-index: 70;
+  opacity: 0;
+  transform: translateY(10px);
+  pointer-events: none;
+  transition: opacity 0.25s, transform 0.25s;
+}
+.bm-toast.show {
+  opacity: 1;
+  transform: translateY(0);
+}
 </style>
 
 <nav class="nav" aria-label="장 이동">
@@ -1138,6 +1500,107 @@ ol.three li::marker { font-family: var(--pxb); color: var(--teal); }
   </div>
 </section>
 </main>
+
+<!-- 플로팅 책갈피 & TOP 컨트롤러 -->
+<aside class="bookmark-dock" id="bookmarkDock" aria-label="책갈피 및 목차 이동">
+  <!-- 상단 페이지 읽기 진행도 트랙 -->
+  <div class="bm-progress-track" title="페이지 읽기 진행도">
+    <div class="bm-progress-bar" id="bmProgressBar"></div>
+  </div>
+
+  <!-- 접힌 상태 / 플로팅 미니 버튼 바 -->
+  <div class="bm-compact-bar" id="bmCompactBar">
+    <button type="button" class="bm-pill-btn bm-open-btn" id="btnOpenBookmark" aria-label="책갈피 목차 열기" title="책갈피 목차 (단축키 B)">
+      <span class="bm-btn-icon">🔖</span>
+      <span class="bm-btn-text">책갈피</span>
+      <span class="bm-btn-pct" id="bmCompactPct">0%</span>
+    </button>
+    <button type="button" class="bm-pill-btn bm-top-btn" id="btnScrollTopCompact" aria-label="페이지 맨 위로 이동" title="맨 위로 (TOP)">
+      <span class="bm-top-arrow">▲</span>
+      <span class="bm-top-label">TOP</span>
+    </button>
+  </div>
+
+  <!-- 펼쳐진 책갈피 패널 -->
+  <div class="bm-panel" id="bmPanel" role="dialog" aria-label="대시보드 책갈피 목차">
+    <div class="bm-panel-header">
+      <div class="bm-header-title">
+        <span class="bm-header-icon">🔖</span>
+        <strong>책갈피 목차</strong>
+        <span class="bm-header-pct" id="bmHeaderPct">0%</span>
+      </div>
+      <button type="button" class="bm-close-btn" id="btnCloseBookmark" aria-label="책갈피 접기" title="접기">
+        <span>✕</span>
+      </button>
+    </div>
+
+    <!-- 사용자 위치 핀 책갈피 (현재 위치 저장 & 복귀) -->
+    <div class="bm-custom-pin">
+      <div class="bm-pin-actions">
+        <button type="button" class="bm-pin-btn" id="btnPinPosition" title="현재 보고 있는 위치를 내 책갈피로 저장합니다">
+          <span class="bm-pin-icon">📌</span> 현재 위치 책갈피 꽂기
+        </button>
+      </div>
+      <div class="bm-pinned-item" id="bmPinnedItem" style="display: none;">
+        <button type="button" class="bm-pinned-jump" id="btnJumpPinned" title="저장된 책갈피 위치로 이동">
+          <span class="bm-pinned-icon">🔖</span>
+          <span class="bm-pinned-text" id="bmPinnedText">저장된 책갈피</span>
+        </button>
+        <button type="button" class="bm-pinned-del" id="btnDeletePinned" aria-label="저장된 책갈피 삭제" title="책갈피 삭제">✕</button>
+      </div>
+    </div>
+
+    <!-- 섹션 바로가기 목록 -->
+    <div class="bm-list" id="bmNavList">
+      <a href="#summary" class="bm-item" data-sec="summary">
+        <span class="bm-badge">요약</span>
+        <span class="bm-title">한눈에 보기</span>
+      </a>
+      <a href="#overview" class="bm-item" data-sec="overview">
+        <span class="bm-badge">01</span>
+        <span class="bm-title">개요: 왜 인사 교육인가</span>
+      </a>
+      <a href="#problem" class="bm-item" data-sec="problem">
+        <span class="bm-badge">02</span>
+        <span class="bm-title">문제·가설: 가설 세 가지</span>
+      </a>
+      <a href="#data" class="bm-item" data-sec="data">
+        <span class="bm-badge">03</span>
+        <span class="bm-title">데이터: 9,075개 과정</span>
+      </a>
+      <a href="#results" class="bm-item" data-sec="results">
+        <span class="bm-badge">04</span>
+        <span class="bm-title">분석 결과: 성능·편향·검증</span>
+      </a>
+      <a href="#insight" class="bm-item" data-sec="insight">
+        <span class="bm-badge">05</span>
+        <span class="bm-title">인사이트: 발견한 점</span>
+      </a>
+      <a href="#conclusion" class="bm-item" data-sec="conclusion">
+        <span class="bm-badge">06</span>
+        <span class="bm-title">결론: 배운 점과 앞으로</span>
+      </a>
+      <a href="#method" class="bm-item" data-sec="method">
+        <span class="bm-badge">부록</span>
+        <span class="bm-title">검증 방법·수식·코드</span>
+      </a>
+      <a href="#worklog" class="bm-item" data-sec="worklog">
+        <span class="bm-badge">기록</span>
+        <span class="bm-title">작업 내역 (일자별)</span>
+      </a>
+    </div>
+
+    <!-- 패널 하단 TOP 버튼 -->
+    <div class="bm-panel-footer">
+      <button type="button" class="bm-footer-top-btn" id="btnScrollTopPanel" aria-label="페이지 맨 위로 이동">
+        <span>▲ 맨 위로 (TOP)</span>
+      </button>
+    </div>
+  </div>
+</aside>
+
+<!-- 피드백 토스트 -->
+<div class="bm-toast" id="bmToast" role="status" aria-live="polite"></div>
 
 <footer>
   <div class="wrap">
@@ -2078,14 +2541,165 @@ const D = {"eda":{"missing":[{"col":"title","label":"과정명","pct":0.0},{"col
     }
   });
 
-  /* ---------- 현재 장 표시 ---------- */
+  /* ---------- 현재 장 및 책갈피 진행도 표시 ---------- */
   const links = $$('#nav-links a');
   const secs = links.map(a => document.getElementById(a.getAttribute('href').slice(1)));
+  const dock = $('#bookmarkDock');
+  const bmProgressBar = $('#bmProgressBar');
+  const bmCompactPct = $('#bmCompactPct');
+  const bmHeaderPct = $('#bmHeaderPct');
+  const btnScrollTopCompact = $('#btnScrollTopCompact');
+  const btnScrollTopPanel = $('#btnScrollTopPanel');
+  const btnOpenBookmark = $('#btnOpenBookmark');
+  const btnCloseBookmark = $('#btnCloseBookmark');
+  const bmNavItems = $$('#bmNavList .bm-item');
+  const btnPinPosition = $('#btnPinPosition');
+  const bmPinnedItem = $('#bmPinnedItem');
+  const btnJumpPinned = $('#btnJumpPinned');
+  const bmPinnedText = $('#bmPinnedText');
+  const btnDeletePinned = $('#btnDeletePinned');
+  const bmToast = $('#bmToast');
+
+  let toastTimer = null;
+  function showToast(msg) {
+    if (!bmToast) return;
+    bmToast.textContent = msg;
+    bmToast.classList.add('show');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => {
+      bmToast.classList.remove('show');
+    }, 2400);
+  }
+
+  function scrollToTop() {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+  if (btnScrollTopCompact) btnScrollTopCompact.addEventListener('click', scrollToTop);
+  if (btnScrollTopPanel) btnScrollTopPanel.addEventListener('click', scrollToTop);
+
+  function toggleBookmarkPanel(force) {
+    if (!dock) return;
+    const willOpen = typeof force === 'boolean' ? force : !dock.classList.contains('open');
+    dock.classList.toggle('open', willOpen);
+  }
+  if (btnOpenBookmark) btnOpenBookmark.addEventListener('click', e => {
+    e.stopPropagation();
+    toggleBookmarkPanel();
+  });
+  if (btnCloseBookmark) btnCloseBookmark.addEventListener('click', e => {
+    e.stopPropagation();
+    toggleBookmarkPanel(false);
+  });
+
+  document.addEventListener('click', e => {
+    if (dock && dock.classList.contains('open')) {
+      if (!e.target.closest('#bookmarkDock')) {
+        toggleBookmarkPanel(false);
+      }
+    }
+  });
+
+  document.addEventListener('keydown', e => {
+    if (e.target.matches('input, textarea, select')) return;
+    if (e.key === 'Escape' && dock && dock.classList.contains('open')) {
+      toggleBookmarkPanel(false);
+    } else if (e.key === 'b' || e.key === 'B') {
+      toggleBookmarkPanel();
+    }
+  });
+
+  bmNavItems.forEach(item => {
+    item.addEventListener('click', () => {
+      if (window.innerWidth < 1200) {
+        toggleBookmarkPanel(false);
+      }
+    });
+  });
+
+  const PIN_KEY = 'edu_presentation_user_bookmark';
+  function loadPinnedBookmark() {
+    try {
+      const saved = localStorage.getItem(PIN_KEY);
+      if (saved) {
+        const data = JSON.parse(saved);
+        if (typeof data.y === 'number') {
+          if (bmPinnedText) bmPinnedText.textContent = data.title || '저장된 책갈피';
+          if (bmPinnedItem) bmPinnedItem.style.display = 'flex';
+          return;
+        }
+      }
+    } catch (_) {}
+    if (bmPinnedItem) bmPinnedItem.style.display = 'none';
+  }
+
+  if (btnPinPosition) {
+    btnPinPosition.addEventListener('click', () => {
+      const scrollY = window.scrollY;
+      const maxScroll = Math.max(1, document.documentElement.scrollHeight - window.innerHeight);
+      const pct = Math.min(100, Math.max(0, Math.round((scrollY / maxScroll) * 100)));
+      let curIdx = -1;
+      secs.forEach((s, i) => { if (s && s.offsetTop <= scrollY + 160) curIdx = i; });
+      let secName = '페이지 위치';
+      if (curIdx >= 0 && bmNavItems[curIdx]) {
+        const titleEl = bmNavItems[curIdx].querySelector('.bm-title');
+        secName = titleEl ? titleEl.textContent : (secs[curIdx] ? secs[curIdx].id : '페이지 위치');
+      }
+      const label = `${secName} (${pct}%)`;
+      try {
+        localStorage.setItem(PIN_KEY, JSON.stringify({ y: scrollY, title: label, time: Date.now() }));
+      } catch (_) {}
+      loadPinnedBookmark();
+      showToast('📌 현재 위치에 책갈피를 꽂았습니다.');
+    });
+  }
+
+  if (btnJumpPinned) {
+    btnJumpPinned.addEventListener('click', () => {
+      try {
+        const saved = localStorage.getItem(PIN_KEY);
+        if (saved) {
+          const data = JSON.parse(saved);
+          if (typeof data.y === 'number') {
+            window.scrollTo({ top: data.y, behavior: 'smooth' });
+            showToast(`🔖 저장된 책갈피(${data.title})로 이동했습니다.`);
+            if (window.innerWidth < 1200) toggleBookmarkPanel(false);
+            return;
+          }
+        }
+      } catch (_) {}
+      showToast('저장된 책갈피가 없습니다.');
+    });
+  }
+
+  if (btnDeletePinned) {
+    btnDeletePinned.addEventListener('click', e => {
+      e.stopPropagation();
+      try {
+        localStorage.removeItem(PIN_KEY);
+      } catch (_) {}
+      if (bmPinnedItem) bmPinnedItem.style.display = 'none';
+      showToast('책갈피를 삭제했습니다.');
+    });
+  }
+  loadPinnedBookmark();
+
   function markNav() {
     const y = window.scrollY + 120;
     let cur = -1;
     secs.forEach((s, i) => { if (s && s.offsetTop <= y) cur = i; });
     links.forEach((a, i) => a.classList.toggle('on', i === cur));
+    bmNavItems.forEach((a, i) => a.classList.toggle('on', i === cur));
+
+    const maxScroll = Math.max(1, document.documentElement.scrollHeight - window.innerHeight);
+    const pct = Math.min(100, Math.max(0, Math.round((window.scrollY / maxScroll) * 100)));
+    const pctStr = `${pct}%`;
+    if (bmProgressBar) bmProgressBar.style.width = pctStr;
+    if (bmCompactPct) bmCompactPct.textContent = pctStr;
+    if (bmHeaderPct) bmHeaderPct.textContent = pctStr;
+
+    if (btnScrollTopCompact) {
+      btnScrollTopCompact.classList.toggle('visible', window.scrollY > 250);
+    }
   }
   window.addEventListener('scroll', markNav, { passive: true });
 
