@@ -373,6 +373,88 @@ ol.three li::marker { font-family: var(--pxb); color: var(--teal); }
 .chk-title { font-size: 14px; line-height: 1.55; color: var(--ink); flex: 1; }
 .chk-link { font-family: var(--px); font-size: 12px; color: var(--dim); }
 @media (max-width: 640px) { .check-grid { grid-template-columns: minmax(0, 1fr); } }
+/* 07 현업 적용 & 지속 운영 액션플랜 */
+.plan-tag { font-family: var(--px); font-size: 11px; color: var(--hud); background: var(--yel); padding: 1px 7px; letter-spacing: 0; }
+#roadmap h4 { font-family: var(--pxb); font-size: 16px; font-weight: normal; color: var(--ink); margin: 0 0 8px; line-height: 1.4; }
+.loop { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 22px; counter-reset: none; }
+.loop-card {
+  position: relative; background: var(--card); border: 2px solid var(--ink); padding: 16px 16px 18px;
+  box-shadow: 4px 4px 0 var(--line); transition: transform .15s ease, box-shadow .15s ease;
+}
+.loop-card:hover { transform: translate(-2px, -2px); box-shadow: 6px 6px 0 var(--yel); }
+.loop-card:not(:last-child)::after {
+  content: "▶"; position: absolute; right: -19px; top: 50%; transform: translateY(-50%);
+  font-size: 13px; color: var(--ink); line-height: 1;
+}
+.loop-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; }
+.loop-no { font-family: var(--pxb); font-size: 15px; background: var(--hud); color: var(--yel); padding: 3px 9px; }
+.loop-en { font-family: var(--px); font-size: 11px; color: var(--dim); letter-spacing: .06em; text-transform: uppercase; }
+.loop-card p { font-size: 14px; line-height: 1.65; margin: 0; }
+.loop-back { font-family: var(--px); font-size: 12px; color: var(--dim); margin: 14px 0 0; text-align: right; max-width: none; }
+.loop-back span { color: var(--teal); font-size: 15px; }
+.cyc-tabs { display: flex; flex-wrap: wrap; gap: 6px; margin: 0 0 14px; }
+.cyc-tab {
+  font-family: var(--px); font-size: 12px; cursor: pointer; padding: 6px 14px; min-height: 32px;
+  background: var(--card); color: var(--body); border: 2px solid var(--line);
+}
+.cyc-tab:hover { border-color: var(--ink); color: var(--ink); }
+.cyc-tab.on { background: var(--hud); color: var(--yel); border-color: var(--hud); }
+.cyc-list { display: grid; gap: 10px; }
+.cyc-row {
+  display: grid; grid-template-columns: 120px minmax(0, 1fr) minmax(0, 1fr); gap: 0;
+  background: var(--card); border: 1px solid var(--line); border-left: 4px solid var(--line);
+  transition: opacity .2s ease, border-color .2s ease, transform .15s ease;
+}
+.cyc-row:hover { border-left-color: var(--yel); }
+.cyc-row > div { padding: 12px 14px; }
+.cyc-row > div + div { border-left: 1px dashed var(--line); }
+.cyc-when b { display: block; font-family: var(--pxb); font-weight: normal; font-size: 16px; color: var(--ink); }
+.cyc-when span { font-family: var(--px); font-size: 11px; color: var(--dim); }
+.cyc-do { display: flex; gap: 10px; align-items: flex-start; }
+.cyc-k { flex: none; font-family: var(--px); font-size: 11px; padding: 1px 6px; background: var(--paper-2); color: var(--ink); margin-top: 3px; }
+.cyc-do:last-child .cyc-k { background: var(--yel); color: #17191F; }
+.cyc-do p { margin: 0; font-size: 14px; line-height: 1.6; }
+.cyc-list.filtered .cyc-row { display: none; }
+.cyc-list.filtered .cyc-row.hit { display: grid; border-left-color: var(--yel); }
+.phases { list-style: none; margin: 0 0 14px; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0; }
+.phase { position: relative; padding: 0 14px 0 0; }
+.phase-bar {
+  display: flex; justify-content: space-between; align-items: center; gap: 8px;
+  background: var(--hud); color: var(--hud-ink); padding: 8px 18px 8px 12px; margin-bottom: 12px;
+  clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 50%, calc(100% - 12px) 100%, 0 100%);
+  transition: background .15s ease;
+}
+.phase:hover .phase-bar { background: var(--teal); }
+.phase-no { font-family: var(--pxb); font-size: 13px; color: var(--yel); }
+.phase-time { font-family: var(--px); font-size: 12px; color: var(--hud-ink); }
+.phase p { font-size: 14px; line-height: 1.65; margin: 0; }
+.phase .arr { color: var(--teal); font-weight: 700; }
+/* 첫 화면 요약 띠 */
+.ops-teaser {
+  display: flex; flex-wrap: wrap; align-items: center; gap: 8px 14px; margin-top: 18px;
+  background: var(--hud); color: var(--hud-ink); padding: 12px 16px; text-decoration: none;
+  border: 2px solid var(--hud); transition: border-color .15s ease;
+}
+.ops-teaser:hover { border-color: var(--yel); }
+.ops-teaser .ot-title { font-family: var(--pxb); font-size: 13px; color: var(--yel); }
+.ops-teaser .ot-steps { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; font-family: var(--px); font-size: 12px; }
+.ops-teaser .ot-steps i { font-style: normal; color: var(--hud-dim); }
+.ops-teaser .ot-steps b { font-weight: normal; border: 1px solid var(--hud-line); padding: 2px 7px; background: var(--hud-2); }
+.ops-teaser .ot-go { margin-left: auto; font-family: var(--px); font-size: 12px; color: var(--hud-dim); }
+@media (max-width: 900px) {
+  .loop { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .loop-card:nth-child(2)::after { display: none; }
+  .phases { grid-template-columns: minmax(0, 1fr); gap: 16px; }
+  .phase { padding: 0; }
+}
+@media (max-width: 640px) {
+  .loop { grid-template-columns: minmax(0, 1fr); gap: 26px; }
+  .loop-card:not(:last-child)::after { content: "▼"; right: auto; left: 50%; top: auto; bottom: -21px; transform: translateX(-50%); display: block; }
+  .cyc-row { grid-template-columns: minmax(0, 1fr); }
+  .cyc-row > div + div { border-left: 0; border-top: 1px dashed var(--line); }
+  .ops-teaser .ot-go { margin-left: 0; }
+}
+@media (prefers-reduced-motion: reduce) { .loop-card, .cyc-row, .phase-bar { transition: none; } .loop-card:hover { transform: none; } }
 /* 책갈피 패널 · 맨 위로 버튼 (화면을 따라다니고, 머리 부분을 끌어 위치를 옮길 수 있음) */
 .bm {
   position: fixed; z-index: 8; width: 228px;
@@ -466,6 +548,7 @@ ol.three li::marker { font-family: var(--pxb); color: var(--teal); }
       <a href="#results">04 분석 결과</a>
       <a href="#insight">05 인사이트</a>
       <a href="#conclusion">06 결론</a>
+      <a href="#roadmap">🚀 현업 적용 로드맵</a>
       <a href="#method">부록</a>
     </div>
   </div>
@@ -482,6 +565,11 @@ ol.three li::marker { font-family: var(--pxb); color: var(--teal); }
       <div class="dotfield-legend" id="dotfield-legend"></div>
     </div>
     <div class="byline"><span>데이터 기준일 <b id="gen-date"></b></span><span>교육기관 DB 6곳 + 고용24·NCS 공공 API (고용24는 2026년 운영 과정)</span><span>kimsaemi/edu-skill-gap</span></div>
+    <a class="ops-teaser" href="#roadmap">
+      <span class="ot-title">🚀 현업 적용 로드맵</span>
+      <span class="ot-steps"><b>도입</b><i>→</i><b>현업 활용</b><i>→</i><b>주기적 점검·조사</b><i>→</i><b>보완</b><i>→</i><b>전사 확장</b></span>
+      <span class="ot-go">07장에서 보기 →</span>
+    </a>
   </div>
 </header>
 
@@ -1127,6 +1215,90 @@ ol.three li::marker { font-family: var(--pxb); color: var(--teal); }
       </table>
     </div>
     <p class="note"><strong>한계</strong> 사람 평가는 팀원이 직접 했고, 270칸 중 <span id="cv-lt01-slots">132</span>칸에는 문맥 점수(리랭커)가 낮은 과정이 후보 부족으로 들어가 있습니다.</p>
+  </div>
+</section>
+
+<section id="roadmap">
+  <div class="wrap wide">
+    <div class="eyebrow"><b>07</b> 현업 적용 &amp; 지속 운영 액션플랜 <span class="plan-tag">계획안</span></div>
+    <h2>만들고 끝나는 툴이 아닌, 현업과 함께 성장하는 순환형 HRD 플랫폼</h2>
+    <p class="lead">교육 담당자(HRD)가 이 추천 서비스를 현업에 들이고, 주기적으로 점검하고, 보완해 전사로 넓히는 운영 계획입니다. 아직 실행 전인 계획이라 성과 숫자는 넣지 않았습니다.</p>
+
+    <h3 id="roadmap-loop">① 4단계 지속 순환 운영 루프</h3>
+    <ol class="loop" aria-label="적용, 확인, 보완, 확장을 반복하는 4단계 운영 루프">
+      <li class="loop-card">
+        <div class="loop-top"><span class="loop-no">01</span><span class="loop-en">Apply</span></div>
+        <h4>현업 적용</h4>
+        <p>연간 교육 수요조사(TNA), 승진자 사전 진단, 팀장-팀원 1on1 면담에 진단 링크를 기본 과제로 연동해 자발적·정기적 사용을 유도합니다.</p>
+      </li>
+      <li class="loop-card">
+        <div class="loop-top"><span class="loop-no">02</span><span class="loop-en">Check</span></div>
+        <h4>확인·조사</h4>
+        <p>진단 완료율, 영역별 역량 갭 분포, 추천 과정의 실제 수강·수료율, 챗봇이 답하지 못한 질문 기록을 주기적으로 살핍니다.</p>
+      </li>
+      <li class="loop-card">
+        <div class="loop-top"><span class="loop-no">03</span><span class="loop-en">Refine</span></div>
+        <h4>보완·고도화</h4>
+        <p>폐강·신규 과정 DB를 현행화하고, 답하지 못한 질문으로 사내 규정·FAQ 지식을 채우고, 현업 의견으로 직급별 행동 지표(Lv.0~3)를 다듬습니다.</p>
+      </li>
+      <li class="loop-card">
+        <div class="loop-top"><span class="loop-no">04</span><span class="loop-en">Scale</span></div>
+        <h4>단계적 확장</h4>
+        <p>HR 직무 파일럿을 확인한 뒤 사내 필수·리더십 교육 트랙과 연결하고, 같은 틀(영역-과업-수준-과정 연결)을 영업·기술/현장·기획 직군으로 넓힙니다.</p>
+      </li>
+    </ol>
+    <p class="loop-back" aria-hidden="true"><span>↻</span> 04 확장 후 다시 01 적용으로: 새 직군에서도 같은 순환을 반복합니다</p>
+
+    <h3 id="roadmap-calendar">② 교육 담당자 운영 캘린더</h3>
+    <div class="cyc-tabs" role="tablist" aria-label="운영 주기 선택">
+      <button type="button" role="tab" class="cyc-tab on" aria-selected="true" data-cyc="all">전체 보기</button>
+      <button type="button" role="tab" class="cyc-tab" aria-selected="false" data-cyc="m">월간</button>
+      <button type="button" role="tab" class="cyc-tab" aria-selected="false" data-cyc="q">분기</button>
+      <button type="button" role="tab" class="cyc-tab" aria-selected="false" data-cyc="h">반기</button>
+      <button type="button" role="tab" class="cyc-tab" aria-selected="false" data-cyc="y">연간</button>
+    </div>
+    <div class="cyc-list" id="cyc-list" aria-live="polite">
+      <div class="cyc-row" data-cyc="m">
+        <div class="cyc-when"><b>월간</b><span>Monthly</span></div>
+        <div class="cyc-do"><span class="cyc-k">점검</span><p>대시보드 접속·진단 완료 현황 점검, 챗봇 질문 기록에서 답하지 못한 키워드 추출</p></div>
+        <div class="cyc-do"><span class="cyc-k">보완</span><p>챗봇 FAQ와 사내 안내 문구를 바로 보완</p></div>
+      </div>
+      <div class="cyc-row" data-cyc="q">
+        <div class="cyc-when"><b>분기</b><span>Quarterly</span></div>
+        <div class="cyc-do"><span class="cyc-k">점검</span><p>추천 과정 클릭률과 실제 수강 신청·수료율 조사</p></div>
+        <div class="cyc-do"><span class="cyc-k">보완</span><p>신규 개설·폐강 과정 DB 현행화, 사내 LMS·고용보험 환급 과정 우선순위 재정렬</p></div>
+      </div>
+      <div class="cyc-row" data-cyc="h">
+        <div class="cyc-when"><b>반기</b><span>Semi-Annual</span></div>
+        <div class="cyc-do"><span class="cyc-k">점검</span><p>교육 이수자 대상 현업 적용도(학습 전이) 펄스 서베이와 재진단(역량 Lv 변화 추적)</p></div>
+        <div class="cyc-do"><span class="cyc-k">보완</span><p>조직별 취약 역량 리포트를 만들고 사내 집합·특강 과정 신설</p></div>
+      </div>
+      <div class="cyc-row" data-cyc="y">
+        <div class="cyc-when"><b>연간</b><span>Annual</span></div>
+        <div class="cyc-do"><span class="cyc-k">점검</span><p>차년도 교육 수요조사(TNA)와 연간 HRD 마스터플랜에 전사 진단 데이터 반영</p></div>
+        <div class="cyc-do"><span class="cyc-k">보완</span><p>직급별 표준 과업·숙련도 기준표(Lv.0~3) 개정, 다른 직군 대시보드로 확장</p></div>
+      </div>
+    </div>
+
+    <h3 id="roadmap-phases">③ 단계별 현업 확산 로드맵</h3>
+    <ol class="phases">
+      <li class="phase">
+        <div class="phase-bar"><span class="phase-no">Phase 1</span><span class="phase-time">1~2개월</span></div>
+        <h4>파일럿 &amp; 사내 맞춤화</h4>
+        <p>HR팀과 유관 부서에서 파일럿 테스트 <span class="arr">→</span> 자사 직급·호칭과 사내 LMS·환급 과정 연결 보완</p>
+      </li>
+      <li class="phase">
+        <div class="phase-bar"><span class="phase-no">Phase 2</span><span class="phase-time">3~6개월</span></div>
+        <h4>HR 프로세스 안착</h4>
+        <p>교육 수요조사(TNA)·승진자 과정·1on1 면담 도구로 공식 적용 <span class="arr">→</span> 분기별 이수율·기록 점검과 챗봇 지식 보강</p>
+      </li>
+      <li class="phase">
+        <div class="phase-bar"><span class="phase-no">Phase 3</span><span class="phase-time">6개월~</span></div>
+        <h4>전사 직군 확장</h4>
+        <p>사전·사후 역량 레벨 변화로 교육 효과(ROI) 확인 <span class="arr">→</span> 영업·현장·기획 등 핵심 직군으로 진단·추천 모델 확장</p>
+      </li>
+    </ol>
+    <p class="note">기간과 순서는 팀이 제안하는 계획안입니다. 회사 규모와 사내 시스템(LMS·인사 시스템) 연동 여부에 따라 달라질 수 있습니다.</p>
   </div>
 </section>
 
@@ -2331,6 +2503,28 @@ const D = {"eda":{"missing":[{"col":"title","label":"과정명","pct":0.0},{"col
   if (Array.isArray(st.pos)) place(st.pos[0] * window.innerWidth, st.pos[1] * window.innerHeight);
   const narrow = window.innerWidth < 1400;
   setMin(typeof st.min === 'boolean' ? st.min : narrow, true);
+})();
+</script>
+<script>
+'use strict';
+/* 07 운영 캘린더: 주기 필터 */
+(function () {
+  const list = document.getElementById('cyc-list');
+  if (!list) return;
+  const tabs = Array.from(document.querySelectorAll('.cyc-tab'));
+  function pick(cyc) {
+    tabs.forEach(b => { const on = b.dataset.cyc === cyc; b.classList.toggle('on', on); b.setAttribute('aria-selected', String(on)); });
+    list.classList.toggle('filtered', cyc !== 'all');
+    list.querySelectorAll('.cyc-row').forEach(r => r.classList.toggle('hit', r.dataset.cyc === cyc));
+  }
+  tabs.forEach(b => b.addEventListener('click', () => pick(b.dataset.cyc)));
+  document.querySelector('.cyc-tabs').addEventListener('keydown', e => {
+    const i = tabs.indexOf(document.activeElement);
+    if (i < 0 || (e.key !== 'ArrowRight' && e.key !== 'ArrowLeft')) return;
+    e.preventDefault();
+    const n = tabs[(i + (e.key === 'ArrowRight' ? 1 : tabs.length - 1)) % tabs.length];
+    n.focus(); pick(n.dataset.cyc);
+  });
 })();
 </script>
 
