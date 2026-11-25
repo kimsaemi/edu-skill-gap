@@ -118,6 +118,7 @@ h2 { font-family: var(--pxb); font-size: clamp(24px, 4.2vw, 32px); line-height: 
 h3 { font-family: var(--sans); font-size: 20px; line-height: 1.45; font-weight: 700; margin: 40px 0 12px; }
 p { margin: 0 0 18px; max-width: 65ch; }
 strong { color: var(--ink); font-weight: 700; }
+.hud strong { color: var(--hud-ink); }  /* 검은 HUD 상자 안에서는 밝은 글자색 (진한 글자가 배경에 묻히던 문제) */
 mark { background: linear-gradient(transparent 55%, var(--mark) 55%); color: var(--ink); padding: 0 1px; }
 .lead { font-size: 19px; color: var(--ink); }
 .note { font-size: 14px; color: var(--dim); line-height: 1.6; }
@@ -1570,10 +1571,18 @@ const D = {"eda":{"missing":[{"col":"title","label":"과정명","pct":0.0},{"col
     const bgap = bw >= 6 ? 2 : bw >= 3 ? 1 : 0;
     const H = items.length * (rowH + gap) - gap;
     const svg = el('svg', { viewBox: `0 0 ${W} ${H}`, role: 'img', 'aria-label': opt.aria || '' });
+    host.appendChild(svg);  // 글자 폭을 재려면 먼저 화면에 붙어 있어야 한다
     items.forEach((d, i) => {
       const y = i * (rowH + gap);
       const lab = el('text', { x: 0, y: y + rowH / 2 + 4 }, d.label);
       svg.appendChild(lab);
+      // 라벨이 막대 칸을 넘으면 실제 글자 폭을 재서 줄이고, 전체 이름은 마우스를 올리면 보이게 한다
+      if (lab.getComputedTextLength && lab.getComputedTextLength() > labelW - 8) {
+        const full = String(d.label).replace(/…$/, '');
+        let t = full;
+        while (t.length > 1 && lab.getComputedTextLength() > labelW - 8) { t = t.slice(0, -1); lab.textContent = t + '…'; }
+        const tip = el('title', {}, full); lab.appendChild(tip);
+      }
       const full = Math.floor(d.n / opt.unit), part = d.n / opt.unit - full;
       const color = opt.color ? opt.color(i, d) : css('--yel');
       for (let b = 0; b <= full; b++) {
@@ -1584,7 +1593,6 @@ const D = {"eda":{"missing":[{"col":"title","label":"과정명","pct":0.0},{"col
       const used = Math.min(barW, (d.n / opt.unit) * bw);
       svg.appendChild(el('text', { x: labelW + used + 6, y: y + rowH / 2 + 4, class: 'v' }, opt.fmt ? opt.fmt(d) : fmt(d.n)));
     });
-    host.appendChild(svg);
   }
 
   /* ---------- 100칸 띠 (1칸 = 1%) ---------- */
