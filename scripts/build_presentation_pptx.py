@@ -204,7 +204,7 @@ else:
 # ==========================================
 # 4. Presentation Helper Functions
 # ==========================================
-TOTAL_SLIDES = 25  # 진행 경과(22) → 추가 검증 노트 1장 + 현업 적용 로드맵 2장 추가로 25
+TOTAL_SLIDES = 23  # 빈 틀 2장(협업·회고) 삭제 후 23장
 prs = pptx.Presentation()
 prs.slide_width = Inches(13.333)
 prs.slide_height = Inches(7.5)
@@ -1123,7 +1123,7 @@ add_text_lines(s16, 0.88, 1.72, 5.4, 4.7, [
 add_card(s16, 6.75, 1.5, 5.9, 5.15, fill=C_HUD, border=C_HUD_LINE)
 add_text_lines(s16, 7.0, 1.72, 5.4, 4.7, [
     "향후 개선 제안 (로드맵)",
-    "1. 타 직종 제외 등 개선안 추가 검증: 갈린 7개 과정에서 개선안 쪽이 높았으나(76.9% vs 50.0%) 표본이 작아 더 많은 업무로 다시 확인할 예정",
+    "1. 타 직종 제외 등 개선안 추가 검증: 기본 전용 7개 과정(판정 14건) 50.0% vs 개선안 전용 7개 과정(판정 13건) 76.9%로 개선안 쪽이 높았으나 표본이 작아 더 많은 업무로 다시 확인할 예정",
     "2. 평가 기준 정렬: 평가 전에 적합·부분 적합 판정 예시를 공유해 기준 맞추기",
     "3. 과업 설명 보강: BM25와 차이가 나지 않은 업무를 골라 업무 설명(KSA) 보강 후 재평가",
     f"4. 데이터·모델·피드백: 결측 보완 및 고용24 월간 갱신, 반복 추천 감점·미연결 과업 {rec['needs_review']}개 NCS 보강, 수강 후 도움 피드백 수집"
@@ -1171,7 +1171,7 @@ add_text_lines(s_ops, 0.65, 4.18, 12.0, 0.3, ["↻ 04 확장 후 다시 01 적�
 ops_phase = [
     ("Phase 1", "1~2개월", "파일럿 & 사내 맞춤화", "HR팀·유관 부서 파일럿 → 자사 직급·호칭과 사내 LMS·환급 과정 연결 보완"),
     ("Phase 2", "3~6개월", "HR 프로세스 안착", "TNA·승진자 과정·1on1 면담 도구로 공식 적용 → 분기별 이수율·기록 점검, 챗봇 지식 보강"),
-    ("Phase 3", "6개월~", "전사 직군 확장", "사전·사후 역량 레벨 변화로 교육 효과(ROI) 확인 → 영업·현장·기획 직군으로 진단·추천 모델 확장"),
+    ("Phase 3", "6개월~", "전사 직군 확장", "사전·사후 역량 레벨 변화로 교육 효과 확인 → 영업·현장·기획 직군으로 진단·추천 모델 확장"),
 ]
 for k, (ph, period, title, desc) in enumerate(ops_phase):
     x = 0.65 + k * 4.08
@@ -1268,71 +1268,71 @@ add_text_lines(s_proc, 0.9, 5.7, 11.6, 0.8, [
 
 
 # ==========================================
-# SLIDE 17: ⑧ 회고 - 팀 협업 및 역할 분담 ([팀 작성 필요])
+# SLIDE 17, 18: [팀 작성 필요] 빈 틀 슬라이드는 팀 입력 전까지 생성하지 않음
+# (팀 내용 입력 시 INCLUDE_TEAM_RETRO = True 로 전환해 복원 가능)
 # ==========================================
-s17 = add_slide_base(
-    "팀 협업 및 역할 분담",
-    section_tag="⑧ 회고",
-    subtitle_text="팀원별 담당 영역과 협업 방식 (작성 대기 빈 틀)",
-    slide_num=22
-)
+INCLUDE_TEAM_RETRO = False
 
-for idx in range(4):
-    x = 0.65 + idx * 3.05
-    add_card(s17, x, 1.55, 2.85, 3.2, border=C_TEAL, border_pt=1.5)
-    add_text_lines(s17, x + 0.2, 1.8, 2.45, 2.7, [
-        f"팀원 {idx + 1}: [팀 작성 필요]",
-        "• 담당 영역: [팀 작성 필요]",
-        "• 주요 기여: [팀 작성 필요]",
-        "• 사용 기술: [팀 작성 필요]"
-    ], font_size=12.5, color=C_BODY, bold_first=True, line_spacing=1.45)
+if INCLUDE_TEAM_RETRO:
+    s17 = add_slide_base(
+        "팀 협업 및 역할 분담",
+        section_tag="⑧ 회고",
+        subtitle_text="팀원별 담당 영역과 협업 방식 (작성 대기 빈 틀)",
+        slide_num=22
+    )
 
-add_card(s17, 0.65, 5.0, 12.0, 1.65, border=C_LINE)
-add_text_lines(s17, 0.9, 5.2, 11.5, 1.25, [
-    "팀 협업 프로세스 & 소통 방식",
-    "[팀 작성 필요] — Git 브랜치 전략, 주간 회의, 데이터·평가 교차 검증 협업 방식을 작성해 주세요."
-], font_size=13.5, color=C_DIM, bold_first=True)
+    for idx in range(4):
+        x = 0.65 + idx * 3.05
+        add_card(s17, x, 1.55, 2.85, 3.2, border=C_TEAL, border_pt=1.5)
+        add_text_lines(s17, x + 0.2, 1.8, 2.45, 2.7, [
+            f"팀원 {idx + 1}: [팀 작성 필요]",
+            "• 담당 영역: [팀 작성 필요]",
+            "• 주요 기여: [팀 작성 필요]",
+            "• 사용 기술: [팀 작성 필요]"
+        ], font_size=12.5, color=C_BODY, bold_first=True, line_spacing=1.45)
+
+    add_card(s17, 0.65, 5.0, 12.0, 1.65, border=C_LINE)
+    add_text_lines(s17, 0.9, 5.2, 11.5, 1.25, [
+        "팀 협업 프로세스 & 소통 방식",
+        "[팀 작성 필요] — Git 브랜치 전략, 주간 회의, 데이터·평가 교차 검증 협업 방식을 작성해 주세요."
+    ], font_size=13.5, color=C_DIM, bold_first=True)
+
+    s18 = add_slide_base(
+        "프로젝트 회고: 협업 · 어려웠던 점 · 배운 점",
+        section_tag="⑧ 회고",
+        subtitle_text="프로젝트를 마치며 팀원들이 직접 작성할 회고 공간입니다.",
+        slide_num=23
+    )
+
+    retro_boxes = [
+        ("1. 팀 협업에서 잘된 점", C_TEAL),
+        ("2. 프로젝트 중 어려웠던 점 & 극복", C_RUST),
+        ("3. 프로젝트를 통해 배운 점 & 다음 목표", C_BLUE)
+    ]
+
+    for idx, (r_title, col) in enumerate(retro_boxes):
+        x = 0.65 + idx * 4.1
+        add_card(s18, x, 1.55, 3.85, 5.1, border=col, border_pt=1.5)
+        hdr = s18.shapes.add_shape(MSO_SHAPE.RECTANGLE, Inches(x), Inches(1.55), Inches(3.85), Inches(0.55))
+        style_shape(hdr, col)
+        add_text_lines(s18, x + 0.2, 1.68, 3.45, 0.35, [r_title], font_size=14, color=C_CARD, bold_first=True)
+        add_text_lines(s18, x + 0.25, 2.4, 3.35, 3.8, [
+            "[팀 작성 필요]",
+            "",
+            "• 내용 1:",
+            "• 내용 2:",
+            "• 내용 3:"
+        ], font_size=14, color=C_DIM, bold_first=True, line_spacing=1.5)
 
 
 # ==========================================
-# SLIDE 18: ⑧ 회고 - 3칸 빈 틀 ([팀 작성 필요])
-# ==========================================
-s18 = add_slide_base(
-    "프로젝트 회고: 협업 · 어려웠던 점 · 배운 점",
-    section_tag="⑧ 회고",
-    subtitle_text="프로젝트를 마치며 팀원들이 직접 작성할 회고 공간입니다.",
-    slide_num=23
-)
-
-retro_boxes = [
-    ("1. 팀 협업에서 잘된 점", C_TEAL),
-    ("2. 프로젝트 중 어려웠던 점 & 극복", C_RUST),
-    ("3. 프로젝트를 통해 배운 점 & 다음 목표", C_BLUE)
-]
-
-for idx, (r_title, col) in enumerate(retro_boxes):
-    x = 0.65 + idx * 4.1
-    add_card(s18, x, 1.55, 3.85, 5.1, border=col, border_pt=1.5)
-    hdr = s18.shapes.add_shape(MSO_SHAPE.RECTANGLE, Inches(x), Inches(1.55), Inches(3.85), Inches(0.55))
-    style_shape(hdr, col)
-    add_text_lines(s18, x + 0.2, 1.68, 3.45, 0.35, [r_title], font_size=14, color=C_CARD, bold_first=True)
-    add_text_lines(s18, x + 0.25, 2.4, 3.35, 3.8, [
-        "[팀 작성 필요]",
-        "",
-        "• 내용 1:",
-        "• 내용 2:",
-        "• 내용 3:"
-    ], font_size=14, color=C_DIM, bold_first=True, line_spacing=1.5)
-
-
-# ==========================================
-# SLIDE 19: 부록 - 용어 풀이 표 (Glossary)
+# SLIDE 22: 부록 - 용어 풀이 표 (Glossary)
 # ==========================================
 s19 = add_slide_base(
     "부록: 핵심 용어 풀이",
     section_tag="부록 · 용어 정리",
     subtitle_text="발표에 나오는 핵심 용어를 쉬운 말로 풀이",
-    slide_num=24
+    slide_num=22
 )
 
 tbl_s19 = s19.shapes.add_table(9, 2, Inches(0.65), Inches(1.48), Inches(12.0), Inches(5.25)).table
@@ -1357,14 +1357,14 @@ style_table(tbl_s19, font_size=12)
 
 
 # ==========================================
-# SLIDE 20: 마무리 - Q&A & 링크 (Dark Theme)
+# SLIDE 23: 마무리 - Q&A & 링크 (Dark Theme)
 # ==========================================
 s20 = add_slide_base(
     "감사합니다 · Q&A",
     section_tag="마무리",
     subtitle_text="인사 교육 지도 프로젝트 결과물 및 소스 코드 안내",
     is_dark=True,
-    slide_num=25
+    slide_num=23
 )
 
 add_card(s20, 0.65, 1.6, 12.0, 3.05, is_dark=True, border=C_TEAL, border_pt=1.5)

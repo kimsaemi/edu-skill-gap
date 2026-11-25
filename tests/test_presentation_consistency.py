@@ -137,6 +137,33 @@ class TestPresentationConsistency(unittest.TestCase):
         cpc.check_data_json_values(fake_ref, issues)
         self.assertTrue(any(i["type"] == "REF_KEYS_UNVERIFIED" for i in issues))
 
+    def test_placeholder_checker_with_final_flag(self):
+        """플레이스홀더('[팀 작성 필요]', '작성 대기', 'TODO', 'TBD') 감지 시 기본 실행은 경고 통과(exit 0), --final 시 실패(exit 1) 확인"""
+        orig_read_text = Path.read_text
+
+        def _mock_read_with_placeholder(self, *args, **kwargs):
+            content = orig_read_text(self, *args, **kwargs)
+            if self.name == "SCRIPT.md":
+                return content + "\n\n팀원 1: [팀 작성 필요]\n"
+            return content
+
+        # 1. 기본 실행 (is_final=False): issues에 포함되지 않고 통과
+        with patch.object(Path, "read_text", _mock_read_with_placeholder):
+            _, issues = cpc.run_checks(is_final=False)
+            self.assertEqual(len(issues), 0, "기본 실행에서 플레이스홀더로 인해 실패했습니다.")
+
+        # 2. --final 실행 (is_final=True): issues에 포함되어 실패 감지
+        with patch.object(Path, "read_text", _mock_read_with_placeholder):
+            _, issues = cpc.run_checks(is_final=True)
+            self.assertTrue(any(i["type"] == "PLACEHOLDER_FOUND" for i in issues), "--final 모드에서 플레이스홀더를 감지하지 못했습니다.")
+
+        # 3. main()에 sys.argv=['...', '--final'] 전달 시 sys.exit(1) 호출 확인
+        with patch.object(Path, "read_text", _mock_read_with_placeholder), \
+             patch("sys.argv", ["check_presentation_consistency.py", "--final"]), \
+             patch("sys.exit") as mock_exit:
+            cpc.main()
+            mock_exit.assert_called_with(1)
+
 
 if __name__ == "__main__":
     unittest.main()
