@@ -203,7 +203,7 @@ else:
 # ==========================================
 # 4. Presentation Helper Functions
 # ==========================================
-TOTAL_SLIDES = 22  # 진행 경과 슬라이드 추가로 21 → 22
+TOTAL_SLIDES = 25  # 진행 경과(22) → 추가 검증 노트 1장 + 현업 적용 로드맵 2장 추가로 25
 prs = pptx.Presentation()
 prs.slide_width = Inches(13.333)
 prs.slide_height = Inches(7.5)
@@ -900,13 +900,62 @@ add_text_lines(s11_cmp, 7.0, 3.7, 5.4, 2.8, [
 
 
 # ==========================================
+# SLIDE 12: ④ 핵심 분석 - 추가 검증 노트 4가지 (대시보드 04장 '검증 노트')
+# ==========================================
+s_chk = add_slide_base(
+    "결과가 단단한가: 추가 검증 노트 4가지",
+    section_tag="④ 핵심 분석 지표 설명",
+    subtitle_text="①·②는 H1·H2를 '부분 채택'으로 정한 근거, ③·④는 추천과 전략에 반영할 점 (대시보드 04장 '검증 노트')",
+    slide_num=12
+)
+chk_h1 = [s["pct"] for s in eda["robust"]["h1_scenarios"]]
+chk_cards = [
+    ("1", "결측 편향", "→ H1 부분 채택", C_YEL, [
+        "난이도 표기는 대부분 GSEEK·휴넷 두 기관에서 나옴",
+        f"어느 기관을 넣느냐에 따라 초급 비율이 {min(chk_h1):.1f}~{max(chk_h1):.1f}%로 움직임",
+        f"두 기관을 빼면 초급 {h1_no_gh_pct:.1f}%로 중급과 비슷"]),
+    ("2", "H2 민감도", "→ H2 부분 채택", C_YEL, [
+        "의미 기준값 0.55·0.60·0.65, 같은 제목 묶기에도 하위 3개(노무·보상·조직문화) 그대로",
+        "키워드로 세면 보상·조직문화가 많게 나와 엇갈림",
+        "주제 단어 과정은 있지만 업무 설명에 맞는 과정은 적다고 해석"]),
+    ("3", "기관 편중", "→ 추천·지표에 반영", C_TEAL, [
+        f"인사 과정 중 KPC {kpc_hr_pct:.1f}% → 뜻이 가까운 상위 후보 {kpc_pool_pct:.1f}%",
+        f"최종 추천 Top 3 점유 {bias_top3:.1f}% (후보 단계에서 생기고 추천 단계에서 줄어듦)",
+        "원인은 일부만 설명됨. 기관별 비중을 지표로 계속 관리"]),
+    ("4", "비용 × 수준", "→ 전략에 반영", C_TEAL, [
+        f"중급 이상 유료 가격 중앙값 {mid_price:,}원",
+        f"중급 이상 중 국비 지원 과정 {mid_gov_pct:.1f}%",
+        "예산이 적은 실무자에게는 고용24 과정이 중급으로 가는 길"]),
+]
+for k, (num, title, verdict, accent, lines) in enumerate(chk_cards):
+    x = 0.65 + k * 3.06
+    add_card(s_chk, x, 1.55, 2.9, 4.95)
+    strip = s_chk.shapes.add_shape(MSO_SHAPE.RECTANGLE, Inches(x), Inches(1.55), Inches(2.9), Inches(0.07))
+    style_shape(strip, accent)
+    badge = s_chk.shapes.add_shape(MSO_SHAPE.RECTANGLE, Inches(x + 0.2), Inches(1.8), Inches(0.42), Inches(0.38))
+    style_shape(badge, C_HUD)
+    btf = badge.text_frame
+    btf.margin_left = btf.margin_right = btf.margin_top = btf.margin_bottom = 0
+    bp = btf.paragraphs[0]
+    bp.text = num
+    bp.alignment = PP_ALIGN.CENTER
+    bp.font.name = FONT_NAME
+    bp.font.size = Pt(14)
+    bp.font.bold = True
+    bp.font.color.rgb = C_YEL
+    add_text_lines(s_chk, x + 0.75, 1.82, 2.0, 0.4, [title], font_size=15, color=C_INK, bold_first=True)
+    add_text_lines(s_chk, x + 0.2, 2.35, 2.5, 0.35, [verdict], font_size=11.5, color=C_TEAL if accent == C_TEAL else C_WARN_INK, bold_first=True)
+    add_text_lines(s_chk, x + 0.2, 2.85, 2.5, 3.5, ["• " + s for s in lines], font_size=11.5, color=C_BODY, line_spacing=1.2)
+
+
+# ==========================================
 # SLIDE 12: ⑤ 대시보드 시각화 공유 - 오차막대 & 인사 교육 지도
 # ==========================================
 s11 = add_slide_base(
     "대시보드 시각화 ①: 사람 평가 오차막대와 인사 교육 지도",
     section_tag="⑤ 대시보드 시각화 공유",
     subtitle_text=f"라이브 대시보드 확인: {DASHBOARD_URL}/#human-eval  |  {DASHBOARD_URL}/#course-map-fig",
-    slide_num=12
+    slide_num=13
 )
 
 add_card(s11, 0.65, 1.48, 6.2, 5.28, is_dark=True)
@@ -932,7 +981,7 @@ s12 = add_slide_base(
     "대시보드 시각화 ②: 기관 쏠림과 실무 사례 '급여 담당자'",
     section_tag="⑤ 대시보드 시각화 공유",
     subtitle_text=f"라이브 대시보드 확인: {DASHBOARD_URL}/#ch-bias  |  {DASHBOARD_URL}/#explorer",
-    slide_num=13
+    slide_num=14
 )
 
 add_card(s12, 0.65, 1.48, 5.9, 5.28, is_dark=True)
@@ -959,7 +1008,7 @@ s13 = add_slide_base(
     "인사이트 ①: 중급 비용 장벽과 노무·보상·조직문화 공백",
     section_tag="⑥ 비즈니스 인사이트 도출",
     subtitle_text="대시보드 05장 인사이트 카드 1~2 (데이터 기반 발견 → 의미 → 전략)",
-    slide_num=14
+    slide_num=15
 )
 
 ins12 = [
@@ -991,7 +1040,7 @@ s14 = add_slide_base(
     "인사이트 ②: 평점 한계·데이터 노후화·기관 쏠림",
     section_tag="⑥ 비즈니스 인사이트 도출",
     subtitle_text="대시보드 05장 인사이트 카드 3~5 (발견 · 의미 · 전략)",
-    slide_num=15
+    slide_num=16
 )
 
 ins345 = [
@@ -1028,7 +1077,7 @@ s15 = add_slide_base(
     "개선 제안 & 액션 플랜 (So What → Now What)",
     section_tag="⑦ 개선 제안 & 액션 플랜",
     subtitle_text="발견된 5가지 인사이트에 대한 구체적 실행 계획 및 기대 효과",
-    slide_num=16
+    slide_num=17
 )
 
 tbl_s15 = s15.shapes.add_table(6, 4, Inches(0.65), Inches(1.5), Inches(12.0), Inches(5.15)).table
@@ -1058,7 +1107,7 @@ s16 = add_slide_base(
     "시스템의 남은 한계와 검증 고도화 계획",
     section_tag="⑦ 개선 제안 & 액션 플랜",
     subtitle_text="평가·데이터·추천에 남은 한계를 숨기지 않고 밝힙니다",
-    slide_num=17
+    slide_num=18
 )
 
 add_card(s16, 0.65, 1.5, 5.85, 5.15, fill=C_WARN_BG, border=C_RUST)
@@ -1082,13 +1131,99 @@ add_text_lines(s16, 7.0, 1.72, 5.4, 4.7, [
 
 
 # ==========================================
+# SLIDE 19: ⑦ 현업 적용 & 지속 운영 ① - 순환 루프 + 확산 로드맵 (대시보드 07장, 계획안)
+# ==========================================
+s_ops = add_slide_base(
+    "현업 적용 & 지속 운영: 만들고 끝나지 않는 순환형 HRD 플랫폼",
+    section_tag="⑦ 개선 제안 & 액션 플랜 · 계획안",
+    subtitle_text="교육 담당자(HRD)가 도입 → 현업 활용 → 주기적 점검·조사 → 보완 → 전사 확장을 반복하는 운영 계획 (실행 전 계획이라 성과 숫자 없음)",
+    slide_num=19
+)
+ops_loop = [
+    ("01", "현업 적용", "Apply", "TNA(교육 수요조사)·승진자 사전 진단·팀장-팀원 1on1 면담에 진단 링크를 기본 과제로 연동"),
+    ("02", "확인·조사", "Check", "진단 완료율, 영역별 역량 갭, 추천 과정 수강·수료율, 챗봇이 답하지 못한 질문 기록을 주기적으로 확인"),
+    ("03", "보완·고도화", "Refine", "폐강·신규 과정 DB 현행화, 사내 규정·FAQ 지식 보강, 직급별 행동 지표(Lv.0~3) 다듬기"),
+    ("04", "단계적 확장", "Scale", "HR 파일럿 확인 후 사내 필수·리더십 트랙과 연결, 같은 틀을 영업·기술/현장·기획 직군으로 확장"),
+]
+for k, (no, title, en, desc) in enumerate(ops_loop):
+    x = 0.65 + k * 3.06
+    add_card(s_ops, x, 1.55, 2.78, 2.55, fill=C_CARD, border=C_INK, border_pt=1.5)
+    nb = s_ops.shapes.add_shape(MSO_SHAPE.RECTANGLE, Inches(x + 0.18), Inches(1.72), Inches(0.55), Inches(0.36))
+    style_shape(nb, C_HUD)
+    ntf = nb.text_frame
+    ntf.margin_left = ntf.margin_right = ntf.margin_top = ntf.margin_bottom = 0
+    np_ = ntf.paragraphs[0]
+    np_.text = no
+    np_.alignment = PP_ALIGN.CENTER
+    np_.font.name = FONT_NAME
+    np_.font.size = Pt(13)
+    np_.font.bold = True
+    np_.font.color.rgb = C_YEL
+    add_text_lines(s_ops, x + 1.85, 1.78, 0.8, 0.3, [en.upper()], font_size=9.5, color=C_DIM)
+    add_text_lines(s_ops, x + 0.18, 2.2, 2.45, 0.4, [title], font_size=15, color=C_INK, bold_first=True)
+    add_text_lines(s_ops, x + 0.18, 2.65, 2.45, 1.4, [desc], font_size=11, color=C_BODY, line_spacing=1.2)
+    if k < 3:
+        ar = s_ops.shapes.add_shape(MSO_SHAPE.RIGHT_ARROW, Inches(x + 2.82), Inches(2.67), Inches(0.2), Inches(0.3))
+        style_shape(ar, C_INK)
+add_text_lines(s_ops, 0.65, 4.18, 12.0, 0.3, ["↻ 04 확장 후 다시 01 적용으로: 새 직군에서도 같은 순환을 반복합니다"], font_size=10.5, color=C_TEAL)
+
+ops_phase = [
+    ("Phase 1", "1~2개월", "파일럿 & 사내 맞춤화", "HR팀·유관 부서 파일럿 → 자사 직급·호칭과 사내 LMS·환급 과정 연결 보완"),
+    ("Phase 2", "3~6개월", "HR 프로세스 안착", "TNA·승진자 과정·1on1 면담 도구로 공식 적용 → 분기별 이수율·기록 점검, 챗봇 지식 보강"),
+    ("Phase 3", "6개월~", "전사 직군 확장", "사전·사후 역량 레벨 변화로 교육 효과(ROI) 확인 → 영업·현장·기획 직군으로 진단·추천 모델 확장"),
+]
+for k, (ph, period, title, desc) in enumerate(ops_phase):
+    x = 0.65 + k * 4.08
+    bar = s_ops.shapes.add_shape(MSO_SHAPE.PENTAGON, Inches(x), Inches(4.65), Inches(3.95), Inches(0.45))
+    style_shape(bar, C_HUD)
+    btf = bar.text_frame
+    btf.margin_left = Inches(0.15)
+    btf.margin_top = btf.margin_bottom = 0
+    bp = btf.paragraphs[0]
+    r_a = bp.add_run(); r_a.text = ph + "   "
+    r_a.font.name = FONT_NAME; r_a.font.size = Pt(12); r_a.font.bold = True; r_a.font.color.rgb = C_YEL
+    r_b = bp.add_run(); r_b.text = period
+    r_b.font.name = FONT_NAME; r_b.font.size = Pt(11); r_b.font.color.rgb = C_HUD_INK
+    add_text_lines(s_ops, x + 0.05, 5.22, 3.8, 0.35, [title], font_size=13.5, color=C_INK, bold_first=True)
+    add_text_lines(s_ops, x + 0.05, 5.62, 3.75, 1.2, [desc], font_size=11, color=C_BODY, line_spacing=1.2)
+add_text_lines(s_ops, 0.65, 6.72, 12.0, 0.3, ["기간과 순서는 팀이 제안하는 계획안입니다. 회사 규모와 사내 시스템(LMS·인사 시스템) 연동 여부에 따라 달라질 수 있습니다."], font_size=9.5, color=C_DIM)
+
+
+# ==========================================
+# SLIDE 20: ⑦ 현업 적용 & 지속 운영 ② - 교육 담당자 운영 캘린더 (계획안)
+# ==========================================
+s_cal = add_slide_base(
+    "교육 담당자 운영 캘린더: 월간 · 분기 · 반기 · 연간",
+    section_tag="⑦ 개선 제안 & 액션 플랜 · 계획안",
+    subtitle_text="주기마다 '점검'과 '보완'을 짝으로 운영합니다 (대시보드 07장 운영 캘린더와 같은 내용)",
+    slide_num=20
+)
+tbl_cal = s_cal.shapes.add_table(5, 3, Inches(0.65), Inches(1.55), Inches(12.0), Inches(4.9)).table
+tbl_cal.columns[0].width = Inches(1.9)
+tbl_cal.columns[1].width = Inches(5.05)
+tbl_cal.columns[2].width = Inches(5.05)
+rows_cal = [
+    ["주기", "점검 (확인·조사)", "보완 (바로 고칠 것)"],
+    ["월간\nMonthly", "대시보드 접속·진단 완료 현황 점검\n챗봇 질문 기록에서 답하지 못한 키워드 추출", "챗봇 FAQ와 사내 안내 문구를 바로 보완"],
+    ["분기\nQuarterly", "추천 과정 클릭률과 실제 수강 신청·수료율 조사", "신규 개설·폐강 과정 DB 현행화\n사내 LMS·고용보험 환급 과정 우선순위 재정렬"],
+    ["반기\nSemi-Annual", "교육 이수자 대상 현업 적용도(학습 전이) 펄스 서베이\n재진단으로 역량 Lv 변화 추적", "조직별 취약 역량 리포트 작성\n사내 집합·특강 과정 신설"],
+    ["연간\nAnnual", "차년도 교육 수요조사(TNA)와 연간 HRD 마스터플랜에 전사 진단 데이터 반영", "직급별 표준 과업·숙련도 기준표(Lv.0~3) 개정\n다른 직군 대시보드로 확장"],
+]
+for r_i, row in enumerate(rows_cal):
+    for c_i, val in enumerate(row):
+        tbl_cal.cell(r_i, c_i).text = val
+style_table(tbl_cal, font_size=12.5)
+add_text_lines(s_cal, 0.65, 6.6, 12.0, 0.3, ["발표 시연: 대시보드 07장에서 [월간]·[연간] 필터를 눌러 해당 주기만 보여 줄 수 있습니다."], font_size=10, color=C_DIM)
+
+
+# ==========================================
 # SLIDE 18: ⑧ 회고 - 프로젝트 진행 경과 (데이터 수집부터 발표까지)
 # ==========================================
 s_proc = add_slide_base(
     "프로젝트 진행 경과: 데이터 수집부터 발표까지",
     section_tag="⑧ 회고",
     subtitle_text=f"공공 API 30개 강좌로 시작 → {kpi['courses']:,}개 카탈로그 → 90개 업무 추천 → 사람 평가 5회 → 발표·고객 대시보드 (2026년 10~11월)",
-    slide_num=18
+    slide_num=21
 )
 proc_r1 = r1["precision_at_3"]["strict"]
 proc_r2 = r2["precision_at_3"]["strict"]
@@ -1138,7 +1273,7 @@ s17 = add_slide_base(
     "팀 협업 및 역할 분담",
     section_tag="⑧ 회고",
     subtitle_text="팀원별 담당 영역과 협업 방식 (작성 대기 빈 틀)",
-    slide_num=19
+    slide_num=22
 )
 
 for idx in range(4):
@@ -1165,7 +1300,7 @@ s18 = add_slide_base(
     "프로젝트 회고: 협업 · 어려웠던 점 · 배운 점",
     section_tag="⑧ 회고",
     subtitle_text="프로젝트를 마치며 팀원들이 직접 작성할 회고 공간입니다.",
-    slide_num=20
+    slide_num=23
 )
 
 retro_boxes = [
@@ -1196,7 +1331,7 @@ s19 = add_slide_base(
     "부록: 핵심 용어 풀이",
     section_tag="부록 · 용어 정리",
     subtitle_text="발표에 나오는 핵심 용어를 쉬운 말로 풀이",
-    slide_num=21
+    slide_num=24
 )
 
 tbl_s19 = s19.shapes.add_table(9, 2, Inches(0.65), Inches(1.48), Inches(12.0), Inches(5.25)).table
@@ -1228,7 +1363,7 @@ s20 = add_slide_base(
     section_tag="마무리",
     subtitle_text="인사 교육 지도 프로젝트 결과물 및 소스 코드 안내",
     is_dark=True,
-    slide_num=22
+    slide_num=25
 )
 
 add_card(s20, 0.65, 1.7, 12.0, 2.7, is_dark=True, border=C_TEAL, border_pt=1.5)
