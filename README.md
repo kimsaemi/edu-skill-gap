@@ -13,7 +13,7 @@
 
 | 구분 | 파일 | 실행 |
 | :--- | :--- | :--- |
-| **고객 서비스** (v2.1) | `customer_dashboard/streamlit_customer.py` | `streamlit run app.py` |
+| **고객 서비스** (v2.1) | `customer_dashboard/streamlit_customer.py` (배포: https://edu-skill-gap-mwjmnxwoxkjjgeyakprw2y.streamlit.app/) | `streamlit run app.py` |
 | **발표 자료** | `presentation/index.html` (배포: https://hr-edu-map.vercel.app) | 브라우저로 열기 |
 | 내부 분석 대시보드 | `app/streamlit_integrated.py` | `streamlit run app/streamlit_integrated.py` |
 | 발표용 marimo 대시보드 | `app_marimo.py` → `dashboard.html` | `marimo export html app_marimo.py -o dashboard.html` |
