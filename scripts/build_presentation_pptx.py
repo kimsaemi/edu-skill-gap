@@ -6,6 +6,7 @@ Output: presentation/HR_교육지도_발표.pptx
 """
 import json
 import os
+import sys
 import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
@@ -191,12 +192,18 @@ def generate_data_charts():
     plt.close()
 
 
-generate_data_charts()
+# --reuse-charts: 한글 글꼴(Malgun Gothic)이 없는 PC에서는 그림을 다시 그리지 않고 presentation/charts 의 기존 PNG를 쓴다
+# (그림의 데이터가 바뀌었다면 글꼴이 있는 PC에서 이 옵션 없이 다시 만들어야 한다)
+if "--reuse-charts" in sys.argv:
+    print("기존 차트 PNG 재사용 (--reuse-charts)")
+else:
+    generate_data_charts()
 
 
 # ==========================================
 # 4. Presentation Helper Functions
 # ==========================================
+TOTAL_SLIDES = 22  # 진행 경과 슬라이드 추가로 21 → 22
 prs = pptx.Presentation()
 prs.slide_width = Inches(13.333)
 prs.slide_height = Inches(7.5)
@@ -260,7 +267,7 @@ def add_slide_base(title_text, section_tag=None, subtitle_text=None, is_dark=Fal
         ftf = ft.text_frame
         ftf.margin_left = ftf.margin_top = ftf.margin_right = ftf.margin_bottom = 0
         fp = ftf.paragraphs[0]
-        fp.text = f"인사 교육 지도 (kimsaemi/edu-skill-gap)  |  {DASHBOARD_URL}  |  {slide_num} / 21"
+        fp.text = f"인사 교육 지도 (kimsaemi/edu-skill-gap)  |  {DASHBOARD_URL}  |  {slide_num} / {TOTAL_SLIDES}"
         fp.alignment = PP_ALIGN.RIGHT
         fp.font.name = FONT_NAME
         fp.font.size = Pt(9.5)
@@ -1073,6 +1080,57 @@ add_text_lines(s16, 7.0, 1.72, 5.4, 4.7, [
 ], font_size=12, color=C_HUD_INK, bold_first=True, line_spacing=1.24)
 
 
+
+# ==========================================
+# SLIDE 18: ⑧ 회고 - 프로젝트 진행 경과 (데이터 수집부터 발표까지)
+# ==========================================
+s_proc = add_slide_base(
+    "프로젝트 진행 경과: 데이터 수집부터 발표까지",
+    section_tag="⑧ 회고",
+    subtitle_text=f"공공 API 30개 강좌로 시작 → {kpi['courses']:,}개 카탈로그 → 90개 업무 추천 → 사람 평가 5회 → 발표·고객 대시보드 (2026년 10~11월)",
+    slide_num=18
+)
+proc_r1 = r1["precision_at_3"]["strict"]
+proc_r2 = r2["precision_at_3"]["strict"]
+proc_blocked = next(c["n"] for c in eda["cleaning"] if c["key"] == "BLOCKED_PAGE_REMOVED")
+proc_steps = [
+    ("1", "10월 초~10/14", "첫 탐색", ["공공 API 3개로 강좌 30개", "팀원 수집 295건 텍스트 분석", "통합 대시보드(분석 탭 10개)"]),
+    ("2", "10/17~10/28", "수집 확대", ["고용24·인프런·휴넷·KPC·KMA·GSEEK 등", "고용24 상세 설명 보강 (2026 최신 회차 574개)"]),
+    ("3", "10/25~10/31", "정제·범위 확정", [f"차단 안내문 {proc_blocked:,}건 등 정제", "인사 9개 분야·90개 업무 확정", "팀원 4명이 183개 과정 분야 검수", f"{kpi['courses']:,}개 · 제외 {kpi['off_topic']:,}개"]),
+    ("4", "10/31~11/05", "추천 엔진", ["의미 유사도 + 키워드 + 난이도", "2단계 리랭커로 순서 재정렬", f"3개 미만 칸 46 → {rec['lt3']}"]),
+    ("5", "11/02~11/14", "사람 평가", [f"1차 {proc_r1:.1f}% → 2차 {proc_r2:.1f}%", f"처음 보는 30개 업무 {ho_all_p3:.1f}%", "키워드 검색 비교·가짜 추천 검정"]),
+    ("6", "10/26~11/14", "발표 자료", ["멘토 가이드 6단계 구조", "멘토 피드백: 결론 먼저·사례 추가", "3C 비교·기관 쏠림 분석·숫자 자동 점검"]),
+    ("7", "11/16~11/24", "서비스·검증", ["AI 상담·자료 질문 검색", "외부 AI 독립 검증 2회", "지적받은 숫자·문구 정정"]),
+]
+proc_x0, proc_w, proc_gap, proc_y = 0.65, 1.62, 0.115, 1.95
+# 타임라인 선
+proc_line = s_proc.shapes.add_shape(MSO_SHAPE.RECTANGLE, Inches(proc_x0 + 0.3), Inches(proc_y - 0.33), Inches(12.03 - 0.6), Inches(0.04))
+style_shape(proc_line, C_LINE)
+for k, (num, dates, title, lines) in enumerate(proc_steps):
+    x = proc_x0 + k * (proc_w + proc_gap)
+    dot = s_proc.shapes.add_shape(MSO_SHAPE.OVAL, Inches(x + proc_w / 2 - 0.17), Inches(proc_y - 0.48), Inches(0.34), Inches(0.34))
+    style_shape(dot, C_YEL if k in (4, 6) else C_TEAL)
+    dtf = dot.text_frame
+    dtf.margin_left = dtf.margin_right = dtf.margin_top = dtf.margin_bottom = 0
+    dp = dtf.paragraphs[0]
+    dp.text = num
+    dp.alignment = PP_ALIGN.CENTER
+    dp.font.name = FONT_NAME
+    dp.font.size = Pt(11)
+    dp.font.bold = True
+    dp.font.color.rgb = C_INK if k in (4, 6) else C_CARD
+    add_card(s_proc, x, proc_y, proc_w, 3.2)
+    add_text_lines(s_proc, x + 0.12, proc_y + 0.12, proc_w - 0.24, 0.3, [dates], font_size=9.5, color=C_DIM)
+    add_text_lines(s_proc, x + 0.12, proc_y + 0.42, proc_w - 0.24, 0.4, [title], font_size=13, color=C_INK, bold_first=True)
+    add_text_lines(s_proc, x + 0.12, proc_y + 0.92, proc_w - 0.24, 2.5, ["• " + t for t in lines], font_size=10, color=C_BODY, line_spacing=1.15)
+
+add_card(s_proc, 0.65, 5.55, 12.03, 0.98, fill=C_HUD, border=C_HUD)
+add_text_lines(s_proc, 0.9, 5.7, 11.6, 0.8, [
+    ("지켜 온 원칙  ", "① 지어내지 않기: 사람 판정·결과·출처를 만들지 않음   ② 숫자는 파일에서: 화면·PPT·대본 숫자를 결과 파일과 자동 대조"),
+    ("", f"③ 한계도 밝히기: 사람 평가 {ho_all_p3:.1f}%는 목표 70%에 못 미침, 개선안은 표본이 작아 재확인 예정, 기관 쏠림은 원인 분석 단계"),
+], font_size=11.5, color=C_HUD_INK, line_spacing=1.2)
+
+
 # ==========================================
 # SLIDE 17: ⑧ 회고 - 팀 협업 및 역할 분담 ([팀 작성 필요])
 # ==========================================
@@ -1080,7 +1138,7 @@ s17 = add_slide_base(
     "팀 협업 및 역할 분담",
     section_tag="⑧ 회고",
     subtitle_text="팀원별 담당 영역과 협업 방식 (작성 대기 빈 틀)",
-    slide_num=18
+    slide_num=19
 )
 
 for idx in range(4):
@@ -1107,7 +1165,7 @@ s18 = add_slide_base(
     "프로젝트 회고: 협업 · 어려웠던 점 · 배운 점",
     section_tag="⑧ 회고",
     subtitle_text="프로젝트를 마치며 팀원들이 직접 작성할 회고 공간입니다.",
-    slide_num=19
+    slide_num=20
 )
 
 retro_boxes = [
@@ -1138,7 +1196,7 @@ s19 = add_slide_base(
     "부록: 핵심 용어 풀이",
     section_tag="부록 · 용어 정리",
     subtitle_text="발표 대시보드 '용어 정리' 기준",
-    slide_num=20
+    slide_num=21
 )
 
 tbl_s19 = s19.shapes.add_table(9, 2, Inches(0.65), Inches(1.48), Inches(12.0), Inches(5.25)).table
@@ -1170,7 +1228,7 @@ s20 = add_slide_base(
     section_tag="마무리",
     subtitle_text="인사 교육 지도 프로젝트 결과물 및 소스 코드 안내",
     is_dark=True,
-    slide_num=21
+    slide_num=22
 )
 
 add_card(s20, 0.65, 1.7, 12.0, 2.7, is_dark=True, border=C_TEAL, border_pt=1.5)
