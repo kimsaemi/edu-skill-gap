@@ -75,6 +75,7 @@ C_WARN_INK = RGBColor(143, 53, 32)     # --warn-ink: #8F3520
 
 FONT_NAME = "Malgun Gothic"
 DASHBOARD_URL = "https://hr-edu-map.vercel.app"
+CUSTOMER_URL = "https://edu-skill-gap-mwjmnxwoxkjjgeyakprw2y.streamlit.app"  # 고객용 대시보드 (Streamlit Cloud)
 GITHUB_URL = "https://github.com/kimsaemi/edu-skill-gap"
 
 
@@ -980,7 +981,7 @@ add_text_lines(s11, 7.25, 5.7, 5.2, 0.98, [
 s12 = add_slide_base(
     "대시보드 시각화 ②: 기관 쏠림과 실무 사례 '급여 담당자'",
     section_tag="⑤ 대시보드 시각화 공유",
-    subtitle_text=f"라이브 대시보드 확인: {DASHBOARD_URL}/#ch-bias  |  {DASHBOARD_URL}/#explorer",
+    subtitle_text=f"발표 대시보드: {DASHBOARD_URL}/#ch-bias  |  실제 서비스(고객용 대시보드): {CUSTOMER_URL}",
     slide_num=14
 )
 
@@ -1366,16 +1367,17 @@ s20 = add_slide_base(
     slide_num=25
 )
 
-add_card(s20, 0.65, 1.7, 12.0, 2.7, is_dark=True, border=C_TEAL, border_pt=1.5)
-add_text_lines(s20, 1.0, 2.0, 11.3, 2.1, [
+add_card(s20, 0.65, 1.6, 12.0, 3.05, is_dark=True, border=C_TEAL, border_pt=1.5)
+add_text_lines(s20, 1.0, 1.85, 11.3, 2.7, [
     "프로젝트 링크 안내",
+    ("• 고객용 대시보드 (실제 서비스): ", CUSTOMER_URL),
     ("• 인터랙티브 발표 대시보드: ", DASHBOARD_URL),
     ("• GitHub 저장소: ", GITHUB_URL),
     ("• 생성 스크립트: ", "scripts/build_presentation_pptx.py  (presentation/src/data.json 기반 자동 생성)")
 ], font_size=16, color=C_HUD_INK, bold_first=True, line_spacing=1.5)
 
-add_card(s20, 0.65, 4.7, 12.0, 1.7, is_dark=True)
-add_text_lines(s20, 1.0, 4.98, 11.3, 1.2, [
+add_card(s20, 0.65, 4.85, 12.0, 1.6, is_dark=True)
+add_text_lines(s20, 1.0, 5.1, 11.3, 1.2, [
     "질의응답 (Q&A)",
     "데이터 수집·전처리, 2단계 추천 알고리즘, 사람 평가 검증 과정에 대해 궁금하신 점을 질문해 주세요."
 ], font_size=15, color=C_YEL, bold_first=True, line_spacing=1.4)

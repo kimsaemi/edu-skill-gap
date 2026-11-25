@@ -373,6 +373,15 @@ ol.three li::marker { font-family: var(--pxb); color: var(--teal); }
 .chk-title { font-size: 14px; line-height: 1.55; color: var(--ink); flex: 1; }
 .chk-link { font-family: var(--px); font-size: 12px; color: var(--dim); }
 @media (max-width: 640px) { .check-grid { grid-template-columns: minmax(0, 1fr); } }
+/* 고객용 대시보드 링크 */
+.byline a.cust-link { color: var(--teal); font-weight: 700; text-decoration: underline; text-underline-offset: 3px; }
+.cust-cta { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; grid-template-areas: "tag t go" "tag s go"; gap: 2px 14px; align-items: center; margin: 14px 0 0; padding: 12px 16px; text-decoration: none; background: var(--card); border: 2px solid var(--ink); box-shadow: 3px 3px 0 var(--line); transition: transform .15s ease, box-shadow .15s ease; }
+.cust-cta:hover { transform: translate(-2px, -2px); box-shadow: 5px 5px 0 var(--yel); }
+.cc-tag { grid-area: tag; font-family: var(--px); font-size: 11px; background: var(--hud); color: var(--yel); padding: 3px 8px; }
+.cc-t { grid-area: t; font-family: var(--pxb); font-size: 15px; color: var(--ink); }
+.cc-s { grid-area: s; font-size: 13px; color: var(--dim); line-height: 1.5; }
+.cc-go { grid-area: go; font-family: var(--px); font-size: 12px; color: var(--ink); border: 1px solid var(--ink); padding: 4px 10px; white-space: nowrap; }
+@media (max-width: 640px) { .cust-cta { grid-template-columns: minmax(0, 1fr); grid-template-areas: "tag" "t" "s" "go"; } .cc-tag, .cc-go { justify-self: start; } }
 /* 04 분석 결과 가독성 */
 .verdicts { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; margin: 0 0 14px; }
 .vd { display: flex; flex-direction: column; gap: 8px; text-decoration: none; background: var(--card); border: 2px solid var(--ink); padding: 12px 12px 14px; box-shadow: 3px 3px 0 var(--line); transition: transform .15s ease, box-shadow .15s ease; }
@@ -613,7 +622,7 @@ h3.hypo .pill { font-size: 12px; padding: 3px 10px; }
       <canvas id="dotfield" width="880" height="160"></canvas>
       <div class="dotfield-legend" id="dotfield-legend"></div>
     </div>
-    <div class="byline"><span>데이터 기준일 <b id="gen-date"></b></span><span>교육기관 DB 6곳 + 고용24·NCS 공공 API (고용24는 2026년 운영 과정)</span><span>kimsaemi/edu-skill-gap</span></div>
+    <div class="byline"><span>데이터 기준일 <b id="gen-date"></b></span><span>교육기관 DB 6곳 + 고용24·NCS 공공 API (고용24는 2026년 운영 과정)</span><span>kimsaemi/edu-skill-gap</span><span><a class="cust-link" href="https://edu-skill-gap-mwjmnxwoxkjjgeyakprw2y.streamlit.app/" target="_blank" rel="noopener">고객용 대시보드 열기 ↗</a></span></div>
     <a class="ops-teaser" href="#roadmap">
       <span class="ot-title">🚀 현업 적용 로드맵</span>
       <span class="ot-steps"><b>도입</b><i>→</i><b>현업 활용</b><i>→</i><b>주기적 점검·조사</b><i>→</i><b>보완</b><i>→</i><b>전사 확장</b></span>
@@ -722,6 +731,12 @@ h3.hypo .pill { font-size: 12px; padding: 3px 10px; }
           </div>
         </div>
       </figure>
+      <a class="cust-cta" href="https://edu-skill-gap-mwjmnxwoxkjjgeyakprw2y.streamlit.app/" target="_blank" rel="noopener">
+        <span class="cc-tag">실제 서비스</span>
+        <span class="cc-t">고객용 대시보드에서 직접 써 보기</span>
+        <span class="cc-s">위 탐색기는 발표용 미리보기입니다. 실제 서비스 화면(Streamlit)에서 업무를 고르고 추천을 받아 볼 수 있습니다.</span>
+        <span class="cc-go">새 탭으로 열기 ↗</span>
+      </a>
     </div>
 
     <h3>서비스 배경</h3>
@@ -1421,7 +1436,7 @@ h3.hypo .pill { font-size: 12px; padding: 3px 10px; }
 
 <footer>
   <div class="wrap">
-    <p><b>인사 교육 지도</b><br>NCS 기반 인사 맞춤형 교육과정 추천 프로젝트 발표 자료. 저장소: kimsaemi/edu-skill-gap</p>
+    <p><b>인사 교육 지도</b><br>NCS 기반 인사 맞춤형 교육과정 추천 프로젝트 발표 자료. 저장소: kimsaemi/edu-skill-gap<br>고객용 대시보드: <a href="https://edu-skill-gap-mwjmnxwoxkjjgeyakprw2y.streamlit.app/" target="_blank" rel="noopener" style="color:var(--yel);">https://edu-skill-gap-mwjmnxwoxkjjgeyakprw2y.streamlit.app/</a></p>
     <p>데이터: 교육기관별 공개 과정 정보, 고용24 Open API, 공공데이터포털 NCS API. 과정 정보의 저작권은 각 교육기관에 있습니다. 픽셀 글꼴: 갈무리(Galmuri, SIL Open Font License 1.1).</p>
     <p class="reference" style="margin-top:1.25rem;padding-top:1.25rem;border-top:1px solid rgba(255,255,255,0.12);font-size:0.85rem;line-height:1.6;color:var(--hud-dim,#9aa0a9);">참고: 언더스코어 × MBC 《PD수첩》, 「AI의 등장 이후 고용 시장은 어떻게 변화했을까?」 (<a href="https://korean-labor-market-after-ai.vercel.app" target="_blank" rel="noopener" style="color:var(--yel);text-decoration:underline;">https://korean-labor-market-after-ai.vercel.app</a>). 결론 먼저 쓰기, 결과를 흔들 수 있는 다른 요인 점검, 한계를 번호로 밝히기, 오차 범위 함께 그리기 방식을 참고했습니다. 비교 대상·위약 검정과 선행 연구 정리는 다음 단계에서 진행합니다.</p>
   </div>
