@@ -1057,7 +1057,7 @@ style_table(tbl_s15, font_size=11.5)
 s16 = add_slide_base(
     "시스템의 남은 한계와 검증 고도화 계획",
     section_tag="⑦ 개선 제안 & 액션 플랜",
-    subtitle_text="대시보드 06장 '읽을 때 알아 둘 것' 기반 솔직한 한계 명시",
+    subtitle_text="평가·데이터·추천에 남은 한계를 숨기지 않고 밝힙니다",
     slide_num=17
 )
 
@@ -1195,7 +1195,7 @@ for idx, (r_title, col) in enumerate(retro_boxes):
 s19 = add_slide_base(
     "부록: 핵심 용어 풀이",
     section_tag="부록 · 용어 정리",
-    subtitle_text="발표 대시보드 '용어 정리' 기준",
+    subtitle_text="발표에 나오는 핵심 용어를 쉬운 말로 풀이",
     slide_num=21
 )
 
