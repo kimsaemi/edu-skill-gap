@@ -395,6 +395,21 @@ h3.hypo .pill { font-size: 12px; padding: 3px 10px; }
 .band .wrap > h3#res-checks { border-top: 0; margin-top: 6px; padding-top: 0; }
 .band-tag { display: inline-block; margin-top: 24px; font-family: var(--px); font-size: 11px; color: var(--paper); background: var(--teal); padding: 2px 8px; }
 .band .tbl, .band table { background: var(--card); }
+.ck-tabs { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; margin: 6px 0 8px; }
+.ck-tab { display: grid; gap: 4px; text-align: left; cursor: pointer; font: inherit; background: var(--card); color: var(--body); border: 2px solid var(--line); padding: 10px 12px; transition: border-color .15s ease, transform .15s ease; }
+.ck-tab:hover { border-color: var(--ink); }
+.ck-tab b { justify-self: start; font-family: var(--pxb); font-weight: normal; font-size: 13px; line-height: 1; color: var(--paper); background: var(--teal); padding: 4px 8px; }
+.ck-tab .ck-n { font-family: var(--pxb); font-size: 14px; color: var(--ink); }
+.ck-tab .ck-r { font-size: 13px; line-height: 1.5; color: var(--dim); }
+.ck-tab.on { border-color: var(--ink); background: var(--hud); box-shadow: 3px 3px 0 var(--yel); }
+.ck-tab.on b { color: var(--hud); background: var(--yel); } .ck-tab.on .ck-n { color: var(--hud-ink); } .ck-tab.on .ck-r { color: var(--hud-dim); }
+.ck-hint { font-size: 13px; color: var(--dim); margin: 0 0 4px; max-width: none; }
+.ck-all { font: inherit; font-family: var(--px); font-size: 12px; cursor: pointer; margin-left: 6px; padding: 2px 10px; background: var(--card); color: var(--ink); border: 1px solid var(--line); }
+.ck-all:hover, .ck-all[aria-pressed="true"] { border-color: var(--ink); }
+.ck-panel { display: none; }
+.ck-panel.on, .band.ck-open .ck-panel { display: block; }
+.band.ck-open .ck-panel + .ck-panel { border-top: 1px dashed var(--line); margin-top: 18px; }
+@media (max-width: 760px) { .ck-tabs { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 .tbl.heval th { white-space: normal; min-width: 64px; }
 .tbl.heval td:nth-child(2), .tbl.heval td:nth-child(3) { white-space: nowrap; }
 @media (max-width: 900px) { .verdicts { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
@@ -1078,7 +1093,17 @@ h3.hypo .pill { font-size: 12px; padding: 3px 10px; }
   <div class="wrap">
     <div class="band-tag">검증 노트</div>
     <h3 id="res-checks">결과가 단단한가 · 추가 검증</h3>
-    <p>가설을 채택하기 전에, 결측이나 방법 선택 때문에 결과가 달라지지 않는지 네 가지를 확인했습니다.</p>
+    <p>가설을 채택하기 전에, 결측이나 방법 선택 때문에 결과가 달라지지 않는지 네 가지를 확인했습니다. ①·②는 H1·H2를 '부분 채택'으로 정한 근거이고, ③·④는 추천과 전략에 반영할 점입니다.</p>
+    <div class="ck-tabs" role="tablist" aria-label="추가 검증 네 가지">
+      <button type="button" role="tab" class="ck-tab on" aria-selected="true" data-ck="1"><b>1</b><span class="ck-n">결측 편향</span><span class="ck-r">난이도 표기가 두 기관에 몰려 H1은 부분 채택</span></button>
+      <button type="button" role="tab" class="ck-tab" aria-selected="false" data-ck="2"><b>2</b><span class="ck-n">H2 민감도</span><span class="ck-r">의미 기준은 안정적, 키워드 기준과는 엇갈려 H2도 부분 채택</span></button>
+      <button type="button" role="tab" class="ck-tab" aria-selected="false" data-ck="3"><b>3</b><span class="ck-n">기관 편중</span><span class="ck-r">후보 단계에서 생기고 추천 단계에서 줄어듦</span></button>
+      <button type="button" role="tab" class="ck-tab" aria-selected="false" data-ck="4"><b>4</b><span class="ck-n">비용 × 수준</span><span class="ck-r">중급 이상은 비싸고 국비 과정이 대안</span></button>
+    </div>
+    <p class="ck-hint">카드를 누르면 아래에 그 검증의 근거 표·그림이 나옵니다. <button type="button" class="ck-all" aria-pressed="false">네 가지 모두 펼치기</button></p>
+  </div>
+  <div class="ck-panel on" data-ck="1" role="tabpanel">
+  <div class="wrap">
     <h3 class="h4" id="h1-scenarios">① 결측 편향: 난이도 표기는 두 기관에서만 나옵니다</h3>
     <p>난이도를 표기한 과정의 <strong><span id="rb-ls"></span></strong>입니다. 한국능률협회·한국생산성본부는 난이도가 거의 비어 있고, GSEEK·휴넷은 시간이 비어 있습니다. 그래서 H1의 초급 비율은 어느 기관을 넣느냐에 따라 <strong><span id="rb-h1min"></span>~<span id="rb-h1max"></span>%</strong>로 움직입니다. 두 기관을 빼면 초급이 <span class="h1-min"></span>%로 중급과 비슷해지므로, <strong>H1은 부분 채택</strong>으로 판단했습니다.</p>
   </div>
@@ -1098,19 +1123,30 @@ h3.hypo .pill { font-size: 12px; padding: 3px 10px; }
       </figure>
     </div>
   </div>
+  </div>
+  <div class="ck-panel" data-ck="2" role="tabpanel">
   <div class="wrap">
     <h3 class="h4" id="h2-sensitivity">② H2 민감도: 의미 기준은 안정적, 키워드 기준과는 엇갈립니다</h3>
     <p>기준값(0.55·0.60·0.65)을 바꾸거나 같은 제목을 하나로 묶어도 의미 기준의 하위 3개는 노무·보상·조직문화로 같습니다. 키워드로 세면 보상(급여 계산·회계 과정)과 조직문화가 많게 나옵니다. <strong>급여 계산처럼 주제 단어가 들어간 과정은 있지만, 보상 설계나 노무 실무처럼 업무 설명에 맞는 과정은 적다</strong>고 해석했고, H2는 부분 채택으로 표시했습니다.</p>
     <div class="tbl"><table class="rank"><thead><tr><th>영역</th><th>의미 0.55</th><th>의미 0.60</th><th>의미 0.65</th><th>0.60 + 중복 제거</th><th>키워드</th></tr></thead><tbody id="tb-sens"></tbody></table></div>
     <p class="note">칸 숫자는 과정 수, 괄호는 9개 영역 중 적은 순위(1 = 가장 적음). 하위 3위는 강조 표시.<span class="mv-note"></span></p>
-    <h3 class="h4">③ 기관 편중: 의미 검색 단계에서 생기고, 추천 단계에서 줄어듭니다</h3>
+  </div>
+  </div>
+  <div class="ck-panel" data-ck="3" role="tabpanel">
+  <div class="wrap">
+    <h3 class="h4" id="ck-bias">③ 기관 편중: 의미 검색 단계에서 생기고, 추천 단계에서 줄어듭니다</h3>
     <p>과업마다 뜻이 가까운 후보 50개를 뽑으면 한국생산성본부가 절반을 넘습니다. 같은 과정을 회차별로 따로 등록한 영향을 걷어내도 <span class="kpc-dedup"></span>%이고, 길이가 비슷한 과정끼리 비교해도 유사도가 높습니다. 왜 상위 후보에 많이 들어가는지는 아직 일부만 설명됩니다. <strong>사람 평가에서 KPC 추천의 적합률은 <span class="kpc-eval-kpc"></span>%로 다른 기관(<span class="kpc-eval-oth"></span>%)보다 낮지 않았지만</strong>, 같은 과정의 반복 판정을 고려하면 확실한 우위는 아닙니다. 기관별 비중은 지표로 계속 지켜봅니다.</p>
     <div class="tbl"><table><thead><tr><th>기관</th><th>카탈로그</th><th>뜻이 가까운 후보</th><th>제목 중복 제거 후</th><th>추천 Top 3</th><th>제목당 등록 수</th></tr></thead><tbody id="tb-bias"></tbody></table></div>
     <p class="note"><span class="mv-note"></span></p>
-    <h3 class="h4">④ 비용 × 수준: 중급 이상은 비싸고, 국비 과정이 대안입니다</h3>
+  </div>
+  </div>
+  <div class="ck-panel" data-ck="4" role="tabpanel">
+  <div class="wrap">
+    <h3 class="h4" id="ck-cost">④ 비용 × 수준: 중급 이상은 비싸고, 국비 과정이 대안입니다</h3>
     <p>인사 분야에서 30만 원 이하로 들을 수 있는 과정은 초급의 대부분이지만 중급은 소수입니다. 중급 이상 <span id="rb-mid"></span>개 중 <strong><span id="rb-midgov"></span>개(<span id="rb-midgovp"></span>%)가 국비 지원 과정</strong>이라, 예산이 적은 실무자에게는 고용24 과정이 사실상 중급으로 가는 길입니다.</p>
     <div class="tbl"><table><thead><tr><th>수준</th><th>과정 수</th><th>유료 가격 중앙값</th><th>30만 원 이하 비율</th><th>시간 중앙값</th><th>국비 지원 비율</th></tr></thead><tbody id="tb-cost"></tbody></table></div>
     <p class="note">가격이 확인된 과정 기준입니다. 휴넷은 가격, GSEEK·휴넷은 시간이 비어 있어 이 표에 덜 반영됩니다.</p>
+  </div>
   </div>
   </div>
   <div class="wrap">
@@ -2416,7 +2452,7 @@ const D = /*__DATA__*/;
   function mark() {
     const y = window.scrollY + 140;
     let hit = null;
-    for (const f of flat) { if (f.el.getBoundingClientRect().top + window.scrollY <= y) hit = f; }
+    for (const f of flat) { if (f.el.getClientRects().length && f.el.getBoundingClientRect().top + window.scrollY <= y) hit = f; }
     const docH = document.documentElement.scrollHeight - window.innerHeight;
     prog.style.width = (docH > 0 ? Math.min(100, window.scrollY / docH * 100) : 0) + '%';
     totop.classList.toggle('show', window.scrollY > 600);
@@ -2449,7 +2485,7 @@ const D = /*__DATA__*/;
   $('#bm-add').addEventListener('click', () => {
     const y = window.scrollY + 140;
     let hit = flat[0];
-    for (const f of flat) { if (f.el.getBoundingClientRect().top + window.scrollY <= y) hit = f; }
+    for (const f of flat) { if (f.el.getClientRects().length && f.el.getBoundingClientRect().top + window.scrollY <= y) hit = f; }
     if (!hit) return;
     const items = (st.mine || []).filter(m => m.id !== hit.id);
     items.push({ id: hit.id, label: hit.label });
@@ -2571,5 +2607,49 @@ const D = /*__DATA__*/;
     const n = tabs[(i + (e.key === 'ArrowRight' ? 1 : tabs.length - 1)) % tabs.length];
     n.focus(); pick(n.dataset.cyc);
   });
+})();
+</script>
+<script>
+'use strict';
+/* 04 추가 검증: 네 가지를 하나의 카드 묶음으로 (카드 선택 → 근거 표시) */
+(function () {
+  const band = document.getElementById('res-checks-band');
+  if (!band) return;
+  const tabs = Array.from(band.querySelectorAll('.ck-tab'));
+  const panels = Array.from(band.querySelectorAll('.ck-panel'));
+  const allBtn = band.querySelector('.ck-all');
+  function pick(k) {
+    band.classList.remove('ck-open'); allBtn.setAttribute('aria-pressed', 'false'); allBtn.textContent = '네 가지 모두 펼치기';
+    tabs.forEach(b => { const on = b.dataset.ck === k; b.classList.toggle('on', on); b.setAttribute('aria-selected', String(on)); });
+    panels.forEach(p => p.classList.toggle('on', p.dataset.ck === k));
+    window.dispatchEvent(new Event('resize'));   // 숨어 있던 그림을 다시 그림
+  }
+  tabs.forEach(b => b.addEventListener('click', () => pick(b.dataset.ck)));
+  band.querySelector('.ck-tabs').addEventListener('keydown', e => {
+    const i = tabs.indexOf(document.activeElement);
+    if (i < 0 || (e.key !== 'ArrowRight' && e.key !== 'ArrowLeft')) return;
+    e.preventDefault();
+    const n = tabs[(i + (e.key === 'ArrowRight' ? 1 : tabs.length - 1)) % tabs.length];
+    n.focus(); pick(n.dataset.ck);
+  });
+  allBtn.addEventListener('click', () => {
+    const open = !band.classList.contains('ck-open');
+    band.classList.toggle('ck-open', open);
+    allBtn.setAttribute('aria-pressed', String(open));
+    allBtn.textContent = open ? '하나씩 보기' : '네 가지 모두 펼치기';
+    window.dispatchEvent(new Event('resize'));
+  });
+  // 다른 곳의 링크(요약 카드·책갈피)가 숨은 검증을 가리키면 그 카드를 먼저 연다
+  function reveal(id) {
+    const el = id && document.getElementById(id);
+    const panel = el && el.closest('.ck-panel');
+    if (panel && !panel.classList.contains('on') && !band.classList.contains('ck-open')) pick(panel.dataset.ck);
+  }
+  document.addEventListener('click', e => {
+    const a = e.target.closest('a[href^="#"]');
+    if (a) reveal(a.getAttribute('href').slice(1));
+  }, true);
+  window.addEventListener('hashchange', () => reveal(location.hash.slice(1)));
+  if (location.hash) reveal(location.hash.slice(1));
 })();
 </script>
