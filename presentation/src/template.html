@@ -361,6 +361,86 @@ table.metric small { color: var(--dim); font-size: 11px; }
 ol.three { padding-left: 22px; display: grid; gap: 10px; margin: 0 0 26px; }
 ol.three li { font-size: 18px; color: var(--ink); line-height: 1.6; }
 ol.three li::marker { font-family: var(--pxb); color: var(--teal); }
+/* 책갈피 패널 · 맨 위로 버튼 (화면을 따라다니고, 머리 부분을 끌어 위치를 옮길 수 있음) */
+.bm {
+  position: fixed; z-index: 8; width: 228px;
+  right: max(16px, env(safe-area-inset-right, 0px)); top: calc(var(--nav-h) + 24px);
+  background: var(--hud); color: var(--hud-ink);
+  border: 2px solid var(--hud-line); box-shadow: 4px 4px 0 rgba(0, 0, 0, .28);
+  font-family: var(--px); font-size: 12px; line-height: 1.5;
+  display: flex; flex-direction: column; max-height: calc(100vh - var(--nav-h) - 48px);
+}
+.bm.dragging { box-shadow: 6px 6px 0 rgba(0, 0, 0, .34); opacity: .96; }
+.bm-head {
+  display: flex; align-items: center; gap: 6px; padding: 6px 6px 6px 8px;
+  border-bottom: 2px solid var(--hud-line); cursor: grab; user-select: none; touch-action: none;
+}
+.bm.dragging .bm-head { cursor: grabbing; }
+.bm-grip { color: var(--hud-dim); letter-spacing: -1px; font-size: 13px; }
+.bm-title { font-family: var(--pxb); color: var(--yel); flex: 1; white-space: nowrap; }
+.bm-btn {
+  font: inherit; color: var(--hud-dim); background: transparent; cursor: pointer;
+  border: 1px solid var(--hud-line); min-width: 26px; height: 26px; padding: 0 6px;
+}
+.bm-btn:hover { color: var(--hud-ink); background: var(--hud-2); }
+.bm-prog { height: 3px; background: var(--hud-line); }
+.bm-prog i { display: block; height: 100%; width: 0; background: var(--yel); }
+.bm-body { overflow-y: auto; overscroll-behavior: contain; padding: 6px 0 8px; scrollbar-width: thin; }
+.bm-list { list-style: none; margin: 0; padding: 0; }
+.bm-list a {
+  display: block; text-decoration: none; color: var(--hud-dim);
+  padding: 4px 10px 4px 12px; border-left: 3px solid transparent;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.bm-list a:hover { color: var(--hud-ink); background: var(--hud-2); }
+.bm-list a.on { color: var(--hud-ink); border-left-color: var(--yel); background: var(--hud-2); }
+.bm-sub { list-style: none; margin: 0 0 4px; padding: 0; display: none; }
+.bm-list li.open > .bm-sub { display: block; }
+.bm-sub a { padding-left: 24px; font-family: var(--sans); font-size: 12px; }
+.bm-sub a.on { border-left-color: var(--teal-lt); }
+.bm-sec {
+  display: flex; align-items: center; justify-content: space-between; gap: 6px;
+  margin: 10px 10px 4px; padding-top: 8px; border-top: 1px dashed var(--hud-line);
+  font-family: var(--pxb); color: var(--hud-dim); font-size: 11px;
+}
+.bm-add { font-family: var(--px); font-size: 11px; height: 22px; color: var(--yel); border-color: var(--hud-line); }
+.bm-mine li { display: flex; align-items: center; }
+.bm-mine li a { flex: 1; min-width: 0; }
+.bm-mine li a::before { content: "★ "; color: var(--yel); }
+.bm-del { font: inherit; background: none; border: 0; color: var(--hud-dim); cursor: pointer; padding: 0 10px; height: 24px; }
+.bm-del:hover { color: var(--rust); }
+.bm-empty { color: var(--hud-dim); padding: 2px 12px; font-family: var(--sans); font-size: 11px; }
+.bm-hint { color: var(--hud-dim); padding: 6px 12px 0; font-family: var(--sans); font-size: 11px; }
+/* 접힌 상태: 작은 탭만 남아 따라다님 */
+.bm.min { width: auto; }
+.bm.min .bm-body, .bm.min .bm-prog, .bm.min .bm-title-full { display: none; }
+.bm.min .bm-head { border-bottom: 0; }
+.bm-cur { display: none; color: var(--hud-ink); max-width: 140px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.bm.min .bm-cur { display: inline; }
+/* 맨 위로 */
+.totop {
+  position: fixed; z-index: 8; right: max(16px, env(safe-area-inset-right, 0px));
+  bottom: max(16px, env(safe-area-inset-bottom, 0px));
+  width: 46px; height: 46px; display: grid; place-items: center;
+  background: var(--yel); color: #17191F; border: 2px solid #17191F; box-shadow: 3px 3px 0 #17191F;
+  font-family: var(--pxb); font-size: 11px; line-height: 1.1; cursor: pointer;
+  opacity: 0; visibility: hidden; transform: translateY(8px);
+  transition: opacity .2s ease, transform .2s ease, visibility .2s;
+}
+.totop.show { opacity: 1; visibility: visible; transform: none; }
+.totop:hover { transform: translate(-1px, -1px); box-shadow: 4px 4px 0 #17191F; }
+.totop:active { transform: translate(2px, 2px); box-shadow: 1px 1px 0 #17191F; }
+.totop span { display: block; font-size: 14px; }
+/* 좁은 화면: 처음엔 접힌 탭, 열면 아래쪽 넓게 */
+@media (max-width: 1279px) {
+  .bm:not(.min):not(.moved) { width: min(300px, calc(100vw - 32px)); }
+}
+/* 휴대폰: 접힌 탭은 처음에 오른쪽 아래(TOP 버튼 위)에 두어 표·글을 가리지 않게 */
+@media (max-width: 759px) {
+  .bm.min:not(.moved) { top: auto; bottom: calc(max(16px, env(safe-area-inset-bottom, 0px)) + 58px); }
+}
+@media (prefers-reduced-motion: reduce) { .totop { transition: none; } }
+@media print { .bm, .totop { display: none !important; } }
 </style>
 
 <nav class="nav" aria-label="장 이동">
@@ -1139,6 +1219,23 @@ ol.three li::marker { font-family: var(--pxb); color: var(--teal); }
     <p class="reference" style="margin-top:1.25rem;padding-top:1.25rem;border-top:1px solid rgba(255,255,255,0.12);font-size:0.85rem;line-height:1.6;color:var(--hud-dim,#9aa0a9);">참고: 언더스코어 × MBC 《PD수첩》, 「AI의 등장 이후 고용 시장은 어떻게 변화했을까?」 (<a href="https://korean-labor-market-after-ai.vercel.app" target="_blank" rel="noopener" style="color:var(--yel);text-decoration:underline;">https://korean-labor-market-after-ai.vercel.app</a>). 결론 먼저 쓰기, 결과를 흔들 수 있는 다른 요인 점검, 한계를 번호로 밝히기, 오차 범위 함께 그리기 방식을 참고했습니다. 비교 대상·위약 검정과 선행 연구 정리는 다음 단계에서 진행합니다.</p>
   </div>
 </footer>
+
+<aside class="bm" id="bm" aria-label="책갈피">
+  <div class="bm-head" id="bm-head" tabindex="0" role="group" aria-label="책갈피 패널. 머리 부분을 끌거나 방향키로 위치를 옮길 수 있습니다" title="끌어서 옮기기 · 두 번 눌러 원래 자리">
+    <span class="bm-grip" aria-hidden="true">⠿</span>
+    <span class="bm-title">책갈피</span>
+    <span class="bm-cur" id="bm-cur"></span>
+    <button type="button" class="bm-btn" id="bm-min" aria-expanded="true" aria-controls="bm-body" title="접기">−</button>
+  </div>
+  <div class="bm-prog" aria-hidden="true"><i id="bm-prog"></i></div>
+  <div class="bm-body" id="bm-body">
+    <ul class="bm-list" id="bm-list"></ul>
+    <div class="bm-sec"><span>내 책갈피</span><button type="button" class="bm-btn bm-add" id="bm-add" title="지금 보고 있는 위치를 저장">+ 지금 위치</button></div>
+    <ul class="bm-list bm-mine" id="bm-mine"></ul>
+    <p class="bm-hint">머리를 끌어 옮기기 · 두 번 눌러 원래 자리</p>
+  </div>
+</aside>
+<button type="button" class="totop" id="totop" aria-label="맨 위로 가기"><span aria-hidden="true">▲</span>TOP</button>
 
 <script>
 const D = /*__DATA__*/;
@@ -2098,5 +2195,196 @@ const D = /*__DATA__*/;
   window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', drawAll);
   new MutationObserver(drawAll).observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
   if (document.fonts && document.fonts.ready) document.fonts.ready.then(drawAll);
+})();
+</script>
+
+<script>
+'use strict';
+/* 책갈피 패널 · 맨 위로 버튼 */
+(function () {
+  const $ = s => document.querySelector(s);
+  const $$ = (s, r) => Array.from((r || document).querySelectorAll(s));
+  const bm = $('#bm'), head = $('#bm-head'), list = $('#bm-list'), mine = $('#bm-mine');
+  const minBtn = $('#bm-min'), cur = $('#bm-cur'), prog = $('#bm-prog'), totop = $('#totop');
+  const KEY = 'hr-edu-map.bookmark.v1';
+  const store = {
+    get() { try { return JSON.parse(localStorage.getItem(KEY)) || {}; } catch (e) { return {}; } },
+    set(v) { try { localStorage.setItem(KEY, JSON.stringify(v)); } catch (e) { /* 저장 불가(사생활 보호 모드 등)면 이번 화면에서만 유지 */ } }
+  };
+  let st = store.get();
+  const save = patch => { st = Object.assign(st, patch); store.set(st); };
+  const reduce = () => window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const clean = t => t.replace(/\s+/g, ' ').trim();
+  const esc = t => String(t).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+
+  /* ---- 목차 만들기: 상단 장 링크 + 각 장의 소제목(h3) ---- */
+  const chapters = $$('#nav-links a').map(a => {
+    const id = a.getAttribute('href').slice(1);
+    const sec = document.getElementById(id);
+    const subs = sec ? $$('h3', sec).filter(h => !h.closest('.bm, [hidden]')).map((h, i) => {
+      if (!h.id) h.id = `${id}-s${i + 1}`;
+      return { id: h.id, el: h, label: clean(h.textContent) };
+    }) : [];
+    return { id, el: sec, label: clean(a.textContent), subs };
+  }).filter(c => c.el);
+
+  list.innerHTML = chapters.map(c => `<li data-ch="${c.id}"><a href="#${c.id}" title="${esc(c.label)}">${esc(c.label)}</a>` +
+    (c.subs.length ? `<ul class="bm-sub">${c.subs.map(s => `<li><a href="#${s.id}" title="${esc(s.label)}">${esc(s.label)}</a></li>`).join('')}</ul>` : '') +
+    '</li>').join('');
+
+  /* ---- 이동: 상단 바에 가리지 않게, 주소창 해시도 갱신 ---- */
+  function go(id) {
+    const el = document.getElementById(id);
+    if (!el) return;
+    el.scrollIntoView({ behavior: reduce() ? 'auto' : 'smooth', block: 'start' });
+    history.replaceState(null, '', '#' + id);
+    if (window.innerWidth < 760) setMin(true);   // 휴대폰에서는 이동 후 접어서 본문을 가리지 않게
+  }
+  bm.addEventListener('click', e => {
+    const a = e.target.closest('a[href^="#"]');
+    if (!a) return;
+    e.preventDefault();
+    go(a.getAttribute('href').slice(1));
+  });
+
+  /* ---- 현재 위치 표시 ---- */
+  const flat = chapters.flatMap(c => [{ id: c.id, el: c.el, ch: c.id, label: c.label }, ...c.subs.map(s => ({ id: s.id, el: s.el, ch: c.id, label: s.label }))]);
+  let lastCh = null, lastId = null;
+  function mark() {
+    const y = window.scrollY + 140;
+    let hit = null;
+    for (const f of flat) { if (f.el.getBoundingClientRect().top + window.scrollY <= y) hit = f; }
+    const docH = document.documentElement.scrollHeight - window.innerHeight;
+    prog.style.width = (docH > 0 ? Math.min(100, window.scrollY / docH * 100) : 0) + '%';
+    totop.classList.toggle('show', window.scrollY > 600);
+    const id = hit ? hit.id : null, ch = hit ? hit.ch : null;
+    if (id === lastId) return;
+    lastId = id;
+    $$('a', list).forEach(a => a.classList.toggle('on', a.getAttribute('href') === '#' + id || (a.parentElement.dataset.ch === ch && !a.closest('.bm-sub'))));
+    if (ch !== lastCh) {
+      lastCh = ch;
+      $$('li[data-ch]', list).forEach(li => li.classList.toggle('open', li.dataset.ch === ch));
+    }
+    const chap = chapters.find(c => c.id === ch);
+    cur.textContent = chap ? chap.label : '';
+    const on = $$('a.on', list).pop();
+    if (on && !bm.classList.contains('min')) {
+      const body = $('#bm-body'), r = on.getBoundingClientRect(), br = body.getBoundingClientRect();
+      if (r.top < br.top || r.bottom > br.bottom) body.scrollTop += r.top - br.top - br.height / 3;
+    }
+  }
+  let ticking = false;
+  window.addEventListener('scroll', () => { if (!ticking) { ticking = true; requestAnimationFrame(() => { ticking = false; mark(); }); } }, { passive: true });
+
+  /* ---- 내 책갈피: 지금 보고 있는 소제목 위치를 저장 ---- */
+  function renderMine() {
+    const items = st.mine || [];
+    mine.innerHTML = items.length
+      ? items.map((m, i) => `<li><a href="#${m.id}" title="${esc(m.label)}">${esc(m.label)}</a><button type="button" class="bm-del" data-i="${i}" aria-label="${esc(m.label)} 책갈피 지우기">×</button></li>`).join('')
+      : '<li class="bm-empty">발표 중 다시 볼 곳을 저장해 두세요.</li>';
+  }
+  $('#bm-add').addEventListener('click', () => {
+    const y = window.scrollY + 140;
+    let hit = flat[0];
+    for (const f of flat) { if (f.el.getBoundingClientRect().top + window.scrollY <= y) hit = f; }
+    if (!hit) return;
+    const items = (st.mine || []).filter(m => m.id !== hit.id);
+    items.push({ id: hit.id, label: hit.label });
+    save({ mine: items.slice(-8) });
+    renderMine();
+  });
+  mine.addEventListener('click', e => {
+    const b = e.target.closest('.bm-del');
+    if (!b) return;
+    const items = (st.mine || []).slice();
+    items.splice(+b.dataset.i, 1);
+    save({ mine: items });
+    renderMine();
+  });
+
+  /* ---- 접기 / 펴기 ---- */
+  function setMin(v, keep) {
+    bm.classList.toggle('min', v);
+    minBtn.textContent = v ? '+' : '−';
+    minBtn.title = v ? '펴기' : '접기';
+    minBtn.setAttribute('aria-expanded', String(!v));
+    if (!keep) save({ min: v });
+    clamp();
+    lastId = null; mark();
+  }
+  minBtn.addEventListener('click', e => { e.stopPropagation(); setMin(!bm.classList.contains('min')); });
+
+  /* ---- 끌어서 옮기기 (마우스·터치), 방향키로도 이동 ---- */
+  function place(x, y) {
+    bm.style.left = x + 'px'; bm.style.top = y + 'px'; bm.style.right = 'auto';
+    bm.classList.add('moved');
+  }
+  function clamp() {
+    if (!bm.classList.contains('moved')) return;
+    const r = bm.getBoundingClientRect(), pad = 8;
+    const x = Math.min(Math.max(pad, r.left), window.innerWidth - r.width - pad);
+    const y = Math.min(Math.max(pad, r.top), window.innerHeight - Math.min(r.height, 60) - pad);
+    place(x, y);
+  }
+  function resetPos() {
+    bm.style.left = ''; bm.style.top = ''; bm.style.right = '';
+    bm.classList.remove('moved');
+    save({ pos: null });
+  }
+  let drag = null;
+  head.addEventListener('pointerdown', e => {
+    if (e.button !== 0 || e.target.closest('button')) return;
+    const r = bm.getBoundingClientRect();
+    drag = { dx: e.clientX - r.left, dy: e.clientY - r.top, sx: e.clientX, sy: e.clientY, moved: false };
+    head.setPointerCapture(e.pointerId);
+  });
+  head.addEventListener('pointermove', e => {
+    if (!drag) return;
+    if (!drag.moved && Math.hypot(e.clientX - drag.sx, e.clientY - drag.sy) < 4) return;
+    drag.moved = true;
+    bm.classList.add('dragging');
+    place(e.clientX - drag.dx, e.clientY - drag.dy);
+    clamp();
+  });
+  const endDrag = () => {
+    if (!drag) return;
+    const wasMoved = drag.moved;
+    drag = null;
+    bm.classList.remove('dragging');
+    if (wasMoved) { const r = bm.getBoundingClientRect(); save({ pos: [r.left / window.innerWidth, r.top / window.innerHeight] }); }
+    else if (bm.classList.contains('min')) setMin(false);   // 접힌 탭을 누르면 펼침
+  };
+  head.addEventListener('pointerup', endDrag);
+  head.addEventListener('pointercancel', endDrag);
+  head.addEventListener('dblclick', e => { if (!e.target.closest('button')) resetPos(); });
+  head.addEventListener('keydown', e => {
+    const step = e.shiftKey ? 48 : 16, d = { ArrowLeft: [-step, 0], ArrowRight: [step, 0], ArrowUp: [0, -step], ArrowDown: [0, step] }[e.key];
+    if (d) {
+      e.preventDefault();
+      const r = bm.getBoundingClientRect();
+      place(r.left + d[0], r.top + d[1]); clamp();
+      const r2 = bm.getBoundingClientRect(); save({ pos: [r2.left / window.innerWidth, r2.top / window.innerHeight] });
+    } else if (e.key === 'Enter' || e.key === ' ') {
+      if (e.target === head) { e.preventDefault(); setMin(!bm.classList.contains('min')); }
+    } else if (e.key === 'Home') { e.preventDefault(); resetPos(); }
+  });
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape' && !bm.classList.contains('min') && bm.contains(document.activeElement)) { setMin(true); head.focus(); }
+  });
+  window.addEventListener('resize', clamp);
+
+  /* ---- 맨 위로 ---- */
+  totop.addEventListener('click', () => {
+    window.scrollTo({ top: 0, behavior: reduce() ? 'auto' : 'smooth' });
+    history.replaceState(null, '', location.pathname + location.search);
+    const brand = document.querySelector('.brand');
+    if (brand) brand.focus({ preventScroll: true });
+  });
+
+  /* ---- 시작: 넓은 화면은 펼친 상태, 좁은 화면(본문과 겹치는 폭)은 접힌 탭으로 ---- */
+  renderMine();
+  if (Array.isArray(st.pos)) place(st.pos[0] * window.innerWidth, st.pos[1] * window.innerHeight);
+  const narrow = window.innerWidth < 1400;
+  setMin(typeof st.min === 'boolean' ? st.min : narrow, true);
 })();
 </script>
