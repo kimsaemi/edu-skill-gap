@@ -541,6 +541,56 @@ add_text_lines(s2, 0.9, 4.2, 11.5, 2.4, [
 
 
 # ==========================================
+# SLIDE: 프로젝트 개요 (도메인·주제, 왜 이 문제, 배경, 핵심 목표)
+# ==========================================
+s_ov = add_slide_base(
+    "프로젝트 개요: 업무를 기준으로 교육을 찾아 주는 추천 서비스",
+    section_tag="프로젝트 개요",
+    subtitle_text="선택한 도메인과 주제, 이 문제를 고른 이유, 서비스 배경, 지표로 정한 핵심 목표",
+    slide_num=4
+)
+ov_facts = [("도메인", "기업 HR · 재직자 직무교육(HRD)"), ("주제", "NCS 인사 실무 과업 기준 교육과정 추천"),
+            ("사용자", "인사 담당자 (신입 ~ 관리자)"), ("산출물", "고객용 서비스 · 분석 대시보드 · 발표 자료")]
+for k, (lab, val) in enumerate(ov_facts):
+    y = 1.55 + k * 0.62
+    add_card(s_ov, 0.65, y, 5.2, 0.52)
+    add_text_lines(s_ov, 0.85, y + 0.13, 1.1, 0.3, [lab], font_size=12, color=C_TEAL, bold_first=True)
+    add_text_lines(s_ov, 1.95, y + 0.13, 3.8, 0.3, [val], font_size=12.5, color=C_INK)
+add_card(s_ov, 0.65, 4.13, 5.2, 2.62, fill=C_HUD, border=C_HUD)
+add_text_lines(s_ov, 0.9, 4.33, 4.75, 2.3, [
+    "왜 이 문제를 골랐나",
+    "'수습 평가 기준표를 만들어라'는 일을 받은 담당자는 사이트마다 다른 분류와 제목만 보고 감으로 교육을 고릅니다.",
+    "그래서 질문을 '어떤 교육이 인기 있나'에서 '이 업무를 하려면 어떤 교육이 맞나'로 바꿨습니다. 기준은 NCS 기반 실무 과업 90개입니다.",
+], font_size=12.5, color=C_HUD_INK, bold_first=True, line_spacing=1.2)
+s_ov.shapes[-1].text_frame.paragraphs[0].font.color.rgb = C_YEL
+
+add_text_lines(s_ov, 6.15, 1.55, 6.5, 0.3, ["핵심 목표 (지표 기준, 기준값은 팀 내부 목표)"], font_size=13.5, color=C_INK, bold_first=True)
+tbl_ov = s_ov.shapes.add_table(6, 4, Inches(6.15), Inches(1.95), Inches(6.5), Inches(4.8)).table
+tbl_ov.columns[0].width = Inches(1.9)
+tbl_ov.columns[1].width = Inches(2.6)
+tbl_ov.columns[2].width = Inches(0.95)
+tbl_ov.columns[3].width = Inches(1.05)
+ov_w24 = eda["monitor"]["w24_open_pct"]
+rows_ov = [
+    ["목표", "지표", "기준", "현재"],
+    ["업무마다 추천을 낸다", "추천 3개를 채운 업무×수준 칸 비율", "95% 이상", f"{cov_pct:.1f}% ✔"],
+    ["업무에 맞는 교육을 낸다", "1위 추천의 의미 유사도 중앙값", "65점 이상", f"{rec['top1_sem_median']}점 ✔"],
+    ["사람이 봐도 맞다", "사람 평가 Precision@3 (처음 보는 업무 30개)", "70% 이상", f"{ho_all_p3:.1f}% 미달"],
+    ["믿을 수 있는 근거만 쓴다", "추천에 쓴 합성 후기·평점 수", "0건", "0건 ✔"],
+    ["지금 들을 수 있는 교육", "고용24 과정 중 운영 중·개강 예정 비율", "100%", f"{ov_w24}% 미달"],
+]
+for r_i, row in enumerate(rows_ov):
+    for c_i, val in enumerate(row):
+        tbl_ov.cell(r_i, c_i).text = val
+style_table(tbl_ov, font_size=11.5)
+for r_i in (3, 5):
+    for para in tbl_ov.cell(r_i, 3).text_frame.paragraphs:
+        para.font.color.rgb = C_RUST
+        para.font.bold = True
+s_ov.notes_slide.notes_text_frame.text = "서비스 배경: 재직자 교육은 늘었지만 고르는 비용은 줄지 않았습니다. 기관마다 분류와 난이도 표기가 달라, 업무를 기준으로 교육을 찾아 주는 도구가 필요했습니다."
+
+
+# ==========================================
 # SLIDE 3: ① 문제정의 & 가설 - 3C 분석
 # ==========================================
 s3 = add_slide_base(
@@ -806,6 +856,47 @@ for idx, (st_title, col, st_lines) in enumerate(steps_s9):
     bpp.font.bold = True
     bpp.font.color.rgb = C_INK if col == C_YEL else C_CARD
     add_text_lines(s9, 1.5, y + 0.16, 10.95, 1.3, [st_title] + st_lines, font_size=13, color=C_INK if idx != 2 else C_INK, bold_first=True)
+
+
+# ==========================================
+# SLIDE: ④ 핵심 분석 지표 — 대시보드(장기 모니터링) vs 보고서(일회성)
+# ==========================================
+s_mt = add_slide_base(
+    "핵심 분석 지표: 대시보드로 계속 볼 지표와 보고서로 한 번 볼 지표",
+    section_tag="④ 핵심 분석 지표 설명",
+    subtitle_text="산출 방법(알고리즘)과 기준을 함께 정의 · 대시보드 지표 6개 중 2개는 아직 기준을 넘지 못함",
+    slide_num=12
+)
+mt = eda["monitor"]
+mt_bias = mt["bias_top3"] - mt["bias_catalog"]
+tbl_mt = s_mt.shapes.add_table(11, 5, Inches(0.65), Inches(1.55), Inches(12.0), Inches(5.2)).table
+for c_i, wv in enumerate([1.25, 2.0, 5.85, 1.3, 1.6]):
+    tbl_mt.columns[c_i].width = Inches(wv)
+rows_mt = [
+    ["구분", "지표", "산출 방법", "기준", "현재"],
+    ["대시보드", "추천 커버리지", "업무×수준 270칸마다 추천을 돌려, 통과 조건을 만족한 과정이 3개 이상인 칸의 비율", "95% 이상", f"{cov_pct:.1f}%"],
+    ["대시보드", "추천 적합도", "칸별 1위 과정의 의미 유사도(업무·과정 설명 임베딩 코사인 × 100) 중앙값", "65점 이상", f"{rec['top1_sem_median']}점"],
+    ["대시보드", "근거 품질", "Top 3 중 설명 없이 제목만 있는 과정 비율", "5% 이하", f"{rec['title_only_top3_pct']}%"],
+    ["대시보드", "반복 추천 집중도", "5개 이상 업무에 반복 추천된 과정이 차지하는 Top 3 자리 비율", "10% 이하", f"{rec['reused5_slot_pct']}% 초과"],
+    ["대시보드", "기관 편중도", "기관별 Top 3 점유율 − 카탈로그 점유율이 가장 큰 기관", "+10%p 이하", f"+{mt_bias:.1f}%p 초과"],
+    ["대시보드", "데이터 신선도", "고용24 과정 중 종료일이 오늘 이후인 비율 (월 1회 갱신)", "100%", f"{mt['w24_open_pct']}%"],
+    ["보고서", "난이도 공급 편중 (H1)", "난이도 표기 과정의 입문·초급 비율 (기관 구성별 범위 함께 보고)", "—", f"{data['difficulty']['supply'][0]['pct']}%"],
+    ["보고서", "영역별 공급량 (H2)", f"영역 과업과 의미 유사도 {eda['domain_tau']} 이상인 과정 수 (직무 무관 제외)", "—", "영역별 차트"],
+    ["보고서", "공식 만족도 보유율 (H3)", "카탈로그 과정 중 고용24 공식 만족도가 있는 비율", "—", f"{sat_pct:.1f}%"],
+    ["보고서", "데이터 결측률", "칼럼별 빈 값 비율", "—", "결측률 차트"],
+]
+for r_i, row in enumerate(rows_mt):
+    for c_i, val in enumerate(row):
+        tbl_mt.cell(r_i, c_i).text = val
+style_table(tbl_mt, font_size=11)
+for r_i in (4, 5):
+    for para in tbl_mt.cell(r_i, 4).text_frame.paragraphs:
+        para.font.color.rgb = C_RUST
+        para.font.bold = True
+for r_i in range(1, 11):
+    for para in tbl_mt.cell(r_i, 0).text_frame.paragraphs:
+        para.font.bold = True
+        para.font.color.rgb = C_TEAL if r_i <= 6 else C_DIM
 
 
 # ==========================================
@@ -1247,6 +1338,50 @@ add_text_lines(s_cal, 0.65, 6.6, 12.0, 0.3, ["발표 시연: 대시보드 07장�
 
 
 # ==========================================
+# SLIDE: 결론 & 향후 계획 (3줄 결론 + 고도화 방향)
+# ==========================================
+s_cc = add_slide_base(
+    "결론: 세 줄 요약과 향후 고도화 계획",
+    section_tag="결론 & 향후 계획",
+    subtitle_text="분석에서 확인한 것과 앞으로 보완할 것",
+    slide_num=24
+)
+cc_lines = [
+    ("1", f"인사 교육은 많지만 중급 이상 과정은 비싸고(유료 가격 중앙값 {mid_price:,}원), 노무·조직문화 실무 과정은 비어 있습니다. 중급으로 가는 저비용 경로는 국비 과정입니다."),
+    ("2", f"NCS 과업 90개를 공통 기준으로 삼으면 기관을 가리지 않고 {cov_pct:.1f}% 칸에 추천을 낼 수 있고, 처음 보는 업무에서 사람 평가 {ho_all_p3:.1f}%가 맞았습니다(목표 70% 미달)."),
+    ("3", "평점은 근거가 될 수 없어 업무 적합도와 근거 문장으로 추천하고, 데이터 신선도를 지표로 관리합니다."),
+]
+for k, (num, line) in enumerate(cc_lines):
+    y = 1.55 + k * 0.92
+    add_card(s_cc, 0.65, y, 12.0, 0.8)
+    nb = s_cc.shapes.add_shape(MSO_SHAPE.OVAL, Inches(0.85), Inches(y + 0.17), Inches(0.46), Inches(0.46))
+    style_shape(nb, C_TEAL)
+    ntf = nb.text_frame
+    ntf.margin_left = ntf.margin_right = ntf.margin_top = ntf.margin_bottom = 0
+    npp = ntf.paragraphs[0]
+    npp.text = num
+    npp.alignment = PP_ALIGN.CENTER
+    npp.font.name = FONT_NAME
+    npp.font.size = Pt(15)
+    npp.font.bold = True
+    npp.font.color.rgb = C_CARD
+    add_text_lines(s_cc, 1.55, y + 0.16, 10.9, 0.6, [line], font_size=13.5, color=C_INK, line_spacing=1.15)
+
+add_text_lines(s_cc, 0.65, 4.45, 12.0, 0.3, ["향후 고도화 계획"], font_size=14, color=C_INK, bold_first=True)
+cc_plan = [
+    ("평가", "가짜 추천을 인사 무관 분야로 다시 검정, 판정 예시 공유로 평가 기준 맞추기"),
+    ("데이터", "민간 기관 시간·가격 결측 보완, 노무·보상 공급처 추가, 고용24 월간 자동 갱신"),
+    ("모델", f"업무 설명(KSA) 보강 후 재평가, 반복 추천 감점·기관 편중 보정, 미연결 과업 {rec['needs_review']}개 NCS 보강"),
+    ("시스템", "수강 후 '업무에 도움이 됐나요' 피드백 수집, 지표 대시보드 자동 갱신"),
+]
+for k, (lab, desc) in enumerate(cc_plan):
+    x = 0.65 + k * 3.06
+    add_card(s_cc, x, 4.85, 2.9, 1.9)
+    add_text_lines(s_cc, x + 0.2, 5.0, 2.5, 0.35, [lab], font_size=14, color=C_TEAL, bold_first=True)
+    add_text_lines(s_cc, x + 0.2, 5.42, 2.5, 1.25, [desc], font_size=12, color=C_BODY, line_spacing=1.15)
+
+
+# ==========================================
 # SLIDE 18: ⑧ 회고 - 프로젝트 진행 경과 (데이터 수집부터 발표까지)
 # ==========================================
 s_proc = add_slide_base(
@@ -1294,6 +1429,45 @@ add_text_lines(s_proc, 0.9, 5.7, 11.6, 0.8, [
     ("지켜 온 원칙  ", "① 지어내지 않기: 사람 판정·결과·출처를 만들지 않음   ② 숫자는 파일에서: 화면·PPT·대본 숫자를 결과 파일과 자동 대조"),
     ("", f"③ 한계도 밝히기: 사람 평가 {ho_all_p3:.1f}%는 목표 70%에 못 미침, 개선안은 표본이 작아 재확인 예정, 기관 쏠림은 원인 분석 단계"),
 ], font_size=11.5, color=C_HUD_INK, line_spacing=1.2)
+
+
+# ==========================================
+# SLIDE: ⑧ 회고 — 팀 협업 · 어려웠던 점 · 배운 점 (기록된 사실로 만든 초안, 팀 확인 후 수정)
+# ==========================================
+s_rt = add_slide_base(
+    "회고: 팀 협업 · 어려웠던 점 · 배운 점",
+    section_tag="⑧ 회고",
+    subtitle_text="초안 — 프로젝트 기록(평가 결과·작업 내역)에 있는 사실로 정리했습니다. 팀이 확인해 다듬어 주세요",
+    slide_num=26
+)
+rt_kappa = ho_all["agreement"]["cohen_kappa"]
+rt_cols = [
+    ("팀 협업", C_TEAL, [
+        "팀원 4명이 과정 183개의 분야 연결을 직접 검수",
+        f"사람 평가는 2인 1조로 서로 보지 않고 교차 판정 (처음 보는 업무 30개, 판정 {ho_all['precision_at_3']['n']}건)",
+        "멘토 피드백(결론 먼저·사례 추가)과 외부 검증 지적을 반영해 숫자·문구 정정",
+    ]),
+    ("어려웠던 점", C_RUST, [
+        f"수집 페이지에 섞인 차단 안내문 {proc_blocked:,}건 등 데이터 정제",
+        "운영이 끝난 고용24 과정 130개를 2026년 운영 과정으로 교체",
+        f"평가자마다 판정 기준이 달라 일치도(κ={rt_kappa:.2f})를 맞추기 어려움",
+        f"단순 키워드 검색과 적합률 차이가 없었음 ({ho2_p3:.1f}% vs {bm25_p3:.1f}%)",
+    ]),
+    ("배운 점", C_BLUE, [
+        f"처음 보는 업무로 다시 재야 과대평가를 막는다 (홀드아웃 1차 {ho_p3:.1f}% → 30개 합산 {ho_all_p3:.1f}%)",
+        "화면·PPT·대본 숫자는 결과 파일과 자동으로 대조해야 틀리지 않는다",
+        "평점보다 업무 기준과 추천 근거를 보여 주는 것이 사용자에게 중요하다",
+        "한계를 먼저 밝히면 질문에 더 단단하게 답할 수 있다",
+    ]),
+]
+for k, (title, col, items) in enumerate(rt_cols):
+    x = 0.65 + k * 4.1
+    add_card(s_rt, x, 1.6, 3.85, 4.1)
+    hd = s_rt.shapes.add_shape(MSO_SHAPE.OVAL, Inches(x + 0.22), Inches(1.8), Inches(0.42), Inches(0.42))
+    style_shape(hd, col)
+    add_text_lines(s_rt, x + 0.78, 1.84, 2.9, 0.4, [title], font_size=15, color=C_INK, bold_first=True)
+    add_text_lines(s_rt, x + 0.25, 2.45, 3.4, 4.2, ["• " + it for it in items], font_size=12.5, color=C_BODY, line_spacing=1.2)
+s_rt.notes_slide.notes_text_frame.text = "초안입니다. 팀원별 역할(R&R)과 각자의 소감은 팀이 직접 정해 추가해 주세요."
 
 
 # ==========================================
@@ -1426,11 +1600,13 @@ TOC_DESC = {
     "⑤ 대시보드 시각화 공유": "오차 막대·교육 지도, 기관 쏠림·급여 담당자 사례",
     "⑥ 비즈니스 인사이트 도출": "비용 장벽, 공백 분야, 평점 한계, 데이터 노후화, 쏠림",
     "⑦ 개선 제안 & 액션 플랜": "실행 계획, 남은 한계, 현업 적용(계획안)",
-    "⑧ 회고": "프로젝트 진행 경과",
+    "⑧ 회고": "진행 경과, 팀 협업·어려웠던 점·배운 점",
+    "프로젝트 개요": "도메인·주제, 왜 이 문제인가, 핵심 목표",
+    "결론 & 향후 계획": "세 줄 결론과 고도화 계획",
     "부록": "핵심 용어 풀이",
     "마무리": "링크 안내와 질의응답",
 }
-TOC_BADGE = {"핵심 요약": "요약", "부록": "부록", "마무리": "Q&A"}
+TOC_BADGE = {"핵심 요약": "요약", "부록": "부록", "마무리": "Q&A", "프로젝트 개요": "개요", "결론 & 향후 계획": "결론"}
 
 
 def fill_toc():
@@ -1446,7 +1622,7 @@ def fill_toc():
         else:
             sections.append((name, [page]))
     half = (len(sections) + 1) // 2
-    row_h = 0.86
+    row_h = min(0.86, 5.35 / half)
     for k, (name, pages) in enumerate(sections):
         col, row = divmod(k, half)
         x = 0.65 + col * 6.1
@@ -1465,8 +1641,8 @@ def fill_toc():
         bp.font.bold = True
         bp.font.color.rgb = C_YEL
         title = name[1:].strip() if name[0] in "①②③④⑤⑥⑦⑧" else name
-        add_text_lines(s_toc, x + 0.92, y + 0.1, 3.9, 0.35, [title], font_size=13, color=C_INK, bold_first=True)
-        add_text_lines(s_toc, x + 0.92, y + 0.42, 4.0, 0.3, [TOC_DESC.get(name, "")], font_size=9.5, color=C_DIM)
+        add_text_lines(s_toc, x + 0.92, y + 0.06, 3.9, 0.35, [title], font_size=13, color=C_INK, bold_first=True)
+        add_text_lines(s_toc, x + 0.92, y + 0.35, 4.0, 0.3, [TOC_DESC.get(name, "")], font_size=11, color=C_DIM)
         pg = f"p.{pages[0]}" if len(pages) == 1 else f"p.{pages[0]}–{pages[-1]}"
         tb = s_toc.shapes.add_textbox(Inches(x + 4.85), Inches(y + 0.2), Inches(0.9), Inches(0.35))
         tf = tb.text_frame
