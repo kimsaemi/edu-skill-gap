@@ -183,6 +183,7 @@
   .evid[open] > summary::after { content: '▴'; }
   .evid > summary:hover { background: var(--primary); color: var(--bg); }
   .evid[open] { border: 1.5px solid var(--primary); border-radius: 14px; padding: 12px 14px; background: var(--surface); box-shadow: 0 4px 14px rgba(79, 70, 229, .12); }
+  .evid-note { font-size: 12.5px; color: var(--muted, #6b6b75); margin: 8px 0 0; line-height: 1.5; }
   .evid-head { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-top: 12px; font-size: 15px; }
   .evid-score { flex: none; min-width: 78px; text-align: center; padding: 6px 12px; border-radius: 10px; background: var(--teal); color: var(--bg); }
   .evid-score strong { display: block; font-size: 22px; line-height: 1.1; font-weight: 900; }
@@ -662,9 +663,10 @@ function evidenceHtml(item) {
   if (ev.cu) rows.push(['커리큘럼', esc(ev.cu) + ' …']);
   (ev.cm || []).forEach(m => rows.push(['역량 매핑', `${esc(m[0])} · 신뢰도 ${esc(m[1])}${m[3] ? ' · 검증됨' : ' · 검토 필요'}${m[2] ? ` · 근거 키워드: ${esc(m[2])}` : ''}`]));
   rows.push(['출처', esc(SRC_LABEL[c.src] || '수집 데이터') + (c.ncs ? ` · 분류코드 ${esc(c.ncs)}` : '')]);
-  return `<details class="evid"><summary>🔍 추천 근거 보기</summary>
-    <div class="evid-head"><b>추천 기준</b><div class="evid-score"><strong>${total.toFixed(1)}</strong><small>추천 점수</small></div></div>
+  return `<details class="evid"><summary>🔍 참고 점수(규칙 기반) 보기</summary>
+    <div class="evid-head"><b>참고 점수 기준</b><div class="evid-score"><strong>${total.toFixed(1)}</strong><small>참고 점수</small></div></div>
     <div class="score-grid">${cell('스킬 적합도', skillPts, 40)}${cell('수강생 만족도', reviewPts, 25)}${cell('직장인 적합도', workerPts, 15)}${cell('강좌 정보 충실도', contentPts, 10)}${cell('실습·프로젝트 구성', practicePts, 10)}</div>
+    <p class="evid-note">추천 순서는 임베딩과 리랭커로 정했고, 이 점수는 과정을 이해하도록 돕는 규칙 기반 참고 점수입니다. 공식 만족도가 있는 과정은 만족도가 최대 25점 반영됩니다.</p>
     ${learn.length ? `<p><b>예상 학습 역량</b><br>${esc(learn.join(' · '))}</p>` : ''}
     ${reason ? `<p>${reason}</p>` : ''}
     <dl>${rows.map(r => `<dt>${r[0]}</dt><dd>${r[1]}</dd>`).join('')}</dl></details>`;
@@ -1489,7 +1491,7 @@ document.addEventListener('change', ev => {
 window.addEventListener('hashchange', () => { readHash(); render(); });
 
 document.getElementById('heroCount').textContent = `${C.length}개 과정 보기`;
-document.getElementById('foot').textContent = `교육기관 수집 ${DATA.rawCourseCount}건 중 같은 제목의 중복 회차를 묶어 ${C.length}개를 표시합니다. 업무별 추천(90개 업무 × 3개 수준)은 2단계 리랭커가 정한 최종 추천이며, 후기·평점은 추천 점수에 쓰지 않았습니다. 2026-11-09 기준. 분류와 대상 직급은 과정명 기준의 참고 정보이며, 일정·비용은 상세 페이지에서 확인하십시오. ⭐ 만족도는 고용24(국민내일배움카드) 공식 설문 점수이며, 설문이 없는 과정은 표시하지 않습니다.`;
+document.getElementById('foot').textContent = `교육기관 수집 ${DATA.rawCourseCount}건 중 같은 제목의 중복 회차를 묶어 ${C.length}개를 표시합니다. 업무별 추천(90개 업무 × 3개 수준)은 2단계 리랭커가 정한 최종 추천이며, 후기·평점은 추천 순서에 쓰지 않았습니다(참고 점수에는 공식 만족도만 반영). 2026-11-09 기준. 분류와 대상 직급은 과정명 기준의 참고 정보이며, 일정·비용은 상세 페이지에서 확인하십시오. ⭐ 만족도는 고용24(국민내일배움카드) 공식 설문 점수이며, 설문이 없는 과정은 표시하지 않습니다.`;
 /* ==== AI_CHAT_START ==== */
 const CHAT = { msgs: [], idx: null };
 // ===== AI 상담: 브라우저 안에서만 동작 (외부 호출·비용 없음) =====
