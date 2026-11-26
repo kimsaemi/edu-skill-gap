@@ -376,6 +376,8 @@ ol.three li::marker { font-family: var(--pxb); color: var(--teal); }
 [data-m10="only"] { display: none; }
 body.m10 [data-m10="only"] { display: block; }
 body.m10 [data-m10="hide"] { display: none !important; }
+/* 두 칸 묶음에서 한쪽이 숨겨지면 남은 그림을 본문 폭에 맞춰 한 칸으로 */
+body.m10 .two:has(> [data-m10="hide"]) { grid-template-columns: minmax(0, 1fr); max-width: calc(var(--maxw) - 32px); margin-inline: auto; }
 body.m10 .insights { align-items: start; }
 body.m10 .insights .ins-r:not(:last-child) { display: none; }
 body.m10 .insights .ins-r:last-child { border-top: 0; }
