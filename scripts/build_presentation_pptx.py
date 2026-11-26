@@ -204,7 +204,9 @@ else:
 # ==========================================
 # 4. Presentation Helper Functions
 # ==========================================
-TOTAL_SLIDES = 23  # 빈 틀 2장(협업·회고) 삭제 후 23장
+TOTAL_SLIDES = None  # 바닥글 번호·전체 수는 저장 직전에 실제 슬라이드 순서로 다시 씀 (finalize_footers)
+FOOTERS = []          # (slide, paragraph)
+SECTION_SLIDES = []   # (slide, section_tag) — 목차 자동 생성용
 prs = pptx.Presentation()
 prs.slide_width = Inches(13.333)
 prs.slide_height = Inches(7.5)
@@ -268,12 +270,15 @@ def add_slide_base(title_text, section_tag=None, subtitle_text=None, is_dark=Fal
         ftf = ft.text_frame
         ftf.margin_left = ftf.margin_top = ftf.margin_right = ftf.margin_bottom = 0
         fp = ftf.paragraphs[0]
-        fp.text = f"인사 교육 지도 (kimsaemi/edu-skill-gap)  |  {DASHBOARD_URL}  |  {slide_num} / {TOTAL_SLIDES}"
+        fp.text = f"인사 교육 지도 (kimsaemi/edu-skill-gap)  |  {DASHBOARD_URL}  |  {slide_num} / ?"
+        FOOTERS.append((slide, fp))
         fp.alignment = PP_ALIGN.RIGHT
         fp.font.name = FONT_NAME
         fp.font.size = Pt(9.5)
         fp.font.color.rgb = C_HUD_DIM if is_dark else C_DIM
 
+    if section_tag:
+        SECTION_SLIDES.append((slide, section_tag))
     return slide
 
 
@@ -472,6 +477,16 @@ add_text_lines(s1, 1.2, 4.55, 10.8, 1.4, [
     ("발표 대시보드: ", DASHBOARD_URL),
     ("GitHub 저장소: ", GITHUB_URL),
 ], font_size=14, color=C_HUD_INK)
+
+
+# ==========================================
+# SLIDE 2: 목차 (내용은 모든 슬라이드를 만든 뒤 section_tag와 실제 순서로 채움 → fill_toc)
+# ==========================================
+s_toc = add_slide_base(
+    "목차",
+    subtitle_text="발표 순서와 슬라이드 번호 (슬라이드 번호는 PPT를 만들 때 자동으로 계산)",
+    slide_num=2
+)
 
 
 # ==========================================
@@ -1382,6 +1397,83 @@ add_text_lines(s20, 1.0, 5.1, 11.3, 1.2, [
     "데이터 수집·전처리, 2단계 추천 알고리즘, 사람 평가 검증 과정에 대해 궁금하신 점을 질문해 주세요."
 ], font_size=15, color=C_YEL, bold_first=True, line_spacing=1.4)
 s20.shapes[-1].text_frame.paragraphs[1].font.color.rgb = C_HUD_INK
+
+
+# ==========================================
+# 4-1. 목차 채우기 + 바닥글 번호 확정 (실제 슬라이드 순서 기준)
+# ==========================================
+TOC_DESC = {
+    "핵심 요약": "숫자 네 개와 세 줄 결론",
+    "① 문제정의 & 가설": "3C 분석, 가설 3가지와 북극성 지표",
+    "② 데이터 구조 설명": "데이터 출처 3곳, 과업 90개, 통합 스키마",
+    "③ 전처리 과정 & 결측/이상치 처리": "정제 5단계, 직무 무관 과정 제외, 결측·이상치",
+    "④ 핵심 분석 지표 설명": "추천 파이프라인, 사람 평가, 단순 검색 비교, 검증 노트",
+    "⑤ 대시보드 시각화 공유": "오차 막대·교육 지도, 기관 쏠림·급여 담당자 사례",
+    "⑥ 비즈니스 인사이트 도출": "비용 장벽, 공백 분야, 평점 한계, 데이터 노후화, 쏠림",
+    "⑦ 개선 제안 & 액션 플랜": "So What → Now What, 남은 한계, 현업 적용 로드맵(계획안)",
+    "⑧ 회고": "프로젝트 진행 경과",
+    "부록": "핵심 용어 풀이",
+    "마무리": "링크 안내와 질의응답",
+}
+TOC_BADGE = {"핵심 요약": "요약", "부록": "부록", "마무리": "Q&A"}
+
+
+def fill_toc():
+    order = {id(s): i + 1 for i, s in enumerate(prs.slides)}
+    sections = []  # [(name, [pages])] 처음 나온 순서
+    for slide, tag in SECTION_SLIDES:
+        name = tag.split(" · ")[0].strip()
+        page = order[id(slide)]
+        for sec in sections:
+            if sec[0] == name:
+                sec[1].append(page)
+                break
+        else:
+            sections.append((name, [page]))
+    half = (len(sections) + 1) // 2
+    row_h = 0.86
+    for k, (name, pages) in enumerate(sections):
+        col, row = divmod(k, half)
+        x = 0.65 + col * 6.1
+        y = 1.5 + row * row_h
+        add_card(s_toc, x, y, 5.9, row_h - 0.12)
+        badge_txt = TOC_BADGE.get(name, name[0])
+        bd = s_toc.shapes.add_shape(MSO_SHAPE.RECTANGLE, Inches(x + 0.15), Inches(y + 0.17), Inches(0.62), Inches(0.4))
+        style_shape(bd, C_HUD)
+        btf = bd.text_frame
+        btf.margin_left = btf.margin_right = btf.margin_top = btf.margin_bottom = 0
+        bp = btf.paragraphs[0]
+        bp.text = badge_txt
+        bp.alignment = PP_ALIGN.CENTER
+        bp.font.name = FONT_NAME
+        bp.font.size = Pt(12 if len(badge_txt) <= 2 else 10.5)
+        bp.font.bold = True
+        bp.font.color.rgb = C_YEL
+        title = name[1:].strip() if name[0] in "①②③④⑤⑥⑦⑧" else name
+        add_text_lines(s_toc, x + 0.92, y + 0.1, 3.9, 0.35, [title], font_size=13, color=C_INK, bold_first=True)
+        add_text_lines(s_toc, x + 0.92, y + 0.42, 4.0, 0.3, [TOC_DESC.get(name, "")], font_size=9.5, color=C_DIM)
+        pg = f"p.{pages[0]}" if len(pages) == 1 else f"p.{pages[0]}–{pages[-1]}"
+        tb = s_toc.shapes.add_textbox(Inches(x + 4.85), Inches(y + 0.2), Inches(0.9), Inches(0.35))
+        tf = tb.text_frame
+        tf.margin_left = tf.margin_top = tf.margin_right = tf.margin_bottom = 0
+        tp = tf.paragraphs[0]
+        tp.text = pg
+        tp.alignment = PP_ALIGN.RIGHT
+        tp.font.name = FONT_NAME
+        tp.font.size = Pt(12)
+        tp.font.bold = True
+        tp.font.color.rgb = C_TEAL
+
+
+def finalize_footers():
+    order = {id(s): i + 1 for i, s in enumerate(prs.slides)}
+    total = len(prs.slides)
+    for slide, fp in FOOTERS:
+        fp.runs[0].text = f"인사 교육 지도 (kimsaemi/edu-skill-gap)  |  {DASHBOARD_URL}  |  {order[id(slide)]} / {total}"
+
+
+fill_toc()
+finalize_footers()
 
 
 # ==========================================
