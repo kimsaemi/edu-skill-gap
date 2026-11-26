@@ -377,6 +377,18 @@ ol.three li::marker { font-family: var(--pxb); color: var(--teal); }
 .chk-title { font-size: 14px; line-height: 1.55; color: var(--ink); flex: 1; }
 .chk-link { font-family: var(--px); font-size: 12px; color: var(--dim); }
 @media (max-width: 640px) { .check-grid { grid-template-columns: minmax(0, 1fr); } }
+/* 10분 발표 모드: data-m10="hide"는 숨기고, data-m10="only"는 이 모드에서만 보임 */
+.m10-btn { flex: none; margin-left: auto; font-family: var(--px); font-size: 12px; cursor: pointer; padding: 5px 10px; background: transparent; color: var(--yel); border: 1px solid var(--yel); white-space: nowrap; }
+.m10-btn:hover { background: var(--hud-2); }
+.m10-btn[aria-pressed="true"] { background: var(--yel); color: #17191F; }
+[data-m10="only"] { display: none; }
+body.m10 [data-m10="only"] { display: block; }
+body.m10 [data-m10="hide"] { display: none !important; }
+body.m10 .insights { align-items: start; }
+body.m10 .insights .ins-r:not(:last-child) { display: none; }
+body.m10 .insights .ins-r:last-child { border-top: 0; }
+.m10-only { border-left: 4px solid var(--yel); padding-left: 12px; }
+@media (max-width: 640px) { .m10-btn { font-size: 11px; padding: 4px 8px; } }
 /* 고객용 대시보드 링크 */
 .byline a.cust-link { color: var(--teal); font-weight: 700; text-decoration: underline; text-underline-offset: 3px; }
 .cust-cta { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; grid-template-areas: "tag t go" "tag s go"; gap: 2px 14px; align-items: center; margin: 14px 0 0; padding: 12px 16px; text-decoration: none; background: var(--card); border: 2px solid var(--ink); box-shadow: 3px 3px 0 var(--line); transition: transform .15s ease, box-shadow .15s ease; }
@@ -621,14 +633,15 @@ h3.hypo .pill { font-size: 12px; padding: 3px 10px; }
     <div class="nav-links" id="nav-links">
       <a href="#summary">요약</a>
       <a href="#overview">01 개요</a>
-      <a href="#problem">02 문제·가설</a>
+      <a href="#problem" data-m10="hide">02 문제·가설</a>
       <a href="#data">03 데이터</a>
       <a href="#results">04 분석 결과</a>
       <a href="#insight">05 인사이트</a>
       <a href="#conclusion">06 결론</a>
       <a href="#roadmap">🚀 현업 적용 로드맵</a>
-      <a href="#method">부록</a>
+      <a href="#method" data-m10="hide">부록</a>
     </div>
+    <button type="button" class="m10-btn" id="m10-toggle" aria-pressed="false" title="10분 발표용으로 핵심만 보이기 (주소 끝에 ?mode=10)">10분 발표 모드</button>
   </div>
 </nav>
 
@@ -675,7 +688,7 @@ h3.hypo .pill { font-size: 12px; padding: 3px 10px; }
       <div class="kpi">
         <div class="v num"><span id="k-human-p3">66.1</span><small>%</small></div>
         <div class="l">사람 평가 (<span class="glossary-term" tabindex="0" data-term="홀드아웃">홀드아웃 합산 - 30개 업무<span class="glossary-tooltip">규칙을 만들 때 보지 않은 업무 30개(1·2·3차 합산)로 시험한 결과</span></span>)</div>
-        <div class="sub"><span id="kpi-heval-sub">목표 70% · 1차 74.5% / 2차 59.3% / 3차 65.0% · 95% <span class="glossary-term" tabindex="0" data-term="신뢰구간">범위<span class="glossary-tooltip">평가를 다시 하면 결과가 나올 수 있는 범위</span></span> 59~73%</span><br>두 사람 합의(낮은 쪽) 기준 <span id="kpi-consensus-val">53.4</span>% · 95% 범위 약 <span id="kpi-consensus-ci">40~67</span>%</div>
+        <div class="sub"><span id="kpi-heval-sub">목표 70% · 1차 74.5% / 2차 59.3% / 3차 65.0% · 95% <span class="glossary-term" tabindex="0" data-term="신뢰구간">범위<span class="glossary-tooltip">평가를 다시 하면 결과가 나올 수 있는 범위 (항목 단위 부트스트랩)</span></span> 57.4~74.3%</span><br>두 사람 합의(낮은 쪽) 기준 <span id="kpi-consensus-val">53.4</span>% · 95% 범위 약 <span id="kpi-consensus-ci">40~67</span>%</div>
       </div>
       <div class="kpi">
         <div class="v num">0<small>건</small></div>
@@ -690,7 +703,7 @@ h3.hypo .pill { font-size: 12px; padding: 3px 10px; }
       <div class="finding"><div class="k">H3</div><p><span class="t">평점은 추천 근거가 될 수 없습니다.</span>공식 만족도는 카탈로그의 <span id="f3-satpct"></span>%에만 있고, 있는 점수도 중앙값 <span id="f3-satmed"></span>점으로 몰려 있습니다. 그래서 업무 적합도(<span class="glossary-term" tabindex="0" data-term="의미 유사도">의미<span class="glossary-tooltip">업무 설명과 과정 설명의 뜻이 얼마나 비슷한지 0~100점으로 나타낸 값</span></span>+키워드+난이도)로 추천합니다.</p></div>
     </div>
 
-    <div class="robustness-checks">
+    <div class="robustness-checks" data-m10="hide">
       <h3>결과가 흔들리지 않는지 확인한 것</h3>
       <div class="check-grid">
         <a href="#h2-sensitivity" class="check-card">
@@ -717,6 +730,7 @@ h3.hypo .pill { font-size: 12px; padding: 3px 10px; }
   <div class="wrap">
     <div class="eyebrow"><b>01</b> 프로젝트 개요</div>
     <h2>교육은 많은데, 내 업무에 맞는 교육을 고르기는 어렵습니다</h2>
+    <p class="lead m10-only" data-m10="only"><strong>문제는 교육의 양이 아니라, 업무와 교육을 잇는 기준이 없다는 것</strong>입니다. 그래서 인사 실무 과업 90개를 기준으로 맞는 교육 3개를 찾아 줍니다.</p>
     <div class="facts">
       <div><span class="fk">도메인</span><span class="fv">기업 HR · 재직자 직무교육(HRD)</span></div>
       <div><span class="fk">주제</span><span class="fv"><span class="glossary-term" tabindex="0" data-term="NCS">NCS<span class="glossary-tooltip">나라가 정한 직무별 표준 업무 목록. 업무 90개의 바탕</span></span> 인사 실무 과업 기준 교육과정 추천</span></div>
@@ -724,9 +738,11 @@ h3.hypo .pill { font-size: 12px; padding: 3px 10px; }
           <div><span class="fk">범위</span><span class="fv">인사 (총무 과정은 추천에서 제외, 2026-10-28 팀 결정)</span></div>
       <div><span class="fk">산출물</span><span class="fv">고객용 역량 진단·추천 서비스, 분석 대시보드, 이 발표 페이지</span></div>
     </div>
+<div data-m10="hide">
     <h3>왜 이 문제를 골랐나</h3>
     <p>인사 담당자가 "수습 평가 기준표를 만들어야 한다"는 과제를 받았다고 해 보겠습니다. 교육기관 사이트마다 분류 체계가 다르고, 과정 이름만으로는 이 업무를 다루는지 알기 어렵습니다. 수강 후기와 평점은 기관마다 기준이 다르거나 아예 없습니다. 결국 담당자는 여러 사이트를 돌며 제목을 읽고 감으로 고릅니다.</p>
-    <p>이 프로젝트는 질문을 바꿨습니다. "어떤 교육이 인기 있는가"가 아니라 <strong>"이 업무를 하려면 어떤 교육이 맞는가"</strong>입니다. 기준은 국가직무능력표준(NCS)의 인사·노무관리 능력단위와, 이를 실제 업무 단위로 쪼갠 실무 과업 90개(<span class="glossary-term" tabindex="0" data-term="KSA">KSA<span class="glossary-tooltip">업무에 필요한 지식(Knowledge)·기술(Skill)·태도(Attitude)</span></span> 기반)입니다.</p>
+    <p data-m10="hide">이 프로젝트는 질문을 바꿨습니다. "어떤 교육이 인기 있는가"가 아니라 <strong>"이 업무를 하려면 어떤 교육이 맞는가"</strong>입니다. 기준은 국가직무능력표준(NCS)의 인사·노무관리 능력단위와, 이를 실제 업무 단위로 쪼갠 실무 과업 90개(<span class="glossary-term" tabindex="0" data-term="KSA">KSA<span class="glossary-tooltip">업무에 필요한 지식(Knowledge)·기술(Skill)·태도(Attitude)</span></span> 기반)입니다.</p>
+</div>
 
     <div class="day-in-life" id="case-study">
       <h3>한 담당자의 하루: 문제 상황에서 맞춤 추천까지</h3>
@@ -759,10 +775,12 @@ h3.hypo .pill { font-size: 12px; padding: 3px 10px; }
       </a>
     </div>
 
+<div data-m10="hide">
     <h3>서비스 배경</h3>
     <p>재직자 교육은 늘었지만 고르는 비용은 줄지 않았습니다. 기관마다 분류와 난이도 표기가 달라, 실무자가 지금 하는 업무에 맞는 다음 단계 교육을 찾기 어렵습니다. 업무를 기준으로 교육을 찾아 주는 도구가 필요했습니다.</p>
+</div>
   </div>
-  <div class="wrap">
+  <div class="wrap" data-m10="hide">
     <h3>핵심 목표 (지표 기준)</h3>
     <div class="tbl">
       <table>
@@ -780,7 +798,7 @@ h3.hypo .pill { font-size: 12px; padding: 3px 10px; }
   </div>
 </section>
 
-<section id="problem">
+<section id="problem" data-m10="hide">
   <div class="wrap">
     <div class="eyebrow"><b>02</b> 문제 정의 &amp; 가설</div>
     <h2>문제는 교육의 양이 아니라, 업무와 교육을 잇는 기준이 없다는 것</h2>
@@ -889,6 +907,7 @@ h3.hypo .pill { font-size: 12px; padding: 3px 10px; }
         </tbody>
       </table>
     </div>
+<div data-m10="hide">
     <h3>수집 → 전처리 → 분석 흐름</h3>
     <div class="flow">
       <div><b>수집</b><small>기관 DB 6 + 고용24·NCS API</small></div>
@@ -898,8 +917,9 @@ h3.hypo .pill { font-size: 12px; padding: 3px 10px; }
       <div><b>분류</b><small>분야 10개, 직무 무관 제외</small></div>
       <div><b>추천·검증</b><small>과업별 점수 → 2차 심사(리랭커) → Top 3 → 사람 평가</small></div>
     </div>
-    <h3>주요 변수와 결측률</h3>
-    <p>가장 중요한 과정명·기관은 결측이 없지만, 시간·개강일·난이도는 기관마다 제공 여부가 달라 결측이 큽니다. <strong>결측은 채워 넣지 않고 "미확인"으로 표시</strong>하는 것을 원칙으로 했습니다. 예를 들어 가격이 비어 있으면 무료로 보지 않습니다.</p>
+    <h3 data-m10="hide">주요 변수와 결측률</h3>
+</div>
+    <p data-m10="hide">가장 중요한 과정명·기관은 결측이 없지만, 시간·개강일·난이도는 기관마다 제공 여부가 달라 결측이 큽니다. <strong>결측은 채워 넣지 않고 "미확인"으로 표시</strong>하는 것을 원칙으로 했습니다. 예를 들어 가격이 비어 있으면 무료로 보지 않습니다.</p>
   </div>
   <div class="wrap wide">
         <figure class="fig">
@@ -914,7 +934,7 @@ h3.hypo .pill { font-size: 12px; padding: 3px 10px; }
     <h3>데이터 품질 이슈와 해결</h3>
     <p>정제는 같은 규칙을 모든 과정에 적용하는 표준 절차(<code>clean_and_synthesize</code>)로 했고, 규칙이 적용된 과정마다 기록을 남겼습니다.</p>
   </div>
-  <div class="wrap wide">
+  <div class="wrap wide" data-m10="hide">
     <figure class="fig">
       <div class="hud">
         <div class="hud-head"><span class="hud-title">정제 규칙이 적용된 과정 수</span><span class="hud-sub">1칸 = 50개</span></div>
@@ -940,7 +960,7 @@ h3.hypo .pill { font-size: 12px; padding: 3px 10px; }
       </table>
     </div>
   </div>
-  <div class="wrap wide">
+  <div class="wrap wide" data-m10="hide">
     <figure class="fig">
       <div class="hud">
         <div class="hud-head"><span class="hud-title">기관별 과정 수</span><span class="hud-sub">블록 1칸 = 50개 과정</span></div>
@@ -982,7 +1002,7 @@ h3.hypo .pill { font-size: 12px; padding: 3px 10px; }
       <figcaption>"추천 제외"는 직무교육과 관계없는 과정으로 분류해 추천 후보에서 뺀 과정입니다.</figcaption>
     </figure>
   </div>
-  <div class="wrap">
+  <div class="wrap" data-m10="hide">
     <h3>분석 시나리오</h3>
     <p>가설마다 하나의 분석을 대응시켰습니다. H1은 난이도 분포 비교, H2는 영역별 공급량(의미 유사도), H3는 공식 만족도 보유율과 분포입니다. 추천은 직무 무관 과정과 오매핑 과정을 먼저 거른 뒤 점수를 매깁니다.</p>
     <div class="steps">
@@ -1008,9 +1028,9 @@ h3.hypo .pill { font-size: 12px; padding: 3px 10px; }
       <a class="vd" href="#human-eval"><span class="vd-top"><b class="vd-id">평가</b><span class="pill miss">목표 미만</span></span><span class="vd-t">처음 보는 업무 적합률이 목표 70%에 조금 못 미치고, 단순 검색과 차이 없음</span></a>
     </div>
     <nav class="res-jump" aria-label="04장 안에서 바로가기">
-      <span>바로가기</span><a href="#res-h1">H1 난이도</a><a href="#res-h2">H2 영역 공백</a><a href="#res-h3">H3 평점</a><a href="#res-checks">추가 검증</a><a href="#res-recs">추천 결과</a><a href="#human-eval">사람 평가</a><a href="#block-bm25-compare">단순 검색 비교</a>
+      <span>바로가기</span><a href="#res-h1">H1 난이도</a><a href="#res-h2">H2 영역 공백</a><a href="#res-h3">H3 평점</a><a href="#res-checks" data-m10="hide">추가 검증</a><a href="#res-recs" data-m10="hide">추천 결과</a><a href="#human-eval">사람 평가</a><a href="#block-bm25-compare">단순 검색 비교</a>
     </nav>
-    <details class="fold" open>
+    <details class="fold" open data-m10="hide">
     <summary><span class="fold-t">지표는 두 종류로 나눴습니다</span><span class="fold-s">운영하며 계속 볼 <strong>대시보드</strong> 지표 6개 · 이번 분석에서 한 번 확인할 <strong>보고서</strong> 지표 4개</span></summary>
     <div class="tbl">
       <table class="metric">
@@ -1061,7 +1081,7 @@ h3.hypo .pill { font-size: 12px; padding: 3px 10px; }
     </details>
   </div>
   <div class="wrap wide">
-    <figure class="fig" id="course-map-fig" style="margin-top:0">
+    <figure class="fig" id="course-map-fig" style="margin-top:0" data-m10="hide">
       <div class="hud">
         <div class="hud-head">
           <span class="hud-title">인사 교육 지도: 강좌 <span data-k="courses">9,075</span>개와 인사 과업 <span data-k="tasks">90</span>개</span>
@@ -1092,34 +1112,34 @@ h3.hypo .pill { font-size: 12px; padding: 3px 10px; }
       </div>
       <figcaption>막대 옆 괄호는 그중 난이도가 중급·고급으로 표기된 과정 수입니다.<span class="mv-note"></span></figcaption>
     </figure>
-    <figure class="fig">
+    <figure class="fig" data-m10="hide">
       <div class="hud">
         <div class="hud-head"><span class="hud-title">핵심 역량 키워드를 다루는 과정 비율</span><span class="hud-sub">전체 <span data-k="courses"></span>개 기준, 1칸 = 1%</span></div>
         <div class="chart" id="ch-core"></div>
       </div>
       <figcaption>키워드 기준으로 봐도 노무·준법이 <span id="f2-labor"></span>%로 가장 적습니다.</figcaption>
     </figure>
-    <figure class="fig">
+    <figure class="fig" data-m10="hide">
       <div class="hud">
         <div class="hud-head"><span class="hud-title">분야별 과정 수</span><span class="hud-sub">1칸 = 50개, 자동 분류</span></div>
         <div class="chart" id="ch-fields"></div>
       </div>
     </figure>
-    <figure class="fig" id="map-fig">
+    <figure class="fig" id="map-fig" data-m10="hide">
       <div class="hud">
         <div class="hud-head"><span class="hud-title">대시보드에 연결된 분야별 강좌 수</span><span class="hud-sub">최종 대시보드 기준, 1칸 = 10개</span></div>
         <div class="chart" id="ch-map-domain"></div>
       </div>
       <figcaption><span id="map-domain-summary">대시보드에 연결된 분야별 강좌 수 현황입니다.</span></figcaption>
     </figure>
-    <figure class="fig">
+    <figure class="fig" data-m10="hide">
       <div class="hud">
         <div class="hud-head"><span class="hud-title">추천 강좌가 3개 미만인 업무×수준 슬롯</span><span class="hud-sub">정상 슬롯은 리랭커 Top 3 추천 (총 270개 슬롯), 1칸 = 1개</span></div>
         <div class="chart" id="ch-map-thin"></div>
       </div>
       <figcaption><span id="map-slots-summary">업무×수준 슬롯별 추천 강좌 수 현황입니다.</span></figcaption>
     </figure>
-    <figure class="fig">
+    <figure class="fig" data-m10="hide">
       <div class="hud">
         <div class="hud-head"><span class="hud-title">강좌가 하나도 없는 분야 × 카테고리</span><span class="hud-sub">카테고리: 엑셀·문서, AI·데이터, 회계·재무, 소통·보고, 리더십</span></div>
         <ul class="results" id="map-gaps"></ul>
@@ -1146,7 +1166,7 @@ h3.hypo .pill { font-size: 12px; padding: 3px 10px; }
         </div>
         <figcaption>평균 <span id="sat-mean"></span>점, 중앙값 <span id="sat-med"></span>점입니다. 대부분 90점 이상이라 과정 간 차이를 가르기 어렵습니다.</figcaption>
       </figure>
-      <figure class="fig">
+      <figure class="fig" data-m10="hide">
         <div class="hud">
           <div class="hud-head"><span class="hud-title">공식 만족도가 있는 과정의 범위</span><span class="hud-sub">과정 수</span></div>
           <div class="chart" id="ch-sat-cov"></div>
@@ -1155,7 +1175,7 @@ h3.hypo .pill { font-size: 12px; padding: 3px 10px; }
       </figure>
     </div>
   </div>
-  <div class="band" id="res-checks-band">
+  <div class="band" id="res-checks-band" data-m10="hide">
   <div class="wrap">
     <div class="band-tag">검증 노트</div>
     <h3 id="res-checks">결과가 단단한가 · 추가 검증</h3>
@@ -1216,8 +1236,8 @@ h3.hypo .pill { font-size: 12px; padding: 3px 10px; }
   </div>
   </div>
   <div class="wrap">
-    <h3 id="res-recs">추천 결과</h3>
-    <p>과업 90개의 1위 추천은 의미 유사도 중앙값 <strong><span id="rv-med"></span>점</strong>, 최저 <span id="rv-min"></span>점입니다. Top 3 <span class="glossary-term" tabindex="0" data-term="슬롯">자리(슬롯)<span class="glossary-tooltip">업무 하나 × 수준 하나의 추천 칸</span></span> <span id="rv-slots"></span>개를 서로 다른 <span id="rv-distinct"></span>개 과정이 채웠습니다. 순서는 1단계 점수로 뽑은 후보를 2단계 리랭커(업무 설명과 과정 설명을 한 쌍씩 다시 읽는 모델)가 다시 매겨 정했습니다. 고객 앱과 사람 평가도 이 최종 추천을 씁니다. 리랭커는 설명 없이 제목만 있는 과정을 Top 3에서 줄였지만(<span id="rv-to-all"></span>% &rarr; <mark><span id="rv-to-top"></span>%</mark>), 처음 보는 업무의 사람 평가 적합률은 키워드 검색과 비슷했습니다.</p>
+    <h3 id="res-recs" data-m10="hide">추천 결과</h3>
+    <p data-m10="hide">과업 90개의 1위 추천은 의미 유사도 중앙값 <strong><span id="rv-med"></span>점</strong>, 최저 <span id="rv-min"></span>점입니다. Top 3 <span class="glossary-term" tabindex="0" data-term="슬롯">자리(슬롯)<span class="glossary-tooltip">업무 하나 × 수준 하나의 추천 칸</span></span> <span id="rv-slots"></span>개를 서로 다른 <span id="rv-distinct"></span>개 과정이 채웠습니다. 순서는 1단계 점수로 뽑은 후보를 2단계 리랭커(업무 설명과 과정 설명을 한 쌍씩 다시 읽는 모델)가 다시 매겨 정했습니다. 고객 앱과 사람 평가도 이 최종 추천을 씁니다. 리랭커는 설명 없이 제목만 있는 과정을 Top 3에서 줄였지만(<span id="rv-to-all"></span>% &rarr; <mark><span id="rv-to-top"></span>%</mark>), 처음 보는 업무의 사람 평가 적합률은 키워드 검색과 비슷했습니다.</p>
     <h3 id="human-eval">사람 평가: 추천이 실제로 맞는가</h3>
     <p>팀원 4명이 추천 Top 3를 한 항목에 두 사람씩, 서로 보지 않고 '적합 · 부분 적합 · 부적합 · <span class="glossary-term" tabindex="0" data-term="판단 불가">판단 불가<span class="glossary-tooltip">정보가 없어 평가자가 판정하지 못한 건. 계산에서 뺌</span></span>'로 판정했습니다. <span id="he-summary-text">처음 보는 업무 30개 사람 평가(홀드아웃 합산)에서 적합 <strong><span id="he-ho"></span>%</strong>로 목표 70%에 조금 못 미쳤고, 같은 업무에서 단순 키워드 검색(BM25)과 블라인드로 비교했을 때 적합률 차이는 없었습니다.</span></p>
     
@@ -1236,9 +1256,9 @@ h3.hypo .pill { font-size: 12px; padding: 3px 10px; }
       </div>
     </div>
 
-    <p class="note" style="margin-bottom:8px;"><strong>지표 구분:</strong> <strong>A (판정 단위)</strong>는 판정 하나하나 중 적합 비율이며, <strong>B (두 사람 합의)</strong>는 두 사람 판정을 합쳐 낮은 쪽을 쓴 항목 비율(보수적)입니다.</p>
+    <p class="note" style="margin-bottom:8px;" data-m10="hide"><strong>지표 구분:</strong> <strong>A (판정 단위)</strong>는 판정 하나하나 중 적합 비율이며, <strong>B (두 사람 합의)</strong>는 두 사람 판정을 합쳐 낮은 쪽을 쓴 항목 비율(보수적)입니다.</p>
   </div>
-  <div class="wrap wide">
+  <div class="wrap wide" data-m10="hide">
     <div class="tbl heval">
       <table>
         <thead>
@@ -1257,10 +1277,10 @@ h3.hypo .pill { font-size: 12px; padding: 3px 10px; }
     </div>
   </div>
   <div class="wrap">
-    <p class="note">판단 불가는 계산에서 뺐습니다. 개선 폭은 같은 업무끼리 비교한 1차 → 2차로 읽고, 2차는 규칙을 만든 업무와 같아 다소 높게 나올 수 있습니다. 홀드아웃 1·2·3차를 합친 30개 업무(90개 항목) 기준 95% 신뢰구간은 Wilson 58.8~72.7%입니다 (1·2차 20개 업무 기준 66.7%).</p>
+    <p class="note" data-m10="hide">판단 불가는 계산에서 뺐습니다. 개선 폭은 같은 업무끼리 비교한 1차 → 2차로 읽고, 2차는 규칙을 만든 업무와 같아 다소 높게 나올 수 있습니다. 홀드아웃 1·2·3차를 합친 30개 업무(90개 항목) 기준 95% 신뢰구간은 항목 단위 부트스트랩 57.4~74.3%입니다 (Wilson 방식은 58.8~72.7%, 1·2차 20개 업무 기준 66.7%). 사람 평가 Precision@3(66.1%)는 초기 검색 실험(BM25·LSA Precision@5 0.55)과 다른 실험입니다.</p>
 
     <!-- 단순 검색과 비교 (홀드아웃 2차 데이터가 있을 때만 조건부 노출) -->
-    <div id="block-bm25-compare" style="display:none; margin-top:24px;">
+    <div id="block-bm25-compare" style="display:none; margin-top:24px;" data-m10="hide">
       <h3 class="h4" style="margin-bottom:6px;">단순 검색(BM25)과 비교 (홀드아웃 2차)</h3>
       <p style="margin-bottom:10px;">단어 빈도만으로 추천한 대조군(BM25)과 최종 추천(하이브리드+리랭커)을 블라인드 비교 평가한 결과입니다.</p>
       <div class="tbl" style="margin-bottom:10px;">
@@ -1290,7 +1310,7 @@ h3.hypo .pill { font-size: 12px; padding: 3px 10px; }
         </div>
         <figcaption>Top 3 안에서 한국생산성본부 과정은 뜻 점수(의미 유사도)는 다른 기관과 비슷하고, 키워드 점수가 더 높았습니다(중앙값 <span class="kpc-bm-kpc"></span> vs <span class="kpc-bm-oth"></span>). 사람 평가 적합률은 다른 기관보다 낮지 않았습니다.</figcaption>
       </figure>
-      <figure class="fig" style="margin-top:0">
+      <figure class="fig" style="margin-top:0" data-m10="hide">
         <div class="hud">
           <div class="hud-head"><span class="hud-title">여러 과업에 반복 추천된 과정</span><span class="hud-sub">1칸 = 과업 1개</span></div>
           <div class="chart" id="ch-reuse"></div>
@@ -1329,12 +1349,12 @@ h3.hypo .pill { font-size: 12px; padding: 3px 10px; }
         <div class="ins-r"><span>발견</span><p>고용24 과정 130개가 승인 연도가 바뀌며 모두 운영 종료됐고, 다른 기관 과정 <b id="i4-past"></b>개도 안내 일정이 지났습니다.</p></div>
         <div class="ins-r"><span>의미</span><p>추천이 맞아도 신청할 수 없으면 사용자는 떠납니다.</p></div>
         <div class="ins-r"><span>전략</span><p>고용24 과정을 월 1회 자동 갱신하고, 일정이 지난 과정에는 "운영 종료" 표시를 붙입니다(적용 완료). 데이터 신선도를 대시보드 지표로 관리합니다.</p></div>
+      </div>
       <div class="ins">
         <div class="ins-h">5 · 추천이 한 기관에 쏠린다</div>
         <div class="ins-r"><span>발견</span><p>한국생산성본부는 카탈로그의 <b id="i5-cat"></b>%인데 추천 Top 3의 <b id="i5-top"></b>%를 차지합니다. 쏠림은 대부분 후보를 고르는 단계에서 생깁니다. 인사 분야 과정 중 KPC는 <span id="i5-hr-pct"></span>%인데, 업무별 상위 후보에서는 <span id="i5-pool-pct"></span>%가 되고, Top 3 안에서 KPC 과정의 키워드 점수가 더 높았습니다(중앙값 <span id="i5-bm-kpc"></span> vs <span id="i5-bm-oth"></span>). 왜 상위 후보에 많이 들어가는지는 아직 일부만 설명됩니다.</p></div>
         <div class="ins-r"><span>의미</span><p>사람 평가에서 KPC 추천의 적합률은 <span id="i5-p-kpc"></span>%로 다른 기관(<span id="i5-p-oth"></span>%)보다 낮지 않았습니다. 다만 같은 과정의 반복 판정을 고려하면 확실한 우위라고 하기는 어렵습니다.</p></div>
         <div class="ins-r"><span>전략</span><p>기관별 추천 비중을 지표로 매달 지켜봅니다.</p></div>
-      </div>
       </div>
     </div>
   </div>
@@ -1349,8 +1369,8 @@ h3.hypo .pill { font-size: 12px; padding: 3px 10px; }
       <li>NCS 과업 90개를 공통 기준으로 삼으면 기관을 가리지 않고 <strong>업무별 추천을 <span id="c-cov"></span>% 조합에서</strong> 낼 수 있습니다.</li>
       <li>평점은 근거가 될 수 없어, <strong>업무 적합도와 근거 문장으로 추천</strong>하고 데이터 신선도를 지표로 관리합니다.</li>
     </ol>
-    <h3>향후 고도화 계획</h3>
-    <div class="tbl">
+    <h3 data-m10="hide">향후 고도화 계획</h3>
+    <div class="tbl" data-m10="hide">
       <table>
         <thead><tr><th>구분</th><th>할 일</th><th>기대 효과</th></tr></thead>
         <tbody>
@@ -1397,15 +1417,15 @@ h3.hypo .pill { font-size: 12px; padding: 3px 10px; }
     </ol>
     <p class="loop-back" aria-hidden="true"><span>↻</span> 04 확장 후 다시 01 적용으로: 새 직군에서도 같은 순환을 반복합니다</p>
 
-    <h3 id="roadmap-calendar">② 교육 담당자 운영 캘린더</h3>
-    <div class="cyc-tabs" role="tablist" aria-label="운영 주기 선택">
+    <h3 id="roadmap-calendar" data-m10="hide">② 교육 담당자 운영 캘린더</h3>
+    <div class="cyc-tabs" role="tablist" aria-label="운영 주기 선택" data-m10="hide">
       <button type="button" role="tab" class="cyc-tab on" aria-selected="true" data-cyc="all">전체 보기</button>
       <button type="button" role="tab" class="cyc-tab" aria-selected="false" data-cyc="m">월간</button>
       <button type="button" role="tab" class="cyc-tab" aria-selected="false" data-cyc="q">분기</button>
       <button type="button" role="tab" class="cyc-tab" aria-selected="false" data-cyc="h">반기</button>
       <button type="button" role="tab" class="cyc-tab" aria-selected="false" data-cyc="y">연간</button>
     </div>
-    <div class="cyc-list" id="cyc-list" aria-live="polite">
+    <div class="cyc-list" id="cyc-list" aria-live="polite" data-m10="hide">
       <div class="cyc-row" data-cyc="m">
         <div class="cyc-when"><b>월간</b><span>Monthly</span></div>
         <div class="cyc-do"><span class="cyc-k">점검</span><p>대시보드 접속·진단 완료 현황 점검, 챗봇 질문 기록에서 답하지 못한 키워드 추출</p></div>
@@ -1450,7 +1470,7 @@ h3.hypo .pill { font-size: 12px; padding: 3px 10px; }
   </div>
 </section>
 
-<section id="method">
+<section id="method" data-m10="hide">
   <div class="wrap">
     <div class="eyebrow"><b>부록</b> 방법론</div>
     <h2>데이터와 모델</h2>
@@ -1596,14 +1616,14 @@ const D = {"eda":{"missing":[{"col":"title","label":"과정명","pct":0.0},{"col
         }
       }
       if (HO_ALL && HO && HO2 && HO2.final_recommendation) {
-        const w = HO_ALL.precision_at_3.ci95_wilson || [0, 0];
+        const w = HO_ALL.precision_at_3.ci95_cluster_bootstrap || HO_ALL.precision_at_3.ci95_wilson || [0, 0];
         const ho1s = HO.precision_at_3.strict;
         const ho2s = HO2.final_recommendation.precision_at_3.strict;
         const ho3s = (HO3 && HO3.baseline_recommendation) ? Number(HO3.baseline_recommendation.precision_at_3.strict).toFixed(1) : "-";
         const bm25s = HO2.bm25_recommendation.precision_at_3.strict;
         const subEl = $('#kpi-heval-sub');
         if (subEl) {
-          subEl.innerHTML = `목표 70% · 1차 ${ho1s}% / 2차 ${ho2s}% / 3차 ${ho3s}% · 95% <span class="glossary-term" tabindex="0" data-term="신뢰구간">범위<span class="glossary-tooltip">평가를 다시 하면 결과가 나올 수 있는 범위</span></span> ${Math.round(w[0])}~${Math.round(w[1])}%`;
+          subEl.innerHTML = `목표 70% · 1차 ${ho1s}% / 2차 ${ho2s}% / 3차 ${ho3s}% · 95% <span class="glossary-term" tabindex="0" data-term="신뢰구간">범위<span class="glossary-tooltip">평가를 다시 하면 결과가 나올 수 있는 범위 (항목 단위 부트스트랩)</span></span> ${w[0]}~${w[1]}%`;
         }
         T('#sum-heval-sentence', `처음 보는 업무 30개 사람 평가에서 적합 ${HO_ALL.precision_at_3.strict}%로 목표 70%에 조금 못 미쳤고, 같은 업무에서 단순 키워드 검색(BM25)과 블라인드로 비교했을 때 적합률 차이는 없었습니다(${ho2s}% vs ${bm25s}%).`);
         T('#he-summary-text', `처음 보는 업무 30개 사람 평가(홀드아웃 합산)에서 적합 ${HO_ALL.precision_at_3.strict}%로 목표 70%에 조금 못 미쳤고, 같은 업무에서 단순 키워드 검색(BM25)과 블라인드로 비교했을 때 적합률 차이는 없었습니다.`);
@@ -2483,19 +2503,8 @@ const D = {"eda":{"missing":[{"col":"title","label":"과정명","pct":0.0},{"col
   const esc = t => String(t).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
 
   /* ---- 목차 만들기: 상단 장 링크 + 각 장의 소제목(h3) ---- */
-  const chapters = $$('#nav-links a').map(a => {
-    const id = a.getAttribute('href').slice(1);
-    const sec = document.getElementById(id);
-    const subs = sec ? $$('h3', sec).filter(h => !h.closest('.bm, [hidden]')).map((h, i) => {
-      if (!h.id) h.id = `${id}-s${i + 1}`;
-      return { id: h.id, el: h, label: clean(h.textContent) };
-    }) : [];
-    return { id, el: sec, label: clean(a.textContent), subs };
-  }).filter(c => c.el);
-
-  list.innerHTML = chapters.map(c => `<li data-ch="${c.id}"><a href="#${c.id}" title="${esc(c.label)}">${esc(c.label)}</a>` +
-    (c.subs.length ? `<ul class="bm-sub">${c.subs.map(s => `<li><a href="#${s.id}" title="${esc(s.label)}">${esc(s.label)}</a></li>`).join('')}</ul>` : '') +
-    '</li>').join('');
+  let chapters = [], flat = [];
+  const m10Hidden = el => document.body.classList.contains('m10') && !!el.closest('[data-m10="hide"]');
 
   /* ---- 접힌 details 자동 펼침 ---- */
   function revealFold(id) {
@@ -2533,8 +2542,26 @@ const D = {"eda":{"missing":[{"col":"title","label":"과정명","pct":0.0},{"col
   });
 
   /* ---- 현재 위치 표시 ---- */
-  const flat = chapters.flatMap(c => [{ id: c.id, el: c.el, ch: c.id, label: c.label }, ...c.subs.map(s => ({ id: s.id, el: s.el, ch: c.id, label: s.label }))]);
   let lastCh = null, lastId = null;
+  function buildBm() {
+    chapters = $$('#nav-links a').filter(a => !m10Hidden(a)).map(a => {
+      const id = a.getAttribute('href').slice(1);
+      const sec = document.getElementById(id);
+      const subs = sec ? $$('h3', sec).filter(h => !h.closest('.bm, [hidden]') && !m10Hidden(h)).map((h, i) => {
+        if (!h.id) h.id = `${id}-s${i + 1}`;
+        return { id: h.id, el: h, label: clean(h.textContent) };
+      }) : [];
+      return { id, el: sec, label: clean(a.textContent), subs };
+    }).filter(c => c.el && !m10Hidden(c.el));
+
+    list.innerHTML = chapters.map(c => `<li data-ch="${c.id}"><a href="#${c.id}" title="${esc(c.label)}">${esc(c.label)}</a>` +
+      (c.subs.length ? `<ul class="bm-sub">${c.subs.map(s => `<li><a href="#${s.id}" title="${esc(s.label)}">${esc(s.label)}</a></li>`).join('')}</ul>` : '') +
+      '</li>').join('');
+    flat = chapters.flatMap(c => [{ id: c.id, el: c.el, ch: c.id, label: c.label }, ...c.subs.map(s => ({ id: s.id, el: s.el, ch: c.id, label: s.label }))]);
+    lastCh = null; lastId = null;
+  }
+  buildBm();
+  document.addEventListener('m10change', () => { buildBm(); mark(); });
   function mark() {
     const y = window.scrollY + 140;
     let hit = null;
@@ -2757,6 +2784,31 @@ const D = {"eda":{"missing":[{"col":"title","label":"과정명","pct":0.0},{"col
   }, true);
   window.addEventListener('hashchange', () => reveal(location.hash.slice(1)));
   if (location.hash) reveal(location.hash.slice(1));
+})();
+</script>
+<script>
+'use strict';
+/* 10분 발표 모드: 핵심만 보이기 (주소 끝 ?mode=10 이면 처음부터 켬, 마지막 선택은 이 브라우저에 기억) */
+(function () {
+  const btn = document.getElementById('m10-toggle');
+  if (!btn) return;
+  const KEY = 'hr-edu-map.m10';
+  function set(on, remember) {
+    document.body.classList.toggle('m10', on);
+    btn.setAttribute('aria-pressed', String(on));
+    btn.textContent = on ? '전체 보기' : '10분 발표 모드';
+    btn.title = on ? '숨긴 내용까지 모두 보기' : '10분 발표용으로 핵심만 보이기 (주소 끝에 ?mode=10)';
+    if (remember) { try { localStorage.setItem(KEY, on ? '1' : '0'); } catch (e) { /* 저장이 막혀도 동작 */ } }
+    document.dispatchEvent(new Event('m10change'));
+    window.dispatchEvent(new Event('resize'));
+  }
+  btn.addEventListener('click', () => set(!document.body.classList.contains('m10'), true));
+  const q = new URLSearchParams(location.search).get('mode');
+  let saved = null;
+  try { saved = localStorage.getItem(KEY); } catch (e) { saved = null; }
+  if (q === '10') set(true, false);
+  else if (q === 'full') set(false, false);
+  else if (saved === '1') set(true, false);
 })();
 </script>
 
