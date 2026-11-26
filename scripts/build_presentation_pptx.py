@@ -1432,42 +1432,47 @@ add_text_lines(s_proc, 0.9, 5.7, 11.6, 0.8, [
 
 
 # ==========================================
-# SLIDE: ⑧ 회고 — 팀 협업 · 어려웠던 점 · 배운 점 (기록된 사실로 만든 초안, 팀 확인 후 수정)
+# SLIDE: ⑧ 회고 — 팀 역할(R&R)과 팀원 회고 (팀이 작성한 내용)
 # ==========================================
 s_rt = add_slide_base(
-    "회고: 팀 협업 · 어려웠던 점 · 배운 점",
+    "팀 역할(R&R)과 회고",
     section_tag="⑧ 회고",
-    subtitle_text="초안 — 프로젝트 기록(평가 결과·작업 내역)에 있는 사실로 정리했습니다. 팀이 확인해 다듬어 주세요",
+    subtitle_text="팀원 4명이 맡은 일과 프로젝트를 마치며 배운 점",
     slide_num=26
 )
-rt_kappa = ho_all["agreement"]["cohen_kappa"]
-rt_cols = [
-    ("팀 협업", C_TEAL, [
-        "팀원 4명이 과정 183개의 분야 연결을 직접 검수",
-        f"사람 평가는 2인 1조로 서로 보지 않고 교차 판정 (처음 보는 업무 30개, 판정 {ho_all['precision_at_3']['n']}건)",
-        "멘토 피드백(결론 먼저·사례 추가)과 외부 검증 지적을 반영해 숫자·문구 정정",
-    ]),
-    ("어려웠던 점", C_RUST, [
-        f"수집 페이지에 섞인 차단 안내문 {proc_blocked:,}건 등 데이터 정제",
-        "운영이 끝난 고용24 과정 130개를 2026년 운영 과정으로 교체",
-        f"평가자마다 판정 기준이 달라 일치도(κ={rt_kappa:.2f})를 맞추기 어려움",
-        f"단순 키워드 검색과 적합률 차이가 없었음 ({ho2_p3:.1f}% vs {bm25_p3:.1f}%)",
-    ]),
-    ("배운 점", C_BLUE, [
-        f"처음 보는 업무로 다시 재야 과대평가를 막는다 (홀드아웃 1차 {ho_p3:.1f}% → 30개 합산 {ho_all_p3:.1f}%)",
-        "화면·PPT·대본 숫자는 결과 파일과 자동으로 대조해야 틀리지 않는다",
-        "평점보다 업무 기준과 추천 근거를 보여 주는 것이 사용자에게 중요하다",
-        "한계를 먼저 밝히면 질문에 더 단단하게 답할 수 있다",
-    ]),
+TEAM = [
+    ("김새미", "데이터 정제, 발표용 대시보드 제작·수정",
+     "다양한 분석 기법을 적용해 보며, 데이터를 정리하고 AI에게 제대로 질문하는 것이 핵심이고 분석을 실무까지 확장할 수 있음을 알게 됐습니다."),
+    ("박선희", "데이터 검증, 고객용 대시보드 제작·수정",
+     "수업에서 배운 분석 기법을 실무에 적용해 보며, 처음 쓰는 AI 툴이었지만 업무에 쓸 수 있는 기능이 다양하다는 것을 경험했습니다."),
+    ("홍승한", "데이터 수집, 데이터 정제, 발표",
+     "분석 기준을 명확히 세우고 AI로 대시보드·보고서를 만들며, 데이터 분석이 액션플랜까지 이어질 수 있음을 배웠습니다."),
+    ("이광영", "데이터 수집·검증, 대시보드 수정·검증",
+     "데이터 수집부터 검증, 대시보드 수정까지 맡으며, 결과를 여러 번 확인하고 고쳐야 믿을 수 있는 분석이 된다는 것과 AI를 활용하면 이를 실무에도 적용할 수 있다는 것을 배웠습니다."),
 ]
-for k, (title, col, items) in enumerate(rt_cols):
-    x = 0.65 + k * 4.1
-    add_card(s_rt, x, 1.6, 3.85, 4.1)
-    hd = s_rt.shapes.add_shape(MSO_SHAPE.OVAL, Inches(x + 0.22), Inches(1.8), Inches(0.42), Inches(0.42))
-    style_shape(hd, col)
-    add_text_lines(s_rt, x + 0.78, 1.84, 2.9, 0.4, [title], font_size=15, color=C_INK, bold_first=True)
-    add_text_lines(s_rt, x + 0.25, 2.45, 3.4, 4.2, ["• " + it for it in items], font_size=12.5, color=C_BODY, line_spacing=1.2)
-s_rt.notes_slide.notes_text_frame.text = "초안입니다. 팀원별 역할(R&R)과 각자의 소감은 팀이 직접 정해 추가해 주세요."
+add_text_lines(s_rt, 0.65, 1.55, 4.0, 0.3, ["팀 역할 (R&R)"], font_size=14, color=C_TEAL, bold_first=True)
+add_text_lines(s_rt, 5.5, 1.55, 7.15, 0.3, ["팀 회고"], font_size=14, color=C_TEAL, bold_first=True)
+row_h_rt = 1.18
+for k, (name, role, retro) in enumerate(TEAM):
+    y = 1.98 + k * row_h_rt
+    # 왼쪽: 이름 배지 + 담당
+    add_card(s_rt, 0.65, y, 4.6, row_h_rt - 0.14)
+    nb = s_rt.shapes.add_shape(MSO_SHAPE.OVAL, Inches(0.82), Inches(y + 0.18), Inches(0.68), Inches(0.68))
+    style_shape(nb, C_TEAL)
+    ntf = nb.text_frame
+    ntf.margin_left = ntf.margin_right = ntf.margin_top = ntf.margin_bottom = 0
+    npp = ntf.paragraphs[0]
+    npp.text = name[0]
+    npp.alignment = PP_ALIGN.CENTER
+    npp.font.name = FONT_NAME
+    npp.font.size = Pt(18)
+    npp.font.bold = True
+    npp.font.color.rgb = C_CARD
+    add_text_lines(s_rt, 1.68, y + 0.16, 3.45, 0.32, [name], font_size=14, color=C_INK, bold_first=True)
+    add_text_lines(s_rt, 1.68, y + 0.5, 3.5, 0.5, [role], font_size=12, color=C_BODY, line_spacing=1.1)
+    # 오른쪽: 회고 한 줄
+    add_card(s_rt, 5.5, y, 7.15, row_h_rt - 0.14)
+    add_text_lines(s_rt, 5.72, y + 0.17, 6.75, 0.75, [retro], font_size=12.5, color=C_INK, line_spacing=1.2)
 
 
 # ==========================================
@@ -1600,7 +1605,7 @@ TOC_DESC = {
     "⑤ 대시보드 시각화 공유": "오차 막대·교육 지도, 기관 쏠림·급여 담당자 사례",
     "⑥ 비즈니스 인사이트 도출": "비용 장벽, 공백 분야, 평점 한계, 데이터 노후화, 쏠림",
     "⑦ 개선 제안 & 액션 플랜": "실행 계획, 남은 한계, 현업 적용(계획안)",
-    "⑧ 회고": "진행 경과, 팀 협업·어려웠던 점·배운 점",
+    "⑧ 회고": "진행 경과, 팀 역할(R&R)과 회고",
     "프로젝트 개요": "도메인·주제, 왜 이 문제인가, 핵심 목표",
     "결론 & 향후 계획": "세 줄 결론과 고도화 계획",
     "부록": "핵심 용어 풀이",
